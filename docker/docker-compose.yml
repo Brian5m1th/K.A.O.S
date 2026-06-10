@@ -2,9 +2,9 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ai_assistant
+      POSTGRES_USER: ai-p
+      POSTGRES_PASSWORD: ai-admin
+      POSTGRES_DB: ai_assistant-py
     ports:
       - "5432:5432"
     volumes:
@@ -23,7 +23,7 @@ services:
       - qdrant_data:/qdrant/storage
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: ghcr.io/open-webui/open-webui:latest
     ports:
       - "3000:8080"
     environment:
