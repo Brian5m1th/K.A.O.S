@@ -36,6 +36,20 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | [[sdd_obsidian_watcher\|SDD — File Watcher & Indexer]] | Monitoramento do vault e pipeline de indexação |
 | [[sdd_obsidian_rag\|SDD — Vector Search & RAG]] | Embeddings, Qdrant e recuperação semântica |
 | [[sdd_obsidian_tools\|SDD — Schemas das Ferramentas]] | Tools do LangGraph para manipular notas |
+| [[sdd_roadmap\|SDD — Roadmap Inicial]] | 8 fases de evolução da plataforma com critérios de sucesso |
+| [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo: ai-assistant, ai-backend, ai-infra |
+
+---
+
+## 🐍 SDDs de Implementação Python (Por Fase)
+
+| Nota | Fase | Conteúdo |
+| :--- | :---: | :--- |
+| [[sdd_fase1_fundacao\|SDD — Fase 1: Fundação]] | 1 | `pyproject.toml`, FastAPI, Settings, Logs, Docker Compose base |
+| [[sdd_fase2_ia_local\|SDD — Fase 2: IA Local]] | 2 | `LLMService`, Ollama, Streaming, Open WebUI |
+| [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 | CRUD de notas, 5 Tools LangGraph, Testes unitários |
+| [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 | Embedder, Chunking, Indexer, Retriever, Watchdog |
+| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 | AgentState, Grafo, Planner, Executor, Memória de longo prazo |
 
 ---
 
@@ -72,6 +86,14 @@ graph TD
     FD --> INT
     FD --> INF
 ```
+
+---
+
+## 📋 Backlog & Planejamento
+
+| Nota | Conteúdo |
+| :--- | :--- |
+| [[backlog\|Backlog Completo]] | Todas as tarefas organizadas por fase com mapa de dependências |
 
 ---
 
