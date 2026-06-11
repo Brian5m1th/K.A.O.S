@@ -38,6 +38,7 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | [[sdd_obsidian_tools\|SDD — Schemas das Ferramentas]] | Tools do LangGraph para manipular notas |
 | [[sdd_roadmap\|SDD — Roadmap Inicial]] | 8 fases de evolução da plataforma |
 | [[sdd_arquitetura_orquestracao\|SDD — Proxy OpenAI & Gateway]] | Arquitetura do proxy /v1/chat/completions |
+| [[sdd_user_context_propagation\|SDD — User Context & Multiusuário]] | Propagação de contexto de usuário e memória isolada |
 | [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo |
 
 ---

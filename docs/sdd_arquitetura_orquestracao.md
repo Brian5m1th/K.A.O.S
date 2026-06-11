@@ -114,6 +114,10 @@ environment:
 
 ---
 
+## Contexto de Usuário
+
+A partir da Fase 8, o gateway propaga o `UserContext` (user_id, username, role) do Open WebUI para o AgentService. Consulte [[sdd_user_context_propagation]] para a arquitetura detalhada.
+
 ## Considerações de Segurança
 
 - Atualmente sem autenticação (ambiente local)

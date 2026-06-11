@@ -17,9 +17,9 @@ Toda mensagem passa pelo `IntentClassifier` antes de ser processada:
 3. **SMART** → LangGraph completo (planner + executor + tools)
 
 ```
-
                                  ┌─────────────┐
                                  │  Mensagem    │
+                                 │  + user_id   │
                                  └──────┬──────┘
                                         │
                                  ┌──────▼──────┐
@@ -40,10 +40,11 @@ Toda mensagem passa pelo `IntentClassifier` antes de ser processada:
               │  LLM/RAG)  │     │  sem tools) │     │  completo)  │
               └─────┬─────┘     └──────┬──────┘     └─────┬──────┘
                     │                  │                  │
-              ┌─────▼─────┐     ┌──────▼──────┐     ┌─────▼──────┐
-              │  Tool      │     │  Qdrant     │     │  AgentService│
-              │  Registry  │     │  + Ollama   │     │  (LangGraph)│
-              └───────────┘     └─────────────┘     └────────────┘
+              ┌─────▼─────┐     ┌──────▼──────┐     ┌─────▼──────────┐
+              │  Tool      │     │  Qdrant     │     │  AgentService  │
+              │  Registry  │     │  + Ollama   │     │  (LangGraph)   │
+              └───────────┘     └─────────────┘     │  + user context │
+                                                     └────────────────┘
 ```
 
 ---
@@ -117,7 +118,7 @@ sequenceDiagram
     User->>API: "compare projetos X e Y"
     API->>CLASS: classify(...)
     CLASS-->>API: SMART
-    API->>SVC: stream(session_id, mensagem)
+    API->>SVC: stream(session_id, mensagem, user_context)
     SVC->>GRAPH: astream_events(initial_state)
     
     loop LangGraph Loop
@@ -150,10 +151,10 @@ sequenceDiagram
     participant LLM as Ollama
 
     User->>OWUI: Digita mensagem
-    OWUI->>PROXY: POST /v1/chat/completions
+    OWUI->>PROXY: POST /v1/chat/completions (com user context)
     PROXY->>CLASS: classify(mensagem)
     CLASS-->>PROXY: MEMORY/SMART
-    PROXY->>PROXY: roteia para router adequado
+    PROXY->>PROXY: roteia para router adequado (com user_id)
     router->>LLM: processa
     LLM-->>router: stream
     router-->>PROXY: tokens
