@@ -25,7 +25,10 @@ def retrieve_context(state: AgentState) -> dict:
         logger.debug("[finish] retrieve_context")
         return {"retrieved_context": []}
 
-    results = _get_retriever().search(query=last_message.content, limit=5)
+    query = last_message.content
+    logger.info(f"[info] retrieve_context - query=\"{query}\"")
+    results = _get_retriever().search(query=query, limit=5)
+    logger.info(f"[info] retrieve_context - resultados={len(results)}")
     context = [
         {"path": r.path, "content": r.excerpt, "score": r.score}
         for r in results
