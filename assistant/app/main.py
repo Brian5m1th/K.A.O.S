@@ -42,12 +42,13 @@ _watcher: VaultWatcher | None = None
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher
-    logger.info(f"{settings.APP_NAME} iniciado em modo {settings.APP_ENV}")
+    logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
     _watcher = VaultWatcher()
     _watcher.start()
     yield
     if _watcher:
         _watcher.stop()
+    logger.debug(f"[finish] {settings.APP_NAME} - encerrado")
 
 
 app = FastAPI(
@@ -84,6 +85,7 @@ async def root() -> dict:
             "openai": "/v1/chat/completions",
             "models": "/v1/models",
             "indexing": "/indexing/full",
+            "init_folders": "/indexing/init-folders",
             "rag_context": "/rag/context",
         },
     }

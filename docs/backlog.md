@@ -2,9 +2,9 @@ Source: Antigravity AI
 Tags: #backlog #planejamento #roadmap
 Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 
-# 📋 Backlog — IA Pessoal Offline com Obsidian
+# Backlog — IA Pessoal Offline com Obsidian
 
-> Rastreamento completo de todas as tarefas de desenvolvimento, organizadas por fase e prioridade.
+> Rastreamento completo de todas as tarefas de desenvolvimento, organizadas por tipo e prioridade.
 
 ---
 
@@ -25,7 +25,19 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 
 ---
 
-## 🗺️ Mapa de Dependências entre Fases
+---
+
+## Legenda de Categorias
+
+| Tag | Significado |
+|:----|:------------|
+| `TODO` | Tarefa pendente, priorizada |
+| `DEBT` | Dívida técnica a ser paga |
+| `IDEA` | Ideia não validada, sem prioridade |
+
+---
+
+## Mapa de Dependências entre Fases
 
 ```mermaid
 graph LR
@@ -45,7 +57,9 @@ graph LR
 
 ---
 
-## 🚀 Próximas Tarefas Prioritárias
+---
+
+## Próximas Tarefas Prioritárias
 
 - [ ] Implementar rota RAG no grafo LangGraph (recuperar contexto antes de responder)
 - [ ] Confirmar integração do Vault Watcher com o pipeline de indexação
@@ -207,4 +221,23 @@ Pastas a criar:
 
 ---
 
-*Atualizado automaticamente — acesse [[index]] para o hub central de documentação.*
+---
+
+## Divida Tecnica (DEBT)
+
+- [ ] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
+- [ ] Substituir streaming fake do AgentService por streaming real do LangGraph
+- [ ] Remover bypass do LangGraph no proxy OpenAI (`/v1/chat/completions` conecta direto no Ollama)
+
+---
+
+## Ideias (IDEA)
+
+- [ ] Auto-tagging de notas baseado em embeddings
+- [ ] Sugestao de conexoes entre notas (grafos)
+- [ ] Dashboard web para visualizar status do sistema
+- [ ] Exportacao de conversas para markdown
+
+---
+
+*Atualizado em 2026-06-11.*

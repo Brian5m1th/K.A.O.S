@@ -1,3 +1,4 @@
+from loguru import logger
 from langchain_core.messages import SystemMessage
 from langchain_ollama import ChatOllama
 
@@ -11,6 +12,7 @@ Ferramentas disponíveis:
 - read_note(path): Lê o conteúdo de uma nota
 - update_note(path, content, mode): Atualiza uma nota (overwrite ou append)
 - delete_note(path): Remove uma nota
+- list_notes(folder): Lista notas por pasta (vazio para todas)
 - search_notes(query): Busca notas por palavra-chave
 
 Use as ferramentas quando o usuário solicitar explicitamente ações de memória.
@@ -22,6 +24,7 @@ _llm = ChatOllama(
 
 
 def planner(state: AgentState) -> dict:
+    logger.info("[start] planner")
     context_text = "\n\n".join(
         f"[{c['path']}]\n{c['content']}"
         for c in state.get("retrieved_context", [])
@@ -35,10 +38,13 @@ def planner(state: AgentState) -> dict:
 
     if hasattr(response, "tool_calls") and response.tool_calls:
         tool_call = response.tool_calls[0]
+        logger.info(f"[info] planner - ferramenta: {tool_call['name']}")
+        logger.debug("[finish] planner")
         return {
             "tool_to_call": tool_call["name"],
             "tool_args": tool_call["args"],
             "messages": [response],
         }
 
+    logger.debug("[finish] planner")
     return {"tool_to_call": None, "messages": [response]}

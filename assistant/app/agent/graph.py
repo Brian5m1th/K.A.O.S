@@ -1,3 +1,4 @@
+from loguru import logger
 from langgraph.graph import END, StateGraph
 
 from app.agent.nodes.executor import executor
@@ -8,6 +9,7 @@ from app.agent.state import AgentState
 
 def should_use_tool(state: AgentState) -> str:
     if state.get("tool_to_call"):
+        logger.info("[info] should_use_tool - encaminhando para executor")
         return "executor"
     return END
 
