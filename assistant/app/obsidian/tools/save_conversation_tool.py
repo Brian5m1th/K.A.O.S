@@ -8,11 +8,12 @@ def _get_memory():
 
 
 @tool
-def save_conversation(summary: str, user_message: str, assistant_response: str) -> str:
+def save_conversation(summary: str, user_message: str, assistant_response: str, user_id: str = "default") -> str:
     """Salva um resumo de conversa no vault como memoria de longo prazo."""
-    logger.info("[info] save_conversation - salvando memoria")
+    logger.info(f"[info] save_conversation - salvando memoria [user={user_id}]")
     svc = _get_memory()
     path = svc.save_conversation(
+        user_id=user_id,
         session_id="agent",
         summary=summary,
         user_message=user_message,
