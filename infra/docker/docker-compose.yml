@@ -32,7 +32,10 @@ services:
     ports:
       - "3000:8080"
     environment:
+      - OPENAI_API_BASE_URL=http://host.docker.internal:8000
+      - OPENAI_API_KEY=kaos-local
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - DEFAULT_MODEL=qwen3:4b
     volumes:
       - open_webui_data:/app/backend/data
     extra_hosts:

@@ -23,7 +23,7 @@ class LLMService:
         }
         logger.debug(f"Enviando {len(messages)} mensagens ao Ollama ({self._model})")
 
-        async with httpx.AsyncClient(timeout=120.0) as client:
+        async with httpx.AsyncClient(timeout=600.0) as client:
             async with client.stream("POST", f"{self._base_url}/api/chat", json=payload) as response:
                 response.raise_for_status()
                 async for line in response.aiter_lines():
