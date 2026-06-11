@@ -1,0 +1,22 @@
+FROM python:3.13-slim AS builder
+
+WORKDIR /app
+
+COPY pyproject.toml ./
+
+RUN pip install uv && uv sync --no-dev
+
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/.venv /app/.venv
+COPY app/ /app/app/
+COPY .env /app/.env
+
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
