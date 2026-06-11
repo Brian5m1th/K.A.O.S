@@ -13,6 +13,7 @@ class Settings(BaseSettings):
 
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_MODEL: str = "qwen3:4b"
+    OLLAMA_FAST_MODEL: str = "qwen3:4b"
 
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333
