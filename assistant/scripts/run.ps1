@@ -4,6 +4,6 @@ param(
 )
 
 $reload_arg = if ($Reload) { "--reload" } else { "" }
-$app_dir = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+$app_dir = Resolve-Path "$PSScriptRoot/.."
 
-uv run uvicorn app.main:app $reload_arg --port $Port --app-dir $app_dir
+uv run --directory $app_dir uvicorn app.main:app $reload_arg --port $Port
