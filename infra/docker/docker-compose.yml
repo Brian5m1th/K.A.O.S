@@ -31,6 +31,8 @@ services:
     image: ghcr.io/open-webui/open-webui:latest
     ports:
       - "3000:8080"
+    env_file:
+      - ../../assistant/.env
     environment:
       - OPENAI_API_BASE_URL=http://host.docker.internal:8000
       - OPENAI_API_KEY=kaos-local
