@@ -30,28 +30,30 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 
 ## 🧠 SDDs — System Design Documents
 
-| Nota | Componente |
-| :--- | :--- |
-| [[sdd_obsidian_memoria\|SDD — Sistema de Memória]] | Arquitetura geral da memória com Obsidian |
-| [[sdd_obsidian_watcher\|SDD — File Watcher & Indexer]] | Monitoramento do vault e pipeline de indexação |
-| [[sdd_obsidian_rag\|SDD — Vector Search & RAG]] | Embeddings, Qdrant e recuperação semântica |
-| [[sdd_obsidian_tools\|SDD — Schemas das Ferramentas]] | Tools do LangGraph para manipular notas |
-| [[sdd_roadmap\|SDD — Roadmap Inicial]] | 8 fases de evolução da plataforma |
-| [[sdd_arquitetura_orquestracao\|SDD — Proxy OpenAI & Gateway]] | Arquitetura do proxy /v1/chat/completions |
-| [[sdd_user_context_propagation\|SDD — User Context & Multiusuário]] | Propagação de contexto de usuário e memória isolada |
-| [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo |
+| Nota | Componente | Status |
+| :--- | :--- | :--- |
+| [[sdd_obsidian_memoria\|SDD — Sistema de Memória]] | Arquitetura geral da memória com Obsidian | ✅ |
+| [[sdd_obsidian_watcher\|SDD — File Watcher & Indexer]] | Monitoramento do vault e pipeline de indexação | ✅ |
+| [[sdd_obsidian_rag\|SDD — Vector Search & RAG]] | Embeddings, Qdrant e recuperação semântica | ✅ |
+| [[sdd_obsidian_tools\|SDD — Schemas das Ferramentas]] | Tools do LangGraph para manipular notas | ✅ |
+| [[sdd_roadmap\|SDD — Roadmap Inicial]] | 9 fases de evolução da plataforma | ✅ |
+| [[sdd_arquitetura_orquestracao\|SDD — Proxy OpenAI & Gateway]] | Arquitetura do proxy /v1/chat/completions + Triple-Router | ✅ |
+| [[sdd_user_context_propagation\|SDD — User Context & Multiusuário]] | Propagação de contexto de usuário e memória isolada | ✅ |
+| [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo | 📝 |
 
 ---
 
 ## 🐍 SDDs de Implementação Python (Por Fase)
 
-| Nota | Fase | Conteúdo |
-| :--- | :---: | :--- |
-| [[sdd_fase1_fundacao\|SDD — Fase 1: Fundação]] | 1 ✅ | `pyproject.toml`, FastAPI, Settings, Logs, Docker Compose |
-| [[sdd_fase2_ia_local\|SDD — Fase 2: IA Local]] | 2 ✅ | LLMService, Ollama, Proxy OpenAI, Qwen3:4b, Open WebUI |
-| [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 ✅ | CRUD de notas, 7 Tools LangGraph, Testes |
-| [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 ✅ | Embedder, Chunking, Indexer, Retriever, Watchdog |
-| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 ✅ | AgentState, Grafo, Planner, Executor, Memória |
+| Nota | Fase | Conteúdo | Status |
+| :--- | :---: | :--- | :--- |
+| [[sdd_fase1_fundacao\|SDD — Fase 1: Fundação]] | 1 ✅ | `pyproject.toml`, FastAPI, Settings, Logs, Docker Compose, Python 3.13 | ✅ |
+| [[sdd_fase2_ia_local\|SDD — Fase 2: IA Local]] | 2 ✅ | LLMService, Ollama, Proxy OpenAI, Qwen3:4b, Open WebUI | ✅ |
+| [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 ✅ | CRUD de notas, 7 Tools LangGraph, Testes | ✅ |
+| [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 ✅ | Embedder, Chunking, Indexer, Retriever, Watchdog, **Singleton Embedder, score_threshold, diagnósticos** | ✅ |
+| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 ✅ | AgentState, Grafo, Planner, Executor, Memória, **Fast Intent Classifier, MemoryRouter, observabilidade** | ✅ |
+| [[sdd_fase8_performance_routing\|SDD — Fase 8: Performance + Roteamento Inteligente]] | 8 🟡 | Fast/MEMORY/SMART routing, warmup, cache, métricas | 🟡 Em progresso |
+| [[sdd_fase9_integracoes\|SDD — Fase 9: Integrações]] | 9 ⬜ | N8N, GitHub, Email, AWS, Webhooks | ⬜ Planejado |
 
 ---
 
