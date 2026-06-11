@@ -4,6 +4,7 @@ from typing import AsyncIterator
 
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse, JSONResponse
+from loguru import logger
 from pydantic import BaseModel, Field
 
 from app.domain.chat import Message
@@ -49,11 +50,15 @@ def _models_response():
 
 @legacy_router.get("/models")
 async def list_models_legacy():
+    logger.info("[start] openai - list_models_legacy")
+    logger.debug("[finish] openai - list_models_legacy")
     return _models_response()
 
 
 @router.get("/models")
 async def list_models():
+    logger.info("[start] openai - list_models")
+    logger.debug("[finish] openai - list_models")
     return _models_response()
 
 
@@ -62,6 +67,7 @@ async def chat_completions(
     request: ChatCompletionRequest,
     llm: LLMService = Depends(get_llm_service),
 ) -> StreamingResponse:
+    logger.info("[start] openai - chat_completions")
     messages = [Message(role="system", content=SYSTEM_PROMPT_KAOS)]
     messages += [
         Message(role=m.role, content=m.content)
@@ -69,6 +75,7 @@ async def chat_completions(
     ]
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     created = int(__import__("time").time())
+    logger.info("[sending] openai - streaming para LLMService")
 
     async def token_generator() -> AsyncIterator[str]:
         full_content = ""
@@ -105,6 +112,7 @@ async def chat_completions(
         yield f"data: {json.dumps(final_chunk, ensure_ascii=False)}\n\n"
         yield "data: [DONE]\n\n"
 
+    logger.debug("[finish] openai - chat_completions")
     return StreamingResponse(
         token_generator(),
         media_type="text/event-stream",

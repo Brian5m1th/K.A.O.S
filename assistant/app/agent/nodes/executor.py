@@ -17,17 +17,21 @@ TOOL_REGISTRY: dict = {
 
 
 def executor(state: AgentState) -> dict:
+    logger.info("[start] executor")
     tool_name = state.get("tool_to_call")
     tool_args = state.get("tool_args", {})
 
     if not tool_name or tool_name not in TOOL_REGISTRY:
+        logger.error(f"[error] executor - ferramenta desconhecida: {tool_name}")
+        logger.debug("[finish] executor")
         return {
             "tool_result": {
                 "error": f"Ferramenta '{tool_name}' não encontrada."
             }
         }
 
-    logger.info(f"Executando ferramenta: {tool_name} com args: {tool_args}")
+    logger.info(f"[info] executor - executando: {tool_name}")
     tool_fn = TOOL_REGISTRY[tool_name]
     result = tool_fn.invoke(tool_args)
+    logger.debug("[finish] executor")
     return {"tool_result": result, "tool_to_call": None}

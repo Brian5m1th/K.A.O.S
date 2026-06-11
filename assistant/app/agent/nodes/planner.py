@@ -1,3 +1,4 @@
+from loguru import logger
 from langchain_core.messages import SystemMessage
 from langchain_ollama import ChatOllama
 
@@ -22,6 +23,7 @@ _llm = ChatOllama(
 
 
 def planner(state: AgentState) -> dict:
+    logger.info("[start] planner")
     context_text = "\n\n".join(
         f"[{c['path']}]\n{c['content']}"
         for c in state.get("retrieved_context", [])
@@ -35,10 +37,13 @@ def planner(state: AgentState) -> dict:
 
     if hasattr(response, "tool_calls") and response.tool_calls:
         tool_call = response.tool_calls[0]
+        logger.info(f"[info] planner - ferramenta: {tool_call['name']}")
+        logger.debug("[finish] planner")
         return {
             "tool_to_call": tool_call["name"],
             "tool_args": tool_call["args"],
             "messages": [response],
         }
 
+    logger.debug("[finish] planner")
     return {"tool_to_call": None, "messages": [response]}

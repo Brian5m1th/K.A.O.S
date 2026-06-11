@@ -1,3 +1,4 @@
+from loguru import logger
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 from app.rag.retriever.semantic_retriever import SemanticRetriever
@@ -23,8 +24,10 @@ class RAGContextResponse(BaseModel):
 
 @router.post("/context", response_model=RAGContextResponse)
 async def get_rag_context(request: RAGContextRequest) -> RAGContextResponse:
+    logger.info("[start] rag - get_rag_context")
     retriever = SemanticRetriever()
     results = retriever.search(query=request.query, limit=request.limit)
+    logger.debug("[finish] rag - get_rag_context")
     return RAGContextResponse(
         query=request.query,
         context=[

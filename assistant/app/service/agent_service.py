@@ -9,7 +9,8 @@ class AgentService:
     async def process_message(
         self, session_id: str, user_message: str
     ) -> str:
-        logger.info(f"[{session_id}] Processando: {user_message[:60]}...")
+        logger.info("[start] AgentService - process_message")
+        logger.info(f"[info] AgentService - sessao {session_id}")
 
         initial_state: AgentState = {
             "messages": [HumanMessage(content=user_message)],
@@ -26,14 +27,15 @@ class AgentService:
             (m for m in reversed(final_state["messages"]) if m.type == "ai"),
             None,
         )
-        return (
-            last_ai_message.content if last_ai_message else "Sem resposta."
-        )
+        result = last_ai_message.content if last_ai_message else "Sem resposta."
+        logger.debug("[finish] AgentService - process_message")
+        return result
 
     async def stream_message(
         self, session_id: str, user_message: str
     ):
-        logger.info(f"[{session_id}] Processando: {user_message[:60]}...")
+        logger.info("[start] AgentService - stream_message")
+        logger.info(f"[info] AgentService - sessao {session_id}")
 
         initial_state: AgentState = {
             "messages": [HumanMessage(content=user_message)],
@@ -51,3 +53,4 @@ class AgentService:
             None,
         )
         yield last_ai_message.content if last_ai_message else "Sem resposta."
+        logger.debug("[finish] AgentService - stream_message")

@@ -21,14 +21,17 @@ class VaultIndexer:
     COLLECTION = settings.QDRANT_COLLECTION
 
     def __init__(self) -> None:
+        logger.info("[start] VaultIndexer - __init__")
         self._client = QdrantClient(
             host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
         )
         self._embedder = Embedder(model_key="bge-m3")
         self._splitter = MarkdownSplitter()
         self._ensure_collection()
+        logger.debug("[finish] VaultIndexer - __init__")
 
     def _ensure_collection(self) -> None:
+        logger.info("[start] VaultIndexer - _ensure_collection")
         existing = [c.name for c in self._client.get_collections().collections]
         if self.COLLECTION not in existing:
             self._client.create_collection(
@@ -37,14 +40,18 @@ class VaultIndexer:
                     size=self._embedder.dimension, distance=Distance.COSINE
                 ),
             )
-            logger.info(f"Coleção '{self.COLLECTION}' criada no Qdrant.")
+            logger.info(f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada")
+        logger.debug("[finish] VaultIndexer - _ensure_collection")
 
     def _make_point_id(self, path: str, chunk_index: int) -> str:
         return hashlib.md5(f"{path}::{chunk_index}".encode()).hexdigest()
 
     def index_file(self, file_path: str) -> int:
+        logger.info("[start] VaultIndexer - index_file")
         path = Path(file_path)
         if not path.exists() or not path.suffix == ".md":
+            logger.info("[skip] VaultIndexer - index_file: nao e .md")
+            logger.debug("[finish] VaultIndexer - index_file")
             return 0
 
         content = path.read_text(encoding="utf-8")
@@ -60,6 +67,8 @@ class VaultIndexer:
 
         chunks = self._splitter.split(content, source_path=relative)
         if not chunks:
+            logger.info("[skip] VaultIndexer - index_file: sem chunks")
+            logger.debug("[finish] VaultIndexer - index_file")
             return 0
 
         texts = [c.content for c in chunks]
@@ -81,10 +90,12 @@ class VaultIndexer:
         ]
 
         self._client.upsert(collection_name=self.COLLECTION, points=points)
-        logger.info(f"Indexado: {relative} ({len(points)} chunks)")
+        logger.info(f"[info] VaultIndexer - indexado: {relative} ({len(points)} chunks)")
+        logger.debug("[finish] VaultIndexer - index_file")
         return len(points)
 
     def remove_file(self, relative_path: str) -> None:
+        logger.info("[start] VaultIndexer - remove_file")
         self._client.delete(
             collection_name=self.COLLECTION,
             points_selector=Filter(
@@ -95,8 +106,10 @@ class VaultIndexer:
                 ]
             ),
         )
+        logger.debug("[finish] VaultIndexer - remove_file")
 
     def index_vault(self) -> dict:
+        logger.info("[start] VaultIndexer - index_vault")
         vault = Path(settings.OBSIDIAN_VAULT_PATH)
         total_files = 0
         total_chunks = 0
@@ -105,6 +118,7 @@ class VaultIndexer:
                 total_chunks += self.index_file(str(md_file))
                 total_files += 1
         logger.info(
-            f"Indexação completa: {total_files} arquivos, {total_chunks} chunks"
+            f"[info] VaultIndexer - indexacao completa: {total_files} arquivos, {total_chunks} chunks"
         )
+        logger.debug("[finish] VaultIndexer - index_vault")
         return {"files": total_files, "chunks": total_chunks}

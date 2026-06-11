@@ -1,3 +1,4 @@
+from loguru import logger
 from fastapi import APIRouter
 
 from app.rag.indexer.vault_indexer import VaultIndexer
@@ -11,5 +12,8 @@ def _get_indexer() -> VaultIndexer:
 
 @router.post("/full")
 async def full_reindex() -> dict:
+    logger.info("[start] indexing - full_reindex")
     indexer = _get_indexer()
-    return indexer.index_vault()
+    result = indexer.index_vault()
+    logger.debug("[finish] indexing - full_reindex")
+    return result
