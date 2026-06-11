@@ -12,13 +12,28 @@ def client() -> AsyncClient:
     return AsyncClient(transport=transport, base_url="http://test")
 
 
+async def _read_sse(stream) -> str:
+    full = ""
+    async for line in stream.aiter_lines():
+        if line.startswith("data: ") and line != "data: [DONE]":
+            import json
+            chunk = json.loads(line[6:])
+            content = chunk["choices"][0]["delta"].get("content", "")
+            full += content
+    return full
+
+
 @pytest.mark.asyncio
 async def test_openai_chat_completions(client: AsyncClient) -> None:
     mock_agent = MagicMock()
-    mock_agent.process_message = AsyncMock(return_value="Resposta do RAG + Ollama")
+    async def _mock_stream(session_id, user_message):
+        for token in ["Resposta ", "do ", "RAG + Ollama"]:
+            yield token
+    mock_agent.stream_message = _mock_stream
 
-    with patch("app.api.openai_compat.AgentService", return_value=mock_agent):
-        response = await client.post(
+    with patch("app.api.openai.AgentService", return_value=mock_agent):
+        async with client.stream(
+            "POST",
             "/v1/chat/completions",
             json={
                 "model": "qwen3:14b",
@@ -26,30 +41,35 @@ async def test_openai_chat_completions(client: AsyncClient) -> None:
                     {"role": "user", "content": "O que tem no meu vault?"}
                 ],
             },
-        )
-
-    assert response.status_code == 200
-    data = response.json()
-    assert data["object"] == "chat.completion"
-    assert len(data["choices"]) == 1
-    assert data["choices"][0]["message"]["content"] == "Resposta do RAG + Ollama"
+        ) as response:
+            assert response.status_code == 200
+            content = await _read_sse(response)
+            assert content == "Resposta do RAG + Ollama"
 
 
 @pytest.mark.asyncio
 async def test_openai_chat_completions_no_user_message(
     client: AsyncClient,
 ) -> None:
-    response = await client.post(
-        "/v1/chat/completions",
-        json={
-            "model": "qwen3:14b",
-            "messages": [{"role": "assistant", "content": "Olá"}],
-        },
-    )
+    async def _mock_stream(session_id, user_message):
+        for token in ["Resposta padrao"]:
+            yield token
 
-    assert response.status_code == 200
-    data = response.json()
-    assert "Envie uma mensagem" in data["choices"][0]["message"]["content"]
+    mock_agent = MagicMock()
+    mock_agent.stream_message = _mock_stream
+
+    with patch("app.api.openai.AgentService", return_value=mock_agent):
+        async with client.stream(
+            "POST",
+            "/v1/chat/completions",
+            json={
+                "model": "qwen3:14b",
+                "messages": [{"role": "assistant", "content": "Olá"}],
+            },
+        ) as response:
+            assert response.status_code == 200
+            content = await _read_sse(response)
+            assert content == "Resposta padrao"
 
 
 @pytest.mark.asyncio
