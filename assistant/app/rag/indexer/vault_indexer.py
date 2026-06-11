@@ -27,26 +27,38 @@ class VaultIndexer:
         )
         self._embedder = Embedder(model_key="bge-m3")
         self._splitter = MarkdownSplitter()
-        self._ensure_collection()
+        self._available = self._ensure_collection()
         logger.debug("[finish] VaultIndexer - __init__")
 
-    def _ensure_collection(self) -> None:
+    def _ensure_collection(self) -> bool:
         logger.info("[start] VaultIndexer - _ensure_collection")
-        existing = [c.name for c in self._client.get_collections().collections]
-        if self.COLLECTION not in existing:
-            self._client.create_collection(
-                collection_name=self.COLLECTION,
-                vectors_config=VectorParams(
-                    size=self._embedder.dimension, distance=Distance.COSINE
-                ),
+        try:
+            existing = [c.name for c in self._client.get_collections().collections]
+            if self.COLLECTION not in existing:
+                self._client.create_collection(
+                    collection_name=self.COLLECTION,
+                    vectors_config=VectorParams(
+                        size=self._embedder.dimension, distance=Distance.COSINE
+                    ),
+                )
+                logger.info(f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada")
+            logger.debug("[finish] VaultIndexer - _ensure_collection")
+            return True
+        except Exception as exc:
+            logger.warning(
+                f"[warn] VaultIndexer - Qdrant indisponivel ({exc}). "
+                f"Operacoes de indexacao serao ignoradas ate que o Qdrant seja iniciado."
             )
-            logger.info(f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada")
-        logger.debug("[finish] VaultIndexer - _ensure_collection")
+            logger.debug("[finish] VaultIndexer - _ensure_collection (fallback)")
+            return False
 
     def _make_point_id(self, path: str, chunk_index: int) -> str:
         return hashlib.md5(f"{path}::{chunk_index}".encode()).hexdigest()
 
     def index_file(self, file_path: str) -> int:
+        if not self._available:
+            logger.warning("[skip] VaultIndexer - index_file: Qdrant indisponivel")
+            return 0
         logger.info("[start] VaultIndexer - index_file")
         path = Path(file_path)
         if not path.exists() or not path.suffix == ".md":
@@ -95,6 +107,9 @@ class VaultIndexer:
         return len(points)
 
     def remove_file(self, relative_path: str) -> None:
+        if not self._available:
+            logger.warning("[skip] VaultIndexer - remove_file: Qdrant indisponivel")
+            return
         logger.info("[start] VaultIndexer - remove_file")
         self._client.delete(
             collection_name=self.COLLECTION,
@@ -109,6 +124,9 @@ class VaultIndexer:
         logger.debug("[finish] VaultIndexer - remove_file")
 
     def index_vault(self) -> dict:
+        if not self._available:
+            logger.warning("[skip] VaultIndexer - index_vault: Qdrant indisponivel")
+            return {"files": 0, "chunks": 0, "error": "Qdrant indisponivel"}
         logger.info("[start] VaultIndexer - index_vault")
         vault = Path(settings.OBSIDIAN_VAULT_PATH)
         total_files = 0
