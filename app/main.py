@@ -8,7 +8,9 @@ from loguru import logger
 
 from app.api.chat import router as chat_router
 from app.api.health import router as health_router
+from app.api.indexing import router as indexing_router
 from app.config.settings import settings
+from app.obsidian.watcher.vault_watcher import VaultWatcher
 
 
 def configure_logging(log_level: str) -> None:
@@ -31,11 +33,18 @@ def configure_logging(log_level: str) -> None:
 
 configure_logging(settings.LOG_LEVEL)
 
+_watcher: VaultWatcher | None = None
+
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    global _watcher
     logger.info(f"{settings.APP_NAME} iniciado em modo {settings.APP_ENV}")
+    _watcher = VaultWatcher()
+    _watcher.start()
     yield
+    if _watcher:
+        _watcher.stop()
 
 
 app = FastAPI(
@@ -46,3 +55,4 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(chat_router)
+app.include_router(indexing_router)
