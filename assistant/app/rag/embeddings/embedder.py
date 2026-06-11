@@ -1,4 +1,5 @@
 from loguru import logger
+from app.config.settings import settings
 
 
 class Embedder:
@@ -9,6 +10,13 @@ class Embedder:
 
     def __init__(self, model_key: str = "bge-m3") -> None:
         logger.info("[start] Embedder - __init__")
+        if settings.HF_TOKEN:
+            from huggingface_hub import login
+            login(token=settings.HF_TOKEN)
+            logger.info("[info] Embedder - HF_TOKEN configurado")
+        else:
+            logger.warning("[warn] Embedder - HF_TOKEN nao configurado no .env")
+
         from sentence_transformers import SentenceTransformer
 
         config = self.MODEL_CONFIGS[model_key]
