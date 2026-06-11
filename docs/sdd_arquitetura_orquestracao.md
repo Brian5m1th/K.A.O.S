@@ -15,7 +15,7 @@ Documentar a arquitetura do proxy OpenAI-compatível que roteia requisições do
 O Open WebUI não se conecta diretamente ao Ollama. Em vez disso, é configurado no **modo OpenAI**, apontando para o FastAPI:
 
 ```
-Open WebUI → FastAPI (/v1/chat/completions) → LLMService → Ollama
+Open WebUI → FastAPI (Triple-Router) → FAST / MEMORY / SMART → Ollama / Tools
 ```
 
 Isso garante:
@@ -23,6 +23,7 @@ Isso garante:
 - CORS habilitado para requisições cross-origin do container
 - Um ponto único de controle para logging, monitoramento e futuras transformações
 - Compatibilidade total com o formato OpenAI (qualquer cliente OpenAI pode usar)
+- **Roteamento inteligente**: FAST (ferramentas), MEMORY (RAG), SMART (LangGraph)
 
 ---
 
@@ -31,58 +32,112 @@ Isso garante:
 ```mermaid
 graph LR
     OWUI[Open WebUI] -->|OpenAI API| GW[FastAPI Gateway]
-    GW -->|Streaming| OLLAMA[Ollama qwen3:4b]
+    GW -->|Triple-Router| FAST[FAST Router]
+    GW -->|Triple-Router| MEMORY[Memory Router]
+    GW -->|Triple-Router| SMART[Smart Router / LangGraph]
+    FAST -->|Tools| TOOLS[Obsidian Tools]
+    MEMORY -->|RAG| QDRANT[Qdrant Vector DB]
+    MEMORY -->|Stream| OLLAMA[Ollama qwen3:4b]
+    SMART -->|Agent| LANGGRAPH[LangGraph]
+    LANGGRAPH -->|Tools| TOOLS
+    LANGGRAPH -->|RAG| QDRANT
+    LANGGRAPH -->|Stream| OLLAMA
     
     subgraph FastAPI["FastAPI (porta 8000)"]
         OAI[/v1/chat/completions]
+        LEGACY[/chat/completions]
+        MODELS[/v1/models]
+        MODELS_LEG[/models]
         CHAT[/api/chat/message]
         INDEX[/indexing/full]
         RAG[/rag/context]
+        HEALTH[/health]
     end
     
     OWUI --> OAI
-    OAI -->|system prompt| OLLAMA
+    OWUI --> LEGACY
+    OAI -->|Intent Classifier| GW
+    GW -->|FAST| FAST
+    GW -->|MEMORY| MEMORY
+    GW -->|SMART| SMART
 ```
 
 ---
 
 ## Endpoints do Gateway
 
-| Endpoint | Descrição | Streaming |
-| :------- | :-------- | :-------: |
-| `GET /` | Root — informações do serviço | ❌ |
-| `GET /health` | Health check | ❌ |
-| `GET /health/readiness` | Readiness check (inclui Ollama) | ❌ |
-| `POST /api/chat/message` | Chat interno (LangGraph) | ✅ |
-| `POST /v1/chat/completions` | Proxy OpenAI (usado pelo Open WebUI) | ✅ |
-| `GET /v1/models` | Lista modelos disponíveis | ❌ |
-| `POST /indexing/full` | Reindexação completa do vault | ❌ |
-| `POST /rag/context` | Busca contexto RAG | ❌ |
+| Endpoint | Método | Router | Descrição | Streaming |
+| :------- | :----- | :----- | :-------- | :-------: |
+| `GET /` | GET | main | Root — informações do serviço | ❌ |
+| `GET /health` | GET | health | Health check (liveness) | ❌ |
+| `GET /health/readiness` | GET | health | Readiness check (inclui Ollama) | ❌ |
+| `POST /api/chat/message` | POST | chat | Chat interno (LangGraph) | ✅ |
+| `POST /v1/chat/completions` | POST | openai | Proxy OpenAI (usado pelo Open WebUI) | ✅ |
+| `POST /chat/completions` | POST | legacy | **Legacy** Open WebUI compat | ✅ |
+| `GET /v1/models` | GET | openai | Lista modelos (kaos, kaos-fast, kaos-rag) | ❌ |
+| `GET /models` | GET | legacy | **Legacy** lista modelos | ❌ |
+| `POST /indexing/full` | POST | indexing | Reindexação completa do vault | ❌ |
+| `POST /indexing/init-folders` | POST | indexing | Cria estrutura de pastas do vault | ❌ |
+| `POST /rag/context` | POST | rag | Busca contexto RAG (semântico) | ❌ |
+
+### Modelos Disponíveis
+
+| Model ID | Rota | Uso |
+| :------- | :--- | :-- |
+| `kaos` | DEFAULT | SMART (LangGraph completo) |
+| `kaos-fast` | FAST | FAST (ferramentas diretas, sem LLM/RAG) |
+| `kaos-rag` | MEMORY | MEMORY (RAG + Ollama, sem LangGraph) |
 
 ---
 
-## Fluxo do Proxy OpenAI
+## Fluxo do Proxy OpenAI (Triple-Router)
 
 ```mermaid
 sequenceDiagram
     participant OWUI as Open WebUI
     participant GW as FastAPI Gateway
-    participant LLM as LLMService
+    participant IC as Intent Classifier
+    participant FR as Fast Router
+    participant MR as Memory Router
+    participant SR as Smart Router
     participant OLLAMA as Ollama
+    participant QDRANT as Qdrant
 
-    OWUI->>GW: POST /v1/chat/completions
-    Note over GW: Verifica se há system prompt
-    alt Nenhum system prompt
-        GW->>GW: Insere KAOS_SYSTEM_PROMPT no início
+    OWUI->>GW: POST /v1/chat/completions (ou /chat/completions)
+    Note over GW: Verifica/insere System Prompt K.A.O.S.
+    GW->>IC: classify(user_message)
+    alt Keyword match (FAST/MEMORY)
+        IC-->>GW: IntentType (FAST/MEMORY)
+    else LLM fallback
+        IC->>OLLAMA: classify (OLLAMA_FAST_MODEL, temp=0)
+        OLLAMA-->>IC: IntentType
+        IC-->>GW: IntentType
     end
-    GW->>LLM: stream_chat(messages)
-    LLM->>OLLAMA: POST /api/chat (stream)
-    loop Tokens
-        OLLAMA-->>LLM: Chunk de resposta
-        LLM-->>GW: Token
-        GW-->>OWUI: data: {"choices":[{"delta":{"content":"token"}}]}
+
+    alt FAST (tool call)
+        GW->>FR: fast_route(user_message)
+        FR->>GW: tool_result ou None
+        alt tool executada
+            GW-->>OWUI: Streaming SSE (resultado tool)
+        else sem tool (ex: saudação)
+            GW-->>OWUI: Streaming SSE (resposta simples)
+        end
+    else MEMORY (RAG + LLM)
+        GW->>MR: stream(user_message)
+        MR->>QDRANT: search(query)
+        QDRANT-->>MR: chunks + scores
+        MR->>OLLAMA: stream(context + messages)
+        OLLAMA-->>MR: tokens
+        MR-->>GW: tokens
+        GW-->>OWUI: Streaming SSE
+    else SMART (LangGraph)
+        GW->>SR: process_message()
+        SR->>SR: retrieve → planner → executor (loop)
+        SR->>OLLAMA: stream (com contexto + tools)
+        OLLAMA-->>SR: tokens
+        SR-->>GW: tokens
+        GW-->>OWUI: Streaming SSE
     end
-    OWUI->>OWUI: Renderiza resposta
 ```
 
 ---
