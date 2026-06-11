@@ -5,7 +5,7 @@ Related: [[index]] [[02_fluxo_dados]] [[sdd_obsidian_memoria]] [[sdd_arquitetura
 # SDD — User Context Propagation & Multiusuário
 
 > Tipo: System Design Document
-> Status: Planejado
+> Status: **Implementado** ✅
 > Prioridade: Alta
 > Relacionado: [[02_fluxo_dados]] [[sdd_obsidian_memoria]] [[sdd_arquitetura_orquestracao]] [[backlog]]
 
@@ -24,12 +24,11 @@ Permitir que o K.A.O.S identifique qual usuário do Open WebUI iniciou uma conve
 
 ---
 
-## Problema Atual
+## Problema Resolvido ✅
 
-Atualmente o Open WebUI autentica usuários, porém o K.A.O.S não recebe nem utiliza essas informações.
+O problema original era que o Open WebUI autentica usuários, porém o K.A.O.S não recebia nem utilizava essas informações.
 
-Fluxo atual:
-
+**Fluxo Anterior (Resolvido):**
 ```
 Open WebUI
     ↓
@@ -38,26 +37,27 @@ FastAPI
 AgentService
 ```
 
-O AgentService cria:
+O AgentService criava `session_id = stream_id` (ex: `chatcmpl-a123`), sem identificação de usuário.
 
-```python
-session_id = stream_id
+**Fluxo Atual (Implementado):**
+```
+Open WebUI
+    ↓ (headers: x-user-id, x-username, x-user-role)
+FastAPI /v1/chat/completions
+    ↓ (UserContext in request)
+Intent Classifier → Router (FAST/MEMORY/SMART)
+    ↓ (user_id propagated)
+AgentService / MemoryRouter / FastRouter
+    ↓ (user_id in AgentState / MemoryService)
+MemoryService (Vault/users/{user_id}/)
 ```
 
-Exemplo:
-
-```
-chatcmpl-a123
-chatcmpl-b456
-chatcmpl-c789
-```
-
-Consequências:
-
-- O agente não sabe quem enviou a mensagem.
-- Todas as memórias são compartilhadas.
-- Não existe separação entre usuários.
-- Não existe rastreabilidade.
+**Implementação:**
+- Headers Open WebUI: `x-user-id`, `x-username`, `x-user-role` lidos no endpoint `/v1/chat/completions`
+- `UserContext` propagado via `ChatCompletionRequest` → `AgentState` / `MemoryRouter`
+- `MemoryService` escopo por usuário: `Vault/users/{user_id}/{preferencias,projetos,memoria}.md`
+- Logs estruturados com `user_id` para auditoria
+- Compatível com migração futura para PostgreSQL (MemoryRepository protocol)
 
 ---
 
@@ -292,15 +292,16 @@ Permitindo migração futura sem alterar o AgentService.
 
 ---
 
-## Critérios de Aceite
+## Critérios de Aceite ✅ Todos Atendidos
 
-- [x] O usuário autenticado no Open WebUI é identificado pelo FastAPI.
-- [x] O AgentState contém user_id.
-- [x] O MemoryService utiliza user_id.
+- [x] O usuário autenticado no Open WebUI é identificado pelo FastAPI (headers `x-user-id`, `x-username`, `x-user-role`).
+- [x] O AgentState contém user_id, username, role.
+- [x] O MemoryService utiliza user_id (escopo `Vault/users/{user_id}/`).
 - [x] Preferências são isoladas por usuário.
-- [x] Conversas são salvas separadamente.
-- [x] Compatível com futura migração para PostgreSQL.
-- [x] Logs registram usuário responsável pela ação.
+- [x] Conversas são salvas separadamente por usuário.
+- [x] Compatível com futura migração para PostgreSQL (MemoryRepository protocol).
+- [x] Logs registram usuário responsável pela ação (`[user=...]`).
+- [x] Endpoints legados (`/chat/completions`) também propagam contexto.
 
 ---
 
