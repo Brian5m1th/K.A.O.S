@@ -9,8 +9,11 @@ from loguru import logger
 
 from app.api.chat import router as chat_router
 from app.api.health import router as health_router
+from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
+from app.api.rag import router as rag_router
 from app.config.settings import settings
+from app.obsidian.watcher.vault_watcher import VaultWatcher
 
 
 def configure_logging(log_level: str) -> None:
@@ -33,11 +36,18 @@ def configure_logging(log_level: str) -> None:
 
 configure_logging(settings.LOG_LEVEL)
 
+_watcher: VaultWatcher | None = None
+
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    global _watcher
     logger.info(f"{settings.APP_NAME} iniciado em modo {settings.APP_ENV}")
+    _watcher = VaultWatcher()
+    _watcher.start()
     yield
+    if _watcher:
+        _watcher.stop()
 
 
 app = FastAPI(
@@ -56,5 +66,24 @@ app.add_middleware(
 
 app.include_router(health_router)
 app.include_router(chat_router)
+app.include_router(indexing_router)
+app.include_router(rag_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
+
+
+@app.get("/")
+async def root() -> dict:
+    return {
+        "name": settings.APP_NAME,
+        "version": "0.1.0",
+        "status": "running",
+        "endpoints": {
+            "health": "/health",
+            "chat": "/api/chat/message",
+            "openai": "/v1/chat/completions",
+            "models": "/v1/models",
+            "indexing": "/indexing/full",
+            "rag_context": "/rag/context",
+        },
+    }
