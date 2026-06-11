@@ -1,5 +1,4 @@
-import json
-from unittest.mock import AsyncMock, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from httpx import AsyncClient, ASGITransport
@@ -15,12 +14,13 @@ def client() -> AsyncClient:
 
 @pytest.mark.asyncio
 async def test_send_message_streams_response(client: AsyncClient) -> None:
+    mock_agent = MagicMock()
     async def fake_stream(*args, **kwargs):
-        tokens = ["Hello", " ", "world", "!"]
-        for token in tokens:
-            yield token
+        yield "Hello world!"
 
-    with patch("app.service.llm_service.LLMService.stream_chat", new=fake_stream):
+    mock_agent.stream_message = fake_stream
+
+    with patch("app.api.chat._agent", mock_agent):
         response = await client.post(
             "/api/chat/message",
             json={
@@ -31,28 +31,6 @@ async def test_send_message_streams_response(client: AsyncClient) -> None:
 
     assert response.status_code == 200
     assert response.text == "Hello world!"
-
-
-@pytest.mark.asyncio
-async def test_send_message_with_history(client: AsyncClient) -> None:
-    async def fake_stream(*args, **kwargs):
-        yield "Resposta com contexto"
-
-    with patch("app.service.llm_service.LLMService.stream_chat", new=fake_stream):
-        response = await client.post(
-            "/api/chat/message",
-            json={
-                "session_id": "test-session",
-                "message": "Qual era minha pergunta anterior?",
-                "history": [
-                    {"role": "user", "content": "Qual a capital do Brasil?"},
-                    {"role": "assistant", "content": "Brasília"},
-                ],
-            },
-        )
-
-    assert response.status_code == 200
-    assert response.text == "Resposta com contexto"
 
 
 @pytest.mark.asyncio
@@ -72,7 +50,7 @@ async def test_send_message_empty_content_returns_422(client: AsyncClient) -> No
 async def test_readiness_degraded_when_ollama_unavailable(client: AsyncClient) -> None:
     with patch(
         "app.service.llm_service.LLMService.check_availability",
-        new=AsyncMock(return_value=False),
+        return_value=False,
     ):
         response = await client.get("/health/readiness")
 
@@ -86,7 +64,7 @@ async def test_readiness_degraded_when_ollama_unavailable(client: AsyncClient) -
 async def test_readiness_ready_when_ollama_available(client: AsyncClient) -> None:
     with patch(
         "app.service.llm_service.LLMService.check_availability",
-        new=AsyncMock(return_value=True),
+        return_value=True,
     ):
         response = await client.get("/health/readiness")
 

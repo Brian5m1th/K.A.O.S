@@ -9,6 +9,8 @@ from loguru import logger
 from app.api.chat import router as chat_router
 from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
+from app.api.openai_compat import router as openai_router
+from app.api.rag import router as rag_router
 from app.config.settings import settings
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 
@@ -56,3 +58,21 @@ app = FastAPI(
 app.include_router(health_router)
 app.include_router(chat_router)
 app.include_router(indexing_router)
+app.include_router(rag_router)
+app.include_router(openai_router)
+
+
+@app.get("/")
+async def root() -> dict:
+    return {
+        "name": settings.APP_NAME,
+        "version": "0.1.0",
+        "status": "running",
+        "endpoints": {
+            "health": "/health",
+            "chat": "/api/chat/message",
+            "openai": "/v1/chat/completions",
+            "indexing": "/indexing/full",
+            "rag_context": "/rag/context",
+        },
+    }
