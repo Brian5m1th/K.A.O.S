@@ -46,11 +46,15 @@ class AgentService:
             "session_id": session_id,
         }
 
-        final_state = await agent_graph.ainvoke(initial_state)
+        async for event in agent_graph.astream_events(
+            initial_state, version="v2"
+        ):
+            kind = event.get("event")
+            if kind == "on_chat_model_stream":
+                chunk = event.get("data", {}).get("chunk", None)
+                if chunk is not None:
+                    content = chunk.content
+                    if content:
+                        yield content
 
-        last_ai_message = next(
-            (m for m in reversed(final_state["messages"]) if m.type == "ai"),
-            None,
-        )
-        yield last_ai_message.content if last_ai_message else "Sem resposta."
         logger.debug("[finish] AgentService - stream_message")
