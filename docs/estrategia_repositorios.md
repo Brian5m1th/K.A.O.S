@@ -31,7 +31,7 @@ Durante o MVP será utilizado um **Monorepo**.
 Estrutura:
 
 ```text
-ai-platform/
+kaos-platform/
 
 ├── assistant/
 ├── backend/
@@ -52,7 +52,7 @@ ai-platform/
 
 Quando o projeto atingir maturidade suficiente, a estrutura deverá ser separada.
 
-### Repositório 1 — ai-assistant
+### Repositório 1 — kaos-assistant
 
 Responsabilidade:
 
@@ -67,7 +67,7 @@ Responsabilidade:
 Estrutura:
 
 ```text
-ai-assistant/
+kaos-assistant/
 
 ├── app/
 ├── agent/
@@ -80,7 +80,7 @@ ai-assistant/
 
 ---
 
-### Repositório 2 — ai-backend
+### Repositório 2 — kaos-backend
 
 Responsabilidade:
 
@@ -99,7 +99,7 @@ Tecnologias:
 Estrutura:
 
 ```text
-ai-backend/
+kaos-backend/
 
 ├── domain/
 ├── application/
@@ -110,7 +110,7 @@ ai-backend/
 
 ---
 
-### Repositório 3 — ai-infra
+### Repositório 3 — kaos-infra
 
 Responsabilidade:
 
@@ -123,7 +123,7 @@ Responsabilidade:
 Estrutura:
 
 ```text
-ai-infra/
+kaos-infra/
 
 ├── docker/
 ├── postgres/
@@ -140,13 +140,13 @@ ai-infra/
 ```text
 Usuário
  ↓
-AI Assistant
+K.A.O.S
  ↓
 Spring Boot API
  ↓
 Banco de Dados
 
-AI Assistant
+K.A.O.S
  ↓
 N8N
  ↓
