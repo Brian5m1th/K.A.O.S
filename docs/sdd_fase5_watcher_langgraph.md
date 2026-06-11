@@ -10,17 +10,35 @@ Implementar o orquestrador central de inteligência da plataforma usando LangGra
 
 ---
 
-## Critério de Sucesso (Fase 6)
+## Status Atual: ✅ CONCLUÍDO (Fases 6-7 + Otimizações Fase 8)
+
+| Componente | Status | Detalhes |
+|------------|--------|----------|
+| AgentState | ✅ | `user_id`, `username`, `role` propagados |
+| Grafo LangGraph | ✅ | `retrieve → planner → executor` (loop) |
+| Tool Registry | ✅ | 7 tools Obsidian + `save_conversation` |
+| Planner | ✅ | `tool_calls` nativo LangChain |
+| Executor | ✅ | Loop `planner → executor` até END |
+| MemoryService | ✅ | `Vault/users/{user_id}/` (preferências, projetos, memoria) |
+| save_conversation | ✅ | Comando "salve esta conversa" → `Diário/` |
+| update_note | ✅ | Comando "atualize esta nota" (search + update) |
+| **Fast Intent Classifier** | ✅ | Keywords PT-BR/EN, LLM fallback |
+| **MemoryRouter** | ✅ | RAG + Ollama streaming (sem LangGraph) |
+| **Triple-Router** | ✅ | FAST / MEMORY / SMART routing |
+
+---
+
+## Critério de Sucesso (Fase 6) ✅
 
 > O usuário solicita "crie uma nota sobre o que conversamos" e o agente decide autonomamente usar a ferramenta `CreateNoteTool` e salva o resumo em `Diário/`.
 
-## Critério de Sucesso (Fase 7)
+## Critério de Sucesso (Fase 7) ✅
 
 > Em uma nova sessão, o usuário pergunta "o que eu estava estudando na semana passada?" e o agente recupera e cita o conteúdo de `Diário/` e `Estudos/` sem intervenção manual.
 
 ---
 
-## Tarefas — Fase 6 (Agente LangGraph)
+## Tarefas — Fase 6 (Agente LangGraph) ✅
 
 - [x] Instalar LangGraph (`uv add langgraph`)
 - [x] Criar `AgentState` (`app/agent/state.py`)
@@ -29,12 +47,19 @@ Implementar o orquestrador central de inteligência da plataforma usando LangGra
 - [x] Implementar nó `planner`
 - [x] Implementar nó `executor`
 
-## Tarefas — Fase 7 (Memória de Longo Prazo)
+## Tarefas — Fase 7 (Memória de Longo Prazo) ✅
 
 - [x] Criar memória de preferências (`app/memory/memory_service.py`)
 - [x] Criar memória de projetos
 - [x] Implementar comando "salve esta conversa" (`save_conversation` tool)
 - [x] Implementar comando "atualize esta nota" (search + update)
+
+## Otimizações Fase 8 ✅
+
+- [x] **Fast Intent Classifier** — Keywords PT-BR/EN (FAST/MEMORY), LLM fallback
+- [x] **MemoryRouter** — RAG + Ollama streaming (sem LangGraph, target 2-5s)
+- [x] **Triple-Router** — FAST / MEMORY / SMART routing via IntentClassifier
+- [x] **Observabilidade** — Métricas ms em MemoryRouter, SemanticRetriever
 
 ---
 
