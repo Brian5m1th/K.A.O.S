@@ -9,6 +9,10 @@ from pydantic import BaseModel, Field
 
 from app.config.settings import settings
 from app.service.agent_service import AgentService
+from app.router.intent_classifier import IntentClassifier, IntentType
+from app.router.fast_router import fast_route
+from app.router.memory_router import MemoryRouter
+from app.router.cache import ResponseCache
 
 router = APIRouter(prefix="/v1", tags=["OpenAI"])
 legacy_router = APIRouter(tags=["Legacy"])
@@ -60,12 +64,47 @@ async def list_models():
     return _models_response()
 
 
+_classifier = IntentClassifier()
+_cache = ResponseCache()
+
+
+async def _sse_stream_generator(
+    stream_id: str,
+    created: int,
+    model: str,
+    stream: AsyncIterator[str],
+) -> AsyncIterator[str]:
+    async for token in stream:
+        chunk = {
+            "id": stream_id,
+            "object": "chat.completion.chunk",
+            "created": created,
+            "model": model,
+            "choices": [
+                {
+                    "index": 0,
+                    "delta": {"content": token},
+                    "finish_reason": None,
+                }
+            ],
+        }
+        yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
+    final = {
+        "id": stream_id,
+        "object": "chat.completion.chunk",
+        "created": created,
+        "model": model,
+        "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}],
+    }
+    yield f"data: {json.dumps(final, ensure_ascii=False)}\n\n"
+    yield "data: [DONE]\n\n"
+
+
 @router.post("/chat/completions")
 async def chat_completions(
     request: ChatCompletionRequest,
 ) -> StreamingResponse:
     logger.info("[start] openai - chat_completions")
-    agent = _get_agent()
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     created = int(__import__("time").time())
     session_id = stream_id
@@ -75,48 +114,69 @@ async def chat_completions(
         request.messages[-1].content if request.messages else "",
     )
 
-    logger.info("[sending] openai - streaming via LangGraph Agent")
+    cached = _cache.get(user_message)
+    if cached is not None:
+        logger.info("[info] openai - cache hit")
 
-    async def token_generator() -> AsyncIterator[str]:
-        full_content = ""
-        async for token in agent.stream_message(
-            session_id=session_id, user_message=user_message
-        ):
-            full_content += token
-            chunk = {
-                "id": stream_id,
-                "object": "chat.completion.chunk",
-                "created": created,
-                "model": request.model,
-                "choices": [
-                    {
-                        "index": 0,
-                        "delta": {"content": token},
-                        "finish_reason": None,
-                    }
-                ],
-            }
-            yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
+        async def _cached_stream():
+            yield cached
 
-        final_chunk = {
-            "id": stream_id,
-            "object": "chat.completion.chunk",
-            "created": created,
-            "model": request.model,
-            "choices": [
-                {
-                    "index": 0,
-                    "delta": {},
-                    "finish_reason": "stop",
-                }
-            ],
-        }
-        yield f"data: {json.dumps(final_chunk, ensure_ascii=False)}\n\n"
-        yield "data: [DONE]\n\n"
+        return StreamingResponse(
+            _sse_stream_generator(stream_id, created, request.model, _cached_stream()),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no",
+            },
+        )
 
-    logger.debug("[finish] openai - chat_completions")
+    intent = await _classifier.classify(user_message)
+    logger.info(f"[info] openai - intent={intent.value}")
+
+    if intent == IntentType.FAST:
+        result = await fast_route(user_message)
+        if result:
+            _cache.set(user_message, result)
+
+            async def _fast_stream():
+                yield result
+
+            return StreamingResponse(
+                _sse_stream_generator(stream_id, created, request.model, _fast_stream()),
+                media_type="text/event-stream",
+                headers={
+                    "Cache-Control": "no-cache",
+                    "Connection": "keep-alive",
+                    "X-Accel-Buffering": "no",
+                },
+            )
+
+    elif intent == IntentType.MEMORY:
+        router = MemoryRouter()
+
+        return StreamingResponse(
+            _sse_stream_generator(
+                stream_id, created, request.model, router.stream(user_message)
+            ),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no",
+            },
+        )
+
+    agent = _get_agent()
+    logger.info("[sending] openai - streaming via LangGraph Agent (SMART)")
+
     return StreamingResponse(
-        token_generator(),
+        _sse_stream_generator(
+            stream_id,
+            created,
+            request.model,
+            agent.stream_message(session_id=session_id, user_message=user_message),
+        ),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
