@@ -4,6 +4,7 @@ from langchain_ollama import ChatOllama
 
 from app.agent.state import AgentState
 from app.config.settings import settings
+from app.memory.memory_service import MemoryService
 
 SYSTEM_PROMPT = """Você é um assistente pessoal inteligente com acesso ao Vault Obsidian do usuário.
 
@@ -14,9 +15,14 @@ Ferramentas disponíveis:
 - delete_note(path): Remove uma nota
 - list_notes(folder): Lista notas por pasta (vazio para todas)
 - search_notes(query): Busca notas por palavra-chave
+- save_conversation(summary, user_message, assistant_response): Salva um resumo de conversa como memoria de longo prazo
 
 Use as ferramentas quando o usuário solicitar explicitamente ações de memória.
-Prefira responder diretamente quando tiver contexto suficiente."""
+Prefira responder diretamente quando tiver contexto suficiente.
+
+Comandos especiais:
+- "salve esta conversa" ou "guarde isto" -> use save_conversation
+- "atualize esta nota" -> use search_notes + read_note + update_note"""
 
 _llm = ChatOllama(
     model=settings.OLLAMA_MODEL, base_url=settings.OLLAMA_BASE_URL
@@ -32,6 +38,11 @@ def planner(state: AgentState) -> dict:
     system_with_context = SYSTEM_PROMPT
     if context_text:
         system_with_context += f"\n\nContexto recuperado do Vault:\n{context_text}"
+
+    memory = MemoryService()
+    preferences = memory.get_preferences()
+    if preferences:
+        system_with_context += f"\n\nPreferencias do usuario:\n{preferences}"
 
     messages = [SystemMessage(content=system_with_context)] + state["messages"]
     response = _llm.invoke(messages)
