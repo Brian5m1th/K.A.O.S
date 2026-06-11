@@ -85,6 +85,7 @@ async def root() -> dict:
             "openai": "/v1/chat/completions",
             "models": "/v1/models",
             "indexing": "/indexing/full",
+            "init_folders": "/indexing/init-folders",
             "rag_context": "/rag/context",
         },
     }

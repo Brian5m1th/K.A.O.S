@@ -1,6 +1,7 @@
 from loguru import logger
 from fastapi import APIRouter
 
+from app.obsidian.vault_init import create_vault_structure
 from app.rag.indexer.vault_indexer import VaultIndexer
 
 router = APIRouter(prefix="/indexing", tags=["Indexing"])
@@ -17,3 +18,11 @@ async def full_reindex() -> dict:
     result = indexer.index_vault()
     logger.debug("[finish] indexing - full_reindex")
     return result
+
+
+@router.post("/init-folders")
+async def init_vault_folders() -> dict:
+    logger.info("[start] indexing - init_vault_folders")
+    created = create_vault_structure()
+    logger.debug("[finish] indexing - init_vault_folders")
+    return {"created": created, "total": len(created)}
