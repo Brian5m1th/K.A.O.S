@@ -31,7 +31,8 @@ _llm = ChatOllama(
 
 
 def planner(state: AgentState) -> dict:
-    logger.info("[start] planner")
+    user_id = state.get("user_id", "")
+    logger.info(f"[start] planner [user={user_id}]")
     context_text = "\n\n".join(
         f"[{c['path']}]\n{c['content']}"
         for c in state.get("retrieved_context", [])
@@ -41,7 +42,7 @@ def planner(state: AgentState) -> dict:
         system_with_context += f"\n\nContexto recuperado do Vault:\n{context_text}"
 
     memory = MemoryService()
-    preferences = memory.get_preferences()
+    preferences = memory.get_preferences(user_id)
     if preferences:
         system_with_context += f"\n\nPreferencias do usuario:\n{preferences}"
 
@@ -50,7 +51,7 @@ def planner(state: AgentState) -> dict:
 
     if hasattr(response, "tool_calls") and response.tool_calls:
         tool_call = response.tool_calls[0]
-        logger.info(f"[info] planner - ferramenta: {tool_call['name']}")
+        logger.info(f"[info] planner - ferramenta: {tool_call['name']} [user={user_id}]")
         logger.debug("[finish] planner")
         return {
             "tool_to_call": tool_call["name"],

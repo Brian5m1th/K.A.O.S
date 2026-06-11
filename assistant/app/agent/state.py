@@ -11,3 +11,6 @@ class AgentState(TypedDict):
     tool_args: dict
     tool_result: dict | None
     session_id: str
+    user_id: str
+    username: str
+    role: str
