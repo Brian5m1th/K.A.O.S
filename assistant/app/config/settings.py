@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    APP_NAME: str = "AI Assistant"
+    APP_NAME: str = "K.A.O.S"
     APP_ENV: str = "development"
     APP_PORT: int = 8000
     LOG_LEVEL: str = "INFO"
@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     QDRANT_PORT: int = 6333
     QDRANT_COLLECTION: str = "obsidian_memory"
 
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/ai_assistant"
+    DATABASE_URL: str = "postgresql://user:password@localhost:5432/kaos"
 
 
 settings = Settings()

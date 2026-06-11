@@ -1,9 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
 chcp 65001 >nul
-title AI Assistant - Setup Ollama
+title K.A.O.S - Setup Ollama
 
-echo === Setup do Ambiente - AI Assistant ===
+echo === Setup do Ambiente - K.A.O.S ===
 echo.
 
 where ollama >nul 2>&1

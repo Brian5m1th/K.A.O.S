@@ -3,7 +3,7 @@ set -euo pipefail
 
 MODEL="${1:-qwen3:14b}"
 
-echo "=== Setup do Ambiente - AI Assistant ==="
+echo "=== Setup do Ambiente - K.A.O.S ==="
 
 # --- Ollama ---
 if ! command -v ollama &>/dev/null; then

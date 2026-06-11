@@ -22,4 +22,11 @@ Thumbs.db
 # Docker
 pgdata/
 qdrant_storage/
-.idea/
+
+# Java / Spring Boot (backend)
+backend/target/
+backend/build/
+backend/*.jar
+backend/.gradle/
+backend/.mvn/
+backend/node_modules/

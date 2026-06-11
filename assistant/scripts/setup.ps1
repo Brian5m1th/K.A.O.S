@@ -4,7 +4,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "=== Setup do Ambiente - AI Assistant ===" -ForegroundColor Cyan
+Write-Host "=== Setup do Ambiente - K.A.O.S ===" -ForegroundColor Cyan
 
 # --- Ollama ---
 $ollamaPath = "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe"
