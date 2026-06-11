@@ -1,19 +1,47 @@
 Source: Notas no ClickUp
-Tags: #langgraph #agente #fluxo #fastapi
+Tags: #langgraph #agente #fluxo #fastapi #proxy #openai
 Related: [[index]] [[01_estrutura_pastas]] [[sdd_obsidian_memoria]] [[04_integracoes]]
 
 # Fluxo de Dados e Ciclo de Vida do Agente
 
-Esta nota documenta o caminho que uma mensagem percorre desde o envio pelo usuário (no Open WebUI) até a geração da resposta enriquecida, passando pelo LangGraph, RAG e execução de ferramentas.
+Esta nota documenta os dois caminhos que uma mensagem percorre: via **proxy OpenAI** (fluxo principal do Open WebUI) e via **API direta** (fluxo do LangGraph com ferramentas).
 
 ---
 
-## 🔄 Fluxo de Requisição de Chat
+## 🟢 Fluxo Principal — Proxy OpenAI (/v1/chat/completions)
+
+Usado pelo Open WebUI. O FastAPI atua como um proxy compatível com a API da OpenAI.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor User as Usuário (Open WebUI)
+    participant OWUI as Open WebUI
+    participant PROXY as FastAPI (/v1/chat/completions)
+    participant LLM as LLMService
+    participant OLLAMA as Ollama (qwen3:4b)
+
+    User->>OWUI: Digita mensagem
+    OWUI->>PROXY: POST /v1/chat/completions
+    Note over PROXY: Injeta system prompt do K.A.O.S.
+    PROXY->>LLM: stream_chat(messages)
+    LLM->>OLLAMA: POST /api/chat (stream)
+    OLLAMA-->>LLM: Stream de tokens
+    LLM-->>PROXY: Tokens
+    PROXY-->>OWUI: SSE stream (formato OpenAI)
+    OWUI-->>User: Exibe resposta em tempo real
+```
+
+---
+
+## 🔵 Fluxo Interno — API Direta com LangGraph
+
+Usado para requisições que exigem ferramentas (Obsidian, RAG, etc.)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Usuário (API)
     participant API as Controller (FastAPI)
     participant SVC as AgentService (Service)
     participant RAG as RagService (Service)
@@ -32,7 +60,7 @@ sequenceDiagram
         GRAPH->>LLM: Analisar Estado + Decidir Ação (Tool Call ou Responder)
         LLM-->>GRAPH: Decisão (Chamar ferramenta X ou gerar resposta final)
         alt Chamar Ferramenta
-            GRAPH->>GRAPH: Executar Tool Interna (Ex: Docker/N8N)
+            GRAPH->>GRAPH: Executar Tool Interna (Ex: Obsidian)
             GRAPH->>GRAPH: Atualizar Estado com Resultado da Tool
         else Responder
             GRAPH->>GRAPH: Gerar Mensagem Final
@@ -47,44 +75,7 @@ sequenceDiagram
 
 ---
 
-## 🧠 Ciclo de Vida do Grafo do Agente (LangGraph)
-
-O Grafo do Agente é estruturado para tomar decisões dinâmicas baseadas em loops de feedback.
-
-```mermaid
-stateDiagram-v2
-    [*] --> START
-    START --> RETRIEVE_CONTEXT : Injetar contexto RAG do Obsidian
-    RETRIEVE_CONTEXT --> CALL_PLANNER : Invocar Planner (LLM)
-    
-    state CALL_PLANNER {
-        [*] --> AnalisarObjetivo
-        AnalisarObjetivo --> DecidirAcao
-    }
-    
-    CALL_PLANNER --> EXECUTE_TOOLS : Decidiu usar Ferramentas
-    CALL_PLANNER --> GENERATE_RESPONSE : Contexto suficiente para responder
-    
-    state EXECUTE_TOOLS {
-        [*] --> ExecutarTool
-        ExecutarTool --> GravarResultadoNoEstado
-    }
-    
-    EXECUTE_TOOLS --> CALL_PLANNER : Retornar resultado e planejar próximo passo
-    
-    GENERATE_RESPONSE --> WRITE_TO_HISTORY : Persistir interação
-    WRITE_TO_HISTORY --> [*]
-```
-
-### Nós do Grafo (Nodes)
-
-1. **`retrieve_context`**: Consulta o `VectorStoreRepository` no Qdrant para puxar notas recentes do Obsidian vinculadas ao tema da conversa.
-2. **`planner`**: O LLM local processa o input do usuário juntamente com o contexto recuperado. Avalia se precisa rodar alguma ferramenta (como pesquisar arquivos locais, disparar automação no N8N, ou executar comandos docker).
-3. **`execute_tools`**: Roda a ferramenta selecionada de forma isolada, coletando os retornos e armazenando de forma estruturada no `State`.
-4. **`generate`**: Finaliza o raciocínio montando a resposta final em formato amigável (markdown).
-
----
-
 ## 🔗 Relação com outras Notas
-- Para entender as ferramentas disponíveis na execução do grafo, veja [[04_integracoes]].
-- Para ver os detalhes de persistência das tabelas do Postgres e Qdrant, acesse [[03_infraestrutura_docker]].
+- [[sdd_arquitetura_orquestracao]] — SDD detalhada do proxy gateway
+- [[04_integracoes]] — Ferramentas disponíveis na execução do grafo
+- [[03_infraestrutura_docker]] — Detalhes de persistência das tabelas

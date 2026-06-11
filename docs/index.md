@@ -36,8 +36,9 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | [[sdd_obsidian_watcher\|SDD — File Watcher & Indexer]] | Monitoramento do vault e pipeline de indexação |
 | [[sdd_obsidian_rag\|SDD — Vector Search & RAG]] | Embeddings, Qdrant e recuperação semântica |
 | [[sdd_obsidian_tools\|SDD — Schemas das Ferramentas]] | Tools do LangGraph para manipular notas |
-| [[sdd_roadmap\|SDD — Roadmap Inicial]] | 8 fases de evolução da plataforma com critérios de sucesso |
-| [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo: ai-assistant, ai-backend, ai-infra |
+| [[sdd_roadmap\|SDD — Roadmap Inicial]] | 8 fases de evolução da plataforma |
+| [[sdd_arquitetura_orquestracao\|SDD — Proxy OpenAI & Gateway]] | Arquitetura do proxy /v1/chat/completions |
+| [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo |
 
 ---
 
@@ -45,11 +46,11 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 
 | Nota | Fase | Conteúdo |
 | :--- | :---: | :--- |
-| [[sdd_fase1_fundacao\|SDD — Fase 1: Fundação]] | 1 | `pyproject.toml`, FastAPI, Settings, Logs, Docker Compose base |
-| [[sdd_fase2_ia_local\|SDD — Fase 2: IA Local]] | 2 | `LLMService`, Ollama, Streaming, Open WebUI |
+| [[sdd_fase1_fundacao\|SDD — Fase 1: Fundação]] | 1 ✅ | `pyproject.toml`, FastAPI, Settings, Logs, Docker Compose |
+| [[sdd_fase2_ia_local\|SDD — Fase 2: IA Local]] | 2 ✅ | LLMService, Ollama, Proxy OpenAI, Qwen3:4b, Open WebUI |
 | [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 | CRUD de notas, 5 Tools LangGraph, Testes unitários |
 | [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 | Embedder, Chunking, Indexer, Retriever, Watchdog |
-| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 | AgentState, Grafo, Planner, Executor, Memória de longo prazo |
+| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 | AgentState, Grafo, Planner, Executor, Memória |
 
 ---
 
@@ -85,6 +86,9 @@ graph TD
     EP --> INF
     FD --> INT
     FD --> INF
+
+    VG --> ORQ[[sdd_arquitetura_orquestracao]]
+    ORQ --> FD
 ```
 
 ---
@@ -99,14 +103,18 @@ graph TD
 
 ## ✅ TODOs e Próximos Passos
 
-- [ ] **[[03_infraestrutura_docker]]** — Detalhar Docker Compose (PostgreSQL, Qdrant, FastAPI, Open WebUI)
-- [ ] **[[04_integracoes]]** — Documentar integração N8N webhooks e watcher do Obsidian
-- [ ] Implementar `app/agent/graph.py` — Grafo LangGraph com nós definidos em [[02_fluxo_dados]]
-- [ ] Implementar `app/tools/` — Ferramentas definidas em [[sdd_obsidian_tools]]
-- [ ] Implementar `app/rag/` — Pipeline RAG definido em [[sdd_obsidian_rag]]
-- [ ] Implementar `app/repository/vector_store.py` — Interface Qdrant
-- [ ] Configurar File Watcher conforme [[sdd_obsidian_watcher]]
-- [ ] Configurar modelos de embedding no Ollama (`bge-m3`)
+- [x] **Proxy OpenAI** — Endpoint `/v1/chat/completions` com streaming e system prompt
+- [x] **System Prompt K.A.O.S.** — Injeção automática em toda requisição do Open WebUI
+- [x] **CORS** — Configurado no FastAPI para aceitar requisições do container
+- [x] **Timeout 600s** — LLMService ajustado para modelos CPU lentos
+- [x] **app/agent/graph.py** — Grafo LangGraph com nós planner, executor, retrieve
+- [x] **app/obsidian/tools/** — Ferramentas CRUD de notas (create, read, update, delete, search)
+- [x] **app/rag/** — Pipeline RAG (embedder, chunking, indexer, retriever)
+- [x] **File Watcher** — Monitoramento do vault com watchdog
+- [ ] **[[03_infraestrutura_docker]]** — Detalhar Docker Compose
+- [ ] **[[04_integracoes]]** — Documentar integração N8N webhooks
+- [ ] **Conectar LangGraph ao endpoint de chat** — Rota completa com agente
+- [ ] **Configurar modelos de embedding** — `sentence-transformers/all-MiniLM-L6-v2`
 
 ---
 
