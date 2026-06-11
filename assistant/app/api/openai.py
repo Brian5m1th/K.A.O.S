@@ -2,15 +2,13 @@ import json
 import uuid
 from typing import AsyncIterator
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse, JSONResponse
 from loguru import logger
 from pydantic import BaseModel, Field
 
-from app.domain.chat import Message
-from app.service.llm_service import LLMService
 from app.config.settings import settings
-from app.config.prompts import SYSTEM_PROMPT_KAOS
+from app.service.agent_service import AgentService
 
 router = APIRouter(prefix="/v1", tags=["OpenAI"])
 legacy_router = APIRouter(tags=["Legacy"])
@@ -28,8 +26,8 @@ class ChatCompletionRequest(BaseModel):
     max_tokens: int = Field(default=4096, ge=1, le=32768)
 
 
-def get_llm_service() -> LLMService:
-    return LLMService()
+def _get_agent() -> AgentService:
+    return AgentService()
 
 
 def _models_response():
@@ -65,21 +63,25 @@ async def list_models():
 @router.post("/chat/completions")
 async def chat_completions(
     request: ChatCompletionRequest,
-    llm: LLMService = Depends(get_llm_service),
 ) -> StreamingResponse:
     logger.info("[start] openai - chat_completions")
-    messages = [Message(role="system", content=SYSTEM_PROMPT_KAOS)]
-    messages += [
-        Message(role=m.role, content=m.content)
-        for m in request.messages
-    ]
+    agent = _get_agent()
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     created = int(__import__("time").time())
-    logger.info("[sending] openai - streaming para LLMService")
+    session_id = stream_id
+
+    user_message = next(
+        (m.content for m in reversed(request.messages) if m.role == "user"),
+        request.messages[-1].content if request.messages else "",
+    )
+
+    logger.info("[sending] openai - streaming via LangGraph Agent")
 
     async def token_generator() -> AsyncIterator[str]:
         full_content = ""
-        async for token in llm.stream_chat(messages=messages):
+        async for token in agent.stream_message(
+            session_id=session_id, user_message=user_message
+        ):
             full_content += token
             chunk = {
                 "id": stream_id,
