@@ -12,6 +12,7 @@ Ferramentas disponíveis:
 - read_note(path): Lê o conteúdo de uma nota
 - update_note(path, content, mode): Atualiza uma nota (overwrite ou append)
 - delete_note(path): Remove uma nota
+- list_notes(folder): Lista notas por pasta (vazio para todas)
 - search_notes(query): Busca notas por palavra-chave
 
 Use as ferramentas quando o usuário solicitar explicitamente ações de memória.
