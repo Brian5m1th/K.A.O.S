@@ -7,10 +7,10 @@ from app.agent.state import AgentState
 
 class AgentService:
     async def process_message(
-        self, session_id: str, user_message: str
+        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user"
     ) -> str:
         logger.info("[start] AgentService - process_message")
-        logger.info(f"[info] AgentService - sessao {session_id}")
+        logger.info(f"[info] AgentService - sessao {session_id} [user={user_id}]")
 
         initial_state: AgentState = {
             "messages": [HumanMessage(content=user_message)],
@@ -19,6 +19,9 @@ class AgentService:
             "tool_args": {},
             "tool_result": None,
             "session_id": session_id,
+            "user_id": user_id,
+            "username": username,
+            "role": role,
         }
 
         final_state = await agent_graph.ainvoke(initial_state)
@@ -32,10 +35,10 @@ class AgentService:
         return result
 
     async def stream_message(
-        self, session_id: str, user_message: str
+        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user"
     ):
         logger.info("[start] AgentService - stream_message")
-        logger.info(f"[info] AgentService - sessao {session_id}")
+        logger.info(f"[info] AgentService - sessao {session_id} [user={user_id}]")
 
         initial_state: AgentState = {
             "messages": [HumanMessage(content=user_message)],
@@ -44,6 +47,9 @@ class AgentService:
             "tool_args": {},
             "tool_result": None,
             "session_id": session_id,
+            "user_id": user_id,
+            "username": username,
+            "role": role,
         }
 
         async for event in agent_graph.astream_events(
