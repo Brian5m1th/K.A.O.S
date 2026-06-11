@@ -4,13 +4,141 @@ Related: [[index]] [[01_estrutura_pastas]] [[sdd_obsidian_memoria]]
 
 # Fluxo de Dados e Ciclo de Vida do Agente
 
-Esta nota documenta os dois caminhos que uma mensagem percorre: via **proxy OpenAI** (fluxo principal do Open WebUI) e via **API direta** (fluxo do LangGraph com ferramentas).
+Esta nota documenta os caminhos que uma mensagem percorre, incluindo o **roteamento inteligente** (FAST/MEMORY/SMART).
 
 ---
 
-## Fluxo Principal — Proxy OpenAI (/v1/chat/completions)
+## Visão Geral do Roteamento
 
-Usado pelo Open WebUI. O FastAPI atua como um proxy compatível com a API da OpenAI, roteando via LangGraph Agent.
+Toda mensagem passa pelo `IntentClassifier` antes de ser processada:
+
+1. **FAST** → execução direta de tools (sem LLM, sem RAG, sem LangGraph)
+2. **MEMORY** → RAG + LLM (sem LangGraph)
+3. **SMART** → LangGraph completo (planner + executor + tools)
+
+```
+
+                                 ┌─────────────┐
+                                 │  Mensagem    │
+                                 └──────┬──────┘
+                                        │
+                                 ┌──────▼──────┐
+                                 │   Cache     │
+                                 │  (hit? retorna) │
+                                 └──────┬──────┘
+                                        │
+                                 ┌──────▼──────────┐
+                                 │ IntentClassifier │
+                                 │  keyword + LLM   │
+                                 └──────┬──────────┘
+                                        │
+                    ┌───────────────────┼───────────────────┐
+                    │                   │                   │
+              ┌─────▼─────┐     ┌──────▼──────┐     ┌─────▼──────┐
+              │   FAST     │     │   MEMORY    │     │   SMART     │
+              │ (tool sem  │     │ (RAG + LLM  │     │ (LangGraph  │
+              │  LLM/RAG)  │     │  sem tools) │     │  completo)  │
+              └─────┬─────┘     └──────┬──────┘     └─────┬──────┘
+                    │                  │                  │
+              ┌─────▼─────┐     ┌──────▼──────┐     ┌─────▼──────┐
+              │  Tool      │     │  Qdrant     │     │  AgentService│
+              │  Registry  │     │  + Ollama   │     │  (LangGraph)│
+              └───────────┘     └─────────────┘     └────────────┘
+```
+
+---
+
+## Fluxo FAST — Execução Direta de Tools
+
+Usado para comandos diretos que não precisam de conhecimento do vault nem raciocínio complexo.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Usuário
+    participant API as FastAPI
+    participant CLASS as IntentClassifier
+    participant FAST as FastRouter
+    participant TOOL as Tool Registry
+
+    User->>API: "liste minhas notas"
+    API->>CLASS: classify("liste minhas notas")
+    CLASS-->>API: FAST
+    API->>FAST: fast_route("liste minhas notas")
+    FAST->>TOOL: list_notes()
+    TOOL-->>FAST: resultado
+    FAST-->>API: resposta
+    API-->>User: "3 notas encontradas"
+```
+
+---
+
+## Fluxo MEMORY — RAG + LLM sem LangGraph
+
+Usado para perguntas que precisam de contexto do Vault mas não exigem ferramentas ou raciocínio multi-passo.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Usuário
+    participant API as FastAPI
+    participant CLASS as IntentClassifier
+    participant MEM as MemoryRouter
+    participant RAG as Qdrant
+    participant LLM as Ollama
+
+    User->>API: "o que existe no backlog?"
+    API->>CLASS: classify(...)
+    CLASS-->>API: MEMORY
+    API->>MEM: stream(query)
+    MEM->>RAG: search(query, limit=5)
+    RAG-->>MEM: chunks relevantes
+    MEM->>LLM: system + contexto + pergunta
+    LLM-->>MEM: stream de tokens
+    MEM-->>API: tokens
+    API-->>User: resposta fundamentada
+```
+
+---
+
+## Fluxo SMART — LangGraph Completo
+
+Usado para perguntas complexas que exigem planejamento, múltiplas ferramentas ou raciocínio encadeado.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Usuário
+    participant API as FastAPI
+    participant SVC as SmartRouter (AgentService)
+    participant GRAPH as LangGraph
+    participant LLM as Ollama
+
+    User->>API: "compare projetos X e Y"
+    API->>CLASS: classify(...)
+    CLASS-->>API: SMART
+    API->>SVC: stream(session_id, mensagem)
+    SVC->>GRAPH: astream_events(initial_state)
+    
+    loop LangGraph Loop
+        GRAPH->>GRAPH: retrieve_context
+        GRAPH->>LLM: planner
+        LLM-->>GRAPH: decisão
+        alt tool call
+            GRAPH->>GRAPH: executor
+        end
+    end
+    
+    GRAPH-->>SVC: eventos
+    SVC-->>API: tokens
+    API-->>User: resposta
+```
+
+---
+
+## Fluxo Proxy OpenAI (/v1/chat/completions)
+
+Usado pelo Open WebUI. O FastAPI atua como proxy compatível com OpenAI, com o mesmo roteamento inteligente.
 
 ```mermaid
 sequenceDiagram
@@ -18,56 +146,19 @@ sequenceDiagram
     actor User as Usuário (Open WebUI)
     participant OWUI as Open WebUI
     participant PROXY as FastAPI (/v1/chat/completions)
-    participant AGENT as AgentService (LangGraph)
-    participant RAG as RAG Pipeline
-    participant LLM as Ollama (qwen3:4b)
+    participant CLASS as IntentClassifier
+    participant LLM as Ollama
 
     User->>OWUI: Digita mensagem
     OWUI->>PROXY: POST /v1/chat/completions
-    PROXY->>AGENT: stream_message(session_id, mensagem)
-    AGENT->>RAG: retrieve_context (busca semântica no Qdrant)
-    RAG-->>AGENT: Chunks relevantes do Vault
-    AGENT->>LLM: planner + resposta (ChatOllama)
-    LLM-->>AGENT: Stream de tokens
-    AGENT-->>PROXY: Tokens via astream_events
+    PROXY->>CLASS: classify(mensagem)
+    CLASS-->>PROXY: MEMORY/SMART
+    PROXY->>PROXY: roteia para router adequado
+    router->>LLM: processa
+    LLM-->>router: stream
+    router-->>PROXY: tokens
     PROXY-->>OWUI: SSE stream (formato OpenAI)
-    OWUI-->>User: Exibe resposta em tempo real
-```
-
----
-
-## Fluxo Interno — API Direta com LangGraph
-
-Usado para requisições diretas, executando o grafo completo (RAG + tools).
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User as Usuário (API)
-    participant API as Controller (FastAPI)
-    participant SVC as AgentService (Service)
-    participant GRAPH as LangGraph Engine (Agent)
-    participant LLM as Ollama Server (Local)
-
-    User->>API: POST /api/chat/message
-    API->>SVC: stream_message(session_id, prompt)
-    SVC->>GRAPH: astream_events(initial_state)
-    
-    loop Ciclo do Grafo (LangGraph Loop)
-        GRAPH->>GRAPH: retrieve_context (busca RAG no Qdrant)
-        GRAPH->>LLM: planner (decide: tool ou resposta)
-        LLM-->>GRAPH: Decisão
-        alt Chamar Ferramenta
-            GRAPH->>GRAPH: executor + tool (create, read, update, etc.)
-            GRAPH->>GRAPH: Atualizar Estado
-        else Responder
-            GRAPH->>GRAPH: Gerar Mensagem Final
-        end
-    end
-    
-    GRAPH-->>SVC: Stream de eventos (on_chat_model_stream)
-    SVC-->>API: Tokens
-    API-->>User: Exibe resposta em tempo real
+    OWUI-->>User: Exibe resposta
 ```
 
 ---
