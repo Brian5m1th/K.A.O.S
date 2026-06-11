@@ -8,6 +8,7 @@ from app.obsidian.tools.delete_note_tool import delete_note
 from app.obsidian.tools.search_notes_tool import search_notes
 from app.obsidian.tools.list_notes_tool import list_notes
 from app.obsidian.tools.save_conversation_tool import save_conversation
+from app.obsidian.tools.list_projects_tool import list_projects
 
 TOOL_REGISTRY: dict = {
     "create_note": create_note,
@@ -16,6 +17,7 @@ TOOL_REGISTRY: dict = {
     "delete_note": delete_note,
     "search_notes": search_notes,
     "list_notes": list_notes,
+    "list_projects": list_projects,
     "save_conversation": save_conversation,
 }
 

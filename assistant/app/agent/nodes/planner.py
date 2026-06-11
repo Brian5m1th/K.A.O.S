@@ -15,6 +15,7 @@ Ferramentas disponíveis:
 - delete_note(path): Remove uma nota
 - list_notes(folder): Lista notas por pasta (vazio para todas)
 - search_notes(query): Busca notas por palavra-chave
+- list_projects(): Lista projetos no Vault (pastas com notas)
 - save_conversation(summary, user_message, assistant_response): Salva um resumo de conversa como memoria de longo prazo
 
 Use as ferramentas quando o usuário solicitar explicitamente ações de memória.
