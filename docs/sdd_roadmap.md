@@ -1,182 +1,130 @@
-Source: Notas no ClickUp
-Tags: #sdd #roadmap #ia-pessoal #obsidian #langgraph #fases
-Related: [[index]] [[00_visao_geral]] [[sdd_obsidian_memoria]] [[sdd_obsidian_rag]] [[sdd_obsidian_tools]] [[sdd_obsidian_watcher]] [[estrategia_repositorios]]
+Source: K.A.O.S Project
+Tags: #sdd #roadmap #fases
+Related: [[index]] [[00_visao_geral]] [[backlog]]
 
-# SDD — Roadmap Inicial da IA Offline com Obsidian
+# SDD — Roadmap do K.A.O.S
 
 ## Objetivo
 
-Construir uma assistente de IA pessoal capaz de operar offline utilizando conhecimento armazenado em um Vault Obsidian e executar integrações externas através do N8N.
+Construir uma assistente de IA pessoal capaz de operar offline utilizando conhecimento armazenado em um Vault Obsidian e executar integracoes externas atraves do N8N.
 
 ---
 
 ## Arquitetura Alvo
 
 ```text
-Usuário
- ↓
 Open WebUI
- ↓
-FastAPI
- ↓
-LangGraph
- ↓
-Obsidian
- ↓
-Qdrant
- ↓
-N8N
+  ↓
+FastAPI (proxy OpenAI + LangGraph)
+  ↓
+LangGraph (orquestrador)
+  ↓
+Obsidian (memoria) ←→ Qdrant (RAG)
+  ↓
+N8N (automacao externa)
 ```
 
 ---
 
-## Fase 1 — Fundação
+## Fase 1 — Fundacao ✅
 
-### Entregáveis
+### Entregaveis
+- Python 3.13 + uv
+- FastAPI com health check
+- Docker Compose (Postgres, Qdrant, Open WebUI)
+- Logs com loguru
 
-* Python 3.13
-* FastAPI
-* Docker
-* Open WebUI
-* Ollama
-* Qwen3
-
-### Critério de Sucesso
-
-Usuário consegue conversar com a IA localmente.
+### Status
+Aplicacao sobe e responde `GET /health` com 200 OK.
 
 ---
 
-## Fase 2 — Integração com Obsidian
+## Fase 2 — IA Local ✅
 
-### Entregáveis
+### Entregaveis
+- LLMService (comunicacao com Ollama)
+- Proxy OpenAI `/v1/chat/completions`
+- System prompt do K.A.O.S
+- CORS configurado
 
-* ObsidianService
-* ReadNoteTool
-* SearchNotesTool
-* CreateNoteTool
-
-### Critério de Sucesso
-
-A IA consegue:
-
-* Ler notas
-* Criar notas
-* Atualizar notas
+### Status
+Open WebUI conversa com a IA local via proxy OpenAI.
 
 ---
 
-## Fase 3 — Organização do Conhecimento
+## Fase 3 — Integracao com Obsidian ✅
 
-### Estrutura
+### Entregaveis
+- ObsidianService (CRUD de notas)
+- 7 ferramentas LangChain (create, read, update, delete, search, list, save_conversation)
+- Testes unitarios
 
-```text
-Vault/
-
-├── Projetos
-├── Arquitetura
-├── SDD
-├── Estudos
-├── IA
-├── Java
-├── Python
-├── AWS
-├── CI-CD
-└── Diário
-```
-
-### Critério de Sucesso
-
-A IA categoriza conteúdos automaticamente.
+### Status
+IA consegue ler, criar, atualizar, deletar e buscar notas no Vault.
 
 ---
 
-## Fase 4 — Busca Semântica
+## Fase 4 — Busca Semantica (RAG) ✅
+
+### Entregaveis
+- Qdrant para armazenamento vetorial
+- Embeddings BGE-M3 (1024 dim)
+- Chunking Markdown com overlap
+- Indexador automatico
+- Retriever semantico
+
+### Status
+IA recupera contexto relevante do Vault por similaridade semantica.
+
+---
+
+## Fase 5 — Atualizacao Automatica ✅
+
+### Entregaveis
+- Watchdog monitorando o vault
+- Reindexacao automatica em create/modify/delete/move
+- Testes do watcher
+
+### Status
+Alteracoes no Obsidian sao automaticamente refletidas no Qdrant.
+
+---
+
+## Fase 6 — Agentes (LangGraph) ✅
+
+### Entregaveis
+- Grafo LangGraph (retrieve -> planner -> executor)
+- Tool Registry com 7 ferramentas
+- Streaming real via astream_events
+- Integracao com endpoint de chat e proxy OpenAI
+
+### Status
+IA escolhe ferramentas autonomamente e responde com contexto RAG.
+
+---
+
+## Fase 7 — Memoria de Longo Prazo ✅
+
+### Entregaveis
+- MemoryService (preferencias, conversas)
+- save_conversation tool
+- Preferencias injetadas no contexto do planner
+- Comandos semanticos ("salve esta conversa", "atualize esta nota")
+
+### Status
+IA adapta respostas com base no historico e preferencias armazenadas.
+
+---
+
+## Fase 8 — Integracoes ⬜
 
 ### Tecnologias
+- N8N
+- GitHub
+- Email
+- AWS
 
-* Qdrant
-* Sentence Transformers
-
-### Critério de Sucesso
-
-A IA encontra informações por significado e não apenas por palavras-chave.
-
----
-
-## Fase 5 — Atualização Automática
-
-### Tecnologias
-
-* Watchdog
-
-### Critério de Sucesso
-
-Alterações realizadas no Obsidian são automaticamente reindexadas.
-
----
-
-## Fase 6 — Agentes
-
-### Tecnologias
-
-* LangGraph
-
-### Critério de Sucesso
-
-A IA escolhe ferramentas autonomamente.
-
----
-
-## Fase 7 — Memória de Longo Prazo
-
-### Funcionalidades
-
-* Preferências
-* Projetos
-* Arquiteturas
-* Estudos
-* Conversas importantes
-
-### Critério de Sucesso
-
-A IA adapta respostas com base no histórico armazenado.
-
----
-
-## Fase 8 — Integrações
-
-### Tecnologias
-
-* N8N
-* GitHub
-* Email
-* AWS
-
-### Critério de Sucesso
-
-A IA executa ações reais em sistemas externos.
-
----
-
-## Próximas Tarefas
-
-- [ ] Configurar caminho do Vault
-- [ ] Implementar ObsidianService
-- [ ] Ler primeira nota
-- [ ] Criar primeira nota
-- [ ] Implementar busca textual
-- [ ] Preparar integração com Qdrant
-
----
-
-## Visão Final
-
-A plataforma deverá funcionar como um sistema de memória pessoal inteligente onde:
-
-* Obsidian armazena conhecimento.
-* Qdrant armazena contexto semântico.
-* LangGraph coordena agentes.
-* Ollama executa modelos locais.
-* N8N executa ações externas.
-* Spring Boot concentra regras de negócio.
+### Proximos Passos
+- Subir N8N via Docker Compose
+- Criar webhooks de automacao
+- Integrar ferramentas externas ao Tool Registry

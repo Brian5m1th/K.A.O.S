@@ -40,6 +40,6 @@ kaos-platform/
 ## 3. Diretrizes Arquiteturais do K.A.O.S
 
 1.  **Memória Principal**: Obsidian Vault via acesso filesystem e RAG (Qdrant).
-2.  **Inteligência e Orquestração**: LangGraph + Ollama (`qwen3:14b`).
+2.  **Inteligência e Orquestração**: LangGraph + Ollama (`qwen3:4b`).
 3.  **Execução Externa**: Toda automação e integrações com o mundo online (ex: GitHub, Email) serão passadas para o **N8N** via webhooks.
 4.  **Regras de Negócio**: Qualquer regra estrita e controle transacional persistente no PostgreSQL deverá ser alocado no módulo **Spring Boot**, evitando poluição no Python do K.A.O.S.

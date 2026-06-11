@@ -1,6 +1,6 @@
 Source: Notas no ClickUp
 Tags: #langgraph #agente #fluxo #fastapi #proxy #openai
-Related: [[index]] [[01_estrutura_pastas]] [[sdd_obsidian_memoria]] [[04_integracoes]]
+Related: [[index]] [[01_estrutura_pastas]] [[sdd_obsidian_memoria]]
 
 # Fluxo de Dados e Ciclo de Vida do Agente
 
@@ -8,9 +8,9 @@ Esta nota documenta os dois caminhos que uma mensagem percorre: via **proxy Open
 
 ---
 
-## 🟢 Fluxo Principal — Proxy OpenAI (/v1/chat/completions)
+## Fluxo Principal — Proxy OpenAI (/v1/chat/completions)
 
-Usado pelo Open WebUI. O FastAPI atua como um proxy compatível com a API da OpenAI.
+Usado pelo Open WebUI. O FastAPI atua como um proxy compatível com a API da OpenAI, roteando via LangGraph Agent.
 
 ```mermaid
 sequenceDiagram
@@ -18,25 +18,27 @@ sequenceDiagram
     actor User as Usuário (Open WebUI)
     participant OWUI as Open WebUI
     participant PROXY as FastAPI (/v1/chat/completions)
-    participant LLM as LLMService
-    participant OLLAMA as Ollama (qwen3:4b)
+    participant AGENT as AgentService (LangGraph)
+    participant RAG as RAG Pipeline
+    participant LLM as Ollama (qwen3:4b)
 
     User->>OWUI: Digita mensagem
     OWUI->>PROXY: POST /v1/chat/completions
-    Note over PROXY: Injeta system prompt do K.A.O.S.
-    PROXY->>LLM: stream_chat(messages)
-    LLM->>OLLAMA: POST /api/chat (stream)
-    OLLAMA-->>LLM: Stream de tokens
-    LLM-->>PROXY: Tokens
+    PROXY->>AGENT: stream_message(session_id, mensagem)
+    AGENT->>RAG: retrieve_context (busca semântica no Qdrant)
+    RAG-->>AGENT: Chunks relevantes do Vault
+    AGENT->>LLM: planner + resposta (ChatOllama)
+    LLM-->>AGENT: Stream de tokens
+    AGENT-->>PROXY: Tokens via astream_events
     PROXY-->>OWUI: SSE stream (formato OpenAI)
     OWUI-->>User: Exibe resposta em tempo real
 ```
 
 ---
 
-## 🔵 Fluxo Interno — API Direta com LangGraph
+## Fluxo Interno — API Direta com LangGraph
 
-Usado para requisições que exigem ferramentas (Obsidian, RAG, etc.)
+Usado para requisições diretas, executando o grafo completo (RAG + tools).
 
 ```mermaid
 sequenceDiagram
@@ -44,38 +46,31 @@ sequenceDiagram
     actor User as Usuário (API)
     participant API as Controller (FastAPI)
     participant SVC as AgentService (Service)
-    participant RAG as RagService (Service)
-    participant DB as PostgresRepo (Repository)
     participant GRAPH as LangGraph Engine (Agent)
     participant LLM as Ollama Server (Local)
 
-    User->>API: POST /api/chat/message (DTO)
-    API->>SVC: process_message(session_id, prompt)
-    SVC->>DB: Recuperar histórico de chat & estado anterior
-    SVC->>RAG: search_relevant_context(prompt)
-    RAG-->>SVC: Retorna Chunks Relevantes (Obsidian)
-    SVC->>GRAPH: Inicializar Grafo com (Estado + Contexto + Histórico)
+    User->>API: POST /api/chat/message
+    API->>SVC: stream_message(session_id, prompt)
+    SVC->>GRAPH: astream_events(initial_state)
     
     loop Ciclo do Grafo (LangGraph Loop)
-        GRAPH->>LLM: Analisar Estado + Decidir Ação (Tool Call ou Responder)
-        LLM-->>GRAPH: Decisão (Chamar ferramenta X ou gerar resposta final)
+        GRAPH->>GRAPH: retrieve_context (busca RAG no Qdrant)
+        GRAPH->>LLM: planner (decide: tool ou resposta)
+        LLM-->>GRAPH: Decisão
         alt Chamar Ferramenta
-            GRAPH->>GRAPH: Executar Tool Interna (Ex: Obsidian)
-            GRAPH->>GRAPH: Atualizar Estado com Resultado da Tool
+            GRAPH->>GRAPH: executor + tool (create, read, update, etc.)
+            GRAPH->>GRAPH: Atualizar Estado
         else Responder
             GRAPH->>GRAPH: Gerar Mensagem Final
         end
     end
     
-    GRAPH-->>SVC: Retorna Resposta Final e Novo Estado
-    SVC->>DB: Salvar nova mensagem & estado atualizado
-    SVC-->>API: Envia stream da resposta
+    GRAPH-->>SVC: Stream de eventos (on_chat_model_stream)
+    SVC-->>API: Tokens
     API-->>User: Exibe resposta em tempo real
 ```
 
 ---
 
-## 🔗 Relação com outras Notas
+## Relacao com outras Notas
 - [[sdd_arquitetura_orquestracao]] — SDD detalhada do proxy gateway
-- [[04_integracoes]] — Ferramentas disponíveis na execução do grafo
-- [[03_infraestrutura_docker]] — Detalhes de persistência das tabelas

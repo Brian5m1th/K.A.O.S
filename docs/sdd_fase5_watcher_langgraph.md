@@ -22,19 +22,19 @@ Implementar o orquestrador central de inteligência da plataforma usando LangGra
 
 ## Tarefas — Fase 6 (Agente LangGraph)
 
-- [ ] Instalar LangGraph (`uv add langgraph`)
-- [ ] Criar `AgentState` (`app/agent/state.py`)
-- [ ] Criar grafo principal (`app/agent/graph.py`)
-- [ ] Criar Tool Registry com ferramentas do Obsidian
-- [ ] Implementar nó `planner`
-- [ ] Implementar nó `executor`
+- [x] Instalar LangGraph (`uv add langgraph`)
+- [x] Criar `AgentState` (`app/agent/state.py`)
+- [x] Criar grafo principal (`app/agent/graph.py`)
+- [x] Criar Tool Registry com 7 ferramentas do Obsidian + memória
+- [x] Implementar nó `planner`
+- [x] Implementar nó `executor`
 
 ## Tarefas — Fase 7 (Memória de Longo Prazo)
 
-- [ ] Criar memória de preferências
-- [ ] Criar memória de projetos
-- [ ] Implementar comando "salve esta conversa"
-- [ ] Implementar comando "atualize esta nota"
+- [x] Criar memória de preferências (`app/memory/memory_service.py`)
+- [x] Criar memória de projetos
+- [x] Implementar comando "salve esta conversa" (`save_conversation` tool)
+- [x] Implementar comando "atualize esta nota" (search + update)
 
 ---
 
@@ -49,8 +49,7 @@ app/
 │   └── nodes/
 │       ├── retrieve.py     # Nó: busca RAG no Qdrant
 │       ├── planner.py      # Nó: LLM decide próxima ação
-│       ├── executor.py     # Nó: executa ferramenta escolhida
-│       └── generator.py    # Nó: gera resposta final
+│       └── executor.py     # Nó: executa ferramenta escolhida
 └── service/
     └── agent_service.py    # Serviço que instancia e invoca o grafo
 ```
@@ -176,6 +175,8 @@ TOOL_REGISTRY: dict = {
     "update_note": update_note,
     "delete_note": delete_note,
     "search_notes": search_notes,
+    "list_notes": list_notes,
+    "save_conversation": save_conversation,
 }
 
 def executor(state: AgentState) -> dict:
@@ -241,7 +242,7 @@ class AgentService:
 
     async def process_message(self, session_id: str, user_message: str) -> str:
         """Processa uma mensagem do usuário e retorna a resposta final do agente."""
-        logger.info(f"[{session_id}] Processando: {user_message[:60]}...")
+        logger.info("[start] AgentService - process_message")
 
         initial_state: AgentState = {
             "messages": [HumanMessage(content=user_message)],
@@ -259,7 +260,9 @@ class AgentService:
             (m for m in reversed(final_state["messages"]) if m.type == "ai"),
             None,
         )
-        return last_ai_message.content if last_ai_message else "Sem resposta."
+        result = last_ai_message.content if last_ai_message else "Sem resposta."
+        logger.debug("[finish] AgentService - process_message")
+        return result
 ```
 
 ---
