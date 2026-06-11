@@ -14,7 +14,7 @@ from qdrant_client.models import (
 
 from app.config.settings import settings
 from app.rag.chunking.text_splitter import MarkdownSplitter
-from app.rag.embeddings.embedder import Embedder
+from app.rag.embeddings.embedder import get_embedder
 
 
 class VaultIndexer:
@@ -25,7 +25,7 @@ class VaultIndexer:
         self._client = QdrantClient(
             host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
         )
-        self._embedder = Embedder(model_key="bge-m3")
+        self._embedder = get_embedder("bge-m3")
         self._splitter = MarkdownSplitter()
         self._available = self._ensure_collection()
         logger.debug("[finish] VaultIndexer - __init__")

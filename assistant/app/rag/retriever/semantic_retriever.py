@@ -4,7 +4,7 @@ from qdrant_client.models import FieldCondition, Filter, MatchValue
 
 from app.config.settings import settings
 from app.domain.document import SearchResult
-from app.rag.embeddings.embedder import Embedder
+from app.rag.embeddings.embedder import get_embedder
 
 
 class SemanticRetriever:
@@ -13,7 +13,7 @@ class SemanticRetriever:
         self._client = QdrantClient(
             host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
         )
-        self._embedder = Embedder(model_key="bge-m3")
+        self._embedder = get_embedder("bge-m3")
         logger.debug("[finish] SemanticRetriever - __init__")
 
     def search(
@@ -23,26 +23,46 @@ class SemanticRetriever:
         folder_filter: str | None = None,
     ) -> list[SearchResult]:
         logger.info("[start] SemanticRetriever - search")
-        query_vector = self._embedder.embed_single(query)
+        logger.info(f"[info] SemanticRetriever - query='{query}' limit={limit} folder_filter='{folder_filter}'")
+        
+        try:
+            query_vector = self._embedder.embed_single(query)
+            logger.info(f"[info] SemanticRetriever - vector_size={len(query_vector)}")
+        except Exception as e:
+            logger.error(f"[error] SemanticRetriever - embed_single failed: {e}")
+            raise
+
         search_filter = None
-        if folder_filter:
+        if folder_filter and folder_filter.strip():
             logger.info(f"[info] SemanticRetriever - filtrando por pasta: {folder_filter}")
             search_filter = Filter(
                 must=[
                     FieldCondition(
-                        key="folder", match=MatchValue(value=folder_filter)
+                        key="folder", match=MatchValue(value=folder_filter.strip())
                     )
                 ]
             )
+        else:
+            logger.info("[info] SemanticRetriever - sem filtro de pasta")
 
         response = self._client.query_points(
             collection_name=settings.QDRANT_COLLECTION,
             query=query_vector,
             query_filter=search_filter,
             limit=limit,
+            score_threshold=settings.RAG_SCORE_THRESHOLD,
             with_payload=True,
         )
         hits = response.points
+
+        logger.info(f"[info] SemanticRetriever - raw_hits={len(hits)}")
+        for i, hit in enumerate(hits[:3]):
+            logger.info(
+                f"[info] SemanticRetriever - hit[{i}] "
+                f"score={hit.score:.4f} "
+                f"path={hit.payload.get('path')} "
+                f"keys={list(hit.payload.keys())}"
+            )
 
         logger.info(f"[info] SemanticRetriever - {len(hits)} resultados")
         logger.debug("[finish] SemanticRetriever - search")

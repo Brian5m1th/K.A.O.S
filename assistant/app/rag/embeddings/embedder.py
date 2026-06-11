@@ -1,6 +1,8 @@
 from loguru import logger
 from app.config.settings import settings
 
+_embedder_instance: "Embedder | None" = None
+
 
 class Embedder:
     MODEL_CONFIGS = {
@@ -40,3 +42,17 @@ class Embedder:
         result = self.embed([text])[0]
         logger.debug("[finish] Embedder - embed_single")
         return result
+
+
+def get_embedder(model_key: str = "bge-m3") -> Embedder:
+    global _embedder_instance
+    if _embedder_instance is None:
+        _embedder_instance = Embedder(model_key)
+    return _embedder_instance
+
+
+def warmup_embedder(model_key: str = "bge-m3") -> None:
+    embedder = get_embedder(model_key)
+    logger.info("[info] Embedder - warmup")
+    _ = embedder.embed_single("warmup")
+    logger.debug("[finish] Embedder - warmup")

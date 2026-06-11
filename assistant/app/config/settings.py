@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     OLLAMA_MODEL: str = "qwen3:4b"
     OLLAMA_FAST_MODEL: str = "qwen3:4b"
     API_MODEL_ID: str = "kaos-rag"
+    FAST_MODEL_ID: str = "kaos-fast"
+    DEFAULT_MODEL_ID: str = "kaos"
 
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333
@@ -23,6 +25,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql://user:password@localhost:5432/kaos"
 
     HF_TOKEN: str = ""
+
+    RAG_SCORE_THRESHOLD: float = 0.3
+    RAG_DEFAULT_LIMIT: int = 5
 
 
 settings = Settings()
