@@ -13,6 +13,8 @@ class TestExecutor:
             "update_note",
             "delete_note",
             "search_notes",
+            "list_notes",
+            "save_conversation",
         }
         assert set(TOOL_REGISTRY.keys()) == expected
 

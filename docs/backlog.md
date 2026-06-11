@@ -14,14 +14,15 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | :---: | :--- | :---: | :---: |
 | 1 | Fundação | 7 | ✅ Completa |
 | 2 | IA Local | 10 | ✅ Completa |
-| 3 | Integração Obsidian | 14 | 🔵 Próxima |
-| 4 | Organização do Vault | 11 | ⬜ Aguardando |
-| 5 | RAG | 6 | 🟡 Em andamento |
-| 6 | Atualização Automática | 5 | ⬜ Aguardando |
-| 7 | Agente Inteligente | 6 | 🟡 Em andamento |
-| 8 | Memória de Longo Prazo | 6 | ⬜ Aguardando |
+| 3 | Integração Obsidian | 15 | ✅ Completa |
+| 4 | Organização do Vault | 12 | ✅ Completa |
+| 5 | RAG | 7 | ✅ Completa |
+| 6 | Atualização Automática | 5 | ✅ Completa |
+| 7 | Agente Inteligente | 6 | ✅ Completa |
+| 8 | Memória de Longo Prazo | 6 | ✅ Completa |
 | 9 | Integrações Online | 6 | ⬜ Aguardando |
 | 10 | Produção | 6 | ⬜ Aguardando |
+| 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
 
 ---
 
@@ -53,6 +54,7 @@ graph LR
     F7 --> F9[Fase 9\nIntegrações]
     F8 --> F10[Fase 10\nProdução]
     F9 --> F10
+    F10 --> F11
 ```
 
 ---
@@ -61,9 +63,10 @@ graph LR
 
 ## Próximas Tarefas Prioritárias
 
-- [ ] Implementar rota RAG no grafo LangGraph (recuperar contexto antes de responder)
-- [ ] Confirmar integração do Vault Watcher com o pipeline de indexação
-- [ ] Testar fluxo completo: Open WebUI → FastAPI → LangGraph → RAG → Ollama
+- [ ] **Auditoria RAG**: Executar `/indexing/full`, validar Qdrant, logs do retriever, teste "O que existe na nota Backlog?"
+- [ ] Implementar Intent Classifier (FAST/MEMORY/SMART)
+- [ ] Implementar FastRouter (execução direta de tools sem LLM)
+- [ ] Criar Dockerfile para o K.A.O.S (`assistant/`)
 
 ---
 
@@ -112,7 +115,7 @@ graph LR
 
 - [x] Implementar `ObsidianService` (`app/obsidian/services/obsidian_service.py`)
 - [x] Implementar `ReadNoteTool` — leitura de nota por caminho relativo
-- [ ] Implementar `ListNotesTool` — listagem de notas por pasta
+- [x] Implementar `ListNotesTool` — listagem de notas por pasta
 - [x] Testar leitura de arquivos Markdown existentes no Vault
 
 ### ✏️ Escrita
@@ -125,14 +128,14 @@ graph LR
 ### 🔍 Busca
 
 - [x] Implementar `SearchNotesTool` — busca textual por palavra-chave
-- [ ] Implementar busca textual com `grep` / walk do filesystem
+- [x] Implementar busca textual com `grep` / walk do filesystem
 - [x] Criar testes automatizados para todas as tools (`tests/unit/obsidian/`)
 
 ---
 
-## Fase 4 — Organização do Vault
+## Fase 4 — Organização do Vault ✅
 
-- [ ] Criar estrutura padrão de pastas no Vault
+- [x] Criar estrutura padrão de pastas no Vault (endpoint `POST /indexing/init-folders`)
 
 Pastas a criar:
 
@@ -150,20 +153,20 @@ Pastas a criar:
 
 ---
 
-## Fase 5 — RAG 🟡
+## Fase 5 — RAG ✅
 
 > Relacionado: [[sdd_obsidian_rag]]
 
 - [x] Subir Qdrant via Docker Compose (`qdrant/qdrant`)
-- [x] Configurar embeddings (modelo `sentence-transformers/all-MiniLM-L6-v2`)
+- [x] Configurar embeddings (modelo `BAAI/bge-m3`)
 - [x] Implementar chunking de documentos (`app/rag/chunking/`)
 - [x] Indexar notas do Obsidian (`app/rag/indexer/`)
 - [x] Criar retriever semântico (`app/rag/retriever/`)
-- [ ] Testar consultas contextuais (validar score de similaridade)
+- [x] Testar consultas contextuais (testes em `tests/integration/rag/`)
 
 ---
 
-## Fase 6 — Atualização Automática
+## Fase 6 — Atualização Automática ✅
 
 > Relacionado: [[sdd_obsidian_watcher]]
 
@@ -171,31 +174,31 @@ Pastas a criar:
 - [x] Detectar evento de **criação** de arquivos `.md`
 - [x] Detectar evento de **alteração** de arquivos `.md`
 - [x] Detectar evento de **exclusão** de arquivos `.md`
-- [ ] Disparar reindexação automática no Qdrant para cada evento
+- [x] Disparar reindexação automática no Qdrant para cada evento
 
 ---
 
-## Fase 7 — Agente Inteligente 🟡
+## Fase 7 — Agente Inteligente ✅
 
 > Relacionado: [[02_fluxo_dados]]
 
 - [x] Instalar LangGraph (`uv add langgraph`)
 - [x] Criar `Agent Orchestrator` (`app/agent/graph.py`) com nós e arestas condicionais
-- [x] Criar `Tool Registry` — mapeamento de ferramentas disponíveis ao agente
+- [x] Criar `Tool Registry` — mapeamento de 7 ferramentas disponíveis ao agente
 - [x] Integrar ferramentas do Obsidian ao Tool Registry
 - [x] Implementar nó de planejamento de tarefas (`planner`)
-- [ ] Conectar o grafo LangGraph ao endpoint de chat
+- [x] Conectar o grafo LangGraph ao endpoint de chat (`/api/chat/message` e `/v1/chat/completions`)
 
 ---
 
-## Fase 8 — Memória de Longo Prazo
+## Fase 8 — Memória de Longo Prazo ✅
 
-- [ ] Criar memória de preferências (`Vault/IA/preferencias.md`)
-- [ ] Criar memória de projetos (notas em `Vault/Projetos/`)
-- [ ] Criar memória de arquitetura (notas em `Vault/Arquitetura/`)
-- [ ] Criar memória de estudos (notas em `Vault/Estudos/`)
-- [ ] Implementar comando **"salve esta conversa"** → `CreateNoteTool`
-- [ ] Implementar comando **"atualize esta nota"** → busca + `UpdateNoteTool`
+- [x] Criar memória de preferências (`Vault/IA/preferencias.md`)
+- [x] Criar memória de projetos (notas em `Vault/Projetos/`)
+- [x] Criar memória de arquitetura (notas em `Vault/Arquitetura/`)
+- [x] Criar memória de estudos (notas em `Vault/Estudos/`)
+- [x] Implementar comando **"salve esta conversa"** → `save_conversation` tool
+- [x] Implementar comando **"atualize esta nota"** → busca + `UpdateNoteTool`
 
 ---
 
@@ -223,11 +226,29 @@ Pastas a criar:
 
 ---
 
+## Fase 11 — Otimização de Performance e Roteamento Inteligente
+
+- [ ] Criar `IntentClassifier` com fast path (keyword match) + LLM fallback (Qwen3 4B)
+- [ ] Criar `FastRouter` — execução direta de tools (sem LLM, sem RAG, sem LangGraph)
+- [ ] Criar `MemoryRouter` — RAG + LLM sem LangGraph
+- [ ] Criar `SmartRouter` — LangGraph completo (wrapping AgentService)
+- [ ] Criar `ResponseCache` — cache de respostas frequentes com TTL
+- [ ] Integrar roteamento em `chat.py` e `openai.py`
+- [ ] Criar `ListProjectsTool` e registrar no TOOL_REGISTRY
+- [ ] Adicionar suporte a modelo rápido (Qwen3 4B) vs principal (`settings.py`)
+
+---
+
 ## Divida Tecnica (DEBT)
 
-- [ ] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
-- [ ] Substituir streaming fake do AgentService por streaming real do LangGraph
-- [ ] Remover bypass do LangGraph no proxy OpenAI (`/v1/chat/completions` conecta direto no Ollama)
+- [x] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
+- [x] Substituir streaming fake do AgentService por streaming real do LangGraph
+- [x] Remover bypass do LangGraph no proxy OpenAI (`/v1/chat/completions` conecta direto no Ollama)
+- [ ] Adicionar `ruff` como dependencia de dev para lint
+- [ ] Adicionar `.env.example` ao repositorio
+- [ ] **Auditoria RAG**: Executar indexação inicial (`POST /indexing/full`), validar `points_count > 0`, adicionar logs de `retrieve_context` com query + contagem, teste manual "O que existe na nota Backlog?"
+- [ ] **Dockerfile**: Criar `Dockerfile` para `assistant/` com volume mount do Vault (`/vault`) e `.env` configurável
+- [ ] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
 
 ---
 

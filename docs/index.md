@@ -2,7 +2,7 @@ Source: Antigravity AI
 Tags: #ia-pessoal #arquitetura #index
 Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 
-# 🤖 Assistente de IA Pessoal Offline — Índice Central
+# K.A.O.S — Índice Central
 
 > Hub de navegação do vault. Todos os nós do Graph View passam por aqui.
 
@@ -24,7 +24,7 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | [[01_estrutura_pastas\|01 — Estrutura de Pastas]] | Camadas do projeto (Spring Boot Style) |
 | [[02_fluxo_dados\|02 — Fluxo de Dados]] | Ciclo de vida da requisição e grafo LangGraph |
 | [[03_infraestrutura_docker\|03 — Infraestrutura Docker]] | Docker Compose, serviços e variáveis de ambiente |
-| [[04_integracoes\|04 — Integrações Obsidian & N8N]] | Webhooks, automações e sincronização |
+| [[backlog\|Backlog]] | Planejamento e status das fases |
 
 ---
 
@@ -48,9 +48,9 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | :--- | :---: | :--- |
 | [[sdd_fase1_fundacao\|SDD — Fase 1: Fundação]] | 1 ✅ | `pyproject.toml`, FastAPI, Settings, Logs, Docker Compose |
 | [[sdd_fase2_ia_local\|SDD — Fase 2: IA Local]] | 2 ✅ | LLMService, Ollama, Proxy OpenAI, Qwen3:4b, Open WebUI |
-| [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 | CRUD de notas, 5 Tools LangGraph, Testes unitários |
-| [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 | Embedder, Chunking, Indexer, Retriever, Watchdog |
-| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 | AgentState, Grafo, Planner, Executor, Memória |
+| [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 ✅ | CRUD de notas, 7 Tools LangGraph, Testes |
+| [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 ✅ | Embedder, Chunking, Indexer, Retriever, Watchdog |
+| [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 ✅ | AgentState, Grafo, Planner, Executor, Memória |
 
 ---
 
@@ -66,7 +66,6 @@ graph TD
     IDX --> EP[[01_estrutura_pastas]]
     IDX --> FD[[02_fluxo_dados]]
     IDX --> INF[[03_infraestrutura_docker]]
-    IDX --> INT[[04_integracoes]]
     IDX --> MEM[[sdd_obsidian_memoria]]
 
     MEM --> WAT[[sdd_obsidian_watcher]]
@@ -80,11 +79,9 @@ graph TD
     VG --> EP
     VG --> FD
     VG --> INF
-    VG --> INT
 
     EP --> FD
     EP --> INF
-    FD --> INT
     FD --> INF
 
     VG --> ORQ[[sdd_arquitetura_orquestracao]]
@@ -111,10 +108,8 @@ graph TD
 - [x] **app/obsidian/tools/** — Ferramentas CRUD de notas (create, read, update, delete, search)
 - [x] **app/rag/** — Pipeline RAG (embedder, chunking, indexer, retriever)
 - [x] **File Watcher** — Monitoramento do vault com watchdog
-- [ ] **[[03_infraestrutura_docker]]** — Detalhar Docker Compose
-- [ ] **[[04_integracoes]]** — Documentar integração N8N webhooks
-- [ ] **Conectar LangGraph ao endpoint de chat** — Rota completa com agente
-- [ ] **Configurar modelos de embedding** — `sentence-transformers/all-MiniLM-L6-v2`
+- [x] **Conectar LangGraph ao endpoint de chat** — Rota completa com agente (`/api/chat/message` e `/v1/chat/completions`)
+- [x] **Configurar modelos de embedding** — `BAAI/bge-m3`
 
 ---
 

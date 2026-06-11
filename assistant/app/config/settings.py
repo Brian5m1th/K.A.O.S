@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     OBSIDIAN_VAULT_PATH: str = ""
 
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "qwen3:14b"
+    OLLAMA_MODEL: str = "qwen3:4b"
 
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333

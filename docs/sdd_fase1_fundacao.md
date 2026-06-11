@@ -1,6 +1,6 @@
 Source: Antigravity AI
 Tags: #sdd #python #fastapi #fundação #fase1
-Related: [[index]] [[backlog]] [[01_estrutura_pastas]] [[sdd_fase2_obsidian_service]]
+Related: [[index]] [[backlog]] [[01_estrutura_pastas]] [[sdd_fase2_ia_local]]
 
 # SDD — Fase 1: Fundação do Projeto Python
 
@@ -31,7 +31,7 @@ Configurar a estrutura base do projeto Python seguindo os padrões corporativos 
 ## 1. Estrutura de Pastas Inicial
 
 ```text
-ai-assistant/
+assistant/
 ├── app/
 │   ├── api/
 │   │   └── health.py          # GET /health → 200 OK
@@ -40,9 +40,10 @@ ai-assistant/
 │   └── main.py                # Inicialização da aplicação FastAPI
 ├── tests/
 │   └── test_health.py
-├── docker/
-│   └── docker-compose.yml
-├── .env.example
+├── infra/
+│   └── docker/
+│       └── docker-compose.yml
+├── .env
 ├── .gitignore
 └── pyproject.toml
 ```
@@ -55,7 +56,7 @@ Utilizar `uv` como gerenciador. O arquivo `pyproject.toml` define as dependênci
 
 ```toml
 [project]
-name = "ai-assistant"
+name = "kaos-platform"
 version = "0.1.0"
 requires-python = ">=3.12,<3.14"
 
@@ -87,7 +88,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     # App
-    APP_NAME: str = "AI Assistant"
+    APP_NAME: str = "K.A.O.S"
     APP_ENV: str = "development"
     APP_PORT: int = 8000
     LOG_LEVEL: str = "INFO"
@@ -105,7 +106,7 @@ class Settings(BaseSettings):
     QDRANT_COLLECTION: str = "obsidian_memory"
 
     # PostgreSQL
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/ai_assistant"
+    DATABASE_URL: str = "postgresql://user:password@localhost:5432/kaos"
 
 settings = Settings()
 ```
@@ -127,9 +128,11 @@ app = FastAPI(
 
 app.include_router(health_router)
 
-@app.on_event("startup")
-async def startup_event() -> None:
-    logger.info(f"🚀 {settings.APP_NAME} iniciado em modo {settings.APP_ENV}")
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
+    yield
+    logger.debug(f"[finish] {settings.APP_NAME} - encerrado")
 ```
 
 ---
@@ -156,20 +159,20 @@ async def health_check() -> HealthResponse:
 ## 6. Docker Compose (Serviços Base)
 
 ```yaml
-# docker/docker-compose.yml
+# infra/docker/docker-compose.yml
 services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ai_assistant
+      POSTGRES_USER: ai-p
+      POSTGRES_PASSWORD: ai-admin
+      POSTGRES_DB: kaos
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d ai_assistant"]
+      test: ["CMD-SHELL", "pg_isready -U ai-p -d kaos"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -226,17 +229,14 @@ pip install uv
 # Criar projeto e instalar dependências
 uv sync
 
-# Criar o .env a partir do exemplo
-cp .env.example .env
-
 # Subir infraestrutura
-docker compose -f docker/docker-compose.yml up -d
+docker compose -f infra/docker/docker-compose.yml up -d
 
 # Rodar a aplicação localmente
-uv run uvicorn app.main:app --reload --port 8000
+cd assistant && uv run uvicorn app.main:app --reload --port 8000
 
 # Rodar os testes
-uv run pytest
+cd assistant && uv run pytest
 ```
 
 ---

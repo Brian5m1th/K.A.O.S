@@ -1,6 +1,6 @@
 Source: Antigravity AI
 Tags: #sdd #python #obsidian #fastapi #fase3 #tools
-Related: [[index]] [[backlog]] [[sdd_fase2_ia_local]] [[sdd_obsidian_tools]] [[sdd_obsidian_memoria]] [[sdd_fase4_rag]]
+Related: [[index]] [[backlog]] [[sdd_fase2_ia_local]] [[sdd_obsidian_tools]] [[sdd_obsidian_memoria]] [[sdd_fase4_rag_pipeline]]
 
 # SDD — Fase 3: ObsidianService e Ferramentas de Nota
 
@@ -321,5 +321,5 @@ def test_search_finds_keyword(vault: Path) -> None:
 
 ## Desbloqueia
 
-- [[sdd_fase4_rag]] — Indexação vetorial das notas no Qdrant
+- [[sdd_fase4_rag_pipeline]] — Indexação vetorial das notas no Qdrant
 - [[sdd_fase5_watcher_langgraph]] — Agente usa as tools registradas

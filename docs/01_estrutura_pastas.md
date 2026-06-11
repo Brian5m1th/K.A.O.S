@@ -1,77 +1,97 @@
 Source: Notas no ClickUp
 Tags: #arquitetura #clean-architecture #patterns-and-principles
-Related: [[index]] [[00_visao_geral]] [[02_fluxo_dados]] [[03_infraestrutura_docker]]
+Related: [[index]] [[00_visao_geral]] [[02_fluxo_dados]]
 
-# Estrutura de Diretórios e Camadas (Spring Boot Style)
+# Estrutura de Diretórios e Camadas
 
-Esta nota descreve a organização do código-fonte do projeto. Seguindo a filosofia de desenvolvimento corporativo, dividimos a aplicação em camadas bem definidas para isolar responsabilidades e facilitar testes automatizados.
+Esta nota descreve a organização do código-fonte do projeto K.A.O.S. Dividimos a aplicação em camadas bem definidas para isolar responsabilidades e facilitar testes automatizados.
 
 ```
-ai-assistant/
-├── app/
-│   ├── api/          # 1. Camada Controller (FastAPI Routers)
-│   ├── service/      # 2. Camada Service (Business Logic)
-│   ├── repository/   # 3. Camada Repository (Data Access)
-│   ├── domain/       # 4. Camada Domain (Entidades e DTOs)
-│   ├── agent/        # 5. Camada Agent (LangGraph State Machine)
-│   ├── tools/        # 6. Camada Tools (Ferramentas para a IA)
-│   ├── rag/          # 7. Camada RAG (Embedding e Chunking)
-│   ├── config/       # 8. Camada Config (Configurações e Variáveis)
-│   └── main.py       # Ponto de Entrada da API
-└── docs/             # Documentação do Vault Obsidian
+K.A.O.S/
+├── assistant/       # Serviço Python (FastAPI, LangGraph, RAG)
+│   ├── app/
+│   │   ├── api/          # 1. Camada Controller (FastAPI Routers)
+│   │   ├── service/      # 2. Camada Service (Business Logic)
+│   │   ├── domain/       # 3. Camada Domain (Entidades e DTOs)
+│   │   ├── agent/        # 4. Camada Agent (LangGraph State Machine)
+│   │   ├── obsidian/     # 5. Camada Obsidian (Tools + Services + Watcher)
+│   │   ├── rag/          # 6. Camada RAG (Embedding, Chunking, Indexer, Retriever)
+│   │   ├── memory/       # 7. Camada Memory (Memória de Longo Prazo)
+│   │   ├── config/       # 8. Camada Config (Configurações e Variáveis)
+│   │   └── main.py       # Ponto de Entrada da API
+│   └── tests/            # Testes unitários e de integração
+├── backend/         # Placeholder para futuro Spring Boot
+├── infra/           # Docker Compose e infraestrutura
+└── docs/            # Documentação do Vault Obsidian
 ```
 
 ---
 
-## 🏢 Detalhamento das Camadas
+## Detalhamento das Camadas
 
 ### 1. API (Controllers)
-Os arquivos em `app/api/` são os pontos de entrada HTTP/WebSocket.
-- **Responsabilidade**: Expor endpoints, gerenciar CORS, lidar com status HTTP e autenticação leve.
+Os arquivos em `app/api/` são os pontos de entrada HTTP.
+- **Responsabilidade**: Expor endpoints, gerenciar CORS, lidar com status HTTP.
 - **Arquivos principais**:
-  - `chat.py`: Streaming de respostas via SSE (Server-Sent Events) ou WebSockets.
-  - `tools.py`: Endpoints para gerenciar/testar o status das ferramentas.
-  - `health.py`: Liveness/Readiness probes para monitoramento local.
+  - `chat.py`: Streaming de respostas via SSE (AgentService).
+  - `openai.py`: Proxy compatível com OpenAI (para Open WebUI).
+  - `health.py`: Liveness/Readiness probes.
+  - `indexing.py`: Reindexação completa e init de pastas.
+  - `rag.py`: Busca de contexto RAG.
 
 ### 2. Service (Business Logic)
-Os arquivos em `app/service/` realizam a orquestração e contêm as regras de negócio puras.
-- **Responsabilidade**: Coordenar a lógica entre Repositories, RAG e a execução do LangGraph.
+Os arquivos em `app/service/` realizam a orquestração.
+- **Responsabilidade**: Coordenar a lógica entre RAG, LangGraph e LLM.
 - **Arquivos principais**:
-  - `agent_service.py`: Inicializa o grafo do agente por thread de chat e envia os inputs.
-  - `rag_service.py`: Orquestra a busca vetorial e injeção de contexto.
-  - `obsidian_sync.py`: Controla o pipeline de leitura e indexação das notas.
+  - `agent_service.py`: Inicializa o grafo do agente e gerencia sessões.
+  - `llm_service.py`: Comunicação direta com Ollama.
 
-### 3. Repository (Data Access)
-Os arquivos em `app/repository/` isolam o acesso a qualquer banco ou serviço de armazenamento de dados.
-- **Responsabilidade**: Traduzir chamadas do Service em queries SQL ou buscas vetoriais.
+### 3. Domain (Modelos e DTOs)
+Os arquivos em `app/domain/` contêm os modelos de dados reutilizáveis.
 - **Arquivos principais**:
-  - `pg_repository.py`: Interface SQLModel para salvar histórico de conversas e estado no PostgreSQL.
-  - `vector_store.py`: Interface para buscar por similaridade e payload filtering no Qdrant.
+  - `chat.py`: Modelos `Message`, `ChatRequest`, `ChatResponse`.
+  - `document.py`: Modelos `NoteReadResult`, `SearchResult`, `NoteResponse`.
 
-### 4. Domain (Modelos e DTOs)
-Os arquivos em `app/domain/` contêm os modelos de dados reutilizáveis da aplicação.
-- **Responsabilidade**: Validar dados usando Pydantic v2.
-- **Arquivos principais**:
-  - `chat.py`: Modelos como `ChatMessageRequest`, `ChatSession` e `AgentResponse`.
-  - `document.py`: Modelos como `DocumentChunk` e `FileMetadata`.
-
-### 5. Agent (LangGraph)
-Os arquivos em `app/agent/` implementam a máquina de estado inteligente da IA.
+### 4. Agent (LangGraph)
+Os arquivos em `app/agent/` implementam a máquina de estado inteligente.
 - **Responsabilidade**: Definir o Grafo do Agente, transições de nós, loops de pensamento e execução de ferramentas.
 - **Arquivos principais**:
-  - `state.py`: O `TypedDict` que representa o estado persistente do fluxo.
-  - `graph.py`: A estrutura ligando nós (nodes) e arestas condicionais (conditional edges).
+  - `state.py`: TypedDict que representa o estado persistente do fluxo.
+  - `graph.py`: A estrutura ligando nós (retrieve, planner, executor) e arestas condicionais.
+  - `nodes/retrieve.py`: Nó de recuperação RAG.
+  - `nodes/planner.py`: Nó LLM que decide ação.
+  - `nodes/executor.py`: Nó de execução de ferramentas.
 
-### 6. Tools
-Os arquivos em `app/tools/` disponibilizam capacidades externas para o agente.
-- **Responsabilidade**: Formatar as funções como ferramentas compatíveis com Langchain/Langgraph.
+### 5. Obsidian
+Os arquivos em `app/obsidian/` integram o Vault Obsidian ao agente.
+- **Responsabilidade**: CRUD de notas, watcher de alterações, inicialização de pastas.
 - **Arquivos principais**:
-  - `github_tool.py`: Operações de git local ou API.
-  - `docker_tool.py`: Monitoramento local de containers.
-  - `n8n_tool.py`: Disparo de webhooks de automação.
+  - `services/obsidian_service.py`: Serviço de acesso ao filesystem do vault.
+  - `tools/`: 7 ferramentas LangChain (create, read, update, delete, search, list, save_conversation).
+  - `watcher/vault_watcher.py`: Monitoramento do vault com watchdog.
+  - `vault_init.py`: Criação da estrutura padrão de pastas.
+
+### 6. RAG
+Os arquivos em `app/rag/` implementam o pipeline de busca semântica.
+- **Arquivos principais**:
+  - `embeddings/embedder.py`: Sentence Transformers (BGE-M3).
+  - `chunking/text_splitter.py`: Splitter Markdown com overlap.
+  - `indexer/vault_indexer.py`: Indexação no Qdrant.
+  - `retriever/semantic_retriever.py`: Busca semântica.
+
+### 7. Memory
+Os arquivos em `app/memory/` gerenciam memória de longo prazo.
+- **Arquivos principais**:
+  - `memory_service.py`: Salva conversas, preferências e recupera histórico.
+
+### 8. Config
+Os arquivos em `app/config/` centralizam configurações.
+- **Arquivos principais**:
+  - `settings.py`: Pydantic Settings a partir do `.env`.
+  - `prompts.py`: System prompt do K.A.O.S.
 
 ---
 
-## 🔗 Relação com outras Notas
+## Relacao com outras Notas
 - Para ver como os dados passam por essas camadas, consulte [[02_fluxo_dados]].
-- Para ver a infraestrutura necessária para suportar esses bancos, consulte [[03_infraestrutura_docker]].
+- Para detalhes sobre cada componente, veja os SDDs em [[index]].
