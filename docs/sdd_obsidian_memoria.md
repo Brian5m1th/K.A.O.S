@@ -50,6 +50,10 @@ graph TD
 
 ---
 
+> **Nota:** A partir da Fase 8 (User Context & Multiusuário), a memória é escopada por `user_id`. Preferências e conversas são armazenadas em `Vault/users/{user_id}/` em vez de `Vault/IA/`. Consulte [[sdd_user_context_propagation]] para detalhes.
+
+---
+
 ## 📁 Estrutura de Pastas Esperada no Vault
 
 A IA organizará e recuperará notas baseando-se nas seguintes categorias/diretórios raiz do Vault:

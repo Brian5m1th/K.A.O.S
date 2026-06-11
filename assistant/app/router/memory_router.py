@@ -28,8 +28,8 @@ class MemoryRouter:
             for r in results
         )
 
-    async def process(self, user_message: str) -> str:
-        logger.info("[start] MemoryRouter - process")
+    async def process(self, user_message: str, user_id: str = "") -> str:
+        logger.info(f"[start] MemoryRouter - process [user={user_id}]")
         context = await self.retrieve_context(user_message)
         system = MEMORY_SYSTEM_PROMPT
         if context:
@@ -42,8 +42,8 @@ class MemoryRouter:
         logger.debug("[finish] MemoryRouter - process")
         return response.content
 
-    async def stream(self, user_message: str) -> AsyncIterator[str]:
-        logger.info("[start] MemoryRouter - stream")
+    async def stream(self, user_message: str, user_id: str = "") -> AsyncIterator[str]:
+        logger.info(f"[start] MemoryRouter - stream [user={user_id}]")
         context = await self.retrieve_context(user_message)
         system = MEMORY_SYSTEM_PROMPT
         if context:

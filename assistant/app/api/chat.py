@@ -19,8 +19,8 @@ _smart_router = SmartRouter()
 @router.post("/message")
 async def send_message(
     request: ChatRequest,
-) -> StreamingResponse | PlainTextResponse:
-    logger.info("[start] chat - send_message")
+) -> StreamingResponse:
+    logger.info(f"[start] chat - send_message [user={request.user_id or 'anonymous'}]")
 
     cached = _cache.get(request.message)
     if cached is not None:
@@ -41,7 +41,7 @@ async def send_message(
         router = MemoryRouter()
 
         async def memory_generator():
-            async for token in router.stream(request.message):
+            async for token in router.stream(request.message, user_id=request.user_id):
                 yield token
 
         logger.debug("[finish] chat - send_message (MEMORY)")
@@ -53,6 +53,9 @@ async def send_message(
         async for token in _smart_router.stream(
             session_id=request.session_id,
             user_message=request.message,
+            user_id=request.user_id,
+            username=request.username,
+            role=request.role,
         ):
             yield token
 

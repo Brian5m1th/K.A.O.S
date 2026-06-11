@@ -35,12 +35,14 @@ class SemanticRetriever:
                 ]
             )
 
-        hits = self._client.search(
+        response = self._client.query_points(
             collection_name=settings.QDRANT_COLLECTION,
-            query_vector=query_vector,
+            query=query_vector,
             query_filter=search_filter,
             limit=limit,
+            with_payload=True,
         )
+        hits = response.points
 
         logger.info(f"[info] SemanticRetriever - {len(hits)} resultados")
         logger.debug("[finish] SemanticRetriever - search")

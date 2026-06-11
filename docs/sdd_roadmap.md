@@ -116,7 +116,24 @@ IA adapta respostas com base no historico e preferencias armazenadas.
 
 ---
 
-## Fase 8 — Integracoes ⬜
+## Fase 8 — User Context & Multiusuário 🟡 Em Andamento
+
+### Entregaveis
+- UserContext model (user_id, username, role)
+- MemoryService com escopo por usuário (`Vault/users/{user_id}/`)
+- AgentState com user context
+- save_conversation tool com user_id
+- Logs com identificação de usuário
+- MemoryRepository protocol (preparação PostgreSQL)
+
+### Proximos Passos
+- Integrar com Open WebUI Groups
+- Compartilhamento de conhecimento entre usuários
+- RBAC avancado
+
+---
+
+## Fase 9 — Integracoes ⬜
 
 ### Tecnologias
 - N8N

@@ -202,6 +202,21 @@ Pastas a criar:
 
 ---
 
+## Fase 8 — User Context & Multiusuário
+
+> Relacionado: [[sdd_user_context_propagation]] [[02_fluxo_dados]] [[sdd_obsidian_memoria]]
+
+- [ ] Criar UserContext model (`app/domain/user.py`)
+- [ ] Adicionar user_id ao ChatRequest e ChatCompletionRequest
+- [ ] Adicionar user_id, username, role ao AgentState
+- [ ] Escopar MemoryService por usuário (`Vault/users/{user_id}/`)
+- [ ] Atualizar save_conversation tool com user_id
+- [ ] Propagar UserContext nos endpoints e routers
+- [ ] Adicionar user_id aos logs (auditoria)
+- [ ] Criar MemoryRepository protocol para futura migração PostgreSQL
+
+---
+
 ## Fase 9 — Integrações Online
 
 - [ ] Subir N8N via Docker Compose

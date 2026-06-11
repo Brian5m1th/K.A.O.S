@@ -24,10 +24,13 @@ class ChatMessage(BaseModel):
 
 
 class ChatCompletionRequest(BaseModel):
-    model: str = Field(default=settings.OLLAMA_MODEL)
+    model: str = Field(default=settings.API_MODEL_ID)
     messages: list[ChatMessage]
     stream: bool = Field(default=True)
     max_tokens: int = Field(default=4096, ge=1, le=32768)
+    user_id: str = Field(default="", description="ID do usuário (opcional)")
+    username: str = Field(default="", description="Nome do usuário (opcional)")
+    role: str = Field(default="user", description="Papel do usuário (opcional)")
 
 
 def _get_agent() -> AgentService:
@@ -40,7 +43,7 @@ def _models_response():
             "object": "list",
             "data": [
                 {
-                    "id": settings.OLLAMA_MODEL,
+                    "id": settings.API_MODEL_ID,
                     "object": "model",
                     "created": 0,
                     "owned_by": "kaos",
@@ -104,7 +107,7 @@ async def _sse_stream_generator(
 async def chat_completions(
     request: ChatCompletionRequest,
 ) -> StreamingResponse:
-    logger.info("[start] openai - chat_completions")
+    logger.info(f"[start] openai - chat_completions [user={request.user_id or 'anonymous'}]")
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     created = int(__import__("time").time())
     session_id = stream_id
@@ -157,7 +160,7 @@ async def chat_completions(
 
         return StreamingResponse(
             _sse_stream_generator(
-                stream_id, created, request.model, router.stream(user_message)
+                stream_id, created, request.model, router.stream(user_message, user_id=request.user_id)
             ),
             media_type="text/event-stream",
             headers={
@@ -175,7 +178,13 @@ async def chat_completions(
             stream_id,
             created,
             request.model,
-            agent.stream_message(session_id=session_id, user_message=user_message),
+            agent.stream_message(
+                session_id=session_id,
+                user_message=user_message,
+                user_id=request.user_id,
+                username=request.username,
+                role=request.role,
+            ),
         ),
         media_type="text/event-stream",
         headers={

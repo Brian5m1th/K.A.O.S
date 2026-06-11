@@ -23,7 +23,8 @@ TOOL_REGISTRY: dict = {
 
 
 def executor(state: AgentState) -> dict:
-    logger.info("[start] executor")
+    user_id = state.get("user_id", "")
+    logger.info(f"[start] executor [user={user_id}]")
     tool_name = state.get("tool_to_call")
     tool_args = state.get("tool_args", {})
 
@@ -36,7 +37,10 @@ def executor(state: AgentState) -> dict:
             }
         }
 
-    logger.info(f"[info] executor - executando: {tool_name}")
+    if "user_id" not in tool_args and user_id:
+        tool_args["user_id"] = user_id
+
+    logger.info(f"[info] executor - executando: {tool_name} [user={user_id}]")
     tool_fn = TOOL_REGISTRY[tool_name]
     result = tool_fn.invoke(tool_args)
     logger.debug("[finish] executor")
