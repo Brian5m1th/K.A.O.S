@@ -128,6 +128,13 @@ async def _sse_stream_generator(
     yield "data: [DONE]\n\n"
 
 
+def _resolve_ollama_model(api_model: str) -> str:
+    """Map API model ID to Ollama model name."""
+    if api_model == settings.FAST_MODEL_ID:
+        return settings.OLLAMA_FAST_MODEL
+    return settings.OLLAMA_MODEL
+
+
 @router.post("/chat/completions")
 async def chat_completions(
     request: ChatCompletionRequest,
@@ -210,7 +217,8 @@ async def chat_completions(
 
     elif intent == IntentType.MEMORY:
         start = time.perf_counter()
-        router = MemoryRouter()
+        ollama_model = settings.OLLAMA_MODEL
+        router = MemoryRouter(model=ollama_model)
 
         return StreamingResponse(
             _sse_stream_generator(
@@ -224,8 +232,10 @@ async def chat_completions(
             },
         )
 
+    # SMART route (LangGraph)
     agent = _get_agent()
     logger.info("[sending] openai - streaming via LangGraph Agent (SMART)")
+    ollama_model = settings.OLLAMA_MODEL
 
     return StreamingResponse(
         _sse_stream_generator(
@@ -238,6 +248,7 @@ async def chat_completions(
                 user_id=request.user_id,
                 username=request.username,
                 role=request.role,
+                model=ollama_model,
             ),
         ),
         media_type="text/event-stream",

@@ -11,11 +11,11 @@ Use o contexto recuperado abaixo para responder. Se o contexto nao for suficient
 
 
 class MemoryRouter:
-    def __init__(self):
+    def __init__(self, model: str | None = None):
         logger.info("[start] MemoryRouter - __init__")
         self._retriever = SemanticRetriever()
         self._llm = ChatOllama(
-            model=settings.OLLAMA_MODEL,
+            model=model or settings.OLLAMA_MODEL,
             base_url=settings.OLLAMA_BASE_URL,
         )
         logger.debug("[finish] MemoryRouter - __init__")
