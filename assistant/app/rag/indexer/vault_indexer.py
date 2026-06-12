@@ -15,6 +15,7 @@ from qdrant_client.models import (
 from app.config.settings import settings
 from app.rag.chunking.text_splitter import MarkdownSplitter
 from app.rag.embeddings.embedder import get_embedder
+from app.rag.embeddings.document_cache import DocumentEmbeddingCache
 
 
 class VaultIndexer:
@@ -25,8 +26,9 @@ class VaultIndexer:
         self._client = QdrantClient(
             host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
         )
-        self._embedder = get_embedder("bge-m3")
+        self._embedder = get_embedder()
         self._splitter = MarkdownSplitter()
+        self._doc_cache = DocumentEmbeddingCache()
         self._available = self._ensure_collection()
         logger.debug("[finish] VaultIndexer - __init__")
 
@@ -83,8 +85,27 @@ class VaultIndexer:
             logger.debug("[finish] VaultIndexer - index_file")
             return 0
 
-        texts = [c.content for c in chunks]
-        vectors = self._embedder.embed(texts)
+        model_key = self._embedder.model_key
+        cached = self._doc_cache.get(relative, content, model_key)
+        
+        if cached:
+            logger.info(f"[info] VaultIndexer - cache hit: {relative} ({len(cached)} chunks)")
+            vectors = [c["vector"] for c in cached]
+            chunk_objects = [
+                type("Chunk", (), {"content": c["content"], "chunk_index": c["index"]})()
+                for c in cached
+            ]
+        else:
+            logger.info(f"[info] VaultIndexer - cache miss: {relative} ({len(chunks)} chunks)")
+            texts = [c.content for c in chunks]
+            vectors = self._embedder.embed_batch(texts)
+            
+            cache_chunks = [
+                {"index": chunk.chunk_index, "vector": vector, "content": chunk.content}
+                for chunk, vector in zip(chunks, vectors)
+            ]
+            self._doc_cache.set(relative, content, model_key, cache_chunks)
+            chunk_objects = chunks
 
         points = [
             PointStruct(
@@ -98,7 +119,7 @@ class VaultIndexer:
                     "file_name": path.stem,
                 },
             )
-            for chunk, vector in zip(chunks, vectors)
+            for chunk, vector in zip(chunk_objects, vectors)
         ]
 
         self._client.upsert(collection_name=self.COLLECTION, points=points)
