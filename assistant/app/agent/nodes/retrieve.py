@@ -1,3 +1,4 @@
+import time
 from loguru import logger
 from langchain_core.messages import HumanMessage
 
@@ -15,6 +16,7 @@ def _get_retriever() -> SemanticRetriever:
 
 
 def retrieve_context(state: AgentState) -> dict:
+    start = time.perf_counter()
     logger.info("[start] retrieve_context")
     last_message = next(
         (m for m in reversed(state["messages"]) if isinstance(m, HumanMessage)),
@@ -28,7 +30,12 @@ def retrieve_context(state: AgentState) -> dict:
     query = last_message.content
     logger.info(f"[info] retrieve_context - query=\"{query}\"")
     results = _get_retriever().search(query=query, limit=5)
-    logger.info(f"[info] retrieve_context - resultados={len(results)}")
+    elapsed = (time.perf_counter() - start) * 1000
+    top_score = results[0].score if results else 0.0
+    logger.info(
+        f"[audit] retrieve | query=\"{query[:50]}...\" | "
+        f"results={len(results)} | top_score={top_score:.4f} | latency_ms={elapsed:.0f}"
+    )
     context = [
         {"path": r.path, "content": r.excerpt, "score": r.score}
         for r in results

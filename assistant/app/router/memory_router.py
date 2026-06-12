@@ -60,9 +60,15 @@ class MemoryRouter:
             SystemMessage(content=system),
             HumanMessage(content=user_message),
         ]
+        result_parts = []
         async for chunk in self._llm.astream(messages):
             if chunk.content:
+                result_parts.append(chunk.content)
                 yield chunk.content
         elapsed = (time.perf_counter() - start) * 1000
-        logger.info(f"[metrics] MemoryRouter - stream: {elapsed:.0f}ms context_chars={len(context)}")
+        result = "".join(result_parts)
+        logger.info(
+            f"[audit] generation | route=MEMORY | user={user_id} | "
+            f"context_chars={len(context)} | tokens_out=~{len(result)//4} | latency_ms={elapsed:.0f}"
+        )
         logger.debug("[finish] MemoryRouter - stream")
