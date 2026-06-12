@@ -1,3 +1,4 @@
+import time
 from loguru import logger
 from langchain_core.messages import SystemMessage
 from langchain_ollama import ChatOllama
@@ -31,11 +32,16 @@ _llm = ChatOllama(
 
 
 def planner(state: AgentState) -> dict:
+    start = time.perf_counter()
     user_id = state.get("user_id", "")
     logger.info(f"[start] planner [user={user_id}]")
+    
+    context = state.get("retrieved_context", [])
+    context_chars = sum(len(c.get("content", "")) for c in context)
+    
     context_text = "\n\n".join(
         f"[{c['path']}]\n{c['content']}"
-        for c in state.get("retrieved_context", [])
+        for c in context
     )
     system_with_context = SYSTEM_PROMPT
     if context_text:
@@ -47,7 +53,15 @@ def planner(state: AgentState) -> dict:
         system_with_context += f"\n\nPreferencias do usuario:\n{preferences}"
 
     messages = [SystemMessage(content=system_with_context)] + state["messages"]
+    prompt_chars = len(system_with_context) + sum(len(m.content) for m in state["messages"])
+    
     response = _llm.invoke(messages)
+
+    elapsed = (time.perf_counter() - start) * 1000
+    logger.info(
+        f"[audit] planner | user={user_id} | context_chunks={len(context)} | "
+        f"context_chars={context_chars} | prompt_chars={prompt_chars} | latency_ms={elapsed:.0f}"
+    )
 
     if hasattr(response, "tool_calls") and response.tool_calls:
         tool_call = response.tool_calls[0]

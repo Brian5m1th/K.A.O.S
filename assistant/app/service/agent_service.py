@@ -1,3 +1,4 @@
+import time
 from langchain_core.messages import HumanMessage
 from loguru import logger
 
@@ -9,6 +10,7 @@ class AgentService:
     async def process_message(
         self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user"
     ) -> str:
+        start = time.perf_counter()
         logger.info("[start] AgentService - process_message")
         logger.info(f"[info] AgentService - sessao {session_id} [user={user_id}]")
 
@@ -31,12 +33,22 @@ class AgentService:
             None,
         )
         result = last_ai_message.content if last_ai_message else "Sem resposta."
+        
+        elapsed = (time.perf_counter() - start) * 1000
+        context = initial_state.get("retrieved_context", [])
+        context_chars = sum(len(c.get("content", "")) for c in context)
+        logger.info(
+            f"[audit] generation | route=SMART | user={user_id} | "
+            f"context_chunks={len(context)} | context_chars={context_chars} | "
+            f"tokens_out=~{len(result)//4} | latency_ms={elapsed:.0f}"
+        )
         logger.debug("[finish] AgentService - process_message")
         return result
 
     async def stream_message(
         self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user"
     ):
+        start = time.perf_counter()
         logger.info("[start] AgentService - stream_message")
         logger.info(f"[info] AgentService - sessao {session_id} [user={user_id}]")
 
@@ -52,6 +64,7 @@ class AgentService:
             "role": role,
         }
 
+        result_parts = []
         async for event in agent_graph.astream_events(
             initial_state, version="v2"
         ):
@@ -61,6 +74,16 @@ class AgentService:
                 if chunk is not None:
                     content = chunk.content
                     if content:
+                        result_parts.append(content)
                         yield content
 
+        elapsed = (time.perf_counter() - start) * 1000
+        result = "".join(result_parts)
+        context = initial_state.get("retrieved_context", [])
+        context_chars = sum(len(c.get("content", "")) for c in context)
+        logger.info(
+            f"[audit] generation | route=SMART | user={user_id} | "
+            f"context_chunks={len(initial_state['retrieved_context'])} | context_chars={context_chars} | "
+            f"tokens_out=~{len(result)//4} | latency_ms={elapsed:.0f}"
+        )
         logger.debug("[finish] AgentService - stream_message")
