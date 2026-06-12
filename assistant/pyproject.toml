@@ -16,6 +16,9 @@ dependencies = [
     "qdrant-client>=1.9.0",
     "watchdog>=4.0.0",
     "ollama>=0.6.2",
+    "sqlalchemy>=2.0.0",
+    "asyncpg>=0.29.0",
+    "psycopg[pool]>=3.1.0",
 ]
 
 [tool.setuptools.packages.find]

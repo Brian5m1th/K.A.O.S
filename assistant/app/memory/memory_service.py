@@ -3,6 +3,8 @@ from pathlib import Path
 from loguru import logger
 from app.config.settings import settings
 
+_postgres_repo = None
+
 
 class MemoryService:
     def __init__(self) -> None:
@@ -17,6 +19,13 @@ class MemoryService:
 
     def _default_user(self) -> str:
         return "default"
+
+    async def _get_postgres_repo(self):
+        global _postgres_repo
+        if _postgres_repo is None:
+            from app.memory.postgres_repository import get_postgres_repository
+            _postgres_repo = await get_postgres_repository()
+        return _postgres_repo
 
     def save_conversation(
         self, user_id: str, session_id: str, summary: str, user_message: str, assistant_response: str
@@ -48,7 +57,15 @@ class MemoryService:
 {assistant_response}
 """
         filepath.write_text(content, encoding="utf-8")
-        logger.info(f"[info] MemoryService - conversa salva: {filename} [user={uid}]")
+        logger.info(f"[info] MemoryService - conversa salva (Obsidian): {filename} [user={uid}]")
+
+        try:
+            repo = await self._get_postgres_repo()
+            await repo.save_conversation(uid, session_id, summary, user_message, assistant_response)
+            logger.info(f"[info] MemoryService - conversa salva (PostgreSQL) [user={uid}]")
+        except Exception as e:
+            logger.warning(f"[warn] MemoryService - PostgreSQL save failed: {e}")
+
         logger.debug("[finish] MemoryService - save_conversation")
         return str(filepath.relative_to(self._vault))
 
