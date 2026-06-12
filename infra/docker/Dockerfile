@@ -27,9 +27,6 @@ COPY . .
 # Create non-root user
 RUN useradd -m -u 1000 kaos && chown -R kaos:kaos /app
 
-# Ensure virtual environment is in PATH
-ENV PATH="/app/.venv/bin:$PATH"
-
 USER kaos
 
 # Expose port
@@ -39,5 +36,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# Run application using the virtual environment's uvicorn (full path)
-CMD ["/app/.venv/bin/uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run application using python -m uvicorn (avoids PATH issues)
+CMD ["/app/.venv/bin/python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
