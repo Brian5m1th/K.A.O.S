@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import sys
 from collections.abc import AsyncIterator
@@ -14,6 +15,7 @@ from app.api.openai import router as openai_router, legacy_router
 from app.api.rag import router as rag_router
 from app.config.settings import settings
 from app.obsidian.watcher.vault_watcher import VaultWatcher
+from app.rag.embeddings.embedder import warmup_embedder
 
 
 def configure_logging(log_level: str) -> None:
@@ -43,6 +45,11 @@ _watcher: VaultWatcher | None = None
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher
     logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
+    
+    logger.info("[info] lifespan - warmup embedder")
+    await asyncio.to_thread(warmup_embedder)
+    logger.debug("[finish] lifespan - warmup embedder")
+    
     _watcher = VaultWatcher()
     _watcher.start()
     yield

@@ -37,18 +37,34 @@ def _get_agent() -> AgentService:
     return AgentService()
 
 
+def _models():
+    return [
+        {
+            "id": settings.API_MODEL_ID,
+            "object": "model",
+            "created": 0,
+            "owned_by": "kaos",
+        },
+        {
+            "id": settings.FAST_MODEL_ID,
+            "object": "model",
+            "created": 0,
+            "owned_by": "kaos",
+        },
+        {
+            "id": settings.DEFAULT_MODEL_ID,
+            "object": "model",
+            "created": 0,
+            "owned_by": "kaos",
+        },
+    ]
+
+
 def _models_response():
     return JSONResponse(
         content={
             "object": "list",
-            "data": [
-                {
-                    "id": settings.API_MODEL_ID,
-                    "object": "model",
-                    "created": 0,
-                    "owned_by": "kaos",
-                }
-            ],
+            "data": _models(),
         }
     )
 
@@ -58,6 +74,14 @@ async def list_models_legacy():
     logger.info("[start] openai - list_models_legacy")
     logger.debug("[finish] openai - list_models_legacy")
     return _models_response()
+
+
+@legacy_router.post("/chat/completions")
+async def chat_completions_legacy(
+    request: ChatCompletionRequest,
+) -> StreamingResponse:
+    logger.info(f"[start] openai - chat_completions_legacy [user={request.user_id or 'anonymous'}]")
+    return await chat_completions(request)
 
 
 @router.get("/models")
@@ -134,8 +158,12 @@ async def chat_completions(
             },
         )
 
-    intent = await _classifier.classify(user_message)
-    logger.info(f"[info] openai - intent={intent.value}")
+    if request.model == settings.FAST_MODEL_ID:
+        intent = IntentType.FAST
+        logger.info(f"[info] openai - model={request.model} -> forced FAST")
+    else:
+        intent = await _classifier.classify(user_message)
+        logger.info(f"[info] openai - intent={intent.value}")
 
     if intent == IntentType.FAST:
         result = await fast_route(user_message)
@@ -154,6 +182,19 @@ async def chat_completions(
                     "X-Accel-Buffering": "no",
                 },
             )
+        # FAST intent mas sem tool: resposta simples
+        async def _simple_stream():
+            yield "Olá! Como posso ajudar você hoje?"
+
+        return StreamingResponse(
+            _sse_stream_generator(stream_id, created, request.model, _simple_stream()),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no",
+            },
+        )
 
     elif intent == IntentType.MEMORY:
         router = MemoryRouter()

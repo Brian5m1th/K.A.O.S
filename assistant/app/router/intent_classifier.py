@@ -30,6 +30,13 @@ FAST_KEYWORDS = [
     "salve esta conversa",
     "guarde isto",
     "atualize esta nota",
+    "oi",
+    "olá",
+    "ola",
+    "hello",
+    "hi",
+    "tudo bem",
+    "como vai",
 ]
 
 MEMORY_KEYWORDS = [
@@ -47,6 +54,12 @@ MEMORY_KEYWORDS = [
     "remember",
     "ja falamos sobre",
     "we talked about",
+    "explique",
+    "explique sobre",
+    "resumo",
+    "resumir",
+    "o que e",
+    "o que eh",
 ]
 
 SYSTEM_PROMPT_CLASSIFIER = """Classifique a intencao do usuario em uma das categorias:
