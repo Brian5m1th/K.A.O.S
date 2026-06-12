@@ -52,7 +52,7 @@ Set-Location $ProjectRoot
 $UvicornArgs = @("uvicorn", "app.main:app", "--host", $Host, "--port", $Port)
 if (-not $NoReload) { $UvicornArgs += "--reload" }
 
-Write-Host "Iniciando K.A.O.S em http://$Host:$Port" -ForegroundColor Green
+Write-Host "Iniciando K.A.O.S em http://${Host}:${Port}" -ForegroundColor Green
 Write-Host "Modelos disponíveis: kaos (SMART/qwen3:14b), kaos-rag (MEMORY/qwen3:14b), kaos-fast (FAST/qwen3:4b)" -ForegroundColor Gray
 Write-Host "Pressione Ctrl+C para parar" -ForegroundColor Gray
 Write-Host "---" -ForegroundColor Gray

@@ -33,7 +33,7 @@ services:
     ports:
       - "3000:8080"
     env_file:
-      - ../../assistant/.env
+      - .env
     environment:
       - DATABASE_URL=postgresql://ai-p:ai-admin@postgres:5432/kaos
       - OPENAI_API_BASE_URL=http://host.docker.internal:8000/v1
@@ -52,17 +52,17 @@ services:
 
   kaos-api:
     build:
-      context: ../assistant
-      dockerfile: ../infra/docker/Dockerfile
+      context: ../../assistant
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     env_file:
-      - ../assistant/.env
+      - .env
     environment:
       - APP_ENV=production
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
-      - ../assistant:/app
+      - ../../assistant:/app
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
