@@ -36,6 +36,18 @@ class VaultIndexer:
         logger.info("[start] VaultIndexer - _ensure_collection")
         try:
             existing = [c.name for c in self._client.get_collections().collections]
+            if self.COLLECTION in existing:
+                # Check if dimension matches
+                collection_info = self._client.get_collection(self.COLLECTION)
+                existing_dim = collection_info.config.params.vectors.size
+                if existing_dim != self._embedder.dimension:
+                    logger.warning(
+                        f"[warn] VaultIndexer - dimension mismatch: existing={existing_dim}, "
+                        f"expected={self._embedder.dimension}. Recreating collection."
+                    )
+                    self._client.delete_collection(self.COLLECTION)
+                    existing = []  # Force recreation
+            
             if self.COLLECTION not in existing:
                 self._client.create_collection(
                     collection_name=self.COLLECTION,
@@ -43,7 +55,7 @@ class VaultIndexer:
                         size=self._embedder.dimension, distance=Distance.COSINE
                     ),
                 )
-                logger.info(f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada")
+                logger.info(f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada (dim={self._embedder.dimension})")
             logger.debug("[finish] VaultIndexer - _ensure_collection")
             return True
         except Exception as exc:

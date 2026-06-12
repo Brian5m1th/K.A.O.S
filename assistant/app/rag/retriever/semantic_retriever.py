@@ -13,7 +13,7 @@ class SemanticRetriever:
         self._client = QdrantClient(
             host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
         )
-        self._embedder = get_embedder("bge-m3")
+        self._embedder = get_embedder()
         logger.debug("[finish] SemanticRetriever - __init__")
 
     def search(

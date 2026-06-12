@@ -1,0 +1,79 @@
+[32m2026-06-11 11:44:25[0m | [1mINFO    [0m | [36mapp.main[0m:[36mlifespan[0m:[36m45[0m - [1m[start] K.A.O.S - modo development[0m
+[32m2026-06-11 11:44:25[0m | [1mINFO    [0m | [36mapp.rag.indexer.vault_indexer[0m:[36m__init__[0m:[36m24[0m - [1m[start] VaultIndexer - __init__[0m
+[32m2026-06-11 11:44:26[0m | [1mINFO    [0m | [36mapp.rag.embeddings.embedder[0m:[36m__init__[0m:[36m11[0m - [1m[start] Embedder - __init__[0m
+[32m2026-06-11 11:44:26[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:28[0m | [1mINFO    [0m | [36mapp.rag.embeddings.embedder[0m:[36m__init__[0m:[36m16[0m - [1m[info] Embedder - carregando modelo: BAAI/bge-m3[0m
+[32m2026-06-11 11:44:28[0m | [1mINFO    [0m | [36msentence_transformers.base.model[0m:[36m__init__[0m:[36m183[0m - [1mNo device provided, using cpu[0m
+[32m2026-06-11 11:44:30[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:30[0m | [33m[1mWARNING [0m | [36mhuggingface_hub.utils._http[0m:[36m_warn_on_warning_headers[0m:[36m904[0m - [33m[1mWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.[0m
+[32m2026-06-11 11:44:30[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/modules.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:30[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:30[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/config_sentence_transformers.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:30[0m | [1mINFO    [0m | [36msentence_transformers.base.model[0m:[36m_load_modules[0m:[36m992[0m - [1mLoading SentenceTransformer model from BAAI/bge-m3.[0m
+[32m2026-06-11 11:44:30[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/config_sentence_transformers.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/README.md "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/modules.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:31[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/sentence_bert_config.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/config.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3 "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3/commits/main "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:32[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3/discussions?p=0 "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3/commits/refs%2Fpr%2F130 "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/refs%2Fpr%2F130/model.safetensors.index.json "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/tokenizer_config.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/refs%2Fpr%2F130/model.safetensors "HTTP/1.1 302 Found"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/config.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:33[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:34[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/config.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:34[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:34[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/tokenizer_config.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:34[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"[0m
+[32m2026-06-11 11:44:34[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3 "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/BAAI/bge-m3/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/BAAI/bge-m3/5617a9f61b028005a4858fdac845db406aefb181/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET https://huggingface.co/api/models/BAAI/bge-m3 "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mapp.rag.chunking.text_splitter[0m:[36m__init__[0m:[36m15[0m - [1m[start] MarkdownSplitter - __init__[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mapp.rag.indexer.vault_indexer[0m:[36m_ensure_collection[0m:[36m34[0m - [1m[start] VaultIndexer - _ensure_collection[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mhttpx._client[0m:[36m_send_single_request[0m:[36m1025[0m - [1mHTTP Request: GET http://localhost:6333/collections "HTTP/1.1 200 OK"[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mapp.obsidian.watcher.vault_watcher[0m:[36mstart[0m:[36m53[0m - [1m[start] VaultWatcher - start[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mapp.obsidian.watcher.vault_watcher[0m:[36mstart[0m:[36m59[0m - [1m[info] VaultWatcher - iniciado em: C:\Obsidian[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [36mapp.obsidian.watcher.vault_watcher[0m:[36mstop[0m:[36m65[0m - [1m[start] VaultWatcher - stop[0m
+[32m2026-06-11 11:44:37[0m | [1mINFO    [0m | [32m2026-06-11 11:47:35[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:41110 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:47:40[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:33953 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:47:45[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:43166 - "GET /models HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46515 - "POST /chat/completions HTTP/1.1" 404 Not Found
+[32m2026-06-11 11:48:16[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:6710 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:48:38[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:58111 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:48:40[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:58117 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:48:42[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:58150 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:48:47[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:11330 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 11:48:50[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:60740 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 12:54:09[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:59570 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 12:54:11[0m | [1mINFO    [0m | [36mapp.api.openai[0m:[36mlist_models_legacy[0m:[36m55[0m - [1m[start] openai - list_models_legacy[0m
+INFO:     127.0.0.1:59573 - "GET /models HTTP/1.1" 200 OK
+[32m2026-06-11 13:32:24[0m | [1mINFO    [0m | [36mapp.api.health[0m:[36mhealth_check[0m:[36m26[0m - [1m[info] health - check OK[0m
+INFO:     127.0.0.1:46462 - "GET /health HTTP/1.1" 200 OK

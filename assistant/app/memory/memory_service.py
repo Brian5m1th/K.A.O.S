@@ -1,9 +1,12 @@
 from datetime import datetime
 from pathlib import Path
+import asyncio
+import concurrent.futures
 from loguru import logger
 from app.config.settings import settings
 
 _postgres_repo = None
+_executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
 
 
 class MemoryService:
@@ -26,6 +29,17 @@ class MemoryService:
             from app.memory.postgres_repository import get_postgres_repository
             _postgres_repo = await get_postgres_repository()
         return _postgres_repo
+
+    def _run_async(self, coro):
+        """Run async coroutine in thread pool to avoid blocking sync code."""
+        try:
+            loop = asyncio.get_running_loop()
+            # If there's a running loop, schedule in thread pool
+            future = _executor.submit(asyncio.run, coro)
+            return future.result(timeout=30)
+        except RuntimeError:
+            # No running loop, safe to use asyncio.run
+            return asyncio.run(coro)
 
     def save_conversation(
         self, user_id: str, session_id: str, summary: str, user_message: str, assistant_response: str
@@ -60,8 +74,8 @@ class MemoryService:
         logger.info(f"[info] MemoryService - conversa salva (Obsidian): {filename} [user={uid}]")
 
         try:
-            repo = await self._get_postgres_repo()
-            await repo.save_conversation(uid, session_id, summary, user_message, assistant_response)
+            repo = self._run_async(self._get_postgres_repo())
+            self._run_async(repo.save_conversation(uid, session_id, summary, user_message, assistant_response))
             logger.info(f"[info] MemoryService - conversa salva (PostgreSQL) [user={uid}]")
         except Exception as e:
             logger.warning(f"[warn] MemoryService - PostgreSQL save failed: {e}")

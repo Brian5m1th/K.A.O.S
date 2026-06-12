@@ -1,0 +1,14 @@
+2026-06-11 11:44:24.763 | INFO     | app.router.intent_classifier:__init__:65 - [start] IntentClassifier - __init__
+2026-06-11 11:44:25.192 | DEBUG    | app.router.intent_classifier:__init__:71 - [finish] IntentClassifier - __init__
+2026-06-11 11:44:25.193 | INFO     | app.router.smart_router:__init__:8 - [start] SmartRouter - __init__
+2026-06-11 11:44:25.193 | DEBUG    | app.router.smart_router:__init__:10 - [finish] SmartRouter - __init__
+2026-06-11 11:44:25.208 | INFO     | app.router.intent_classifier:__init__:65 - [start] IntentClassifier - __init__
+2026-06-11 11:44:25.649 | DEBUG    | app.router.intent_classifier:__init__:71 - [finish] IntentClassifier - __init__
+INFO:     Started server process [17920]
+INFO:     Waiting for application startup.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|##########| 391/391 [00:00<00:00, 21787.87it/s]
+INFO:     Application startup complete.
+ERROR:    [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8001): [winerror 10048] normalmente é permitida apenas uma utilização de cada endereço de soquete (protocolo/endereço de rede/porta)
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
