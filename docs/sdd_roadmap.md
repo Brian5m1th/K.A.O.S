@@ -6,7 +6,7 @@ Related: [[index]] [[00_visao_geral]] [[backlog]]
 
 ## Objetivo
 
-Construir uma assistente de IA pessoal capaz de operar offline utilizando conhecimento armazenado em um Vault Obsidian e executar integracoes externas atraves do N8N.
+Construir uma assistente de IA pessoal capaz de operar offline utilizando conhecimento armazenado em um Vault Obsidian e executar integrações externas através do N8N.
 
 ---
 
@@ -15,13 +15,13 @@ Construir uma assistente de IA pessoal capaz de operar offline utilizando conhec
 ```text
 Open WebUI
   ↓
-FastAPI (proxy OpenAI + LangGraph)
+FastAPI (Triple-Router: FAST / MEMORY / SMART)
   ↓
-LangGraph (orquestrador)
+LangGraph (SMART) ←→ RAG (MEMORY) ←→ Tools (FAST)
   ↓
-Obsidian (memoria) ←→ Qdrant (RAG)
+Obsidian (memória) ←→ Qdrant (RAG)
   ↓
-N8N (automacao externa)
+N8N (automação externa)
 ```
 
 ---
@@ -116,24 +116,29 @@ IA adapta respostas com base no historico e preferencias armazenadas.
 
 ---
 
-## Fase 8 — User Context & Multiusuário 🟡 Em Andamento
+## Fase 8 — Performance, RAG & Roteamento Inteligente 🟡 Em Andamento
 
-### Entregaveis
-- UserContext model (user_id, username, role)
-- MemoryService com escopo por usuário (`Vault/users/{user_id}/`)
-- AgentState com user context
-- save_conversation tool com user_id
-- Logs com identificação de usuário
-- MemoryRepository protocol (preparação PostgreSQL)
+### Entregaveis Concluídos
+- ✅ **Singleton Embedder** — `get_embedder()` evita reloads; `warmup_embedder()` no startup
+- ✅ **Fast Intent Classifier** — Keywords PT-BR/EN (FAST/MEMORY); LLM fallback com `OLLAMA_FAST_MODEL`
+- ✅ **Roteamento Triple-Router** — FAST (tools), MEMORY (RAG+LLM), SMART (LangGraph)
+- ✅ **MemoryRouter** — RAG + Ollama streaming sem LangGraph (target 2-5s)
+- ✅ **RAG Diagnostics** — Logs detalhados: query, vector_size, scores, paths, payload keys
+- ✅ **Score Threshold** — `settings.RAG_SCORE_THRESHOLD=0.3` configurável
+- ✅ **Observabilidade** — Métricas de tempo (ms) em MemoryRouter, SemanticRetriever, IntentClassifier
+- ✅ **Warmup** — Embedder + Ollama no lifespan do FastAPI
+- ✅ **OpenAI API Compat** — Legacy routes `POST /chat/completions`, `GET /models` para Open WebUI
+- ✅ **Python 3.13** — `requires-python >=3.13,<3.14`, UV managed Python
 
-### Proximos Passos
-- Integrar com Open WebUI Groups
-- Compartilhamento de conhecimento entre usuários
-- RBAC avancado
+### Próximos Entregáveis (Fase 8 cont.)
+- [ ] **Cache de Embeddings (SQLite)** — `hash(texto)` → vector, evitar reprocessamento
+- [ ] **Config Dev/Prod** — `bge-small-en-v1.5` (dev) vs `bge-m3` (prod)
+- [ ] **Qdrant HNSW Tuning** — `m=32`, `ef_construct=200` para 10k+ pontos
+- [ ] **Auditoria Planner** — Validar uso de `retrieved_context` no prompt final
 
 ---
 
-## Fase 9 — Integracoes ⬜
+## Fase 9 — Integrações Externas ⬜
 
 ### Tecnologias
 - N8N
@@ -141,7 +146,10 @@ IA adapta respostas com base no historico e preferencias armazenadas.
 - Email
 - AWS
 
-### Proximos Passos
-- Subir N8N via Docker Compose
-- Criar webhooks de automacao
-- Integrar ferramentas externas ao Tool Registry
+### Próximos Passos
+- [ ] Subir N8N via Docker Compose
+- [ ] Criar webhooks de automação
+- [ ] Integrar ferramentas externas ao Tool Registry
+- [ ] Webhook tool para N8N
+- [ ] GitHub tool (issues, PRs)
+- [ ] Email tool (send/receive)

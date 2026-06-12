@@ -16,20 +16,43 @@ Transformar o Vault Obsidian em um banco de conhecimento semântico consultável
 
 ---
 
-## Tarefas — Fase 4 (RAG)
+## Status Atual: ✅ CONCLUÍDO (Fases 4-5 + Otimizações)
 
-- [ ] Subir Qdrant via Docker Compose
-- [ ] Configurar modelo de embeddings (`BAAI/bge-m3`)
-- [ ] Implementar chunking de documentos (`app/rag/chunking/`)
-- [ ] Indexar todas as notas existentes (indexação inicial)
-- [ ] Criar retriever semântico (`app/rag/retriever/`)
-- [ ] Testar consultas contextuais
+| Componente | Status | Detalhes |
+|------------|--------|----------|
+| Qdrant | ✅ | Coleção `obsidian_memory`, COSINE distance, 1024-dim |
+| Embedder BGE-M3 | ✅ | `BAAI/bge-m3` (1024-dim), **Singleton** via `get_embedder()` |
+| Chunking | ✅ | `MarkdownSplitter` (800 chars, 150 overlap, header-aware) |
+| Indexer | ✅ | `VaultIndexer` upsert com ID determinístico (MD5 path+index) |
+| Retriever | ✅ | `SemanticRetriever` com `score_threshold=0.3`, folder filter |
+| Watcher | ✅ | `VaultWatcher` (watchdog) auto-reindex create/modify/delete/move |
+| **Diagnostics** | ✅ | Logs: query, vector_size, scores, paths, payload keys |
+| **Warmup** | ✅ | `warmup_embedder()` no lifespan do FastAPI |
 
-## Tarefas — Fase 5 (Atualização Automática)
+---
 
-- [ ] Adicionar `watchdog` como dependência
-- [ ] Detectar eventos de `CREATE`, `MODIFY` e `DELETE`
-- [ ] Disparar reindexação automática no Qdrant
+## Tarefas — Fase 4 (RAG) ✅
+
+- [x] Subir Qdrant via Docker Compose
+- [x] Configurar modelo de embeddings (`BAAI/bge-m3`)
+- [x] Implementar chunking de documentos (`app/rag/chunking/`)
+- [x] Indexar todas as notas existentes (indexação inicial)
+- [x] Criar retriever semântico (`app/rag/retriever/`)
+- [x] Testar consultas contextuais
+
+## Tarefas — Fase 5 (Atualização Automática) ✅
+
+- [x] Adicionar `watchdog` como dependência
+- [x] Detectar eventos de `CREATE`, `MODIFY` e `DELETE`
+- [x] Disparar reindexação automática no Qdrant
+
+## Tarefas — Otimizações (Fase 8) ✅
+
+- [x] **Singleton Embedder** — `get_embedder()` evita múltiplas instâncias
+- [x] **Score Threshold** — `settings.RAG_SCORE_THRESHOLD=0.3` no `query_points`
+- [x] **Logs de Diagnóstico** — Query, vector_size, scores, paths, payload keys
+- [x] **Folder Filter** — Validação strip/empty, ignora se vazio
+- [x] **Warmup Embedder** — Carregamento antecipado no startup
 
 ---
 
@@ -59,6 +82,10 @@ app/
 ```python
 from sentence_transformers import SentenceTransformer
 from loguru import logger
+from app.config.settings import settings
+
+_embedder_instance: "Embedder | None" = None
+
 
 class Embedder:
     """Gera embeddings de texto usando Sentence Transformers (local, offline)."""
@@ -85,6 +112,22 @@ class Embedder:
 
     def embed_single(self, text: str) -> list[float]:
         return self.embed([text])[0]
+
+
+def get_embedder(model_key: str = "bge-m3") -> Embedder:
+    """Retorna instância singleton do Embedder (evita reloads caros)."""
+    global _embedder_instance
+    if _embedder_instance is None:
+        _embedder_instance = Embedder(model_key)
+    return _embedder_instance
+
+
+def warmup_embedder(model_key: str = "bge-m3") -> None:
+    """Pré-carrega o modelo para evitar cold start na primeira query."""
+    embedder = get_embedder(model_key)
+    logger.info("[info] Embedder - warmup")
+    _ = embedder.embed_single("warmup")
+    logger.debug("[finish] Embedder - warmup")
 ```
 
 ---
@@ -251,18 +294,24 @@ class VaultIndexer:
 ## 5. Semantic Retriever (`rag/retriever/semantic_retriever.py`)
 
 ```python
+from loguru import logger
 from qdrant_client import QdrantClient
-from qdrant_client.models import Filter, FieldCondition, MatchValue
-from app.rag.embeddings.embedder import Embedder
+from qdrant_client.models import FieldCondition, Filter, MatchValue
 from app.config.settings import settings
 from app.domain.document import SearchResult
+from app.rag.embeddings.embedder import get_embedder
+
 
 class SemanticRetriever:
-    """Realiza busca por similaridade semântica no Qdrant."""
+    """Realiza busca por similaridade semântica no Qdrant com diagnósticos detalhados."""
 
     def __init__(self) -> None:
-        self._client = QdrantClient(host=settings.QDRANT_HOST, port=settings.QDRANT_PORT)
-        self._embedder = Embedder(model_key="bge-m3")
+        logger.info("[start] SemanticRetriever - __init__")
+        self._client = QdrantClient(
+            host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
+        )
+        self._embedder = get_embedder("bge-m3")
+        logger.debug("[finish] SemanticRetriever - __init__")
 
     def search(
         self,
@@ -270,21 +319,50 @@ class SemanticRetriever:
         limit: int = 5,
         folder_filter: str | None = None,
     ) -> list[SearchResult]:
-        """Busca chunks mais relevantes para a query com filtro opcional por pasta."""
-        query_vector = self._embedder.embed_single(query)
-        search_filter = None
-        if folder_filter:
-            search_filter = Filter(
-                must=[FieldCondition(key="folder", match=MatchValue(value=folder_filter))]
-            )
+        logger.info("[start] SemanticRetriever - search")
+        logger.info(f"[info] SemanticRetriever - query='{query}' limit={limit} folder_filter='{folder_filter}'")
+        
+        try:
+            query_vector = self._embedder.embed_single(query)
+            logger.info(f"[info] SemanticRetriever - vector_size={len(query_vector)}")
+        except Exception as e:
+            logger.error(f"[error] SemanticRetriever - embed_single failed: {e}")
+            raise
 
-        hits = self._client.search(
+        search_filter = None
+        if folder_filter and folder_filter.strip():
+            logger.info(f"[info] SemanticRetriever - filtrando por pasta: {folder_filter}")
+            search_filter = Filter(
+                must=[
+                    FieldCondition(
+                        key="folder", match=MatchValue(value=folder_filter.strip())
+                    )
+                ]
+            )
+        else:
+            logger.info("[info] SemanticRetriever - sem filtro de pasta")
+
+        response = self._client.query_points(
             collection_name=settings.QDRANT_COLLECTION,
-            query_vector=query_vector,
+            query=query_vector,
             query_filter=search_filter,
             limit=limit,
+            score_threshold=settings.RAG_SCORE_THRESHOLD,
+            with_payload=True,
         )
+        hits = response.points
 
+        logger.info(f"[info] SemanticRetriever - raw_hits={len(hits)}")
+        for i, hit in enumerate(hits[:3]):
+            logger.info(
+                f"[info] SemanticRetriever - hit[{i}] "
+                f"score={hit.score:.4f} "
+                f"path={hit.payload.get('path')} "
+                f"keys={list(hit.payload.keys())}"
+            )
+
+        logger.info(f"[info] SemanticRetriever - {len(hits)} resultados")
+        logger.debug("[finish] SemanticRetriever - search")
         return [
             SearchResult(
                 path=hit.payload["path"],
