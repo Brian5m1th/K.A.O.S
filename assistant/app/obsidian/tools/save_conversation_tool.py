@@ -19,4 +19,4 @@ def save_conversation(summary: str, user_message: str, assistant_response: str, 
         user_message=user_message,
         assistant_response=assistant_response,
     )
-    return f"Conversa salva em: {path}"
+    return f"Conversa salva em: {path} (Obsidian + PostgreSQL)"
