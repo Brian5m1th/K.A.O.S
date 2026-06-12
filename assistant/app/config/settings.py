@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     OBSIDIAN_VAULT_PATH: str = ""
 
     OLLAMA_BASE_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "qwen3:4b"
+    OLLAMA_MODEL: str = "qwen3:14b"
     OLLAMA_FAST_MODEL: str = "qwen3:4b"
     API_MODEL_ID: str = "kaos-rag"
     FAST_MODEL_ID: str = "kaos-fast"
