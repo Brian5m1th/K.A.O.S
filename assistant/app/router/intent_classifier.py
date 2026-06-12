@@ -76,12 +76,18 @@ Responda apenas com o nome da categoria: FAST, MEMORY ou SMART."""
 class IntentClassifier:
     def __init__(self):
         logger.info("[start] IntentClassifier - __init__")
-        self._llm = ChatOllama(
-            model=settings.OLLAMA_FAST_MODEL,
-            base_url=settings.OLLAMA_BASE_URL,
-            temperature=0,
-        )
+        self._llm: ChatOllama | None = None
         logger.debug("[finish] IntentClassifier - __init__")
+
+    def _get_llm(self) -> ChatOllama:
+        if self._llm is None:
+            logger.info("[info] IntentClassifier - lazy loading LLM")
+            self._llm = ChatOllama(
+                model=settings.OLLAMA_FAST_MODEL,
+                base_url=settings.OLLAMA_BASE_URL,
+                temperature=0,
+            )
+        return self._llm
 
     def _match_keyword(self, message: str) -> IntentType | None:
         lower = message.lower().strip()
@@ -107,7 +113,8 @@ class IntentClassifier:
             return keyword_match
 
         logger.info("[info] IntentClassifier - fallback LLM")
-        response = await self._llm.ainvoke([
+        llm = self._get_llm()
+        response = await llm.ainvoke([
             SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
             HumanMessage(content=message),
         ])

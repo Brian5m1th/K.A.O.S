@@ -15,6 +15,18 @@ from app.router.fast_router import fast_route
 from app.router.memory_router import MemoryRouter
 from app.router.cache import ResponseCache
 
+
+# Lazy-loaded classifier
+_classifier: IntentClassifier | None = None
+_cache = ResponseCache()
+
+
+def _get_classifier() -> IntentClassifier:
+    global _classifier
+    if _classifier is None:
+        _classifier = IntentClassifier()
+    return _classifier
+
 router = APIRouter(prefix="/v1", tags=["OpenAI"])
 legacy_router = APIRouter(tags=["Legacy"])
 
@@ -92,7 +104,7 @@ async def list_models():
     return _models_response()
 
 
-_classifier = IntentClassifier()
+# Removed module-level classifier - now lazy-loaded via _get_classifier()
 _cache = ResponseCache()
 
 
@@ -170,7 +182,7 @@ async def chat_completions(
         intent = IntentType.FAST
         logger.info(f"[info] openai - model={request.model} -> forced FAST")
     else:
-        intent = await _classifier.classify(user_message)
+        intent = await _get_classifier().classify(user_message)
         logger.info(f"[info] openai - intent={intent.value}")
 
     if intent == IntentType.FAST:
