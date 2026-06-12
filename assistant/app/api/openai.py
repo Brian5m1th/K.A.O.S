@@ -1,4 +1,5 @@
 import json
+import time
 import uuid
 from typing import AsyncIterator
 
@@ -166,6 +167,7 @@ async def chat_completions(
         logger.info(f"[info] openai - intent={intent.value}")
 
     if intent == IntentType.FAST:
+        start = time.perf_counter()
         result = await fast_route(user_message)
         if result:
             _cache.set(user_message, result)
@@ -173,6 +175,11 @@ async def chat_completions(
             async def _fast_stream():
                 yield result
 
+            elapsed = (time.perf_counter() - start) * 1000
+            logger.info(
+                f"[audit] generation | route=FAST | user={request.user_id or 'anonymous'} | "
+                f"latency_ms={elapsed:.0f}"
+            )
             return StreamingResponse(
                 _sse_stream_generator(stream_id, created, request.model, _fast_stream()),
                 media_type="text/event-stream",
@@ -186,6 +193,11 @@ async def chat_completions(
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
 
+        elapsed = (time.perf_counter() - start) * 1000
+        logger.info(
+            f"[audit] generation | route=FAST | user={request.user_id or 'anonymous'} | "
+            f"latency_ms={elapsed:.0f}"
+        )
         return StreamingResponse(
             _sse_stream_generator(stream_id, created, request.model, _simple_stream()),
             media_type="text/event-stream",
@@ -197,6 +209,7 @@ async def chat_completions(
         )
 
     elif intent == IntentType.MEMORY:
+        start = time.perf_counter()
         router = MemoryRouter()
 
         return StreamingResponse(
