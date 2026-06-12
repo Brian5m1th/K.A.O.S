@@ -29,5 +29,13 @@ class Settings(BaseSettings):
     RAG_SCORE_THRESHOLD: float = 0.3
     RAG_DEFAULT_LIMIT: int = 5
 
+    EMBEDDING_MODEL_DEV: str = "nomic-embed-text"
+    EMBEDDING_MODEL_PROD: str = "BAAI/bge-m3"
+    EMBEDDING_BATCH_SIZE: int = 64
+
+    @property
+    def embedding_model(self) -> str:
+        return self.EMBEDDING_MODEL_DEV if self.APP_ENV == "development" else self.EMBEDDING_MODEL_PROD
+
 
 settings = Settings()
