@@ -13,9 +13,11 @@ from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
 from app.api.rag import router as rag_router
+from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
 from app.middleware.user_context import UserContextMiddleware
 from app.obsidian.vault_init import create_vault_structure
+from app.tools import github_tools  # noqa: F401 - registers tools on import
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.rag.embeddings.embedder import warmup_embedder
 
@@ -86,6 +88,7 @@ app.include_router(indexing_router)
 app.include_router(rag_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
+app.include_router(webhooks_router)
 
 
 @app.get("/")
