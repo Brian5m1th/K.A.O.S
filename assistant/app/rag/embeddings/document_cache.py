@@ -3,7 +3,6 @@ import hashlib
 import json
 import time
 from pathlib import Path
-from loguru import logger
 
 
 class DocumentEmbeddingCache:

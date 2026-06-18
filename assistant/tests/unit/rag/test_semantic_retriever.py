@@ -1,7 +1,5 @@
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from app.domain.document import SearchResult
 from app.rag.retriever.semantic_retriever import SemanticRetriever
 

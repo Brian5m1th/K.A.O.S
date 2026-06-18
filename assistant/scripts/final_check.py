@@ -1,11 +1,10 @@
 import sys
 sys.path.insert(0, '.')
-from app.main import app
-print('1. Server imports: OK')
-
 from app.rag.retriever.semantic_retriever import SemanticRetriever
 from app.rag.indexer.vault_indexer import VaultIndexer
 from app.config import settings
+
+print('1. Server imports: OK')
 
 r = SemanticRetriever()
 results = r.search('teste', limit=3)

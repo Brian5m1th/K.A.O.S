@@ -4,10 +4,8 @@ Script de migração: Obsidian memoria.md -> PostgreSQL memory_sessions/messages
 Execute: python scripts/migrate_memory_to_postgres.py [--dry-run]
 """
 import sys
-import uuid
 import argparse
 from pathlib import Path
-from datetime import datetime
 from loguru import logger
 
 # Add project root to path

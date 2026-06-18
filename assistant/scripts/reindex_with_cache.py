@@ -10,7 +10,6 @@ from loguru import logger
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.config.settings import settings
 from app.rag.indexer.vault_indexer import VaultIndexer
 
 

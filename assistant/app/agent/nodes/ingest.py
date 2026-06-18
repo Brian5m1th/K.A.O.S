@@ -8,8 +8,6 @@ from app.config.settings import settings
 from app.obsidian.tools.wiki.create_entity_tool import create_entity
 from app.obsidian.tools.wiki.create_concept_tool import create_concept
 from app.obsidian.tools.wiki.create_source_tool import create_source
-from app.obsidian.tools.wiki.update_index_tool import update_index
-from app.obsidian.tools.wiki.append_log_tool import append_log
 from app.rag.embeddings.embedder import get_embedder
 from app.rag.indexer.vault_indexer import VaultIndexer
 from app.rag.chunking.text_splitter import MarkdownSplitter
@@ -82,7 +80,7 @@ def ingest_source(state: AgentState) -> dict:
     except json.JSONDecodeError as e:
         logger.error(f"[error] ingest_source - JSON invalido: {e}")
         return {
-            "messages": [HumanMessage(content=f"Erro ao processar o documento: JSON invalido.")]
+            "messages": [HumanMessage(content="Erro ao processar o documento: JSON invalido.")]
         }
 
     title = data.get("title", Path(source_path).stem)
@@ -129,8 +127,6 @@ def ingest_source(state: AgentState) -> dict:
 
     try:
         vault = Path(settings.OBSIDIAN_VAULT_PATH)
-        splitter = MarkdownSplitter()
-        embedder = get_embedder()
         indexer = VaultIndexer()
         indexer.index_file(str(raw_file))
         logger.info("[info] ingest_source - reindexado no Qdrant")

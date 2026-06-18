@@ -1,7 +1,4 @@
-from pathlib import Path
 from unittest.mock import MagicMock, patch
-
-import pytest
 
 from app.rag.indexer.vault_indexer import VaultIndexer
 
@@ -52,7 +49,7 @@ class TestVaultIndexer:
         MockClient.return_value = mock_instance
         MockEmbedder.return_value.dimension = 1024
 
-        indexer = VaultIndexer()
+        VaultIndexer()
 
         mock_instance.create_collection.assert_called_once()
         assert (
@@ -74,6 +71,6 @@ class TestVaultIndexer:
         MockClient.return_value = mock_instance
         MockEmbedder.return_value.dimension = 1024
 
-        indexer = VaultIndexer()
+        VaultIndexer()
 
         mock_instance.create_collection.assert_not_called()

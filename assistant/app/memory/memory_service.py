@@ -33,7 +33,7 @@ class MemoryService:
     def _run_async(self, coro):
         """Run async coroutine in thread pool to avoid blocking sync code."""
         try:
-            loop = asyncio.get_running_loop()
+            asyncio.get_running_loop()
             # If there's a running loop, schedule in thread pool
             future = _executor.submit(asyncio.run, coro)
             return future.result(timeout=30)

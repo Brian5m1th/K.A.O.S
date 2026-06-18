@@ -1,4 +1,3 @@
-import re
 from enum import Enum
 from loguru import logger
 from langchain_core.messages import SystemMessage, HumanMessage
@@ -119,7 +118,7 @@ class IntentClassifier:
         return None
 
     async def classify(self, message: str) -> IntentType:
-        logger.info(f"[start] IntentClassifier - classify")
+        logger.info("[start] IntentClassifier - classify")
         keyword_match = self._match_keyword(message)
         if keyword_match:
             logger.debug("[finish] IntentClassifier - classify (keyword)")

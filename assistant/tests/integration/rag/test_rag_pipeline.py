@@ -34,7 +34,7 @@ class TestRAGPipeline:
         MockQdrantClient.return_value = mock_client
 
         from app.rag.indexer.vault_indexer import VaultIndexer
-        indexer = VaultIndexer()
+        VaultIndexer()
 
         mock_hit = MagicMock()
         mock_hit.score = 0.92

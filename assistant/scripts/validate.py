@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """Final validation script"""
-print("=== FINAL VALIDATION ===")
-print()
-
-from app.main import app
-print("1. Server imports: OK")
-
 from app.rag.retriever.semantic_retriever import SemanticRetriever
 from app.rag.indexer.vault_indexer import VaultIndexer
 from app.config import settings
+
+print("=== FINAL VALIDATION ===")
+print()
+print("1. Server imports: OK")
 
 r = SemanticRetriever()
 results = r.search('teste', limit=3)

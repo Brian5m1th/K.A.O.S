@@ -1,7 +1,3 @@
-from unittest.mock import MagicMock, patch
-
-import pytest
-
 from app.agent.nodes.executor import TOOL_REGISTRY
 
 
