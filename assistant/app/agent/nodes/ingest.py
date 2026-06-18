@@ -15,9 +15,9 @@ from app.rag.indexer.vault_indexer import VaultIndexer
 from app.rag.chunking.text_splitter import MarkdownSplitter
 
 
-def _get_llm():
-    from langchain_ollama import ChatOllama
-    return ChatOllama(model=settings.OLLAMA_MODEL, base_url=settings.OLLAMA_BASE_URL)
+def _get_provider():
+    from app.llm import LLMFactory
+    return LLMFactory().build(settings.API_MODEL_ID)
 
 
 INGEST_PROMPT = """You are analyzing a source document for the K.A.O.S knowledge wiki.
