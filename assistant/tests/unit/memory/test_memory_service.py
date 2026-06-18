@@ -8,7 +8,7 @@ from app.memory.memory_service import MemoryService
 class TestMemoryService:
     @pytest.fixture
     def service(self, tmp_path: Path, monkeypatch) -> MemoryService:
-        monkeypatch.setattr("app.config.settings.OBSIDIAN_VAULT_PATH", str(tmp_path))
+        monkeypatch.setattr("app.config.settings.settings.OBSIDIAN_VAULT_PATH", str(tmp_path))
         return MemoryService()
 
     def test_save_conversation_creates_file(self, service: MemoryService) -> None:

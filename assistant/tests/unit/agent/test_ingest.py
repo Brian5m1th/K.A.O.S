@@ -12,10 +12,9 @@ class TestIngestSource:
     @patch("app.agent.nodes.ingest.create_entity")
     @patch("app.agent.nodes.ingest.create_concept")
     @patch("app.agent.nodes.ingest.create_source")
-    @patch("app.agent.nodes.ingest.get_embedder")
     @patch("app.agent.nodes.ingest.VaultIndexer")
     def test_ingest_full_flow(
-        self, MockIndexer, MockEmbedder, MockCreateSource,
+        self, MockIndexer, MockCreateSource,
         MockCreateConcept, MockCreateEntity, MockGetProvider,
         tmp_path, monkeypatch,
     ) -> None:

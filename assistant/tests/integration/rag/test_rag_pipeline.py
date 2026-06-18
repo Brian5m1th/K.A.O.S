@@ -22,7 +22,7 @@ class TestRAGPipeline:
     def test_index_and_retrieve_flow(
         self, MockEmbedder, MockQdrantClient, test_vault, monkeypatch
     ) -> None:
-        monkeypatch.setattr("app.config.settings.OBSIDIAN_VAULT_PATH", str(test_vault))
+        monkeypatch.setattr("app.config.settings.settings.OBSIDIAN_VAULT_PATH", str(test_vault))
 
         mock_embedder = MagicMock()
         mock_embedder.dimension = 1024
@@ -59,8 +59,7 @@ class TestRAGPipeline:
         assert results[0].score == 0.92
         assert "Python" in results[0].excerpt
 
-    @patch("app.rag.chunking.text_splitter.MarkdownSplitter")
-    def test_chunking_produces_valid_chunks(self, MockSplitter) -> None:
+    def test_chunking_produces_valid_chunks(self) -> None:
         from app.rag.chunking.text_splitter import MarkdownSplitter, TextChunk
 
         splitter = MarkdownSplitter(chunk_size=800, overlap=150)

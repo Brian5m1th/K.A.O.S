@@ -40,5 +40,5 @@ class TestEmbedder:
         embedder = Embedder(model_key="bge-m3")
         assert embedder.dimension == 1024
 
-        embedder2 = Embedder(model_key="nomic")
+        embedder2 = Embedder(model_key="nomic-embed-text")
         assert embedder2.dimension == 768

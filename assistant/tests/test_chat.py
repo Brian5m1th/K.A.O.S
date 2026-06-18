@@ -1,9 +1,10 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from httpx import AsyncClient, ASGITransport
 
 from app.main import app
+from app.router.intent_classifier import IntentType
 
 
 @pytest.fixture
@@ -14,20 +15,21 @@ def client() -> AsyncClient:
 
 @pytest.mark.asyncio
 async def test_send_message_streams_response(client: AsyncClient) -> None:
-    mock_agent = MagicMock()
+    mock_router = MagicMock()
     async def fake_stream(*args, **kwargs):
         yield "Hello world!"
 
-    mock_agent.stream_message = fake_stream
+    mock_router.stream = fake_stream
 
-    with patch("app.api.chat._agent", mock_agent):
-        response = await client.post(
-            "/api/chat/message",
-            json={
-                "session_id": "test-session",
-                "message": "Olá",
-            },
-        )
+    with patch("app.api.chat._smart_router", mock_router):
+        with patch("app.api.chat._classifier.classify", new_callable=AsyncMock, return_value=IntentType.SMART):
+            response = await client.post(
+                "/api/chat/message",
+                json={
+                    "session_id": "test-session",
+                    "message": "Olá",
+                },
+            )
 
     assert response.status_code == 200
     assert response.text == "Hello world!"

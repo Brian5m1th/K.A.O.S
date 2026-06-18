@@ -1,9 +1,10 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from httpx import AsyncClient, ASGITransport
 
 from app.main import app
+from app.router.intent_classifier import IntentType
 
 
 @pytest.fixture
@@ -31,20 +32,24 @@ async def test_openai_chat_completions(client: AsyncClient) -> None:
             yield token
     mock_agent.stream_message = _mock_stream
 
-    with patch("app.api.openai.AgentService", return_value=mock_agent):
-        async with client.stream(
-            "POST",
-            "/v1/chat/completions",
-            json={
-                "model": "qwen3:14b",
-                "messages": [
-                    {"role": "user", "content": "O que tem no meu vault?"}
-                ],
-            },
-        ) as response:
-            assert response.status_code == 200
-            content = await _read_sse(response)
-            assert content == "Resposta do RAG + Ollama"
+    mock_classifier = MagicMock()
+    mock_classifier.classify = AsyncMock(return_value=IntentType.SMART)
+
+    with patch("app.api.openai._get_classifier", return_value=mock_classifier):
+        with patch("app.api.openai.AgentService", return_value=mock_agent):
+            async with client.stream(
+                "POST",
+                "/v1/chat/completions",
+                json={
+                    "model": "qwen3:14b",
+                    "messages": [
+                        {"role": "user", "content": "O que tem no meu vault?"}
+                    ],
+                },
+            ) as response:
+                assert response.status_code == 200
+                content = await _read_sse(response)
+                assert content == "Resposta do RAG + Ollama"
 
 
 @pytest.mark.asyncio
@@ -58,18 +63,22 @@ async def test_openai_chat_completions_no_user_message(
     mock_agent = MagicMock()
     mock_agent.stream_message = _mock_stream
 
-    with patch("app.api.openai.AgentService", return_value=mock_agent):
-        async with client.stream(
-            "POST",
-            "/v1/chat/completions",
-            json={
-                "model": "qwen3:14b",
-                "messages": [{"role": "assistant", "content": "Olá"}],
-            },
-        ) as response:
-            assert response.status_code == 200
-            content = await _read_sse(response)
-            assert content == "Resposta padrao"
+    mock_classifier = MagicMock()
+    mock_classifier.classify = AsyncMock(return_value=IntentType.SMART)
+
+    with patch("app.api.openai._get_classifier", return_value=mock_classifier):
+        with patch("app.api.openai.AgentService", return_value=mock_agent):
+            async with client.stream(
+                "POST",
+                "/v1/chat/completions",
+                json={
+                    "model": "qwen3:14b",
+                    "messages": [{"role": "assistant", "content": "Olá"}],
+                },
+            ) as response:
+                assert response.status_code == 200
+                content = await _read_sse(response)
+                assert content == "Resposta padrao"
 
 
 @pytest.mark.asyncio
