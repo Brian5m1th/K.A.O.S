@@ -8,9 +8,7 @@ from app.config.settings import settings
 from app.obsidian.tools.wiki.create_entity_tool import create_entity
 from app.obsidian.tools.wiki.create_concept_tool import create_concept
 from app.obsidian.tools.wiki.create_source_tool import create_source
-from app.rag.embeddings.embedder import get_embedder
 from app.rag.indexer.vault_indexer import VaultIndexer
-from app.rag.chunking.text_splitter import MarkdownSplitter
 
 
 def _get_provider():
