@@ -63,6 +63,7 @@ services:
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
       - ../../assistant:/app
+      - vault_data:/vault
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -74,3 +75,4 @@ volumes:
   postgres_data:
   qdrant_data:
   open_webui_data:
+  vault_data:

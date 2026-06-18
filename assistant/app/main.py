@@ -14,6 +14,7 @@ from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
 from app.api.rag import router as rag_router
 from app.config.settings import settings
+from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.rag.embeddings.embedder import warmup_embedder
 
@@ -49,6 +50,10 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     logger.info("[info] lifespan - warmup embedder")
     await asyncio.to_thread(warmup_embedder)
     logger.debug("[finish] lifespan - warmup embedder")
+
+    logger.info("[info] lifespan - init vault structure")
+    await asyncio.to_thread(create_vault_structure)
+    logger.debug("[finish] lifespan - init vault structure")
     
     _watcher = VaultWatcher()
     _watcher.start()
