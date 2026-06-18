@@ -22,7 +22,7 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 8 | Memória de Longo Prazo | 6 | ✅ Completa |
 | 9 | Integrações Online | 6 | ⬜ Aguardando |
 | 10 | Produção | 6 | ⬜ Aguardando |
-| 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
+| 11 | Otimização e Roteamento | 8 | ✅ Completa |
 | 12 | Knowledge Wiki Layer | 22 | 🟢 Parcial (21/22) |
 | 13 | Provedor Híbrido de LLM | 12 | 🟢 Parcial (11/12) |
 
@@ -70,9 +70,9 @@ graph LR
 
 ## Próximas Tarefas Prioritárias
 
-- [ ] **Auditoria RAG**: Executar `/indexing/full`, validar Qdrant, logs do retriever, teste "O que existe na nota Backlog?"
-- [ ] Implementar Intent Classifier (FAST/MEMORY/SMART)
-- [ ] Implementar FastRouter (execução direta de tools sem LLM)
+- [ ] **Testar pipeline wiki completo**: draft mode, ingest, approve, lint
+- [ ] **Testar fallback LLM**: derrubar Ollama → deve cair em OpenAI/Claude
+- [ ] **Auditoria RAG**: Executar `/indexing/full`, validar Qdrant, logs do retriever
 - [ ] Criar Dockerfile para o K.A.O.S (`assistant/`)
 
 ---
@@ -108,7 +108,7 @@ graph LR
 
 ---
 
-## Fase 3 — Integração com Obsidian
+## Fase 3 — Integração com Obsidian ✅
 
 > Relacionado: [[sdd_obsidian_tools]] [[sdd_obsidian_memoria]]
 
@@ -248,16 +248,16 @@ Pastas a criar:
 
 ---
 
-## Fase 11 — Otimização de Performance e Roteamento Inteligente
+## Fase 11 — Otimização de Performance e Roteamento Inteligente ✅
 
-- [ ] Criar `IntentClassifier` com fast path (keyword match) + LLM fallback (Qwen3 4B)
-- [ ] Criar `FastRouter` — execução direta de tools (sem LLM, sem RAG, sem LangGraph)
-- [ ] Criar `MemoryRouter` — RAG + LLM sem LangGraph
-- [ ] Criar `SmartRouter` — LangGraph completo (wrapping AgentService)
-- [ ] Criar `ResponseCache` — cache de respostas frequentes com TTL
-- [ ] Integrar roteamento em `chat.py` e `openai.py`
-- [ ] Criar `ListProjectsTool` e registrar no TOOL_REGISTRY
-- [ ] Adicionar suporte a modelo rápido (Qwen3 4B) vs principal (`settings.py`)
+- [x] Criar `IntentClassifier` com fast path (keyword match) + LLM fallback (Qwen3 4B)
+- [x] Criar `FastRouter` — execução direta de tools (sem LLM, sem RAG, sem LangGraph)
+- [x] Criar `MemoryRouter` — RAG + LLM sem LangGraph
+- [x] Criar `SmartRouter` — LangGraph completo (wrapping AgentService)
+- [x] Criar `ResponseCache` — cache de respostas frequentes com TTL
+- [x] Integrar roteamento em `chat.py` e `openai.py`
+- [x] Criar `ListProjectsTool` e registrar no TOOL_REGISTRY
+- [x] Adicionar suporte a modelo rápido (Qwen3 4B) vs principal (`settings.py`)
 
 ---
 
@@ -334,9 +334,9 @@ Pastas a criar:
 - [x] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
 - [x] Substituir streaming fake do AgentService por streaming real do LangGraph
 - [x] Remover bypass do LangGraph no proxy OpenAI (`/v1/chat/completions` conecta direto no Ollama)
-- [ ] Adicionar `ruff` como dependencia de dev para lint
-- [ ] Adicionar `.env.example` ao repositorio
-- [ ] **Auditoria RAG**: Executar indexação inicial (`POST /indexing/full`), validar `points_count > 0`, adicionar logs de `retrieve_context` com query + contagem, teste manual "O que existe na nota Backlog?"
+- [x] Adicionar `ruff` como dependencia de dev para lint
+- [x] Adicionar `.env.example` ao repositorio
+- [ ] **Auditoria RAG**: Executar indexação inicial (`POST /indexing/full`), validar `points_count > 0`, adicionar logs de `retrieve_context` com query + contagem
 - [ ] **Dockerfile**: Criar `Dockerfile` para `assistant/` com volume mount do Vault (`/vault`) e `.env` configurável
 - [ ] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
 
