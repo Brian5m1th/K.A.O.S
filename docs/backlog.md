@@ -23,7 +23,7 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 9 | Integrações Online | 6 | ⬜ Aguardando |
 | 10 | Produção | 6 | ⬜ Aguardando |
 | 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
-| 12 | Knowledge Wiki Layer (Schema + Tools + Ingestion) | 17 | 🟡 Em progresso |
+| 12 | Knowledge Wiki Layer | 22 | 🟢 Parcial (21/22) |
 | 13 | Provedor Híbrido de LLM | 12 | 🔵 Pendente |
 
 ---
@@ -288,12 +288,12 @@ Pastas a criar:
 - [x] Adicionar intent type INGEST no IntentClassifier
 - [x] Pipeline completo: source → entities → concepts → index → log
 
-### Query Evolution
-- [ ] Modificar retrieve para consultar index.md + wiki antes do Qdrant
-- [ ] Tool file_synthesis_page para respostas complexas
-- [ ] Atualizar SYSTEM_PROMPT_KAOS para wiki awareness
+### Query Evolution ✅
+- [x] Modificar retrieve para consultar index.md + wiki antes do Qdrant
+- [x] Tool file_synthesis_page para respostas complexas
+- [x] Atualizar SYSTEM_PROMPT_KAOS para wiki awareness
 
-### Manutenção ✅
+### Manutenção
 - [x] Implementar lint_wiki_tool (contradictions, orphans, broken links)
 - [ ] Testar pipeline completo com draft mode
 
