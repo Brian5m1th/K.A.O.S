@@ -9,6 +9,14 @@ from app.obsidian.tools.search_notes_tool import search_notes
 from app.obsidian.tools.list_notes_tool import list_notes
 from app.obsidian.tools.save_conversation_tool import save_conversation
 from app.obsidian.tools.list_projects_tool import list_projects
+from app.obsidian.tools.wiki import (
+    create_entity, update_entity,
+    create_concept, update_concept,
+    create_source, create_synthesis,
+    append_log, update_index,
+    approve_draft, reject_draft, list_drafts,
+    read_wiki_page, lint_wiki,
+)
 
 TOOL_REGISTRY: dict = {
     "create_note": create_note,
@@ -19,6 +27,19 @@ TOOL_REGISTRY: dict = {
     "list_notes": list_notes,
     "list_projects": list_projects,
     "save_conversation": save_conversation,
+    "create_entity": create_entity,
+    "update_entity": update_entity,
+    "create_concept": create_concept,
+    "update_concept": update_concept,
+    "create_source": create_source,
+    "create_synthesis": create_synthesis,
+    "append_log": append_log,
+    "update_index": update_index,
+    "approve_draft": approve_draft,
+    "reject_draft": reject_draft,
+    "list_drafts": list_drafts,
+    "read_wiki_page": read_wiki_page,
+    "lint_wiki": lint_wiki,
 }
 
 
