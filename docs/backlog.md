@@ -22,9 +22,9 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 8 | Memória de Longo Prazo | 6 | ✅ Completa |
 | 9 | Integrações Online | 6 | ⬜ Aguardando |
 | 10 | Produção | 6 | ⬜ Aguardando |
-| 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
-| 12 | Knowledge Wiki Layer | 14 | 🔵 Pendente |
-| 13 | Provedor Híbrido de LLM | 12 | 🔵 Pendente |
+| 11 | Otimização e Roteamento | 8 | ✅ Completa |
+| 12 | Knowledge Wiki Layer | 22 | 🟢 Parcial (21/22) |
+| 13 | Provedor Híbrido de LLM | 12 | 🟢 Parcial (11/12) |
 
 ---
 
@@ -70,9 +70,9 @@ graph LR
 
 ## Próximas Tarefas Prioritárias
 
-- [ ] **Auditoria RAG**: Executar `/indexing/full`, validar Qdrant, logs do retriever, teste "O que existe na nota Backlog?"
-- [ ] Implementar Intent Classifier (FAST/MEMORY/SMART)
-- [ ] Implementar FastRouter (execução direta de tools sem LLM)
+- [ ] **Testar pipeline wiki completo**: draft mode, ingest, approve, lint
+- [ ] **Testar fallback LLM**: derrubar Ollama → deve cair em OpenAI/Claude
+- [ ] **Auditoria RAG**: Executar `/indexing/full`, validar Qdrant, logs do retriever
 - [ ] Criar Dockerfile para o K.A.O.S (`assistant/`)
 
 ---
@@ -108,7 +108,7 @@ graph LR
 
 ---
 
-## Fase 3 — Integração com Obsidian
+## Fase 3 — Integração com Obsidian ✅
 
 > Relacionado: [[sdd_obsidian_tools]] [[sdd_obsidian_memoria]]
 
@@ -248,83 +248,83 @@ Pastas a criar:
 
 ---
 
-## Fase 11 — Otimização de Performance e Roteamento Inteligente
+## Fase 11 — Otimização de Performance e Roteamento Inteligente ✅
 
-- [ ] Criar `IntentClassifier` com fast path (keyword match) + LLM fallback (Qwen3 4B)
-- [ ] Criar `FastRouter` — execução direta de tools (sem LLM, sem RAG, sem LangGraph)
-- [ ] Criar `MemoryRouter` — RAG + LLM sem LangGraph
-- [ ] Criar `SmartRouter` — LangGraph completo (wrapping AgentService)
-- [ ] Criar `ResponseCache` — cache de respostas frequentes com TTL
-- [ ] Integrar roteamento em `chat.py` e `openai.py`
-- [ ] Criar `ListProjectsTool` e registrar no TOOL_REGISTRY
-- [ ] Adicionar suporte a modelo rápido (Qwen3 4B) vs principal (`settings.py`)
+- [x] Criar `IntentClassifier` com fast path (keyword match) + LLM fallback (Qwen3 4B)
+- [x] Criar `FastRouter` — execução direta de tools (sem LLM, sem RAG, sem LangGraph)
+- [x] Criar `MemoryRouter` — RAG + LLM sem LangGraph
+- [x] Criar `SmartRouter` — LangGraph completo (wrapping AgentService)
+- [x] Criar `ResponseCache` — cache de respostas frequentes com TTL
+- [x] Integrar roteamento em `chat.py` e `openai.py`
+- [x] Criar `ListProjectsTool` e registrar no TOOL_REGISTRY
+- [x] Adicionar suporte a modelo rápido (Qwen3 4B) vs principal (`settings.py`)
 
 ---
 
-## Fase 12 — Knowledge Wiki Layer
+## Fase 12 — Knowledge Wiki Layer (Schema + Tools + Ingestion)
 
 > Relacionado: [[sdd_knowledge_wiki_layer]]
 
-### Schema & Estrutura
-- [ ] Criar `AGENTS.md` (EN) na raiz do wiki
-- [ ] Criar `AGENTS.pt-BR.md` (PT) na raiz do wiki
-- [ ] Criar estrutura wiki/ (entities, concepts, sources, synthesis)
-- [ ] Adicionar pastas raw/ e wiki/ ao vault_init.py
-- [ ] Criar frontmatter YAML padronizado nas tools de nota
-- [ ] Criar index.md e log.md iniciais (bootstrap)
+### Schema & Estrutura ✅
+- [x] Criar `AGENTS.md` (EN) na raiz do wiki
+- [x] Criar `AGENTS.pt-BR.md` (PT) na raiz do wiki
+- [x] Criar estrutura wiki/ (entities, concepts, sources, synthesis)
+- [x] Adicionar pastas raw/ e wiki/ ao vault_init.py
+- [x] Criar frontmatter YAML padronizado nas tools de nota
+- [x] Criar index.md e log.md iniciais (bootstrap)
 
-### Ferramentas Wiki
-- [ ] Implementar create_entity_tool + update_entity_tool com draft mode
-- [ ] Implementar create_concept_tool + update_concept_tool com draft mode
-- [ ] Implementar create_source_page_tool com draft mode
-- [ ] Implementar create_synthesis_tool com draft mode
-- [ ] Implementar append_log_tool + update_index_tool
-- [ ] Implementar approve_draft / reject_draft / list_drafts tools
-- [ ] Registrar todas as tools no TOOL_REGISTRY
+### Ferramentas Wiki ✅
+- [x] Implementar create_entity_tool + update_entity_tool com draft mode
+- [x] Implementar create_concept_tool + update_concept_tool com draft mode
+- [x] Implementar create_source_page_tool com draft mode
+- [x] Implementar create_synthesis_tool com draft mode
+- [x] Implementar append_log_tool + update_index_tool
+- [x] Implementar approve_draft / reject_draft / list_drafts tools
+- [x] Registrar todas as tools no TOOL_REGISTRY
 
-### Ingestion Pipeline
-- [ ] Implementar ingest_source node no LangGraph
-- [ ] Adicionar entry point condicional no graph.py (ingest vs query)
-- [ ] Adicionar intent type INGEST no IntentClassifier
-- [ ] Pipeline completo: source → entities → concepts → index → log
+### Ingestion Pipeline ✅
+- [x] Implementar ingest_source node no LangGraph
+- [x] Adicionar entry point condicional no graph.py (ingest vs query)
+- [x] Adicionar intent type INGEST no IntentClassifier
+- [x] Pipeline completo: source → entities → concepts → index → log
 
-### Query Evolution
-- [ ] Modificar retrieve para consultar index.md + wiki antes do Qdrant
-- [ ] Tool file_synthesis_page para respostas complexas
-- [ ] Atualizar SYSTEM_PROMPT_KAOS para wiki awareness
+### Query Evolution ✅
+- [x] Modificar retrieve para consultar index.md + wiki antes do Qdrant
+- [x] Tool file_synthesis_page para respostas complexas
+- [x] Atualizar SYSTEM_PROMPT_KAOS para wiki awareness
 
 ### Manutenção
-- [ ] Implementar lint_wiki_tool (contradictions, orphans, broken links)
+- [x] Implementar lint_wiki_tool (contradictions, orphans, broken links)
 - [ ] Testar pipeline completo com draft mode
 
 ---
 
-## Fase 13 — Provedor Híbrido de LLM
+## Fase 13 — Provedor Híbrido de LLM ✅
 
 > Relacionado: [[sdd_llm_provider_hybrid]]
 
-### Abstração + Factory
-- [ ] Criar interface BaseProvider (app/llm/provider.py)
-- [ ] Criar LLMFactory com build() e resolve() (app/llm/factory.py)
-- [ ] Migrar OllamaProvider de ChatOllama direto para app/llm/providers/
+### Abstração + Factory ✅
+- [x] Criar interface BaseProvider (app/llm/provider.py)
+- [x] Criar LLMFactory com build() e resolve() (app/llm/factory.py)
+- [x] Migrar OllamaProvider de ChatOllama direto para app/llm/providers/
 
-### Provedores Cloud
-- [ ] Implementar OpenAIProvider
-- [ ] Implementar ClaudeProvider
-- [ ] Implementar GeminiProvider
-- [ ] Adicionar MODEL_MAP e FALLBACK_CHAIN ao settings.py
-- [ ] Adicionar API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, GEMINI_API_KEY) ao .env
+### Provedores Cloud ✅
+- [x] Implementar OpenAIProvider
+- [x] Implementar ClaudeProvider
+- [x] Implementar GeminiProvider
+- [x] Adicionar MODEL_MAP e FALLBACK_CHAIN ao settings.py
+- [x] Adicionar API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, GEMINI_API_KEY) ao .env
 
-### Refatoração do Core
-- [ ] Refatorar planner.py para usar LLMFactory
-- [ ] Refatorar IntentClassifier para usar LLMFactory
-- [ ] Refatorar MemoryRouter para usar LLMFactory
-- [ ] Refatorar openai.py proxy para usar LLMFactory
+### Refatoração do Core ✅
+- [x] Refatorar planner.py para usar LLMFactory
+- [x] Refatorar IntentClassifier para usar LLMFactory
+- [x] Refatorar MemoryRouter para usar LLMFactory
+- [x] Refatorar openai.py proxy para usar LLMFactory
 
-### Métricas + Fallback
-- [ ] Implementar ProviderMetrics (provider, model, latency, tokens, cost)
-- [ ] Implementar chat_with_fallback (fallback automático)
-- [ ] Log estruturado de métricas por provider
+### Métricas + Fallback ✅
+- [x] Implementar ProviderMetrics (provider, model, latency, tokens, cost)
+- [x] Implementar chat_with_fallback (fallback automático)
+- [x] Log estruturado de métricas por provider
 - [ ] Testar fallback: derrubar provider A → deve cair em B
 
 ---
@@ -334,9 +334,9 @@ Pastas a criar:
 - [x] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
 - [x] Substituir streaming fake do AgentService por streaming real do LangGraph
 - [x] Remover bypass do LangGraph no proxy OpenAI (`/v1/chat/completions` conecta direto no Ollama)
-- [ ] Adicionar `ruff` como dependencia de dev para lint
-- [ ] Adicionar `.env.example` ao repositorio
-- [ ] **Auditoria RAG**: Executar indexação inicial (`POST /indexing/full`), validar `points_count > 0`, adicionar logs de `retrieve_context` com query + contagem, teste manual "O que existe na nota Backlog?"
+- [x] Adicionar `ruff` como dependencia de dev para lint
+- [x] Adicionar `.env.example` ao repositorio
+- [ ] **Auditoria RAG**: Executar indexação inicial (`POST /indexing/full`), validar `points_count > 0`, adicionar logs de `retrieve_context` com query + contagem
 - [ ] **Dockerfile**: Criar `Dockerfile` para `assistant/` com volume mount do Vault (`/vault`) e `.env` configurável
 - [ ] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
 

@@ -9,6 +9,7 @@ from loguru import logger
 from pydantic import BaseModel, Field
 
 from app.config.settings import settings
+from app.llm.factory import LLMFactory
 from app.service.agent_service import AgentService
 from app.router.intent_classifier import IntentClassifier, IntentType
 from app.router.fast_router import fast_route
@@ -18,6 +19,7 @@ from app.router.cache import ResponseCache
 
 # Lazy-loaded classifier
 _classifier: IntentClassifier | None = None
+_factory: LLMFactory | None = None
 _cache = ResponseCache()
 
 
@@ -26,6 +28,13 @@ def _get_classifier() -> IntentClassifier:
     if _classifier is None:
         _classifier = IntentClassifier()
     return _classifier
+
+
+def _get_factory() -> LLMFactory:
+    global _factory
+    if _factory is None:
+        _factory = LLMFactory()
+    return _factory
 
 router = APIRouter(prefix="/v1", tags=["OpenAI"])
 legacy_router = APIRouter(tags=["Legacy"])
@@ -140,11 +149,10 @@ async def _sse_stream_generator(
     yield "data: [DONE]\n\n"
 
 
-def _resolve_ollama_model(api_model: str) -> str:
-    """Map API model ID to Ollama model name."""
-    if api_model == settings.FAST_MODEL_ID:
-        return settings.OLLAMA_FAST_MODEL
-    return settings.OLLAMA_MODEL
+def _resolve_model(api_model: str) -> str:
+    """Map API model ID to a model key for the LLMFactory."""
+    config = _get_factory()._resolve_model_config(api_model)
+    return config["model"]
 
 
 @router.post("/chat/completions")
@@ -229,8 +237,8 @@ async def chat_completions(
 
     elif intent == IntentType.MEMORY:
         start = time.perf_counter()
-        ollama_model = settings.OLLAMA_MODEL
-        router = MemoryRouter(model=ollama_model)
+        model_key = _resolve_model(request.model)
+        router = MemoryRouter(model=model_key)
 
         return StreamingResponse(
             _sse_stream_generator(
@@ -247,7 +255,7 @@ async def chat_completions(
     # SMART route (LangGraph)
     agent = _get_agent()
     logger.info("[sending] openai - streaming via LangGraph Agent (SMART)")
-    ollama_model = settings.OLLAMA_MODEL
+    model_key = _resolve_model(request.model)
 
     return StreamingResponse(
         _sse_stream_generator(
@@ -260,7 +268,7 @@ async def chat_completions(
                 user_id=request.user_id,
                 username=request.username,
                 role=request.role,
-                model=ollama_model,
+                model=model_key,
             ),
         ),
         media_type="text/event-stream",

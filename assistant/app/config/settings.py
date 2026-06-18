@@ -21,6 +21,13 @@ class Settings(BaseSettings):
     FAST_MODEL_ID: str = "kaos-fast"
     DEFAULT_MODEL_ID: str = "kaos"
 
+    OPENAI_API_KEY: str = ""
+    ANTHROPIC_API_KEY: str = ""
+    GEMINI_API_KEY: str = ""
+
+    MODEL_MAP: dict[str, dict] = {}
+    FALLBACK_CHAIN: str = "ollama"
+
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333
     QDRANT_COLLECTION: str = "obsidian_memory"

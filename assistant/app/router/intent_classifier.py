@@ -1,16 +1,28 @@
 import re
 from enum import Enum
 from loguru import logger
-from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage
 from app.config.settings import settings
+from app.llm.factory import LLMFactory
 
 
 class IntentType(str, Enum):
     FAST = "FAST"
     MEMORY = "MEMORY"
     SMART = "SMART"
+    INGEST = "INGEST"
 
+
+INGEST_KEYWORDS = [
+    "ingira esta fonte",
+    "ingira este source",
+    "ingest this source",
+    "processe esta fonte",
+    "processe este documento",
+    "process this source",
+    "ingira",
+    "ingest",
+]
 
 FAST_KEYWORDS = [
     "liste minhas notas",
@@ -76,21 +88,22 @@ Responda apenas com o nome da categoria: FAST, MEMORY ou SMART."""
 class IntentClassifier:
     def __init__(self):
         logger.info("[start] IntentClassifier - __init__")
-        self._llm: ChatOllama | None = None
+        self._factory: LLMFactory | None = None
         logger.debug("[finish] IntentClassifier - __init__")
 
-    def _get_llm(self) -> ChatOllama:
-        if self._llm is None:
-            logger.info("[info] IntentClassifier - lazy loading LLM")
-            self._llm = ChatOllama(
-                model=settings.OLLAMA_FAST_MODEL,
-                base_url=settings.OLLAMA_BASE_URL,
-                temperature=0,
-            )
-        return self._llm
+    def _get_provider(self):
+        if self._factory is None:
+            self._factory = LLMFactory()
+        return self._factory.build(settings.FAST_MODEL_ID, temperature=0)
 
     def _match_keyword(self, message: str) -> IntentType | None:
         lower = message.lower().strip()
+        for kw in INGEST_KEYWORDS:
+            if kw in lower:
+                logger.info(
+                    f"[info] IntentClassifier - keyword INGEST: \"{kw}\""
+                )
+                return IntentType.INGEST
         for kw in FAST_KEYWORDS:
             if kw in lower:
                 logger.info(
@@ -113,12 +126,15 @@ class IntentClassifier:
             return keyword_match
 
         logger.info("[info] IntentClassifier - fallback LLM")
-        llm = self._get_llm()
-        response = await llm.ainvoke([
+        provider = self._get_provider()
+        response = await provider.ainvoke([
             SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
             HumanMessage(content=message),
         ])
         content = response.content.strip().upper()
+        if "INGEST" in content:
+            logger.debug("[finish] IntentClassifier - classify (LLM: INGEST)")
+            return IntentType.INGEST
         if "FAST" in content:
             logger.debug("[finish] IntentClassifier - classify (LLM: FAST)")
             return IntentType.FAST
