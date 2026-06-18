@@ -40,6 +40,8 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | [[sdd_arquitetura_orquestracao\|SDD — Proxy OpenAI & Gateway]] | Arquitetura do proxy /v1/chat/completions + Triple-Router | ✅ |
 | [[sdd_user_context_propagation\|SDD — User Context & Multiusuário]] | Propagação de contexto de usuário e memória isolada | ✅ |
 | [[estrategia_repositorios\|Estratégia de Repositórios]] | Monorepo → Multi-repo | 📝 |
+| [[sdd_knowledge_wiki_layer\|SDD — Knowledge Wiki Layer]] | LLM Wiki + RAG Híbrido, wiki persistente, draft mode | 📝 Novo |
+| [[sdd_llm_provider_hybrid\|SDD — Provedor Híbrido de LLM]] | Multi-provedor (Ollama, OpenAI, Claude, Gemini) | 📝 Novo |
 
 ---
 
@@ -113,6 +115,8 @@ graph TD
 - [x] **File Watcher** — Monitoramento do vault com watchdog
 - [x] **Conectar LangGraph ao endpoint de chat** — Rota completa com agente (`/api/chat/message` e `/v1/chat/completions`)
 - [x] **Configurar modelos de embedding** — `BAAI/bge-m3`
+- [ ] **SDD Knowledge Wiki Layer** — Criado, aguardando implementação
+- [ ] **SDD LLM Provider Hybrid** — Criado, aguardando implementação
 
 ---
 

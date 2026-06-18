@@ -1,3 +1,4 @@
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -10,6 +11,8 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
     OBSIDIAN_VAULT_PATH: str = ""
+    OBSIDIAN_WIKI_PATH: str = ""
+    OBSIDIAN_RAW_PATH: str = ""
 
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_MODEL: str = "qwen3:14b"
@@ -36,6 +39,14 @@ class Settings(BaseSettings):
     @property
     def embedding_model(self) -> str:
         return self.EMBEDDING_MODEL_DEV if self.APP_ENV == "development" else self.EMBEDDING_MODEL_PROD
+
+    def model_post_init(self, __context) -> None:
+        if self.OBSIDIAN_VAULT_PATH:
+            vault = Path(self.OBSIDIAN_VAULT_PATH)
+            if not self.OBSIDIAN_WIKI_PATH:
+                self.OBSIDIAN_WIKI_PATH = str(vault / "wiki")
+            if not self.OBSIDIAN_RAW_PATH:
+                self.OBSIDIAN_RAW_PATH = str(vault / "raw")
 
 
 settings = Settings()

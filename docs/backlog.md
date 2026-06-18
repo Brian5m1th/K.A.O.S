@@ -23,6 +23,8 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 9 | Integrações Online | 6 | ⬜ Aguardando |
 | 10 | Produção | 6 | ⬜ Aguardando |
 | 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
+| 12 | Knowledge Wiki Layer | 14 | 🔵 Pendente |
+| 13 | Provedor Híbrido de LLM | 12 | 🔵 Pendente |
 
 ---
 
@@ -54,7 +56,12 @@ graph LR
     F7 --> F9[Fase 9\nIntegrações]
     F8 --> F10[Fase 10\nProdução]
     F9 --> F10
-    F10 --> F11
+    F10 --> F11[Fase 11\nOtimização]
+    F7 --> F12[Fase 12\nWiki Layer]
+    F5 --> F12
+    F11 --> F12
+    F12 --> F13[Fase 13\nLLM Provider]
+    F7 --> F13
 ```
 
 ---
@@ -254,6 +261,74 @@ Pastas a criar:
 
 ---
 
+## Fase 12 — Knowledge Wiki Layer
+
+> Relacionado: [[sdd_knowledge_wiki_layer]]
+
+### Schema & Estrutura
+- [ ] Criar `AGENTS.md` (EN) na raiz do wiki
+- [ ] Criar `AGENTS.pt-BR.md` (PT) na raiz do wiki
+- [ ] Criar estrutura wiki/ (entities, concepts, sources, synthesis)
+- [ ] Adicionar pastas raw/ e wiki/ ao vault_init.py
+- [ ] Criar frontmatter YAML padronizado nas tools de nota
+- [ ] Criar index.md e log.md iniciais (bootstrap)
+
+### Ferramentas Wiki
+- [ ] Implementar create_entity_tool + update_entity_tool com draft mode
+- [ ] Implementar create_concept_tool + update_concept_tool com draft mode
+- [ ] Implementar create_source_page_tool com draft mode
+- [ ] Implementar create_synthesis_tool com draft mode
+- [ ] Implementar append_log_tool + update_index_tool
+- [ ] Implementar approve_draft / reject_draft / list_drafts tools
+- [ ] Registrar todas as tools no TOOL_REGISTRY
+
+### Ingestion Pipeline
+- [ ] Implementar ingest_source node no LangGraph
+- [ ] Adicionar entry point condicional no graph.py (ingest vs query)
+- [ ] Adicionar intent type INGEST no IntentClassifier
+- [ ] Pipeline completo: source → entities → concepts → index → log
+
+### Query Evolution
+- [ ] Modificar retrieve para consultar index.md + wiki antes do Qdrant
+- [ ] Tool file_synthesis_page para respostas complexas
+- [ ] Atualizar SYSTEM_PROMPT_KAOS para wiki awareness
+
+### Manutenção
+- [ ] Implementar lint_wiki_tool (contradictions, orphans, broken links)
+- [ ] Testar pipeline completo com draft mode
+
+---
+
+## Fase 13 — Provedor Híbrido de LLM
+
+> Relacionado: [[sdd_llm_provider_hybrid]]
+
+### Abstração + Factory
+- [ ] Criar interface BaseProvider (app/llm/provider.py)
+- [ ] Criar LLMFactory com build() e resolve() (app/llm/factory.py)
+- [ ] Migrar OllamaProvider de ChatOllama direto para app/llm/providers/
+
+### Provedores Cloud
+- [ ] Implementar OpenAIProvider
+- [ ] Implementar ClaudeProvider
+- [ ] Implementar GeminiProvider
+- [ ] Adicionar MODEL_MAP e FALLBACK_CHAIN ao settings.py
+- [ ] Adicionar API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, GEMINI_API_KEY) ao .env
+
+### Refatoração do Core
+- [ ] Refatorar planner.py para usar LLMFactory
+- [ ] Refatorar IntentClassifier para usar LLMFactory
+- [ ] Refatorar MemoryRouter para usar LLMFactory
+- [ ] Refatorar openai.py proxy para usar LLMFactory
+
+### Métricas + Fallback
+- [ ] Implementar ProviderMetrics (provider, model, latency, tokens, cost)
+- [ ] Implementar chat_with_fallback (fallback automático)
+- [ ] Log estruturado de métricas por provider
+- [ ] Testar fallback: derrubar provider A → deve cair em B
+
+---
+
 ## Divida Tecnica (DEBT)
 
 - [x] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
@@ -276,4 +351,4 @@ Pastas a criar:
 
 ---
 
-*Atualizado em 2026-06-11.*
+*Atualizado em 2026-06-18.*
