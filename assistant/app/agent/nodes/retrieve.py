@@ -63,9 +63,11 @@ def retrieve_context(state: AgentState) -> dict:
     results = _get_retriever().search(query=query, limit=3)
     elapsed = (time.perf_counter() - start) * 1000
     top_score = results[0].score if results else 0.0
+    scores = [f"{r.score:.4f}" for r in results]
     logger.info(
         f'[audit] retrieve | query="{query[:50]}..." | '
-        f"wiki_pages={len(wiki_context) - 1} | qdrant_results={len(results)} | top_score={top_score:.4f} | latency_ms={elapsed:.0f}"
+        f"wiki_pages={len(wiki_context) - 1} | qdrant_results={len(results)} | "
+        f"scores=[{', '.join(scores)}] | top_score={top_score:.4f} | latency_ms={elapsed:.0f}"
     )
     qdrant_context = [
         {"path": r.path, "content": r.excerpt, "score": r.score}
