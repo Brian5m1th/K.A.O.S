@@ -14,6 +14,7 @@ from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
 from app.api.rag import router as rag_router
 from app.config.settings import settings
+from app.middleware.user_context import UserContextMiddleware
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.rag.embeddings.embedder import warmup_embedder
@@ -76,6 +77,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(UserContextMiddleware)
 
 app.include_router(health_router)
 app.include_router(chat_router)
