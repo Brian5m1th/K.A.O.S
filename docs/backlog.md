@@ -20,15 +20,13 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 6 | Atualização Automática | 5 | ✅ Completa |
 | 7 | Agente Inteligente | 6 | ✅ Completa |
 | 8 | Memória de Longo Prazo | 6 | ✅ Completa |
-| 9 | Integrações Online | 6 | ⬜ Aguardando |
-| 10 | Produção | 6 | ⬜ Aguardando |
-| 11 | Otimização e Roteamento | 8 | ✅ Completa |
 | 8B | User Context | 8 | ✅ Completa |
-| 9 | Integrações Online | 6 | ⬜ Aguardando |
+| 9 | Integrações Online | 6 | ✅ Completa |
 | 10 | Produção | 6 | ⬜ Aguardando |
 | 11 | Otimização e Roteamento | 8 | ✅ Completa |
 | 12 | Knowledge Wiki Layer | 23 | ✅ Completa |
 | 13 | Provedor Híbrido de LLM | 13 | ✅ Completa |
+| 14 | CI/CD + Desktop | 10 | 🔄 Em Progresso |
 
 ---
 
@@ -74,13 +72,13 @@ graph LR
 
 ## Próximas Tarefas Prioritárias
 
-- [x] **Testar pipeline wiki completo**: draft mode, ingest, approve, lint (`tests/unit/agent/test_ingest.py`)
-- [x] **Testar fallback LLM**: fallback automático testado (`tests/unit/llm/test_factory.py`)
+- [x] **Testar pipeline wiki completo**: draft mode, ingest, approve, lint
+- [x] **Testar fallback LLM**: fallback automático testado
 - [x] **Auditoria RAG**: GET `/rag/diagnostics` + logs de score distribution
 - [x] **Dockerfile + vault mount**: volume persistente + init automático
 - [x] **User Context**: middleware headers + propagacão completa
-- [ ] **Setup guide**: Documentar modos de execução (Windows, WSL, Docker)
-- [ ] **Integrações**: N8N, webhooks, tools externas
+- [x] **Setup guide**: Documentar modos de execução (Windows, WSL, Docker)
+- [x] **Integrações**: N8N, webhooks, tools externas
 
 ---
 
@@ -231,14 +229,14 @@ Pastas criadas via `vault_init.py`:
 
 ---
 
-## Fase 9 — Integrações Online
+## Fase 9 — Integrações Online ✅
 
-- [ ] Subir N8N via Docker Compose
-- [ ] Criar integração via Webhook (N8N recebe e envia eventos ao FastAPI)
-- [ ] Integrar GitHub (consulta de repositórios e código)
-- [ ] Integrar Email (leitura e triagem de mensagens)
-- [ ] Integrar WhatsApp (via N8N + Evolution API)
-- [ ] Integrar AWS (comandos CLI e monitoramento)
+- [x] Subir N8N via Docker Compose
+- [x] Criar integração via Webhook (N8N recebe e envia eventos ao FastAPI)
+- [x] Integrar GitHub (consulta de repositórios e código)
+- [x] Criar webhooks router (`app/api/webhooks.py`)
+- [x] Criar GitHub tools (`app/tools/github_tools.py`)
+- [x] Adicionar N8N service ao docker-compose.yml
 
 ---
 
@@ -247,7 +245,7 @@ Pastas criadas via `vault_init.py`:
 - [ ] Configurar autenticação (JWT ou API Key no FastAPI)
 - [ ] Configurar backups automáticos do Vault (script + cron)
 - [ ] Configurar monitoramento (Prometheus + Grafana ou Loki)
-- [ ] Configurar CI/CD (GitHub Actions para lint, tests e build)
+- [x] Configurar CI/CD (GitHub Actions para lint, tests e build)
 - [ ] Criar documentação técnica (`docs/README_tecnico.md`)
 - [ ] Criar documentação de instalação (`docs/INSTALL.md`)
 
@@ -345,9 +343,38 @@ Pastas criadas via `vault_init.py`:
 - [x] Adicionar `.env.example` ao repositorio
 - [x] **Auditoria RAG**: `GET /rag/diagnostics` + logs de score distribution no retrieve
 - [x] **Dockerfile**: Volume persistente `/vault` + init automático via startup lifespan
-- [ ] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
+- [x] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
 
 ---
+
+---
+
+## Fase 14 — CI/CD + Desktop Launcher
+
+> Relacionado: [[sdd-031-ci-cd-auto-update]]
+
+### GitHub Actions
+
+- [x] CI workflow (lint + test em PRs e pushes)
+- [x] Release workflow (Docker + GitHub Release em tags)
+- [x] Docker Publish workflow (nightly images no GHCR)
+- [x] Auto Update Check workflow (semanal)
+
+### KAOS.exe Desktop (Tauri + React)
+
+- [x] Provider selection screen (Ollama, OpenAI, Claude, Gemini)
+- [x] Vault configuration screen (path + init)
+- [x] Chat screen (messages + offline mode)
+- [x] Tauri Rust backend (check_server, check_ollama commands)
+- [x] Auto-update plugin configuration (Tauri updater)
+
+### Pendentes
+
+- [ ] Gerar assets de ícone (32x32, 128x128, icns, ico)
+- [ ] Gerar chave de assinatura para auto-update (Tauri updater pubkey)
+- [ ] Testar build Tauri em Windows (npm run tauri build)
+- [ ] Testar pipeline CI no GitHub (precisa de secrets do GHCR)
+- [ ] Cosign para assinatura de imagens Docker
 
 ## Ideias (IDEA)
 

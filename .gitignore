@@ -31,3 +31,8 @@ backend/*.jar
 backend/.gradle/
 backend/.mvn/
 backend/node_modules/
+
+# Desktop (Tauri)
+desktop/node_modules/
+desktop/dist/
+desktop/src-tauri/target/

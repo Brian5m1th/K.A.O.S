@@ -1,0 +1,9 @@
+{
+  "publisher": "Brian5m1th",
+  "platforms": {
+    "windows-x86_64": {
+      "sign": false,
+      "url": "https://github.com/Brian5m1th/K.A.O.S/releases/latest/download/KAOS_x64.msi"
+    }
+  }
+}
