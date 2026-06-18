@@ -14,3 +14,5 @@ class AgentState(TypedDict):
     user_id: str
     username: str
     role: str
+    model: str | None
+    ingest_source_path: str | None

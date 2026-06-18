@@ -1,3 +1,4 @@
+import re
 from loguru import logger
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse, PlainTextResponse
@@ -14,6 +15,17 @@ router = APIRouter(prefix="/api/chat", tags=["Chat"])
 _classifier = IntentClassifier()
 _cache = ResponseCache()
 _smart_router = SmartRouter()
+
+
+def _extract_source_path(message: str) -> str | None:
+    match = re.search(r"(?:source|fonte|documento|arquivo)\s+([\w\-./]+\.\w+)", message, re.IGNORECASE)
+    if match:
+        return match.group(1)
+    words = message.strip().split()
+    last = words[-1] if words else ""
+    if "." in last and not last.endswith("."):
+        return last
+    return None
 
 
 @router.post("/message")
@@ -46,6 +58,23 @@ async def send_message(
 
         logger.debug("[finish] chat - send_message (MEMORY)")
         return StreamingResponse(memory_generator(), media_type="text/plain")
+
+    elif intent == IntentType.INGEST:
+        source_path = _extract_source_path(request.message)
+        logger.info(f"[info] chat - INGEST source_path={source_path}")
+
+        async def ingest_stream():
+            async for token in _smart_router.stream(
+                session_id=request.session_id,
+                user_message=request.message,
+                user_id=request.user_id,
+                username=request.username,
+                role=request.role,
+                ingest_source_path=source_path,
+            ):
+                yield token
+
+        return StreamingResponse(ingest_stream(), media_type="text/plain")
 
     logger.info("[sending] chat - mensagem para smart_router (LangGraph)")
 

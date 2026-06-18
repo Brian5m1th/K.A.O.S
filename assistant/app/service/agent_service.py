@@ -8,7 +8,7 @@ from app.agent.state import AgentState
 
 class AgentService:
     async def process_message(
-        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user", model: str | None = None
+        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user", model: str | None = None, ingest_source_path: str | None = None
     ) -> str:
         start = time.perf_counter()
         logger.info("[start] AgentService - process_message")
@@ -25,6 +25,7 @@ class AgentService:
             "username": username,
             "role": role,
             "model": model,
+            "ingest_source_path": ingest_source_path,
         }
 
         final_state = await agent_graph.ainvoke(initial_state)
@@ -47,7 +48,7 @@ class AgentService:
         return result
 
     async def stream_message(
-        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user", model: str | None = None
+        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user", model: str | None = None, ingest_source_path: str | None = None
     ):
         start = time.perf_counter()
         logger.info("[start] AgentService - stream_message")
@@ -64,6 +65,7 @@ class AgentService:
             "username": username,
             "role": role,
             "model": model,
+            "ingest_source_path": ingest_source_path,
         }
 
         result_parts = []

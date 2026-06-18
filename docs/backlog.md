@@ -23,7 +23,7 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 9 | Integrações Online | 6 | ⬜ Aguardando |
 | 10 | Produção | 6 | ⬜ Aguardando |
 | 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
-| 12 | Knowledge Wiki Layer | 14 | 🔵 Pendente |
+| 12 | Knowledge Wiki Layer (Schema + Tools + Ingestion) | 17 | 🟡 Em progresso |
 | 13 | Provedor Híbrido de LLM | 12 | 🔵 Pendente |
 
 ---
@@ -261,40 +261,40 @@ Pastas a criar:
 
 ---
 
-## Fase 12 — Knowledge Wiki Layer
+## Fase 12 — Knowledge Wiki Layer (Schema + Tools + Ingestion)
 
 > Relacionado: [[sdd_knowledge_wiki_layer]]
 
-### Schema & Estrutura
-- [ ] Criar `AGENTS.md` (EN) na raiz do wiki
-- [ ] Criar `AGENTS.pt-BR.md` (PT) na raiz do wiki
-- [ ] Criar estrutura wiki/ (entities, concepts, sources, synthesis)
-- [ ] Adicionar pastas raw/ e wiki/ ao vault_init.py
-- [ ] Criar frontmatter YAML padronizado nas tools de nota
-- [ ] Criar index.md e log.md iniciais (bootstrap)
+### Schema & Estrutura ✅
+- [x] Criar `AGENTS.md` (EN) na raiz do wiki
+- [x] Criar `AGENTS.pt-BR.md` (PT) na raiz do wiki
+- [x] Criar estrutura wiki/ (entities, concepts, sources, synthesis)
+- [x] Adicionar pastas raw/ e wiki/ ao vault_init.py
+- [x] Criar frontmatter YAML padronizado nas tools de nota
+- [x] Criar index.md e log.md iniciais (bootstrap)
 
-### Ferramentas Wiki
-- [ ] Implementar create_entity_tool + update_entity_tool com draft mode
-- [ ] Implementar create_concept_tool + update_concept_tool com draft mode
-- [ ] Implementar create_source_page_tool com draft mode
-- [ ] Implementar create_synthesis_tool com draft mode
-- [ ] Implementar append_log_tool + update_index_tool
-- [ ] Implementar approve_draft / reject_draft / list_drafts tools
-- [ ] Registrar todas as tools no TOOL_REGISTRY
+### Ferramentas Wiki ✅
+- [x] Implementar create_entity_tool + update_entity_tool com draft mode
+- [x] Implementar create_concept_tool + update_concept_tool com draft mode
+- [x] Implementar create_source_page_tool com draft mode
+- [x] Implementar create_synthesis_tool com draft mode
+- [x] Implementar append_log_tool + update_index_tool
+- [x] Implementar approve_draft / reject_draft / list_drafts tools
+- [x] Registrar todas as tools no TOOL_REGISTRY
 
-### Ingestion Pipeline
-- [ ] Implementar ingest_source node no LangGraph
-- [ ] Adicionar entry point condicional no graph.py (ingest vs query)
-- [ ] Adicionar intent type INGEST no IntentClassifier
-- [ ] Pipeline completo: source → entities → concepts → index → log
+### Ingestion Pipeline ✅
+- [x] Implementar ingest_source node no LangGraph
+- [x] Adicionar entry point condicional no graph.py (ingest vs query)
+- [x] Adicionar intent type INGEST no IntentClassifier
+- [x] Pipeline completo: source → entities → concepts → index → log
 
 ### Query Evolution
 - [ ] Modificar retrieve para consultar index.md + wiki antes do Qdrant
 - [ ] Tool file_synthesis_page para respostas complexas
 - [ ] Atualizar SYSTEM_PROMPT_KAOS para wiki awareness
 
-### Manutenção
-- [ ] Implementar lint_wiki_tool (contradictions, orphans, broken links)
+### Manutenção ✅
+- [x] Implementar lint_wiki_tool (contradictions, orphans, broken links)
 - [ ] Testar pipeline completo com draft mode
 
 ---

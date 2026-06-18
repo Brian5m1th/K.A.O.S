@@ -10,7 +10,19 @@ class IntentType(str, Enum):
     FAST = "FAST"
     MEMORY = "MEMORY"
     SMART = "SMART"
+    INGEST = "INGEST"
 
+
+INGEST_KEYWORDS = [
+    "ingira esta fonte",
+    "ingira este source",
+    "ingest this source",
+    "processe esta fonte",
+    "processe este documento",
+    "process this source",
+    "ingira",
+    "ingest",
+]
 
 FAST_KEYWORDS = [
     "liste minhas notas",
@@ -91,6 +103,12 @@ class IntentClassifier:
 
     def _match_keyword(self, message: str) -> IntentType | None:
         lower = message.lower().strip()
+        for kw in INGEST_KEYWORDS:
+            if kw in lower:
+                logger.info(
+                    f"[info] IntentClassifier - keyword INGEST: \"{kw}\""
+                )
+                return IntentType.INGEST
         for kw in FAST_KEYWORDS:
             if kw in lower:
                 logger.info(
@@ -119,6 +137,9 @@ class IntentClassifier:
             HumanMessage(content=message),
         ])
         content = response.content.strip().upper()
+        if "INGEST" in content:
+            logger.debug("[finish] IntentClassifier - classify (LLM: INGEST)")
+            return IntentType.INGEST
         if "FAST" in content:
             logger.debug("[finish] IntentClassifier - classify (LLM: FAST)")
             return IntentType.FAST
