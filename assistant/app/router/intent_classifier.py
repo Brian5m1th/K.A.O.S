@@ -1,9 +1,9 @@
 import re
 from enum import Enum
 from loguru import logger
-from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage
 from app.config.settings import settings
+from app.llm.factory import LLMFactory
 
 
 class IntentType(str, Enum):
@@ -88,18 +88,13 @@ Responda apenas com o nome da categoria: FAST, MEMORY ou SMART."""
 class IntentClassifier:
     def __init__(self):
         logger.info("[start] IntentClassifier - __init__")
-        self._llm: ChatOllama | None = None
+        self._factory: LLMFactory | None = None
         logger.debug("[finish] IntentClassifier - __init__")
 
-    def _get_llm(self) -> ChatOllama:
-        if self._llm is None:
-            logger.info("[info] IntentClassifier - lazy loading LLM")
-            self._llm = ChatOllama(
-                model=settings.OLLAMA_FAST_MODEL,
-                base_url=settings.OLLAMA_BASE_URL,
-                temperature=0,
-            )
-        return self._llm
+    def _get_provider(self):
+        if self._factory is None:
+            self._factory = LLMFactory()
+        return self._factory.build(settings.FAST_MODEL_ID, temperature=0)
 
     def _match_keyword(self, message: str) -> IntentType | None:
         lower = message.lower().strip()
@@ -131,8 +126,8 @@ class IntentClassifier:
             return keyword_match
 
         logger.info("[info] IntentClassifier - fallback LLM")
-        llm = self._get_llm()
-        response = await llm.ainvoke([
+        provider = self._get_provider()
+        response = await provider.ainvoke([
             SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
             HumanMessage(content=message),
         ])

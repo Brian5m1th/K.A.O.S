@@ -61,8 +61,8 @@ def ingest_source(state: AgentState) -> dict:
     content = raw_file.read_text(encoding="utf-8")
     logger.info(f"[info] ingest_source - lido: raw/{source_path} ({len(content)} chars)")
 
-    llm = _get_llm()
-    response = llm.invoke([
+    provider = _get_provider()
+    response = provider.invoke([
         SystemMessage(content=INGEST_PROMPT),
         HumanMessage(content=f"Documento: {source_path}\n\n{content[:8000]}"),
     ])

@@ -2,8 +2,8 @@ from typing import AsyncIterator
 import time
 from loguru import logger
 from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_ollama import ChatOllama
 from app.config.settings import settings
+from app.llm.factory import LLMFactory
 from app.rag.retriever.semantic_retriever import SemanticRetriever
 
 MEMORY_SYSTEM_PROMPT = """Voce e um assistente com acesso ao vault Obsidian do usuario.
@@ -14,10 +14,8 @@ class MemoryRouter:
     def __init__(self, model: str | None = None):
         logger.info("[start] MemoryRouter - __init__")
         self._retriever = SemanticRetriever()
-        self._llm = ChatOllama(
-            model=model or settings.OLLAMA_MODEL,
-            base_url=settings.OLLAMA_BASE_URL,
-        )
+        self._factory = LLMFactory()
+        self._model_key = model or settings.API_MODEL_ID
         logger.debug("[finish] MemoryRouter - __init__")
 
     async def retrieve_context(self, query: str) -> str:
@@ -43,7 +41,8 @@ class MemoryRouter:
             SystemMessage(content=system),
             HumanMessage(content=user_message),
         ]
-        response = await self._llm.ainvoke(messages)
+        provider = self._factory.build(self._model_key)
+        response = await provider.ainvoke(messages)
         elapsed = (time.perf_counter() - start) * 1000
         logger.info(f"[metrics] MemoryRouter - process: {elapsed:.0f}ms context_chars={len(context)}")
         logger.debug("[finish] MemoryRouter - process")
@@ -61,7 +60,8 @@ class MemoryRouter:
             HumanMessage(content=user_message),
         ]
         result_parts = []
-        async for chunk in self._llm.astream(messages):
+        provider = self._factory.build(self._model_key)
+        async for chunk in provider.astream(messages):
             if chunk.content:
                 result_parts.append(chunk.content)
                 yield chunk.content

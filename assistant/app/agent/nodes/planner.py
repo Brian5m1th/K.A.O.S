@@ -1,10 +1,10 @@
 import time
 from loguru import logger
 from langchain_core.messages import SystemMessage
-from langchain_ollama import ChatOllama
 
 from app.agent.state import AgentState
 from app.config.settings import settings
+from app.llm.factory import LLMFactory
 from app.memory.memory_service import MemoryService
 
 SYSTEM_PROMPT = """Você é um assistente pessoal inteligente com acesso ao Vault Obsidian do usuário.
@@ -57,14 +57,14 @@ Comandos especiais:
 - "atualize esta nota" -> use search_notes + read_note + update_note
 - "ingira esta fonte" -> roteado automaticamente para o pipeline de ingestão (INGEST intent)"""
 
-_llm_cache: dict[str, ChatOllama] = {}
+_factory: LLMFactory | None = None
 
 
-def _get_llm(model: str | None) -> ChatOllama:
-    model = model or settings.OLLAMA_MODEL
-    if model not in _llm_cache:
-        _llm_cache[model] = ChatOllama(model=model, base_url=settings.OLLAMA_BASE_URL)
-    return _llm_cache[model]
+def _get_factory() -> LLMFactory:
+    global _factory
+    if _factory is None:
+        _factory = LLMFactory()
+    return _factory
 
 
 def planner(state: AgentState) -> dict:
@@ -92,8 +92,9 @@ def planner(state: AgentState) -> dict:
     messages = [SystemMessage(content=system_with_context)] + state["messages"]
     prompt_chars = len(system_with_context) + sum(len(m.content) for m in state["messages"])
     
-    llm = _get_llm(model)
-    response = llm.invoke(messages)
+    factory = _get_factory()
+    provider = factory.build(model or settings.OLLAMA_MODEL)
+    response = provider.invoke(messages)
 
     elapsed = (time.perf_counter() - start) * 1000
     logger.info(

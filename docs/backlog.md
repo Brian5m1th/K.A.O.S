@@ -24,7 +24,7 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 10 | Produção | 6 | ⬜ Aguardando |
 | 11 | Otimização e Roteamento | 8 | 🔵 Pendente |
 | 12 | Knowledge Wiki Layer | 22 | 🟢 Parcial (21/22) |
-| 13 | Provedor Híbrido de LLM | 12 | 🔵 Pendente |
+| 13 | Provedor Híbrido de LLM | 12 | 🟢 Parcial (11/12) |
 
 ---
 
@@ -299,32 +299,32 @@ Pastas a criar:
 
 ---
 
-## Fase 13 — Provedor Híbrido de LLM
+## Fase 13 — Provedor Híbrido de LLM ✅
 
 > Relacionado: [[sdd_llm_provider_hybrid]]
 
-### Abstração + Factory
-- [ ] Criar interface BaseProvider (app/llm/provider.py)
-- [ ] Criar LLMFactory com build() e resolve() (app/llm/factory.py)
-- [ ] Migrar OllamaProvider de ChatOllama direto para app/llm/providers/
+### Abstração + Factory ✅
+- [x] Criar interface BaseProvider (app/llm/provider.py)
+- [x] Criar LLMFactory com build() e resolve() (app/llm/factory.py)
+- [x] Migrar OllamaProvider de ChatOllama direto para app/llm/providers/
 
-### Provedores Cloud
-- [ ] Implementar OpenAIProvider
-- [ ] Implementar ClaudeProvider
-- [ ] Implementar GeminiProvider
-- [ ] Adicionar MODEL_MAP e FALLBACK_CHAIN ao settings.py
-- [ ] Adicionar API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, GEMINI_API_KEY) ao .env
+### Provedores Cloud ✅
+- [x] Implementar OpenAIProvider
+- [x] Implementar ClaudeProvider
+- [x] Implementar GeminiProvider
+- [x] Adicionar MODEL_MAP e FALLBACK_CHAIN ao settings.py
+- [x] Adicionar API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, GEMINI_API_KEY) ao .env
 
-### Refatoração do Core
-- [ ] Refatorar planner.py para usar LLMFactory
-- [ ] Refatorar IntentClassifier para usar LLMFactory
-- [ ] Refatorar MemoryRouter para usar LLMFactory
-- [ ] Refatorar openai.py proxy para usar LLMFactory
+### Refatoração do Core ✅
+- [x] Refatorar planner.py para usar LLMFactory
+- [x] Refatorar IntentClassifier para usar LLMFactory
+- [x] Refatorar MemoryRouter para usar LLMFactory
+- [x] Refatorar openai.py proxy para usar LLMFactory
 
-### Métricas + Fallback
-- [ ] Implementar ProviderMetrics (provider, model, latency, tokens, cost)
-- [ ] Implementar chat_with_fallback (fallback automático)
-- [ ] Log estruturado de métricas por provider
+### Métricas + Fallback ✅
+- [x] Implementar ProviderMetrics (provider, model, latency, tokens, cost)
+- [x] Implementar chat_with_fallback (fallback automático)
+- [x] Log estruturado de métricas por provider
 - [ ] Testar fallback: derrubar provider A → deve cair em B
 
 ---
