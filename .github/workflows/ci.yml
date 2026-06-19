@@ -89,6 +89,39 @@ jobs:
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
           file_pattern: desktop/src-tauri/icons/*
 
+  tauri:
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install system deps (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install frontend deps
+        working-directory: desktop
+        run: npm ci
+
+      - name: Generate icons
+        run: pip install Pillow && python scripts/generate_icons.py
+
+      - name: Build Tauri
+        working-directory: desktop
+        run: npm run tauri build
+
   docker:
     if: github.event_name == 'push' && github.ref_name == 'main'
     runs-on: ubuntu-latest
