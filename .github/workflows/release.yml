@@ -53,7 +53,7 @@ jobs:
 
       - name: Healthcheck
         run: |
-          IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}"
+          IMAGE="${{ fromJSON(steps.meta.outputs.json).tags[0] }}"
           docker run --rm -d --name kaos-test -p 8000:8000 "$IMAGE"
           sleep 5
           curl -sf http://localhost:8000/health | grep -q '"status":"ok"' || exit 1

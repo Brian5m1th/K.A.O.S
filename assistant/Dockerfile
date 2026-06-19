@@ -4,7 +4,10 @@ WORKDIR /app
 
 COPY pyproject.toml ./
 
-RUN pip install uv && uv sync --no-dev
+RUN pip install uv && \
+    uv venv /app/.venv && \
+    VIRTUAL_ENV=/app/.venv uv pip install torch --index-url https://download.pytorch.org/whl/cpu && \
+    VIRTUAL_ENV=/app/.venv uv sync --no-dev
 
 FROM python:3.13-slim
 
