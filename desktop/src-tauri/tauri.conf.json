@@ -10,7 +10,6 @@
     "beforeBuildCommand": "npm run build"
   },
   "app": {
-    "title": "KAOS",
     "windows": [
       {
         "title": "KAOS",

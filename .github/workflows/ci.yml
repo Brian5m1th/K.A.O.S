@@ -92,6 +92,8 @@ jobs:
   tauri:
     if: github.event_name == 'push' && github.ref_name == 'main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
