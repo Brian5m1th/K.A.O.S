@@ -20,9 +20,17 @@ export default function ProviderScreen({ onDone, initialProvider, initialUrl }: 
 
   const handleTest = async () => {
     setStatus("Testing...");
+    const base = url.replace(/\/+$/, "");
+    const endpoints: Record<string, string> = {
+      ollama: `${base}/api/tags`,
+      openai: `${base}/models`,
+      anthropic: base,
+      google: `${base}/models`,
+    };
+    const endpoint = endpoints[provider] || base;
     try {
-      const resp = await fetch(`${url.replace(/\/+$/, "")}/api/tags`);
-      if (resp.ok) {
+      const resp = await fetch(endpoint, { method: "GET" });
+      if (resp.ok || resp.status === 401 || resp.status === 403) {
         setStatus("Connected");
       } else {
         setStatus(`Error: ${resp.status}`);
