@@ -83,6 +83,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -114,6 +115,7 @@ jobs:
             type=raw,value=nightly
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: assistant
@@ -143,3 +145,10 @@ jobs:
           }
           docker rm -f kaos-test >/dev/null
           echo "Healthcheck passed"
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign image
+        run: |
+          cosign sign --yes "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"
