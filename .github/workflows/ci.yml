@@ -91,10 +91,7 @@ jobs:
 
   tauri:
     if: github.event_name == 'push' && github.ref_name == 'main'
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -113,7 +110,7 @@ jobs:
 
       - name: Install frontend deps
         working-directory: desktop
-        run: npm ci
+        run: npm install
 
       - name: Generate icons
         run: pip install Pillow && python scripts/generate_icons.py

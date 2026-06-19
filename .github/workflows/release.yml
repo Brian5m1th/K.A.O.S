@@ -89,7 +89,7 @@ jobs:
 
       - name: Install frontend deps
         working-directory: desktop
-        run: npm ci
+        run: npm install
 
       - name: Generate icons
         run: pip install Pillow && python scripts/generate_icons.py
