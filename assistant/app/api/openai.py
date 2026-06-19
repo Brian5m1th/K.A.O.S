@@ -3,7 +3,7 @@ import time
 import uuid
 from typing import AsyncIterator
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi.responses import StreamingResponse, JSONResponse
 from loguru import logger
 from pydantic import BaseModel, Field
@@ -35,6 +35,7 @@ def _get_factory() -> LLMFactory:
     if _factory is None:
         _factory = LLMFactory()
     return _factory
+
 
 router = APIRouter(prefix="/v1", tags=["OpenAI"])
 legacy_router = APIRouter(tags=["Legacy"])
@@ -100,10 +101,12 @@ async def list_models_legacy():
 
 @legacy_router.post("/chat/completions")
 async def chat_completions_legacy(
-    request: ChatCompletionRequest,
+    body: ChatCompletionRequest,
+    http_request: Request,
 ) -> StreamingResponse:
-    logger.info(f"[start] openai - chat_completions_legacy [user={request.user_id or 'anonymous'}]")
-    return await chat_completions(request)
+    uid = body.user_id or http_request.state.user_id
+    logger.info(f"[start] openai - chat_completions_legacy [user={uid or 'anonymous'}]")
+    return await chat_completions(body, http_request)
 
 
 @router.get("/models")
@@ -157,16 +160,20 @@ def _resolve_model(api_model: str) -> str:
 
 @router.post("/chat/completions")
 async def chat_completions(
-    request: ChatCompletionRequest,
+    body: ChatCompletionRequest,
+    http_request: Request,
 ) -> StreamingResponse:
-    logger.info(f"[start] openai - chat_completions [user={request.user_id or 'anonymous'}]")
+    user_id = body.user_id or http_request.state.user_id
+    username = body.username or http_request.state.username
+    role = body.role or http_request.state.role
+    logger.info(f"[start] openai - chat_completions [user={user_id or 'anonymous'}]")
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     created = int(__import__("time").time())
     session_id = stream_id
 
     user_message = next(
-        (m.content for m in reversed(request.messages) if m.role == "user"),
-        request.messages[-1].content if request.messages else "",
+        (m.content for m in reversed(body.messages) if m.role == "user"),
+        body.messages[-1].content if body.messages else "",
     )
 
     cached = _cache.get(user_message)
@@ -177,7 +184,7 @@ async def chat_completions(
             yield cached
 
         return StreamingResponse(
-            _sse_stream_generator(stream_id, created, request.model, _cached_stream()),
+            _sse_stream_generator(stream_id, created, body.model, _cached_stream()),
             media_type="text/event-stream",
             headers={
                 "Cache-Control": "no-cache",
@@ -186,9 +193,9 @@ async def chat_completions(
             },
         )
 
-    if request.model == settings.FAST_MODEL_ID:
+    if body.model == settings.FAST_MODEL_ID:
         intent = IntentType.FAST
-        logger.info(f"[info] openai - model={request.model} -> forced FAST")
+        logger.info(f"[info] openai - model={body.model} -> forced FAST")
     else:
         intent = await _get_classifier().classify(user_message)
         logger.info(f"[info] openai - intent={intent.value}")
@@ -204,11 +211,11 @@ async def chat_completions(
 
             elapsed = (time.perf_counter() - start) * 1000
             logger.info(
-                f"[audit] generation | route=FAST | user={request.user_id or 'anonymous'} | "
+                f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
                 f"latency_ms={elapsed:.0f}"
             )
             return StreamingResponse(
-                _sse_stream_generator(stream_id, created, request.model, _fast_stream()),
+                _sse_stream_generator(stream_id, created, body.model, _fast_stream()),
                 media_type="text/event-stream",
                 headers={
                     "Cache-Control": "no-cache",
@@ -216,17 +223,18 @@ async def chat_completions(
                     "X-Accel-Buffering": "no",
                 },
             )
+
         # FAST intent mas sem tool: resposta simples
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
 
         elapsed = (time.perf_counter() - start) * 1000
         logger.info(
-            f"[audit] generation | route=FAST | user={request.user_id or 'anonymous'} | "
+            f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
             f"latency_ms={elapsed:.0f}"
         )
         return StreamingResponse(
-            _sse_stream_generator(stream_id, created, request.model, _simple_stream()),
+            _sse_stream_generator(stream_id, created, body.model, _simple_stream()),
             media_type="text/event-stream",
             headers={
                 "Cache-Control": "no-cache",
@@ -237,12 +245,15 @@ async def chat_completions(
 
     elif intent == IntentType.MEMORY:
         start = time.perf_counter()
-        model_key = _resolve_model(request.model)
+        model_key = _resolve_model(body.model)
         router = MemoryRouter(model=model_key)
 
         return StreamingResponse(
             _sse_stream_generator(
-                stream_id, created, request.model, router.stream(user_message, user_id=request.user_id)
+                stream_id,
+                created,
+                body.model,
+                router.stream(user_message, user_id=user_id),
             ),
             media_type="text/event-stream",
             headers={
@@ -255,19 +266,19 @@ async def chat_completions(
     # SMART route (LangGraph)
     agent = _get_agent()
     logger.info("[sending] openai - streaming via LangGraph Agent (SMART)")
-    model_key = _resolve_model(request.model)
+    model_key = _resolve_model(body.model)
 
     return StreamingResponse(
         _sse_stream_generator(
             stream_id,
             created,
-            request.model,
+            body.model,
             agent.stream_message(
                 session_id=session_id,
                 user_message=user_message,
-                user_id=request.user_id,
-                username=request.username,
-                role=request.role,
+                user_id=user_id,
+                username=username,
+                role=role,
                 model=model_key,
             ),
         ),

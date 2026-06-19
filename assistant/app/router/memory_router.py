@@ -22,12 +22,13 @@ class MemoryRouter:
         start = time.perf_counter()
         results = self._retriever.search(query=query, limit=5)
         elapsed = (time.perf_counter() - start) * 1000
-        logger.info(f"[metrics] MemoryRouter - retrieve_context: {elapsed:.0f}ms results={len(results)}")
+        logger.info(
+            f"[metrics] MemoryRouter - retrieve_context: {elapsed:.0f}ms results={len(results)}"
+        )
         if not results:
             return ""
         return "\n\n".join(
-            f"[{r.path} (score={r.score:.2f})]\n{r.excerpt}"
-            for r in results
+            f"[{r.path} (score={r.score:.2f})]\n{r.excerpt}" for r in results
         )
 
     async def process(self, user_message: str, user_id: str = "") -> str:
@@ -44,7 +45,9 @@ class MemoryRouter:
         provider = self._factory.build(self._model_key)
         response = await provider.ainvoke(messages)
         elapsed = (time.perf_counter() - start) * 1000
-        logger.info(f"[metrics] MemoryRouter - process: {elapsed:.0f}ms context_chars={len(context)}")
+        logger.info(
+            f"[metrics] MemoryRouter - process: {elapsed:.0f}ms context_chars={len(context)}"
+        )
         logger.debug("[finish] MemoryRouter - process")
         return response.content
 
@@ -69,6 +72,6 @@ class MemoryRouter:
         result = "".join(result_parts)
         logger.info(
             f"[audit] generation | route=MEMORY | user={user_id} | "
-            f"context_chars={len(context)} | tokens_out=~{len(result)//4} | latency_ms={elapsed:.0f}"
+            f"context_chars={len(context)} | tokens_out=~{len(result) // 4} | latency_ms={elapsed:.0f}"
         )
         logger.debug("[finish] MemoryRouter - stream")

@@ -12,7 +12,7 @@ WORKDIR /app
 
 COPY --from=builder /app/.venv /app/.venv
 COPY app/ /app/app/
-COPY .env /app/.env
+RUN touch /app/.env
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1

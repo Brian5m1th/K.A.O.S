@@ -8,16 +8,13 @@ from app.config.settings import settings
 from app.obsidian.tools.wiki.create_entity_tool import create_entity
 from app.obsidian.tools.wiki.create_concept_tool import create_concept
 from app.obsidian.tools.wiki.create_source_tool import create_source
-from app.obsidian.tools.wiki.update_index_tool import update_index
-from app.obsidian.tools.wiki.append_log_tool import append_log
-from app.rag.embeddings.embedder import get_embedder
 from app.rag.indexer.vault_indexer import VaultIndexer
-from app.rag.chunking.text_splitter import MarkdownSplitter
 
 
-def _get_llm():
-    from langchain_ollama import ChatOllama
-    return ChatOllama(model=settings.OLLAMA_MODEL, base_url=settings.OLLAMA_BASE_URL)
+def _get_provider():
+    from app.llm import LLMFactory
+
+    return LLMFactory().build(settings.API_MODEL_ID)
 
 
 INGEST_PROMPT = """You are analyzing a source document for the K.A.O.S knowledge wiki.
@@ -48,33 +45,50 @@ def ingest_source(state: AgentState) -> dict:
     source_path = state.get("ingest_source_path", "")
     if not source_path:
         return {
-            "messages": [HumanMessage(content="Erro: caminho da fonte nao fornecido. Especifique o arquivo em raw/.")]
+            "messages": [
+                HumanMessage(
+                    content="Erro: caminho da fonte nao fornecido. Especifique o arquivo em raw/."
+                )
+            ]
         }
 
     vault = Path(settings.OBSIDIAN_VAULT_PATH)
     raw_file = vault / "raw" / source_path
     if not raw_file.exists():
         return {
-            "messages": [HumanMessage(content=f"Erro: arquivo nao encontrado em raw/{source_path}")]
+            "messages": [
+                HumanMessage(
+                    content=f"Erro: arquivo nao encontrado em raw/{source_path}"
+                )
+            ]
         }
 
     content = raw_file.read_text(encoding="utf-8")
-    logger.info(f"[info] ingest_source - lido: raw/{source_path} ({len(content)} chars)")
+    logger.info(
+        f"[info] ingest_source - lido: raw/{source_path} ({len(content)} chars)"
+    )
 
     provider = _get_provider()
-    response = provider.invoke([
-        SystemMessage(content=INGEST_PROMPT),
-        HumanMessage(content=f"Documento: {source_path}\n\n{content[:8000]}"),
-    ])
+    response = provider.invoke(
+        [
+            SystemMessage(content=INGEST_PROMPT),
+            HumanMessage(content=f"Documento: {source_path}\n\n{content[:8000]}"),
+        ]
+    )
 
     import json
     import re
+
     text = response.content.strip()
     json_match = re.search(r"\{.*\}", text, re.DOTALL)
     if not json_match:
         logger.error("[error] ingest_source - falha ao extrair JSON da resposta LLM")
         return {
-            "messages": [HumanMessage(content="Erro ao processar o documento: resposta do LLM invalida.")]
+            "messages": [
+                HumanMessage(
+                    content="Erro ao processar o documento: resposta do LLM invalida."
+                )
+            ]
         }
 
     try:
@@ -82,7 +96,9 @@ def ingest_source(state: AgentState) -> dict:
     except json.JSONDecodeError as e:
         logger.error(f"[error] ingest_source - JSON invalido: {e}")
         return {
-            "messages": [HumanMessage(content=f"Erro ao processar o documento: JSON invalido.")]
+            "messages": [
+                HumanMessage(content="Erro ao processar o documento: JSON invalido.")
+            ]
         }
 
     title = data.get("title", Path(source_path).stem)
@@ -92,23 +108,27 @@ def ingest_source(state: AgentState) -> dict:
     tags = data.get("tags", [])
     source_tags = tags + ["fonte"]
 
-    source_draft = create_source.invoke({
-        "name": title,
-        "content": summary,
-        "tags": source_tags,
-    })
+    source_draft = create_source.invoke(
+        {
+            "name": title,
+            "content": summary,
+            "tags": source_tags,
+        }
+    )
     logger.info(f"[info] ingest_source - source draft: {source_draft}")
 
     created = {"source": source_draft, "entities": [], "concepts": []}
 
     for entity in entities:
         try:
-            draft = create_entity.invoke({
-                "name": entity["name"],
-                "summary": entity.get("summary", ""),
-                "tags": entity.get("tags", []),
-                "sources": [source_draft],
-            })
+            draft = create_entity.invoke(
+                {
+                    "name": entity["name"],
+                    "summary": entity.get("summary", ""),
+                    "tags": entity.get("tags", []),
+                    "sources": [source_draft],
+                }
+            )
             created["entities"].append(draft)
             logger.info(f"[info] ingest_source - entity draft: {draft}")
         except Exception as e:
@@ -116,12 +136,14 @@ def ingest_source(state: AgentState) -> dict:
 
     for concept in concepts:
         try:
-            draft = create_concept.invoke({
-                "name": concept["name"],
-                "summary": concept.get("summary", ""),
-                "tags": concept.get("tags", []),
-                "sources": [source_draft],
-            })
+            draft = create_concept.invoke(
+                {
+                    "name": concept["name"],
+                    "summary": concept.get("summary", ""),
+                    "tags": concept.get("tags", []),
+                    "sources": [source_draft],
+                }
+            )
             created["concepts"].append(draft)
             logger.info(f"[info] ingest_source - concept draft: {draft}")
         except Exception as e:
@@ -129,8 +151,6 @@ def ingest_source(state: AgentState) -> dict:
 
     try:
         vault = Path(settings.OBSIDIAN_VAULT_PATH)
-        splitter = MarkdownSplitter()
-        embedder = get_embedder()
         indexer = VaultIndexer()
         indexer.index_file(str(raw_file))
         logger.info("[info] ingest_source - reindexado no Qdrant")
@@ -155,7 +175,9 @@ def ingest_source(state: AgentState) -> dict:
         f"_Processado em {elapsed:.0f}ms_"
     )
 
-    logger.info(f"[audit] ingest_source | title={title} | entities={len(entities)} | concepts={len(concepts)} | latency_ms={elapsed:.0f}")
+    logger.info(
+        f"[audit] ingest_source | title={title} | entities={len(entities)} | concepts={len(concepts)} | latency_ms={elapsed:.0f}"
+    )
     logger.debug("[finish] ingest_source")
     return {
         "messages": [HumanMessage(content=result_msg)],

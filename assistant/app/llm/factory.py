@@ -19,10 +19,11 @@ class LLMFactory:
             if not entry:
                 continue
             parts = entry.split(":")
-            if len(parts) == 2:
-                chain.append({"provider": parts[0], "model": parts[1]})
-            else:
-                chain.append({"provider": parts[0], "model": settings.OLLAMA_MODEL})
+            provider = parts[0]
+            model = ":".join(parts[1:]) if len(parts) > 1 else settings.OLLAMA_MODEL
+            if not model:
+                model = settings.OLLAMA_MODEL
+            chain.append({"provider": provider, "model": model})
         return chain
 
     def build(self, model_key: str, **kwargs) -> BaseProvider:
@@ -36,14 +37,25 @@ class LLMFactory:
             **kwargs,
         )
         self._cache[model_key] = provider
-        logger.info(f"[info] LLMFactory - built: {resolved['provider']}/{resolved['model']} (key={model_key})")
+        logger.info(
+            f"[info] LLMFactory - built: {resolved['provider']}/{resolved['model']} (key={model_key})"
+        )
         return provider
 
     def _resolve_model_config(self, model_key: str) -> dict:
         model_map = {
-            settings.API_MODEL_ID: {"provider": "ollama", "model": settings.OLLAMA_MODEL},
-            settings.FAST_MODEL_ID: {"provider": "ollama", "model": settings.OLLAMA_FAST_MODEL},
-            settings.DEFAULT_MODEL_ID: {"provider": "ollama", "model": settings.OLLAMA_MODEL},
+            settings.API_MODEL_ID: {
+                "provider": "ollama",
+                "model": settings.OLLAMA_MODEL,
+            },
+            settings.FAST_MODEL_ID: {
+                "provider": "ollama",
+                "model": settings.OLLAMA_FAST_MODEL,
+            },
+            settings.DEFAULT_MODEL_ID: {
+                "provider": "ollama",
+                "model": settings.OLLAMA_MODEL,
+            },
         }
 
         if model_key in model_map:
@@ -54,35 +66,64 @@ class LLMFactory:
 
         return {"provider": "ollama", "model": model_key}
 
-    def _create_provider(self, provider_name: str, model_name: str, **kwargs) -> BaseProvider:
+    def _create_provider(
+        self, provider_name: str, model_name: str, **kwargs
+    ) -> BaseProvider:
         if provider_name == "ollama":
             from app.llm.providers.ollama_provider import OllamaProvider
-            return OllamaProvider(model=model_name, base_url=kwargs.get("base_url", settings.OLLAMA_BASE_URL), **kwargs)
+
+            return OllamaProvider(
+                model=model_name,
+                base_url=kwargs.get("base_url", settings.OLLAMA_BASE_URL),
+                **kwargs,
+            )
         elif provider_name == "openai":
             from app.llm.providers.openai_provider import OpenAIProvider
-            return OpenAIProvider(model=model_name, api_key=settings.OPENAI_API_KEY, **kwargs)
+
+            return OpenAIProvider(
+                model=model_name, api_key=settings.OPENAI_API_KEY, **kwargs
+            )
         elif provider_name == "claude":
             from app.llm.providers.claude_provider import ClaudeProvider
-            return ClaudeProvider(model=model_name, api_key=settings.ANTHROPIC_API_KEY, **kwargs)
+
+            return ClaudeProvider(
+                model=model_name, api_key=settings.ANTHROPIC_API_KEY, **kwargs
+            )
         elif provider_name == "gemini":
             from app.llm.providers.gemini_provider import GeminiProvider
-            return GeminiProvider(model=model_name, api_key=settings.GEMINI_API_KEY, **kwargs)
-        else:
-            logger.warning(f"[warn] LLMFactory - provider desconhecido: {provider_name}, fallback Ollama")
-            from app.llm.providers.ollama_provider import OllamaProvider
-            return OllamaProvider(model=model_name, base_url=settings.OLLAMA_BASE_URL, **kwargs)
 
-    async def ainvoke_with_fallback(self, model_key: str, messages: list, **kwargs) -> str:
+            return GeminiProvider(
+                model=model_name, api_key=settings.GEMINI_API_KEY, **kwargs
+            )
+        else:
+            logger.warning(
+                f"[warn] LLMFactory - provider desconhecido: {provider_name}, fallback Ollama"
+            )
+            from app.llm.providers.ollama_provider import OllamaProvider
+
+            return OllamaProvider(
+                model=model_name, base_url=settings.OLLAMA_BASE_URL, **kwargs
+            )
+
+    async def ainvoke_with_fallback(
+        self, model_key: str, messages: list, **kwargs
+    ) -> str:
         return await self._fallback_invoke(model_key, messages, 0, **kwargs)
 
-    async def _fallback_invoke(self, model_key: str, messages: list, index: int, **kwargs) -> str:
+    async def _fallback_invoke(
+        self, model_key: str, messages: list, index: int, **kwargs
+    ) -> str:
         if index >= len(self._fallbacks):
             raise RuntimeError("Todos os providers da fallback chain falharam")
 
         if self._fallbacks:
             config = self._fallbacks[index]
-            provider = self._create_provider(config["provider"], config["model"], **kwargs)
-            logger.info(f"[info] LLMFactory - fallback[{index}]: {config['provider']}/{config['model']}")
+            provider = self._create_provider(
+                config["provider"], config["model"], **kwargs
+            )
+            logger.info(
+                f"[info] LLMFactory - fallback[{index}]: {config['provider']}/{config['model']}"
+            )
         else:
             provider = self.build(model_key, **kwargs)
 

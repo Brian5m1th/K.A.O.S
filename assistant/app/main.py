@@ -13,7 +13,11 @@ from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
 from app.api.rag import router as rag_router
+from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
+from app.middleware.user_context import UserContextMiddleware
+from app.obsidian.vault_init import create_vault_structure
+from app.tools import github_tools  # noqa: F401 - registers tools on import
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.rag.embeddings.embedder import warmup_embedder
 
@@ -45,11 +49,15 @@ _watcher: VaultWatcher | None = None
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher
     logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
-    
+
     logger.info("[info] lifespan - warmup embedder")
     await asyncio.to_thread(warmup_embedder)
     logger.debug("[finish] lifespan - warmup embedder")
-    
+
+    logger.info("[info] lifespan - init vault structure")
+    await asyncio.to_thread(create_vault_structure)
+    logger.debug("[finish] lifespan - init vault structure")
+
     _watcher = VaultWatcher()
     _watcher.start()
     yield
@@ -72,12 +80,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(UserContextMiddleware)
+
 app.include_router(health_router)
 app.include_router(chat_router)
 app.include_router(indexing_router)
 app.include_router(rag_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
+app.include_router(webhooks_router)
 
 
 @app.get("/")

@@ -8,7 +8,14 @@ from app.agent.state import AgentState
 
 class AgentService:
     async def process_message(
-        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user", model: str | None = None, ingest_source_path: str | None = None
+        self,
+        session_id: str,
+        user_message: str,
+        user_id: str = "",
+        username: str = "",
+        role: str = "user",
+        model: str | None = None,
+        ingest_source_path: str | None = None,
     ) -> str:
         start = time.perf_counter()
         logger.info("[start] AgentService - process_message")
@@ -35,20 +42,27 @@ class AgentService:
             None,
         )
         result = last_ai_message.content if last_ai_message else "Sem resposta."
-        
+
         elapsed = (time.perf_counter() - start) * 1000
         context = initial_state.get("retrieved_context", [])
         context_chars = sum(len(c.get("content", "")) for c in context)
         logger.info(
             f"[audit] generation | route=SMART | user={user_id} | "
             f"context_chunks={len(context)} | context_chars={context_chars} | "
-            f"tokens_out=~{len(result)//4} | latency_ms={elapsed:.0f}"
+            f"tokens_out=~{len(result) // 4} | latency_ms={elapsed:.0f}"
         )
         logger.debug("[finish] AgentService - process_message")
         return result
 
     async def stream_message(
-        self, session_id: str, user_message: str, user_id: str = "", username: str = "", role: str = "user", model: str | None = None, ingest_source_path: str | None = None
+        self,
+        session_id: str,
+        user_message: str,
+        user_id: str = "",
+        username: str = "",
+        role: str = "user",
+        model: str | None = None,
+        ingest_source_path: str | None = None,
     ):
         start = time.perf_counter()
         logger.info("[start] AgentService - stream_message")
@@ -69,9 +83,7 @@ class AgentService:
         }
 
         result_parts = []
-        async for event in agent_graph.astream_events(
-            initial_state, version="v2"
-        ):
+        async for event in agent_graph.astream_events(initial_state, version="v2"):
             kind = event.get("event")
             if kind == "on_chat_model_stream":
                 chunk = event.get("data", {}).get("chunk", None)
@@ -88,6 +100,6 @@ class AgentService:
         logger.info(
             f"[audit] generation | route=SMART | user={user_id} | "
             f"context_chunks={len(initial_state['retrieved_context'])} | context_chars={context_chars} | "
-            f"tokens_out=~{len(result)//4} | latency_ms={elapsed:.0f}"
+            f"tokens_out=~{len(result) // 4} | latency_ms={elapsed:.0f}"
         )
         logger.debug("[finish] AgentService - stream_message")

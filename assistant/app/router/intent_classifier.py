@@ -1,4 +1,3 @@
-import re
 from enum import Enum
 from loguru import logger
 from langchain_core.messages import SystemMessage, HumanMessage
@@ -100,26 +99,20 @@ class IntentClassifier:
         lower = message.lower().strip()
         for kw in INGEST_KEYWORDS:
             if kw in lower:
-                logger.info(
-                    f"[info] IntentClassifier - keyword INGEST: \"{kw}\""
-                )
+                logger.info(f'[info] IntentClassifier - keyword INGEST: "{kw}"')
                 return IntentType.INGEST
         for kw in FAST_KEYWORDS:
             if kw in lower:
-                logger.info(
-                    f"[info] IntentClassifier - keyword FAST: \"{kw}\""
-                )
+                logger.info(f'[info] IntentClassifier - keyword FAST: "{kw}"')
                 return IntentType.FAST
         for kw in MEMORY_KEYWORDS:
             if kw in lower:
-                logger.info(
-                    f"[info] IntentClassifier - keyword MEMORY: \"{kw}\""
-                )
+                logger.info(f'[info] IntentClassifier - keyword MEMORY: "{kw}"')
                 return IntentType.MEMORY
         return None
 
     async def classify(self, message: str) -> IntentType:
-        logger.info(f"[start] IntentClassifier - classify")
+        logger.info("[start] IntentClassifier - classify")
         keyword_match = self._match_keyword(message)
         if keyword_match:
             logger.debug("[finish] IntentClassifier - classify (keyword)")
@@ -127,10 +120,12 @@ class IntentClassifier:
 
         logger.info("[info] IntentClassifier - fallback LLM")
         provider = self._get_provider()
-        response = await provider.ainvoke([
-            SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
-            HumanMessage(content=message),
-        ])
+        response = await provider.ainvoke(
+            [
+                SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
+                HumanMessage(content=message),
+            ]
+        )
         content = response.content.strip().upper()
         if "INGEST" in content:
             logger.debug("[finish] IntentClassifier - classify (LLM: INGEST)")

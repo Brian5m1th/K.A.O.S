@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from typing import Optional
+
 from loguru import logger
 from sqlalchemy import select, desc
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
@@ -45,11 +45,13 @@ class PostgresMemoryRepository(MemoryRepository):
         user_message: str,
         assistant_response: str,
     ) -> str:
-        logger.info(f"[start] PostgresMemoryRepository - save_conversation [user={user_id}]")
-        
+        logger.info(
+            f"[start] PostgresMemoryRepository - save_conversation [user={user_id}]"
+        )
+
         async with self._session_factory() as session:
             session_uuid = uuid.uuid5(uuid.NAMESPACE_DNS, session_id)
-            
+
             existing = await session.get(MemorySession, session_uuid)
             if existing is None:
                 mem_session = MemorySession(
@@ -85,11 +87,15 @@ class PostgresMemoryRepository(MemoryRepository):
                 summary_obj.updated_at = datetime.utcnow()
 
             await session.commit()
-            
-            logger.info(f"[info] PostgresMemoryRepository - conversation saved [user={user_id}, session={session_uuid}]")
+
+            logger.info(
+                f"[info] PostgresMemoryRepository - conversation saved [user={user_id}, session={session_uuid}]"
+            )
             return str(session_uuid)
 
-    async def list_recent_conversations(self, user_id: str, limit: int = 5) -> list[str]:
+    async def list_recent_conversations(
+        self, user_id: str, limit: int = 5
+    ) -> list[str]:
         async with self._session_factory() as session:
             result = await session.execute(
                 select(MemorySession)
@@ -99,7 +105,7 @@ class PostgresMemoryRepository(MemoryRepository):
                 .options(selectinload(MemorySession.summary))
             )
             sessions = result.scalars().all()
-            
+
             return [
                 f"{s.id} | {s.summary.summary if s.summary else 'Sem resumo'} | {s.updated_at.isoformat()}"
                 for s in sessions
@@ -114,9 +120,13 @@ class PostgresMemoryRepository(MemoryRepository):
                 .order_by(MemoryMessage.created_at)
             )
             messages = result.scalars().all()
-            
+
             return [
-                {"role": m.role, "content": m.content, "timestamp": m.created_at.isoformat()}
+                {
+                    "role": m.role,
+                    "content": m.content,
+                    "timestamp": m.created_at.isoformat(),
+                }
                 for m in messages
             ]
 

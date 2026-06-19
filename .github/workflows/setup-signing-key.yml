@@ -1,0 +1,79 @@
+name: Setup Signing Key
+
+on:
+  workflow_dispatch:
+    inputs:
+      regenerate:
+        description: "Regenerate existing key (will overwrite)"
+        required: true
+        default: "false"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli
+
+      - name: Generate signing key
+        id: signer
+        run: |
+          KEY_PATH="$HOME/.tauri/kaos.key"
+          mkdir -p "$HOME/.tauri"
+          if [ -f "$KEY_PATH" ] && [ "${{ inputs.regenerate }}" != "true" ]; then
+            echo "Key already exists, skipping generation"
+            PUBLIC_KEY=$(npx @tauri-apps/cli signer sign --key "$KEY_PATH" --stdin < /dev/null 2>&1 | head -1 || true)
+          else
+            echo "Generating new signing key..."
+            npx @tauri-apps/cli signer generate -w "$KEY_PATH"
+            PUBLIC_KEY=$(tauri signer generate --show-public-key -w "$KEY_PATH" 2>&1)
+          fi
+          echo "public_key=$PUBLIC_KEY" >> $GITHUB_OUTPUT
+          echo "key_path=$KEY_PATH" >> $GITHUB_OUTPUT
+
+      - name: Update tauri.conf.json with public key
+        run: |
+          PUBLIC_KEY="${{ steps.signer.outputs.public_key }}"
+          if [ -n "$PUBLIC_KEY" ]; then
+            jq --arg key "$PUBLIC_KEY" '.plugins.updater.pubkey = $key' desktop/src-tauri/tauri.conf.json > tmp.json
+            mv tmp.json desktop/src-tauri/tauri.conf.json
+            echo "Public key written to tauri.conf.json"
+          else
+            echo "No public key generated, skipping"
+          fi
+
+      - name: Save private key as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-signing-key
+          path: ~/.tauri/kaos.key
+          if-no-files-found: error
+
+      - name: Commit public key
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update Tauri signing public key [skip ci]"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          file_pattern: desktop/src-tauri/tauri.conf.json
+
+      - name: Print instructions
+        run: |
+          echo "============================================"
+          echo "NEXT STEPS:"
+          echo "1. Download the 'tauri-signing-key' artifact"
+          echo "2. Save the private key as a GitHub secret:"
+          echo "   gh secret set TAURI_SIGNING_PRIVATE_KEY -b \"\$(cat ~/.tauri/kaos.key)\""
+          echo "3. The public key is already committed"
+          echo "============================================"

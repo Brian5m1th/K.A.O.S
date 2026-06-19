@@ -28,7 +28,9 @@ async def health_check() -> HealthResponse:
 
 
 @router.get("/readiness", response_model=ReadinessResponse)
-async def readiness_check(llm: LLMService = Depends(get_llm_service)) -> ReadinessResponse:
+async def readiness_check(
+    llm: LLMService = Depends(get_llm_service),
+) -> ReadinessResponse:
     logger.info("[start] health - readiness_check")
     ollama_ok = await llm.check_availability()
     if not ollama_ok:

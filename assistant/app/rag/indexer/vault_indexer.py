@@ -47,7 +47,7 @@ class VaultIndexer:
                     )
                     self._client.delete_collection(self.COLLECTION)
                     existing = []  # Force recreation
-            
+
             if self.COLLECTION not in existing:
                 self._client.create_collection(
                     collection_name=self.COLLECTION,
@@ -55,7 +55,9 @@ class VaultIndexer:
                         size=self._embedder.dimension, distance=Distance.COSINE
                     ),
                 )
-                logger.info(f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada (dim={self._embedder.dimension})")
+                logger.info(
+                    f"[info] VaultIndexer - colecao '{self.COLLECTION}' criada (dim={self._embedder.dimension})"
+                )
             logger.debug("[finish] VaultIndexer - _ensure_collection")
             return True
         except Exception as exc:
@@ -99,19 +101,25 @@ class VaultIndexer:
 
         model_key = self._embedder.model_key
         cached = self._doc_cache.get(relative, content, model_key)
-        
+
         if cached:
-            logger.info(f"[info] VaultIndexer - cache hit: {relative} ({len(cached)} chunks)")
+            logger.info(
+                f"[info] VaultIndexer - cache hit: {relative} ({len(cached)} chunks)"
+            )
             vectors = [c["vector"] for c in cached]
             chunk_objects = [
-                type("Chunk", (), {"content": c["content"], "chunk_index": c["index"]})()
+                type(
+                    "Chunk", (), {"content": c["content"], "chunk_index": c["index"]}
+                )()
                 for c in cached
             ]
         else:
-            logger.info(f"[info] VaultIndexer - cache miss: {relative} ({len(chunks)} chunks)")
+            logger.info(
+                f"[info] VaultIndexer - cache miss: {relative} ({len(chunks)} chunks)"
+            )
             texts = [c.content for c in chunks]
             vectors = self._embedder.embed_batch(texts)
-            
+
             cache_chunks = [
                 {"index": chunk.chunk_index, "vector": vector, "content": chunk.content}
                 for chunk, vector in zip(chunks, vectors)
@@ -135,7 +143,9 @@ class VaultIndexer:
         ]
 
         self._client.upsert(collection_name=self.COLLECTION, points=points)
-        logger.info(f"[info] VaultIndexer - indexado: {relative} ({len(points)} chunks)")
+        logger.info(
+            f"[info] VaultIndexer - indexado: {relative} ({len(points)} chunks)"
+        )
         logger.debug("[finish] VaultIndexer - index_file")
         return len(points)
 
@@ -147,11 +157,7 @@ class VaultIndexer:
         self._client.delete(
             collection_name=self.COLLECTION,
             points_selector=Filter(
-                must=[
-                    FieldCondition(
-                        key="path", match=MatchValue(value=relative_path)
-                    )
-                ]
+                must=[FieldCondition(key="path", match=MatchValue(value=relative_path))]
             ),
         )
         logger.debug("[finish] VaultIndexer - remove_file")

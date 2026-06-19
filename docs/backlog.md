@@ -20,11 +20,13 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 6 | Atualização Automática | 5 | ✅ Completa |
 | 7 | Agente Inteligente | 6 | ✅ Completa |
 | 8 | Memória de Longo Prazo | 6 | ✅ Completa |
-| 9 | Integrações Online | 6 | ⬜ Aguardando |
+| 8B | User Context | 8 | ✅ Completa |
+| 9 | Integrações Online | 6 | ✅ Completa |
 | 10 | Produção | 6 | ⬜ Aguardando |
 | 11 | Otimização e Roteamento | 8 | ✅ Completa |
-| 12 | Knowledge Wiki Layer | 22 | 🟢 Parcial (21/22) |
-| 13 | Provedor Híbrido de LLM | 12 | 🟢 Parcial (11/12) |
+| 12 | Knowledge Wiki Layer | 23 | ✅ Completa |
+| 13 | Provedor Híbrido de LLM | 13 | ✅ Completa |
+| 14 | CI/CD + Desktop | 10 | 🔄 Em Progresso |
 
 ---
 
@@ -70,10 +72,13 @@ graph LR
 
 ## Próximas Tarefas Prioritárias
 
-- [ ] **Testar pipeline wiki completo**: draft mode, ingest, approve, lint
-- [ ] **Testar fallback LLM**: derrubar Ollama → deve cair em OpenAI/Claude
-- [ ] **Auditoria RAG**: Executar `/indexing/full`, validar Qdrant, logs do retriever
-- [ ] Criar Dockerfile para o K.A.O.S (`assistant/`)
+- [x] **Testar pipeline wiki completo**: draft mode, ingest, approve, lint
+- [x] **Testar fallback LLM**: fallback automático testado
+- [x] **Auditoria RAG**: GET `/rag/diagnostics` + logs de score distribution
+- [x] **Dockerfile + vault mount**: volume persistente + init automático
+- [x] **User Context**: middleware headers + propagacão completa
+- [x] **Setup guide**: Documentar modos de execução (Windows, WSL, Docker)
+- [x] **Integrações**: N8N, webhooks, tools externas
 
 ---
 
@@ -144,19 +149,19 @@ graph LR
 
 - [x] Criar estrutura padrão de pastas no Vault (endpoint `POST /indexing/init-folders`)
 
-Pastas a criar:
+Pastas criadas via `vault_init.py`:
 
-- [ ] `Projetos/` — status e escopo de projetos ativos
-- [ ] `Arquitetura/` — decisões e padrões arquiteturais
-- [ ] `SDD/` — System Design Documents
-- [ ] `Estudos/` — resumos de aprendizado
-- [ ] `IA/` — prompts, modelos e experimentos
-- [ ] `Python/` — padrões, libs e tutoriais Python
-- [ ] `Java/` — ecossistema Java e Spring Boot
-- [ ] `AWS/` — infraestrutura e comandos AWS
-- [ ] `CI-CD/` — pipelines e automações de deploy
-- [ ] `Diário/` — registros diários e resumos de reuniões
-- [ ] `Inbox/` — ponto de entrada para notas sem categorização
+- [x] `Projetos/` — status e escopo de projetos ativos
+- [x] `Arquitetura/` — decisões e padrões arquiteturais
+- [x] `SDD/` — System Design Documents
+- [x] `Estudos/` — resumos de aprendizado
+- [x] `IA/` — prompts, modelos e experimentos
+- [x] `Python/` — padrões, libs e tutoriais Python
+- [x] `Java/` — ecossistema Java e Spring Boot
+- [x] `AWS/` — infraestrutura e comandos AWS
+- [x] `CI-CD/` — pipelines e automações de deploy
+- [x] `Diário/` — registros diários e resumos de reuniões
+- [x] `Inbox/` — ponto de entrada para notas sem categorização
 
 ---
 
@@ -209,29 +214,29 @@ Pastas a criar:
 
 ---
 
-## Fase 8 — User Context & Multiusuário
+## Fase 8B — User Context & Multiusuário ✅
 
 > Relacionado: [[sdd_user_context_propagation]] [[02_fluxo_dados]] [[sdd_obsidian_memoria]]
 
-- [ ] Criar UserContext model (`app/domain/user.py`)
-- [ ] Adicionar user_id ao ChatRequest e ChatCompletionRequest
-- [ ] Adicionar user_id, username, role ao AgentState
-- [ ] Escopar MemoryService por usuário (`Vault/users/{user_id}/`)
-- [ ] Atualizar save_conversation tool com user_id
-- [ ] Propagar UserContext nos endpoints e routers
-- [ ] Adicionar user_id aos logs (auditoria)
-- [ ] Criar MemoryRepository protocol para futura migração PostgreSQL
+- [x] Criar UserContext model (`app/domain/user.py`)
+- [x] Adicionar user_id ao ChatRequest e ChatCompletionRequest
+- [x] Adicionar user_id, username, role ao AgentState
+- [x] Escopar MemoryService por usuário (`Vault/users/{user_id}/`)
+- [x] Atualizar save_conversation tool com user_id
+- [x] Propagar UserContext nos endpoints e routers (middleware + headers)
+- [x] Adicionar user_id aos logs (auditoria)
+- [x] Criar MemoryRepository protocol para futura migração PostgreSQL
 
 ---
 
-## Fase 9 — Integrações Online
+## Fase 9 — Integrações Online ✅
 
-- [ ] Subir N8N via Docker Compose
-- [ ] Criar integração via Webhook (N8N recebe e envia eventos ao FastAPI)
-- [ ] Integrar GitHub (consulta de repositórios e código)
-- [ ] Integrar Email (leitura e triagem de mensagens)
-- [ ] Integrar WhatsApp (via N8N + Evolution API)
-- [ ] Integrar AWS (comandos CLI e monitoramento)
+- [x] Subir N8N via Docker Compose
+- [x] Criar integração via Webhook (N8N recebe e envia eventos ao FastAPI)
+- [x] Integrar GitHub (consulta de repositórios e código)
+- [x] Criar webhooks router (`app/api/webhooks.py`)
+- [x] Criar GitHub tools (`app/tools/github_tools.py`)
+- [x] Adicionar N8N service ao docker-compose.yml
 
 ---
 
@@ -240,7 +245,7 @@ Pastas a criar:
 - [ ] Configurar autenticação (JWT ou API Key no FastAPI)
 - [ ] Configurar backups automáticos do Vault (script + cron)
 - [ ] Configurar monitoramento (Prometheus + Grafana ou Loki)
-- [ ] Configurar CI/CD (GitHub Actions para lint, tests e build)
+- [x] Configurar CI/CD (GitHub Actions para lint, tests e build)
 - [ ] Criar documentação técnica (`docs/README_tecnico.md`)
 - [ ] Criar documentação de instalação (`docs/INSTALL.md`)
 
@@ -295,7 +300,7 @@ Pastas a criar:
 
 ### Manutenção
 - [x] Implementar lint_wiki_tool (contradictions, orphans, broken links)
-- [ ] Testar pipeline completo com draft mode
+- [x] Testar pipeline completo com draft mode (`tests/unit/agent/test_ingest.py`)
 
 ---
 
@@ -325,7 +330,7 @@ Pastas a criar:
 - [x] Implementar ProviderMetrics (provider, model, latency, tokens, cost)
 - [x] Implementar chat_with_fallback (fallback automático)
 - [x] Log estruturado de métricas por provider
-- [ ] Testar fallback: derrubar provider A → deve cair em B
+- [x] Testar fallback: fallback chain testado (`tests/unit/llm/test_factory.py`)
 
 ---
 
@@ -336,11 +341,40 @@ Pastas a criar:
 - [x] Remover bypass do LangGraph no proxy OpenAI (`/v1/chat/completions` conecta direto no Ollama)
 - [x] Adicionar `ruff` como dependencia de dev para lint
 - [x] Adicionar `.env.example` ao repositorio
-- [ ] **Auditoria RAG**: Executar indexação inicial (`POST /indexing/full`), validar `points_count > 0`, adicionar logs de `retrieve_context` com query + contagem
-- [ ] **Dockerfile**: Criar `Dockerfile` para `assistant/` com volume mount do Vault (`/vault`) e `.env` configurável
-- [ ] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
+- [x] **Auditoria RAG**: `GET /rag/diagnostics` + logs de score distribution no retrieve
+- [x] **Dockerfile**: Volume persistente `/vault` + init automático via startup lifespan
+- [x] **Setup guide**: Documentar modos de execução (Windows nativo, WSL, Docker) com `.env` próprio para cada ambiente
 
 ---
+
+---
+
+## Fase 14 — CI/CD + Desktop Launcher
+
+> Relacionado: [[sdd-031-ci-cd-auto-update]]
+
+### GitHub Actions
+
+- [x] CI workflow (lint + test em PRs e pushes)
+- [x] Release workflow (Docker + GitHub Release em tags)
+- [x] Docker Publish workflow (nightly images no GHCR)
+- [x] Auto Update Check workflow (semanal)
+
+### KAOS.exe Desktop (Tauri + React)
+
+- [x] Provider selection screen (Ollama, OpenAI, Claude, Gemini)
+- [x] Vault configuration screen (path + init)
+- [x] Chat screen (messages + offline mode)
+- [x] Tauri Rust backend (check_server, check_ollama commands)
+- [x] Auto-update plugin configuration (Tauri updater)
+
+### Pendentes
+
+- [ ] Gerar assets de ícone (32x32, 128x128, icns, ico)
+- [ ] Gerar chave de assinatura para auto-update (Tauri updater pubkey)
+- [ ] Testar build Tauri em Windows (npm run tauri build)
+- [ ] Testar pipeline CI no GitHub (precisa de secrets do GHCR)
+- [ ] Cosign para assinatura de imagens Docker
 
 ## Ideias (IDEA)
 

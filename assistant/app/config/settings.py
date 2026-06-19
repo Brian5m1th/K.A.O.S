@@ -45,7 +45,11 @@ class Settings(BaseSettings):
 
     @property
     def embedding_model(self) -> str:
-        return self.EMBEDDING_MODEL_DEV if self.APP_ENV == "development" else self.EMBEDDING_MODEL_PROD
+        return (
+            self.EMBEDDING_MODEL_DEV
+            if self.APP_ENV == "development"
+            else self.EMBEDDING_MODEL_PROD
+        )
 
     def model_post_init(self, __context) -> None:
         if self.OBSIDIAN_VAULT_PATH:

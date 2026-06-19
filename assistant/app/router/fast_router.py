@@ -1,7 +1,5 @@
 from loguru import logger
-from langchain_core.tools import tool
 from app.agent.nodes.executor import TOOL_REGISTRY
-from app.router.intent_classifier import IntentType
 
 
 def parse_tool_call(user_message: str) -> tuple[str, dict] | None:
