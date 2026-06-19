@@ -411,7 +411,7 @@ Pastas criadas via `vault_init.py`:
 - [x] Testar build Tauri em Windows (npm run tauri build)
 - [x] Corrigir healthcheck Docker: retry loop + VaultWatcher não crasha com path vazio
 - [x] Testar pipeline CI no GitHub (Docker multi-arch + desktop 3 OS)
-- [ ] Cosign para assinatura de imagens Docker
+- [x] Cosign para assinatura de imagens Docker
 
 ## Ideias (IDEA)
 
