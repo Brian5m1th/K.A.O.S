@@ -5,8 +5,9 @@ from app.main import app
 
 @pytest.fixture
 def client() -> AsyncClient:
+    app.state.api_key = "test-api-key"
     transport = ASGITransport(app=app)
-    return AsyncClient(transport=transport, base_url="http://test")
+    return AsyncClient(transport=transport, base_url="http://test", headers={"x-api-key": "test-api-key"})
 
 
 @pytest.mark.asyncio
