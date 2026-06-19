@@ -10,14 +10,16 @@ Esta é a documentação arquitetural do K.A.O.S. (Knowledge Assistant & Offline
 
 | Componente | Tecnologia | Papel |
 | :--- | :--- | :--- |
-| **Linguagem** | Python 3.12+ | Base do desenvolvimento com tipagem forte. |
+| **Linguagem** | Python 3.13 | Base do desenvolvimento com tipagem forte. |
 | **Gerenciador** | `uv` | Gerenciamento ultrarrápido de dependências. |
 | **Framework Web** | FastAPI | APIs REST e proxy OpenAI-compatível. |
 | **Agentes** | LangGraph | Orquestrador de fluxos agentivos com estado. |
 | **Vector DB** | Qdrant | Embeddings e busca RAG. |
 | **Metadata DB** | PostgreSQL | Histórico de chat, threads e metadados. |
 | **LLM Local** | Ollama + Qwen3:4b | Inferência local CPU-only. |
-| **Frontend** | Open WebUI | Interface conectada ao FastAPI via proxy OpenAI. |
+| **Frontend Web** | Open WebUI | Interface conectada ao FastAPI via proxy OpenAI. |
+| **Desktop App** | Tauri v2 + React | Launcher nativo (Win/Mac/Linux) com provider selection e auto-update. |
+| **Automação** | N8N | Webhooks e integrações com serviços externos. |
 
 ---
 
@@ -28,10 +30,14 @@ K.A.O.S/
 ├── assistant/           # Aplicação principal (Python)
 │   ├── app/             # FastAPI + LangGraph + RAG
 │   ├── tests/           # Testes unitários e de integração
-│   └── .env             # Configuração local
-├── backend/             # Futuro backend Java/Spring Boot
+│   ├── Dockerfile       # Multi-stage, Python 3.13-slim, torch CPU-only
+│   └── .env.example     # Template de configuração
+├── desktop/             # Desktop launcher (Tauri v2 + React)
+│   ├── src/             # Frontend React (ProviderScreen, Chat, VaultConfig)
+│   └── src-tauri/       # Rust backend (check_server, check_ollama, updater)
 ├── docs/                # Documentação (Obsidian vault)
-└── infra/               # Infraestrutura (Docker Compose)
+├── infra/               # Infraestrutura (Docker Compose)
+└── .github/workflows/   # CI/CD: ci.yml, desktop-ci.yml, release.yml
 ```
 
 ---

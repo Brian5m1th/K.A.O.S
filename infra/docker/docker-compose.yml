@@ -79,7 +79,8 @@ services:
       - APP_ENV=production
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
-      - ../../assistant:/app
+      # Para usar um vault existente, descomente e ajuste o caminho:
+      # - C:\caminho\do\seu\vault:/vault
       - vault_data:/vault
     extra_hosts:
       - "host.docker.internal:host-gateway"
