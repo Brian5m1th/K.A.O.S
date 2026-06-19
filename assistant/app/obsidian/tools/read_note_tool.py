@@ -4,6 +4,7 @@ from langchain_core.tools import tool
 
 def _get_service():
     from app.obsidian.services.obsidian_service import ObsidianService
+
     return ObsidianService()
 
 

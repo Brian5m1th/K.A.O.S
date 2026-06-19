@@ -1,5 +1,4 @@
-import pytest
-from app.rag.chunking.text_splitter import MarkdownSplitter, TextChunk
+from app.rag.chunking.text_splitter import MarkdownSplitter
 
 
 class TestMarkdownSplitter:

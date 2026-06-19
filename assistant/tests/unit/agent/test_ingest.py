@@ -1,7 +1,4 @@
-from pathlib import Path
-from unittest.mock import MagicMock, patch, PropertyMock
-
-import pytest
+from unittest.mock import MagicMock, patch
 
 from app.agent.state import AgentState
 
@@ -15,12 +12,16 @@ class TestIngestSource:
     @patch("app.agent.nodes.ingest.create_entity")
     @patch("app.agent.nodes.ingest.create_concept")
     @patch("app.agent.nodes.ingest.create_source")
-    @patch("app.agent.nodes.ingest.get_embedder")
     @patch("app.agent.nodes.ingest.VaultIndexer")
     def test_ingest_full_flow(
-        self, MockIndexer, MockEmbedder, MockCreateSource,
-        MockCreateConcept, MockCreateEntity, MockGetProvider,
-        tmp_path, monkeypatch,
+        self,
+        MockIndexer,
+        MockCreateSource,
+        MockCreateConcept,
+        MockCreateEntity,
+        MockGetProvider,
+        tmp_path,
+        monkeypatch,
     ) -> None:
         vault = tmp_path / "vault"
         vault.mkdir()
@@ -28,7 +29,9 @@ class TestIngestSource:
         raw_dir.mkdir()
         doc = raw_dir / "test-source.md"
         doc.write_text("# Doc\n\nSome content.", encoding="utf-8")
-        monkeypatch.setattr("app.agent.nodes.ingest.settings.OBSIDIAN_VAULT_PATH", str(vault))
+        monkeypatch.setattr(
+            "app.agent.nodes.ingest.settings.OBSIDIAN_VAULT_PATH", str(vault)
+        )
 
         mock_provider = MagicMock()
         mock_response = MagicMock()
@@ -48,6 +51,7 @@ class TestIngestSource:
         MockCreateConcept.invoke.return_value = "concepts/rag.md"
 
         from app.agent.nodes.ingest import ingest_source
+
         result = ingest_source(_make_state("test-source.md"))
 
         assert "messages" in result
@@ -64,6 +68,7 @@ class TestIngestSource:
 
     def test_ingest_missing_path(self) -> None:
         from app.agent.nodes.ingest import ingest_source
+
         result = ingest_source(AgentState(messages=[], ingest_source_path=""))
         msg = result["messages"][0].content
         assert "caminho" in msg
@@ -72,18 +77,23 @@ class TestIngestSource:
     def test_ingest_file_not_found(self, MockSettings) -> None:
         MockSettings.OBSIDIAN_VAULT_PATH = "C:\\nonexistent"
         from app.agent.nodes.ingest import ingest_source
+
         result = ingest_source(_make_state("missing.md"))
         msg = result["messages"][0].content
         assert "nao encontrado" in msg
 
     @patch("app.agent.nodes.ingest._get_provider")
-    def test_ingest_invalid_json_response(self, MockGetProvider, tmp_path, monkeypatch) -> None:
+    def test_ingest_invalid_json_response(
+        self, MockGetProvider, tmp_path, monkeypatch
+    ) -> None:
         vault = tmp_path / "vault"
         vault.mkdir()
         raw_dir = vault / "raw"
         raw_dir.mkdir()
         (raw_dir / "bad.md").write_text("content", encoding="utf-8")
-        monkeypatch.setattr("app.agent.nodes.ingest.settings.OBSIDIAN_VAULT_PATH", str(vault))
+        monkeypatch.setattr(
+            "app.agent.nodes.ingest.settings.OBSIDIAN_VAULT_PATH", str(vault)
+        )
 
         mock_provider = MagicMock()
         mock_response = MagicMock()
@@ -92,6 +102,7 @@ class TestIngestSource:
         MockGetProvider.return_value = mock_provider
 
         from app.agent.nodes.ingest import ingest_source
+
         result = ingest_source(_make_state("bad.md"))
         msg = result["messages"][0].content
         assert "invalida" in msg

@@ -1,4 +1,3 @@
-import os
 import re
 from pathlib import Path
 from datetime import datetime
@@ -8,12 +7,13 @@ from app.domain.document import NoteReadResult, SearchResult
 
 
 class ObsidianService:
-
     def __init__(self) -> None:
         logger.info("[start] ObsidianService - __init__")
         self._vault_path = Path(settings.OBSIDIAN_VAULT_PATH)
         if not self._vault_path.exists():
-            logger.error(f"[error] ObsidianService - vault nao encontrado: {self._vault_path}")
+            logger.error(
+                f"[error] ObsidianService - vault nao encontrado: {self._vault_path}"
+            )
             raise ValueError(f"Vault não encontrado em: {self._vault_path}")
         logger.info(f"[info] ObsidianService - vault: {self._vault_path}")
         logger.debug("[finish] ObsidianService - __init__")
@@ -33,7 +33,9 @@ class ObsidianService:
         file_path = folder_path / f"{safe_title}.md"
 
         if file_path.exists():
-            logger.error(f"[error] ObsidianService - nota ja existe: {folder}/{safe_title}.md")
+            logger.error(
+                f"[error] ObsidianService - nota ja existe: {folder}/{safe_title}.md"
+            )
             raise FileExistsError(f"Nota já existe: {folder}/{safe_title}.md")
 
         file_path.write_text(content, encoding="utf-8")
@@ -46,19 +48,27 @@ class ObsidianService:
         logger.info("[start] ObsidianService - read_note")
         file_path = self._resolve_path(relative_path)
         if not file_path.exists():
-            logger.error(f"[error] ObsidianService - nota nao encontrada: {relative_path}")
+            logger.error(
+                f"[error] ObsidianService - nota nao encontrada: {relative_path}"
+            )
             raise FileNotFoundError(f"Nota não encontrada: {relative_path}")
 
         content = file_path.read_text(encoding="utf-8")
         last_modified = datetime.fromtimestamp(file_path.stat().st_mtime)
         logger.debug("[finish] ObsidianService - read_note")
-        return NoteReadResult(path=relative_path, content=content, last_modified=last_modified)
+        return NoteReadResult(
+            path=relative_path, content=content, last_modified=last_modified
+        )
 
-    def update_note(self, relative_path: str, content: str, mode: str = "overwrite") -> None:
+    def update_note(
+        self, relative_path: str, content: str, mode: str = "overwrite"
+    ) -> None:
         logger.info("[start] ObsidianService - update_note")
         file_path = self._resolve_path(relative_path)
         if not file_path.exists():
-            logger.error(f"[error] ObsidianService - nota nao encontrada: {relative_path}")
+            logger.error(
+                f"[error] ObsidianService - nota nao encontrada: {relative_path}"
+            )
             raise FileNotFoundError(f"Nota não encontrada: {relative_path}")
 
         if mode == "append":
@@ -66,14 +76,18 @@ class ObsidianService:
             file_path.write_text(existing + "\n\n" + content, encoding="utf-8")
         else:
             file_path.write_text(content, encoding="utf-8")
-        logger.info(f"[info] ObsidianService - nota atualizada ({mode}): {relative_path}")
+        logger.info(
+            f"[info] ObsidianService - nota atualizada ({mode}): {relative_path}"
+        )
         logger.debug("[finish] ObsidianService - update_note")
 
     def delete_note(self, relative_path: str) -> None:
         logger.info("[start] ObsidianService - delete_note")
         file_path = self._resolve_path(relative_path)
         if not file_path.exists():
-            logger.error(f"[error] ObsidianService - nota nao encontrada: {relative_path}")
+            logger.error(
+                f"[error] ObsidianService - nota nao encontrada: {relative_path}"
+            )
             raise FileNotFoundError(f"Nota não encontrada: {relative_path}")
         file_path.unlink()
         logger.info(f"[info] ObsidianService - nota removida: {relative_path}")
@@ -110,7 +124,9 @@ class ObsidianService:
                     if len(results) >= max_results:
                         break
             except (UnicodeDecodeError, OSError):
-                logger.debug(f"[skip] ObsidianService - search_text: erro ao ler {path}")
+                logger.debug(
+                    f"[skip] ObsidianService - search_text: erro ao ler {path}"
+                )
                 continue
 
         logger.debug("[finish] ObsidianService - search_text")

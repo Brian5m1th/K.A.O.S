@@ -7,6 +7,7 @@ from app.obsidian.tools.wiki.wiki_utils import frontmatter, draft_path, source_p
 
 def _get_service():
     from app.obsidian.services.obsidian_service import ObsidianService
+
     return ObsidianService()
 
 

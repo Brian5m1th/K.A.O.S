@@ -43,7 +43,9 @@ def create_vault_structure() -> list[str]:
             logger.info(f"[info] vault_init - pasta criada: {folder}")
 
     if created:
-        logger.info(f"[info] vault_init - {len(created)} pastas criadas: {', '.join(created)}")
+        logger.info(
+            f"[info] vault_init - {len(created)} pastas criadas: {', '.join(created)}"
+        )
     else:
         logger.info("[info] vault_init - estrutura ja existe")
 
@@ -68,8 +70,6 @@ def _create_bootstrap_files(vault: Path) -> None:
     wiki_log = vault / "wiki" / "log.md"
     if not wiki_log.exists():
         wiki_log.write_text(
-            "# Wiki — Log de Alteracoes\n\n"
-            "## 2026-06-18\n\n"
-            "- Wiki inicializada\n"
+            "# Wiki — Log de Alteracoes\n\n## 2026-06-18\n\n- Wiki inicializada\n"
         )
         logger.info("[info] vault_init - wiki/log.md criado")

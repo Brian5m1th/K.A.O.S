@@ -27,7 +27,10 @@ class MemorySession(Base):
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
     )
 
     messages: Mapped[list["MemoryMessage"]] = relationship(
@@ -49,7 +52,9 @@ class MemoryMessage(Base):
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     session_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("memory_sessions.id", ondelete="CASCADE"), nullable=False
+        UUID(as_uuid=True),
+        ForeignKey("memory_sessions.id", ondelete="CASCADE"),
+        nullable=False,
     )
     role: Mapped[str] = mapped_column(String(50), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
@@ -71,11 +76,17 @@ class MemorySummary(Base):
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     session_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("memory_sessions.id", ondelete="CASCADE"), nullable=False, unique=True
+        UUID(as_uuid=True),
+        ForeignKey("memory_sessions.id", ondelete="CASCADE"),
+        nullable=False,
+        unique=True,
     )
     summary: Mapped[str] = mapped_column(Text, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
     )
 
     session: Mapped["MemorySession"] = relationship(back_populates="summary")

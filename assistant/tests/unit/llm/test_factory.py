@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
@@ -6,13 +6,16 @@ import pytest
 class TestLLMFactory:
     def test_build_ollama_provider(self) -> None:
         from app.llm import LLMFactory
+
         factory = LLMFactory()
         provider = factory.build("default")
         assert provider.provider_name == "ollama"
 
     @patch("app.llm.factory.settings")
     def test_resolve_model_config_from_map(self, MockSettings) -> None:
-        MockSettings.MODEL_MAP = {"phi4": {"provider": "ollama", "model": "phi4:latest"}}
+        MockSettings.MODEL_MAP = {
+            "phi4": {"provider": "ollama", "model": "phi4:latest"}
+        }
         MockSettings.API_MODEL_ID = "default"
         MockSettings.FAST_MODEL_ID = "fast"
         MockSettings.DEFAULT_MODEL_ID = "default"
@@ -20,16 +23,24 @@ class TestLLMFactory:
         MockSettings.OLLAMA_FAST_MODEL = "qwen2.5:7b"
 
         from app.llm import LLMFactory
+
         factory = LLMFactory()
         config = factory._resolve_model_config("phi4")
         assert config["model"] == "phi4:latest"
 
     def test_fallback_chain_parse(self, monkeypatch) -> None:
-        monkeypatch.setattr("app.llm.factory.settings.FALLBACK_CHAIN", "ollama:deepseek-r1:14b,openai:gpt-4o")
+        monkeypatch.setattr(
+            "app.llm.factory.settings.FALLBACK_CHAIN",
+            "ollama:deepseek-r1:14b,openai:gpt-4o",
+        )
         from app.llm import LLMFactory
+
         factory = LLMFactory()
         assert len(factory._fallbacks) == 2
-        assert factory._fallbacks[0] == {"provider": "ollama", "model": "deepseek-r1:14b"}
+        assert factory._fallbacks[0] == {
+            "provider": "ollama",
+            "model": "deepseek-r1:14b",
+        }
         assert factory._fallbacks[1] == {"provider": "openai", "model": "gpt-4o"}
 
     @patch("app.llm.factory.LLMFactory._create_provider")
@@ -37,22 +48,27 @@ class TestLLMFactory:
         first = MagicMock()
         first.provider_name = "ollama"
         first.model_name = "deepseek-r1:14b"
-        first.ainvoke.side_effect = Exception("Ollama down")
+        first.ainvoke = AsyncMock(side_effect=Exception("Ollama down"))
 
         second = MagicMock()
         second.provider_name = "openai"
         second.model_name = "gpt-4o"
         mock_response = MagicMock()
         mock_response.content = "Hello from fallback"
-        second.ainvoke.return_value = mock_response
+        mock_response.usage_metadata = None
+        second.ainvoke = AsyncMock(return_value=mock_response)
 
         MockCreateProvider.side_effect = [first, second]
 
         monkeypatch = pytest.MonkeyPatch()
-        monkeypatch.setattr("app.llm.factory.settings.FALLBACK_CHAIN", "ollama:deepseek-r1:14b,openai:gpt-4o")
+        monkeypatch.setattr(
+            "app.llm.factory.settings.FALLBACK_CHAIN",
+            "ollama:deepseek-r1:14b,openai:gpt-4o",
+        )
 
         import asyncio
         from app.llm import LLMFactory
+
         factory = LLMFactory()
         result = asyncio.run(factory.ainvoke_with_fallback("default", []))
 
@@ -70,26 +86,35 @@ class TestLLMFactory:
         MockCreateProvider.side_effect = [first, second]
 
         monkeypatch = pytest.MonkeyPatch()
-        monkeypatch.setattr("app.llm.factory.settings.FALLBACK_CHAIN", "ollama:m1,openai:m2")
+        monkeypatch.setattr(
+            "app.llm.factory.settings.FALLBACK_CHAIN", "ollama:m1,openai:m2"
+        )
 
         import asyncio
         from app.llm import LLMFactory
+
         factory = LLMFactory()
-        with pytest.raises(RuntimeError, match="Todos os providers da fallback chain falharam"):
+        with pytest.raises(
+            RuntimeError, match="Todos os providers da fallback chain falharam"
+        ):
             asyncio.run(factory.ainvoke_with_fallback("default", []))
 
     def test_metrics_collected_after_invoke(self, monkeypatch) -> None:
-        monkeypatch.setattr("app.llm.factory.settings.FALLBACK_CHAIN", "ollama:deepseek-r1:14b")
+        monkeypatch.setattr(
+            "app.llm.factory.settings.FALLBACK_CHAIN", "ollama:deepseek-r1:14b"
+        )
 
         mock_provider = MagicMock()
         mock_provider.provider_name = "ollama"
         mock_provider.model_name = "deepseek-r1:14b"
         mock_response = MagicMock()
         mock_response.content = "OK"
-        mock_provider.ainvoke.return_value = mock_response
+        mock_response.usage_metadata = None
+        mock_provider.ainvoke = AsyncMock(return_value=mock_response)
 
         import asyncio
         from app.llm import LLMFactory
+
         factory = LLMFactory()
         factory._fallbacks = [{"provider": "ollama", "model": "deepseek-r1:14b"}]
 

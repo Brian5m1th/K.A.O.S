@@ -5,6 +5,7 @@ from app.domain.document import NoteResponse
 
 def _get_service():
     from app.obsidian.services.obsidian_service import ObsidianService
+
     return ObsidianService()
 
 

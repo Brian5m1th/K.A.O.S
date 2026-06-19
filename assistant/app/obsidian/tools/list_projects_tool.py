@@ -18,8 +18,10 @@ def list_projects() -> dict:
         if entry.is_dir() and not entry.name.startswith("."):
             md_files = list(entry.rglob("*.md"))
             if md_files:
-                projects.append({
-                    "name": entry.name,
-                    "notes": len(md_files),
-                })
+                projects.append(
+                    {
+                        "name": entry.name,
+                        "notes": len(md_files),
+                    }
+                )
     return {"total": len(projects), "projects": projects}

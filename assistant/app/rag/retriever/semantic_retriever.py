@@ -23,8 +23,10 @@ class SemanticRetriever:
         folder_filter: str | None = None,
     ) -> list[SearchResult]:
         logger.info("[start] SemanticRetriever - search")
-        logger.info(f"[info] SemanticRetriever - query='{query}' limit={limit} folder_filter='{folder_filter}'")
-        
+        logger.info(
+            f"[info] SemanticRetriever - query='{query}' limit={limit} folder_filter='{folder_filter}'"
+        )
+
         try:
             query_vector = self._embedder.embed_single(query)
             logger.info(f"[info] SemanticRetriever - vector_size={len(query_vector)}")
@@ -34,7 +36,9 @@ class SemanticRetriever:
 
         search_filter = None
         if folder_filter and folder_filter.strip():
-            logger.info(f"[info] SemanticRetriever - filtrando por pasta: {folder_filter}")
+            logger.info(
+                f"[info] SemanticRetriever - filtrando por pasta: {folder_filter}"
+            )
             search_filter = Filter(
                 must=[
                     FieldCondition(

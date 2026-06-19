@@ -10,13 +10,20 @@ from app.obsidian.tools.list_notes_tool import list_notes
 from app.obsidian.tools.save_conversation_tool import save_conversation
 from app.obsidian.tools.list_projects_tool import list_projects
 from app.obsidian.tools.wiki import (
-    create_entity, update_entity,
-    create_concept, update_concept,
-    create_source, create_synthesis,
+    create_entity,
+    update_entity,
+    create_concept,
+    update_concept,
+    create_source,
+    create_synthesis,
     file_synthesis_page,
-    append_log, update_index,
-    approve_draft, reject_draft, list_drafts,
-    read_wiki_page, lint_wiki,
+    append_log,
+    update_index,
+    approve_draft,
+    reject_draft,
+    list_drafts,
+    read_wiki_page,
+    lint_wiki,
 )
 
 TOOL_REGISTRY: dict = {
@@ -54,11 +61,7 @@ def executor(state: AgentState) -> dict:
     if not tool_name or tool_name not in TOOL_REGISTRY:
         logger.error(f"[error] executor - ferramenta desconhecida: {tool_name}")
         logger.debug("[finish] executor")
-        return {
-            "tool_result": {
-                "error": f"Ferramenta '{tool_name}' não encontrada."
-            }
-        }
+        return {"tool_result": {"error": f"Ferramenta '{tool_name}' não encontrada."}}
 
     if "user_id" not in tool_args and user_id:
         tool_args["user_id"] = user_id

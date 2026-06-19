@@ -7,11 +7,17 @@ from app.obsidian.tools.wiki.wiki_utils import frontmatter, draft_path, wiki_pat
 
 def _get_service():
     from app.obsidian.services.obsidian_service import ObsidianService
+
     return ObsidianService()
 
 
 @tool
-def create_synthesis(title: str, content: str, citations: list[str] | None = None, tags: list[str] | None = None) -> str:
+def create_synthesis(
+    title: str,
+    content: str,
+    citations: list[str] | None = None,
+    tags: list[str] | None = None,
+) -> str:
     """Cria uma página de síntese na wiki (análise, comparação, tese). Cria como draft."""
     logger.info(f"[info] create_synthesis - {title}")
     svc = _get_service()

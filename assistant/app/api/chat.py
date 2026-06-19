@@ -18,7 +18,9 @@ _smart_router = SmartRouter()
 
 
 def _extract_source_path(message: str) -> str | None:
-    match = re.search(r"(?:source|fonte|documento|arquivo)\s+([\w\-./]+\.\w+)", message, re.IGNORECASE)
+    match = re.search(
+        r"(?:source|fonte|documento|arquivo)\s+([\w\-./]+\.\w+)", message, re.IGNORECASE
+    )
     if match:
         return match.group(1)
     words = message.strip().split()

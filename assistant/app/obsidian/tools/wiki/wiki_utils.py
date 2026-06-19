@@ -13,7 +13,12 @@ def slugify(text: str) -> str:
     return text.strip("-")
 
 
-def frontmatter(title: str, type_: str, tags: list[str] | None = None, sources: list[str] | None = None) -> str:
+def frontmatter(
+    title: str,
+    type_: str,
+    tags: list[str] | None = None,
+    sources: list[str] | None = None,
+) -> str:
     today = date.today().isoformat()
     lines = ["---", f"title: {title}", f"type: {type_}"]
     if tags:
@@ -47,4 +52,5 @@ def wiki_path(subdir: str, name: str) -> str:
 
 def source_path(name: str) -> str:
     from datetime import date
+
     return f"wiki/sources/{date.today().isoformat()}_{slugify(name)}.md"
