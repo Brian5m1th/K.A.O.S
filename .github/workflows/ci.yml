@@ -151,4 +151,4 @@ jobs:
 
       - name: Sign image
         run: |
-          cosign sign --yes "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"
+          cosign sign --yes "${{ env.REGISTRY }}/${GITHUB_REPOSITORY,,}@${{ steps.build.outputs.digest }}"
