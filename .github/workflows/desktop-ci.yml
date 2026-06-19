@@ -7,20 +7,18 @@ on:
       - "desktop/**"
       - "scripts/generate_icons.py"
       - ".github/workflows/desktop-ci.yml"
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - "wiki/**"
+      - "!**/*.md"
+      - "!docs/**"
+      - "!wiki/**"
   push:
     branches: [dev, main]
     paths:
       - "desktop/**"
       - "scripts/generate_icons.py"
       - ".github/workflows/desktop-ci.yml"
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - "wiki/**"
+      - "!**/*.md"
+      - "!docs/**"
+      - "!wiki/**"
 
 jobs:
   build:
