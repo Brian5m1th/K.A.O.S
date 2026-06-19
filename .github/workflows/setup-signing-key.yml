@@ -30,16 +30,23 @@ jobs:
         id: signer
         run: |
           KEY_PATH="$HOME/.tauri/kaos.key"
+          PUB_PATH="$HOME/.tauri/kaos.key.pub"
           mkdir -p "$HOME/.tauri"
+
           if [ -f "$KEY_PATH" ] && [ "${{ inputs.regenerate }}" != "true" ]; then
             echo "Key already exists, skipping generation"
-            PUBLIC_KEY=$(npx @tauri-apps/cli signer sign --key "$KEY_PATH" --stdin < /dev/null 2>&1 | head -1 || true)
           else
             echo "Generating new signing key..."
-            npx @tauri-apps/cli signer generate -w "$KEY_PATH"
-            PUBLIC_KEY=$(tauri signer generate --show-public-key -w "$KEY_PATH" 2>&1)
+            rm -f "$KEY_PATH" "$PUB_PATH"
+            npx @tauri-apps/cli signer generate -w "$KEY_PATH" || true
           fi
-          echo "public_key=$PUBLIC_KEY" >> $GITHUB_OUTPUT
+
+          if [ -f "$PUB_PATH" ]; then
+            PUBLIC_KEY=$(cat "$PUB_PATH")
+            echo "public_key=$PUBLIC_KEY" >> $GITHUB_OUTPUT
+          else
+            echo "public_key=" >> $GITHUB_OUTPUT
+          fi
           echo "key_path=$KEY_PATH" >> $GITHUB_OUTPUT
 
       - name: Update tauri.conf.json with public key
