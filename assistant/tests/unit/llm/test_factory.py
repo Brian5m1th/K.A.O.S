@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
@@ -37,14 +37,14 @@ class TestLLMFactory:
         first = MagicMock()
         first.provider_name = "ollama"
         first.model_name = "deepseek-r1:14b"
-        first.ainvoke.side_effect = Exception("Ollama down")
+        first.ainvoke = AsyncMock(side_effect=Exception("Ollama down"))
 
         second = MagicMock()
         second.provider_name = "openai"
         second.model_name = "gpt-4o"
         mock_response = MagicMock()
         mock_response.content = "Hello from fallback"
-        second.ainvoke.return_value = mock_response
+        second.ainvoke = AsyncMock(return_value=mock_response)
 
         MockCreateProvider.side_effect = [first, second]
 
@@ -86,7 +86,7 @@ class TestLLMFactory:
         mock_provider.model_name = "deepseek-r1:14b"
         mock_response = MagicMock()
         mock_response.content = "OK"
-        mock_provider.ainvoke.return_value = mock_response
+        mock_provider.ainvoke = AsyncMock(return_value=mock_response)
 
         import asyncio
         from app.llm import LLMFactory
