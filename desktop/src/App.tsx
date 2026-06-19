@@ -5,16 +5,14 @@ import ChatScreen from "./components/ChatScreen";
 
 type Screen = "provider" | "vault" | "chat";
 
+const BACKEND_URL = "http://localhost:8000";
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>("provider");
-  const [provider, setProvider] = useState<string>("");
   const [vaultPath, setVaultPath] = useState<string>("");
-  const [serverUrl, setServerUrl] = useState<string>("http://localhost:8000");
   const [connected, setConnected] = useState(false);
 
-  const handleProviderDone = (p: string, url: string) => {
-    setProvider(p);
-    setServerUrl(url);
+  const handleProviderDone = () => {
     setScreen("vault");
   };
 
@@ -49,20 +47,19 @@ export default function App() {
         {screen === "provider" && (
           <ProviderScreen
             onDone={handleProviderDone}
-            initialProvider={provider}
-            initialUrl={serverUrl}
+            serverUrl={BACKEND_URL}
           />
         )}
         {screen === "vault" && (
           <VaultScreen
             onDone={handleVaultDone}
             initialPath={vaultPath}
-            serverUrl={serverUrl}
+            serverUrl={BACKEND_URL}
           />
         )}
         {screen === "chat" && (
           <ChatScreen
-            serverUrl={serverUrl}
+            serverUrl={BACKEND_URL}
             onDisconnect={handleDisconnect}
           />
         )}
