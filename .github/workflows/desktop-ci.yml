@@ -70,6 +70,9 @@ jobs:
       - name: Build Tauri
         working-directory: desktop
         id: build
+        env:
+          CARGO_HTTP_RETRY: 3
+          CARGO_HTTP_TIMEOUT: 120
         run: |
           echo "BUILD_START=$(date +%s)" >> $GITHUB_ENV
           npm run tauri build

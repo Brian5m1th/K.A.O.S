@@ -131,8 +131,6 @@ app.add_middleware(
 app.add_middleware(ApiKeyMiddleware)
 app.add_middleware(UserContextMiddleware)
 
-Instrumentator().instrument(app).expose(app)
-
 app.include_router(auth_router)
 app.include_router(health_router)
 app.include_router(chat_router)
@@ -142,6 +140,11 @@ app.include_router(openai_router)
 app.include_router(legacy_router)
 app.include_router(setup_router)
 app.include_router(webhooks_router)
+
+Instrumentator(
+    should_group=False,
+    excluded_handlers=[".*health.*", "/metrics"],
+).instrument(app).expose(app)
 
 
 @app.get("/")
