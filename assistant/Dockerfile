@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY pyproject.toml ./
 
+ENV UV_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu \
+    UV_INDEX_STRATEGY=unsafe-best-match
+
 RUN pip install uv && uv sync --no-dev
 
 FROM python:3.13-slim
@@ -12,7 +15,7 @@ WORKDIR /app
 
 COPY --from=builder /app/.venv /app/.venv
 COPY app/ /app/app/
-COPY .env /app/.env
+RUN touch /app/.env
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1

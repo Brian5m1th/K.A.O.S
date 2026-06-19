@@ -10,7 +10,6 @@
     "beforeBuildCommand": "npm run build"
   },
   "app": {
-    "title": "KAOS",
     "windows": [
       {
         "title": "KAOS",
@@ -43,7 +42,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDExRUI2RjMwMjVERjJCODUKUldTRks5OGxNRy9yRVROMmo5cGtkc1l6ZkRoTVl2NkFacWdCUUk4ZHJwSThJaC9ZYWpDMTRyMzIK",
       "endpoints": [
         "https://github.com/Brian5m1th/K.A.O.S/releases/latest/download/update-proxy.json"
       ],

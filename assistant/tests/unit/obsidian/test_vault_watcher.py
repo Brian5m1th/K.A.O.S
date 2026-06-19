@@ -67,9 +67,13 @@ class TestVaultEventHandler:
 
 
 class TestVaultWatcher:
+    @patch("app.obsidian.watcher.vault_watcher.settings")
     @patch("app.obsidian.watcher.vault_watcher.Observer")
     @patch("app.obsidian.watcher.vault_watcher.VaultIndexer")
-    def test_start_schedules_observer(self, MockIndexer, MockObserver) -> None:
+    def test_start_schedules_observer(
+        self, MockIndexer, MockObserver, MockSettings
+    ) -> None:
+        MockSettings.OBSIDIAN_VAULT_PATH = "."
         mock_observer = MagicMock()
         MockObserver.return_value = mock_observer
 
@@ -78,6 +82,22 @@ class TestVaultWatcher:
 
         mock_observer.schedule.assert_called_once()
         mock_observer.start.assert_called_once()
+
+    @patch("app.obsidian.watcher.vault_watcher.settings")
+    @patch("app.obsidian.watcher.vault_watcher.Observer")
+    @patch("app.obsidian.watcher.vault_watcher.VaultIndexer")
+    def test_start_skips_when_vault_path_empty(
+        self, MockIndexer, MockObserver, MockSettings
+    ) -> None:
+        MockSettings.OBSIDIAN_VAULT_PATH = ""
+        mock_observer = MagicMock()
+        MockObserver.return_value = mock_observer
+
+        watcher = VaultWatcher()
+        watcher.start()
+
+        mock_observer.schedule.assert_not_called()
+        mock_observer.start.assert_not_called()
 
     @patch("app.obsidian.watcher.vault_watcher.Observer")
     @patch("app.obsidian.watcher.vault_watcher.VaultIndexer")
