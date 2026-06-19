@@ -27,6 +27,7 @@ Related: [[index]] [[sdd_obsidian_memoria]] [[00_visao_geral]]
 | 12 | Knowledge Wiki Layer | 23 | ✅ Completa |
 | 13 | Provedor Híbrido de LLM | 13 | ✅ Completa |
 | 14 | CI/CD + Desktop | 10 | 🔄 Em Progresso |
+| 15 | Otimização de Build Desktop | 8 | ⬜ Planejado |
 
 ---
 
@@ -334,6 +335,41 @@ Pastas criadas via `vault_init.py`:
 
 ---
 
+---
+
+## Fase 15 — Otimização de Build Desktop
+
+> Relacionado: [[sdd_desktop_build_optimization]]
+
+### Caching (Rust + Node)
+
+- [ ] Implementar `Swatinem/rust-cache@v2` no workflow desktop (cache `target/`, cargo registry, cargo git)
+- [ ] Implementar `actions/setup-node` com `cache: npm` (cache `node_modules`)
+
+### Build Condicional
+
+- [ ] Adicionar `paths` filter no trigger do workflow desktop (`desktop/**`, `src-tauri/**`, `Cargo.toml`, `Cargo.lock`, `package.json`)
+- [ ] Ignorar paths de documentação (`README.md`, `docs/**`, `wiki/**`, `*.md`)
+
+### Pipeline Separada
+
+- [ ] Criar `desktop-ci.yml` — workflow independente para build Tauri (lint + test + build + artifact)
+- [ ] Criar `desktop-release.yml` — workflow de release apenas por tag (download artifact + GitHub Release)
+- [ ] Remover job `tauri` do `ci.yml` (migrado para `desktop-ci.yml`)
+
+### Cache de Artefatos Frontend
+
+- [ ] Cachear `.vite/` e `dist/` com `actions/cache@v4`
+
+### Self Hosted Runner (Opcional)
+
+- [ ] Configurar runner auto-hospedado (SSD NVMe, 32GB+, Ryzen 7+)
+- [ ] Documentar setup para builds 3-5x mais rápidos
+
+### Métricas
+
+- [ ] Adicionar logging de métricas: frontend build time, rust build time, tauri build time, total pipeline time
+
 ## Divida Tecnica (DEBT)
 
 - [x] Corrigir patch target em `tests/test_openai.py` (mira `app.api.openai_compat` ao inves de `app.api.openai`)
@@ -373,6 +409,7 @@ Pastas criadas via `vault_init.py`:
 - [ ] Gerar assets de ícone (32x32, 128x128, icns, ico)
 - [ ] Gerar chave de assinatura para auto-update (Tauri updater pubkey)
 - [ ] Testar build Tauri em Windows (npm run tauri build)
+- [ ] Corrigir healthcheck Docker: retry loop (app leva 30-60s para baixar modelo)
 - [ ] Testar pipeline CI no GitHub (precisa de secrets do GHCR)
 - [ ] Cosign para assinatura de imagens Docker
 

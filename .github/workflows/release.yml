@@ -55,7 +55,10 @@ jobs:
         run: |
           IMAGE="${{ fromJSON(steps.meta.outputs.json).tags[0] }}"
           docker run --rm -d --name kaos-test -p 8000:8000 "$IMAGE"
-          sleep 5
+          for i in $(seq 1 12); do
+            sleep 5
+            curl -sf http://localhost:8000/health && break
+          done
           curl -sf http://localhost:8000/health | grep -q '"status":"ok"' || exit 1
           echo "Healthcheck passed"
 
@@ -70,10 +73,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: desktop/src-tauri
 
       - name: Install Rust (Linux/macOS)
         if: runner.os != 'Windows'
