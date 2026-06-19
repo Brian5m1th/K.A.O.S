@@ -56,14 +56,18 @@ class VaultWatcher:
 
     def start(self) -> None:
         logger.info("[start] VaultWatcher - start")
+        vault_path = settings.OBSIDIAN_VAULT_PATH
+        vault = Path(vault_path)
+        if not vault_path or not vault.is_dir():
+            logger.warning(
+                f"[warn] VaultWatcher - diretorio nao existe ou vazio: {vault_path!r}, watcher nao sera iniciado"
+            )
+            logger.debug("[finish] VaultWatcher - start")
+            return
         handler = _VaultEventHandler(self._indexer)
-        self._observer.schedule(
-            handler, path=settings.OBSIDIAN_VAULT_PATH, recursive=True
-        )
+        self._observer.schedule(handler, path=vault_path, recursive=True)
         self._observer.start()
-        logger.info(
-            f"[info] VaultWatcher - iniciado em: {settings.OBSIDIAN_VAULT_PATH}"
-        )
+        logger.info(f"[info] VaultWatcher - iniciado em: {vault_path}")
         logger.debug("[finish] VaultWatcher - start")
 
     def stop(self) -> None:
