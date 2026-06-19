@@ -359,7 +359,7 @@ Pastas criadas via `vault_init.py`:
 
 ### Cache de Artefatos Frontend
 
-- [ ] Cachear `.vite/` e `dist/` com `actions/cache@v4`
+- [x] Cachear `.vite/` com `actions/cache@v4`
 
 ### Self Hosted Runner (Opcional)
 
