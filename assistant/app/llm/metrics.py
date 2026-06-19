@@ -20,14 +20,15 @@ class ProviderMetrics:
 
     def record(self, entry: MetricEntry) -> None:
         self._entries.append(entry)
-        level = "error" if entry.error else "info"
-        logger.log(
-            level,
+        msg = (
             f"[metrics] provider={entry.provider} model={entry.model} "
             f"latency={entry.latency_ms:.0f}ms tokens_in={entry.tokens_in} "
             f"tokens_out={entry.tokens_out} cost={entry.cost:.6f}"
-            + (f" error={entry.error}" if entry.error else ""),
         )
+        if entry.error:
+            logger.error(f"{msg} error={entry.error}")
+        else:
+            logger.info(msg)
 
     async def ainvoke_and_record(self, provider, messages: list) -> str:
         start = time.perf_counter()

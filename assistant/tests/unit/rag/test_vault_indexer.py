@@ -72,6 +72,9 @@ class TestVaultIndexer:
         mock_instance.get_collections.return_value.collections = [
             mock_collection
         ]
+        mock_collection_info = MagicMock()
+        mock_collection_info.config.params.vectors.size = 1024
+        mock_instance.get_collection.return_value = mock_collection_info
         MockClient.return_value = mock_instance
         mock_embedder = MagicMock()
         mock_embedder.dimension = 1024

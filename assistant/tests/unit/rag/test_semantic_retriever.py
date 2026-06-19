@@ -21,7 +21,7 @@ class TestSemanticRetriever:
             "path": "nota.md",
             "content": "Conteudo da nota com ate 300 caracteres...",
         }
-        mock_qdrant.search.return_value = [mock_hit]
+        mock_qdrant.query_points.return_value = MagicMock(points=[mock_hit])
         MockClient.return_value = mock_qdrant
 
         retriever = SemanticRetriever()
@@ -42,14 +42,14 @@ class TestSemanticRetriever:
         MockGetEmbedder.return_value = mock_embedder
 
         mock_qdrant = MagicMock()
-        mock_qdrant.search.return_value = []
+        mock_qdrant.query_points.return_value = MagicMock(points=[])
         MockClient.return_value = mock_qdrant
 
         retriever = SemanticRetriever()
         results = retriever.search("consulta", folder_filter="Inbox")
 
         assert results == []
-        call_kwargs = mock_qdrant.search.call_args[1]
+        call_kwargs = mock_qdrant.query_points.call_args[1]
         assert call_kwargs["query_filter"] is not None
 
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
@@ -62,12 +62,12 @@ class TestSemanticRetriever:
         MockGetEmbedder.return_value = mock_embedder
 
         mock_qdrant = MagicMock()
-        mock_qdrant.search.return_value = []
+        mock_qdrant.query_points.return_value = MagicMock(points=[])
         MockClient.return_value = mock_qdrant
 
         retriever = SemanticRetriever()
         results = retriever.search("consulta")
 
         assert results == []
-        call_kwargs = mock_qdrant.search.call_args[1]
+        call_kwargs = mock_qdrant.query_points.call_args[1]
         assert call_kwargs["query_filter"] is None

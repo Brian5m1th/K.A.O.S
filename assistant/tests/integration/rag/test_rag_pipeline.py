@@ -42,7 +42,13 @@ class TestRAGPipeline:
             "path": "nota1.md",
             "content": "Este é um documento sobre Python e FastAPI. " * 10,
         }
-        mock_client.search.return_value = [mock_hit]
+        mock_point = MagicMock()
+        mock_point.score = 0.92
+        mock_point.payload = {
+            "path": "nota1.md",
+            "content": "Este é um documento sobre Python e FastAPI. " * 10,
+        }
+        mock_client.query_points.return_value = MagicMock(points=[mock_point])
 
         from app.rag.retriever.semantic_retriever import SemanticRetriever
         with patch("app.rag.retriever.semantic_retriever.QdrantClient", return_value=mock_client):
