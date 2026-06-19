@@ -15,7 +15,11 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
         app_key = getattr(request.app.state, "api_key", None)
         if app_key is None:
             logger.warning("[auth] API key not configured on app.state")
-            return Response(status_code=503, content='{"detail":"Service not ready"}', media_type="application/json")
+            return Response(
+                status_code=503,
+                content='{"detail":"Service not ready"}',
+                media_type="application/json",
+            )
 
         key = request.headers.get("x-api-key", "")
         if key != app_key:
