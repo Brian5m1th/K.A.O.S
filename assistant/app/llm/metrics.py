@@ -83,6 +83,8 @@ class ProviderMetrics:
             "gemini": (0.000002, 0.000005),
         }
         rate = rates.get(provider, (0.0, 0.0))
+        if isinstance(rate, (int, float)):
+            return tokens_in * rate + tokens_out * rate
         return tokens_in * rate[0] + tokens_out * rate[1]
 
     def summary(self) -> dict:

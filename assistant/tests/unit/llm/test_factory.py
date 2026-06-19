@@ -55,6 +55,7 @@ class TestLLMFactory:
         second.model_name = "gpt-4o"
         mock_response = MagicMock()
         mock_response.content = "Hello from fallback"
+        mock_response.usage_metadata = None
         second.ainvoke = AsyncMock(return_value=mock_response)
 
         MockCreateProvider.side_effect = [first, second]
@@ -108,6 +109,7 @@ class TestLLMFactory:
         mock_provider.model_name = "deepseek-r1:14b"
         mock_response = MagicMock()
         mock_response.content = "OK"
+        mock_response.usage_metadata = None
         mock_provider.ainvoke = AsyncMock(return_value=mock_response)
 
         import asyncio
