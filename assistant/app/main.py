@@ -8,6 +8,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
+import uuid
+from pathlib import Path
+
+from app.api.auth import router as auth_router
 from app.api.chat import router as chat_router
 from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
@@ -16,6 +20,7 @@ from app.api.rag import router as rag_router
 from app.api.setup import router as setup_router
 from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
+from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
 from app.obsidian.vault_init import create_vault_structure
 from app.tools import github_tools  # noqa: F401 - registers tools on import
@@ -46,10 +51,24 @@ configure_logging(settings.LOG_LEVEL)
 _watcher: VaultWatcher | None = None
 
 
+def _init_api_key(key_path: Path) -> str:
+    if key_path.exists():
+        key = key_path.read_text().strip()
+        logger.info("[auth] API key loaded from {}", key_path)
+        return key
+    key = uuid.uuid4().hex
+    key_path.parent.mkdir(parents=True, exist_ok=True)
+    key_path.write_text(key)
+    logger.info("[auth] API key generated and saved to {}", key_path)
+    return key
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher
     logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
+    _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
+    logger.info("[auth] API key: {}", _app.state.api_key)
 
     logger.info("[info] lifespan - warmup embedder")
     await asyncio.to_thread(warmup_embedder)
@@ -81,8 +100,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(ApiKeyMiddleware)
 app.add_middleware(UserContextMiddleware)
 
+app.include_router(auth_router)
 app.include_router(health_router)
 app.include_router(chat_router)
 app.include_router(indexing_router)
