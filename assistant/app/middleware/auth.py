@@ -1,0 +1,21 @@
+from fastapi import Request, Response
+from loguru import logger
+from starlette.middleware.base import BaseHTTPMiddleware
+
+PUBLIC_PATHS = {"/health", "/docs", "/openapi.json", "/auth", "/api/setup", "/"}
+
+
+class ApiKeyMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next) -> Response:
+        path = request.url.path
+        for public in PUBLIC_PATHS:
+            if path == public or path.startswith(public + "/"):
+                return await call_next(request)
+
+        app_key = request.app.state.api_key
+        key = request.headers.get("x-api-key", "")
+        if key != app_key:
+            logger.warning("[auth] rejected request from {} - invalid key", request.client.host if request.client else "unknown")
+            return Response(status_code=401, content='{"detail":"Invalid API key"}', media_type="application/json")
+
+        return await call_next(request)
