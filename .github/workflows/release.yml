@@ -154,7 +154,13 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/**/*
+          files: |
+            artifacts/**/*.deb
+            artifacts/**/*.rpm
+            artifacts/**/*.AppImage
+            artifacts/**/*.msi
+            artifacts/**/*.exe
+            artifacts/**/*.dmg
           body: ${{ steps.notes.outputs.RELEASE_NOTES }}
           fail_on_unmatched_files: false
           draft: false
