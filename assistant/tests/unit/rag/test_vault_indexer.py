@@ -26,9 +26,7 @@ class TestVaultIndexer:
 
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
     @patch("app.rag.indexer.vault_indexer.get_embedder")
-    def test_make_point_id_is_deterministic(
-        self, MockGetEmbedder, MockClient
-    ) -> None:
+    def test_make_point_id_is_deterministic(self, MockGetEmbedder, MockClient) -> None:
         mock_embedder = MagicMock()
         mock_embedder.dimension = 1024
         MockGetEmbedder.return_value = mock_embedder
@@ -57,8 +55,7 @@ class TestVaultIndexer:
 
         mock_instance.create_collection.assert_called_once()
         assert (
-            mock_instance.create_collection.call_args[1]["vectors_config"].size
-            == 1024
+            mock_instance.create_collection.call_args[1]["vectors_config"].size == 1024
         )
 
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
@@ -69,9 +66,7 @@ class TestVaultIndexer:
         mock_instance = MagicMock()
         mock_collection = MagicMock()
         mock_collection.name = "obsidian_memory"
-        mock_instance.get_collections.return_value.collections = [
-            mock_collection
-        ]
+        mock_instance.get_collections.return_value.collections = [mock_collection]
         mock_collection_info = MagicMock()
         mock_collection_info.config.params.vectors.size = 1024
         mock_instance.get_collection.return_value = mock_collection_info

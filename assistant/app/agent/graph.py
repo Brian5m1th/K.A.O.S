@@ -31,10 +31,13 @@ def build_graph() -> StateGraph:
     graph.add_node("executor", executor)
     graph.add_node("ingest_source", ingest_source)
 
-    graph.set_conditional_entry_point(route_entry, {
-        "ingest_source": "ingest_source",
-        "retrieve": "retrieve",
-    })
+    graph.set_conditional_entry_point(
+        route_entry,
+        {
+            "ingest_source": "ingest_source",
+            "retrieve": "retrieve",
+        },
+    )
     graph.add_edge("retrieve", "planner")
     graph.add_edge("ingest_source", END)
     graph.add_conditional_edges("planner", should_use_tool)

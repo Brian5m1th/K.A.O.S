@@ -9,9 +9,7 @@ class TestEmbedder:
     @patch("sentence_transformers.SentenceTransformer")
     def test_embed_returns_float_vectors(self, MockST) -> None:
         mock_model = MagicMock()
-        mock_model.encode.return_value = np.array(
-            [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]]
-        )
+        mock_model.encode.return_value = np.array([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])
         MockST.return_value = mock_model
 
         embedder = Embedder(model_key="bge-m3")

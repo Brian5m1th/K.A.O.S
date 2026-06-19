@@ -15,6 +15,7 @@ class Embedder:
         logger.info("[start] Embedder - __init__")
         if settings.HF_TOKEN:
             from huggingface_hub import login
+
             login(token=settings.HF_TOKEN)
             logger.info("[info] Embedder - HF_TOKEN configurado")
         else:
@@ -24,15 +25,21 @@ class Embedder:
 
         model_key = model_key or settings.embedding_model
         if model_key not in self.MODEL_CONFIGS:
-            raise ValueError(f"Modelo desconhecido: {model_key}. Disponiveis: {list(self.MODEL_CONFIGS.keys())}")
+            raise ValueError(
+                f"Modelo desconhecido: {model_key}. Disponiveis: {list(self.MODEL_CONFIGS.keys())}"
+            )
 
         config = self.MODEL_CONFIGS[model_key]
         self._dim = config["dim"]
         self._model_key = model_key
 
         device = self._get_device()
-        logger.info(f"[info] Embedder - carregando modelo: {config['name']} | device={device} | dim={self._dim}")
-        self._model = SentenceTransformer(config["name"], device=device, trust_remote_code=True)
+        logger.info(
+            f"[info] Embedder - carregando modelo: {config['name']} | device={device} | dim={self._dim}"
+        )
+        self._model = SentenceTransformer(
+            config["name"], device=device, trust_remote_code=True
+        )
         logger.debug("[finish] Embedder - __init__")
 
     def _get_device(self) -> str:
@@ -62,13 +69,19 @@ class Embedder:
         logger.debug("[finish] Embedder - embed_single")
         return result
 
-    def embed_batch(self, texts: list[str], batch_size: int | None = None) -> list[list[float]]:
+    def embed_batch(
+        self, texts: list[str], batch_size: int | None = None
+    ) -> list[list[float]]:
         batch_size = batch_size or settings.EMBEDDING_BATCH_SIZE
-        logger.info(f"[start] Embedder - embed_batch size={len(texts)} batch={batch_size}")
+        logger.info(
+            f"[start] Embedder - embed_batch size={len(texts)} batch={batch_size}"
+        )
         all_vectors = []
         for i in range(0, len(texts), batch_size):
-            batch = texts[i:i + batch_size]
-            vectors = self._model.encode(batch, normalize_embeddings=True, show_progress_bar=False)
+            batch = texts[i : i + batch_size]
+            vectors = self._model.encode(
+                batch, normalize_embeddings=True, show_progress_bar=False
+            )
             all_vectors.extend(vectors.tolist())
         logger.debug("[finish] Embedder - embed_batch")
         return all_vectors

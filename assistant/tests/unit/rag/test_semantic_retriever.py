@@ -7,9 +7,7 @@ from app.rag.retriever.semantic_retriever import SemanticRetriever
 class TestSemanticRetriever:
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
     @patch("app.rag.retriever.semantic_retriever.get_embedder")
-    def test_search_returns_search_results(
-        self, MockGetEmbedder, MockClient
-    ) -> None:
+    def test_search_returns_search_results(self, MockGetEmbedder, MockClient) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
         MockGetEmbedder.return_value = mock_embedder
@@ -34,9 +32,7 @@ class TestSemanticRetriever:
 
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
     @patch("app.rag.retriever.semantic_retriever.get_embedder")
-    def test_search_with_folder_filter(
-        self, MockGetEmbedder, MockClient
-    ) -> None:
+    def test_search_with_folder_filter(self, MockGetEmbedder, MockClient) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
         MockGetEmbedder.return_value = mock_embedder
@@ -54,9 +50,7 @@ class TestSemanticRetriever:
 
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
     @patch("app.rag.retriever.semantic_retriever.get_embedder")
-    def test_search_without_filter(
-        self, MockGetEmbedder, MockClient
-    ) -> None:
+    def test_search_without_filter(self, MockGetEmbedder, MockClient) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
         MockGetEmbedder.return_value = mock_embedder

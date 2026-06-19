@@ -27,6 +27,7 @@ class MemoryService:
         global _postgres_repo
         if _postgres_repo is None:
             from app.memory.postgres_repository import get_postgres_repository
+
             _postgres_repo = await get_postgres_repository()
         return _postgres_repo
 
@@ -42,7 +43,12 @@ class MemoryService:
             return asyncio.run(coro)
 
     def save_conversation(
-        self, user_id: str, session_id: str, summary: str, user_message: str, assistant_response: str
+        self,
+        user_id: str,
+        session_id: str,
+        summary: str,
+        user_message: str,
+        assistant_response: str,
     ) -> str:
         uid = user_id or self._default_user()
         logger.info(f"[start] MemoryService - save_conversation [user={uid}]")
@@ -71,12 +77,20 @@ class MemoryService:
 {assistant_response}
 """
         filepath.write_text(content, encoding="utf-8")
-        logger.info(f"[info] MemoryService - conversa salva (Obsidian): {filename} [user={uid}]")
+        logger.info(
+            f"[info] MemoryService - conversa salva (Obsidian): {filename} [user={uid}]"
+        )
 
         try:
             repo = self._run_async(self._get_postgres_repo())
-            self._run_async(repo.save_conversation(uid, session_id, summary, user_message, assistant_response))
-            logger.info(f"[info] MemoryService - conversa salva (PostgreSQL) [user={uid}]")
+            self._run_async(
+                repo.save_conversation(
+                    uid, session_id, summary, user_message, assistant_response
+                )
+            )
+            logger.info(
+                f"[info] MemoryService - conversa salva (PostgreSQL) [user={uid}]"
+            )
         except Exception as e:
             logger.warning(f"[warn] MemoryService - PostgreSQL save failed: {e}")
 

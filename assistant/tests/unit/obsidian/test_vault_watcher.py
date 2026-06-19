@@ -69,9 +69,7 @@ class TestVaultEventHandler:
 class TestVaultWatcher:
     @patch("app.obsidian.watcher.vault_watcher.Observer")
     @patch("app.obsidian.watcher.vault_watcher.VaultIndexer")
-    def test_start_schedules_observer(
-        self, MockIndexer, MockObserver
-    ) -> None:
+    def test_start_schedules_observer(self, MockIndexer, MockObserver) -> None:
         mock_observer = MagicMock()
         MockObserver.return_value = mock_observer
 

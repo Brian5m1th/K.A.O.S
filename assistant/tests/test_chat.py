@@ -16,13 +16,18 @@ def client() -> AsyncClient:
 @pytest.mark.asyncio
 async def test_send_message_streams_response(client: AsyncClient) -> None:
     mock_router = MagicMock()
+
     async def fake_stream(*args, **kwargs):
         yield "Hello world!"
 
     mock_router.stream = fake_stream
 
     with patch("app.api.chat._smart_router", mock_router):
-        with patch("app.api.chat._classifier.classify", new_callable=AsyncMock, return_value=IntentType.SMART):
+        with patch(
+            "app.api.chat._classifier.classify",
+            new_callable=AsyncMock,
+            return_value=IntentType.SMART,
+        ):
             response = await client.post(
                 "/api/chat/message",
                 json={

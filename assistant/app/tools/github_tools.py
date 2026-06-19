@@ -5,7 +5,9 @@ from langchain_core.tools import tool
 from loguru import logger
 
 
-def _github_api(method: str, endpoint: str, token: str | None = None, data: dict | None = None) -> dict | list:
+def _github_api(
+    method: str, endpoint: str, token: str | None = None, data: dict | None = None
+) -> dict | list:
     token = token or os.getenv("GITHUB_TOKEN", "")
     url = f"https://api.github.com{endpoint}"
     headers = {
@@ -24,7 +26,9 @@ def _github_api(method: str, endpoint: str, token: str | None = None, data: dict
             resp.raise_for_status()
             return resp.json()
     except httpx.HTTPStatusError as e:
-        logger.error(f"[error] github - {method} {endpoint}: {e.response.status_code} {e.response.text[:200]}")
+        logger.error(
+            f"[error] github - {method} {endpoint}: {e.response.status_code} {e.response.text[:200]}"
+        )
         return {"error": str(e), "status": e.response.status_code}
     except Exception as e:
         logger.error(f"[error] github - {method} {endpoint}: {e}")
@@ -38,7 +42,10 @@ def github_list_repos(owner: str = "") -> list | dict:
     logger.info(f"[tool] github - list_repos: {endpoint}")
     result = _github_api("GET", endpoint)
     if isinstance(result, list):
-        return [{"name": r["name"], "url": r["html_url"], "private": r["private"]} for r in result[:20]]
+        return [
+            {"name": r["name"], "url": r["html_url"], "private": r["private"]}
+            for r in result[:20]
+        ]
     return result
 
 
@@ -57,12 +64,21 @@ def github_list_issues(repo: str, owner: str = "", state: str = "open") -> list 
     logger.info(f"[tool] github - list_issues: {full_name} state={state}")
     result = _github_api("GET", f"/repos/{full_name}/issues?state={state}")
     if isinstance(result, list):
-        return [{"number": i["number"], "title": i["title"], "state": i["state"], "url": i["html_url"]} for i in result[:20]]
+        return [
+            {
+                "number": i["number"],
+                "title": i["title"],
+                "state": i["state"],
+                "url": i["html_url"],
+            }
+            for i in result[:20]
+        ]
     return result
 
 
 def register_github_tools():
     from app.agent.nodes.executor import TOOL_REGISTRY
+
     TOOL_REGISTRY["github_list_repos"] = github_list_repos
     TOOL_REGISTRY["github_get_repo"] = github_get_repo
     TOOL_REGISTRY["github_list_issues"] = github_list_issues

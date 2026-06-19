@@ -10,9 +10,16 @@ from app.domain.document import SearchResult
 def test_vault(tmp_path: Path) -> Path:
     vault = tmp_path / "test_vault"
     vault.mkdir()
-    (vault / "nota1.md").write_text("# Nota 1\n\nEste é um documento sobre Python e FastAPI.", encoding="utf-8")
-    (vault / "nota2.md").write_text("# Nota 2\n\nEste documento fala sobre arquitetura de software.", encoding="utf-8")
-    (vault / "nota3.md").write_text("# Nota 3\n\nPython é uma linguagem de programação versátil.", encoding="utf-8")
+    (vault / "nota1.md").write_text(
+        "# Nota 1\n\nEste é um documento sobre Python e FastAPI.", encoding="utf-8"
+    )
+    (vault / "nota2.md").write_text(
+        "# Nota 2\n\nEste documento fala sobre arquitetura de software.",
+        encoding="utf-8",
+    )
+    (vault / "nota3.md").write_text(
+        "# Nota 3\n\nPython é uma linguagem de programação versátil.", encoding="utf-8"
+    )
     return vault
 
 
@@ -22,7 +29,9 @@ class TestRAGPipeline:
     def test_index_and_retrieve_flow(
         self, MockGetEmbedder, MockQdrantClient, test_vault, monkeypatch
     ) -> None:
-        monkeypatch.setattr("app.config.settings.settings.OBSIDIAN_VAULT_PATH", str(test_vault))
+        monkeypatch.setattr(
+            "app.config.settings.settings.OBSIDIAN_VAULT_PATH", str(test_vault)
+        )
 
         mock_embedder = MagicMock()
         mock_embedder.dimension = 1024
@@ -34,6 +43,7 @@ class TestRAGPipeline:
         MockQdrantClient.return_value = mock_client
 
         from app.rag.indexer.vault_indexer import VaultIndexer
+
         VaultIndexer()
 
         mock_hit = MagicMock()
@@ -51,8 +61,14 @@ class TestRAGPipeline:
         mock_client.query_points.return_value = MagicMock(points=[mock_point])
 
         from app.rag.retriever.semantic_retriever import SemanticRetriever
-        with patch("app.rag.retriever.semantic_retriever.QdrantClient", return_value=mock_client):
-            with patch("app.rag.retriever.semantic_retriever.get_embedder") as MockRetEmbedder:
+
+        with patch(
+            "app.rag.retriever.semantic_retriever.QdrantClient",
+            return_value=mock_client,
+        ):
+            with patch(
+                "app.rag.retriever.semantic_retriever.get_embedder"
+            ) as MockRetEmbedder:
                 mock_ret_embedder = MagicMock()
                 mock_ret_embedder.embed_single.return_value = [0.1] * 1024
                 MockRetEmbedder.return_value = mock_ret_embedder
@@ -65,7 +81,9 @@ class TestRAGPipeline:
         assert results[0].score == 0.92
         assert "Python" in results[0].excerpt
 
-    @pytest.mark.xfail(reason="MarkdownSplitter does not split long paragraphs within chunk_size bounds")
+    @pytest.mark.xfail(
+        reason="MarkdownSplitter does not split long paragraphs within chunk_size bounds"
+    )
     def test_chunking_produces_valid_chunks(self) -> None:
         from app.rag.chunking.text_splitter import MarkdownSplitter, TextChunk
 
@@ -81,9 +99,7 @@ class TestRAGPipeline:
 
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
     @patch("app.rag.retriever.semantic_retriever.get_embedder")
-    def test_retriever_empty_results(
-        self, MockGetEmbedder, MockQdrantClient
-    ) -> None:
+    def test_retriever_empty_results(self, MockGetEmbedder, MockQdrantClient) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
         MockGetEmbedder.return_value = mock_embedder
@@ -93,6 +109,7 @@ class TestRAGPipeline:
         MockQdrantClient.return_value = mock_client
 
         from app.rag.retriever.semantic_retriever import SemanticRetriever
+
         retriever = SemanticRetriever()
         results = retriever.search("consulta sem resultados")
 

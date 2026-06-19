@@ -25,11 +25,14 @@ class LLMService:
         logger.info("[sending] LLMService - Ollama")
 
         async with httpx.AsyncClient(timeout=600.0) as client:
-            async with client.stream("POST", f"{self._base_url}/api/chat", json=payload) as response:
+            async with client.stream(
+                "POST", f"{self._base_url}/api/chat", json=payload
+            ) as response:
                 response.raise_for_status()
                 async for line in response.aiter_lines():
                     if line:
                         import json
+
                         chunk = json.loads(line)
                         if not chunk.get("done"):
                             yield chunk["message"]["content"]

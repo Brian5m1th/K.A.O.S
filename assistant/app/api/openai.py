@@ -36,6 +36,7 @@ def _get_factory() -> LLMFactory:
         _factory = LLMFactory()
     return _factory
 
+
 router = APIRouter(prefix="/v1", tags=["OpenAI"])
 legacy_router = APIRouter(tags=["Legacy"])
 
@@ -222,6 +223,7 @@ async def chat_completions(
                     "X-Accel-Buffering": "no",
                 },
             )
+
         # FAST intent mas sem tool: resposta simples
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
@@ -248,7 +250,10 @@ async def chat_completions(
 
         return StreamingResponse(
             _sse_stream_generator(
-                stream_id, created, body.model, router.stream(user_message, user_id=user_id)
+                stream_id,
+                created,
+                body.model,
+                router.stream(user_message, user_id=user_id),
             ),
             media_type="text/event-stream",
             headers={

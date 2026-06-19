@@ -8,7 +8,9 @@ from app.memory.memory_service import MemoryService
 class TestMemoryService:
     @pytest.fixture
     def service(self, tmp_path: Path, monkeypatch) -> MemoryService:
-        monkeypatch.setattr("app.config.settings.settings.OBSIDIAN_VAULT_PATH", str(tmp_path))
+        monkeypatch.setattr(
+            "app.config.settings.settings.OBSIDIAN_VAULT_PATH", str(tmp_path)
+        )
         return MemoryService()
 
     def test_save_conversation_creates_file(self, service: MemoryService) -> None:
@@ -35,8 +37,20 @@ class TestMemoryService:
         assert "ingles" in prefs
 
     def test_list_recent_conversations(self, service: MemoryService) -> None:
-        service.save_conversation(user_id="", session_id="s1", summary="sum1", user_message="msg1", assistant_response="resp1")
-        service.save_conversation(user_id="", session_id="s2", summary="sum2", user_message="msg2", assistant_response="resp2")
+        service.save_conversation(
+            user_id="",
+            session_id="s1",
+            summary="sum1",
+            user_message="msg1",
+            assistant_response="resp1",
+        )
+        service.save_conversation(
+            user_id="",
+            session_id="s2",
+            summary="sum2",
+            user_message="msg2",
+            assistant_response="resp2",
+        )
         recent = service.list_recent_conversations(limit=5)
         assert len(recent) == 2
 

@@ -18,6 +18,7 @@ async def _read_sse(stream) -> str:
     async for line in stream.aiter_lines():
         if line.startswith("data: ") and line != "data: [DONE]":
             import json
+
             chunk = json.loads(line[6:])
             content = chunk["choices"][0]["delta"].get("content", "")
             full += content
@@ -27,9 +28,11 @@ async def _read_sse(stream) -> str:
 @pytest.mark.asyncio
 async def test_openai_chat_completions(client: AsyncClient) -> None:
     mock_agent = MagicMock()
+
     async def _mock_stream(session_id, user_message, **kwargs):
         for token in ["Resposta ", "do ", "RAG + Ollama"]:
             yield token
+
     mock_agent.stream_message = _mock_stream
 
     mock_classifier = MagicMock()

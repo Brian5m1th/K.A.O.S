@@ -72,14 +72,11 @@ def planner(state: AgentState) -> dict:
     user_id = state.get("user_id", "")
     model = state.get("model")  # Get model from state (passed from request)
     logger.info(f"[start] planner [user={user_id} model={model}]")
-    
+
     context = state.get("retrieved_context", [])
     context_chars = sum(len(c.get("content", "")) for c in context)
-    
-    context_text = "\n\n".join(
-        f"[{c['path']}]\n{c['content']}"
-        for c in context
-    )
+
+    context_text = "\n\n".join(f"[{c['path']}]\n{c['content']}" for c in context)
     system_with_context = SYSTEM_PROMPT
     if context_text:
         system_with_context += f"\n\nContexto recuperado do Vault:\n{context_text}"
@@ -90,8 +87,10 @@ def planner(state: AgentState) -> dict:
         system_with_context += f"\n\nPreferencias do usuario:\n{preferences}"
 
     messages = [SystemMessage(content=system_with_context)] + state["messages"]
-    prompt_chars = len(system_with_context) + sum(len(m.content) for m in state["messages"])
-    
+    prompt_chars = len(system_with_context) + sum(
+        len(m.content) for m in state["messages"]
+    )
+
     factory = _get_factory()
     provider = factory.build(model or settings.OLLAMA_MODEL)
     response = provider.invoke(messages)
@@ -104,7 +103,9 @@ def planner(state: AgentState) -> dict:
 
     if hasattr(response, "tool_calls") and response.tool_calls:
         tool_call = response.tool_calls[0]
-        logger.info(f"[info] planner - ferramenta: {tool_call['name']} [user={user_id}]")
+        logger.info(
+            f"[info] planner - ferramenta: {tool_call['name']} [user={user_id}]"
+        )
         logger.debug("[finish] planner")
         return {
             "tool_to_call": tool_call["name"],

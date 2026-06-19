@@ -38,37 +38,49 @@ class ProviderMetrics:
             tokens_in = 0
             tokens_out = 0
             if hasattr(response, "usage_metadata") and response.usage_metadata:
-                tokens_in = response.usage_metadata.get("input_tokens", 0) if isinstance(response.usage_metadata, dict) else getattr(response.usage_metadata, "input_tokens", 0)
-                tokens_out = response.usage_metadata.get("output_tokens", 0) if isinstance(response.usage_metadata, dict) else getattr(response.usage_metadata, "output_tokens", 0)
+                tokens_in = (
+                    response.usage_metadata.get("input_tokens", 0)
+                    if isinstance(response.usage_metadata, dict)
+                    else getattr(response.usage_metadata, "input_tokens", 0)
+                )
+                tokens_out = (
+                    response.usage_metadata.get("output_tokens", 0)
+                    if isinstance(response.usage_metadata, dict)
+                    else getattr(response.usage_metadata, "output_tokens", 0)
+                )
             cost = self._estimate_cost(provider.provider_name, tokens_in, tokens_out)
-            self.record(MetricEntry(
-                provider=provider.provider_name,
-                model=provider.model_name,
-                latency_ms=elapsed,
-                tokens_in=tokens_in,
-                tokens_out=tokens_out,
-                cost=cost,
-            ))
+            self.record(
+                MetricEntry(
+                    provider=provider.provider_name,
+                    model=provider.model_name,
+                    latency_ms=elapsed,
+                    tokens_in=tokens_in,
+                    tokens_out=tokens_out,
+                    cost=cost,
+                )
+            )
             return response.content if hasattr(response, "content") else response
         except Exception as e:
             elapsed = (time.perf_counter() - start) * 1000
-            self.record(MetricEntry(
-                provider=provider.provider_name,
-                model=provider.model_name,
-                latency_ms=elapsed,
-                tokens_in=0,
-                tokens_out=0,
-                cost=0.0,
-                error=str(e),
-            ))
+            self.record(
+                MetricEntry(
+                    provider=provider.provider_name,
+                    model=provider.model_name,
+                    latency_ms=elapsed,
+                    tokens_in=0,
+                    tokens_out=0,
+                    cost=0.0,
+                    error=str(e),
+                )
+            )
             raise
 
     def _estimate_cost(self, provider: str, tokens_in: int, tokens_out: int) -> float:
         rates = {
             "ollama": 0.0,
-            "openai":   (0.000003, 0.000012),
-            "claude":   (0.000008, 0.000024),
-            "gemini":   (0.000002, 0.000005),
+            "openai": (0.000003, 0.000012),
+            "claude": (0.000008, 0.000024),
+            "gemini": (0.000002, 0.000005),
         }
         rate = rates.get(provider, (0.0, 0.0))
         return tokens_in * rate[0] + tokens_out * rate[1]

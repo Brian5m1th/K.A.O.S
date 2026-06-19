@@ -6,7 +6,9 @@ from pathlib import Path
 
 
 class DocumentEmbeddingCache:
-    def __init__(self, db_path: str = "data/document_embeddings.db", ttl_days: int = 30):
+    def __init__(
+        self, db_path: str = "data/document_embeddings.db", ttl_days: int = 30
+    ):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.ttl_seconds = ttl_days * 86400
@@ -24,7 +26,9 @@ class DocumentEmbeddingCache:
                     created_at REAL NOT NULL
                 )
             """)
-            conn.execute("CREATE INDEX IF NOT EXISTS idx_model ON doc_embeddings(model)")
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_model ON doc_embeddings(model)"
+            )
 
     def _file_hash(self, content: str) -> str:
         return hashlib.sha256(content.encode()).hexdigest()
@@ -34,7 +38,7 @@ class DocumentEmbeddingCache:
         with sqlite3.connect(self.db_path) as conn:
             row = conn.execute(
                 "SELECT chunks_json, created_at FROM doc_embeddings WHERE file_hash=? AND model=?",
-                (h, model)
+                (h, model),
             ).fetchone()
             if row:
                 chunks_json, created_at = row
@@ -46,10 +50,13 @@ class DocumentEmbeddingCache:
     def set(self, file_path: str, content: str, model: str, chunks: list[dict]) -> None:
         h = self._file_hash(content)
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute("""
+            conn.execute(
+                """
                 INSERT OR REPLACE INTO doc_embeddings (file_hash, file_path, model, chunks_json, created_at)
                 VALUES (?, ?, ?, ?, ?)
-            """, (h, file_path, model, json.dumps(chunks), time.time()))
+            """,
+                (h, file_path, model, json.dumps(chunks), time.time()),
+            )
 
     def stats(self) -> dict:
         with sqlite3.connect(self.db_path) as conn:

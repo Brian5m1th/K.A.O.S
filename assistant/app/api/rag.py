@@ -74,7 +74,9 @@ async def get_rag_diagnostics() -> RAGDiagnosticsResponse:
         resp.points_count = info.points_count
         resp.dimension = info.config.params.vectors.size
         resp.status = "ok"
-        logger.info(f"[info] rag - diagnostics: {resp.points_count} pontos, dim={resp.dimension}")
+        logger.info(
+            f"[info] rag - diagnostics: {resp.points_count} pontos, dim={resp.dimension}"
+        )
     except Exception as e:
         resp.status = "error"
         resp.error = str(e)

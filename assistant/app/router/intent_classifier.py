@@ -99,21 +99,15 @@ class IntentClassifier:
         lower = message.lower().strip()
         for kw in INGEST_KEYWORDS:
             if kw in lower:
-                logger.info(
-                    f"[info] IntentClassifier - keyword INGEST: \"{kw}\""
-                )
+                logger.info(f'[info] IntentClassifier - keyword INGEST: "{kw}"')
                 return IntentType.INGEST
         for kw in FAST_KEYWORDS:
             if kw in lower:
-                logger.info(
-                    f"[info] IntentClassifier - keyword FAST: \"{kw}\""
-                )
+                logger.info(f'[info] IntentClassifier - keyword FAST: "{kw}"')
                 return IntentType.FAST
         for kw in MEMORY_KEYWORDS:
             if kw in lower:
-                logger.info(
-                    f"[info] IntentClassifier - keyword MEMORY: \"{kw}\""
-                )
+                logger.info(f'[info] IntentClassifier - keyword MEMORY: "{kw}"')
                 return IntentType.MEMORY
         return None
 
@@ -126,10 +120,12 @@ class IntentClassifier:
 
         logger.info("[info] IntentClassifier - fallback LLM")
         provider = self._get_provider()
-        response = await provider.ainvoke([
-            SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
-            HumanMessage(content=message),
-        ])
+        response = await provider.ainvoke(
+            [
+                SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
+                HumanMessage(content=message),
+            ]
+        )
         content = response.content.strip().upper()
         if "INGEST" in content:
             logger.debug("[finish] IntentClassifier - classify (LLM: INGEST)")

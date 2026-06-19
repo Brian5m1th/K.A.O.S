@@ -14,6 +14,8 @@ class UserContextMiddleware(BaseHTTPMiddleware):
         request.state.role = role
 
         if user_id:
-            logger.debug(f"[middleware] user_context - id={user_id} username={username} role={role}")
+            logger.debug(
+                f"[middleware] user_context - id={user_id} username={username} role={role}"
+            )
 
         return await call_next(request)

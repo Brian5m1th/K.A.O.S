@@ -49,7 +49,9 @@ class VaultWatcher:
         self._indexer = VaultIndexer()
         self._available = self._indexer._available
         if not self._available:
-            logger.warning("[warn] VaultWatcher - Qdrant indisponivel, watcher iniciara sem indexacao")
+            logger.warning(
+                "[warn] VaultWatcher - Qdrant indisponivel, watcher iniciara sem indexacao"
+            )
         self._observer = Observer()
 
     def start(self) -> None:

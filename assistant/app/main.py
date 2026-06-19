@@ -49,7 +49,7 @@ _watcher: VaultWatcher | None = None
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher
     logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
-    
+
     logger.info("[info] lifespan - warmup embedder")
     await asyncio.to_thread(warmup_embedder)
     logger.debug("[finish] lifespan - warmup embedder")
@@ -57,7 +57,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     logger.info("[info] lifespan - init vault structure")
     await asyncio.to_thread(create_vault_structure)
     logger.debug("[finish] lifespan - init vault structure")
-    
+
     _watcher = VaultWatcher()
     _watcher.start()
     yield

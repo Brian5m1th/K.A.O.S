@@ -28,7 +28,9 @@ async def full_reindex() -> dict:
     except Exception:
         result["qdrant_points"] = 0
     result["latency_ms"] = round(elapsed, 0)
-    logger.info(f"[audit] indexing | {result.get('files', 0)} files | {result.get('chunks', 0)} chunks | qdrant={result.get('qdrant_points', 0)} | {elapsed:.0f}ms")
+    logger.info(
+        f"[audit] indexing | {result.get('files', 0)} files | {result.get('chunks', 0)} chunks | qdrant={result.get('qdrant_points', 0)} | {elapsed:.0f}ms"
+    )
     logger.debug("[finish] indexing - full_reindex")
     return result
 

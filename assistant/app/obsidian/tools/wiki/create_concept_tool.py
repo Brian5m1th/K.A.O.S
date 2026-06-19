@@ -7,11 +7,17 @@ from app.obsidian.tools.wiki.wiki_utils import frontmatter, draft_path, wiki_pat
 
 def _get_service():
     from app.obsidian.services.obsidian_service import ObsidianService
+
     return ObsidianService()
 
 
 @tool
-def create_concept(name: str, summary: str, tags: list[str] | None = None, sources: list[str] | None = None) -> str:
+def create_concept(
+    name: str,
+    summary: str,
+    tags: list[str] | None = None,
+    sources: list[str] | None = None,
+) -> str:
     """Cria uma página de conceito na wiki (ex: RAG, embeddings, LangGraph). Cria como draft."""
     logger.info(f"[info] create_concept - {name}")
     svc = _get_service()
@@ -25,7 +31,12 @@ def create_concept(name: str, summary: str, tags: list[str] | None = None, sourc
 
 
 @tool
-def update_concept(path: str, content: str, tags: list[str] | None = None, sources: list[str] | None = None) -> str:
+def update_concept(
+    path: str,
+    content: str,
+    tags: list[str] | None = None,
+    sources: list[str] | None = None,
+) -> str:
     """Atualiza um conceito existente. Cria um draft da nova versão."""
     logger.info(f"[info] update_concept - {path}")
     svc = _get_service()
