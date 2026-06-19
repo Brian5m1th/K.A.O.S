@@ -54,9 +54,15 @@ jobs:
       - name: Healthcheck
         run: |
           IMAGE="${{ fromJSON(steps.meta.outputs.json).tags[0] }}"
-          docker run --rm -d --name kaos-test -p 8000:8000 "$IMAGE"
+          docker rm -f kaos-test 2>/dev/null || true
+          docker run -d --name kaos-test -p 8000:8000 "$IMAGE"
           for i in $(seq 1 24); do
             sleep 5
+            if ! docker ps -q -f name=kaos-test | grep -q .; then
+              echo "=== Container crashed ==="
+              docker logs kaos-test 2>&1 || true
+              exit 1
+            fi
             curl -sf http://localhost:8000/health && break
           done
           curl -sf http://localhost:8000/health | grep -q '"status":"ok"' || {
@@ -64,6 +70,7 @@ jobs:
             docker logs kaos-test 2>&1 || true
             exit 1
           }
+          docker rm -f kaos-test >/dev/null
           echo "Healthcheck passed"
 
   launcher:
