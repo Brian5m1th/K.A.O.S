@@ -110,6 +110,17 @@ jobs:
 
       - name: Install frontend deps
         working-directory: desktop
+        run: npm install --package-lock-only
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update package-lock.json [skip ci]"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          file_pattern: desktop/package-lock.json
+
+      - name: Install dependencies (build)
+        working-directory: desktop
         run: npm install
 
       - name: Generate icons
