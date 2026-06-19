@@ -19,10 +19,11 @@ class LLMFactory:
             if not entry:
                 continue
             parts = entry.split(":")
-            if len(parts) == 2:
-                chain.append({"provider": parts[0], "model": parts[1]})
-            else:
-                chain.append({"provider": parts[0], "model": settings.OLLAMA_MODEL})
+            provider = parts[0]
+            model = ":".join(parts[1:]) if len(parts) > 1 else settings.OLLAMA_MODEL
+            if not model:
+                model = settings.OLLAMA_MODEL
+            chain.append({"provider": provider, "model": model})
         return chain
 
     def build(self, model_key: str, **kwargs) -> BaseProvider:

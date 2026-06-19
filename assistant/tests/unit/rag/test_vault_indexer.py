@@ -5,31 +5,33 @@ from app.rag.indexer.vault_indexer import VaultIndexer
 
 class TestVaultIndexer:
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
-    @patch("app.rag.indexer.vault_indexer.Embedder")
+    @patch("app.rag.indexer.vault_indexer.get_embedder")
     @patch("app.rag.indexer.vault_indexer.MarkdownSplitter")
     def test_index_file_skips_nonexistent(
-        self, MockSplitter, MockEmbedder, MockClient
+        self, MockSplitter, MockGetEmbedder, MockClient
     ) -> None:
         indexer = VaultIndexer()
         result = indexer.index_file("/nonexistent/file.md")
         assert result == 0
 
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
-    @patch("app.rag.indexer.vault_indexer.Embedder")
+    @patch("app.rag.indexer.vault_indexer.get_embedder")
     @patch("app.rag.indexer.vault_indexer.MarkdownSplitter")
     def test_index_file_skips_non_md(
-        self, MockSplitter, MockEmbedder, MockClient
+        self, MockSplitter, MockGetEmbedder, MockClient
     ) -> None:
         indexer = VaultIndexer()
         result = indexer.index_file("file.txt")
         assert result == 0
 
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
-    @patch("app.rag.indexer.vault_indexer.Embedder")
+    @patch("app.rag.indexer.vault_indexer.get_embedder")
     def test_make_point_id_is_deterministic(
-        self, MockEmbedder, MockClient
+        self, MockGetEmbedder, MockClient
     ) -> None:
-        MockEmbedder.return_value.dimension = 1024
+        mock_embedder = MagicMock()
+        mock_embedder.dimension = 1024
+        MockGetEmbedder.return_value = mock_embedder
         indexer = VaultIndexer()
 
         id1 = indexer._make_point_id("nota.md", 0)
@@ -40,14 +42,16 @@ class TestVaultIndexer:
         assert id1 != id3
 
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
-    @patch("app.rag.indexer.vault_indexer.Embedder")
+    @patch("app.rag.indexer.vault_indexer.get_embedder")
     def test_ensure_collection_creates_if_missing(
-        self, MockEmbedder, MockClient
+        self, MockGetEmbedder, MockClient
     ) -> None:
         mock_instance = MagicMock()
         mock_instance.get_collections.return_value.collections = []
         MockClient.return_value = mock_instance
-        MockEmbedder.return_value.dimension = 1024
+        mock_embedder = MagicMock()
+        mock_embedder.dimension = 1024
+        MockGetEmbedder.return_value = mock_embedder
 
         VaultIndexer()
 
@@ -58,9 +62,9 @@ class TestVaultIndexer:
         )
 
     @patch("app.rag.indexer.vault_indexer.QdrantClient")
-    @patch("app.rag.indexer.vault_indexer.Embedder")
+    @patch("app.rag.indexer.vault_indexer.get_embedder")
     def test_ensure_collection_skips_if_exists(
-        self, MockEmbedder, MockClient
+        self, MockGetEmbedder, MockClient
     ) -> None:
         mock_instance = MagicMock()
         mock_collection = MagicMock()
@@ -69,7 +73,9 @@ class TestVaultIndexer:
             mock_collection
         ]
         MockClient.return_value = mock_instance
-        MockEmbedder.return_value.dimension = 1024
+        mock_embedder = MagicMock()
+        mock_embedder.dimension = 1024
+        MockGetEmbedder.return_value = mock_embedder
 
         VaultIndexer()
 

@@ -27,7 +27,7 @@ async def _read_sse(stream) -> str:
 @pytest.mark.asyncio
 async def test_openai_chat_completions(client: AsyncClient) -> None:
     mock_agent = MagicMock()
-    async def _mock_stream(session_id, user_message):
+    async def _mock_stream(session_id, user_message, **kwargs):
         for token in ["Resposta ", "do ", "RAG + Ollama"]:
             yield token
     mock_agent.stream_message = _mock_stream
@@ -56,7 +56,7 @@ async def test_openai_chat_completions(client: AsyncClient) -> None:
 async def test_openai_chat_completions_no_user_message(
     client: AsyncClient,
 ) -> None:
-    async def _mock_stream(session_id, user_message):
+    async def _mock_stream(session_id, user_message, **kwargs):
         for token in ["Resposta padrao"]:
             yield token
 

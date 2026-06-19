@@ -6,13 +6,13 @@ from app.rag.retriever.semantic_retriever import SemanticRetriever
 
 class TestSemanticRetriever:
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
-    @patch("app.rag.retriever.semantic_retriever.Embedder")
+    @patch("app.rag.retriever.semantic_retriever.get_embedder")
     def test_search_returns_search_results(
-        self, MockEmbedder, MockClient
+        self, MockGetEmbedder, MockClient
     ) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
-        MockEmbedder.return_value = mock_embedder
+        MockGetEmbedder.return_value = mock_embedder
 
         mock_qdrant = MagicMock()
         mock_hit = MagicMock()
@@ -33,13 +33,13 @@ class TestSemanticRetriever:
         assert results[0].score == 0.95
 
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
-    @patch("app.rag.retriever.semantic_retriever.Embedder")
+    @patch("app.rag.retriever.semantic_retriever.get_embedder")
     def test_search_with_folder_filter(
-        self, MockEmbedder, MockClient
+        self, MockGetEmbedder, MockClient
     ) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
-        MockEmbedder.return_value = mock_embedder
+        MockGetEmbedder.return_value = mock_embedder
 
         mock_qdrant = MagicMock()
         mock_qdrant.search.return_value = []
@@ -53,13 +53,13 @@ class TestSemanticRetriever:
         assert call_kwargs["query_filter"] is not None
 
     @patch("app.rag.retriever.semantic_retriever.QdrantClient")
-    @patch("app.rag.retriever.semantic_retriever.Embedder")
+    @patch("app.rag.retriever.semantic_retriever.get_embedder")
     def test_search_without_filter(
-        self, MockEmbedder, MockClient
+        self, MockGetEmbedder, MockClient
     ) -> None:
         mock_embedder = MagicMock()
         mock_embedder.embed_single.return_value = [0.1, 0.2, 0.3]
-        MockEmbedder.return_value = mock_embedder
+        MockGetEmbedder.return_value = mock_embedder
 
         mock_qdrant = MagicMock()
         mock_qdrant.search.return_value = []
