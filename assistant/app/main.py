@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
+from prometheus_fastapi_instrumentator import Instrumentator
 
 import uuid
 from pathlib import Path
@@ -28,14 +29,41 @@ from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.rag.embeddings.embedder import warmup_embedder
 
 
-def configure_logging(log_level: str) -> None:
+import json
+
+
+def configure_logging(log_level: str, env: str) -> None:
     logger.remove()
+
+    log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+
     logger.add(
         sys.stdout,
         level=log_level,
-        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
+        format=log_format,
         colorize=True,
     )
+
+    if env == "production":
+        log_dir = Path("logs")
+        log_dir.mkdir(parents=True, exist_ok=True)
+        log_file = log_dir / "kaos-api.json"
+
+        def json_sink(message):
+            record = message.record
+            log_entry = {
+                "timestamp": record["time"].isoformat(),
+                "level": record["level"].name,
+                "logger": record["name"],
+                "function": record["function"],
+                "line": record["line"],
+                "message": record["message"],
+                "extra": record["extra"],
+            }
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+
+        logger.add(json_sink, level=log_level, format="{message}", serialize=False)
 
     class InterceptHandler(logging.Handler):
         def emit(self, record: logging.LogRecord) -> None:
@@ -46,7 +74,7 @@ def configure_logging(log_level: str) -> None:
     logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
 
 
-configure_logging(settings.LOG_LEVEL)
+configure_logging(settings.LOG_LEVEL, settings.APP_ENV)
 
 _watcher: VaultWatcher | None = None
 
@@ -102,6 +130,8 @@ app.add_middleware(
 
 app.add_middleware(ApiKeyMiddleware)
 app.add_middleware(UserContextMiddleware)
+
+Instrumentator().instrument(app).expose(app)
 
 app.include_router(auth_router)
 app.include_router(health_router)
