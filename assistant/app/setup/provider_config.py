@@ -1,35 +1,47 @@
 import json
-import logging
 from pathlib import Path
+
+from loguru import logger
 
 from app.config.settings import settings
 
-logger = logging.getLogger(__name__)
-
 PROVIDER_CONFIG_PATH = Path("data/provider_config.json")
+
+DEFAULT_ACTIVE_PROVIDER = "ollama"
 
 DEFAULT_CONFIG = {
     "ollama": {
         "url": "http://localhost:11434",
         "apiKey": "",
         "model": "qwen3:14b",
+        "fastModel": "",
     },
     "openai": {
         "url": "https://api.openai.com/v1",
         "apiKey": "",
         "model": "gpt-4o",
+        "fastModel": "",
     },
     "anthropic": {
         "url": "https://api.anthropic.com",
         "apiKey": "",
         "model": "claude-sonnet-4-20250514",
+        "fastModel": "",
     },
     "gemini": {
         "url": "https://generativelanguage.googleapis.com",
         "apiKey": "",
         "model": "gemini-2.0-flash",
+        "fastModel": "",
     },
 }
+
+_config_version: int = 0
+
+
+def get_config_version() -> int:
+    return _config_version
+
 
 SETTINGS_KEY_MAP = {
     "ollama": {"url": "OLLAMA_BASE_URL", "apiKey": None, "model": "OLLAMA_MODEL"},
@@ -52,18 +64,9 @@ def _patch_settings(config: dict) -> None:
                 setattr(settings, setting_name, value)
 
 
-def _invalidate_caches() -> None:
-    import app.api.openai
-    import app.agent.nodes.planner
-    import app.api.chat
-
-    app.api.openai._factory = None
-    app.agent.nodes.planner._factory = None
-
-    if app.api.openai._classifier is not None:
-        app.api.openai._classifier._factory = None
-    if app.api.chat._classifier is not None:
-        app.api.chat._classifier._factory = None
+def _bump_version() -> None:
+    global _config_version
+    _config_version += 1
 
 
 def _load_from_disk() -> dict:
@@ -73,7 +76,7 @@ def _load_from_disk() -> dict:
         raw = PROVIDER_CONFIG_PATH.read_text(encoding="utf-8")
         return json.loads(raw)
     except Exception:
-        logger.warning("Failed to load provider config from disk", exc_info=True)
+        logger.opt(exception=True).warning("Failed to load provider config from disk")
         return {}
 
 
@@ -90,6 +93,7 @@ def get_config() -> dict:
     for provider, defaults in DEFAULT_CONFIG.items():
         saved_fields = saved.get(provider, {})
         merged[provider] = {**defaults, **saved_fields}
+    merged["_activeProvider"] = saved.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
     return merged
 
 
@@ -99,8 +103,46 @@ def save_config(config: dict) -> dict:
         provided = config.get(provider, {})
         merged[provider] = {k: provided.get(k, defaults[k]) for k in defaults}
 
-    _save_to_disk(merged)
-    _patch_settings(merged)
-    _invalidate_caches()
+    active = config.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
+    save_payload = {**merged, "_activeProvider": active}
 
-    return merged
+    _save_to_disk(save_payload)
+    _patch_settings(merged)
+    _bump_version()
+
+    return {**merged, "_activeProvider": active}
+
+
+def get_active_provider_config() -> dict:
+    saved = _load_from_disk()
+    active = saved.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
+
+    if active not in DEFAULT_CONFIG:
+        logger.warning(
+            "[provider] activeProvider '%s' desconhecido, usando 'ollama'", active
+        )
+        active = DEFAULT_ACTIVE_PROVIDER
+
+    defaults = DEFAULT_CONFIG[active]
+    saved_fields = saved.get(active, {})
+    merged = {**defaults, **saved_fields}
+
+    if active != "ollama" and not merged.get("apiKey"):
+        logger.warning(
+            "[provider] activeProvider='%s' sem apiKey, fallback para 'ollama'", active
+        )
+        active = DEFAULT_ACTIVE_PROVIDER
+        defaults = DEFAULT_CONFIG[active]
+        saved_fields = saved.get(active, {})
+        merged = {**defaults, **saved_fields}
+
+    fast_model = merged.get("fastModel", "")
+    return {
+        "provider": active,
+        "model": merged.get("model", DEFAULT_CONFIG[active]["model"]),
+        "fastModel": fast_model
+        if fast_model
+        else merged.get("model", DEFAULT_CONFIG[active]["model"]),
+        "url": merged.get("url", DEFAULT_CONFIG[active]["url"]),
+        "apiKey": merged.get("apiKey", ""),
+    }

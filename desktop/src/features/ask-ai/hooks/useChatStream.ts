@@ -36,7 +36,7 @@ export function useChatStream(serverUrl: string, apiKey: string) {
   }, []);
 
   const streamMessage = useCallback(
-    async (input: string) => {
+    async (input: string, model?: string) => {
       if (!input.trim() || loading) return;
 
       const userMsg: Message = { role: "user", text: input.trim() };
@@ -61,7 +61,7 @@ export function useChatStream(serverUrl: string, apiKey: string) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              model: "kaos",
+              model: model || "kaos",
               messages: currentMessages.map((m) => ({
                 role: m.role,
                 content: m.text,

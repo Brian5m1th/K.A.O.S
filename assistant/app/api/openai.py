@@ -4,9 +4,9 @@ import uuid
 from typing import AsyncIterator
 
 from fastapi import APIRouter, Request
-from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.responses import StreamingResponse, JSONResponse, Response
 from loguru import logger
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 from app.config.settings import settings
 from app.llm.factory import LLMFactory
@@ -15,25 +15,36 @@ from app.router.intent_classifier import IntentClassifier, IntentType
 from app.router.fast_router import fast_route
 from app.router.memory_router import MemoryRouter
 from app.router.cache import ResponseCache
+from app.setup.provider_config import get_config_version
 
+SSE_HEADERS = {
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
+    "X-Accel-Buffering": "no",
+}
 
-# Lazy-loaded classifier
 _classifier: IntentClassifier | None = None
+_classifier_version: int = -1
 _factory: LLMFactory | None = None
+_factory_version: int = -1
 _cache = ResponseCache()
 
 
 def _get_classifier() -> IntentClassifier:
-    global _classifier
-    if _classifier is None:
+    global _classifier, _classifier_version
+    version = get_config_version()
+    if _classifier is None or _classifier_version != version:
         _classifier = IntentClassifier()
+        _classifier_version = version
     return _classifier
 
 
 def _get_factory() -> LLMFactory:
-    global _factory
-    if _factory is None:
+    global _factory, _factory_version
+    version = get_config_version()
+    if _factory is None or _factory_version != version:
         _factory = LLMFactory()
+        _factory_version = version
     return _factory
 
 
@@ -47,6 +58,8 @@ class ChatMessage(BaseModel):
 
 
 class ChatCompletionRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
     model: str = Field(default=settings.API_MODEL_ID)
     messages: list[ChatMessage]
     stream: bool = Field(default=True)
@@ -116,8 +129,25 @@ async def list_models():
     return _models_response()
 
 
-# Removed module-level classifier - now lazy-loaded via _get_classifier()
-_cache = ResponseCache()
+def _json_response(
+    stream_id: str, created: int, model: str, content: str
+) -> JSONResponse:
+    return JSONResponse(
+        {
+            "id": stream_id,
+            "object": "chat.completion",
+            "created": created,
+            "model": model,
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {"role": "assistant", "content": content},
+                    "finish_reason": "stop",
+                }
+            ],
+            "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        }
+    )
 
 
 async def _sse_stream_generator(
@@ -152,8 +182,46 @@ async def _sse_stream_generator(
     yield "data: [DONE]\n\n"
 
 
+async def _collect_stream(stream: AsyncIterator[str]) -> str:
+    parts = []
+    async for token in stream:
+        parts.append(token)
+    return "".join(parts)
+
+
+async def _respond(
+    stream_id: str,
+    created: int,
+    model: str,
+    token_stream: AsyncIterator[str],
+    do_stream: bool,
+) -> Response:
+    if do_stream:
+        return StreamingResponse(
+            _sse_stream_generator(stream_id, created, model, token_stream),
+            media_type="text/event-stream",
+            headers=SSE_HEADERS,
+        )
+    content = await _collect_stream(token_stream)
+    return JSONResponse(
+        {
+            "id": stream_id,
+            "object": "chat.completion",
+            "created": created,
+            "model": model,
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {"role": "assistant", "content": content},
+                    "finish_reason": "stop",
+                }
+            ],
+            "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        }
+    )
+
+
 def _resolve_model(api_model: str) -> str:
-    """Map API model ID to a model key for the LLMFactory."""
     config = _get_factory()._resolve_model_config(api_model)
     return config["model"]
 
@@ -162,13 +230,13 @@ def _resolve_model(api_model: str) -> str:
 async def chat_completions(
     body: ChatCompletionRequest,
     http_request: Request,
-) -> StreamingResponse:
+) -> Response:
     user_id = body.user_id or http_request.state.user_id
     username = body.username or http_request.state.username
     role = body.role or http_request.state.role
     logger.info(f"[start] openai - chat_completions [user={user_id or 'anonymous'}]")
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
-    created = int(__import__("time").time())
+    created = int(time.time())
     session_id = stream_id
 
     user_message = next(
@@ -183,14 +251,8 @@ async def chat_completions(
         async def _cached_stream():
             yield cached
 
-        return StreamingResponse(
-            _sse_stream_generator(stream_id, created, body.model, _cached_stream()),
-            media_type="text/event-stream",
-            headers={
-                "Cache-Control": "no-cache",
-                "Connection": "keep-alive",
-                "X-Accel-Buffering": "no",
-            },
+        return await _respond(
+            stream_id, created, body.model, _cached_stream(), body.stream
         )
 
     if body.model == settings.FAST_MODEL_ID:
@@ -214,17 +276,10 @@ async def chat_completions(
                 f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
                 f"latency_ms={elapsed:.0f}"
             )
-            return StreamingResponse(
-                _sse_stream_generator(stream_id, created, body.model, _fast_stream()),
-                media_type="text/event-stream",
-                headers={
-                    "Cache-Control": "no-cache",
-                    "Connection": "keep-alive",
-                    "X-Accel-Buffering": "no",
-                },
+            return await _respond(
+                stream_id, created, body.model, _fast_stream(), body.stream
             )
 
-        # FAST intent mas sem tool: resposta simples
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
 
@@ -233,14 +288,8 @@ async def chat_completions(
             f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
             f"latency_ms={elapsed:.0f}"
         )
-        return StreamingResponse(
-            _sse_stream_generator(stream_id, created, body.model, _simple_stream()),
-            media_type="text/event-stream",
-            headers={
-                "Cache-Control": "no-cache",
-                "Connection": "keep-alive",
-                "X-Accel-Buffering": "no",
-            },
+        return await _respond(
+            stream_id, created, body.model, _simple_stream(), body.stream
         )
 
     elif intent == IntentType.MEMORY:
@@ -248,19 +297,12 @@ async def chat_completions(
         model_key = _resolve_model(body.model)
         router = MemoryRouter(model=model_key)
 
-        return StreamingResponse(
-            _sse_stream_generator(
-                stream_id,
-                created,
-                body.model,
-                router.stream(user_message, user_id=user_id),
-            ),
-            media_type="text/event-stream",
-            headers={
-                "Cache-Control": "no-cache",
-                "Connection": "keep-alive",
-                "X-Accel-Buffering": "no",
-            },
+        return await _respond(
+            stream_id,
+            created,
+            body.model,
+            router.stream(user_message, user_id=user_id),
+            body.stream,
         )
 
     # SMART route (LangGraph)
@@ -268,24 +310,17 @@ async def chat_completions(
     logger.info("[sending] openai - streaming via LangGraph Agent (SMART)")
     model_key = _resolve_model(body.model)
 
-    return StreamingResponse(
-        _sse_stream_generator(
-            stream_id,
-            created,
-            body.model,
-            agent.stream_message(
-                session_id=session_id,
-                user_message=user_message,
-                user_id=user_id,
-                username=username,
-                role=role,
-                model=model_key,
-            ),
+    return await _respond(
+        stream_id,
+        created,
+        body.model,
+        agent.stream_message(
+            session_id=session_id,
+            user_message=user_message,
+            user_id=user_id,
+            username=username,
+            role=role,
+            model=model_key,
         ),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "X-Accel-Buffering": "no",
-        },
+        body.stream,
     )

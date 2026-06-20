@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react";
 import { useChatStream } from "@/features/ask-ai/hooks/useChatStream";
+import { ModelSelector } from "@/features/ask-ai/ui/ModelSelector";
 import { ChatInput } from "@/features/ask-ai/ui/ChatInput";
 import { MessageBubble } from "@/entities/message/ui/MessageBubble";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 interface Props {
   serverUrl: string;
@@ -18,6 +21,47 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
     apiKey,
   );
 
+  const [defaultModel, setDefaultModel] = useState("kaos");
+  const [fastModel, setFastModel] = useState("");
+  const [selectedModel, setSelectedModel] = useState("kaos");
+  const [fastMode, setFastMode] = useState(false);
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const cleanUrl = serverUrl.replace(/\/+$/, "");
+        const res = await kaosFetch(
+          `${cleanUrl}/api/setup/provider/active`,
+          apiKey,
+        );
+        if (res.ok) {
+          const data = await res.json();
+          setDefaultModel(data.model);
+          setFastModel(data.fastModel || "");
+          setSelectedModel(data.model);
+        }
+      } catch {
+        // Use defaults
+      }
+    };
+    fetchConfig();
+  }, [serverUrl, apiKey]);
+
+  const handleSend = (input: string) => {
+    streamMessage(input, selectedModel);
+  };
+
+  const handleModelChange = (model: string) => {
+    setSelectedModel(model);
+    if (fastMode && model === defaultModel) {
+      setFastMode(false);
+    }
+  };
+
+  const handleFastModeToggle = (active: boolean) => {
+    setFastMode(active);
+  };
+
   return (
     <div className="flex h-full flex-col">
       {error && (
@@ -29,6 +73,14 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
       <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2">
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-zinc-100">Chat</span>
+          <ModelSelector
+            currentModel={selectedModel}
+            defaultModel={defaultModel}
+            fastModel={fastModel}
+            fastMode={fastMode}
+            onModelChange={handleModelChange}
+            onFastModeToggle={handleFastModeToggle}
+          />
           {loading && (
             <Badge variant="info">Generating...</Badge>
           )}
@@ -56,7 +108,7 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
 
       <Separator />
 
-      <ChatInput onSend={streamMessage} loading={loading} />
+      <ChatInput onSend={handleSend} loading={loading} />
     </div>
   );
 }

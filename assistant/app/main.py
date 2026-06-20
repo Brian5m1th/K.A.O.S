@@ -24,10 +24,7 @@ from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
 from app.obsidian.vault_init import create_vault_structure
-from app.tools import github_tools  # noqa: F401 - registers tools on import
 from app.obsidian.watcher.vault_watcher import VaultWatcher
-from app.rag.embeddings.embedder import warmup_embedder
-
 
 import json
 
@@ -78,6 +75,9 @@ configure_logging(settings.LOG_LEVEL, settings.APP_ENV)
 
 _watcher: VaultWatcher | None = None
 
+_embedder_ready = False
+_tools_registered = False
+
 
 def _init_api_key(key_path: Path) -> str:
     if settings.API_KEY:
@@ -97,20 +97,39 @@ def _init_api_key(key_path: Path) -> str:
     return key
 
 
+def _register_tools():
+    global _tools_registered
+    if not _tools_registered:
+        from app.tools.github_tools import register_github_tools
+
+        register_github_tools()
+        _tools_registered = True
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
-    global _watcher
+    global _watcher, _embedder_ready
     logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info("[auth] API key: {}", _app.state.api_key)
 
-    logger.info("[info] lifespan - warmup embedder")
-    await asyncio.to_thread(warmup_embedder)
-    logger.debug("[finish] lifespan - warmup embedder")
+    _register_tools()
 
-    logger.info("[info] lifespan - init vault structure")
-    await asyncio.to_thread(create_vault_structure)
-    logger.debug("[finish] lifespan - init vault structure")
+    async def _warmup():
+        global _embedder_ready
+        from app.rag.embeddings.embedder import warmup_embedder
+
+        logger.info("[info] lifespan - warmup embedder")
+        await asyncio.to_thread(warmup_embedder)
+        _embedder_ready = True
+        logger.debug("[finish] lifespan - warmup embedder")
+
+    async def _init_vault():
+        logger.info("[info] lifespan - init vault structure")
+        await asyncio.to_thread(create_vault_structure)
+        logger.debug("[finish] lifespan - init vault structure")
+
+    await asyncio.gather(_warmup(), _init_vault())
 
     _watcher = VaultWatcher()
     _watcher.start()
@@ -158,6 +177,7 @@ async def root() -> dict:
         "name": settings.APP_NAME,
         "version": "0.1.0",
         "status": "running",
+        "embedder_ready": _embedder_ready,
         "endpoints": {
             "health": "/health",
             "chat": "/api/chat/message",

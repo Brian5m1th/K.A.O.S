@@ -1,11 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { TauriStoreService } from "@/shared/api/tauri-store-service";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 interface UseSettingsReturn {
   apiKey: string;
   setApiKey: (key: string) => void;
   handleSave: () => Promise<void>;
   loading: boolean;
+  testStatus: string | null;
+  testConnection: (serverUrl: string) => Promise<void>;
 }
 
 export function useSettings(
@@ -14,6 +17,7 @@ export function useSettings(
 ): UseSettingsReturn {
   const [apiKey, setApiKey] = useState("");
   const [loading, setLoading] = useState(false);
+  const [testStatus, setTestStatus] = useState<string | null>(null);
 
   useEffect(() => {
     loadKey();
@@ -32,5 +36,25 @@ export function useSettings(
     onClose();
   }, [apiKey, onClose, onKeyChange]);
 
-  return { apiKey, setApiKey, handleSave, loading };
+  const testConnection = useCallback(
+    async (serverUrl: string) => {
+      setTestStatus("Testing...");
+      try {
+        const cleanUrl = serverUrl.replace(/\/+$/, "");
+        const res = await kaosFetch(`${cleanUrl}/health`, apiKey);
+        if (res.ok) {
+          setTestStatus("Connected");
+        } else if (res.status === 401 || res.status === 403) {
+          setTestStatus("Invalid key");
+        } else {
+          setTestStatus(`Error: ${res.status}`);
+        }
+      } catch {
+        setTestStatus("Connection failed");
+      }
+    },
+    [apiKey],
+  );
+
+  return { apiKey, setApiKey, handleSave, loading, testStatus, testConnection };
 }

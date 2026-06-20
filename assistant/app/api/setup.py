@@ -1,11 +1,14 @@
-import logging
-
 import httpx
 from fastapi import APIRouter
+from loguru import logger
 
-from app.setup.provider_config import get_config, save_config
-
-logger = logging.getLogger(__name__)
+from app.setup.provider_config import (
+    get_config,
+    get_active_provider_config,
+    save_config,
+    DEFAULT_CONFIG,
+    DEFAULT_ACTIVE_PROVIDER,
+)
 
 router = APIRouter(prefix="/api/setup", tags=["setup"])
 
@@ -19,6 +22,27 @@ async def get_provider_config():
 async def set_provider_config(config: dict):
     merged = save_config(config)
     return {"status": "ok", "config": merged}
+
+
+@router.get("/provider/active")
+async def get_active_provider():
+    config = get_active_provider_config()
+    return {
+        "activeProvider": config["provider"],
+        "model": config["model"],
+        "url": config["url"],
+        "available": list(DEFAULT_CONFIG.keys()),
+    }
+
+
+@router.post("/provider/active")
+async def set_active_provider(payload: dict):
+    provider = payload.get("provider", DEFAULT_ACTIVE_PROVIDER)
+    current = get_config()
+    current["_activeProvider"] = provider
+    merged = save_config(current)
+    logger.info("[setup] active provider changed to '%s'", provider)
+    return {"status": "ok", "activeProvider": provider, "config": merged}
 
 
 @router.post("/provider/test")

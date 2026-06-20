@@ -15,17 +15,19 @@ export const PROVIDER_LABELS: Record<ProviderName, string> = {
 };
 
 export const DEFAULT_CONFIG: ProviderConfig = {
-  ollama: { url: "http://localhost:11434", apiKey: "", model: "qwen3:14b" },
-  openai: { url: "https://api.openai.com/v1", apiKey: "", model: "gpt-4o" },
+  ollama: { url: "http://localhost:11434", apiKey: "", model: "qwen3:14b", fastModel: "" },
+  openai: { url: "https://api.openai.com/v1", apiKey: "", model: "gpt-4o", fastModel: "" },
   anthropic: {
     url: "https://api.anthropic.com",
     apiKey: "",
     model: "claude-sonnet-4-20250514",
+    fastModel: "",
   },
   google: {
     url: "https://generativelanguage.googleapis.com",
     apiKey: "",
     model: "gemini-2.0-flash",
+    fastModel: "",
   },
 };
 

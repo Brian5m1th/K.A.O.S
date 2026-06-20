@@ -1,8 +1,11 @@
+import asyncio
+
 from loguru import logger
 
 from app.config.settings import settings
 from app.llm.provider import BaseProvider
 from app.llm.metrics import ProviderMetrics
+from app.setup.provider_config import get_active_provider_config
 
 
 class LLMFactory:
@@ -43,18 +46,20 @@ class LLMFactory:
         return provider
 
     def _resolve_model_config(self, model_key: str) -> dict:
+        active = get_active_provider_config()
+
         model_map = {
             settings.API_MODEL_ID: {
-                "provider": "ollama",
-                "model": settings.OLLAMA_MODEL,
+                "provider": active["provider"],
+                "model": active["model"],
             },
             settings.FAST_MODEL_ID: {
-                "provider": "ollama",
-                "model": settings.OLLAMA_FAST_MODEL,
+                "provider": active["provider"],
+                "model": active["fastModel"],
             },
             settings.DEFAULT_MODEL_ID: {
-                "provider": "ollama",
-                "model": settings.OLLAMA_MODEL,
+                "provider": active["provider"],
+                "model": active["model"],
             },
         }
 
@@ -64,7 +69,7 @@ class LLMFactory:
         if model_key in settings.MODEL_MAP:
             return settings.MODEL_MAP[model_key]
 
-        return {"provider": "ollama", "model": model_key}
+        return {"provider": active["provider"], "model": model_key}
 
     def _create_provider(
         self, provider_name: str, model_name: str, **kwargs
@@ -128,7 +133,13 @@ class LLMFactory:
             provider = self.build(model_key, **kwargs)
 
         try:
-            return await self._metrics.ainvoke_and_record(provider, messages)
+            return await asyncio.wait_for(
+                self._metrics.ainvoke_and_record(provider, messages),
+                timeout=30.0,
+            )
+        except asyncio.TimeoutError:
+            logger.warning(f"[warn] LLMFactory - fallback[{index}] timeout")
+            return await self._fallback_invoke(model_key, messages, index + 1, **kwargs)
         except Exception as e:
             logger.warning(f"[warn] LLMFactory - fallback[{index}] falhou: {e}")
             return await self._fallback_invoke(model_key, messages, index + 1, **kwargs)
