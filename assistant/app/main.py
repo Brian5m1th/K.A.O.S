@@ -142,7 +142,6 @@ app.include_router(setup_router)
 app.include_router(webhooks_router)
 
 Instrumentator(
-    should_group=False,
     excluded_handlers=[".*health.*", "/metrics"],
 ).instrument(app).expose(app)
 
