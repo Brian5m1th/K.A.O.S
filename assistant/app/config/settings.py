@@ -34,6 +34,7 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str = "postgresql://user:password@localhost:5432/kaos"
 
+    API_KEY: str = ""
     HF_TOKEN: str = ""
 
     RAG_SCORE_THRESHOLD: float = 0.3

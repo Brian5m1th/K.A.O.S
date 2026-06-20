@@ -80,6 +80,12 @@ _watcher: VaultWatcher | None = None
 
 
 def _init_api_key(key_path: Path) -> str:
+    if settings.API_KEY:
+        key = settings.API_KEY
+        key_path.parent.mkdir(parents=True, exist_ok=True)
+        key_path.write_text(key)
+        logger.info("[auth] API key loaded from env")
+        return key
     if key_path.exists():
         key = key_path.read_text().strip()
         logger.info("[auth] API key loaded from {}", key_path)

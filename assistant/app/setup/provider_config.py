@@ -55,14 +55,15 @@ def _patch_settings(config: dict) -> None:
 def _invalidate_caches() -> None:
     import app.api.openai
     import app.agent.nodes.planner
-    import app.router.intent_classifier
+    import app.api.chat
 
     app.api.openai._factory = None
     app.agent.nodes.planner._factory = None
 
-    classifier = app.router.intent_classifier._classifier
-    if classifier is not None:
-        classifier._factory = None
+    if app.api.openai._classifier is not None:
+        app.api.openai._classifier._factory = None
+    if app.api.chat._classifier is not None:
+        app.api.chat._classifier._factory = None
 
 
 def _load_from_disk() -> dict:

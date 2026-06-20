@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
+import { kaosFetch } from "../api";
 
 interface Props {
   serverUrl: string;
   onDisconnect: () => void;
+  apiKey: string;
 }
 
 interface Message {
@@ -10,7 +12,7 @@ interface Message {
   text: string;
 }
 
-export default function ChatScreen({ serverUrl, onDisconnect }: Props) {
+export default function ChatScreen({ serverUrl, onDisconnect, apiKey }: Props) {
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", text: "KAOS initialized. How can I help you?" },
   ]);
@@ -32,7 +34,7 @@ export default function ChatScreen({ serverUrl, onDisconnect }: Props) {
     setLoading(true);
 
     try {
-      const resp = await fetch(`${serverUrl.replace(/\/+$/, "")}/v1/chat/completions`, {
+      const resp = await kaosFetch(`${serverUrl.replace(/\/+$/, "")}/v1/chat/completions`, apiKey, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
