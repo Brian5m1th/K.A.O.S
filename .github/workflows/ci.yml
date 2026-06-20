@@ -30,6 +30,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - uses: astral-sh/setup-uv@v3
         with:
@@ -58,6 +61,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - uses: astral-sh/setup-uv@v3
         with:
@@ -77,9 +83,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -105,10 +115,11 @@ jobs:
             type=raw,value=nightly
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: assistant
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -134,3 +145,10 @@ jobs:
           }
           docker rm -f kaos-test >/dev/null
           echo "Healthcheck passed"
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign image
+        run: |
+          cosign sign --yes "${{ env.REGISTRY }}/${GITHUB_REPOSITORY,,}@${{ steps.build.outputs.digest }}"

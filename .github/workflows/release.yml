@@ -15,9 +15,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -43,10 +47,11 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: assistant
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -73,6 +78,13 @@ jobs:
           docker rm -f kaos-test >/dev/null
           echo "Healthcheck passed"
 
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign image
+        run: |
+          cosign sign --yes "${{ env.REGISTRY }}/${GITHUB_REPOSITORY,,}@${{ steps.build.outputs.digest }}"
+
   launcher:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -83,6 +95,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - uses: actions/setup-node@v4
         with:
@@ -118,6 +133,8 @@ jobs:
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PASSWORD: ${{ secrets.TAURI_SIGNING_PASSWORD }}
+          CARGO_HTTP_RETRY: 3
+          CARGO_HTTP_TIMEOUT: 120
         run: npm run tauri build
 
       - name: Upload artifact
@@ -135,6 +152,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - name: Generate release notes
         id: notes
@@ -145,9 +165,23 @@ jobs:
           echo "See the [changelog](../../compare/${{ github.ref_name }}) for details." >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: kaos-launcher-*
+          merge-multiple: false
+
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
+          files: |
+            artifacts/**/*.deb
+            artifacts/**/*.rpm
+            artifacts/**/*.AppImage
+            artifacts/**/*.msi
+            artifacts/**/*.exe
+            artifacts/**/*.dmg
           body: ${{ steps.notes.outputs.RELEASE_NOTES }}
-          draft: true
+          fail_on_unmatched_files: false
+          draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}

@@ -54,8 +54,9 @@ Related: [[00_visao_geral]] [[Arquitetura da IA Pessoal Offline]]
 | [[sdd_fase3_obsidian_service\|SDD — Fase 3: ObsidianService]] | 3 ✅ | CRUD de notas, 7 Tools LangGraph, Testes | ✅ |
 | [[sdd_fase4_rag_pipeline\|SDD — Fases 4-5: RAG + Watcher]] | 4-5 ✅ | Embedder, Chunking, Indexer, Retriever, Watchdog, **Singleton Embedder, score_threshold, diagnósticos** | ✅ |
 | [[sdd_fase5_watcher_langgraph\|SDD — Fases 6-7: LangGraph + Memória]] | 6-7 ✅ | AgentState, Grafo, Planner, Executor, Memória, **Fast Intent Classifier, MemoryRouter, observabilidade** | ✅ |
-| [[sdd_fase8_performance_routing\|SDD — Fase 8: Performance + Roteamento Inteligente]] | 8 🟡 | Fast/MEMORY/SMART routing, warmup, cache, métricas | 🟡 Em progresso |
-| [[sdd_fase9_integracoes\|SDD — Fase 9: Integrações]] | 9 ⬜ | N8N, GitHub, Email, AWS, Webhooks | ⬜ Planejado |
+| [[sdd_fase8_performance_routing\|SDD — Fase 8: Performance + Roteamento Inteligente]] | 8 ✅ | Fast/MEMORY/SMART routing, warmup, cache, métricas | ✅ |
+| [[sdd_fase9_integracoes\|SDD — Fase 9: Integrações]] | 9 ✅ | N8N, GitHub, Email, AWS, Webhooks | ✅ |
+| [[sdd_desktop_build_optimization\|SDD — Otimização de Build Desktop]] | 15 ✅ | Cargo cache, Node cache, build condicional, CI/CD, release com assinatura | ✅ |
 
 ---
 

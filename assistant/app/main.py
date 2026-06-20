@@ -7,14 +7,21 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
+from prometheus_fastapi_instrumentator import Instrumentator
 
+import uuid
+from pathlib import Path
+
+from app.api.auth import router as auth_router
 from app.api.chat import router as chat_router
 from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
 from app.api.rag import router as rag_router
+from app.api.setup import router as setup_router
 from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
+from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
 from app.obsidian.vault_init import create_vault_structure
 from app.tools import github_tools  # noqa: F401 - registers tools on import
@@ -22,14 +29,41 @@ from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.rag.embeddings.embedder import warmup_embedder
 
 
-def configure_logging(log_level: str) -> None:
+import json
+
+
+def configure_logging(log_level: str, env: str) -> None:
     logger.remove()
+
+    log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+
     logger.add(
         sys.stdout,
         level=log_level,
-        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
+        format=log_format,
         colorize=True,
     )
+
+    if env == "production":
+        log_dir = Path("logs")
+        log_dir.mkdir(parents=True, exist_ok=True)
+        log_file = log_dir / "kaos-api.json"
+
+        def json_sink(message):
+            record = message.record
+            log_entry = {
+                "timestamp": record["time"].isoformat(),
+                "level": record["level"].name,
+                "logger": record["name"],
+                "function": record["function"],
+                "line": record["line"],
+                "message": record["message"],
+                "extra": record["extra"],
+            }
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+
+        logger.add(json_sink, level=log_level, format="{message}", serialize=False)
 
     class InterceptHandler(logging.Handler):
         def emit(self, record: logging.LogRecord) -> None:
@@ -40,15 +74,35 @@ def configure_logging(log_level: str) -> None:
     logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
 
 
-configure_logging(settings.LOG_LEVEL)
+configure_logging(settings.LOG_LEVEL, settings.APP_ENV)
 
 _watcher: VaultWatcher | None = None
+
+
+def _init_api_key(key_path: Path) -> str:
+    if settings.API_KEY:
+        key = settings.API_KEY
+        key_path.parent.mkdir(parents=True, exist_ok=True)
+        key_path.write_text(key)
+        logger.info("[auth] API key loaded from env")
+        return key
+    if key_path.exists():
+        key = key_path.read_text().strip()
+        logger.info("[auth] API key loaded from {}", key_path)
+        return key
+    key = uuid.uuid4().hex
+    key_path.parent.mkdir(parents=True, exist_ok=True)
+    key_path.write_text(key)
+    logger.info("[auth] API key generated and saved to {}", key_path)
+    return key
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher
     logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
+    _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
+    logger.info("[auth] API key: {}", _app.state.api_key)
 
     logger.info("[info] lifespan - warmup embedder")
     await asyncio.to_thread(warmup_embedder)
@@ -80,15 +134,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(ApiKeyMiddleware)
 app.add_middleware(UserContextMiddleware)
 
+app.include_router(auth_router)
 app.include_router(health_router)
 app.include_router(chat_router)
 app.include_router(indexing_router)
 app.include_router(rag_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
+app.include_router(setup_router)
 app.include_router(webhooks_router)
+
+Instrumentator(
+    excluded_handlers=[".*health.*", "/metrics"],
+).instrument(app).expose(app)
 
 
 @app.get("/")
@@ -105,5 +166,6 @@ async def root() -> dict:
             "indexing": "/indexing/full",
             "init_folders": "/indexing/init-folders",
             "rag_context": "/rag/context",
+            "setup_provider": "/api/setup/provider",
         },
     }

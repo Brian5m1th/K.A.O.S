@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { kaosFetch } from "../api";
 
 interface Props {
   onDone: (path: string) => void;
   initialPath: string;
   serverUrl: string;
+  apiKey: string;
 }
 
-export default function VaultScreen({ onDone, initialPath, serverUrl }: Props) {
+export default function VaultScreen({ onDone, initialPath, serverUrl, apiKey }: Props) {
   const [path, setPath] = useState(initialPath || "");
   const [status, setStatus] = useState("");
 
@@ -14,7 +16,7 @@ export default function VaultScreen({ onDone, initialPath, serverUrl }: Props) {
     if (!path) return;
     setStatus("Initializing vault...");
     try {
-      const resp = await fetch(`${serverUrl.replace(/\/+$/, "")}/indexing/init-folders`, {
+      const resp = await kaosFetch(`${serverUrl.replace(/\/+$/, "")}/indexing/init-folders`, apiKey, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ vault_path: path }),

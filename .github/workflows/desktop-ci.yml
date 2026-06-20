@@ -7,12 +7,18 @@ on:
       - "desktop/**"
       - "scripts/generate_icons.py"
       - ".github/workflows/desktop-ci.yml"
+      - "!**/*.md"
+      - "!docs/**"
+      - "!wiki/**"
   push:
     branches: [dev, main]
     paths:
       - "desktop/**"
       - "scripts/generate_icons.py"
       - ".github/workflows/desktop-ci.yml"
+      - "!**/*.md"
+      - "!docs/**"
+      - "!wiki/**"
 
 jobs:
   build:
@@ -22,6 +28,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - uses: actions/setup-node@v4
         with:
@@ -34,6 +43,12 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: desktop/src-tauri
+
+      - name: Cache Vite
+        uses: actions/cache@v4
+        with:
+          path: desktop/node_modules/.vite
+          key: vite-${{ runner.os }}-${{ hashFiles('desktop/package-lock.json') }}
 
       - name: Install system deps
         run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
@@ -54,7 +69,21 @@ jobs:
 
       - name: Build Tauri
         working-directory: desktop
-        run: npm run tauri build
+        id: build
+        env:
+          CARGO_HTTP_RETRY: 3
+          CARGO_HTTP_TIMEOUT: 120
+        run: |
+          echo "BUILD_START=$(date +%s)" >> $GITHUB_ENV
+          npm run tauri build
+          echo "BUILD_END=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Build metrics
+        run: |
+          echo "## Build Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "| Step | Duration |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Tauri build | $(( $BUILD_END - $BUILD_START ))s |" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload bundles
         uses: actions/upload-artifact@v4
