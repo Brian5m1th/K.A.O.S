@@ -7,6 +7,7 @@ from app.agent.state import AgentState
 
 def _get_graph():
     from app.agent.graph import agent_graph
+
     return agent_graph
 
 

@@ -140,7 +140,9 @@ def get_active_provider_config() -> dict:
     return {
         "provider": active,
         "model": merged.get("model", DEFAULT_CONFIG[active]["model"]),
-        "fastModel": fast_model if fast_model else merged.get("model", DEFAULT_CONFIG[active]["model"]),
+        "fastModel": fast_model
+        if fast_model
+        else merged.get("model", DEFAULT_CONFIG[active]["model"]),
         "url": merged.get("url", DEFAULT_CONFIG[active]["url"]),
         "apiKey": merged.get("apiKey", ""),
     }

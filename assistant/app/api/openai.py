@@ -129,21 +129,25 @@ async def list_models():
     return _models_response()
 
 
-def _json_response(stream_id: str, created: int, model: str, content: str) -> JSONResponse:
-    return JSONResponse({
-        "id": stream_id,
-        "object": "chat.completion",
-        "created": created,
-        "model": model,
-        "choices": [
-            {
-                "index": 0,
-                "message": {"role": "assistant", "content": content},
-                "finish_reason": "stop",
-            }
-        ],
-        "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
-    })
+def _json_response(
+    stream_id: str, created: int, model: str, content: str
+) -> JSONResponse:
+    return JSONResponse(
+        {
+            "id": stream_id,
+            "object": "chat.completion",
+            "created": created,
+            "model": model,
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {"role": "assistant", "content": content},
+                    "finish_reason": "stop",
+                }
+            ],
+            "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        }
+    )
 
 
 async def _sse_stream_generator(
@@ -185,7 +189,13 @@ async def _collect_stream(stream: AsyncIterator[str]) -> str:
     return "".join(parts)
 
 
-async def _respond(stream_id: str, created: int, model: str, token_stream: AsyncIterator[str], do_stream: bool) -> Response:
+async def _respond(
+    stream_id: str,
+    created: int,
+    model: str,
+    token_stream: AsyncIterator[str],
+    do_stream: bool,
+) -> Response:
     if do_stream:
         return StreamingResponse(
             _sse_stream_generator(stream_id, created, model, token_stream),
@@ -193,20 +203,22 @@ async def _respond(stream_id: str, created: int, model: str, token_stream: Async
             headers=SSE_HEADERS,
         )
     content = await _collect_stream(token_stream)
-    return JSONResponse({
-        "id": stream_id,
-        "object": "chat.completion",
-        "created": created,
-        "model": model,
-        "choices": [
-            {
-                "index": 0,
-                "message": {"role": "assistant", "content": content},
-                "finish_reason": "stop",
-            }
-        ],
-        "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
-    })
+    return JSONResponse(
+        {
+            "id": stream_id,
+            "object": "chat.completion",
+            "created": created,
+            "model": model,
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {"role": "assistant", "content": content},
+                    "finish_reason": "stop",
+                }
+            ],
+            "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        }
+    )
 
 
 def _resolve_model(api_model: str) -> str:
@@ -239,7 +251,9 @@ async def chat_completions(
         async def _cached_stream():
             yield cached
 
-        return await _respond(stream_id, created, body.model, _cached_stream(), body.stream)
+        return await _respond(
+            stream_id, created, body.model, _cached_stream(), body.stream
+        )
 
     if body.model == settings.FAST_MODEL_ID:
         intent = IntentType.FAST
@@ -262,7 +276,9 @@ async def chat_completions(
                 f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
                 f"latency_ms={elapsed:.0f}"
             )
-            return await _respond(stream_id, created, body.model, _fast_stream(), body.stream)
+            return await _respond(
+                stream_id, created, body.model, _fast_stream(), body.stream
+            )
 
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
@@ -272,7 +288,9 @@ async def chat_completions(
             f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
             f"latency_ms={elapsed:.0f}"
         )
-        return await _respond(stream_id, created, body.model, _simple_stream(), body.stream)
+        return await _respond(
+            stream_id, created, body.model, _simple_stream(), body.stream
+        )
 
     elif intent == IntentType.MEMORY:
         start = time.perf_counter()
@@ -280,7 +298,9 @@ async def chat_completions(
         router = MemoryRouter(model=model_key)
 
         return await _respond(
-            stream_id, created, body.model,
+            stream_id,
+            created,
+            body.model,
             router.stream(user_message, user_id=user_id),
             body.stream,
         )
@@ -291,7 +311,9 @@ async def chat_completions(
     model_key = _resolve_model(body.model)
 
     return await _respond(
-        stream_id, created, body.model,
+        stream_id,
+        created,
+        body.model,
         agent.stream_message(
             session_id=session_id,
             user_message=user_message,

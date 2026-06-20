@@ -101,6 +101,7 @@ def _register_tools():
     global _tools_registered
     if not _tools_registered:
         from app.tools.github_tools import register_github_tools
+
         register_github_tools()
         _tools_registered = True
 
@@ -117,6 +118,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     async def _warmup():
         global _embedder_ready
         from app.rag.embeddings.embedder import warmup_embedder
+
         logger.info("[info] lifespan - warmup embedder")
         await asyncio.to_thread(warmup_embedder)
         _embedder_ready = True
