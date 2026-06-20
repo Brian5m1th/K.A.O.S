@@ -11,8 +11,6 @@ class Embedder:
     }
 
     def __init__(self, model_key: str | None = None) -> None:
-        import torch
-
         logger.info("[start] Embedder - __init__")
         if settings.HF_TOKEN:
             from huggingface_hub import login

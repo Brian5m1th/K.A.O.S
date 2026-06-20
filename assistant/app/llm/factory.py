@@ -137,7 +137,7 @@ class LLMFactory:
                 self._metrics.ainvoke_and_record(provider, messages),
                 timeout=30.0,
             )
-        except asyncio.TimeoutError as e:
+        except asyncio.TimeoutError:
             logger.warning(f"[warn] LLMFactory - fallback[{index}] timeout")
             return await self._fallback_invoke(model_key, messages, index + 1, **kwargs)
         except Exception as e:
