@@ -2,7 +2,7 @@ FROM python:3.13-slim AS builder
 
 WORKDIR /app
 
-COPY pyproject.toml ./
+COPY pyproject.toml uv.lock ./
 
 ENV UV_EXTRA_INDEX_URL=https://download.pytorch.org/whl/cpu \
     UV_INDEX_STRATEGY=unsafe-best-match
