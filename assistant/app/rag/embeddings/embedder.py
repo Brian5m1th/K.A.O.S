@@ -1,4 +1,3 @@
-import torch
 from loguru import logger
 from app.config.settings import settings
 
@@ -43,6 +42,8 @@ class Embedder:
         logger.debug("[finish] Embedder - __init__")
 
     def _get_device(self) -> str:
+        import torch
+
         if torch.cuda.is_available():
             return "cuda"
         if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TauriStoreService } from "@/shared/api/tauri-store-service";
+import { kaosFetch } from "@/shared/api/kaos-client";
 import { Sidebar } from "@/widgets/sidebar";
 import ChatPage from "@/pages/chat";
 import ProvidersPage from "@/pages/providers";
@@ -19,9 +20,23 @@ export default function App() {
 
   useEffect(() => {
     TauriStoreService.get<string>("kaosApiKey").then((key) => {
-      if (key) setApiKey(key);
+      if (key) {
+        setApiKey(key);
+        verifyConnection(key);
+      }
     });
   }, []);
+
+  const verifyConnection = async (key: string) => {
+    try {
+      const res = await kaosFetch(`${BACKEND_URL}/health`, key);
+      if (res.ok) {
+        setConnected(true);
+      }
+    } catch {
+      // Not connected — stay on provider screen
+    }
+  };
 
   const handleProviderDone = () => setScreen("vault");
   const handleVaultDone = (vp: string) => {

@@ -6,6 +6,7 @@ from app.agent.state import AgentState
 from app.config.settings import settings
 from app.llm.factory import LLMFactory
 from app.memory.memory_service import MemoryService
+from app.setup.provider_config import get_config_version
 
 SYSTEM_PROMPT = """Você é um assistente pessoal inteligente com acesso ao Vault Obsidian do usuário.
 
@@ -58,12 +59,15 @@ Comandos especiais:
 - "ingira esta fonte" -> roteado automaticamente para o pipeline de ingestão (INGEST intent)"""
 
 _factory: LLMFactory | None = None
+_factory_version: int = -1
 
 
 def _get_factory() -> LLMFactory:
-    global _factory
-    if _factory is None:
+    global _factory, _factory_version
+    version = get_config_version()
+    if _factory is None or _factory_version != version:
         _factory = LLMFactory()
+        _factory_version = version
     return _factory
 
 

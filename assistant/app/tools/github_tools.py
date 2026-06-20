@@ -83,6 +83,3 @@ def register_github_tools():
     TOOL_REGISTRY["github_get_repo"] = github_get_repo
     TOOL_REGISTRY["github_list_issues"] = github_list_issues
     logger.info("[info] github - 3 tools registradas no TOOL_REGISTRY")
-
-
-register_github_tools()

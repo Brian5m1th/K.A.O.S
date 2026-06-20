@@ -9,12 +9,23 @@ from app.router.fast_router import fast_route
 from app.router.memory_router import MemoryRouter
 from app.router.smart_router import SmartRouter
 from app.router.cache import ResponseCache
+from app.setup.provider_config import get_config_version
 
 router = APIRouter(prefix="/api/chat", tags=["Chat"])
 
-_classifier = IntentClassifier()
+_classifier: IntentClassifier | None = None
+_classifier_version: int = -1
 _cache = ResponseCache()
 _smart_router = SmartRouter()
+
+
+def _get_classifier() -> IntentClassifier:
+    global _classifier, _classifier_version
+    version = get_config_version()
+    if _classifier is None or _classifier_version != version:
+        _classifier = IntentClassifier()
+        _classifier_version = version
+    return _classifier
 
 
 def _extract_source_path(message: str) -> str | None:
@@ -41,7 +52,7 @@ async def send_message(
         logger.info("[info] chat - cache hit")
         return PlainTextResponse(cached)
 
-    intent = await _classifier.classify(request.message)
+    intent = await _get_classifier().classify(request.message)
     logger.info(f"[info] chat - intent={intent.value}")
 
     if intent == IntentType.FAST:
