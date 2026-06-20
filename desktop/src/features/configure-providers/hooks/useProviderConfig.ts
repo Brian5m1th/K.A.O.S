@@ -3,6 +3,7 @@ import type {
   ProviderConfig,
   ProviderName,
   StatusMap,
+  ConfigResponse,
 } from "@/entities/provider";
 import {
   DEFAULT_CONFIG,
@@ -14,17 +15,24 @@ import { kaosFetch } from "@/shared/api/kaos-client";
 
 interface UseProviderConfigReturn {
   config: ProviderConfig;
+  activeProvider: ProviderName;
   statuses: StatusMap;
   saving: boolean;
   updateField: (provider: ProviderName, field: string, value: string) => void;
+  setActiveProvider: (provider: ProviderName) => void;
   handleTest: (provider: ProviderName) => Promise<void>;
   handleSave: (serverUrl: string, apiKey: string) => Promise<void>;
 }
+
+const DEFAULT_ACTIVE_PROVIDER: ProviderName = "ollama";
 
 export function useProviderConfig(
   onDone: () => void,
 ): UseProviderConfigReturn {
   const [config, setConfig] = useState<ProviderConfig>(DEFAULT_CONFIG);
+  const [activeProvider, setActiveProvider] = useState<ProviderName>(
+    DEFAULT_ACTIVE_PROVIDER,
+  );
   const [statuses, setStatuses] = useState<StatusMap>({});
   const [saving, setSaving] = useState(false);
 
@@ -47,6 +55,12 @@ export function useProviderConfig(
         return merged;
       });
     }
+    const savedActive = await TauriStoreService.get<ProviderName>(
+      "activeProvider",
+    );
+    if (savedActive && PROVIDER_ORDER.includes(savedActive)) {
+      setActiveProvider(savedActive);
+    }
   };
 
   const updateField = useCallback(
@@ -58,6 +72,10 @@ export function useProviderConfig(
     },
     [],
   );
+
+  const handleSetActive = useCallback((provider: ProviderName) => {
+    setActiveProvider(provider);
+  }, []);
 
   const handleTest = useCallback(
     async (provider: ProviderName) => {
@@ -101,6 +119,12 @@ export function useProviderConfig(
       setSaving(true);
       try {
         await TauriStoreService.set("providerConfig", config);
+        await TauriStoreService.set("activeProvider", activeProvider);
+
+        const savePayload = {
+          ...config,
+          _activeProvider: activeProvider,
+        };
 
         await kaosFetch(
           `${serverUrl.replace(/\/+$/, "")}/api/setup/provider`,
@@ -108,7 +132,7 @@ export function useProviderConfig(
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(config),
+            body: JSON.stringify(savePayload),
           },
         );
       } catch {
@@ -117,8 +141,17 @@ export function useProviderConfig(
       setSaving(false);
       onDone();
     },
-    [config, onDone],
+    [config, activeProvider, onDone],
   );
 
-  return { config, statuses, saving, updateField, handleTest, handleSave };
+  return {
+    config,
+    activeProvider,
+    statuses,
+    saving,
+    updateField,
+    setActiveProvider: handleSetActive,
+    handleTest,
+    handleSave,
+  };
 }

@@ -15,6 +15,9 @@ PUBLIC_PATHS = {
 
 class ApiKeyMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
+        if request.method == "OPTIONS":
+            return await call_next(request)
+
         path = request.url.path
         for public in PUBLIC_PATHS:
             if path == public or path.startswith(public + "/"):
@@ -30,6 +33,10 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
             )
 
         key = request.headers.get("x-api-key", "")
+        if not key:
+            auth_header = request.headers.get("Authorization", "")
+            if auth_header.startswith("Bearer "):
+                key = auth_header[7:]
         if key != app_key:
             logger.warning(
                 "[auth] rejected request from {} - invalid key",
@@ -40,5 +47,12 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
                 content='{"detail":"Invalid API key"}',
                 media_type="application/json",
             )
+
+        logger.info(
+            "[auth] authenticated request from {} - {} {}",
+            request.client.host if request.client else "unknown",
+            request.method,
+            path,
+        )
 
         return await call_next(request)
