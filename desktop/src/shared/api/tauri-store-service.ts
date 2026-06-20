@@ -1,3 +1,5 @@
+import { Store } from "@tauri-apps/plugin-store";
+
 const STORE_NAME = "settings.json";
 
 export class TauriStoreService {
@@ -5,7 +7,6 @@ export class TauriStoreService {
 
   private static async getStore() {
     if (!this.instance) {
-      const { Store } = await import("@tauri-apps/plugin-store");
       this.instance = await Store.load(STORE_NAME);
     }
     return this.instance;
@@ -34,7 +35,7 @@ export class TauriStoreService {
   static async getAll(): Promise<Record<string, unknown>> {
     try {
       const store = await this.getStore();
-      return (await store.entries()).reduce(
+      return (await store.entries()).reduce<Record<string, unknown>>(
         (acc, [key, val]) => ({ ...acc, [key]: val }),
         {},
       );
