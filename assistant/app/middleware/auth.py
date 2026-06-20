@@ -2,7 +2,15 @@ from fastapi import Request, Response
 from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
-PUBLIC_PATHS = {"/health", "/docs", "/openapi.json", "/auth", "/api/setup", "/", "/metrics"}
+PUBLIC_PATHS = {
+    "/health",
+    "/docs",
+    "/openapi.json",
+    "/auth",
+    "/api/setup",
+    "/",
+    "/metrics",
+}
 
 
 class ApiKeyMiddleware(BaseHTTPMiddleware):
