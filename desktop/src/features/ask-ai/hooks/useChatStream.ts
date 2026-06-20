@@ -101,7 +101,7 @@ export function useChatStream(serverUrl: string, apiKey: string) {
         setLoading(false);
       }
     },
-    [serverUrl, apiKey],
+    [serverUrl, apiKey, loading],
   );
 
   useEffect(() => {
