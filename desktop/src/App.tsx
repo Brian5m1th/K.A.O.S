@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import ProviderScreen from "./components/ProviderScreen";
-import VaultScreen from "./components/VaultScreen";
-import ChatScreen from "./components/ChatScreen";
-import SettingsScreen from "./components/SettingsScreen";
+import { TauriStoreService } from "@/shared/api/tauri-store-service";
+import { Sidebar } from "@/widgets/sidebar";
+import ChatPage from "@/pages/chat";
+import ProvidersPage from "@/pages/providers";
+import VaultPage from "@/pages/vault";
+import SettingsPage from "@/pages/settings";
+import "@/shared/styles/globals.css";
 
 type Screen = "provider" | "vault" | "chat" | "settings";
 
@@ -10,72 +13,41 @@ const BACKEND_URL = "http://localhost:8000";
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("provider");
-  const [vaultPath, setVaultPath] = useState<string>("");
+  const [vaultPath, setVaultPath] = useState("");
   const [connected, setConnected] = useState(false);
   const [apiKey, setApiKey] = useState("");
 
   useEffect(() => {
-    loadApiKey();
+    TauriStoreService.get<string>("kaosApiKey").then((key) => {
+      if (key) setApiKey(key);
+    });
   }, []);
 
-  const loadApiKey = async () => {
-    try {
-      const { Store } = await import("@tauri-apps/plugin-store");
-      const store = await Store.load("settings.json");
-      const saved = await store.get<string>("kaosApiKey");
-      if (saved) setApiKey(saved);
-    } catch {}
-  };
-
-  const handleProviderDone = () => {
-    setScreen("vault");
-  };
-
+  const handleProviderDone = () => setScreen("vault");
   const handleVaultDone = (vp: string) => {
     setVaultPath(vp);
     setConnected(true);
     setScreen("chat");
   };
-
-  const handleDisconnect = () => {
-    setConnected(false);
-  };
+  const handleDisconnect = () => setConnected(false);
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <header style={{
-        padding: "8px 16px",
-        background: "#1a1a2e",
-        color: "#e0e0e0",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        fontSize: "14px",
-      }}>
-        <span style={{ fontWeight: "bold" }}>KAOS v0.5.0</span>
-        <span style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-          <span
-            onClick={() => setScreen("settings")}
-            style={{ cursor: "pointer", color: "#888", fontSize: "18px", lineHeight: 1 }}
-            title="Settings"
-          >
-            ⚙
-          </span>
-          <span style={{ color: connected ? "#4caf50" : "#f44336" }}>
-            {connected ? "Connected" : "Disconnected"}
-          </span>
-        </span>
-      </header>
-
-      <main style={{ flex: 1, overflow: "auto" }}>
+    <div className="flex h-full">
+      <Sidebar
+        currentScreen={screen}
+        onNavigate={setScreen}
+        connected={connected}
+      />
+      <main className="flex-1 overflow-auto bg-canvas">
         {screen === "provider" && (
-          <ProviderScreen
+          <ProvidersPage
             onDone={handleProviderDone}
             serverUrl={BACKEND_URL}
+            apiKey={apiKey}
           />
         )}
         {screen === "vault" && (
-          <VaultScreen
+          <VaultPage
             onDone={handleVaultDone}
             initialPath={vaultPath}
             serverUrl={BACKEND_URL}
@@ -83,14 +55,14 @@ export default function App() {
           />
         )}
         {screen === "chat" && (
-          <ChatScreen
+          <ChatPage
             serverUrl={BACKEND_URL}
-            onDisconnect={handleDisconnect}
             apiKey={apiKey}
+            onDisconnect={handleDisconnect}
           />
         )}
         {screen === "settings" && (
-          <SettingsScreen
+          <SettingsPage
             onClose={() => setScreen("provider")}
             onKeyChange={setApiKey}
           />
