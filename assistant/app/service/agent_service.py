@@ -2,8 +2,36 @@ import time
 from langchain_core.messages import HumanMessage
 from loguru import logger
 
-from app.agent.graph import agent_graph
 from app.agent.state import AgentState
+
+
+def _get_graph():
+    from app.agent.graph import agent_graph
+    return agent_graph
+
+
+def _make_state(
+    user_message: str,
+    session_id: str,
+    user_id: str = "",
+    username: str = "",
+    role: str = "user",
+    model: str | None = None,
+    ingest_source_path: str | None = None,
+) -> AgentState:
+    return {
+        "messages": [HumanMessage(content=user_message)],
+        "retrieved_context": [],
+        "tool_to_call": None,
+        "tool_args": {},
+        "tool_result": None,
+        "session_id": session_id,
+        "user_id": user_id,
+        "username": username,
+        "role": role,
+        "model": model,
+        "ingest_source_path": ingest_source_path,
+    }
 
 
 class AgentService:
@@ -21,21 +49,11 @@ class AgentService:
         logger.info("[start] AgentService - process_message")
         logger.info(f"[info] AgentService - sessao {session_id} [user={user_id}]")
 
-        initial_state: AgentState = {
-            "messages": [HumanMessage(content=user_message)],
-            "retrieved_context": [],
-            "tool_to_call": None,
-            "tool_args": {},
-            "tool_result": None,
-            "session_id": session_id,
-            "user_id": user_id,
-            "username": username,
-            "role": role,
-            "model": model,
-            "ingest_source_path": ingest_source_path,
-        }
+        initial_state = _make_state(
+            user_message, session_id, user_id, username, role, model, ingest_source_path
+        )
 
-        final_state = await agent_graph.ainvoke(initial_state)
+        final_state = await _get_graph().ainvoke(initial_state)
 
         last_ai_message = next(
             (m for m in reversed(final_state["messages"]) if m.type == "ai"),
@@ -68,22 +86,12 @@ class AgentService:
         logger.info("[start] AgentService - stream_message")
         logger.info(f"[info] AgentService - sessao {session_id} [user={user_id}]")
 
-        initial_state: AgentState = {
-            "messages": [HumanMessage(content=user_message)],
-            "retrieved_context": [],
-            "tool_to_call": None,
-            "tool_args": {},
-            "tool_result": None,
-            "session_id": session_id,
-            "user_id": user_id,
-            "username": username,
-            "role": role,
-            "model": model,
-            "ingest_source_path": ingest_source_path,
-        }
+        initial_state = _make_state(
+            user_message, session_id, user_id, username, role, model, ingest_source_path
+        )
 
         result_parts = []
-        async for event in agent_graph.astream_events(initial_state, version="v2"):
+        async for event in _get_graph().astream_events(initial_state, version="v2"):
             kind = event.get("event")
             if kind == "on_chat_model_stream":
                 chunk = event.get("data", {}).get("chunk", None)

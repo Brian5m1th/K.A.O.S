@@ -119,14 +119,19 @@ class IntentClassifier:
             return keyword_match
 
         logger.info("[info] IntentClassifier - fallback LLM")
-        provider = self._get_provider()
-        response = await provider.ainvoke(
-            [
-                SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
-                HumanMessage(content=message),
-            ]
-        )
-        content = response.content.strip().upper()
+        try:
+            provider = self._get_provider()
+            response = await provider.ainvoke(
+                [
+                    SystemMessage(content=SYSTEM_PROMPT_CLASSIFIER),
+                    HumanMessage(content=message),
+                ]
+            )
+            content = response.content.strip().upper()
+        except Exception as e:
+            logger.warning(f"[warn] IntentClassifier - LLM fallback falhou: {e}")
+            logger.debug("[finish] IntentClassifier - classify (LLM fallback: SMART)")
+            return IntentType.SMART
         if "INGEST" in content:
             logger.debug("[finish] IntentClassifier - classify (LLM: INGEST)")
             return IntentType.INGEST

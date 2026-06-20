@@ -85,4 +85,4 @@ def register_github_tools():
     logger.info("[info] github - 3 tools registradas no TOOL_REGISTRY")
 
 
-register_github_tools()
+

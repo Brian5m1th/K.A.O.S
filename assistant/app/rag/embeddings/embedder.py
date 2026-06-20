@@ -1,4 +1,3 @@
-import torch
 from loguru import logger
 from app.config.settings import settings
 
@@ -12,6 +11,8 @@ class Embedder:
     }
 
     def __init__(self, model_key: str | None = None) -> None:
+        import torch
+
         logger.info("[start] Embedder - __init__")
         if settings.HF_TOKEN:
             from huggingface_hub import login
@@ -43,6 +44,8 @@ class Embedder:
         logger.debug("[finish] Embedder - __init__")
 
     def _get_device(self) -> str:
+        import torch
+
         if torch.cuda.is_available():
             return "cuda"
         if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():

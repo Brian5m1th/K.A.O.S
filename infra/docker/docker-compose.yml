@@ -37,7 +37,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://ai-p:ai-admin@postgres:5432/kaos
       - OPENAI_API_BASE_URL=http://host.docker.internal:8000/v1
-      - OPENAI_API_KEY=kaos-local
+      - OPENAI_API_KEY=kaos-dev-key
       - WEBUI_NAME=K.A.O.S
       - DEFAULT_MODELS=kaos,kaos-rag,kaos-fast
       - ENABLE_OAUTH=false
@@ -81,6 +81,7 @@ services:
     volumes:
       - vault_data:/vault
       - ./logs:/var/log/kaos-api
+      - hf_cache:/root/.cache/huggingface
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -148,3 +149,4 @@ volumes:
   prometheus_data:
   loki_data:
   grafana_data:
+  hf_cache:
