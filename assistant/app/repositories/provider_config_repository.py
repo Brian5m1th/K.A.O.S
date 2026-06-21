@@ -5,7 +5,6 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-
 @dataclass
 class ProviderConfigRecord:
     id: int
@@ -21,9 +20,7 @@ class ProviderConfigRepository:
     def __init__(self, session: AsyncSession):
         self._session = session
 
-    async def get_by_type(
-        self, provider_type: str
-    ) -> list[ProviderConfigRecord]:
+    async def get_by_type(self, provider_type: str) -> list[ProviderConfigRecord]:
         result = await self._session.execute(
             text("""
                 SELECT * FROM provider_configs

@@ -1,4 +1,3 @@
-
 from app.repositories.model_repository import ModelRecord, ModelRepository
 from app.repositories.capability_policy_repository import (
     CapabilityPolicyRecord,

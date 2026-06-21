@@ -39,9 +39,7 @@ class UserModelProfileRepository:
             model_name=row.model_name,
         )
 
-    async def upsert(
-        self, user_id: str, workflow_type: str, model_name: str
-    ) -> UUID:
+    async def upsert(self, user_id: str, workflow_type: str, model_name: str) -> UUID:
         result = await self._session.execute(
             text("""
                 INSERT INTO user_model_profiles (user_id, workflow_type, model_name)

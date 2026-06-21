@@ -39,9 +39,7 @@ class CapabilityPolicyRepository:
             for row in result.fetchall()
         ]
 
-    async def upsert(
-        self, capability: str, priority_order: int, model_id: int
-    ) -> int:
+    async def upsert(self, capability: str, priority_order: int, model_id: int) -> int:
         result = await self._session.execute(
             text("""
                 INSERT INTO capability_policies (capability, priority_order, model_id)
