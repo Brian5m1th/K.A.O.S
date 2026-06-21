@@ -79,7 +79,7 @@ services:
       - APP_ENV=production
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
-      - vault_data:/vault
+      - ../../docs/vault:/vault
       - ./logs:/var/log/kaos-api
       - hf_cache:/root/.cache/huggingface
     extra_hosts:
@@ -145,7 +145,6 @@ volumes:
   qdrant_data:
   open_webui_data:
   n8n_data:
-  vault_data:
   prometheus_data:
   loki_data:
   grafana_data:
