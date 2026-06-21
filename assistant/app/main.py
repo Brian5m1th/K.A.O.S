@@ -17,6 +17,7 @@ from app.api.chat import router as chat_router
 from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
 from app.api.openai import router as openai_router, legacy_router
+from app.api.orchestrator import router as orchestrator_router
 from app.api.rag import router as rag_router
 from app.api.setup import router as setup_router
 from app.api.webhooks import router as webhooks_router
@@ -163,6 +164,7 @@ app.include_router(indexing_router)
 app.include_router(rag_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
+app.include_router(orchestrator_router)
 app.include_router(setup_router)
 app.include_router(webhooks_router)
 
@@ -186,6 +188,7 @@ async def root() -> dict:
             "indexing": "/indexing/full",
             "init_folders": "/indexing/init-folders",
             "rag_context": "/rag/context",
+            "orchestrator": "/api/orchestrator/execute",
             "setup_provider": "/api/setup/provider",
         },
     }
