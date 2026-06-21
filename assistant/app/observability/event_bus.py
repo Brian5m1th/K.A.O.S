@@ -29,7 +29,9 @@ class EventBus:
         if event_name not in cls._subscribers:
             cls._subscribers[event_name] = []
         cls._subscribers[event_name].append(subscriber)
-        logger.info(f"[event_bus] subscriber registered: {subscriber.__class__.__name__} for {event_name}")
+        logger.info(
+            f"[event_bus] subscriber registered: {subscriber.__class__.__name__} for {event_name}"
+        )
 
     @classmethod
     def unsubscribe(cls, event_name: str, subscriber: EventSubscriber) -> None:

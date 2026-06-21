@@ -17,9 +17,7 @@ class ServiceRegistry:
     _memory_providers: dict[str, type[BaseMemoryProvider]] = {}
 
     @classmethod
-    def register_workflow(
-        cls, name: str, workflow: type[BaseWorkflow]
-    ) -> None:
+    def register_workflow(cls, name: str, workflow: type[BaseWorkflow]) -> None:
         cls._workflows[name] = workflow
         logger.info(f"[registry] workflow registered: {name}")
 
@@ -38,9 +36,7 @@ class ServiceRegistry:
         logger.info(f"[registry] embedding provider registered: {name}")
 
     @classmethod
-    def register_vector_store(
-        cls, name: str, store: type[BaseVectorStore]
-    ) -> None:
+    def register_vector_store(cls, name: str, store: type[BaseVectorStore]) -> None:
         cls._vector_stores[name] = store
         logger.info(f"[registry] vector store registered: {name}")
 
