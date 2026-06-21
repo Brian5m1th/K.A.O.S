@@ -57,7 +57,9 @@ class PlanExecutor:
             await self._health_cache.mark_unhealthy(provider_name)
 
             self._add_to_dlq(
-                plan, str(exc), {"model": plan.selected_model, "provider": provider_name}
+                plan,
+                str(exc),
+                {"model": plan.selected_model, "provider": provider_name},
             )
 
             yield f"Erro na execucao: {exc}"
@@ -68,7 +70,11 @@ class PlanExecutor:
         if self._circuit_breaker.state != CircuitState.OPEN:
             return True
         import time as time_module
-        if time_module.monotonic() - self._circuit_breaker._last_failure_time >= self._circuit_breaker._recovery_timeout:
+
+        if (
+            time_module.monotonic() - self._circuit_breaker._last_failure_time
+            >= self._circuit_breaker._recovery_timeout
+        ):
             self._circuit_breaker.reset()
             return True
         return False
