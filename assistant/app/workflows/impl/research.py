@@ -30,9 +30,11 @@ class ResearchWorkflow(BaseWorkflow):
             collection="knowledge", query_vector=query_vector, limit=15
         )
 
-        context = "\n\n".join(
-            f"[{r.path}] {r.excerpt}" for r in results
-        ) if results else "Nenhum contexto encontrado."
+        context = (
+            "\n\n".join(f"[{r.path}] {r.excerpt}" for r in results)
+            if results
+            else "Nenhum contexto encontrado."
+        )
 
         chat_provider_name = plan.provider_configs.get("provider", "ollama")
         chat_provider = ServiceRegistry.get_chat_provider(

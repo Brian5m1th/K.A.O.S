@@ -27,6 +27,7 @@ class MemoryWorkflow(BaseWorkflow):
 
         if request.message.startswith("/save"):
             from app.domain.chat import Message
+
             msg = Message(role="user", content=request.message)
             await memory_provider.save(str(plan.session_id), [msg])
             yield "Memoria salva."

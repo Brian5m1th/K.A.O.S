@@ -18,11 +18,10 @@ class IngestWorkflow(BaseWorkflow):
     async def execute(
         self, plan: ExecutionPlan, request: ChatRequest
     ) -> AsyncIterator[str]:
-        logger.info(
-            f"[start] IngestWorkflow - execute plan={plan.execution_id}"
-        )
+        logger.info(f"[start] IngestWorkflow - execute plan={plan.execution_id}")
 
         from app.rag.indexer.vault_indexer import VaultIndexer
+
         indexer = VaultIndexer()
         result = indexer.index_vault()
         yield (
