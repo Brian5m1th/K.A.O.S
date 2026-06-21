@@ -37,7 +37,7 @@ class UniversalOrchestrator:
             uuid5(UUID(int=0), request.session_id) if request.session_id else uuid4()
         )
 
-        model_name = request.model or "qwen3:4b"
+        model_name = "qwen3:4b"
         plan = ExecutionPlan.create(
             workflow=workflow,
             selected_model=model_name,
