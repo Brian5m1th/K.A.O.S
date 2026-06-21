@@ -130,7 +130,9 @@ class TestRegisterAllProviders:
         bge = ServiceRegistry.get_embedding_provider("bge")
         assert isinstance(bge, BgeEmbeddingProvider)
 
-        openai_emb = ServiceRegistry.get_embedding_provider("openai", {"model": "text-embedding-3-small"})
+        openai_emb = ServiceRegistry.get_embedding_provider(
+            "openai", {"model": "text-embedding-3-small"}
+        )
         assert isinstance(openai_emb, OpenAIEmbeddingProvider)
 
     def test_get_vector_store_instances(self):

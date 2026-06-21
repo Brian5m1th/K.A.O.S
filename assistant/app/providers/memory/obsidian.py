@@ -14,12 +14,8 @@ class ObsidianMemoryProvider(BaseMemoryProvider):
     async def save(self, session_id: str, messages: list[Message]) -> None:
         logger.info(f"[start] ObsidianMemoryProvider - save session={session_id}")
 
-        user_msg = next(
-            (m.content for m in messages if m.role == "user"), ""
-        )
-        assistant_msg = next(
-            (m.content for m in messages if m.role == "assistant"), ""
-        )
+        user_msg = next((m.content for m in messages if m.role == "user"), "")
+        assistant_msg = next((m.content for m in messages if m.role == "assistant"), "")
         summary = f"Conversation with {len(messages)} messages"
 
         self._service.save_conversation(
@@ -47,5 +43,6 @@ class ObsidianMemoryProvider(BaseMemoryProvider):
     async def healthcheck(self) -> bool:
         from pathlib import Path
         from app.config.settings import settings
+
         vault = Path(settings.OBSIDIAN_VAULT_PATH)
         return vault.exists()

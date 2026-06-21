@@ -30,6 +30,7 @@ class GeminiChatProvider(BaseChatProvider):
         logger.info("[start] GeminiChatProvider - chat")
 
         import httpx
+
         gemini_msgs, system = self._convert_messages(messages)
         payload = {"contents": gemini_msgs}
         if system:
@@ -49,6 +50,7 @@ class GeminiChatProvider(BaseChatProvider):
 
         import httpx
         import json as json_module
+
         gemini_msgs, system = self._convert_messages(messages)
         payload = {"contents": gemini_msgs}
         if system:
@@ -56,9 +58,7 @@ class GeminiChatProvider(BaseChatProvider):
 
         url = f"{GEMINI_API_URL}/{self._model}:streamGenerateContent?key={self._api_key}&alt=sse"
         async with httpx.AsyncClient(timeout=120.0) as client:
-            async with client.stream(
-                "POST", url, json=payload
-            ) as response:
+            async with client.stream("POST", url, json=payload) as response:
                 response.raise_for_status()
                 async for line in response.aiter_lines():
                     if line.startswith("data: "):
@@ -81,6 +81,7 @@ class GeminiChatProvider(BaseChatProvider):
 
     async def healthcheck(self) -> bool:
         import httpx
+
         try:
             url = f"{GEMINI_API_URL}?key={self._api_key}"
             async with httpx.AsyncClient(timeout=5.0) as client:

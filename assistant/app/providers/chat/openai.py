@@ -18,6 +18,7 @@ class OpenAIChatProvider(BaseChatProvider):
         logger.info("[start] OpenAIChatProvider - chat")
 
         import httpx
+
         headers = {
             "Authorization": f"Bearer {self._api_key}",
             "Content-Type": "application/json",
@@ -43,6 +44,7 @@ class OpenAIChatProvider(BaseChatProvider):
         logger.info("[start] OpenAIChatProvider - stream")
 
         import httpx
+
         headers = {
             "Authorization": f"Bearer {self._api_key}",
             "Content-Type": "application/json",
@@ -67,6 +69,7 @@ class OpenAIChatProvider(BaseChatProvider):
                         if chunk_data.strip() == "[DONE]":
                             break
                         import json as json_module
+
                         chunk = json_module.loads(chunk_data)
                         delta = chunk.get("choices", [{}])[0].get("delta", {})
                         content = delta.get("content", "")
@@ -77,23 +80,21 @@ class OpenAIChatProvider(BaseChatProvider):
 
     async def models(self) -> list[str]:
         import httpx
+
         headers = {"Authorization": f"Bearer {self._api_key}"}
         async with httpx.AsyncClient(timeout=10.0) as client:
-            response = await client.get(
-                f"{self._base_url}/models", headers=headers
-            )
+            response = await client.get(f"{self._base_url}/models", headers=headers)
             response.raise_for_status()
             data = response.json()
             return [m["id"] for m in data.get("data", [])]
 
     async def healthcheck(self) -> bool:
         import httpx
+
         try:
             headers = {"Authorization": f"Bearer {self._api_key}"}
             async with httpx.AsyncClient(timeout=5.0) as client:
-                response = await client.get(
-                    f"{self._base_url}/models", headers=headers
-                )
+                response = await client.get(f"{self._base_url}/models", headers=headers)
                 return response.status_code == 200
         except httpx.RequestError:
             return False

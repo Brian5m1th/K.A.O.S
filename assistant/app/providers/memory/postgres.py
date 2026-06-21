@@ -1,6 +1,9 @@
 from loguru import logger
 
-from app.memory.postgres_repository import PostgresMemoryRepository, get_postgres_repository
+from app.memory.postgres_repository import (
+    PostgresMemoryRepository,
+    get_postgres_repository,
+)
 from app.providers.base.memory import BaseMemoryProvider
 from app.domain.chat import Message
 
@@ -21,9 +24,7 @@ class PostgresMemoryProvider(BaseMemoryProvider):
         repo = await self._ensure_repo()
 
         user_msg = next((m.content for m in messages if m.role == "user"), "")
-        assistant_msg = next(
-            (m.content for m in messages if m.role == "assistant"), ""
-        )
+        assistant_msg = next((m.content for m in messages if m.role == "assistant"), "")
         summary = f"Conversation with {len(messages)} messages"
 
         await repo.save_conversation(
@@ -40,10 +41,7 @@ class PostgresMemoryProvider(BaseMemoryProvider):
         repo = await self._ensure_repo()
         history = await repo.get_conversation_history(session_id)
         logger.debug("[finish] PostgresMemoryProvider - load")
-        return [
-            Message(role=msg["role"], content=msg["content"])
-            for msg in history
-        ]
+        return [Message(role=msg["role"], content=msg["content"]) for msg in history]
 
     async def clear(self, session_id: str) -> None:
         logger.info(f"[start] PostgresMemoryProvider - clear session={session_id}")

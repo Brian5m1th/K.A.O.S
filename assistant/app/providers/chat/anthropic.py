@@ -19,6 +19,7 @@ class AnthropicChatProvider(BaseChatProvider):
         logger.info("[start] AnthropicChatProvider - chat")
 
         import httpx
+
         system = None
         chat_messages = []
         for m in messages:
@@ -56,6 +57,7 @@ class AnthropicChatProvider(BaseChatProvider):
 
         import httpx
         import json as json_module
+
         system = None
         chat_messages = []
         for m in messages:
@@ -101,6 +103,7 @@ class AnthropicChatProvider(BaseChatProvider):
 
     async def healthcheck(self) -> bool:
         import httpx
+
         try:
             headers = {
                 "x-api-key": self._api_key,

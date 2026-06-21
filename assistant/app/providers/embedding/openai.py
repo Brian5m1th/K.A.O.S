@@ -6,7 +6,12 @@ from app.providers.base.embedding import BaseEmbeddingProvider
 class OpenAIEmbeddingProvider(BaseEmbeddingProvider):
     provider_name = "openai"
 
-    def __init__(self, api_key: str = "", model: str = "text-embedding-3-small", base_url: str = ""):
+    def __init__(
+        self,
+        api_key: str = "",
+        model: str = "text-embedding-3-small",
+        base_url: str = "",
+    ):
         self._api_key = api_key
         self._model = model
         self._base_url = base_url or "https://api.openai.com/v1"
@@ -21,6 +26,7 @@ class OpenAIEmbeddingProvider(BaseEmbeddingProvider):
         logger.info(f"[start] OpenAIEmbeddingProvider - embed_batch size={len(texts)}")
 
         import httpx
+
         headers = {
             "Authorization": f"Bearer {self._api_key}",
             "Content-Type": "application/json",

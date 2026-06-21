@@ -9,7 +9,9 @@ from app.domain.chat import Message
 class OllamaChatProvider(BaseChatProvider):
     provider_name = "ollama"
 
-    def __init__(self, base_url: str = "http://localhost:11434", model: str = "qwen3:4b"):
+    def __init__(
+        self, base_url: str = "http://localhost:11434", model: str = "qwen3:4b"
+    ):
         self._base_url = base_url
         self._model = model
 
@@ -17,6 +19,7 @@ class OllamaChatProvider(BaseChatProvider):
         logger.info("[start] OllamaChatProvider - chat")
 
         import httpx
+
         payload = {
             "model": self._model,
             "messages": [m.model_dump() for m in messages],
@@ -24,9 +27,7 @@ class OllamaChatProvider(BaseChatProvider):
             **kwargs,
         }
         async with httpx.AsyncClient(timeout=600.0) as client:
-            response = await client.post(
-                f"{self._base_url}/api/chat", json=payload
-            )
+            response = await client.post(f"{self._base_url}/api/chat", json=payload)
             response.raise_for_status()
             data = response.json()
 
@@ -38,6 +39,7 @@ class OllamaChatProvider(BaseChatProvider):
 
         import json as json_module
         import httpx
+
         payload = {
             "model": self._model,
             "messages": [m.model_dump() for m in messages],
@@ -59,6 +61,7 @@ class OllamaChatProvider(BaseChatProvider):
 
     async def models(self) -> list[str]:
         import httpx
+
         async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.get(f"{self._base_url}/api/tags")
             response.raise_for_status()
@@ -67,6 +70,7 @@ class OllamaChatProvider(BaseChatProvider):
 
     async def healthcheck(self) -> bool:
         import httpx
+
         try:
             async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.get(f"{self._base_url}/api/tags")

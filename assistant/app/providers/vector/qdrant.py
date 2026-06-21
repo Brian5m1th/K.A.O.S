@@ -28,6 +28,7 @@ class QdrantVectorStore(BaseVectorStore):
     def _get_embedder(self):
         if self._embedder is None:
             from app.rag.embeddings.embedder import get_embedder
+
             self._embedder = get_embedder()
         return self._embedder
 
@@ -52,7 +53,9 @@ class QdrantVectorStore(BaseVectorStore):
                 )
             self._ready = True
         except Exception:
-            logger.warning("[warn] QdrantVectorStore - Qdrant unavailable, deferring init")
+            logger.warning(
+                "[warn] QdrantVectorStore - Qdrant unavailable, deferring init"
+            )
 
     async def upsert(self, collection: str, vectors: list[dict]) -> None:
         logger.info(f"[start] QdrantVectorStore - upsert collection={collection}")
@@ -60,6 +63,7 @@ class QdrantVectorStore(BaseVectorStore):
         await self._ensure_collection()
 
         import hashlib
+
         points = []
         for entry in vectors:
             point_id = hashlib.md5(
@@ -79,7 +83,9 @@ class QdrantVectorStore(BaseVectorStore):
     async def search(
         self, collection: str, query_vector: list[float], limit: int
     ) -> list[SearchResult]:
-        logger.info(f"[start] QdrantVectorStore - search collection={collection} limit={limit}")
+        logger.info(
+            f"[start] QdrantVectorStore - search collection={collection} limit={limit}"
+        )
 
         await self._ensure_collection()
 
@@ -103,7 +109,9 @@ class QdrantVectorStore(BaseVectorStore):
         ]
 
     async def delete(self, collection: str, ids: list[str]) -> None:
-        logger.info(f"[start] QdrantVectorStore - delete collection={collection} ids={len(ids)}")
+        logger.info(
+            f"[start] QdrantVectorStore - delete collection={collection} ids={len(ids)}"
+        )
 
         await self._ensure_collection()
 
