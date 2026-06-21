@@ -13,13 +13,19 @@ import uuid
 from pathlib import Path
 
 from app.api.auth import router as auth_router
+from app.api.capabilities import router as capabilities_router
 from app.api.chat import router as chat_router
+from app.api.feature_flags import router as feature_flags_router
 from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
+from app.api.models import router as models_router
 from app.api.openai import router as openai_router, legacy_router
 from app.api.orchestrator import router as orchestrator_router
+from app.api.provider_configs import router as provider_configs_router
 from app.api.rag import router as rag_router
 from app.api.setup import router as setup_router
+from app.api.user_model_profiles import router as user_model_profiles_router
+from app.api.users import router as users_router
 from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
@@ -158,14 +164,20 @@ app.add_middleware(ApiKeyMiddleware)
 app.add_middleware(UserContextMiddleware)
 
 app.include_router(auth_router)
-app.include_router(health_router)
+app.include_router(capabilities_router)
 app.include_router(chat_router)
+app.include_router(feature_flags_router)
+app.include_router(health_router)
 app.include_router(indexing_router)
-app.include_router(rag_router)
+app.include_router(models_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
 app.include_router(orchestrator_router)
+app.include_router(provider_configs_router)
+app.include_router(rag_router)
 app.include_router(setup_router)
+app.include_router(user_model_profiles_router)
+app.include_router(users_router)
 app.include_router(webhooks_router)
 
 Instrumentator(
