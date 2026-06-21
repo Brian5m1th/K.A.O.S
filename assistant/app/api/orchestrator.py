@@ -53,7 +53,10 @@ async def execute_workflow(
 
 @router.get("/dlq")
 async def list_dlq():
-    return {"failed": [str(f.execution_id) for f in DeadLetterQueue.list_all()], "count": DeadLetterQueue.count()}
+    return {
+        "failed": [str(f.execution_id) for f in DeadLetterQueue.list_all()],
+        "count": DeadLetterQueue.count(),
+    }
 
 
 @router.delete("/dlq")
