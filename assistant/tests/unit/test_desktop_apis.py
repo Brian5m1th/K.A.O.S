@@ -1,4 +1,4 @@
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
 from fastapi.testclient import TestClient
@@ -9,9 +9,7 @@ from app.repositories.capability_policy_repository import (
 )
 from app.repositories.feature_flag_repository import FeatureFlagRecord
 from app.repositories.model_repository import ModelRecord
-from app.repositories.provider_config_repository import (
-    ProviderConfigRecord,
-)
+
 from app.repositories.user_model_profile_repository import (
     UserModelProfileRecord,
 )
