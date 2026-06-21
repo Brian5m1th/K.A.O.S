@@ -16,8 +16,14 @@ async def test_get_model(mock_session):
     registry = ModelRegistry(mock_session)
     registry._repo.get_by_name = AsyncMock(
         return_value=ModelRecord(
-            id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
-            cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+            id=1,
+            name="qwen3:4b",
+            provider_name="ollama",
+            context_window=8192,
+            cost_input=0.0,
+            cost_output=0.0,
+            capabilities=["fast_chat"],
+            is_active=True,
         )
     )
     result = await registry.get_model("qwen3:4b")
