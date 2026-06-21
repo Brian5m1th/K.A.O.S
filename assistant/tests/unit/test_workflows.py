@@ -1,3 +1,5 @@
+import pytest
+
 from app.workflows.impl.chat import ChatWorkflow
 from app.workflows.impl.rag import RagWorkflow
 from app.workflows.impl.agent import AgentWorkflow
