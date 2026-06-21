@@ -12,7 +12,6 @@ from qdrant_client.models import (
 from app.config.settings import settings
 from app.domain.document import SearchResult
 from app.providers.base.vector_store import BaseVectorStore
-from app.rag.embeddings.embedder import get_embedder
 
 
 class QdrantVectorStore(BaseVectorStore):
@@ -22,28 +21,43 @@ class QdrantVectorStore(BaseVectorStore):
         self._client = QdrantClient(
             host=settings.QDRANT_HOST, port=settings.QDRANT_PORT
         )
-        self._embedder = get_embedder()
         self._collection = collection or settings.QDRANT_COLLECTION
-        self._ensure_collection()
+        self._embedder = None
+        self._ready = False
 
-    def _ensure_collection(self) -> None:
-        existing = [c.name for c in self._client.get_collections().collections]
-        if self._collection in existing:
-            collection_info = self._client.get_collection(self._collection)
-            existing_dim = collection_info.config.params.vectors.size
-            if existing_dim != self._embedder.dimension:
-                self._client.delete_collection(self._collection)
-                existing = []
-        if self._collection not in existing:
-            self._client.create_collection(
-                collection_name=self._collection,
-                vectors_config=VectorParams(
-                    size=self._embedder.dimension, distance=Distance.COSINE
-                ),
-            )
+    def _get_embedder(self):
+        if self._embedder is None:
+            from app.rag.embeddings.embedder import get_embedder
+            self._embedder = get_embedder()
+        return self._embedder
+
+    async def _ensure_collection(self) -> None:
+        if self._ready:
+            return
+        try:
+            embedder = self._get_embedder()
+            existing = [c.name for c in self._client.get_collections().collections]
+            if self._collection in existing:
+                collection_info = self._client.get_collection(self._collection)
+                existing_dim = collection_info.config.params.vectors.size
+                if existing_dim != embedder.dimension:
+                    self._client.delete_collection(self._collection)
+                    existing = []
+            if self._collection not in existing:
+                self._client.create_collection(
+                    collection_name=self._collection,
+                    vectors_config=VectorParams(
+                        size=embedder.dimension, distance=Distance.COSINE
+                    ),
+                )
+            self._ready = True
+        except Exception:
+            logger.warning("[warn] QdrantVectorStore - Qdrant unavailable, deferring init")
 
     async def upsert(self, collection: str, vectors: list[dict]) -> None:
         logger.info(f"[start] QdrantVectorStore - upsert collection={collection}")
+
+        await self._ensure_collection()
 
         import hashlib
         points = []
@@ -67,6 +81,8 @@ class QdrantVectorStore(BaseVectorStore):
     ) -> list[SearchResult]:
         logger.info(f"[start] QdrantVectorStore - search collection={collection} limit={limit}")
 
+        await self._ensure_collection()
+
         response = self._client.query_points(
             collection_name=collection,
             query=query_vector,
@@ -88,6 +104,9 @@ class QdrantVectorStore(BaseVectorStore):
 
     async def delete(self, collection: str, ids: list[str]) -> None:
         logger.info(f"[start] QdrantVectorStore - delete collection={collection} ids={len(ids)}")
+
+        await self._ensure_collection()
+
         self._client.delete(
             collection_name=collection,
             points_selector=Filter(

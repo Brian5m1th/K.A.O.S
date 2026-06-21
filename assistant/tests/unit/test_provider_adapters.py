@@ -1,5 +1,3 @@
-import pytest
-
 from app.providers.chat.ollama import OllamaChatProvider
 from app.providers.chat.openai import OpenAIChatProvider
 from app.providers.chat.anthropic import AnthropicChatProvider
@@ -15,7 +13,6 @@ from app.providers.base.vector_store import BaseVectorStore
 from app.providers.base.memory import BaseMemoryProvider
 from app.providers.register_all import register_all_providers
 from app.registry.service_registry import ServiceRegistry
-from app.domain.chat import Message
 
 
 class TestOllamaChatProvider:

@@ -2,7 +2,6 @@ from app.providers.chat.ollama import OllamaChatProvider
 from app.providers.chat.openai import OpenAIChatProvider
 from app.providers.chat.anthropic import AnthropicChatProvider
 from app.providers.chat.gemini import GeminiChatProvider
-from app.providers.base.chat import BaseChatProvider
 from app.registry.service_registry import ServiceRegistry
 
 
