@@ -77,17 +77,15 @@ class TestModelsAPI:
         assert response.json()["total"] == 1
 
     def test_get_model(self, client, mock_session):
-        mock_session.execute.return_value.scalar_one_or_none.return_value = (
-            ModelRecord(
-                id=1,
-                name="qwen3:4b",
-                provider_name="ollama",
-                context_window=8192,
-                cost_input=0.0,
-                cost_output=0.0,
-                capabilities=["fast_chat"],
-                is_active=True,
-            )
+        mock_session.execute.return_value.scalar_one_or_none.return_value = ModelRecord(
+            id=1,
+            name="qwen3:4b",
+            provider_name="ollama",
+            context_window=8192,
+            cost_input=0.0,
+            cost_output=0.0,
+            capabilities=["fast_chat"],
+            is_active=True,
         )
         response = client.get("/api/models/qwen3:4b")
         assert response.status_code == 200
@@ -98,7 +96,11 @@ class TestCapabilitiesAPI:
     def test_list_policies(self, client, mock_session):
         mock_session.execute.return_value.scalars.return_value.all.return_value = [
             CapabilityPolicyRecord(
-                id=1, capability="fast_chat", priority_order=1, model_id=1, model_name="qwen3:4b"
+                id=1,
+                capability="fast_chat",
+                priority_order=1,
+                model_id=1,
+                model_name="qwen3:4b",
             )
         ]
         response = client.get("/api/capabilities")
@@ -136,9 +138,13 @@ class TestFeatureFlagsAPI:
 class TestUserModelProfilesAPI:
     def test_list_profiles(self, client, mock_session):
         from uuid import UUID
+
         mock_session.execute.return_value.scalars.return_value.all.return_value = [
             UserModelProfileRecord(
-                id=UUID(int=1), user_id="user1", workflow_type="chat", model_name="qwen3:4b"
+                id=UUID(int=1),
+                user_id="user1",
+                workflow_type="chat",
+                model_name="qwen3:4b",
             )
         ]
         response = client.get("/api/user-model-profiles/user1")

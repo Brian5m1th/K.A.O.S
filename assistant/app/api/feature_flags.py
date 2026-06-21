@@ -15,7 +15,10 @@ async def list_flags(
     records = await repo.list_all()
     return {
         "total": len(records),
-        "flags": [{"flag": r.flag, "enabled": r.enabled, "description": r.description} for r in records],
+        "flags": [
+            {"flag": r.flag, "enabled": r.enabled, "description": r.description}
+            for r in records
+        ],
     }
 
 
