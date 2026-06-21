@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     QDRANT_PORT: int = 6333
     QDRANT_COLLECTION: str = "obsidian_memory"
 
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/kaos"
+    DATABASE_URL: str = "postgresql+psycopg://user:password@localhost:5432/kaos"
 
     API_KEY: str = ""
     HF_TOKEN: str = ""

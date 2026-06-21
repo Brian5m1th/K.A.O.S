@@ -13,16 +13,27 @@ import uuid
 from pathlib import Path
 
 from app.api.auth import router as auth_router
+from app.api.capabilities import router as capabilities_router
 from app.api.chat import router as chat_router
+from app.api.feature_flags import router as feature_flags_router
 from app.api.health import router as health_router
 from app.api.indexing import router as indexing_router
+from app.api.models import router as models_router
 from app.api.openai import router as openai_router, legacy_router
+from app.api.orchestrator import router as orchestrator_router
+from app.api.provider_configs import router as provider_configs_router
 from app.api.rag import router as rag_router
 from app.api.setup import router as setup_router
+from app.api.user_model_profiles import router as user_model_profiles_router
+from app.api.users import router as users_router
 from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
+from app.observability.event_bus import EventBus
+from app.observability.subscribers.audit_subscriber import AuditSubscriber
+from app.observability.subscribers.logger_subscriber import LoggerSubscriber
+from app.observability.subscribers.metrics_subscriber import MetricsSubscriber
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 
@@ -106,12 +117,62 @@ def _register_tools():
         _tools_registered = True
 
 
+def _register_observability() -> None:
+    logger_subscriber = LoggerSubscriber()
+    metrics_subscriber = MetricsSubscriber()
+    audit_subscriber = AuditSubscriber()
+    for name in (
+        "request_started",
+        "intent_classified",
+        "model_selected",
+        "workflow_started",
+        "workflow_completed",
+        "workflow_step",
+        "llm_request",
+        "llm_response",
+        "fallback_triggered",
+        "request_completed",
+        "error",
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
+        "orchestrator.execution_failed",
+    ):
+        EventBus.subscribe(name, logger_subscriber)
+    for name in (
+        "workflow_started",
+        "workflow_completed",
+        "orchestrator.execution_failed",
+        "llm_request",
+    ):
+        EventBus.subscribe(name, metrics_subscriber)
+    for name in (
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
+        "orchestrator.execution_failed",
+    ):
+        EventBus.subscribe(name, audit_subscriber)
+    logger.info("[observability] subscribers registered")
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher, _embedder_ready
-    logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
+    logger.info("[start] {} - modo {}", settings.APP_NAME, settings.APP_ENV)
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info("[auth] API key: {}", _app.state.api_key)
+
+    _register_observability()
+
+    logger.bind(
+        app=settings.APP_NAME,
+        env=settings.APP_ENV,
+        log_level=settings.LOG_LEVEL,
+        ollama_base=settings.OLLAMA_BASE_URL,
+        qdrant_host=settings.QDRANT_HOST,
+        database_url=settings.DATABASE_URL.split("@")[-1]
+        if "@" in settings.DATABASE_URL
+        else "local",
+    ).info("startup")
 
     _register_tools()
 
@@ -136,7 +197,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     yield
     if _watcher:
         _watcher.stop()
-    logger.debug(f"[finish] {settings.APP_NAME} - encerrado")
+    logger.debug("[finish] {} - encerrado", settings.APP_NAME)
 
 
 app = FastAPI(
@@ -157,13 +218,20 @@ app.add_middleware(ApiKeyMiddleware)
 app.add_middleware(UserContextMiddleware)
 
 app.include_router(auth_router)
-app.include_router(health_router)
+app.include_router(capabilities_router)
 app.include_router(chat_router)
+app.include_router(feature_flags_router)
+app.include_router(health_router)
 app.include_router(indexing_router)
-app.include_router(rag_router)
+app.include_router(models_router)
 app.include_router(openai_router)
 app.include_router(legacy_router)
+app.include_router(orchestrator_router)
+app.include_router(provider_configs_router)
+app.include_router(rag_router)
 app.include_router(setup_router)
+app.include_router(user_model_profiles_router)
+app.include_router(users_router)
 app.include_router(webhooks_router)
 
 Instrumentator(
@@ -186,6 +254,7 @@ async def root() -> dict:
             "indexing": "/indexing/full",
             "init_folders": "/indexing/init-folders",
             "rag_context": "/rag/context",
+            "orchestrator": "/api/orchestrator/execute",
             "setup_provider": "/api/setup/provider",
         },
     }
