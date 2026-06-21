@@ -30,6 +30,10 @@ from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
+from app.observability.event_bus import EventBus
+from app.observability.subscribers.audit_subscriber import AuditSubscriber
+from app.observability.subscribers.logger_subscriber import LoggerSubscriber
+from app.observability.subscribers.metrics_subscriber import MetricsSubscriber
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 
@@ -113,12 +117,60 @@ def _register_tools():
         _tools_registered = True
 
 
+def _register_observability() -> None:
+    logger_subscriber = LoggerSubscriber()
+    metrics_subscriber = MetricsSubscriber()
+    audit_subscriber = AuditSubscriber()
+    for name in (
+        "request_started",
+        "intent_classified",
+        "model_selected",
+        "workflow_started",
+        "workflow_completed",
+        "workflow_step",
+        "llm_request",
+        "llm_response",
+        "fallback_triggered",
+        "request_completed",
+        "error",
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
+        "orchestrator.execution_failed",
+    ):
+        EventBus.subscribe(name, logger_subscriber)
+    for name in (
+        "workflow_started",
+        "workflow_completed",
+        "orchestrator.execution_failed",
+        "llm_request",
+    ):
+        EventBus.subscribe(name, metrics_subscriber)
+    for name in (
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
+        "orchestrator.execution_failed",
+    ):
+        EventBus.subscribe(name, audit_subscriber)
+    logger.info("[observability] subscribers registered")
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher, _embedder_ready
-    logger.info(f"[start] {settings.APP_NAME} - modo {settings.APP_ENV}")
+    logger.info("[start] {} - modo {}", settings.APP_NAME, settings.APP_ENV)
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info("[auth] API key: {}", _app.state.api_key)
+
+    _register_observability()
+
+    logger.bind(
+        app=settings.APP_NAME,
+        env=settings.APP_ENV,
+        log_level=settings.LOG_LEVEL,
+        ollama_base=settings.OLLAMA_BASE_URL,
+        qdrant_host=settings.QDRANT_HOST,
+        database_url=settings.DATABASE_URL.split("@")[-1] if "@" in settings.DATABASE_URL else "local",
+    ).info("startup")
 
     _register_tools()
 
@@ -143,7 +195,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     yield
     if _watcher:
         _watcher.stop()
-    logger.debug(f"[finish] {settings.APP_NAME} - encerrado")
+    logger.debug("[finish] {} - encerrado", settings.APP_NAME)
 
 
 app = FastAPI(

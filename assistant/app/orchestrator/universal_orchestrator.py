@@ -9,7 +9,13 @@ from app.models.model_router import ModelRouter
 from app.orchestrator.circuit_breaker import CircuitBreaker
 from app.orchestrator.health_cache import ProviderHealthCache
 from app.orchestrator.plan_executor import PlanExecutor
-from app.observability.event_bus import Event, EventBus
+from app.observability.event_bus import (
+    EVENT_ORCHESTRATOR_COMPLETED,
+    EVENT_ORCHESTRATOR_FAILED,
+    EVENT_ORCHESTRATOR_STARTED,
+    Event,
+    EventBus,
+)
 
 
 class UniversalOrchestrator:
@@ -53,7 +59,7 @@ class UniversalOrchestrator:
 
         await EventBus.publish(
             Event(
-                name="orchestrator.execution_started",
+                name=EVENT_ORCHESTRATOR_STARTED,
                 execution_id=plan.execution_id,
                 trace_id=plan.trace_id,
                 data={
@@ -70,7 +76,7 @@ class UniversalOrchestrator:
 
             await EventBus.publish(
                 Event(
-                    name="orchestrator.execution_completed",
+                    name=EVENT_ORCHESTRATOR_COMPLETED,
                     execution_id=plan.execution_id,
                     trace_id=plan.trace_id,
                 )
@@ -79,7 +85,7 @@ class UniversalOrchestrator:
         except Exception as exc:
             await EventBus.publish(
                 Event(
-                    name="orchestrator.execution_failed",
+                    name=EVENT_ORCHESTRATOR_FAILED,
                     execution_id=plan.execution_id,
                     trace_id=plan.trace_id,
                     data={"error": str(exc)},
