@@ -43,7 +43,7 @@ class PlanExecutor:
             async for chunk in workflow.execute(plan, request):
                 yield chunk
 
-            self._circuit_breaker.reset()
+            self._circuit_breaker._on_success()
             provider_name = plan.provider_configs.get("provider", "ollama")
             await self._health_cache.mark_healthy(provider_name)
 
@@ -52,7 +52,7 @@ class PlanExecutor:
                 f"[error] PlanExecutor - execution failed: {exc} "
                 f"plan={plan.execution_id}"
             )
-            self._circuit_breaker.reset()
+            self._circuit_breaker._on_failure(str(exc))
             provider_name = plan.provider_configs.get("provider", "ollama")
             await self._health_cache.mark_unhealthy(provider_name)
 
