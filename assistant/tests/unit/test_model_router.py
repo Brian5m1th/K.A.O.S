@@ -61,8 +61,10 @@ class TestProviderHealthCache:
     @pytest.mark.asyncio
     async def test_refresh_healthy(self):
         cache = ProviderHealthCache(ttl_seconds=30)
+
         async def check():
             return True
+
         status = await cache.refresh("ollama", check)
         assert status == HealthStatus.HEALTHY
         assert await cache.is_healthy("ollama") is True
@@ -70,8 +72,10 @@ class TestProviderHealthCache:
     @pytest.mark.asyncio
     async def test_refresh_unhealthy(self):
         cache = ProviderHealthCache(ttl_seconds=30)
+
         async def check():
             raise ConnectionError("down")
+
         status = await cache.refresh("ollama", check)
         assert status == HealthStatus.UNHEALTHY
 
@@ -85,6 +89,7 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_opens_after_threshold(self):
         cb = CircuitBreaker(name="test", failure_threshold=3)
+
         async def fail():
             raise ValueError("fail")
 
@@ -97,8 +102,10 @@ class TestCircuitBreaker:
     @pytest.mark.asyncio
     async def test_success_resets(self):
         cb = CircuitBreaker(name="test", failure_threshold=3)
+
         async def fail():
             raise ValueError("fail")
+
         async def succeed():
             return "ok"
 
@@ -117,6 +124,7 @@ class TestCircuitBreaker:
             failure_threshold=2,
             recovery_timeout=-1,
         )
+
         async def fail():
             raise ValueError("fail")
 
@@ -130,9 +138,8 @@ class TestCircuitBreaker:
 
     @pytest.mark.asyncio
     async def test_recovery(self):
-        cb = CircuitBreaker(
-            name="test", failure_threshold=2, recovery_timeout=-0.1
-        )
+        cb = CircuitBreaker(name="test", failure_threshold=2, recovery_timeout=-0.1)
+
         async def fail():
             raise ValueError("fail")
 
@@ -144,6 +151,7 @@ class TestCircuitBreaker:
 
         async def succeed():
             return "ok"
+
         success, _ = await cb.call(succeed)
         assert cb.state == CircuitState.CLOSED
 
@@ -189,8 +197,11 @@ class TestProviderSelector:
     @pytest.mark.asyncio
     async def test_select_healthy(self):
         config = ProviderConfigRecord(
-            id=1, provider_type="chat", provider_name="ollama",
-            base_url="http://localhost:11434", is_active=True,
+            id=1,
+            provider_type="chat",
+            provider_name="ollama",
+            base_url="http://localhost:11434",
+            is_active=True,
         )
         config_repo = AsyncMock()
         config_repo.get_by_name = AsyncMock(return_value=config)

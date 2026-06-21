@@ -31,16 +31,12 @@ class ProviderSelector:
         if self._circuit_breaker:
             state = self._circuit_breaker.state
             if state.value == "OPEN":
-                logger.warning(
-                    f"[provider_selector] circuit OPEN for {provider_name}"
-                )
+                logger.warning(f"[provider_selector] circuit OPEN for {provider_name}")
                 return None
 
         healthy = await self._health_cache.is_healthy(provider_name)
         if not healthy:
-            logger.warning(
-                f"[provider_selector] cache says unhealthy: {provider_name}"
-            )
+            logger.warning(f"[provider_selector] cache says unhealthy: {provider_name}")
             return None
 
         config = await self._config_repo.get_by_name(provider_name)
@@ -48,9 +44,7 @@ class ProviderSelector:
             logger.debug(f"[finish] ProviderSelector - selected {provider_name}")
             return config
 
-        logger.warning(
-            f"[provider_selector] no active config for {provider_name}"
-        )
+        logger.warning(f"[provider_selector] no active config for {provider_name}")
         return None
 
     async def select_by_type(

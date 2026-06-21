@@ -73,9 +73,7 @@ class ModelRouter:
             for cap in capabilities:
                 policies = await self._policy_repo.get_by_capability(cap)
                 for policy in policies:
-                    model_record = await self._model_repo.get_by_name(
-                        policy.model_name
-                    )
+                    model_record = await self._model_repo.get_by_name(policy.model_name)
                     if not model_record:
                         continue
                     healthy = await self._health_cache.is_healthy(

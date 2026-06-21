@@ -30,13 +30,9 @@ class ProviderHealthCache:
 
         return HealthStatus.UNKNOWN
 
-    async def set_health(
-        self, provider_name: str, status: HealthStatus
-    ) -> None:
+    async def set_health(self, provider_name: str, status: HealthStatus) -> None:
         self._cache[provider_name] = (status, time.monotonic())
-        logger.debug(
-            f"[health_cache] {provider_name} -> {status.value}"
-        )
+        logger.debug(f"[health_cache] {provider_name} -> {status.value}")
 
     async def mark_healthy(self, provider_name: str) -> None:
         await self.set_health(provider_name, HealthStatus.HEALTHY)
@@ -48,9 +44,7 @@ class ProviderHealthCache:
     async def refresh(self, provider_name: str, check_fn) -> HealthStatus:
         try:
             healthy = await check_fn()
-            status = (
-                HealthStatus.HEALTHY if healthy else HealthStatus.UNHEALTHY
-            )
+            status = HealthStatus.HEALTHY if healthy else HealthStatus.UNHEALTHY
         except Exception:
             status = HealthStatus.UNHEALTHY
 

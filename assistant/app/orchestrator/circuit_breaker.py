@@ -46,9 +46,7 @@ class CircuitBreaker:
             if time.monotonic() - self._last_failure_time >= self._recovery_timeout:
                 self._state = CircuitState.HALF_OPEN
                 self._half_open_requests = 0
-                logger.info(
-                    f"[circuit_breaker] {self._name} OPEN -> HALF_OPEN"
-                )
+                logger.info(f"[circuit_breaker] {self._name} OPEN -> HALF_OPEN")
             else:
                 return False, "circuit_open"
 
