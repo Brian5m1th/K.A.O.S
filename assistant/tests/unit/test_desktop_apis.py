@@ -88,17 +88,15 @@ async def test_list_models(client, mock_session):
 
 @pytest.mark.asyncio
 async def test_get_model(client, mock_session):
-    mock_session.execute.return_value.scalar_one_or_none.return_value = (
-        ModelRecord(
-            id=1,
-            name="qwen3:4b",
-            provider_name="ollama",
-            context_window=8192,
-            cost_input=0.0,
-            cost_output=0.0,
-            capabilities=["fast_chat"],
-            is_active=True,
-        )
+    mock_session.execute.return_value.scalar_one_or_none.return_value = ModelRecord(
+        id=1,
+        name="qwen3:4b",
+        provider_name="ollama",
+        context_window=8192,
+        cost_input=0.0,
+        cost_output=0.0,
+        capabilities=["fast_chat"],
+        is_active=True,
     )
     response = await client.get("/api/models/qwen3:4b")
     assert response.status_code == 200
@@ -109,7 +107,11 @@ async def test_get_model(client, mock_session):
 async def test_list_capability_policies(client, mock_session):
     mock_session.execute.return_value.scalars.return_value.all.return_value = [
         CapabilityPolicyRecord(
-            id=1, capability="fast_chat", priority_order=1, model_id=1, model_name="qwen3:4b"
+            id=1,
+            capability="fast_chat",
+            priority_order=1,
+            model_id=1,
+            model_name="qwen3:4b",
         )
     ]
     response = await client.get("/api/capabilities")
