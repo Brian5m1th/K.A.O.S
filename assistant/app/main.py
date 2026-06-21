@@ -169,7 +169,9 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         log_level=settings.LOG_LEVEL,
         ollama_base=settings.OLLAMA_BASE_URL,
         qdrant_host=settings.QDRANT_HOST,
-        database_url=settings.DATABASE_URL.split("@")[-1] if "@" in settings.DATABASE_URL else "local",
+        database_url=settings.DATABASE_URL.split("@")[-1]
+        if "@" in settings.DATABASE_URL
+        else "local",
     ).info("startup")
 
     _register_tools()

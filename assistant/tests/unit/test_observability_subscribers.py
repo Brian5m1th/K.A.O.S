@@ -44,7 +44,13 @@ async def test_metrics_subscriber_counts_events():
         if metric.name == "kaos_events":
             for sample in metric.samples:
                 if sample.name.endswith("_total"):
-                    samples.append((sample.labels["event_name"], sample.labels["status"], sample.value))
+                    samples.append(
+                        (
+                            sample.labels["event_name"],
+                            sample.labels["status"],
+                            sample.value,
+                        )
+                    )
 
     assert ("workflow_started", "received", 1.0) in samples
     assert ("workflow_started", "started", 1.0) in samples
@@ -108,7 +114,13 @@ async def test_metrics_subscriber_failed_event():
         if metric.name == "kaos_events":
             for sample in metric.samples:
                 if sample.name.endswith("_total"):
-                    samples.append((sample.labels["event_name"], sample.labels["status"], sample.value))
+                    samples.append(
+                        (
+                            sample.labels["event_name"],
+                            sample.labels["status"],
+                            sample.value,
+                        )
+                    )
 
     assert ("orchestrator.execution_failed", "received", 1.0) in samples
     assert ("orchestrator.execution_failed", "failed", 1.0) in samples
