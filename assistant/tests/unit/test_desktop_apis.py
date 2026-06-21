@@ -22,6 +22,7 @@ def client():
 
     async def override_get_session():
         from unittest.mock import AsyncMock
+
         yield AsyncMock()
 
     app.dependency_overrides[get_session] = override_get_session
