@@ -1,5 +1,4 @@
 from typing import AsyncIterator
-from uuid import UUID
 
 from loguru import logger
 
@@ -20,7 +19,7 @@ class PlanExecutor:
         circuit_breaker: CircuitBreaker | None = None,
         health_cache: ProviderHealthCache | None = None,
     ):
-        self._circuit_breaker = circuit_breaker or CircuitBreaker()
+        self._circuit_breaker = circuit_breaker or CircuitBreaker(name="plan_executor")
         self._health_cache = health_cache or ProviderHealthCache()
 
     async def execute(

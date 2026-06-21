@@ -119,9 +119,11 @@ class TestRegisterWorkflows:
         assert isinstance(ServiceRegistry.get_workflow("memory"), MemoryWorkflow)
         assert isinstance(ServiceRegistry.get_workflow("ingest"), IngestWorkflow)
 
-    def test_healthcheck(self):
+    @pytest.mark.asyncio
+    async def test_healthcheck(self):
         register_workflows()
 
         for name in ServiceRegistry.list_workflows():
             wf = ServiceRegistry.get_workflow(name)
-            assert wf.healthcheck() is True
+            result = await wf.healthcheck()
+            assert result is True
