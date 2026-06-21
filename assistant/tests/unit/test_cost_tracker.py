@@ -42,7 +42,12 @@ async def test_ollama_cost_is_zero(tracker):
         name="workflow_completed",
         execution_id=UUID(int=1),
         trace_id=UUID(int=2),
-        data={"provider": "ollama", "model": "qwen3:4b", "tokens_in": 100, "tokens_out": 50},
+        data={
+            "provider": "ollama",
+            "model": "qwen3:4b",
+            "tokens_in": 100,
+            "tokens_out": 50,
+        },
     )
     await tracker.on_event(event)
     assert tracker._total_cost == 0.0
@@ -54,7 +59,12 @@ async def test_openai_cost_accumulates(tracker):
         name="workflow_completed",
         execution_id=UUID(int=1),
         trace_id=UUID(int=2),
-        data={"provider": "openai", "model": "gpt-4", "tokens_in": 1000, "tokens_out": 500},
+        data={
+            "provider": "openai",
+            "model": "gpt-4",
+            "tokens_in": 1000,
+            "tokens_out": 500,
+        },
     )
     await tracker.on_event(event)
     assert tracker._total_cost > 0
@@ -67,7 +77,12 @@ async def test_summary_format(tracker):
         name="workflow_completed",
         execution_id=UUID(int=1),
         trace_id=UUID(int=2),
-        data={"provider": "ollama", "model": "qwen3:4b", "tokens_in": 100, "tokens_out": 50},
+        data={
+            "provider": "ollama",
+            "model": "qwen3:4b",
+            "tokens_in": 100,
+            "tokens_out": 50,
+        },
     )
     await tracker.on_event(event)
     summary = tracker.summary()

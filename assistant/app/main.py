@@ -126,29 +126,49 @@ def _register_observability(app_state) -> None:
     cost_tracker = CostTracker()
     tracing_subscriber = TracingSubscriber()
     for name in (
-        "request_started", "intent_classified", "model_selected",
-        "workflow_started", "workflow_completed", "workflow_step",
-        "llm_request", "llm_response",
-        "fallback_triggered", "request_completed", "error",
-        "orchestrator.execution_started", "orchestrator.execution_completed",
+        "request_started",
+        "intent_classified",
+        "model_selected",
+        "workflow_started",
+        "workflow_completed",
+        "workflow_step",
+        "llm_request",
+        "llm_response",
+        "fallback_triggered",
+        "request_completed",
+        "error",
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
         "orchestrator.execution_failed",
     ):
         EventBus.subscribe(name, logger_subscriber)
     for name in (
-        "workflow_started", "workflow_completed",
-        "orchestrator.execution_failed", "llm_request",
+        "workflow_started",
+        "workflow_completed",
+        "orchestrator.execution_failed",
+        "llm_request",
     ):
         EventBus.subscribe(name, metrics_subscriber)
     for name in (
-        "orchestrator.execution_started", "orchestrator.execution_completed",
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
         "orchestrator.execution_failed",
     ):
         EventBus.subscribe(name, audit_subscriber)
-    for name in ("llm_request", "llm_response", "workflow_started", "workflow_completed"):
+    for name in (
+        "llm_request",
+        "llm_response",
+        "workflow_started",
+        "workflow_completed",
+    ):
         EventBus.subscribe(name, cost_tracker)
     for name in (
-        "workflow_started", "workflow_completed", "llm_request", "llm_response",
-        "orchestrator.execution_started", "orchestrator.execution_completed",
+        "workflow_started",
+        "workflow_completed",
+        "llm_request",
+        "llm_response",
+        "orchestrator.execution_started",
+        "orchestrator.execution_completed",
         "orchestrator.execution_failed",
     ):
         EventBus.subscribe(name, tracing_subscriber)

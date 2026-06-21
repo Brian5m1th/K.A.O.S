@@ -24,9 +24,7 @@ _tracer: Any = None
 def setup_tracing(service_name: str = "kaos-api", endpoint: str = "") -> None:
     global _tracer
     if not _OTEL_AVAILABLE:
-        logger.warning(
-            "[tracing] OpenTelemetry not installed; tracing disabled"
-        )
+        logger.warning("[tracing] OpenTelemetry not installed; tracing disabled")
         return
     if not endpoint:
         logger.info("[tracing] no endpoint configured; tracing disabled")

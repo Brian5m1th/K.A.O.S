@@ -67,9 +67,9 @@ class CostTracker(EventSubscriber):
             self._total_cost += cost
 
             _cost_total.labels(provider=provider, workflow=workflow).inc(cost)
-            _cost_current_execution.labels(
-                execution_id=str(event.execution_id)
-            ).set(self._total_cost)
+            _cost_current_execution.labels(execution_id=str(event.execution_id)).set(
+                self._total_cost
+            )
 
     def _estimate_cost(self, provider: str, tokens_in: int, tokens_out: int) -> float:
         rates = {
