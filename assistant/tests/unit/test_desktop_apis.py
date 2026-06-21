@@ -111,7 +111,11 @@ async def test_list_capability_policies(client):
         "app.api.capabilities.CapabilityPolicyRepository.list_all",
         return_value=[
             CapabilityPolicyRecord(
-                id=1, capability="fast_chat", priority_order=1, model_id=1, model_name="qwen3:4b"
+                id=1,
+                capability="fast_chat",
+                priority_order=1,
+                model_id=1,
+                model_name="qwen3:4b",
             )
         ],
     ):
@@ -166,7 +170,10 @@ async def test_list_user_model_profiles(client):
         "app.api.user_model_profiles.UserModelProfileRepository.list_by_user",
         return_value=[
             UserModelProfileRecord(
-                id=UUID(int=1), user_id="user1", workflow_type="chat", model_name="qwen3:4b"
+                id=UUID(int=1),
+                user_id="user1",
+                workflow_type="chat",
+                model_name="qwen3:4b",
             )
         ],
     ):
