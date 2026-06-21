@@ -1,5 +1,5 @@
 from typing import AsyncIterator
-from uuid import UUID, uuid4
+from uuid import UUID, uuid4, uuid5
 
 from loguru import logger
 
@@ -33,7 +33,7 @@ class UniversalOrchestrator:
         user_id: UUID | None = None,
     ) -> AsyncIterator[str]:
         uid = user_id or UUID(int=0)
-        session_uuid = UUID(request.session_id) if request.session_id else uuid4()
+        session_uuid = uuid5(UUID(int=0), request.session_id) if request.session_id else uuid4()
 
         model_name = request.model or "qwen3:4b"
         plan = ExecutionPlan.create(
