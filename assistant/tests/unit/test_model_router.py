@@ -280,13 +280,22 @@ class TestModelRouter:
 
         model_repo.get_by_name = AsyncMock(
             return_value=ModelRecord(
-                id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
-                cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+                id=1,
+                name="qwen3:4b",
+                provider_name="ollama",
+                context_window=8192,
+                cost_input=0.0,
+                cost_output=0.0,
+                capabilities=["fast_chat"],
+                is_active=True,
             )
         )
         profile_repo.get = AsyncMock(
             return_value=UserModelProfileRecord(
-                id=UUID(int=1), user_id="user1", workflow_type="chat", model_name="qwen3:4b"
+                id=UUID(int=1),
+                user_id="user1",
+                workflow_type="chat",
+                model_name="qwen3:4b",
             )
         )
 
@@ -311,8 +320,14 @@ class TestModelRouter:
 
         model_repo.get_by_name = AsyncMock(
             return_value=ModelRecord(
-                id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
-                cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+                id=1,
+                name="qwen3:4b",
+                provider_name="ollama",
+                context_window=8192,
+                cost_input=0.0,
+                cost_output=0.0,
+                capabilities=["fast_chat"],
+                is_active=True,
             )
         )
         model_repo.list_by_capability = AsyncMock(return_value=[])
@@ -320,7 +335,11 @@ class TestModelRouter:
         policy_repo.get_by_capability = AsyncMock(
             return_value=[
                 CapabilityPolicyRecord(
-                    id=1, capability="fast_chat", priority_order=0, model_id=1, model_name="qwen3:4b"
+                    id=1,
+                    capability="fast_chat",
+                    priority_order=0,
+                    model_id=1,
+                    model_name="qwen3:4b",
                 )
             ]
         )
@@ -346,8 +365,14 @@ class TestModelRouter:
         model_repo.list_by_capability = AsyncMock(
             return_value=[
                 ModelRecord(
-                    id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
-                    cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+                    id=1,
+                    name="qwen3:4b",
+                    provider_name="ollama",
+                    context_window=8192,
+                    cost_input=0.0,
+                    cost_output=0.0,
+                    capabilities=["fast_chat"],
+                    is_active=True,
                 )
             ]
         )
@@ -374,8 +399,14 @@ class TestModelRouter:
         model_repo.list_all = AsyncMock(
             return_value=[
                 ModelRecord(
-                    id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
-                    cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+                    id=1,
+                    name="qwen3:4b",
+                    provider_name="ollama",
+                    context_window=8192,
+                    cost_input=0.0,
+                    cost_output=0.0,
+                    capabilities=["fast_chat"],
+                    is_active=True,
                 )
             ]
         )
