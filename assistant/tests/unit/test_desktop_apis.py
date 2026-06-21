@@ -3,6 +3,7 @@ from unittest.mock import patch
 import pytest
 from httpx import ASGITransport, AsyncClient
 
+from app.database import get_session
 from app.main import app
 from app.repositories.capability_policy_repository import (
     CapabilityPolicyRecord,
@@ -18,6 +19,12 @@ from app.repositories.user_profile_repository import UserProfileRecord
 @pytest.fixture
 def client():
     app.state.api_key = "test-api-key"
+
+    async def override_get_session():
+        from unittest.mock import AsyncMock
+        yield AsyncMock()
+
+    app.dependency_overrides[get_session] = override_get_session
     transport = ASGITransport(app=app)
     return AsyncClient(
         transport=transport,
