@@ -1,4 +1,5 @@
 import asyncio
+from uuid import UUID
 from unittest.mock import AsyncMock
 
 import pytest
@@ -6,6 +7,13 @@ import pytest
 from app.models.model_router import ModelSelection
 from app.models.capability_policy import (
     ResolvedPolicy,
+)
+from app.repositories.capability_policy_repository import (
+    CapabilityPolicyRecord,
+)
+from app.repositories.model_repository import ModelRecord
+from app.repositories.user_model_profile_repository import (
+    UserModelProfileRecord,
 )
 from app.orchestrator.health_cache import (
     HealthStatus,
@@ -257,3 +265,143 @@ class TestResolvedPolicy:
         )
         assert policy.capability == "fast_chat"
         assert policy.model_name == "qwen3:4b"
+
+
+class TestModelRouter:
+    @pytest.mark.asyncio
+    async def test_select_model_user_profile_override(self):
+        from app.models.model_router import ModelRouter
+
+        model_repo = AsyncMock()
+        policy_repo = AsyncMock()
+        profile_repo = AsyncMock()
+        health_cache = ProviderHealthCache(ttl_seconds=30)
+        await health_cache.mark_healthy("ollama")
+
+        model_repo.get_by_name = AsyncMock(
+            return_value=ModelRecord(
+                id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
+                cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+            )
+        )
+        profile_repo.get = AsyncMock(
+            return_value=UserModelProfileRecord(
+                id=UUID(int=1), user_id="user1", workflow_type="chat", model_name="qwen3:4b"
+            )
+        )
+
+        router = ModelRouter(model_repo, policy_repo, profile_repo, health_cache)
+        result = await router.select_model(
+            capabilities=["fast_chat"], user_id="user1", workflow_type="chat"
+        )
+
+        assert result.model == "qwen3:4b"
+        assert result.provider == "ollama"
+        assert result.reason == "user_profile_override"
+
+    @pytest.mark.asyncio
+    async def test_select_model_capability_policy(self):
+        from app.models.model_router import ModelRouter
+
+        model_repo = AsyncMock()
+        policy_repo = AsyncMock()
+        profile_repo = AsyncMock()
+        health_cache = ProviderHealthCache(ttl_seconds=30)
+        await health_cache.mark_healthy("ollama")
+
+        model_repo.get_by_name = AsyncMock(
+            return_value=ModelRecord(
+                id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
+                cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+            )
+        )
+        model_repo.list_by_capability = AsyncMock(return_value=[])
+        model_repo.list_all = AsyncMock(return_value=[])
+        policy_repo.get_by_capability = AsyncMock(
+            return_value=[
+                CapabilityPolicyRecord(
+                    id=1, capability="fast_chat", priority_order=0, model_id=1, model_name="qwen3:4b"
+                )
+            ]
+        )
+
+        router = ModelRouter(model_repo, policy_repo, profile_repo, health_cache)
+        result = await router.select_model(capabilities=["fast_chat"])
+
+        assert result.model == "qwen3:4b"
+        assert result.reason.startswith("capability_policy")
+
+    @pytest.mark.asyncio
+    async def test_select_model_fallback_to_list_by_capability(self):
+        from app.models.model_router import ModelRouter
+
+        model_repo = AsyncMock()
+        policy_repo = AsyncMock()
+        profile_repo = AsyncMock()
+        health_cache = ProviderHealthCache(ttl_seconds=30)
+        await health_cache.mark_healthy("ollama")
+
+        policy_repo.get_by_capability = AsyncMock(return_value=[])
+        model_repo.get_by_name = AsyncMock(return_value=None)
+        model_repo.list_by_capability = AsyncMock(
+            return_value=[
+                ModelRecord(
+                    id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
+                    cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+                )
+            ]
+        )
+        model_repo.list_all = AsyncMock(return_value=[])
+
+        router = ModelRouter(model_repo, policy_repo, profile_repo, health_cache)
+        result = await router.select_model(capabilities=["fast_chat"])
+
+        assert result.model == "qwen3:4b"
+        assert "fallback" in result.reason
+
+    @pytest.mark.asyncio
+    async def test_select_model_last_resort(self):
+        from app.models.model_router import ModelRouter
+
+        model_repo = AsyncMock()
+        policy_repo = AsyncMock()
+        profile_repo = AsyncMock()
+        health_cache = ProviderHealthCache(ttl_seconds=30)
+        await health_cache.mark_healthy("ollama")
+
+        policy_repo.get_by_capability = AsyncMock(return_value=[])
+        model_repo.list_by_capability = AsyncMock(return_value=[])
+        model_repo.list_all = AsyncMock(
+            return_value=[
+                ModelRecord(
+                    id=1, name="qwen3:4b", provider_name="ollama", context_window=8192,
+                    cost_input=0.0, cost_output=0.0, capabilities=["fast_chat"], is_active=True,
+                )
+            ]
+        )
+
+        router = ModelRouter(model_repo, policy_repo, profile_repo, health_cache)
+        result = await router.select_model(capabilities=["fast_chat"])
+
+        assert result.model == "qwen3:4b"
+        assert result.reason == "last_resort"
+
+    @pytest.mark.asyncio
+    async def test_select_model_no_model_found(self):
+        from app.models.model_router import ModelRouter
+
+        model_repo = AsyncMock()
+        policy_repo = AsyncMock()
+        profile_repo = AsyncMock()
+        health_cache = ProviderHealthCache(ttl_seconds=30)
+
+        policy_repo.get_by_capability = AsyncMock(return_value=[])
+        model_repo.list_by_capability = AsyncMock(return_value=[])
+        model_repo.list_all = AsyncMock(return_value=[])
+        model_repo.get_by_name = AsyncMock(return_value=None)
+
+        router = ModelRouter(model_repo, policy_repo, profile_repo, health_cache)
+        result = await router.select_model(capabilities=["fast_chat"])
+
+        assert result.model == "unknown"
+        assert result.provider == "unknown"
