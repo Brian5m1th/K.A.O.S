@@ -30,10 +30,12 @@ from app.api.webhooks import router as webhooks_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
+from app.observability.cost_tracker import CostTracker
 from app.observability.event_bus import EventBus
 from app.observability.subscribers.audit_subscriber import AuditSubscriber
 from app.observability.subscribers.logger_subscriber import LoggerSubscriber
 from app.observability.subscribers.metrics_subscriber import MetricsSubscriber
+from app.observability.tracing import TracingSubscriber, setup_tracing
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 
@@ -117,40 +119,46 @@ def _register_tools():
         _tools_registered = True
 
 
-def _register_observability() -> None:
+def _register_observability(app_state) -> None:
     logger_subscriber = LoggerSubscriber()
     metrics_subscriber = MetricsSubscriber()
     audit_subscriber = AuditSubscriber()
+    cost_tracker = CostTracker()
+    tracing_subscriber = TracingSubscriber()
     for name in (
-        "request_started",
-        "intent_classified",
-        "model_selected",
-        "workflow_started",
-        "workflow_completed",
-        "workflow_step",
-        "llm_request",
-        "llm_response",
-        "fallback_triggered",
-        "request_completed",
-        "error",
-        "orchestrator.execution_started",
-        "orchestrator.execution_completed",
+        "request_started", "intent_classified", "model_selected",
+        "workflow_started", "workflow_completed", "workflow_step",
+        "llm_request", "llm_response",
+        "fallback_triggered", "request_completed", "error",
+        "orchestrator.execution_started", "orchestrator.execution_completed",
         "orchestrator.execution_failed",
     ):
         EventBus.subscribe(name, logger_subscriber)
     for name in (
-        "workflow_started",
-        "workflow_completed",
-        "orchestrator.execution_failed",
-        "llm_request",
+        "workflow_started", "workflow_completed",
+        "orchestrator.execution_failed", "llm_request",
     ):
         EventBus.subscribe(name, metrics_subscriber)
     for name in (
-        "orchestrator.execution_started",
-        "orchestrator.execution_completed",
+        "orchestrator.execution_started", "orchestrator.execution_completed",
         "orchestrator.execution_failed",
     ):
         EventBus.subscribe(name, audit_subscriber)
+    for name in ("llm_request", "llm_response", "workflow_started", "workflow_completed"):
+        EventBus.subscribe(name, cost_tracker)
+    for name in (
+        "workflow_started", "workflow_completed", "llm_request", "llm_response",
+        "orchestrator.execution_started", "orchestrator.execution_completed",
+        "orchestrator.execution_failed",
+    ):
+        EventBus.subscribe(name, tracing_subscriber)
+
+    setup_tracing(
+        service_name=settings.APP_NAME,
+        endpoint="",
+    )
+
+    app_state.cost_tracker = cost_tracker
     logger.info("[observability] subscribers registered")
 
 
@@ -161,7 +169,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info("[auth] API key: {}", _app.state.api_key)
 
-    _register_observability()
+    _register_observability(_app.state)
 
     logger.bind(
         app=settings.APP_NAME,
