@@ -1,7 +1,6 @@
-from uuid import UUID, uuid4, uuid5, NAMESPACE_DNS
+from uuid import uuid4
 from fastapi import APIRouter, Request
 from loguru import logger
-from app.config.settings import settings
 
 router = APIRouter(prefix="/api/webhooks", tags=["Webhooks"])
 
@@ -27,7 +26,6 @@ async def n8n_chat_webhook(request: Request) -> dict:
 async def n8n_memory_webhook(request: Request) -> dict:
     body = await request.json()
     action = body.get("action", "save")
-    content = body.get("content", "")
     tags = body.get("tags", [])
     logger.info(f"[webhook] n8n/memory - action={action} tags={tags}")
     return {"status": "received", "action": action}
@@ -37,7 +35,6 @@ async def n8n_memory_webhook(request: Request) -> dict:
 async def n8n_agent_webhook(request: Request) -> dict:
     body = await request.json()
     workflow = body.get("workflow", "")
-    payload = body.get("payload", {})
     logger.info(f"[webhook] n8n/agent - workflow={workflow}")
     return {"status": "received", "workflow": workflow}
 

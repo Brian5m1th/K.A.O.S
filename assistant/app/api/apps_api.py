@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from loguru import logger
 from app.apps.registry import AppRegistry
 
 router = APIRouter(prefix="/api/apps", tags=["Apps"])

@@ -1,7 +1,5 @@
 from fastapi import APIRouter
-from loguru import logger
 from app.notifications.service import NotificationService
-from app.notifications.models import NotificationLevel
 
 router = APIRouter(prefix="/api/notifications", tags=["Notifications"])
 
