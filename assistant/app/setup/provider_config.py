@@ -128,13 +128,23 @@ def save_config(config: dict) -> dict:
     active = config.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
     fallback_chain = config.get("_fallbackChain", DEFAULT_FALLBACK_CHAIN)
     embedding_model = config.get("_embeddingModel", DEFAULT_EMBEDDING_MODEL)
-    save_payload = {**merged, "_activeProvider": active, "_fallbackChain": fallback_chain, "_embeddingModel": embedding_model}
+    save_payload = {
+        **merged,
+        "_activeProvider": active,
+        "_fallbackChain": fallback_chain,
+        "_embeddingModel": embedding_model,
+    }
 
     _save_to_disk(save_payload)
     _patch_settings(merged)
     _bump_version()
 
-    return {**merged, "_activeProvider": active, "_fallbackChain": fallback_chain, "_embeddingModel": embedding_model}
+    return {
+        **merged,
+        "_activeProvider": active,
+        "_fallbackChain": fallback_chain,
+        "_embeddingModel": embedding_model,
+    }
 
 
 def get_supported_providers() -> list[str]:

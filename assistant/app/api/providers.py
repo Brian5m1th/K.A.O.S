@@ -77,11 +77,31 @@ PROVIDER_SOURCES: dict[str, ProviderSource] = {
 
 # Static display names and base URLs
 PROVIDER_META = {
-    "openai": {"name": "OpenAI", "base_url": "https://api.openai.com/v1", "editable_url": False},
-    "anthropic": {"name": "Anthropic", "base_url": "https://api.anthropic.com", "editable_url": False},
-    "gemini": {"name": "Google Gemini", "base_url": "https://generativelanguage.googleapis.com", "editable_url": False},
-    "ollama": {"name": "Ollama", "base_url": "http://localhost:11434", "editable_url": True},
-    "openrouter": {"name": "OpenRouter", "base_url": "https://openrouter.ai/api/v1", "editable_url": False},
+    "openai": {
+        "name": "OpenAI",
+        "base_url": "https://api.openai.com/v1",
+        "editable_url": False,
+    },
+    "anthropic": {
+        "name": "Anthropic",
+        "base_url": "https://api.anthropic.com",
+        "editable_url": False,
+    },
+    "gemini": {
+        "name": "Google Gemini",
+        "base_url": "https://generativelanguage.googleapis.com",
+        "editable_url": False,
+    },
+    "ollama": {
+        "name": "Ollama",
+        "base_url": "http://localhost:11434",
+        "editable_url": True,
+    },
+    "openrouter": {
+        "name": "OpenRouter",
+        "base_url": "https://openrouter.ai/api/v1",
+        "editable_url": False,
+    },
     "openCode": {"name": "OpenCode", "base_url": "", "editable_url": False},
 }
 
@@ -121,7 +141,9 @@ async def _fetch_models_from_api(
             api_key = config.get("apiKey", "")
             if api_key:
                 headers[source.api_key_field] = (
-                    f"Bearer {api_key}" if source.api_key_field == "Authorization" else api_key
+                    f"Bearer {api_key}"
+                    if source.api_key_field == "Authorization"
+                    else api_key
                 )
 
         if source.auth_type == "query" and source.api_key_field:

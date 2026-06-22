@@ -224,6 +224,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     try:
         from app.database import create_tables
+
         await create_tables()
     except Exception as e:
         logger.warning("[database] connection unavailable: {}", e)

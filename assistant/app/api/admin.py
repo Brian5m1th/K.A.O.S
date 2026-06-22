@@ -62,7 +62,9 @@ async def create_user(
         raise HTTPException(status_code=400, detail="Email already in use")
 
     if len(body.password) < 8:
-        raise HTTPException(status_code=422, detail="Password must be at least 8 characters")
+        raise HTTPException(
+            status_code=422, detail="Password must be at least 8 characters"
+        )
 
     user = User(
         id=uuid4(),
@@ -75,7 +77,9 @@ async def create_user(
     await session.commit()
     await session.refresh(user)
 
-    logger.info("[admin] user created: {} ({}) role={}", user.name, user.email, user.role)
+    logger.info(
+        "[admin] user created: {} ({}) role={}", user.name, user.email, user.role
+    )
     return {
         "id": str(user.id),
         "name": user.name,

@@ -17,11 +17,31 @@ async def opencode_status():
     if not OPCODE_DIR.exists():
         return {"configured": False, "path": str(OPCODE_DIR)}
 
-    agents = sorted(p.stem for p in (OPCODE_DIR / "agents").glob("*.md")) if (OPCODE_DIR / "agents").exists() else []
-    references = sorted(p.stem for p in (OPCODE_DIR / "references").glob("*.md")) if (OPCODE_DIR / "references").exists() else []
-    rules = sorted(p.stem for p in (OPCODE_DIR / "rules").glob("*.md")) if (OPCODE_DIR / "rules").exists() else []
-    skills = sorted(p.stem for p in (OPCODE_DIR / "skills").glob("*.md")) if (OPCODE_DIR / "skills").exists() else []
-    tools = sorted(p.stem for p in (OPCODE_DIR / "tools").glob("*.md")) if (OPCODE_DIR / "tools").exists() else []
+    agents = (
+        sorted(p.stem for p in (OPCODE_DIR / "agents").glob("*.md"))
+        if (OPCODE_DIR / "agents").exists()
+        else []
+    )
+    references = (
+        sorted(p.stem for p in (OPCODE_DIR / "references").glob("*.md"))
+        if (OPCODE_DIR / "references").exists()
+        else []
+    )
+    rules = (
+        sorted(p.stem for p in (OPCODE_DIR / "rules").glob("*.md"))
+        if (OPCODE_DIR / "rules").exists()
+        else []
+    )
+    skills = (
+        sorted(p.stem for p in (OPCODE_DIR / "skills").glob("*.md"))
+        if (OPCODE_DIR / "skills").exists()
+        else []
+    )
+    tools = (
+        sorted(p.stem for p in (OPCODE_DIR / "tools").glob("*.md"))
+        if (OPCODE_DIR / "tools").exists()
+        else []
+    )
 
     return {
         "configured": True,
