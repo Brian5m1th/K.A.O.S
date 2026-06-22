@@ -1,5 +1,6 @@
 import { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { AppLayout } from "@/app/layouts/AppLayout";
 import { Skeleton } from "@/shared/ui/skeleton";
 import DashboardPage from "./pages/dashboard";
@@ -31,75 +32,93 @@ function PageFallback() {
   );
 }
 
-export function AppRoutes() {
+function AnimatedPage({ children }: { children: React.ReactNode }) {
   return (
-    <Routes>
-      <Route element={<AppLayout />}>
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <DashboardPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/chat"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <ChatPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/orchestration"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <OrchestrationPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/agents"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <AgentsPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/pipelines"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <PipelinesPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/vault"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <VaultPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/observability"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <ObservabilityPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <Suspense fallback={<PageFallback />}>
-              <SettingsPage />
-            </Suspense>
-          }
-        />
-      </Route>
-    </Routes>
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ type: "spring", stiffness: 380, damping: 35 }}
+      className="h-full"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function AppRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route element={<AppLayout />}>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><DashboardPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><ChatPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/orchestration"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><OrchestrationPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/agents"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><AgentsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/pipelines"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><PipelinesPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/vault"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><VaultPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/observability"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><ObservabilityPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><SettingsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+        </Route>
+      </Routes>
+    </AnimatePresence>
   );
 }
