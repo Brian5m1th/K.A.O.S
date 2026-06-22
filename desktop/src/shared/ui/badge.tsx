@@ -12,15 +12,15 @@ export function Badge({ variant = "neutral", children, className }: BadgeProps) 
       className={cn(
         "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
         {
-          "bg-emerald-950/50 text-emerald-400 border border-emerald-900/50":
+          "bg-success/10 text-success border border-success/30":
             variant === "success",
-          "bg-amber-950/50 text-amber-400 border border-amber-900/50":
+          "bg-warning/10 text-warning border border-warning/30":
             variant === "warning",
-          "bg-red-950/50 text-red-400 border border-red-900/50":
+          "bg-error/10 text-error border border-error/30":
             variant === "error",
-          "bg-blue-950/50 text-blue-400 border border-blue-900/50":
+          "bg-accent-primary/10 text-accent-primary border border-accent-primary/30":
             variant === "info",
-          "bg-zinc-800 text-zinc-400 border border-zinc-700/50":
+          "bg-surface text-text-muted border border-border-subtle":
             variant === "neutral",
         },
         className,
@@ -28,11 +28,11 @@ export function Badge({ variant = "neutral", children, className }: BadgeProps) 
     >
       <span
         className={cn("mr-1.5 h-1.5 w-1.5 rounded-full", {
-          "bg-emerald-400": variant === "success",
-          "bg-amber-400": variant === "warning",
-          "bg-red-400": variant === "error",
-          "bg-blue-400": variant === "info",
-          "bg-zinc-400": variant === "neutral",
+          "bg-success": variant === "success",
+          "bg-warning": variant === "warning",
+          "bg-error": variant === "error",
+          "bg-accent-primary": variant === "info",
+          "bg-text-dim": variant === "neutral",
         })}
       />
       {children}

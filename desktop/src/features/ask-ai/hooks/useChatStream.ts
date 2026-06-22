@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import type { Message } from "@/entities/message/types";
+import type { Message, ToolCall } from "@/entities/message/types";
 import { kaosFetch } from "@/shared/api/kaos-client";
+import { useSystemStore } from "@/shared/lib/stores";
 
 export function useChatStream(serverUrl: string, apiKey: string) {
   const [messages, setMessages] = useState<Message[]>([
@@ -9,31 +10,7 @@ export function useChatStream(serverUrl: string, apiKey: string) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const tokenBuffer = useRef("");
-  const frameTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const messagesRef = useRef<Message[]>(messages);
-
-  messagesRef.current = messages;
-
-  const flushBuffer = useCallback(() => {
-    if (!tokenBuffer.current) return;
-
-    setMessages((prev) => {
-      const last = prev[prev.length - 1];
-      if (last?.role === "assistant") {
-        const updated = [...prev];
-        updated[updated.length - 1] = {
-          ...last,
-          text: last.text + tokenBuffer.current,
-        };
-        return updated;
-      }
-      return [...prev, { role: "assistant", text: tokenBuffer.current }];
-    });
-
-    tokenBuffer.current = "";
-    frameTimer.current = null;
-  }, []);
+  const abortRef = useRef<AbortController | null>(null);
 
   const streamMessage = useCallback(
     async (input: string, model?: string) => {
@@ -45,14 +22,10 @@ export function useChatStream(serverUrl: string, apiKey: string) {
       setLoading(true);
       setError(null);
 
+      abortRef.current = new AbortController();
+
       try {
         const cleanUrl = serverUrl.replace(/\/+$/, "");
-
-        const currentMessages = messagesRef.current
-          .filter((m) => m.role !== "assistant" || m.text)
-          .concat(userMsg);
-
-        setMessages((prev) => [...prev, { role: "assistant", text: "" }]);
 
         const response = await kaosFetch(
           `${cleanUrl}/v1/chat/completions`,
@@ -62,12 +35,16 @@ export function useChatStream(serverUrl: string, apiKey: string) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               model: model || "kaos",
-              messages: currentMessages.map((m) => ({
-                role: m.role,
+              messages: [
+                ...messages.filter((m) => m.role !== "tool" || !m.text),
+                userMsg,
+              ].map((m) => ({
+                role: m.role === "tool" ? "assistant" : m.role,
                 content: m.text,
               })),
-              stream: false,
+              stream: true,
             }),
+            signal: abortRef.current.signal,
           },
         );
 
@@ -75,18 +52,102 @@ export function useChatStream(serverUrl: string, apiKey: string) {
           throw new Error(`HTTP ${response.status}`);
         }
 
-        const data = await response.json();
-        const reply = data.choices?.[0]?.message?.content || "No response";
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error("No reader available");
 
-        setMessages((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            role: "assistant",
-            text: reply,
-          };
-          return updated;
-        });
-      } catch (err) {
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let assistantText = "";
+
+        // Create a placeholder for the assistant response
+        setMessages((prev) => [...prev, { role: "assistant", text: "" }]);
+
+        const processLine = (line: string) => {
+          if (!line || !line.startsWith("data: ")) return;
+          const data = line.slice(6);
+
+          if (data === "[DONE]") return;
+
+          try {
+            const parsed = JSON.parse(data);
+            const content = parsed.choices?.[0]?.delta?.content || "";
+            const toolCallsDelta = parsed.choices?.[0]?.delta?.tool_calls;
+
+            if (content) {
+              buffer += content;
+              assistantText += content;
+
+              // Flush buffer periodically for smooth rendering
+              if (buffer.length > 4 || content.includes("\n")) {
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  const last = updated[updated.length - 1];
+                  if (last?.role === "assistant") {
+                    updated[updated.length - 1] = {
+                      ...last,
+                      text: last.text + buffer,
+                    };
+                  }
+                  return updated;
+                });
+                buffer = "";
+              }
+            }
+
+            if (toolCallsDelta) {
+              const toolCall: ToolCall = {
+                name: toolCallsDelta.function?.name || "unknown",
+                arguments: JSON.stringify(toolCallsDelta.function?.arguments || {}),
+                output: "",
+              };
+              setMessages((prev) => {
+                const updated = prev.slice(0, -1); // Remove empty assistant
+                updated.push({ role: "tool", text: "", toolCall });
+                updated.push({ role: "assistant", text: "" });
+                return updated;
+              });
+            }
+          } catch {
+            // Skip malformed JSON lines
+          }
+        };
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n");
+          for (const line of lines) {
+            processLine(line);
+          }
+        }
+
+        // Flush remaining buffer
+        if (buffer) {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = updated[updated.length - 1];
+            if (last?.role === "assistant") {
+              updated[updated.length - 1] = {
+                ...last,
+                text: last.text + buffer,
+              };
+            }
+            return updated;
+          });
+          buffer = "";
+        }
+
+        // Update system store with response metadata
+        const runtime = useSystemStore.getState().runtime;
+        if (runtime.activeModel !== model) {
+          useSystemStore.getState().setRuntime({ activeModel: model || "kaos" });
+        }
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name === "AbortError") {
+          return; // User cancelled
+        }
         const errorMsg =
           err instanceof Error ? err.message : "Connection failed";
         setError(errorMsg);
@@ -99,16 +160,21 @@ export function useChatStream(serverUrl: string, apiKey: string) {
         ]);
       } finally {
         setLoading(false);
+        abortRef.current = null;
       }
     },
-    [serverUrl, apiKey, loading],
+    [serverUrl, apiKey, messages, loading],
   );
+
+  const cancel = useCallback(() => {
+    abortRef.current?.abort();
+  }, []);
 
   useEffect(() => {
     return () => {
-      if (frameTimer.current) clearTimeout(frameTimer.current);
+      abortRef.current?.abort();
     };
   }, []);
 
-  return { messages, loading, error, streamMessage };
+  return { messages, loading, error, streamMessage, cancel };
 }

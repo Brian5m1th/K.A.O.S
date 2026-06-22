@@ -77,12 +77,25 @@ class VaultIndexer:
             return 0
         logger.info("[start] VaultIndexer - index_file")
         path = Path(file_path)
-        if not path.exists() or not path.suffix == ".md":
+        try:
+            exists = path.exists()
+        except OSError as e:
+            logger.warning(
+                f"[skip] VaultIndexer - OSError ao verificar {file_path}: {e}"
+            )
+            logger.debug("[finish] VaultIndexer - index_file")
+            return 0
+        if not exists or not path.suffix == ".md":
             logger.info("[skip] VaultIndexer - index_file: nao e .md")
             logger.debug("[finish] VaultIndexer - index_file")
             return 0
 
-        content = path.read_text(encoding="utf-8")
+        try:
+            content = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as e:
+            logger.warning(f"[skip] VaultIndexer - erro ao ler {file_path}: {e}")
+            logger.debug("[finish] VaultIndexer - index_file")
+            return 0
         vault_path = Path(settings.OBSIDIAN_VAULT_PATH)
         relative = str(path.relative_to(vault_path))
         folder = (

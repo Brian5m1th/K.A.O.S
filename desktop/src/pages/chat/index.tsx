@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useChatStream } from "@/features/ask-ai/hooks/useChatStream";
+import { useChatStore } from "@/shared/lib/stores";
+import { useAuthStore } from "@/shared/lib/stores";
 import { ModelSelector } from "@/features/ask-ai/ui/ModelSelector";
 import { ChatInput } from "@/features/ask-ai/ui/ChatInput";
 import { MessageBubble } from "@/entities/message/ui/MessageBubble";
@@ -8,54 +9,49 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { kaosFetch } from "@/shared/api/kaos-client";
+import { Square } from "lucide-react";
 
-interface Props {
-  serverUrl: string;
-  apiKey: string;
-  onDisconnect: () => void;
-}
+export default function ChatPage() {
+  const serverUrl = useAuthStore((s) => s.serverUrl);
+  const apiKey = useAuthStore((s) => s.apiKey);
 
-export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
-  const { messages, loading, error, streamMessage } = useChatStream(
-    serverUrl,
-    apiKey,
-  );
+  const messages = useChatStore((s) => s.messages);
+  const loading = useChatStore((s) => s.loading);
+  const error = useChatStore((s) => s.error);
+  const streamMessage = useChatStore((s) => s.streamMessage);
+  const cancel = useChatStore((s) => s.cancel);
+  const activeModel = useChatStore((s) => s.activeModel);
+  const setActiveModel = useChatStore((s) => s.setActiveModel);
 
   const [defaultModel, setDefaultModel] = useState("kaos");
   const [fastModel, setFastModel] = useState("");
-  const [selectedModel, setSelectedModel] = useState("kaos");
   const [fastMode, setFastMode] = useState(false);
 
   useEffect(() => {
     const fetchConfig = async () => {
       try {
         const cleanUrl = serverUrl.replace(/\/+$/, "");
-        const res = await kaosFetch(
-          `${cleanUrl}/api/setup/provider/active`,
-          apiKey,
-        );
+        const res = await kaosFetch(`${cleanUrl}/api/setup/provider/active`, apiKey);
         if (res.ok) {
           const data = await res.json();
           setDefaultModel(data.model);
           setFastModel(data.fastModel || "");
-          setSelectedModel(data.model);
+          if (!activeModel) setActiveModel(data.model);
         }
       } catch {
         // Use defaults
       }
     };
     fetchConfig();
-  }, [serverUrl, apiKey]);
+  }, [serverUrl, apiKey, activeModel, setActiveModel]);
 
   const handleSend = (input: string) => {
-    streamMessage(input, selectedModel);
+    streamMessage(input, activeModel, serverUrl, apiKey);
   };
 
   const handleModelChange = (model: string) => {
-    setSelectedModel(model);
-    if (fastMode && model === defaultModel) {
-      setFastMode(false);
-    }
+    setActiveModel(model);
+    if (fastMode && model === defaultModel) setFastMode(false);
   };
 
   const handleFastModeToggle = (active: boolean) => {
@@ -70,11 +66,11 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
         </div>
       )}
 
-      <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2">
+      <div className="flex items-center justify-between border-b border-border-subtle px-4 py-2">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-zinc-100">Chat</span>
+          <span className="text-sm font-semibold text-text-primary">Chat</span>
           <ModelSelector
-            currentModel={selectedModel}
+            currentModel={activeModel}
             defaultModel={defaultModel}
             fastModel={fastModel}
             fastMode={fastMode}
@@ -82,13 +78,23 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
             onFastModeToggle={handleFastModeToggle}
           />
           {loading && (
-            <Badge variant="info">Generating...</Badge>
+            <>
+              <Badge variant="info">Generating...</Badge>
+              <button
+                onClick={cancel}
+                className="ml-1 flex items-center gap-1 rounded-md bg-error/10 px-2 py-0.5 text-[11px] text-error hover:bg-error/20 transition-colors"
+              >
+                <Square className="h-2.5 w-2.5 fill-current" />
+                Stop
+              </button>
+            </>
           )}
         </div>
         <Button
-          onClick={onDisconnect}
+          onClick={() => cancel()}
           variant="danger"
           size="sm"
+          disabled={loading}
         >
           Disconnect
         </Button>
@@ -108,7 +114,7 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
 
       <Separator />
 
-      <ChatInput onSend={handleSend} loading={loading} />
+      <ChatInput onSend={handleSend} loading={loading} activeModel={activeModel || defaultModel} />
     </div>
   );
 }
