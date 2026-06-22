@@ -30,6 +30,7 @@ async def test_send_message_streams_response(client: AsyncClient) -> None:
     with patch("app.api.chat._smart_router", mock_router):
         mock_classifier = AsyncMock()
         from app.domain.intent import IntentResult
+
         mock_classifier.classify = AsyncMock(
             return_value=IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
         )

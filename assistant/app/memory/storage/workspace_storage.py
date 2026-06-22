@@ -13,7 +13,12 @@ class WorkspaceStorage:
         month = now.strftime("%m")
         base = self._manager.conversations_path(slug, year, month)
         base.mkdir(parents=True, exist_ok=True)
-        safe_title = (snapshot.title or "conversa").replace(" ", "-").replace("/", "-").lower()[:80]
+        safe_title = (
+            (snapshot.title or "conversa")
+            .replace(" ", "-")
+            .replace("/", "-")
+            .lower()[:80]
+        )
         filename = f"{now.strftime('%Y-%m-%d')}-{safe_title}.md"
         filepath = base / filename
 

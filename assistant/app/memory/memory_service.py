@@ -99,6 +99,7 @@ class MemoryService:
 
     async def save_snapshot(self, snapshot, user_id: str, session_id: str) -> None:
         from app.memory.storage.postgres_storage import PostgresStorage
+
         uid = user_id or self._default_user()
         logger.info(f"[start] MemoryService - save_snapshot [user={uid}]")
         storage = PostgresStorage()

@@ -42,6 +42,7 @@ async def test_openai_chat_completions(client: AsyncClient) -> None:
 
     mock_classifier = MagicMock()
     from app.domain.intent import IntentResult
+
     mock_classifier.classify = AsyncMock(
         return_value=IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
     )
@@ -76,6 +77,7 @@ async def test_openai_chat_completions_no_user_message(
 
     mock_classifier = MagicMock()
     from app.domain.intent import IntentResult
+
     mock_classifier.classify = AsyncMock(
         return_value=IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
     )

@@ -126,7 +126,9 @@ class IntentClassifier:
     async def classify(self, message: str) -> IntentResult:
         keyword_match = self._match_keyword(message)
         if keyword_match:
-            logger.debug(f"[finish] IntentClassifier - classify (keyword: {keyword_match.workflow.value})")
+            logger.debug(
+                f"[finish] IntentClassifier - classify (keyword: {keyword_match.workflow.value})"
+            )
             return keyword_match
 
         logger.info("[info] IntentClassifier - fallback LLM")

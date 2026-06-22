@@ -22,7 +22,9 @@ class WorkspaceManager:
     def data_path(self, slug: str, *parts: str) -> Path:
         return self.workspace_path(slug, "data", *parts)
 
-    def conversations_path(self, slug: str, year: str | None = None, month: str | None = None) -> Path:
+    def conversations_path(
+        self, slug: str, year: str | None = None, month: str | None = None
+    ) -> Path:
         base = self.data_path(slug, "conversations")
         if year:
             base = base / year
@@ -62,7 +64,9 @@ class WorkspaceManager:
         ]
         for d in dirs:
             d.mkdir(parents=True, exist_ok=True)
-        logger.info(f"[info] WorkspaceManager - estrutura criada para workspace '{slug}'")
+        logger.info(
+            f"[info] WorkspaceManager - estrutura criada para workspace '{slug}'"
+        )
 
     def ensure_conversation_month(self, slug: str, year: str, month: str) -> Path:
         path = self.conversations_path(slug, year, month)

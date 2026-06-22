@@ -20,23 +20,27 @@ class MemoryWorkflow:
         self._workspace_storage = WorkspaceStorage()
         self._postgres_storage = PostgresStorage()
 
-    async def execute(self, command: CommandType | None, context: RequestContext) -> str:
+    async def execute(
+        self, command: CommandType | None, context: RequestContext
+    ) -> str:
         if command == CommandType.SAVE_CONVERSATION:
             return await self._save_conversation(context)
         logger.warning(f"[warn] MemoryWorkflow - comando nao implementado: {command}")
         return f"Comando '{command}' ainda nao implementado."
 
     async def _save_conversation(self, context: RequestContext) -> str:
-        await EventBus.publish(Event(
-            name=EVENT_MEMORY_WRITE_STARTED,
-            execution_id=context.execution_id,
-            trace_id=context.trace_id,
-            data={
-                "user_id": str(context.user.user_id),
-                "workspace_id": str(context.workspace.workspace_id),
-                "session_id": str(context.session_id),
-            },
-        ))
+        await EventBus.publish(
+            Event(
+                name=EVENT_MEMORY_WRITE_STARTED,
+                execution_id=context.execution_id,
+                trace_id=context.trace_id,
+                data={
+                    "user_id": str(context.user.user_id),
+                    "workspace_id": str(context.workspace.workspace_id),
+                    "session_id": str(context.session_id),
+                },
+            )
+        )
 
         history = context.history or []
         summary = ConversationSummarizer.generate(history)
@@ -68,30 +72,36 @@ class MemoryWorkflow:
                 vault_path=vault_path,
             )
         except Exception as e:
-            await EventBus.publish(Event(
-                name=EVENT_MEMORY_WRITE_FAILED,
-                execution_id=context.execution_id,
-                trace_id=context.trace_id,
-                data={"reason": str(e), "vault_path": vault_path},
-            ))
+            await EventBus.publish(
+                Event(
+                    name=EVENT_MEMORY_WRITE_FAILED,
+                    execution_id=context.execution_id,
+                    trace_id=context.trace_id,
+                    data={"reason": str(e), "vault_path": vault_path},
+                )
+            )
             logger.warning(f"[warn] MemoryWorkflow - PostgreSQL save failed: {e}")
 
-        await EventBus.publish(Event(
-            name=EVENT_MEMORY_WRITE_COMPLETED,
-            execution_id=context.execution_id,
-            trace_id=context.trace_id,
-            data={"vault_path": vault_path, "title": title},
-        ))
+        await EventBus.publish(
+            Event(
+                name=EVENT_MEMORY_WRITE_COMPLETED,
+                execution_id=context.execution_id,
+                trace_id=context.trace_id,
+                data={"vault_path": vault_path, "title": title},
+            )
+        )
 
-        await EventBus.publish(Event(
-            name=EVENT_CONVERSATION_STORED,
-            execution_id=context.execution_id,
-            trace_id=context.trace_id,
-            data={
-                "vault_path": vault_path,
-                "session_id": str(context.session_id),
-                "storage_type": "workspace_storage",
-            },
-        ))
+        await EventBus.publish(
+            Event(
+                name=EVENT_CONVERSATION_STORED,
+                execution_id=context.execution_id,
+                trace_id=context.trace_id,
+                data={
+                    "vault_path": vault_path,
+                    "session_id": str(context.session_id),
+                    "storage_type": "workspace_storage",
+                },
+            )
+        )
 
         return f"Conversa salva em: {vault_path}"

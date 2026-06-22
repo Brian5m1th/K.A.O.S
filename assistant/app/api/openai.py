@@ -229,7 +229,9 @@ def _resolve_model(api_model: str) -> str:
     return config["model"]
 
 
-def _build_context(body: ChatCompletionRequest, http_request: Request, session_id: str) -> RequestContext:
+def _build_context(
+    body: ChatCompletionRequest, http_request: Request, session_id: str
+) -> RequestContext:
     trace_id = uuid.uuid4()
     execution_id = uuid.uuid4()
     user_id_str = body.user_id or http_request.state.user_id or str(uuid.uuid4())
@@ -269,12 +271,17 @@ async def chat_completions(
 
     cached = _cache.get(user_message)
     if cached is not None:
+
         async def _cached_stream():
             yield cached
-        return await _respond(stream_id, created, body.model, _cached_stream(), body.stream)
+
+        return await _respond(
+            stream_id, created, body.model, _cached_stream(), body.stream
+        )
 
     if body.model == settings.FAST_MODEL_ID:
         from app.domain.intent import IntentResult
+
         intent = IntentResult(workflow=WorkflowType.CHAT, confidence=1.0)
         logger.info(f"[info] openai - model={body.model} -> forced CHAT")
     else:
@@ -289,8 +296,10 @@ async def chat_completions(
         result = await fast_route(user_message)
         if result:
             _cache.set(user_message, result)
+
             async def _fast_stream():
                 yield result
+
             elapsed = round((time.perf_counter() - start) * 1000, 2)
             logger.bind(
                 event="generation.completed",
@@ -299,18 +308,25 @@ async def chat_completions(
                 trace_id=str(context.trace_id),
                 execution_id=str(context.execution_id),
                 latency_ms=elapsed,
-            ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
-            return await _respond(stream_id, created, body.model, _fast_stream(), body.stream)
+            ).info(
+                f"[audit] generation | route={resolved.value} | latency_ms={elapsed}"
+            )
+            return await _respond(
+                stream_id, created, body.model, _fast_stream(), body.stream
+            )
 
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
+
         elapsed = round((time.perf_counter() - start) * 1000, 2)
         logger.bind(
             event="generation.completed",
             route=resolved.value,
             latency_ms=elapsed,
         ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
-        return await _respond(stream_id, created, body.model, _simple_stream(), body.stream)
+        return await _respond(
+            stream_id, created, body.model, _simple_stream(), body.stream
+        )
 
     elif resolved == WorkflowType.RAG:
         start = time.perf_counter()
@@ -326,9 +342,13 @@ async def chat_completions(
             execution_id=str(context.execution_id),
             latency_ms=elapsed,
         ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
+
         async def _rag_stream():
             yield result
-        return await _respond(stream_id, created, body.model, _rag_stream(), body.stream)
+
+        return await _respond(
+            stream_id, created, body.model, _rag_stream(), body.stream
+        )
 
     elif resolved == WorkflowType.MEMORY:
         start = time.perf_counter()
@@ -342,13 +362,20 @@ async def chat_completions(
             trace_id=str(context.trace_id),
             execution_id=str(context.execution_id),
             latency_ms=elapsed,
-        ).info(f"[audit] generation | route={resolved.value} | command={intent.command.value if intent.command else 'none'} | latency_ms={elapsed}")
+        ).info(
+            f"[audit] generation | route={resolved.value} | command={intent.command.value if intent.command else 'none'} | latency_ms={elapsed}"
+        )
+
         async def _memory_stream():
             yield result or "Comando de memória executado."
-        return await _respond(stream_id, created, body.model, _memory_stream(), body.stream)
+
+        return await _respond(
+            stream_id, created, body.model, _memory_stream(), body.stream
+        )
 
     elif resolved == WorkflowType.INGEST:
         from app.agent.graph import ingest_source
+
         start = time.perf_counter()
         result = await ingest_source(user_message)
         elapsed = round((time.perf_counter() - start) * 1000, 2)
@@ -357,9 +384,13 @@ async def chat_completions(
             route=resolved.value,
             latency_ms=elapsed,
         ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
+
         async def _ingest_stream():
             yield str(result) if result else "Fonte ingerida."
-        return await _respond(stream_id, created, body.model, _ingest_stream(), body.stream)
+
+        return await _respond(
+            stream_id, created, body.model, _ingest_stream(), body.stream
+        )
 
     # AGENT route (LangGraph)
     agent = _get_agent()

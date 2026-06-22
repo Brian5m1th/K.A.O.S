@@ -4,14 +4,24 @@ from app.memory.models import ConversationMemory
 
 
 class PostgresStorage:
-    async def save(self, snapshot, workspace_id: UUID, user_id: UUID, session_id: UUID, vault_path: str = "") -> None:
+    async def save(
+        self,
+        snapshot,
+        workspace_id: UUID,
+        user_id: UUID,
+        session_id: UUID,
+        vault_path: str = "",
+    ) -> None:
         logger.info(f"[start] PostgresStorage - save [user={user_id}]")
         from app.memory.postgres_repository import get_postgres_repository
+
         repo = await get_postgres_repository()
         async with repo._session_factory() as session:
             history_dicts = []
             if snapshot.history:
-                history_dicts = [{"role": m.role, "content": m.content} for m in snapshot.history]
+                history_dicts = [
+                    {"role": m.role, "content": m.content} for m in snapshot.history
+                ]
             record = ConversationMemory(
                 workspace_id=workspace_id,
                 user_id=user_id,
