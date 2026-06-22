@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       has_update: ${{ steps.check.outputs.has_update }}
+      tag: ${{ steps.check.outputs.tag }}
 
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +36,8 @@ jobs:
     if: needs.check-update.outputs.has_update == 'true'
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Check latest release
         env:
           GH_TOKEN: ${{ github.token }}
