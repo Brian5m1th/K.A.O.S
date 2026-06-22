@@ -140,6 +140,14 @@ def _register_observability(app_state) -> None:
         "orchestrator.execution_started",
         "orchestrator.execution_completed",
         "orchestrator.execution_failed",
+        "memory.write.started",
+        "memory.write.completed",
+        "memory.write.failed",
+        "memory.read.started",
+        "memory.read.completed",
+        "memory.deleted",
+        "conversation.summarized",
+        "conversation.stored",
     ):
         EventBus.subscribe(name, logger_subscriber)
     for name in (

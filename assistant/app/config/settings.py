@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     APP_PORT: int = 8000
     LOG_LEVEL: str = "INFO"
 
+    WORKSPACE_ROOT: str = "C:/workspace/Freelancer/K.A.O.S/workspace"
+
     OBSIDIAN_VAULT_PATH: str = ""
     OBSIDIAN_WIKI_PATH: str = ""
     OBSIDIAN_RAW_PATH: str = ""
