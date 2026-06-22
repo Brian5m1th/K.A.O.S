@@ -2,8 +2,6 @@ import httpx
 from fastapi import APIRouter
 from loguru import logger
 
-from app.config.settings import settings
-
 router = APIRouter(prefix="/api/observability", tags=["Observability"])
 
 

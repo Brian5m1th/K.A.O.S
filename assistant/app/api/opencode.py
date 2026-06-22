@@ -2,8 +2,6 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 
-from app.config.settings import settings
-
 router = APIRouter(prefix="/api/opencode", tags=["OpenCode"])
 
 OPCODE_DIR = Path(__file__).resolve().parent.parent.parent.parent / ".opencode"

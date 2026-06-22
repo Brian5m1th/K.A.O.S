@@ -45,7 +45,7 @@ async def system_status():
     postgres_ok = await _check_postgres()
 
     # N8N
-    n8n_ok = await _check_service("n8n", f"http://n8n:5678/healthz")
+    n8n_ok = await _check_service("n8n", "http://n8n:5678/healthz")
 
     # Grafana
     grafana_ok = await _check_service("grafana", "http://grafana:3001/api/health")

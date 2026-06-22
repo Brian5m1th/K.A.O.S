@@ -1,12 +1,10 @@
 import httpx
 from enum import Enum
-from dataclasses import dataclass, field, asdict
-from typing import Optional
+from dataclasses import dataclass, field
 
 from fastapi import APIRouter
 from loguru import logger
 
-from app.config.settings import settings
 from app.setup.provider_config import get_config, get_active_provider_config
 
 router = APIRouter(prefix="/api", tags=["Providers"])

@@ -7,7 +7,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth.hash import hash_password
-from app.auth.jwt import create_access_token, create_refresh_token
 from app.database import get_session
 from app.models.user import User
 
