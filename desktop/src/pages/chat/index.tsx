@@ -8,15 +8,15 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { kaosFetch } from "@/shared/api/kaos-client";
+import { useAuthStore, useSystemStore } from "@/shared/lib/stores";
 
-interface Props {
-  serverUrl: string;
-  apiKey: string;
-  onDisconnect: () => void;
-}
+export default function ChatPage() {
+  const serverUrl = useAuthStore((s) => s.serverUrl);
+  const apiKey = useAuthStore((s) => s.apiKey);
+  const setConnected = useAuthStore((s) => s.setConnected);
+  const setStatus = useSystemStore((s) => s.setStatus);
 
-export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
-  const { messages, loading, error, streamMessage } = useChatStream(
+  const { messages, loading, error, streamMessage, cancel } = useChatStream(
     serverUrl,
     apiKey,
   );
@@ -70,9 +70,9 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
         </div>
       )}
 
-      <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-2">
+      <div className="flex items-center justify-between border-b border-border-subtle px-4 py-2">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-zinc-100">Chat</span>
+          <span className="text-sm font-semibold text-text-primary">Chat</span>
           <ModelSelector
             currentModel={selectedModel}
             defaultModel={defaultModel}
@@ -82,11 +82,19 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
             onFastModeToggle={handleFastModeToggle}
           />
           {loading && (
-            <Badge variant="info">Generating...</Badge>
+            <>
+              <Badge variant="info">Generating...</Badge>
+              <button
+                onClick={cancel}
+                className="ml-1 rounded-md bg-error/10 px-2 py-0.5 text-[11px] text-error hover:bg-error/20 transition-colors"
+              >
+                Stop
+              </button>
+            </>
           )}
         </div>
         <Button
-          onClick={onDisconnect}
+          onClick={() => { setConnected(false); setStatus("offline"); }}
           variant="danger"
           size="sm"
         >
@@ -108,7 +116,7 @@ export default function ChatPage({ serverUrl, apiKey, onDisconnect }: Props) {
 
       <Separator />
 
-      <ChatInput onSend={handleSend} loading={loading} />
+      <ChatInput onSend={handleSend} loading={loading} activeModel={selectedModel} />
     </div>
   );
 }

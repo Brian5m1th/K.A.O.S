@@ -9,10 +9,7 @@ export const ScrollArea = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "h-full w-full overflow-y-auto overflow-x-hidden",
-        "scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent",
-        "hover:scrollbar-thumb-zinc-700 transition-colors",
-        "pr-1",
+        "h-full w-full overflow-y-auto overflow-x-hidden pr-1",
         className,
       )}
       {...props}
