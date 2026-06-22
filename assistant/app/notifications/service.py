@@ -6,7 +6,14 @@ class NotificationService:
     _notifications: list[Notification] = []
 
     @classmethod
-    def notify(cls, level: NotificationLevel, title: str, message: str = "", source: str = "", data: dict | None = None) -> Notification:
+    def notify(
+        cls,
+        level: NotificationLevel,
+        title: str,
+        message: str = "",
+        source: str = "",
+        data: dict | None = None,
+    ) -> Notification:
         notification = Notification(
             level=level,
             title=title,
