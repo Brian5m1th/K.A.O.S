@@ -30,6 +30,7 @@ from app.api.webhooks import router as webhooks_router
 from app.api.apps_api import router as apps_router
 from app.api.notifications import router as notifications_router
 from app.api.audit import router as audit_router
+from app.api.architecture import router as architecture_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
@@ -299,6 +300,7 @@ app.include_router(webhooks_router)
 app.include_router(apps_router)
 app.include_router(notifications_router)
 app.include_router(audit_router)
+app.include_router(architecture_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],
