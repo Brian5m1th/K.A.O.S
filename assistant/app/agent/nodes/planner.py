@@ -95,9 +95,18 @@ def planner(state: AgentState) -> dict:
         len(m.content) for m in state["messages"]
     )
 
+    resolved_model = model or settings.OLLAMA_MODEL
+    if not resolved_model:
+        logger.warning("[warn] planner - model vazio, usando fallback OLLAMA_MODEL")
+        resolved_model = settings.OLLAMA_MODEL
     factory = _get_factory()
-    provider = factory.build(model or settings.OLLAMA_MODEL)
-    response = provider.invoke(messages)
+    try:
+        provider = factory.build(resolved_model)
+        response = provider.invoke(messages)
+    except Exception as e:
+        logger.error(f"[error] planner - falha ao invocar modelo {resolved_model}: {e}")
+        logger.debug("[finish] planner")
+        return {"tool_to_call": None, "messages": state.get("messages", [])}
 
     elapsed = (time.perf_counter() - start) * 1000
     logger.info(
