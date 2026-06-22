@@ -35,7 +35,9 @@ def generate_catalog(data: dict) -> str:
     lines = []
     lines.append("# Catalogo de Features — K.A.O.S")
     lines.append("")
-    lines.append(f"*Gerado automaticamente em {datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append(
+        f"*Gerado automaticamente em {datetime.now().strftime('%Y-%m-%d %H:%M')}*"
+    )
     lines.append("")
     lines.append("## Resumo")
     lines.append("")
@@ -83,8 +85,10 @@ def main():
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(catalog, encoding="utf-8")
     print(f"[catalog] Catalogo gerado: {OUTPUT_PATH}")
-    print(f"[catalog] {len(data.get('features', []))} features, "
-          f"{sum(1 for f in data.get('features', []) if f.get('docs'))} documentadas")
+    print(
+        f"[catalog] {len(data.get('features', []))} features, "
+        f"{sum(1 for f in data.get('features', []) if f.get('docs'))} documentadas"
+    )
 
 
 if __name__ == "__main__":

@@ -19,13 +19,16 @@ from pathlib import Path
 def get_commits_from_range(base: str, head: str) -> list[dict]:
     """Obtém commits entre base e head."""
     cmd = [
-        "git", "log",
+        "git",
+        "log",
         f"{base}..{head}",
         "--no-merges",
         "--pretty=format:%H|%s",
     ]
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, cwd=Path.cwd(), timeout=30)
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, cwd=Path.cwd(), timeout=30
+        )
         if result.returncode != 0:
             print(f"[audit_pr] ERRO: git log falhou: {result.stderr}")
             return []
@@ -46,8 +49,10 @@ def get_commits_from_range(base: str, head: str) -> list[dict]:
 def get_commits_from_list(commits_str: str) -> list[dict]:
     """Parse lista de commits."""
     return [
-        {"hash": c.split(":")[0].strip()[:8] if ":" in c else c.strip()[:8],
-         "message": c.split(":", 1)[1].strip() if ":" in c else ""}
+        {
+            "hash": c.split(":")[0].strip()[:8] if ":" in c else c.strip()[:8],
+            "message": c.split(":", 1)[1].strip() if ":" in c else "",
+        }
         for c in commits_str.split(",")
         if c.strip()
     ]
@@ -56,11 +61,34 @@ def get_commits_from_list(commits_str: str) -> list[dict]:
 def classify_impact(message: str) -> str:
     """Classifica impacto do commit."""
     msg = message.lower()
-    high_patterns = ["event bus", "workflow", "provider", "model router",
-                     "observability", "memory", "circuit breaker", "dead letter",
-                     "orchestrator", "n8n", "sse", "tool layer", "agent", "launcher"]
-    medium_patterns = ["api", "endpoint", "store", "hook", "component",
-                       "schema", "config", "migration", "database", "registry"]
+    high_patterns = [
+        "event bus",
+        "workflow",
+        "provider",
+        "model router",
+        "observability",
+        "memory",
+        "circuit breaker",
+        "dead letter",
+        "orchestrator",
+        "n8n",
+        "sse",
+        "tool layer",
+        "agent",
+        "launcher",
+    ]
+    medium_patterns = [
+        "api",
+        "endpoint",
+        "store",
+        "hook",
+        "component",
+        "schema",
+        "config",
+        "migration",
+        "database",
+        "registry",
+    ]
 
     for pattern in high_patterns:
         if pattern in msg:
@@ -95,8 +123,14 @@ def check_documentation_exists(feature_id: str) -> bool:
     return False
 
 
-def generate_auto_sdd(feature_id: str, feature_name: str, commit_hash: str,
-                       commit_message: str, impact: str, code_refs: list[str]) -> Path:
+def generate_auto_sdd(
+    feature_id: str,
+    feature_name: str,
+    commit_hash: str,
+    commit_message: str,
+    impact: str,
+    code_refs: list[str],
+) -> Path:
     """Gera AUTO-SDD para a feature."""
     from app.audit.sdd_generator import SDDGenerator, SDDTemplate
 
@@ -116,6 +150,7 @@ def register_feature(feature_id: str, feature_name: str, commit_hash: str, impac
     """Registra feature no registry se existir."""
     try:
         from app.audit.feature_registry import FeatureEntry, FeatureRegistry
+
         FeatureRegistry.load_from_json()
         existing = FeatureRegistry.get(feature_id)
         if existing:
@@ -148,7 +183,9 @@ def audit_commits(commits: list[dict]) -> dict:
         msg = commit["message"]
         impact = classify_impact(msg)
 
-        feature_id = msg.split(":")[0].strip().lower() if ":" in msg else msg.split()[0].lower()
+        feature_id = (
+            msg.split(":")[0].strip().lower() if ":" in msg else msg.split()[0].lower()
+        )
         feature_name = msg.split(":", 1)[1].strip() if ":" in msg else msg
 
         has_docs = check_documentation_exists(feature_id)
@@ -191,14 +228,14 @@ def audit_commits(commits: list[dict]) -> dict:
 
 def print_report(results: dict):
     """Exibe relatório formatado."""
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("RELATORIO DE AUDITORIA DE DOCUMENTACAO")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"Total de commits:          {results['total']}")
     print(f"Com documentacao:          {results['has_documentation']}")
     print(f"SEM documentacao:          {results['missing_documentation']}")
     print(f"SDDs gerados:              {results['auto_generated']}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     if results["missing_documentation"] > 0:
         print("\nCommits SEM documentacao:")

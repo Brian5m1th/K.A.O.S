@@ -52,7 +52,9 @@ def validate(report: dict, min_coverage: float) -> bool:
     print("[validate_docs] ==============================")
 
     if coverage < min_coverage:
-        print(f"[validate_docs] FALHA: cobertura {coverage:.1f}% abaixo do minimo {min_coverage:.1f}%")
+        print(
+            f"[validate_docs] FALHA: cobertura {coverage:.1f}% abaixo do minimo {min_coverage:.1f}%"
+        )
         return False
 
     if missing > 0:
