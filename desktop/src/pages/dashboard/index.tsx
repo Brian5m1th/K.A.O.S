@@ -1,65 +1,50 @@
 import { useEffect, useState } from "react";
-import { useSystemStore } from "@/shared/lib/stores";
+import { useSystemStore, useAuthStore } from "@/shared/lib/stores";
 import { useSystemMetrics } from "@/features/dashboard/hooks/useSystemMetrics";
+import { kaosFetch } from "@/shared/api/kaos-client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Sparkline } from "@/shared/ui/sparkline";
-import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Cpu, MemoryStick, Gauge, Database, Bot, Activity } from "lucide-react";
 
-interface Workflow {
+interface DlqItem {
   id: string;
-  name: string;
-  status: "running" | "success" | "failed" | "idle";
-  runtime: string;
+  workflow_name: string;
+  status: string;
+  error: string;
+  created_at: string;
 }
-
-interface AgentActivity {
-  id: string;
-  name: string;
-  intention: string;
-  status: "active" | "idle" | "thinking";
-}
-
-const MOCK_WORKFLOWS: Workflow[] = [
-  { id: "1", name: "RAG Pipeline v2", status: "running", runtime: "1m 23s" },
-  { id: "2", name: "Code Review Agent", status: "success", runtime: "4m 12s" },
-  { id: "3", name: "Weekly Report Gen", status: "idle", runtime: "—" },
-  { id: "4", name: "Knowledge Sync", status: "failed", runtime: "0m 45s" },
-];
-
-const MOCK_AGENTS: AgentActivity[] = [
-  { id: "1", name: "Memory Agent", intention: "Consolidating notes from Obsidian vault...", status: "active" },
-  { id: "2", name: "Code Reviewer", intention: "Awaiting PR submission", status: "idle" },
-  { id: "3", name: "Research Bot", intention: "Summarizing latest papers on RAG", status: "thinking" },
-];
 
 export default function DashboardPage() {
   const runtime = useSystemStore((s) => s.runtime);
   const metrics = useSystemStore((s) => s.metrics);
   const services = useSystemStore((s) => s.services);
   const status = useSystemStore((s) => s.status);
+  const serverUrl = useAuthStore((s) => s.serverUrl);
   const history = useSystemMetrics();
 
-  const [logs, setLogs] = useState<string[]>([
-    "[INFO] KAOS Core initialized",
-    "[INFO] Ollama service detected: Llama 3.3-70b",
-    "[INFO] Qdrant vector store connected",
-  ]);
+  const [dlqItems, setDlqItems] = useState<DlqItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch workflows from DLQ endpoint
   useEffect(() => {
-    const interval = setInterval(() => {
-      const entries = [
-        `[INFO] RAG search injected: ${Math.floor(Math.random() * 6 + 1)} chunks from vault`,
-        `[INFO] LLM response init: model=${runtime.activeModel || "default"}, latency=${runtime.latency}ms`,
-        `[DEBUG] VRAM buffering: ${runtime.vramUsed.toFixed(1)}GB used`,
-        `[INFO] Vector count: ${metrics.vectorCount} indexed`,
-      ];
-      setLogs((prev) => [...prev.slice(-19), entries[Math.floor(Math.random() * entries.length)]]);
-    }, 4000);
-
+    const fetchDlq = async () => {
+      try {
+        const res = await kaosFetch(`${serverUrl}/api/orchestrator/dlq`, "");
+        if (res.ok) {
+          const data = await res.json();
+          setDlqItems(data.failed || []);
+        }
+      } catch {
+        // Backend offline — keep empty
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDlq();
+    const interval = setInterval(fetchDlq, 10_000);
     return () => clearInterval(interval);
-  }, [runtime, metrics]);
+  }, [serverUrl]);
 
   const statusBadge = {
     online: "success" as const,
@@ -113,30 +98,26 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="flex-1 min-h-0 p-0 px-4 pb-4">
             <div className="flex flex-col gap-1.5">
-              {MOCK_WORKFLOWS.map((wf) => (
-                <div
-                  key={wf.id}
-                  className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2 transition-colors hover:bg-bg-active"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-text-primary">{wf.name}</span>
+              {loading ? (
+                <p className="text-xs text-text-dim py-4 text-center">Loading workflows...</p>
+              ) : dlqItems.length === 0 ? (
+                <p className="text-xs text-text-dim py-4 text-center">No failed workflows</p>
+              ) : (
+                dlqItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2 transition-colors hover:bg-bg-active"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-text-primary">{item.workflow_name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-text-dim font-mono">{item.error?.slice(0, 30)}</span>
+                      <Badge variant="error">FAILED</Badge>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-text-dim font-mono">{wf.runtime}</span>
-                    <Badge
-                      variant={
-                        wf.status === "running" ? "info" :
-                        wf.status === "success" ? "success" :
-                        wf.status === "failed" ? "error" : "neutral"
-                      }
-                    >
-                      {wf.status === "running" ? "RUNNING" :
-                       wf.status === "success" ? "SUCCESS" :
-                       wf.status === "failed" ? "FAILED" : "IDLE"}
-                    </Badge>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </CardContent>
         </Card>
@@ -151,62 +132,30 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="flex-1 min-h-0 p-0 px-4 pb-4">
             <div className="flex flex-col gap-1.5">
-              {MOCK_AGENTS.map((agent) => (
-                <div
-                  key={agent.id}
-                  className="rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2.5 transition-colors hover:bg-bg-active"
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`h-1.5 w-1.5 rounded-full ${
-                          agent.status === "active" ? "bg-success animate-pulse" :
-                          agent.status === "thinking" ? "bg-accent-neon animate-pulse" :
-                          "bg-text-dim"
-                        }`}
-                      />
-                      <span className="text-xs font-medium text-text-primary">{agent.name}</span>
-                    </div>
-                    <Badge
-                      variant={
-                        agent.status === "active" ? "success" :
-                        agent.status === "thinking" ? "info" : "neutral"
-                      }
-                    >
-                      {agent.status.toUpperCase()}
-                    </Badge>
-                  </div>
-                  <p className="text-[11px] text-text-muted pl-3.5 truncate">{agent.intention}</p>
-                </div>
-              ))}
-            </div>
+              <div className="flex items-center justify-center h-full min-h-[100px]">
+                <p className="text-xs text-text-dim text-center">
+                  Agent telemetry coming soon in Fase 4<br />
+                  <span className="text-[10px] text-text-muted">(Prometheus + Loki integration)</span>
+                </p>
+              </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Bottom: Logs */}
-      <Card className="h-40 shrink-0">
+      {/* Bottom: Logs — placeholder until Prometheus/Loki */}
+      <Card className="h-32 shrink-0">
         <CardHeader className="pb-1">
           <CardTitle className="text-xs font-semibold text-text-muted uppercase tracking-wider">
             System Log
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0 px-4 pb-3">
-          <ScrollArea className="h-24">
-            <div className="font-mono text-[11px] leading-5">
-              {logs.map((log, i) => {
-                const level = log.includes("[ERROR]") ? "text-error" :
-                              log.includes("[WARN]") ? "text-warning" :
-                              log.includes("[DEBUG]") ? "text-text-dim" :
-                              "text-text-muted";
-                return (
-                  <div key={i} className={level}>
-                    {log}
-                  </div>
-                );
-              })}
-            </div>
-          </ScrollArea>
+          <div className="flex items-center justify-center h-20">
+            <p className="text-xs text-text-dim text-center">
+              No telemetry available<br />
+              <span className="text-[10px] text-text-muted">Connect Prometheus + Loki for live logs (Fase 4)</span>
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>

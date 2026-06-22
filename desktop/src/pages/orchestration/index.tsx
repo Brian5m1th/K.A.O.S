@@ -1,26 +1,44 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { GitBranch, Plus, Play, RotateCw } from "lucide-react";
+import { kaosFetch } from "@/shared/api/kaos-client";
+import { useAuthStore } from "@/shared/lib/stores";
+import { GitBranch, Plus, Play, RotateCw, Loader2 } from "lucide-react";
 
-interface Workflow {
+interface DlqItem {
   id: string;
-  name: string;
-  description: string;
-  status: "running" | "success" | "failed" | "idle";
-  nodes: number;
-  lastRun: string;
+  workflow_name: string;
+  status: string;
+  error: string;
+  created_at: string;
 }
 
-const WORKFLOWS: Workflow[] = [
-  { id: "1", name: "RAG Pipeline", description: "Document ingestion + vector search", status: "running", nodes: 4, lastRun: "now" },
-  { id: "2", name: "Code Review Agent", description: "Automated PR review with LLM", status: "success", nodes: 3, lastRun: "2m ago" },
-  { id: "3", name: "Weekly Report", description: "Aggregate metrics + generate report", status: "idle", nodes: 5, lastRun: "1h ago" },
-  { id: "4", name: "Knowledge Sync", description: "Sync Obsidian vault to Qdrant", status: "failed", nodes: 2, lastRun: "15m ago" },
-  { id: "5", name: "Research Monitor", description: "Track arxiv papers by topic", status: "idle", nodes: 6, lastRun: "3h ago" },
-];
-
 export default function OrchestrationPage() {
+  const serverUrl = useAuthStore((s) => s.serverUrl);
+  const [workflows, setWorkflows] = useState<DlqItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchWorkflows = async () => {
+    try {
+      const res = await kaosFetch(`${serverUrl}/api/orchestrator/dlq`, "");
+      if (res.ok) {
+        const data = await res.json();
+        setWorkflows(data.failed || []);
+      }
+    } catch {
+      // Backend offline
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchWorkflows();
+    const interval = setInterval(fetchWorkflows, 15_000);
+    return () => clearInterval(interval);
+  }, [serverUrl]);
+
   return (
     <div className="flex h-full flex-col gap-4 p-4">
       <div className="flex items-center justify-between">
@@ -29,57 +47,63 @@ export default function OrchestrationPage() {
           <p className="text-xs text-text-muted mt-0.5">Workflows ativos e pipelines de agentes</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="sm">
-            <RotateCw className="h-3.5 w-3.5 mr-1.5" />
+          <Button variant="secondary" size="sm" onClick={fetchWorkflows} disabled={loading}>
+            <RotateCw className={`h-3.5 w-3.5 mr-1.5 ${loading ? "animate-spin" : ""}`} />
             Refresh
           </Button>
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="sm" disabled title="Coming Soon">
             <Plus className="h-3.5 w-3.5 mr-1.5" />
             Create Workflow
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        {WORKFLOWS.map((wf) => (
-          <Card key={wf.id} className="group">
-            <CardContent className="p-4">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 rounded-lg bg-accent-neon/10 p-2">
-                    <GitBranch className="h-4 w-4 text-accent-neon" />
+      {loading ? (
+        <div className="flex items-center justify-center flex-1">
+          <Loader2 className="h-5 w-5 animate-spin text-text-dim" />
+          <span className="ml-2 text-xs text-text-dim">Loading workflows...</span>
+        </div>
+      ) : workflows.length === 0 ? (
+        <div className="flex items-center justify-center flex-1">
+          <p className="text-xs text-text-dim">No failed workflows</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          {workflows.map((wf) => (
+            <Card key={wf.id} className="group">
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 rounded-lg bg-accent-neon/10 p-2">
+                      <GitBranch className="h-4 w-4 text-accent-neon" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-text-primary">{wf.workflow_name}</h3>
+                      <p className="text-xs text-text-muted mt-0.5">{wf.error?.slice(0, 60)}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-text-primary">{wf.name}</h3>
-                    <p className="text-xs text-text-muted mt-0.5">{wf.description}</p>
-                  </div>
+                  <Badge variant="error">FAILED</Badge>
                 </div>
-                <Badge
-                  variant={
-                    wf.status === "running" ? "info" :
-                    wf.status === "success" ? "success" :
-                    wf.status === "failed" ? "error" : "neutral"
-                  }
-                >
-                  {wf.status.toUpperCase()}
-                </Badge>
-              </div>
-              <div className="mt-3 flex items-center justify-between text-[11px] text-text-dim">
-                <span>{wf.nodes} nodes</span>
-                <span>{wf.lastRun}</span>
-              </div>
-              {wf.status === "idle" && (
-                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button variant="secondary" size="sm" className="w-full">
+                <div className="mt-3 flex items-center justify-between text-[11px] text-text-dim">
+                  <span>{wf.created_at ? new Date(wf.created_at).toLocaleString() : "—"}</span>
+                </div>
+                <div className="mt-3">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="w-full"
+                    disabled
+                    title="Coming Soon"
+                  >
                     <Play className="h-3 w-3 mr-1.5" />
-                    Trigger Manual
+                    Retry
                   </Button>
                 </div>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
