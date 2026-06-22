@@ -7,11 +7,18 @@ from app.ai.vault_analyzer.suggestion_engine import SuggestionEngine, Suggestion
 from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder, KnowledgeGraph
 
 __all__ = [
-    "VaultReader", "VaultNode",
-    "GraphBuilder", "ArchGraphSnapshot",
-    "DriftEngine", "DriftScore",
-    "EvidenceEngine", "Evidence",
-    "AnalyzerEngine", "ArchitectureAnalysis",
-    "SuggestionEngine", "Suggestion",
-    "KnowledgeGraphBuilder", "KnowledgeGraph",
+    "VaultReader",
+    "VaultNode",
+    "GraphBuilder",
+    "ArchGraphSnapshot",
+    "DriftEngine",
+    "DriftScore",
+    "EvidenceEngine",
+    "Evidence",
+    "AnalyzerEngine",
+    "ArchitectureAnalysis",
+    "SuggestionEngine",
+    "Suggestion",
+    "KnowledgeGraphBuilder",
+    "KnowledgeGraph",
 ]

@@ -75,63 +75,77 @@ class EvidenceEngine:
 
         for feat in features:
             if not feat.docs:
-                evidences.append(Evidence(
-                    rule="missing_documentation",
-                    severity="high",
-                    source_files=feat.code_refs,
-                    source_sdds=[],
-                    explanation=f"Feature '{feat.name}' ({feat.id}) detected in code but not linked to any SDD.",
-                    confidence=0.95,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="missing_documentation",
+                        severity="high",
+                        source_files=feat.code_refs,
+                        source_sdds=[],
+                        explanation=f"Feature '{feat.name}' ({feat.id}) detected in code but not linked to any SDD.",
+                        confidence=0.95,
+                    )
+                )
 
             if not feat.code_refs:
-                evidences.append(Evidence(
-                    rule="orphan_feature",
-                    severity="medium",
-                    source_files=[],
-                    source_sdds=feat.docs,
-                    explanation=f"Feature '{feat.name}' ({feat.id}) registered but no code references found.",
-                    confidence=0.85,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="orphan_feature",
+                        severity="medium",
+                        source_files=[],
+                        source_sdds=feat.docs,
+                        explanation=f"Feature '{feat.name}' ({feat.id}) registered but no code references found.",
+                        confidence=0.85,
+                    )
+                )
 
-        vault_feature_nodes = [n for n in vault_nodes if n.type in ("feature", "system")]
+        vault_feature_nodes = [
+            n for n in vault_nodes if n.type in ("feature", "system")
+        ]
         for node in vault_feature_nodes:
             matched = any(
                 node.id == f.id or node.id in f.docs or f.id in node.links
                 for f in features
             )
             if not matched and node.status == "implemented":
-                evidences.append(Evidence(
-                    rule="sdd_without_feature",
-                    severity="medium",
-                    source_files=[],
-                    source_sdds=[node.path],
-                    explanation=f"SDD '{node.title}' exists in docs but no feature references it.",
-                    confidence=0.75,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="sdd_without_feature",
+                        severity="medium",
+                        source_files=[],
+                        source_sdds=[node.path],
+                        explanation=f"SDD '{node.title}' exists in docs but no feature references it.",
+                        confidence=0.75,
+                    )
+                )
 
         for sdd in sdds:
-            vault_match = any(sdd.id == n.id or sdd.id in n.links for n in vault_feature_nodes)
+            vault_match = any(
+                sdd.id == n.id or sdd.id in n.links for n in vault_feature_nodes
+            )
             if not vault_match:
-                evidences.append(Evidence(
-                    rule="sdd_without_feature",
-                    severity="medium",
-                    source_files=[],
-                    source_sdds=[sdd.id],
-                    explanation=f"SDD '{sdd.title}' ({sdd.id}) exists but no vault node references it.",
-                    confidence=0.7,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="sdd_without_feature",
+                        severity="medium",
+                        source_files=[],
+                        source_sdds=[sdd.id],
+                        explanation=f"SDD '{sdd.title}' ({sdd.id}) exists but no vault node references it.",
+                        confidence=0.7,
+                    )
+                )
 
         for node in vault_nodes:
             if not node.owner or node.owner == "shared":
-                evidences.append(Evidence(
-                    rule="missing_owner",
-                    severity="low",
-                    source_files=[node.path],
-                    source_sdds=[],
-                    explanation=f"Node '{node.title}' ({node.id}) has no owner assigned.",
-                    confidence=0.9,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="missing_owner",
+                        severity="low",
+                        source_files=[node.path],
+                        source_sdds=[],
+                        explanation=f"Node '{node.title}' ({node.id}) has no owner assigned.",
+                        confidence=0.9,
+                    )
+                )
 
         EvidenceEngine._detect_cycles(evidences, vault_nodes)
         EvidenceEngine._detect_overcoupled(evidences, vault_nodes)
@@ -166,14 +180,16 @@ class EvidenceEngine:
 
         for node_id in link_map:
             if has_cycle(node_id, set(), set()):
-                evidences.append(Evidence(
-                    rule="cyclic_dependency",
-                    severity="critical",
-                    source_files=[f"node:{node_id}"],
-                    source_sdds=[],
-                    explanation=f"Cyclic dependency detected involving node '{node_id}'.",
-                    confidence=0.8,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="cyclic_dependency",
+                        severity="critical",
+                        source_files=[f"node:{node_id}"],
+                        source_sdds=[],
+                        explanation=f"Cyclic dependency detected involving node '{node_id}'.",
+                        confidence=0.8,
+                    )
+                )
                 break
 
     @staticmethod
@@ -181,23 +197,30 @@ class EvidenceEngine:
         for node in nodes:
             total_links = len(node.links) + len(node.wikilinks)
             if total_links > 10:
-                evidences.append(Evidence(
-                    rule="overcoupled_node",
-                    severity="medium",
-                    source_files=[node.path],
-                    source_sdds=[],
-                    explanation=f"Node '{node.title}' has {total_links} dependencies (threshold: 10). Consider splitting.",
-                    confidence=0.7,
-                ))
+                evidences.append(
+                    Evidence(
+                        rule="overcoupled_node",
+                        severity="medium",
+                        source_files=[node.path],
+                        source_sdds=[],
+                        explanation=f"Node '{node.title}' has {total_links} dependencies (threshold: 10). Consider splitting.",
+                        confidence=0.7,
+                    )
+                )
 
     @staticmethod
     def _persist(evidences: list[Evidence]):
         path = Path("docs/runtime/architecture/issues.json")
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
-            json.dump({
-                "version": "1.0",
-                "total": len(evidences),
-                "generated_at": datetime.now(timezone.utc).isoformat(),
-                "evidences": [e.to_dict() for e in evidences],
-            }, f, indent=2, ensure_ascii=False)
+            json.dump(
+                {
+                    "version": "1.0",
+                    "total": len(evidences),
+                    "generated_at": datetime.now(timezone.utc).isoformat(),
+                    "evidences": [e.to_dict() for e in evidences],
+                },
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )

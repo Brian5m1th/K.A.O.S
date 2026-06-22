@@ -19,7 +19,9 @@ class ArchitectureAnalysis:
     issues: list[Evidence] = field(default_factory=list)
     suggestions: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> dict:
         return {
@@ -68,7 +70,9 @@ class AnalyzerEngine:
         )
 
         AnalyzerEngine._persist(analysis)
-        logger.info(f"[analyzer_engine] analysis complete: coverage={coverage:.1f}%, drift={drift.level}")
+        logger.info(
+            f"[analyzer_engine] analysis complete: coverage={coverage:.1f}%, drift={drift.level}"
+        )
         return analysis
 
     @staticmethod
@@ -83,7 +87,7 @@ class AnalyzerEngine:
 
             if ev.rule == "missing_documentation":
                 suggestions.append(
-                    f"Criar SDDs para as features sem documentacao ({ev.confidence*100:.0f}% confianca)."
+                    f"Criar SDDs para as features sem documentacao ({ev.confidence * 100:.0f}% confianca)."
                 )
             elif ev.rule == "orphan_feature":
                 suggestions.append(
@@ -116,11 +120,15 @@ class AnalyzerEngine:
 
         missing_in_vault = feature_ids - vault_ids
         if missing_in_vault:
-            warnings.append(f"{len(missing_in_vault)} features registradas mas ausentes no vault.")
+            warnings.append(
+                f"{len(missing_in_vault)} features registradas mas ausentes no vault."
+            )
 
         deprecated_in_vault = {n.id for n in vault_nodes if n.status == "deprecated"}
         if deprecated_in_vault & feature_ids:
-            warnings.append("Features marcadas como deprecated mas ainda registradas como ativas.")
+            warnings.append(
+                "Features marcadas como deprecated mas ainda registradas como ativas."
+            )
 
         return warnings
 

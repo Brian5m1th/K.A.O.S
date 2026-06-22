@@ -34,16 +34,24 @@ class ArchEdge:
 class ArchGraphSnapshot:
     nodes: list[ArchNode] = field(default_factory=list)
     edges: list[ArchEdge] = field(default_factory=list)
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> dict:
         return {
             "version": "1.0",
             "generated_at": self.generated_at,
             "nodes": [
-                {"id": n.id, "label": n.label, "type": n.type,
-                 "owner": n.owner, "status": n.status,
-                 "source": n.source, "phase": n.phase}
+                {
+                    "id": n.id,
+                    "label": n.label,
+                    "type": n.type,
+                    "owner": n.owner,
+                    "status": n.status,
+                    "source": n.source,
+                    "phase": n.phase,
+                }
                 for n in self.nodes
             ],
             "edges": [
@@ -76,45 +84,74 @@ class GraphBuilder:
             seen_ids.add(vn.id)
 
             for link in vn.links:
-                snapshot.edges.append(ArchEdge(source=vn.id, target=link, relation="depends_on"))
+                snapshot.edges.append(
+                    ArchEdge(source=vn.id, target=link, relation="depends_on")
+                )
             for wl in vn.wikilinks:
-                snapshot.edges.append(ArchEdge(source=vn.id, target=wl, relation="documents"))
+                snapshot.edges.append(
+                    ArchEdge(source=vn.id, target=wl, relation="documents")
+                )
 
         if drl:
             for feature in drl.features:
                 fid = f"feature:{feature.id}"
                 if fid not in seen_ids:
-                    snapshot.nodes.append(ArchNode(
-                        id=fid, label=feature.name, type="feature",
-                        status=feature.status, source="drl", phase=feature.phase,
-                    ))
+                    snapshot.nodes.append(
+                        ArchNode(
+                            id=fid,
+                            label=feature.name,
+                            type="feature",
+                            status=feature.status,
+                            source="drl",
+                            phase=feature.phase,
+                        )
+                    )
                     seen_ids.add(fid)
                 for doc_ref in feature.docs:
-                    snapshot.edges.append(ArchEdge(
-                        source=fid, target=doc_ref, relation="documents",
-                    ))
+                    snapshot.edges.append(
+                        ArchEdge(
+                            source=fid,
+                            target=doc_ref,
+                            relation="documents",
+                        )
+                    )
                 for code_ref in feature.code_refs:
-                    snapshot.edges.append(ArchEdge(
-                        source=fid, target=code_ref, relation="implements",
-                    ))
+                    snapshot.edges.append(
+                        ArchEdge(
+                            source=fid,
+                            target=code_ref,
+                            relation="implements",
+                        )
+                    )
 
         all_code_refs = (
-            code.stores + code.routes + code.tools + code.events +
-            code.agents + code.workflows + code.providers
+            code.stores
+            + code.routes
+            + code.tools
+            + code.events
+            + code.agents
+            + code.workflows
+            + code.providers
         )
         for ref in all_code_refs:
             if ref not in seen_ids:
                 ref_type = GraphBuilder._infer_type(ref)
-                snapshot.nodes.append(ArchNode(
-                    id=ref, label=ref.split("/")[-1], type=ref_type,
-                    source="code",
-                ))
+                snapshot.nodes.append(
+                    ArchNode(
+                        id=ref,
+                        label=ref.split("/")[-1],
+                        type=ref_type,
+                        source="code",
+                    )
+                )
                 seen_ids.add(ref)
 
         GraphBuilder._infer_system_edges(snapshot)
         GraphBuilder._persist(snapshot)
 
-        logger.info(f"[graph_builder] built graph: {len(snapshot.nodes)} nodes, {len(snapshot.edges)} edges")
+        logger.info(
+            f"[graph_builder] built graph: {len(snapshot.nodes)} nodes, {len(snapshot.edges)} edges"
+        )
         return snapshot
 
     @staticmethod

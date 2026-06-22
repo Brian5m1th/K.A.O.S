@@ -55,6 +55,7 @@ async def get_issues():
     """Lista evidencias/issues arquiteturais."""
     from pathlib import Path
     import json
+
     path = Path("docs/runtime/architecture/issues.json")
     if not path.exists():
         return {"total": 0, "evidences": []}
@@ -67,6 +68,7 @@ async def get_suggestions():
     """Lista sugestoes arquiteturais."""
     from pathlib import Path
     import json
+
     path = Path("docs/runtime/architecture/suggestions.json")
     if not path.exists():
         return {"total": 0, "suggestions": []}
@@ -94,7 +96,9 @@ async def scan_vault():
         "by_type": by_type,
         "orphan_count": len(orphans),
         "total_links": VaultReader.get_total_links(),
-        "orphan_nodes": [{"id": n.id, "title": n.title, "type": n.type} for n in orphans],
+        "orphan_nodes": [
+            {"id": n.id, "title": n.title, "type": n.type} for n in orphans
+        ],
     }
 
 
@@ -119,6 +123,7 @@ async def get_drift_history():
     """Lista historico temporal de drift."""
     from pathlib import Path
     import json
+
     history_dir = Path("docs/runtime/architecture/history")
     if not history_dir.exists():
         return {"total": 0, "history": []}
@@ -127,14 +132,16 @@ async def get_drift_history():
         try:
             with open(f, "r", encoding="utf-8") as fh:
                 data = json.load(fh)
-            entries.append({
-                "date": f.stem,
-                "score": data.get("score", 0),
-                "level": data.get("level", "low"),
-                "missing_links": data.get("missing_links", 0),
-                "sdd_mismatch": data.get("sdd_mismatch", 0),
-                "code_vs_vault_diff": data.get("code_vs_vault_diff", 0),
-            })
+            entries.append(
+                {
+                    "date": f.stem,
+                    "score": data.get("score", 0),
+                    "level": data.get("level", "low"),
+                    "missing_links": data.get("missing_links", 0),
+                    "sdd_mismatch": data.get("sdd_mismatch", 0),
+                    "code_vs_vault_diff": data.get("code_vs_vault_diff", 0),
+                }
+            )
         except Exception:
             pass
     return {"total": len(entries), "history": entries}

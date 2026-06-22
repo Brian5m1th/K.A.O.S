@@ -20,7 +20,9 @@ class KnowledgeGraph:
     sdds: list[dict] = field(default_factory=list)
     workflows: list[dict] = field(default_factory=list)
     agents: list[dict] = field(default_factory=list)
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> dict:
         return {
@@ -74,9 +76,13 @@ class KnowledgeGraphBuilder:
                 kg.workflows.append(entry)
 
             for link in vn.links:
-                kg.edges.append({"source": vn.id, "target": link, "relation": "depends_on"})
+                kg.edges.append(
+                    {"source": vn.id, "target": link, "relation": "depends_on"}
+                )
             for wl in vn.wikilinks:
-                kg.edges.append({"source": vn.id, "target": wl, "relation": "documents"})
+                kg.edges.append(
+                    {"source": vn.id, "target": wl, "relation": "documents"}
+                )
 
         for feat in FeatureRegistry.list():
             fid = f"feature:{feat.id}"
@@ -96,8 +102,13 @@ class KnowledgeGraphBuilder:
                 seen_ids.add(fid)
 
         all_code_refs = (
-            code.stores + code.routes + code.tools + code.events +
-            code.agents + code.workflows + code.providers
+            code.stores
+            + code.routes
+            + code.tools
+            + code.events
+            + code.agents
+            + code.workflows
+            + code.providers
         )
         for ref in all_code_refs:
             if ref not in seen_ids:
@@ -112,9 +123,11 @@ class KnowledgeGraphBuilder:
                 seen_ids.add(ref)
 
         KnowledgeGraphBuilder._persist(kg)
-        logger.info(f"[knowledge_graph] built: {len(kg.nodes)} nodes, {len(kg.edges)} edges, "
-                    f"{len(kg.features)} features, {len(kg.sdds)} sdds, "
-                    f"{len(kg.workflows)} workflows, {len(kg.agents)} agents")
+        logger.info(
+            f"[knowledge_graph] built: {len(kg.nodes)} nodes, {len(kg.edges)} edges, "
+            f"{len(kg.features)} features, {len(kg.sdds)} sdds, "
+            f"{len(kg.workflows)} workflows, {len(kg.agents)} agents"
+        )
         return kg
 
     @staticmethod

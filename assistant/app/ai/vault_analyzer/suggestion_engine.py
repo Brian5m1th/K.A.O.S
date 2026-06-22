@@ -18,7 +18,9 @@ class Suggestion:
     priority: str  # low | medium | high | critical
     confidence: float  # 0.0 - 1.0
     affected_nodes: list[str] = field(default_factory=list)
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> dict:
         return {
@@ -120,12 +122,14 @@ class SuggestionEngine:
         return mapping.get(ev.rule)
 
     @staticmethod
-    def generate_auto_sdd_suggestion(feature_id: str, feature_name: str, confidence: float = 0.85) -> Suggestion:
+    def generate_auto_sdd_suggestion(
+        feature_id: str, feature_name: str, confidence: float = 0.85
+    ) -> Suggestion:
         return Suggestion(
             id=f"sug-auto-sdd-{feature_id}",
             title=f"Gerar SDD para {feature_name}",
             description=f"Feature '{feature_name}' ({feature_id}) nao possui SDD. "
-                        f"Pode ser gerado automaticamente pelo Auto-Doc Engine.",
+            f"Pode ser gerado automaticamente pelo Auto-Doc Engine.",
             category="documentation",
             priority="high",
             confidence=confidence,
@@ -133,12 +137,14 @@ class SuggestionEngine:
         )
 
     @staticmethod
-    def generate_sync_suggestion(source: str, target: str, confidence: float = 0.8) -> Suggestion:
+    def generate_sync_suggestion(
+        source: str, target: str, confidence: float = 0.8
+    ) -> Suggestion:
         return Suggestion(
             id="sug-sync-vault",
             title=f"Sincronizar {source} com {target}",
             description=f"Conteudo entre {source} e {target} esta divergente. "
-                        f"Execute sync para alinhar.",
+            f"Execute sync para alinhar.",
             category="sync",
             priority="medium",
             confidence=confidence,
@@ -150,9 +156,14 @@ class SuggestionEngine:
         path = Path("docs/runtime/architecture/suggestions.json")
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
-            json.dump({
-                "version": "1.0",
-                "total": len(suggestions),
-                "generated_at": datetime.now(timezone.utc).isoformat(),
-                "suggestions": [s.to_dict() for s in suggestions],
-            }, f, indent=2, ensure_ascii=False)
+            json.dump(
+                {
+                    "version": "1.0",
+                    "total": len(suggestions),
+                    "generated_at": datetime.now(timezone.utc).isoformat(),
+                    "suggestions": [s.to_dict() for s in suggestions],
+                },
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )

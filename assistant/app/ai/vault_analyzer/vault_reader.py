@@ -53,7 +53,9 @@ class VaultReader:
                 except Exception as e:
                     logger.warning(f"[vault_reader] error parsing {md_file}: {e}")
 
-        logger.info(f"[vault_reader] scanned {len(nodes)} nodes from {len(cls._scan_dirs)} dirs")
+        logger.info(
+            f"[vault_reader] scanned {len(nodes)} nodes from {len(cls._scan_dirs)} dirs"
+        )
         return nodes
 
     @classmethod

@@ -49,9 +49,15 @@ class DriftEngine:
 
         vault_ids = {n.id for n in vault_nodes}
         code_refs = set(
-            code.stores + code.routes + code.tools + code.events +
-            code.agents + code.workflows + code.providers +
-            code.components + code.hooks
+            code.stores
+            + code.routes
+            + code.tools
+            + code.events
+            + code.agents
+            + code.workflows
+            + code.providers
+            + code.components
+            + code.hooks
         )
 
         vault_links = set()
@@ -77,9 +83,9 @@ class DriftEngine:
         code_vs_vault_diff_score = code_vs_vault_diff_count / total_code_refs
 
         final_score = (
-            missing_links_score * DriftScore.WEIGHTS["missing_links"] +
-            sdd_mismatch_score * DriftScore.WEIGHTS["sdd_mismatch"] +
-            code_vs_vault_diff_score * DriftScore.WEIGHTS["code_vs_vault_diff"]
+            missing_links_score * DriftScore.WEIGHTS["missing_links"]
+            + sdd_mismatch_score * DriftScore.WEIGHTS["sdd_mismatch"]
+            + code_vs_vault_diff_score * DriftScore.WEIGHTS["code_vs_vault_diff"]
         )
         final_score = min(final_score * 3, 3.0)
 
