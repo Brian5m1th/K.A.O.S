@@ -1,0 +1,8 @@
+
+data/
+*.txt
+.coverage
+stderr.txt
+stdout.txt
+users/
+docs/
