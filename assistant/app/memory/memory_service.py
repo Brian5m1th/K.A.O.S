@@ -97,6 +97,15 @@ class MemoryService:
         logger.debug("[finish] MemoryService - save_conversation")
         return str(filepath.relative_to(self._vault))
 
+    async def save_snapshot(self, snapshot, user_id: str, session_id: str) -> None:
+        from app.memory.storage.postgres_storage import PostgresStorage
+
+        uid = user_id or self._default_user()
+        logger.info(f"[start] MemoryService - save_snapshot [user={uid}]")
+        storage = PostgresStorage()
+        await storage.save(snapshot, uid, session_id)
+        logger.debug("[finish] MemoryService - save_snapshot")
+
     def save_preference(self, user_id: str, key: str, value: str) -> None:
         uid = user_id or self._default_user()
         logger.info(f"[start] MemoryService - save_preference [user={uid}]")

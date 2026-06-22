@@ -4,7 +4,7 @@ import pytest
 from httpx import AsyncClient, ASGITransport
 
 from app.main import app
-from app.router.intent_classifier import IntentType
+from app.domain.workflow import WorkflowType
 
 
 @pytest.fixture
@@ -29,7 +29,11 @@ async def test_send_message_streams_response(client: AsyncClient) -> None:
 
     with patch("app.api.chat._smart_router", mock_router):
         mock_classifier = AsyncMock()
-        mock_classifier.classify = AsyncMock(return_value=IntentType.SMART)
+        from app.domain.intent import IntentResult
+
+        mock_classifier.classify = AsyncMock(
+            return_value=IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
+        )
         with patch("app.api.chat._get_classifier", return_value=mock_classifier):
             response = await client.post(
                 "/api/chat/message",

@@ -11,11 +11,17 @@ from pydantic import BaseModel, Field, ConfigDict
 from app.config.settings import settings
 from app.llm.factory import LLMFactory
 from app.service.agent_service import AgentService
-from app.router.intent_classifier import IntentClassifier, IntentType
+from app.router.intent_classifier import IntentClassifier
+from app.router.workflow_router import WorkflowRouter
+from app.router.memory_workflow import MemoryWorkflow
 from app.router.fast_router import fast_route
 from app.router.memory_router import MemoryRouter
 from app.router.cache import ResponseCache
 from app.setup.provider_config import get_config_version
+from app.domain.workflow import WorkflowType
+from app.domain.context import RequestContext
+from app.domain.identity import WorkspaceIdentity, UserIdentity
+from app.domain.chat import Message
 
 SSE_HEADERS = {
     "Cache-Control": "no-cache",
@@ -28,6 +34,7 @@ _classifier_version: int = -1
 _factory: LLMFactory | None = None
 _factory_version: int = -1
 _cache = ResponseCache()
+_router = WorkflowRouter()
 
 
 def _get_classifier() -> IntentClassifier:
@@ -107,8 +114,6 @@ def _models_response():
 
 @legacy_router.get("/models")
 async def list_models_legacy():
-    logger.info("[start] openai - list_models_legacy")
-    logger.debug("[finish] openai - list_models_legacy")
     return _models_response()
 
 
@@ -124,8 +129,6 @@ async def chat_completions_legacy(
 
 @router.get("/models")
 async def list_models():
-    logger.info("[start] openai - list_models")
-    logger.debug("[finish] openai - list_models")
     return _models_response()
 
 
@@ -226,13 +229,35 @@ def _resolve_model(api_model: str) -> str:
     return config["model"]
 
 
+def _build_context(
+    body: ChatCompletionRequest, http_request: Request, session_id: str
+) -> RequestContext:
+    trace_id = uuid.uuid4()
+    execution_id = uuid.uuid4()
+    user_id_str = body.user_id or http_request.state.user_id or str(uuid.uuid4())
+    uid = uuid.uuid5(uuid.NAMESPACE_DNS, user_id_str)
+    ws_id = uuid.uuid5(uuid.NAMESPACE_DNS, "kaos-workspace")
+    slug = body.username or http_request.state.username or "kaos"
+    history = [Message(role=m.role, content=m.content) for m in body.messages]
+    return RequestContext(
+        execution_id=execution_id,
+        trace_id=trace_id,
+        workspace=WorkspaceIdentity(workspace_id=ws_id, owner_user_id=uid, slug="kaos"),
+        user=UserIdentity(user_id=uid, workspace_id=ws_id, slug=slug),
+        api_key_id=None,
+        session_id=uuid.uuid5(uuid.NAMESPACE_DNS, session_id),
+        history=history,
+        workflow="",
+        metadata={},
+    )
+
+
 @router.post("/chat/completions")
 async def chat_completions(
     body: ChatCompletionRequest,
     http_request: Request,
 ) -> Response:
     user_id = body.user_id or http_request.state.user_id
-    username = body.username or http_request.state.username
     role = body.role or http_request.state.role
     logger.info(f"[start] openai - chat_completions [user={user_id or 'anonymous'}]")
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
@@ -246,7 +271,6 @@ async def chat_completions(
 
     cached = _cache.get(user_message)
     if cached is not None:
-        logger.info("[info] openai - cache hit")
 
         async def _cached_stream():
             yield cached
@@ -256,13 +280,18 @@ async def chat_completions(
         )
 
     if body.model == settings.FAST_MODEL_ID:
-        intent = IntentType.FAST
-        logger.info(f"[info] openai - model={body.model} -> forced FAST")
+        from app.domain.intent import IntentResult
+
+        intent = IntentResult(workflow=WorkflowType.CHAT, confidence=1.0)
+        logger.info(f"[info] openai - model={body.model} -> forced CHAT")
     else:
         intent = await _get_classifier().classify(user_message)
-        logger.info(f"[info] openai - intent={intent.value}")
+        logger.info(f"[info] openai - intent={intent.workflow.value}")
 
-    if intent == IntentType.FAST:
+    context = _build_context(body, http_request, session_id)
+    resolved = _router.resolve(intent, context)
+
+    if resolved == WorkflowType.CHAT:
         start = time.perf_counter()
         result = await fast_route(user_message)
         if result:
@@ -271,10 +300,16 @@ async def chat_completions(
             async def _fast_stream():
                 yield result
 
-            elapsed = (time.perf_counter() - start) * 1000
-            logger.info(
-                f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
-                f"latency_ms={elapsed:.0f}"
+            elapsed = round((time.perf_counter() - start) * 1000, 2)
+            logger.bind(
+                event="generation.completed",
+                route=resolved.value,
+                user_id=str(context.user.user_id),
+                trace_id=str(context.trace_id),
+                execution_id=str(context.execution_id),
+                latency_ms=elapsed,
+            ).info(
+                f"[audit] generation | route={resolved.value} | latency_ms={elapsed}"
             )
             return await _respond(
                 stream_id, created, body.model, _fast_stream(), body.stream
@@ -283,33 +318,84 @@ async def chat_completions(
         async def _simple_stream():
             yield "Olá! Como posso ajudar você hoje?"
 
-        elapsed = (time.perf_counter() - start) * 1000
-        logger.info(
-            f"[audit] generation | route=FAST | user={user_id or 'anonymous'} | "
-            f"latency_ms={elapsed:.0f}"
-        )
+        elapsed = round((time.perf_counter() - start) * 1000, 2)
+        logger.bind(
+            event="generation.completed",
+            route=resolved.value,
+            latency_ms=elapsed,
+        ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
         return await _respond(
             stream_id, created, body.model, _simple_stream(), body.stream
         )
 
-    elif intent == IntentType.MEMORY:
+    elif resolved == WorkflowType.RAG:
         start = time.perf_counter()
         model_key = _resolve_model(body.model)
         router = MemoryRouter(model=model_key)
+        result = await router.process(user_message, user_id=str(context.user.user_id))
+        elapsed = round((time.perf_counter() - start) * 1000, 2)
+        logger.bind(
+            event="generation.completed",
+            route=resolved.value,
+            user_id=str(context.user.user_id),
+            trace_id=str(context.trace_id),
+            execution_id=str(context.execution_id),
+            latency_ms=elapsed,
+        ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
+
+        async def _rag_stream():
+            yield result
 
         return await _respond(
-            stream_id,
-            created,
-            body.model,
-            router.stream(user_message, user_id=user_id),
-            body.stream,
+            stream_id, created, body.model, _rag_stream(), body.stream
         )
 
-    # SMART route (LangGraph)
-    agent = _get_agent()
-    logger.info("[sending] openai - streaming via LangGraph Agent (SMART)")
-    model_key = _resolve_model(body.model)
+    elif resolved == WorkflowType.MEMORY:
+        start = time.perf_counter()
+        workflow = MemoryWorkflow()
+        result = await workflow.execute(intent.command, context)
+        elapsed = round((time.perf_counter() - start) * 1000, 2)
+        logger.bind(
+            event="generation.completed",
+            route=resolved.value,
+            user_id=str(context.user.user_id),
+            trace_id=str(context.trace_id),
+            execution_id=str(context.execution_id),
+            latency_ms=elapsed,
+        ).info(
+            f"[audit] generation | route={resolved.value} | command={intent.command.value if intent.command else 'none'} | latency_ms={elapsed}"
+        )
 
+        async def _memory_stream():
+            yield result or "Comando de memória executado."
+
+        return await _respond(
+            stream_id, created, body.model, _memory_stream(), body.stream
+        )
+
+    elif resolved == WorkflowType.INGEST:
+        from app.agent.graph import ingest_source
+
+        start = time.perf_counter()
+        result = await ingest_source(user_message)
+        elapsed = round((time.perf_counter() - start) * 1000, 2)
+        logger.bind(
+            event="generation.completed",
+            route=resolved.value,
+            latency_ms=elapsed,
+        ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
+
+        async def _ingest_stream():
+            yield str(result) if result else "Fonte ingerida."
+
+        return await _respond(
+            stream_id, created, body.model, _ingest_stream(), body.stream
+        )
+
+    # AGENT route (LangGraph)
+    agent = _get_agent()
+    model_key = _resolve_model(body.model)
+    logger.info("[sending] openai - streaming via LangGraph Agent (AGENT)")
     return await _respond(
         stream_id,
         created,
@@ -317,8 +403,8 @@ async def chat_completions(
         agent.stream_message(
             session_id=session_id,
             user_message=user_message,
-            user_id=user_id,
-            username=username,
+            user_id=str(context.user.user_id),
+            username=context.user.slug,
             role=role,
             model=model_key,
         ),

@@ -1,3 +1,5 @@
+import hashlib
+from uuid import UUID, uuid5, NAMESPACE_DNS
 from fastapi import Request, Response
 from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -11,6 +13,13 @@ PUBLIC_PATHS = {
     "/",
     "/metrics",
 }
+
+_USER_SALT = "kaos-user-v1"
+
+
+def _derive_user_id(api_key: str) -> UUID:
+    digest = hashlib.sha256(f"{_USER_SALT}:{api_key}".encode()).hexdigest()
+    return uuid5(NAMESPACE_DNS, digest)
 
 
 class ApiKeyMiddleware(BaseHTTPMiddleware):
@@ -48,7 +57,11 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
                 media_type="application/json",
             )
 
-        logger.info(
+        user_id = _derive_user_id(key)
+        request.state.user_id = str(user_id)
+        request.state.username = request.headers.get("x-username", "kaos-user")
+
+        logger.bind(event="auth.authenticated", user_id=str(user_id)).info(
             "[auth] authenticated request from {} - {} {}",
             request.client.host if request.client else "unknown",
             request.method,
