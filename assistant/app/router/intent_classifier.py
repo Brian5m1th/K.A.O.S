@@ -3,13 +3,9 @@ from loguru import logger
 from langchain_core.messages import SystemMessage, HumanMessage
 from app.config.settings import settings
 from app.llm.factory import LLMFactory
-
-
-class IntentType(str, Enum):
-    FAST = "FAST"
-    MEMORY = "MEMORY"
-    SMART = "SMART"
-    INGEST = "INGEST"
+from app.domain.intent import IntentResult
+from app.domain.workflow import WorkflowType
+from app.domain.command import CommandType
 
 
 INGEST_KEYWORDS = [
@@ -37,9 +33,6 @@ FAST_KEYWORDS = [
     "update_note",
     "delete_note",
     "search_notes",
-    "save_conversation",
-    "salve esta conversa",
-    "guarde isto",
     "atualize esta nota",
     "oi",
     "olá",
@@ -48,6 +41,20 @@ FAST_KEYWORDS = [
     "hi",
     "tudo bem",
     "como vai",
+]
+
+MEMORY_COMMAND_KEYWORDS = [
+    "salve esta conversa",
+    "guarde isto",
+    "memorize esta conversa",
+    "grave esta conversa",
+    "adicione ao vault",
+    "salve no obsidian",
+    "save this conversation",
+    "memorize this",
+    "memorize isso",
+    "guarde essa informacao",
+    "registre essa discussao",
 ]
 
 MEMORY_KEYWORDS = [
@@ -75,7 +82,7 @@ MEMORY_KEYWORDS = [
 
 SYSTEM_PROMPT_CLASSIFIER = """Classifique a intencao do usuario em uma das categorias:
 
-FAST: acao direta em ferramentas (criar, ler, atualizar, deletar, listar notas, salvar conversa). Nao precisa de conhecimento externo.
+FAST: acao direta em ferramentas (criar, ler, atualizar, deletar, listar notas). Nao precisa de conhecimento externo.
 
 MEMORY: pergunta que requer conhecimento do Vault Obsidian (busca semantica, contexto, lembrancas). Precisa de RAG.
 
@@ -86,36 +93,41 @@ Responda apenas com o nome da categoria: FAST, MEMORY ou SMART."""
 
 class IntentClassifier:
     def __init__(self):
-        logger.info("[start] IntentClassifier - __init__")
         self._factory: LLMFactory | None = None
-        logger.debug("[finish] IntentClassifier - __init__")
 
     def _get_provider(self):
         if self._factory is None:
             self._factory = LLMFactory()
         return self._factory.build(settings.FAST_MODEL_ID, temperature=0)
 
-    def _match_keyword(self, message: str) -> IntentType | None:
+    def _match_keyword(self, message: str) -> IntentResult | None:
         lower = message.lower().strip()
         for kw in INGEST_KEYWORDS:
             if kw in lower:
                 logger.info(f'[info] IntentClassifier - keyword INGEST: "{kw}"')
-                return IntentType.INGEST
+                return IntentResult(workflow=WorkflowType.INGEST, confidence=0.95)
+        for kw in MEMORY_COMMAND_KEYWORDS:
+            if kw in lower:
+                logger.info(f'[info] IntentClassifier - keyword MEMORY_COMMAND: "{kw}"')
+                return IntentResult(
+                    workflow=WorkflowType.MEMORY,
+                    command=CommandType.SAVE_CONVERSATION,
+                    confidence=0.96,
+                )
         for kw in FAST_KEYWORDS:
             if kw in lower:
-                logger.info(f'[info] IntentClassifier - keyword FAST: "{kw}"')
-                return IntentType.FAST
+                logger.info(f'[info] IntentClassifier - keyword CHAT: "{kw}"')
+                return IntentResult(workflow=WorkflowType.CHAT, confidence=0.95)
         for kw in MEMORY_KEYWORDS:
             if kw in lower:
-                logger.info(f'[info] IntentClassifier - keyword MEMORY: "{kw}"')
-                return IntentType.MEMORY
+                logger.info(f'[info] IntentClassifier - keyword RAG: "{kw}"')
+                return IntentResult(workflow=WorkflowType.RAG, confidence=0.95)
         return None
 
-    async def classify(self, message: str) -> IntentType:
-        logger.info("[start] IntentClassifier - classify")
+    async def classify(self, message: str) -> IntentResult:
         keyword_match = self._match_keyword(message)
         if keyword_match:
-            logger.debug("[finish] IntentClassifier - classify (keyword)")
+            logger.debug(f"[finish] IntentClassifier - classify (keyword: {keyword_match.workflow.value})")
             return keyword_match
 
         logger.info("[info] IntentClassifier - fallback LLM")
@@ -130,16 +142,12 @@ class IntentClassifier:
             content = response.content.strip().upper()
         except Exception as e:
             logger.warning(f"[warn] IntentClassifier - LLM fallback falhou: {e}")
-            logger.debug("[finish] IntentClassifier - classify (LLM fallback: SMART)")
-            return IntentType.SMART
+            return IntentResult(workflow=WorkflowType.AGENT, confidence=0.0)
+
         if "INGEST" in content:
-            logger.debug("[finish] IntentClassifier - classify (LLM: INGEST)")
-            return IntentType.INGEST
+            return IntentResult(workflow=WorkflowType.INGEST, confidence=0.7)
         if "FAST" in content:
-            logger.debug("[finish] IntentClassifier - classify (LLM: FAST)")
-            return IntentType.FAST
+            return IntentResult(workflow=WorkflowType.CHAT, confidence=0.7)
         if "MEMORY" in content:
-            logger.debug("[finish] IntentClassifier - classify (LLM: MEMORY)")
-            return IntentType.MEMORY
-        logger.debug("[finish] IntentClassifier - classify (LLM: SMART default)")
-        return IntentType.SMART
+            return IntentResult(workflow=WorkflowType.RAG, confidence=0.7)
+        return IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
