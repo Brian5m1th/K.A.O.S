@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useSystemStore } from "../../shared/lib/stores/system-store";
 import { useDriftStore } from "../../features/documentation-audit/store/drift-store";
 import { DocSyncEngine } from "../../features/documentation-audit/auto-doc/doc-sync-engine";
+import { ArchitectureHealth } from "../../features/documentation-audit/heatmap/architecture-health";
 import { CoverageChart } from "../../features/documentation-audit/ui/CoverageChart";
 import { MissingFeaturesList } from "../../features/documentation-audit/ui/MissingFeaturesList";
 import { OutdatedDocsList } from "../../features/documentation-audit/ui/OutdatedDocsList";
@@ -16,7 +17,7 @@ export function DocumentationPage() {
   const { driftReport, isLoading, runAudit, loadSnapshot, lastScan } = useDriftStore();
   const [searchParams] = useSearchParams();
   const defaultTab = searchParams.get("tab") || "overview";
-  const validTabs = ["overview", "missing", "outdated", "timeline"];
+  const validTabs = ["overview", "missing", "outdated", "timeline", "health"];
   const [activeTab, setActiveTab] = useState(validTabs.includes(defaultTab) ? defaultTab : "overview");
 
   useEffect(() => {
@@ -142,13 +143,14 @@ export function DocumentationPage() {
       </div>
 
       <div className="mb-4">
-        <Tabs
-          tabs={[
-            { id: "overview", label: "Overview" },
-            { id: "missing", label: "Missing Features" },
-            { id: "outdated", label: "Outdated SDDs" },
-            { id: "timeline", label: "Drift Timeline" },
-          ]}
+          <Tabs
+            tabs={[
+              { id: "overview", label: "Overview" },
+              { id: "missing", label: "Missing Features" },
+              { id: "outdated", label: "Outdated SDDs" },
+              { id: "timeline", label: "Drift Timeline" },
+              { id: "health", label: "Arch Health" },
+            ]}
           activeTab={activeTab}
           onTabChange={setActiveTab}
           className="w-full"
@@ -205,6 +207,10 @@ export function DocumentationPage() {
 
       {activeTab === "timeline" && (
         <DriftTimeline history={driftReport?.driftHistory || []} />
+      )}
+
+      {activeTab === "health" && (
+        <ArchitectureHealth />
       )}
     </div>
   );
