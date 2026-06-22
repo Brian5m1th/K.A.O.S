@@ -27,6 +27,8 @@ from app.api.setup import router as setup_router
 from app.api.user_model_profiles import router as user_model_profiles_router
 from app.api.users import router as users_router
 from app.api.webhooks import router as webhooks_router
+from app.api.apps_api import router as apps_router
+from app.api.notifications import router as notifications_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
@@ -35,6 +37,7 @@ from app.observability.event_bus import EventBus
 from app.observability.subscribers.audit_subscriber import AuditSubscriber
 from app.observability.subscribers.logger_subscriber import LoggerSubscriber
 from app.observability.subscribers.metrics_subscriber import MetricsSubscriber
+from app.observability.subscribers.n8n_subscriber import N8NSubscriber
 from app.observability.tracing import TracingSubscriber, setup_tracing
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
@@ -181,6 +184,12 @@ def _register_observability(app_state) -> None:
     ):
         EventBus.subscribe(name, tracing_subscriber)
 
+    if settings.N8N_WEBHOOK_URL:
+        n8n_subscriber = N8NSubscriber()
+        for event_name in EventBus._subscribers:
+            EventBus.subscribe(event_name, n8n_subscriber)
+        logger.info(f"[observability] N8N subscriber registered (webhook: {settings.N8N_WEBHOOK_URL})")
+
     setup_tracing(
         service_name=settings.APP_NAME,
         endpoint="",
@@ -269,6 +278,8 @@ app.include_router(setup_router)
 app.include_router(user_model_profiles_router)
 app.include_router(users_router)
 app.include_router(webhooks_router)
+app.include_router(apps_router)
+app.include_router(notifications_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

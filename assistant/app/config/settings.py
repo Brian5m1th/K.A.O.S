@@ -38,6 +38,8 @@ class Settings(BaseSettings):
 
     API_KEY: str = ""
     HF_TOKEN: str = ""
+    N8N_WEBHOOK_URL: str = ""
+    N8N_API_URL: str = "http://n8n:5678"
 
     RAG_SCORE_THRESHOLD: float = 0.3
     RAG_DEFAULT_LIMIT: int = 5
