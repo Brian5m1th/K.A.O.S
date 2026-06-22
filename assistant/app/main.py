@@ -1,8 +1,13 @@
 import asyncio
 import logging
 import sys
+import platform
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+
+# Windows compatibility for async PostgreSQL
+if platform.system() == "Windows":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -31,6 +36,11 @@ from app.api.apps_api import router as apps_router
 from app.api.notifications import router as notifications_router
 from app.api.audit import router as audit_router
 from app.api.architecture import router as architecture_router
+from app.api.providers import router as providers_router
+from app.api.system import router as system_router
+from app.api.observability import router as observability_router
+from app.api.opencode import router as opencode_router
+from app.api.admin import router as admin_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
@@ -212,6 +222,12 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info("[auth] API key: {}", _app.state.api_key)
 
+    try:
+        from app.database import create_tables
+        await create_tables()
+    except Exception as e:
+        logger.warning("[database] connection unavailable: {}", e)
+
     _register_observability(_app.state)
 
     drift_subscriber = DriftSubscriber()
@@ -301,6 +317,11 @@ app.include_router(apps_router)
 app.include_router(notifications_router)
 app.include_router(audit_router)
 app.include_router(architecture_router)
+app.include_router(providers_router)
+app.include_router(system_router)
+app.include_router(observability_router)
+app.include_router(opencode_router)
+app.include_router(admin_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

@@ -9,6 +9,9 @@ PROVIDER_CONFIG_PATH = Path("data/provider_config.json")
 
 DEFAULT_ACTIVE_PROVIDER = "ollama"
 
+# Global settings stored alongside provider configs
+GLOBAL_KEYS = {"_activeProvider", "_fallbackChain", "_embeddingModel"}
+
 DEFAULT_CONFIG = {
     "ollama": {
         "url": "http://localhost:11434",
@@ -34,7 +37,22 @@ DEFAULT_CONFIG = {
         "model": "gemini-2.0-flash",
         "fastModel": "",
     },
+    "openrouter": {
+        "url": "https://openrouter.ai/api/v1",
+        "apiKey": "",
+        "model": "openai/gpt-4o",
+        "fastModel": "",
+    },
+    "openCode": {
+        "url": "",
+        "apiKey": "",
+        "model": "kaos",
+        "fastModel": "kaos-fast",
+    },
 }
+
+DEFAULT_FALLBACK_CHAIN = ["ollama", "openai", "anthropic", "gemini"]
+DEFAULT_EMBEDDING_MODEL = "nomic-embed-text"
 
 _config_version: int = 0
 
@@ -48,6 +66,8 @@ SETTINGS_KEY_MAP = {
     "openai": {"url": None, "apiKey": "OPENAI_API_KEY", "model": None},
     "anthropic": {"url": None, "apiKey": "ANTHROPIC_API_KEY", "model": None},
     "gemini": {"url": None, "apiKey": "GEMINI_API_KEY", "model": None},
+    "openrouter": {"url": None, "apiKey": None, "model": None},
+    "openCode": {"url": None, "apiKey": None, "model": None},
 }
 
 
@@ -94,6 +114,8 @@ def get_config() -> dict:
         saved_fields = saved.get(provider, {})
         merged[provider] = {**defaults, **saved_fields}
     merged["_activeProvider"] = saved.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
+    merged["_fallbackChain"] = saved.get("_fallbackChain", DEFAULT_FALLBACK_CHAIN)
+    merged["_embeddingModel"] = saved.get("_embeddingModel", DEFAULT_EMBEDDING_MODEL)
     return merged
 
 
@@ -104,13 +126,19 @@ def save_config(config: dict) -> dict:
         merged[provider] = {k: provided.get(k, defaults[k]) for k in defaults}
 
     active = config.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
-    save_payload = {**merged, "_activeProvider": active}
+    fallback_chain = config.get("_fallbackChain", DEFAULT_FALLBACK_CHAIN)
+    embedding_model = config.get("_embeddingModel", DEFAULT_EMBEDDING_MODEL)
+    save_payload = {**merged, "_activeProvider": active, "_fallbackChain": fallback_chain, "_embeddingModel": embedding_model}
 
     _save_to_disk(save_payload)
     _patch_settings(merged)
     _bump_version()
 
-    return {**merged, "_activeProvider": active}
+    return {**merged, "_activeProvider": active, "_fallbackChain": fallback_chain, "_embeddingModel": embedding_model}
+
+
+def get_supported_providers() -> list[str]:
+    return list(DEFAULT_CONFIG.keys())
 
 
 def get_active_provider_config() -> dict:
