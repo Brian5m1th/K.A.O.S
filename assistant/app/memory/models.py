@@ -8,7 +8,7 @@ from sqlalchemy import (
     Index,
     func,
 )
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, JSONB, ARRAY
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -90,3 +90,42 @@ class MemorySummary(Base):
     )
 
     session: Mapped["MemorySession"] = relationship(back_populates="summary")
+
+
+class ConversationMemory(Base):
+    __tablename__ = "conversation_memories"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    workspace_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), nullable=False, index=True
+    )
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), nullable=False, index=True
+    )
+    session_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), nullable=False, index=True
+    )
+    version: Mapped[str] = mapped_column(String(10), default="1.0")
+    title: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    tags: Mapped[list | None] = mapped_column(ARRAY(String), nullable=True)
+    summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    conversation_json: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    vault_path: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
+
+    __table_args__ = (
+        Index("ix_conv_mem_workspace_id", "workspace_id"),
+        Index("ix_conv_mem_user_id", "user_id"),
+        Index("ix_conv_mem_session_id", "session_id"),
+        Index("ix_conv_mem_created_at", "created_at"),
+    )
