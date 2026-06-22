@@ -4,6 +4,7 @@ from app.ai.vault_analyzer.drift_engine import DriftEngine, DriftScore
 from app.ai.vault_analyzer.evidence_engine import EvidenceEngine, Evidence
 from app.ai.vault_analyzer.analyzer_engine import AnalyzerEngine, ArchitectureAnalysis
 from app.ai.vault_analyzer.suggestion_engine import SuggestionEngine, Suggestion
+from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder, KnowledgeGraph
 
 __all__ = [
     "VaultReader", "VaultNode",
@@ -12,4 +13,5 @@ __all__ = [
     "EvidenceEngine", "Evidence",
     "AnalyzerEngine", "ArchitectureAnalysis",
     "SuggestionEngine", "Suggestion",
+    "KnowledgeGraphBuilder", "KnowledgeGraph",
 ]

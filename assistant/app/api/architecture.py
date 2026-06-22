@@ -5,6 +5,7 @@ from app.ai.vault_analyzer.analyzer_engine import AnalyzerEngine
 from app.ai.vault_analyzer.drift_engine import DriftEngine
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.ai.vault_analyzer.graph_builder import GraphBuilder
+from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder
 
 router = APIRouter(prefix="/api/architecture", tags=["Architecture"])
 
@@ -95,3 +96,45 @@ async def scan_vault():
         "total_links": VaultReader.get_total_links(),
         "orphan_nodes": [{"id": n.id, "title": n.title, "type": n.type} for n in orphans],
     }
+
+
+@router.post("/knowledge-graph")
+async def build_knowledge_graph():
+    """Constroi grafo de conhecimento consolidado."""
+    kg = KnowledgeGraphBuilder.build()
+    return kg.to_dict()
+
+
+@router.get("/knowledge-graph")
+async def get_knowledge_graph():
+    """Obtem grafo de conhecimento."""
+    kg = KnowledgeGraphBuilder.load()
+    if not kg:
+        return {"error": "No knowledge graph available. Build first."}
+    return kg.to_dict()
+
+
+@router.get("/history")
+async def get_drift_history():
+    """Lista historico temporal de drift."""
+    from pathlib import Path
+    import json
+    history_dir = Path("docs/runtime/architecture/history")
+    if not history_dir.exists():
+        return {"total": 0, "history": []}
+    entries = []
+    for f in sorted(history_dir.glob("*.json")):
+        try:
+            with open(f, "r", encoding="utf-8") as fh:
+                data = json.load(fh)
+            entries.append({
+                "date": f.stem,
+                "score": data.get("score", 0),
+                "level": data.get("level", "low"),
+                "missing_links": data.get("missing_links", 0),
+                "sdd_mismatch": data.get("sdd_mismatch", 0),
+                "code_vs_vault_diff": data.get("code_vs_vault_diff", 0),
+            })
+        except Exception:
+            pass
+    return {"total": len(entries), "history": entries}
