@@ -1,6 +1,8 @@
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
@@ -10,7 +12,7 @@ class Settings(BaseSettings):
     APP_PORT: int = 8000
     LOG_LEVEL: str = "INFO"
 
-    WORKSPACE_ROOT: str = "C:/workspace/Freelancer/K.A.O.S/workspace"
+    WORKSPACE_ROOT: str = str(_PROJECT_ROOT / "workspace")
 
     OBSIDIAN_VAULT_PATH: str = ""
     OBSIDIAN_WIKI_PATH: str = ""
