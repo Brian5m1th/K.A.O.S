@@ -18,7 +18,10 @@ export type AppEvent =
   | { type: "chat:stream-start"; payload: { model: string } }
   | { type: "chat:stream-token"; payload: { token: string } }
   | { type: "chat:stream-end"; payload: { fullText: string } }
-  | { type: "chat:error"; payload: { message: string } };
+  | { type: "chat:error"; payload: { message: string } }
+  | { type: "graph:updated"; payload: any }
+  | { type: "docs:auto-updated"; payload: { timestamp: string; featuresDetected: number; sddsGenerated: number } }
+  | { type: "docs:sync-error"; payload: { timestamp: string; error: string } };
 
 type Listener = (event: AppEvent) => void;
 

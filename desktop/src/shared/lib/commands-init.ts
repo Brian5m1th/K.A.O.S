@@ -1,4 +1,5 @@
 import { commandRegistry } from "./command-registry";
+import { useDriftStore } from "@/features/documentation-audit/store/drift-store";
 import {
   LayoutDashboard,
   MessageSquare,
@@ -9,6 +10,9 @@ import {
   Activity,
   Settings,
   Sun,
+  FileText,
+  AlertTriangle,
+  RefreshCw,
 } from "lucide-react";
 
 export function initializeCommands() {
@@ -84,6 +88,40 @@ export function initializeCommands() {
       icon: Sun,
       category: "toggles",
       action: (ctx) => ctx.toggleTheme(),
+    },
+    {
+      id: "go-documentation",
+      label: "Open Documentation Health",
+      keywords: ["documentation", "docs", "health", "audit", "documentação"],
+      icon: FileText,
+      category: "navigation",
+      action: (ctx) => ctx.navigate("/documentation"),
+    },
+    {
+      id: "run-audit",
+      label: "Run Documentation Audit",
+      keywords: ["audit", "scan", "check", "verify", "documentação"],
+      icon: AlertTriangle,
+      category: "actions",
+      action: (ctx) => {
+        useDriftStore.getState().runAudit();
+      },
+    },
+    {
+      id: "audit-undocumented",
+      label: "Show Undocumented Features",
+      keywords: ["undocumented", "missing", "features", "sem doc"],
+      icon: AlertTriangle,
+      category: "actions",
+      action: (ctx) => ctx.navigate("/documentation?tab=missing"),
+    },
+    {
+      id: "audit-sync",
+      label: "Sync Docs with Codebase",
+      keywords: ["sync", "update", "generate", "sincronizar"],
+      icon: RefreshCw,
+      category: "actions",
+      action: (ctx) => ctx.navigate("/documentation?tab=sync"),
     },
   ]);
 }

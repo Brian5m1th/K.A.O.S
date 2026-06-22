@@ -1,0 +1,100 @@
+import { create } from "zustand";
+
+interface FeatureEntry {
+  id: string;
+  name: string;
+  phase: string;
+  status: string;
+  docs: string[];
+  codeRefs: string[];
+  lastCommit: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface DriftReport {
+  coverage: number;
+  missingFeatures: string[];
+  outdatedDocs: string[];
+  inconsistentPhases: string[];
+  orphanedSDDs: string[];
+  undocumentedCode: string[];
+  driftLevel: "low" | "medium" | "high";
+  coverageHistory: { date: string; coverage: number }[];
+  driftHistory: { date: string; level: string; missing: number }[];
+}
+
+interface DriftSnapshot {
+  features: any[];
+  coverage: number;
+  driftLevel: string;
+  lastCommit: string;
+  graphSummary: any;
+  missingCount: number;
+  outdatedCount: number;
+  generatedAt: string;
+}
+
+interface DriftState {
+  driftReport: DriftReport | null;
+  isLoading: boolean;
+  lastScan: number | null;
+  runAudit: () => Promise<void>;
+  loadSnapshot: () => Promise<void>;
+}
+
+export const useDriftStore = create<DriftState>((set) => ({
+  driftReport: null,
+  isLoading: false,
+  lastScan: null,
+
+  runAudit: async () => {
+    set({ isLoading: true });
+    try {
+      const response = await fetch("/api/audit/run", { method: "POST" });
+      if (response.ok) {
+        const data = await response.json();
+        set({
+          driftReport: data,
+          isLoading: false,
+          lastScan: Date.now(),
+        });
+      } else {
+        set({ isLoading: false });
+      }
+    } catch {
+      set({ isLoading: false });
+    }
+  },
+
+  loadSnapshot: async () => {
+    try {
+      const response = await fetch("/api/audit/snapshot");
+      if (response.ok) {
+        const data = await response.json();
+        set({
+          driftReport: data,
+          lastScan: data.timestamp ? new Date(data.timestamp).getTime() : null,
+        });
+      }
+    } catch {
+    }
+  },
+}));
+
+export function useDriftReport() {
+  return useDriftStore((state) => state.driftReport);
+}
+
+export function useDriftLoading() {
+  return useDriftStore((state) => state.isLoading);
+}
+
+export function useDriftActions() {
+  return useDriftStore((state) => ({
+    runAudit: state.runAudit,
+    loadSnapshot: state.loadSnapshot,
+  }));
+}
+
+export type { FeatureEntry, DriftSnapshot };

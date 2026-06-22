@@ -29,6 +29,7 @@ from app.api.users import router as users_router
 from app.api.webhooks import router as webhooks_router
 from app.api.apps_api import router as apps_router
 from app.api.notifications import router as notifications_router
+from app.api.audit import router as audit_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
@@ -41,6 +42,8 @@ from app.observability.subscribers.n8n_subscriber import N8NSubscriber
 from app.observability.tracing import TracingSubscriber, setup_tracing
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
+from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
+from app.audit.sdd_watcher import SDDWatcher
 
 import json
 
@@ -210,6 +213,14 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     _register_observability(_app.state)
 
+    drift_subscriber = DriftSubscriber()
+    for event_name in ("audit.started", "audit.completed", "drift.detected"):
+        EventBus.subscribe(event_name, drift_subscriber)
+    logger.info("[kirl] drift subscriber registered")
+
+    asyncio.create_task(AuditScheduler.run_periodic_audit())
+    logger.info("[kirl] periodic audit scheduler started")
+
     logger.bind(
         app=settings.APP_NAME,
         env=settings.APP_ENV,
@@ -241,9 +252,14 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     _watcher = VaultWatcher()
     _watcher.start()
+
+    asyncio.create_task(SDDWatcher.start())
+    logger.info("[kirl] SDD watcher started")
+
     yield
     if _watcher:
         _watcher.stop()
+    SDDWatcher.stop()
     logger.debug("[finish] {} - encerrado", settings.APP_NAME)
 
 
@@ -282,6 +298,7 @@ app.include_router(users_router)
 app.include_router(webhooks_router)
 app.include_router(apps_router)
 app.include_router(notifications_router)
+app.include_router(audit_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

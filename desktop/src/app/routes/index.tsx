@@ -11,6 +11,8 @@ import OrchestrationPage from "./pages/orchestration";
 import AgentsPage from "./pages/agents";
 import PipelinesPage from "./pages/pipelines";
 import ObservabilityPage from "./pages/observability";
+import DocumentationPage from "./pages/documentation";
+import ArchitecturePage from "./pages/architecture";
 
 function PageFallback() {
   return (
@@ -114,6 +116,22 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><SettingsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/documentation"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><DocumentationPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/architecture"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><ArchitecturePage /></AnimatedPage>
               </Suspense>
             }
           />

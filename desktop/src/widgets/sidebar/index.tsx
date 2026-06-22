@@ -9,6 +9,7 @@ import {
   BookOpen,
   Activity,
   Settings,
+  FileText,
 } from "lucide-react";
 import { useSystemStore } from "@/shared/lib/stores";
 
@@ -27,6 +28,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: "pipelines", label: "Pipelines", path: "/pipelines", icon: Container },
   { id: "vault", label: "Knowledge", path: "/vault", icon: BookOpen },
   { id: "observability", label: "Observability", path: "/observability", icon: Activity },
+  { id: "documentation", label: "Doc Health", path: "/documentation", icon: FileText },
   { id: "settings", label: "Settings", path: "/settings", icon: Settings },
 ];
 
