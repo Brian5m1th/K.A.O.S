@@ -1,7 +1,18 @@
 import { create } from "zustand";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 type SystemStatus = "online" | "degraded" | "offline";
 type DriftLevel = "low" | "medium" | "high";
+
+interface SystemServices {
+  ollama: boolean;
+  backend: boolean;
+  qdrant: boolean;
+  postgres: boolean;
+  n8n: boolean;
+  grafana: boolean;
+  prometheus: boolean;
+}
 
 interface SystemState {
   status: SystemStatus;
@@ -12,11 +23,7 @@ interface SystemState {
     vramUsed: number;
     vramTotal: number;
   };
-  services: {
-    ollama: boolean;
-    backend: boolean;
-    qdrant: boolean;
-  };
+  services: SystemServices;
   metrics: {
     vectorCount: number;
     tokenRate: number;
@@ -30,10 +37,14 @@ interface SystemState {
   };
   setStatus: (status: SystemStatus) => void;
   setRuntime: (runtime: Partial<SystemState["runtime"]>) => void;
-  setService: (service: keyof SystemState["services"], up: boolean) => void;
+  setService: (service: keyof SystemServices, up: boolean) => void;
   setMetrics: (metrics: Partial<SystemState["metrics"]>) => void;
   setDocumentation: (doc: Partial<SystemState["documentation"]>) => void;
+  /** Fetch all system status from backend endpoints */
+  fetchAll: (serverUrl?: string, apiKey?: string) => Promise<void>;
 }
+
+const API_KEY = ""; // auth-store gerencia isso, mas mantemos vazio para fallback
 
 export const useSystemStore = create<SystemState>((set) => ({
   status: "offline",
@@ -48,6 +59,10 @@ export const useSystemStore = create<SystemState>((set) => ({
     ollama: false,
     backend: false,
     qdrant: false,
+    postgres: false,
+    n8n: false,
+    grafana: false,
+    prometheus: false,
   },
   metrics: {
     vectorCount: 0,
@@ -60,6 +75,7 @@ export const useSystemStore = create<SystemState>((set) => ({
     missingCount: 0,
     outdatedCount: 0,
   },
+
   setStatus: (status) => set({ status }),
   setRuntime: (runtime) =>
     set((s) => ({ runtime: { ...s.runtime, ...runtime } })),
@@ -69,4 +85,63 @@ export const useSystemStore = create<SystemState>((set) => ({
     set((s) => ({ metrics: { ...s.metrics, ...metrics } })),
   setDocumentation: (doc) =>
     set((s) => ({ documentation: { ...s.documentation, ...doc } })),
+
+  fetchAll: async (serverUrl = "http://localhost:8000", apiKey = "") => {
+    try {
+      // Parallel calls to all status endpoints
+      const [healthRes, readinessRes, systemStatusRes, providerActiveRes] =
+        await Promise.allSettled([
+          kaosFetch(`${serverUrl}/health`, apiKey),
+          kaosFetch(`${serverUrl}/health/readiness`, apiKey),
+          kaosFetch(`${serverUrl}/api/system/status`, apiKey),
+          kaosFetch(`${serverUrl}/api/setup/provider/active`, apiKey),
+        ]);
+
+      // Health → overall status
+      if (healthRes.status === "fulfilled" && healthRes.value.ok) {
+        const data = await healthRes.value.json();
+        set({ status: data.status === "ok" ? "online" : "degraded" });
+      }
+
+      // Readiness → Ollama status
+      if (readinessRes.status === "fulfilled" && readinessRes.value.ok) {
+        const data = await readinessRes.value.json();
+        set((s) => ({
+          services: {
+            ...s.services,
+            ollama: data.services?.ollama ?? false,
+          },
+        }));
+      }
+
+      // System status → all services
+      if (systemStatusRes.status === "fulfilled" && systemStatusRes.value.ok) {
+        const data = await systemStatusRes.value.json();
+        set((s) => ({
+          services: {
+            ...s.services,
+            backend: data.backend ?? true,
+            qdrant: data.qdrant ?? false,
+            postgres: data.postgres ?? false,
+            n8n: data.n8n ?? false,
+            grafana: data.grafana ?? false,
+            prometheus: data.prometheus ?? false,
+          },
+        }));
+      }
+
+      // Active provider → runtime model info
+      if (providerActiveRes.status === "fulfilled" && providerActiveRes.value.ok) {
+        const data = await providerActiveRes.value.json();
+        set((s) => ({
+          runtime: {
+            ...s.runtime,
+            activeModel: data.model || s.runtime.activeModel,
+          },
+        }));
+      }
+    } catch {
+      // Silently fail — stores keep last known values
+    }
+  },
 }));
