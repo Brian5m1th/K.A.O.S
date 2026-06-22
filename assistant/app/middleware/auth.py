@@ -4,11 +4,16 @@ from fastapi import Request, Response
 from loguru import logger
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from app.auth.jwt import decode_token
+
 PUBLIC_PATHS = {
     "/health",
     "/docs",
     "/openapi.json",
-    "/auth",
+    "/auth/setup-status",
+    "/auth/register",
+    "/auth/login",
+    "/auth/refresh",
     "/api/setup",
     "/",
     "/metrics",
@@ -32,6 +37,41 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
             if path == public or path.startswith(public + "/"):
                 return await call_next(request)
 
+        # Initialize state defaults
+        request.state.user_id = ""
+        request.state.username = ""
+        request.state.role = ""
+        request.state.auth_method = ""
+
+        auth_header = request.headers.get("Authorization", "")
+
+        # Try JWT Bearer token first
+        if auth_header.startswith("Bearer "):
+            token = auth_header[7:]
+            payload = decode_token(token)
+            if payload:
+                user_id = payload.get("sub", "")
+                email = payload.get("email", "")
+                role = payload.get("role", "user")
+                request.state.user_id = user_id
+                request.state.username = email
+                request.state.role = role
+                request.state.auth_method = "jwt"
+
+                logger.bind(event="auth.authenticated", user_id=user_id).info(
+                    "[auth] JWT authenticated request from {} - {} {}",
+                    request.client.host if request.client else "unknown",
+                    request.method,
+                    path,
+                )
+                return await call_next(request)
+
+        # Fall back to API Key
+        key = request.headers.get("x-api-key", "")
+        if not key:
+            if auth_header.startswith("Bearer "):
+                key = auth_header[7:]
+
         app_key = getattr(request.app.state, "api_key", None)
         if app_key is None:
             logger.warning("[auth] API key not configured on app.state")
@@ -41,31 +81,28 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
                 media_type="application/json",
             )
 
-        key = request.headers.get("x-api-key", "")
-        if not key:
-            auth_header = request.headers.get("Authorization", "")
-            if auth_header.startswith("Bearer "):
-                key = auth_header[7:]
-        if key != app_key:
-            logger.warning(
-                "[auth] rejected request from {} - invalid key",
+        if key and key == app_key:
+            user_id = _derive_user_id(key)
+            request.state.user_id = str(user_id)
+            request.state.username = request.headers.get("x-username", "kaos-user")
+            request.state.role = "admin"
+            request.state.auth_method = "api_key"
+
+            logger.bind(event="auth.authenticated", user_id=str(user_id)).info(
+                "[auth] API key authenticated request from {} - {} {}",
                 request.client.host if request.client else "unknown",
+                request.method,
+                path,
             )
-            return Response(
-                status_code=401,
-                content='{"detail":"Invalid API key"}',
-                media_type="application/json",
-            )
+            return await call_next(request)
 
-        user_id = _derive_user_id(key)
-        request.state.user_id = str(user_id)
-        request.state.username = request.headers.get("x-username", "kaos-user")
-
-        logger.bind(event="auth.authenticated", user_id=str(user_id)).info(
-            "[auth] authenticated request from {} - {} {}",
+        # No valid auth found
+        logger.warning(
+            "[auth] rejected request from {} - no valid auth",
             request.client.host if request.client else "unknown",
-            request.method,
-            path,
         )
-
-        return await call_next(request)
+        return Response(
+            status_code=401,
+            content='{"detail":"Invalid authentication"}',
+            media_type="application/json",
+        )
