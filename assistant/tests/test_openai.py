@@ -4,7 +4,7 @@ import pytest
 from httpx import AsyncClient, ASGITransport
 
 from app.main import app
-from app.router.intent_classifier import IntentType
+from app.domain.workflow import WorkflowType
 
 
 @pytest.fixture
@@ -41,7 +41,10 @@ async def test_openai_chat_completions(client: AsyncClient) -> None:
     mock_agent.stream_message = _mock_stream
 
     mock_classifier = MagicMock()
-    mock_classifier.classify = AsyncMock(return_value=IntentType.SMART)
+    from app.domain.intent import IntentResult
+    mock_classifier.classify = AsyncMock(
+        return_value=IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
+    )
 
     with patch("app.api.openai._get_classifier", return_value=mock_classifier):
         with patch("app.api.openai.AgentService", return_value=mock_agent):
@@ -72,7 +75,10 @@ async def test_openai_chat_completions_no_user_message(
     mock_agent.stream_message = _mock_stream
 
     mock_classifier = MagicMock()
-    mock_classifier.classify = AsyncMock(return_value=IntentType.SMART)
+    from app.domain.intent import IntentResult
+    mock_classifier.classify = AsyncMock(
+        return_value=IntentResult(workflow=WorkflowType.AGENT, confidence=0.5)
+    )
 
     with patch("app.api.openai._get_classifier", return_value=mock_classifier):
         with patch("app.api.openai.AgentService", return_value=mock_agent):
