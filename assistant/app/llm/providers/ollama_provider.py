@@ -17,7 +17,9 @@ class OllamaProvider(BaseProvider):
         self._llm = ChatOllama(model=model, base_url=base_url, **kwargs)
 
     def _rebuild(self) -> None:
-        self._llm = ChatOllama(model=self._model, base_url=self._base_url, **self._kwargs)
+        self._llm = ChatOllama(
+            model=self._model, base_url=self._base_url, **self._kwargs
+        )
 
     def invoke(self, messages: list[BaseMessage]) -> BaseMessage:
         return self._llm.invoke(messages)

@@ -80,7 +80,9 @@ class VaultIndexer:
         try:
             exists = path.exists()
         except OSError as e:
-            logger.warning(f"[skip] VaultIndexer - OSError ao verificar {file_path}: {e}")
+            logger.warning(
+                f"[skip] VaultIndexer - OSError ao verificar {file_path}: {e}"
+            )
             logger.debug("[finish] VaultIndexer - index_file")
             return 0
         if not exists or not path.suffix == ".md":
