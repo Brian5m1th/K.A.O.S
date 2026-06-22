@@ -9,11 +9,16 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { kaosFetch } from "@/shared/api/kaos-client";
-import { Square } from "lucide-react";
+import { Square, Loader2 } from "lucide-react";
+
+interface ProviderOption {
+  id: string;
+  name: string;
+  models: string[];
+}
 
 export default function ChatPage() {
   const serverUrl = useAuthStore((s) => s.serverUrl);
-  const apiKey = useAuthStore((s) => s.apiKey);
 
   const messages = useChatStore((s) => s.messages);
   const loading = useChatStore((s) => s.loading);
@@ -23,30 +28,57 @@ export default function ChatPage() {
   const activeModel = useChatStore((s) => s.activeModel);
   const setActiveModel = useChatStore((s) => s.setActiveModel);
 
+  // Providers state
+  const [providers, setProviders] = useState<ProviderOption[]>([]);
+  const [selectedProvider, setSelectedProvider] = useState("ollama");
   const [defaultModel, setDefaultModel] = useState("kaos");
   const [fastModel, setFastModel] = useState("");
   const [fastMode, setFastMode] = useState(false);
+  const [providersLoading, setProvidersLoading] = useState(true);
 
+  // Fetch providers on mount
   useEffect(() => {
-    const fetchConfig = async () => {
+    const fetchProviders = async () => {
       try {
-        const cleanUrl = serverUrl.replace(/\/+$/, "");
-        const res = await kaosFetch(`${cleanUrl}/api/setup/provider/active`, apiKey);
+        const res = await kaosFetch(`${serverUrl}/api/providers`, "");
         if (res.ok) {
           const data = await res.json();
-          setDefaultModel(data.model);
-          setFastModel(data.fastModel || "");
-          if (!activeModel) setActiveModel(data.model);
+          const mapped: ProviderOption[] = (data.providers || []).map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            models: p.models || [],
+          }));
+          setProviders(mapped);
+
+          // Set active provider
+          const active = data.activeProvider || "ollama";
+          setSelectedProvider(active);
+
+          // Set default model from active provider
+          const activeProvider = mapped.find((p: ProviderOption) => p.id === active);
+          if (activeProvider?.models?.length) {
+            const defaultM = activeProvider.models[0];
+            setDefaultModel(defaultM);
+            setFastModel(activeProvider.models.length > 1 ? activeProvider.models[1] : "");
+            if (!activeModel) setActiveModel(defaultM);
+          }
         }
       } catch {
-        // Use defaults
+        // Backend offline — keep defaults
+      } finally {
+        setProvidersLoading(false);
       }
     };
-    fetchConfig();
-  }, [serverUrl, apiKey, activeModel, setActiveModel]);
+    fetchProviders();
+  }, [serverUrl, activeModel, setActiveModel]);
 
   const handleSend = (input: string) => {
-    streamMessage(input, activeModel, serverUrl, apiKey);
+    streamMessage(input, activeModel, serverUrl, "");
+  };
+
+  const handleProviderChange = (providerId: string) => {
+    setSelectedProvider(providerId);
+    setFastMode(false);
   };
 
   const handleModelChange = (model: string) => {
@@ -69,14 +101,24 @@ export default function ChatPage() {
       <div className="flex items-center justify-between border-b border-border-subtle px-4 py-2">
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-text-primary">Chat</span>
-          <ModelSelector
-            currentModel={activeModel}
-            defaultModel={defaultModel}
-            fastModel={fastModel}
-            fastMode={fastMode}
-            onModelChange={handleModelChange}
-            onFastModeToggle={handleFastModeToggle}
-          />
+          {providersLoading ? (
+            <div className="flex items-center gap-1.5 text-xs text-text-dim">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              Loading providers...
+            </div>
+          ) : (
+            <ModelSelector
+              currentModel={activeModel}
+              defaultModel={defaultModel}
+              fastModel={fastModel}
+              fastMode={fastMode}
+              providers={providers}
+              selectedProvider={selectedProvider}
+              onProviderChange={handleProviderChange}
+              onModelChange={handleModelChange}
+              onFastModeToggle={handleFastModeToggle}
+            />
+          )}
           {loading && (
             <>
               <Badge variant="info">Generating...</Badge>
