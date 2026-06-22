@@ -3,11 +3,10 @@ import subprocess
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 from loguru import logger
 
-from app.audit.commit_classifier import classify_commits, ClassifiedCommit, CommitType
+from app.audit.commit_classifier import classify_commits
 
 
 @dataclass

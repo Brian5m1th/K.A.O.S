@@ -1,5 +1,3 @@
-import pytest
-from pathlib import Path
 from app.audit.code_scanner import CodeScanner, CodeSnapshot
 
 

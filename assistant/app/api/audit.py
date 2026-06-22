@@ -6,7 +6,6 @@ from app.audit.drl_snapshot import DRLSnapshotManager
 from app.audit.feature_registry import FeatureRegistry
 from app.audit.commit_mapper import CommitMapper
 from app.audit.code_scanner import CodeScanner
-from app.audit.sdd_resolver import SDDResolver
 from app.audit.sdd_generator import SDDGenerator, SDDTemplate
 
 router = APIRouter(prefix="/api/audit", tags=["audit"])

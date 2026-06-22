@@ -1,4 +1,3 @@
-import pytest
 import tempfile
 from pathlib import Path
 from app.audit.sdd_generator import SDDGenerator, SDDTemplate

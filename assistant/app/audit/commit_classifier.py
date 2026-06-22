@@ -1,7 +1,6 @@
 import re
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
 
 
 class CommitType(Enum):

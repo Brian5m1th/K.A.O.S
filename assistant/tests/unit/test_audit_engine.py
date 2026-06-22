@@ -1,4 +1,3 @@
-import pytest
 from app.audit.audit_engine import DriftReport, AuditEngine
 from app.audit.feature_registry import FeatureEntry, FeatureRegistry
 

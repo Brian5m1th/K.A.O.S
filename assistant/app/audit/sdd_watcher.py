@@ -1,6 +1,5 @@
 import asyncio
 from pathlib import Path
-from datetime import datetime, timezone
 from loguru import logger
 
 from app.audit.vault_sync import VaultSync

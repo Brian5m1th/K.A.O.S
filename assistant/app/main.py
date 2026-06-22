@@ -253,7 +253,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     _watcher = VaultWatcher()
     _watcher.start()
 
-    sdd_watcher_task = asyncio.create_task(SDDWatcher.start())
+    asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")
 
     yield

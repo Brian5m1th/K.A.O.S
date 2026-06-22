@@ -1,8 +1,7 @@
-import pytest
 from app.audit.commit_classifier import (
     classify_commit, classify_commits, classify_type,
     extract_scope, is_breaking, assess_impact, extract_features,
-    CommitType, ImpactLevel, ClassifiedCommit
+    CommitType, ImpactLevel
 )
 
 
