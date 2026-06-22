@@ -20,7 +20,7 @@ OUTPUT_PATH = Path("docs/features/FEATURE_CATALOG.md")
 def load_registry(path: Path) -> dict:
     if not path.exists():
         print(f"[catalog] ERRO: registry nao encontrado em {path}")
-        print(f"[catalog] Execute uma auditoria primeiro.")
+        print("[catalog] Execute uma auditoria primeiro.")
         return {"features": []}
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -33,18 +33,18 @@ def generate_catalog(data: dict) -> str:
     coverage = (documented / total * 100) if total > 0 else 0
 
     lines = []
-    lines.append(f"# Catalogo de Features — K.A.O.S")
-    lines.append(f"")
+    lines.append("# Catalogo de Features — K.A.O.S")
+    lines.append("")
     lines.append(f"*Gerado automaticamente em {datetime.now().strftime('%Y-%m-%d %H:%M')}*")
-    lines.append(f"")
-    lines.append(f"## Resumo")
-    lines.append(f"")
-    lines.append(f"| Metrica | Valor |")
-    lines.append(f"|---------|-------|")
+    lines.append("")
+    lines.append("## Resumo")
+    lines.append("")
+    lines.append("| Metrica | Valor |")
+    lines.append("|---------|-------|")
     lines.append(f"| Total de features | {total} |")
     lines.append(f"| Documentadas | {documented} |")
     lines.append(f"| Cobertura | {coverage:.1f}% |")
-    lines.append(f"")
+    lines.append("")
 
     phases = {}
     for f in features:
@@ -56,9 +56,9 @@ def generate_catalog(data: dict) -> str:
     for phase in sorted(phases.keys()):
         phase_features = phases[phase]
         lines.append(f"## {phase}")
-        lines.append(f"")
-        lines.append(f"| ID | Nome | Status | Documentacao | Ultimo Commit |")
-        lines.append(f"|----|------|--------|-------------|---------------|")
+        lines.append("")
+        lines.append("| ID | Nome | Status | Documentacao | Ultimo Commit |")
+        lines.append("|----|------|--------|-------------|---------------|")
 
         for f in sorted(phase_features, key=lambda x: x.get("name", "")):
             fid = f.get("id", "")
@@ -68,10 +68,10 @@ def generate_catalog(data: dict) -> str:
             commit = f.get("lastCommit", "")[:8] if f.get("lastCommit") else "-"
             lines.append(f"| `{fid}` | {name} | {status} | {docs} | `{commit}` |")
 
-        lines.append(f"")
+        lines.append("")
 
-    lines.append(f"---")
-    lines.append(f"*Gerado automaticamente pelo KIRL FeatureRegistry.*")
+    lines.append("---")
+    lines.append("*Gerado automaticamente pelo KIRL FeatureRegistry.*")
 
     return "\n".join(lines)
 

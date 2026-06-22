@@ -22,7 +22,7 @@ DEFAULT_MIN_COVERAGE = 90.0
 def load_report(path: Path) -> dict | None:
     if not path.exists():
         print(f"[validate_docs] ERRO: relatorio nao encontrado em {path}")
-        print(f"[validate_docs] Execute uma auditoria primeiro: POST /api/audit/run")
+        print("[validate_docs] Execute uma auditoria primeiro: POST /api/audit/run")
         return None
 
     with open(path, "r", encoding="utf-8") as f:
@@ -39,7 +39,7 @@ def validate(report: dict, min_coverage: float) -> bool:
     inconsistent = report.get("inconsistentPhases", 0)
     undocumented_code = report.get("undocumentedCode", 0)
 
-    print(f"[validate_docs] ==============================")
+    print("[validate_docs] ==============================")
     print(f"[validate_docs] Cobertura documental: {coverage:.1f}%")
     print(f"[validate_docs] Total de features:   {total}")
     print(f"[validate_docs] Documentadas:        {documented}")
@@ -49,7 +49,7 @@ def validate(report: dict, min_coverage: float) -> bool:
     print(f"[validate_docs] Fases inconsistentes: {inconsistent}")
     print(f"[validate_docs] Codigo sem doc:      {undocumented_code}")
     print(f"[validate_docs] Threshold minimo:    {min_coverage:.1f}%")
-    print(f"[validate_docs] ==============================")
+    print("[validate_docs] ==============================")
 
     if coverage < min_coverage:
         print(f"[validate_docs] FALHA: cobertura {coverage:.1f}% abaixo do minimo {min_coverage:.1f}%")

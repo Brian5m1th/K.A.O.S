@@ -11,7 +11,6 @@ Uso:
 """
 
 import argparse
-import json
 import subprocess
 import sys
 from pathlib import Path
@@ -193,7 +192,7 @@ def audit_commits(commits: list[dict]) -> dict:
 def print_report(results: dict):
     """Exibe relatório formatado."""
     print(f"\n{'='*60}")
-    print(f"RELATORIO DE AUDITORIA DE DOCUMENTACAO")
+    print("RELATORIO DE AUDITORIA DE DOCUMENTACAO")
     print(f"{'='*60}")
     print(f"Total de commits:          {results['total']}")
     print(f"Com documentacao:          {results['has_documentation']}")
