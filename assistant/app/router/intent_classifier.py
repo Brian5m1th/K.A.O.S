@@ -1,4 +1,3 @@
-from enum import Enum
 from loguru import logger
 from langchain_core.messages import SystemMessage, HumanMessage
 from app.config.settings import settings

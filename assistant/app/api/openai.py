@@ -256,7 +256,6 @@ async def chat_completions(
     http_request: Request,
 ) -> Response:
     user_id = body.user_id or http_request.state.user_id
-    username = body.username or http_request.state.username
     role = body.role or http_request.state.role
     logger.info(f"[start] openai - chat_completions [user={user_id or 'anonymous'}]")
     stream_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
