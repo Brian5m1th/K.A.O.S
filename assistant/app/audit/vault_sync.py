@@ -48,7 +48,9 @@ class VaultSync:
 
         for md_file in vault_source.rglob("*.md"):
             if not cls._validate_frontmatter(md_file):
-                logger.warning(f"[vault_sync] skipping invalid frontmatter: {md_file.name}")
+                logger.warning(
+                    f"[vault_sync] skipping invalid frontmatter: {md_file.name}"
+                )
                 continue
 
             try:
@@ -56,7 +58,9 @@ class VaultSync:
                 shutil.copy2(md_file, target_path)
                 synced += 1
             except Exception as e:
-                logger.error(f"[vault_sync] failed to sync from vault {md_file.name}: {e}")
+                logger.error(
+                    f"[vault_sync] failed to sync from vault {md_file.name}: {e}"
+                )
 
         logger.info(f"[vault_sync] synced {synced} files from vault")
         return synced

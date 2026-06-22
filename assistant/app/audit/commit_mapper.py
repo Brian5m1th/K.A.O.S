@@ -33,13 +33,16 @@ class CommitMapper:
     @classmethod
     def _run_git_log(cls, limit: int | None = None) -> list[tuple[str, str, str, str]]:
         cmd = [
-            "git", "log",
+            "git",
+            "log",
             f"--max-count={limit or cls._max_commits}",
             "--pretty=format:%H|%s|%an|%aI",
-            "--no-merges"
+            "--no-merges",
         ]
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True, cwd=Path.cwd(), timeout=30)
+            result = subprocess.run(
+                cmd, capture_output=True, text=True, cwd=Path.cwd(), timeout=30
+            )
             if result.returncode != 0:
                 logger.error(f"[commit_mapper] git log failed: {result.stderr}")
                 return []
@@ -143,4 +146,6 @@ class CommitMapper:
 if __name__ == "__main__":
     entries = CommitMapper.generate_map(50)
     for e in entries[:10]:
-        print(f"{e.hash} | {e.type:6} | {e.impact:6} | {e.scope or '-':15} | {e.features}")
+        print(
+            f"{e.hash} | {e.type:6} | {e.impact:6} | {e.scope or '-':15} | {e.features}"
+        )

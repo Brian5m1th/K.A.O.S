@@ -38,10 +38,16 @@ class TestAuditEngine:
         assert AuditEngine.get_drift_level(30) == "high"
 
     def test_run_audit_returns_report(self):
-        FeatureRegistry.register(FeatureEntry(
-            id="test-feature", name="Test Feature", phase="p1", status="done",
-            docs=["SDD-TEST.md"], code_refs=["src/test.py"]
-        ))
+        FeatureRegistry.register(
+            FeatureEntry(
+                id="test-feature",
+                name="Test Feature",
+                phase="p1",
+                status="done",
+                docs=["SDD-TEST.md"],
+                code_refs=["src/test.py"],
+            )
+        )
         report = AuditEngine.run_audit()
         assert isinstance(report, DriftReport)
         assert isinstance(report.coverage, float)
@@ -53,9 +59,9 @@ class TestAuditEngine:
         assert report.generated_at != ""
 
     def test_load_latest_report(self):
-        FeatureRegistry.register(FeatureEntry(
-            id="test", name="Test", phase="p1", status="done"
-        ))
+        FeatureRegistry.register(
+            FeatureEntry(id="test", name="Test", phase="p1", status="done")
+        )
         AuditEngine.run_audit()
         report = AuditEngine.load_latest_report()
         assert report is not None

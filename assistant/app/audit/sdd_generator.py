@@ -89,10 +89,19 @@ requires_review: true
         return frontmatter + body
 
     @classmethod
-    def generate_feature_node(cls, feature_id: str, feature_name: str, feature_type: str,
-                              phase: str, tags: list[str], links: list[str],
-                              description: str, responsibilities: list[str],
-                              emits: list[str], used_by: list[str]) -> Path:
+    def generate_feature_node(
+        cls,
+        feature_id: str,
+        feature_name: str,
+        feature_type: str,
+        phase: str,
+        tags: list[str],
+        links: list[str],
+        description: str,
+        responsibilities: list[str],
+        emits: list[str],
+        used_by: list[str],
+    ) -> Path:
         cls._sdd_dir.mkdir(parents=True, exist_ok=True)
 
         safe_name = feature_id.replace(".", "-").replace("_", "-")
@@ -154,9 +163,10 @@ updated_at: {now}
             return None
 
         frontmatter = content[4:frontmatter_end].strip()
-        body = content[frontmatter_end + 3:].strip()
+        body = content[frontmatter_end + 3 :].strip()
 
         import yaml
+
         try:
             meta = yaml.safe_load(frontmatter)
         except Exception:

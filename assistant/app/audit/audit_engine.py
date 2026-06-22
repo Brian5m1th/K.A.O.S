@@ -20,7 +20,9 @@ class DriftReport:
     outdated_docs: list[str] = field(default_factory=list)
     inconsistent_phases: list[str] = field(default_factory=list)
     orphaned_sdds: list[str] = field(default_factory=list)
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
 
 class AuditEngine:
@@ -58,7 +60,9 @@ class AuditEngine:
         )
 
         cls._persist_report(report)
-        logger.info(f"[audit_engine] audit complete: coverage={coverage:.1f}%, missing={len(missing)}, outdated={len(outdated)}")
+        logger.info(
+            f"[audit_engine] audit complete: coverage={coverage:.1f}%, missing={len(missing)}, outdated={len(outdated)}"
+        )
         return report
 
     @classmethod
@@ -72,12 +76,21 @@ class AuditEngine:
         return missing
 
     @classmethod
-    def _find_undocumented_code(cls, features: list[FeatureEntry], code: CodeSnapshot) -> list[str]:
+    def _find_undocumented_code(
+        cls, features: list[FeatureEntry], code: CodeSnapshot
+    ) -> list[str]:
         undocumented = []
         known_ids = {f.id for f in features}
         all_code_refs = (
-            code.stores + code.routes + code.tools + code.events +
-            code.agents + code.workflows + code.providers + code.components + code.hooks
+            code.stores
+            + code.routes
+            + code.tools
+            + code.events
+            + code.agents
+            + code.workflows
+            + code.providers
+            + code.components
+            + code.hooks
         )
         for ref in all_code_refs:
             if ref not in known_ids and not any(ref in f.code_refs for f in features):
@@ -124,32 +137,45 @@ class AuditEngine:
         coverage_path = cls._audit_dir / "coverage-report.json"
         with open(coverage_path, "w", encoding="utf-8") as f:
             import json
-            json.dump({
-                "coverage": round(report.coverage, 1),
-                "totalFeatures": len(FeatureRegistry.list()),
-                "documented": len([f for f in FeatureRegistry.list() if f.docs]),
-                "missingDocs": len(report.missing_features),
-                "staleDocs": len(report.outdated_docs),
-                "orphanedSDDs": len(report.orphaned_sdds),
-                "inconsistentPhases": len(report.inconsistent_phases),
-                "undocumentedCode": len(report.undocumented_code),
-                "generatedAt": report.generated_at,
-            }, f, indent=2, ensure_ascii=False)
+
+            json.dump(
+                {
+                    "coverage": round(report.coverage, 1),
+                    "totalFeatures": len(FeatureRegistry.list()),
+                    "documented": len([f for f in FeatureRegistry.list() if f.docs]),
+                    "missingDocs": len(report.missing_features),
+                    "staleDocs": len(report.outdated_docs),
+                    "orphanedSDDs": len(report.orphaned_sdds),
+                    "inconsistentPhases": len(report.inconsistent_phases),
+                    "undocumentedCode": len(report.undocumented_code),
+                    "generatedAt": report.generated_at,
+                },
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )
 
         missing_path = cls._audit_dir / "undocumented-features.json"
         with open(missing_path, "w", encoding="utf-8") as f:
             import json
+
             json.dump(report.missing_features, f, indent=2, ensure_ascii=False)
 
         inconsistent_path = cls._audit_dir / "inconsistencies.json"
         with open(inconsistent_path, "w", encoding="utf-8") as f:
             import json
-            json.dump({
-                "outdatedDocs": report.outdated_docs,
-                "inconsistentPhases": report.inconsistent_phases,
-                "orphanedSDDs": report.orphaned_sdds,
-                "undocumentedCode": report.undocumented_code,
-            }, f, indent=2, ensure_ascii=False)
+
+            json.dump(
+                {
+                    "outdatedDocs": report.outdated_docs,
+                    "inconsistentPhases": report.inconsistent_phases,
+                    "orphanedSDDs": report.orphaned_sdds,
+                    "undocumentedCode": report.undocumented_code,
+                },
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )
 
     @classmethod
     def get_drift_level(cls, coverage: float) -> str:
@@ -165,6 +191,7 @@ class AuditEngine:
         coverage_path = cls._audit_dir / "coverage-report.json"
         if coverage_path.exists():
             import json
+
             with open(coverage_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             missing_path = cls._audit_dir / "undocumented-features.json"

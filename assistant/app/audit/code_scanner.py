@@ -19,7 +19,16 @@ class CodeSnapshot:
 
 class CodeScanner:
     _root: Path = Path(".")
-    _exclude_dirs = {".git", "__pycache__", "node_modules", ".venv", "dist", "build", ".idea", ".opencode"}
+    _exclude_dirs = {
+        ".git",
+        "__pycache__",
+        "node_modules",
+        ".venv",
+        "dist",
+        "build",
+        ".idea",
+        ".opencode",
+    }
 
     @classmethod
     def set_root(cls, root: Path) -> None:
@@ -37,7 +46,9 @@ class CodeScanner:
         snapshot.providers = cls._scan_providers()
         snapshot.components = cls._scan_components()
         snapshot.hooks = cls._scan_hooks()
-        logger.info(f"[code_scanner] scan complete: {len(snapshot.stores)} stores, {len(snapshot.routes)} routes, {len(snapshot.tools)} tools, {len(snapshot.events)} events, {len(snapshot.agents)} agents, {len(snapshot.workflows)} workflows, {len(snapshot.providers)} providers")
+        logger.info(
+            f"[code_scanner] scan complete: {len(snapshot.stores)} stores, {len(snapshot.routes)} routes, {len(snapshot.tools)} tools, {len(snapshot.events)} events, {len(snapshot.agents)} agents, {len(snapshot.workflows)} workflows, {len(snapshot.providers)} providers"
+        )
         return snapshot
 
     @classmethod
@@ -88,66 +99,152 @@ class CodeScanner:
     @classmethod
     def _scan_stores(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "shared" / "lib" / "stores", r"create\("))
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "features", r"use[A-Z].*Store"))
+        results.extend(
+            cls._walk_ts(
+                cls._root / "desktop" / "src" / "shared" / "lib" / "stores", r"create\("
+            )
+        )
+        results.extend(
+            cls._walk_ts(cls._root / "desktop" / "src" / "features", r"use[A-Z].*Store")
+        )
         return list(set(results))
 
     @classmethod
     def _scan_routes(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_tsx(cls._root / "desktop" / "src" / "pages", r"export.*default"))
-        results.extend(cls._walk_tsx(cls._root / "desktop" / "src" / "app" / "routes", r".*"))
+        results.extend(
+            cls._walk_tsx(cls._root / "desktop" / "src" / "pages", r"export.*default")
+        )
+        results.extend(
+            cls._walk_tsx(cls._root / "desktop" / "src" / "app" / "routes", r".*")
+        )
         return list(set(results))
 
     @classmethod
     def _scan_tools(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "shared" / "lib", r"ToolEvent|tool.?schema"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "tools", r"class.*Tool|BaseTool"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "workflows" / "impl", r"tools"))
+        results.extend(
+            cls._walk_ts(
+                cls._root / "desktop" / "src" / "shared" / "lib",
+                r"ToolEvent|tool.?schema",
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "tools", r"class.*Tool|BaseTool"
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "workflows" / "impl", r"tools"
+            )
+        )
         return list(set(results))
 
     @classmethod
     def _scan_events(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "shared" / "lib", r"EventBus|eventBus|emit\(|on\("))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "observability", r"EventBus|EventSubscriber|EVENT_"))
+        results.extend(
+            cls._walk_ts(
+                cls._root / "desktop" / "src" / "shared" / "lib",
+                r"EventBus|eventBus|emit\(|on\(",
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "observability",
+                r"EventBus|EventSubscriber|EVENT_",
+            )
+        )
         return list(set(results))
 
     @classmethod
     def _scan_agents(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "agent", r"class.*Agent|AgentState"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "workflows" / "impl", r"agent"))
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "entities" / "agent", r".*"))
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "agent", r"class.*Agent|AgentState"
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "workflows" / "impl", r"agent"
+            )
+        )
+        results.extend(
+            cls._walk_ts(cls._root / "desktop" / "src" / "entities" / "agent", r".*")
+        )
         return list(set(results))
 
     @classmethod
     def _scan_workflows(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "workflows" / "impl", r"class.*Workflow|BaseWorkflow"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "workflows", r"registry"))
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "workflows" / "impl",
+                r"class.*Workflow|BaseWorkflow",
+            )
+        )
+        results.extend(
+            cls._walk_python(cls._root / "assistant" / "app" / "workflows", r"registry")
+        )
         return list(set(results))
 
     @classmethod
     def _scan_providers(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "providers" / "chat", r"class.*Provider|BaseChatProvider"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "providers" / "embedding", r"class.*Provider|BaseEmbeddingProvider"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "providers" / "vector", r"class.*Provider|BaseVectorStore"))
-        results.extend(cls._walk_python(cls._root / "assistant" / "app" / "providers" / "memory", r"class.*Provider|BaseMemoryProvider"))
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "providers" / "chat",
+                r"class.*Provider|BaseChatProvider",
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "providers" / "embedding",
+                r"class.*Provider|BaseEmbeddingProvider",
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "providers" / "vector",
+                r"class.*Provider|BaseVectorStore",
+            )
+        )
+        results.extend(
+            cls._walk_python(
+                cls._root / "assistant" / "app" / "providers" / "memory",
+                r"class.*Provider|BaseMemoryProvider",
+            )
+        )
         return list(set(results))
 
     @classmethod
     def _scan_components(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_tsx(cls._root / "desktop" / "src" / "widgets", r"export.*function|export.*const"))
-        results.extend(cls._walk_tsx(cls._root / "desktop" / "src" / "shared" / "ui", r"export.*function|export.*const"))
+        results.extend(
+            cls._walk_tsx(
+                cls._root / "desktop" / "src" / "widgets",
+                r"export.*function|export.*const",
+            )
+        )
+        results.extend(
+            cls._walk_tsx(
+                cls._root / "desktop" / "src" / "shared" / "ui",
+                r"export.*function|export.*const",
+            )
+        )
         return list(set(results))
 
     @classmethod
     def _scan_hooks(cls) -> list[str]:
         results = []
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "features", r"use[A-Z].*"))
-        results.extend(cls._walk_ts(cls._root / "desktop" / "src" / "shared" / "lib", r"use[A-Z].*"))
+        results.extend(
+            cls._walk_ts(cls._root / "desktop" / "src" / "features", r"use[A-Z].*")
+        )
+        results.extend(
+            cls._walk_ts(
+                cls._root / "desktop" / "src" / "shared" / "lib", r"use[A-Z].*"
+            )
+        )
         return list(set(results))

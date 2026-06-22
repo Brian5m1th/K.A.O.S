@@ -17,8 +17,12 @@ class FeatureEntry:
     docs: list[str] = field(default_factory=list)
     code_refs: list[str] = field(default_factory=list)
     last_commit: str = ""
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
-    updated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
+    updated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> dict:
         return {
@@ -56,7 +60,9 @@ class FeatureRegistry:
     def register(cls, feature: FeatureEntry) -> None:
         feature.updated_at = datetime.now(timezone.utc).isoformat()
         cls._features[feature.id] = feature
-        logger.info(f"[feature_registry] registered: {feature.id} ({feature.name}) v{feature.status}")
+        logger.info(
+            f"[feature_registry] registered: {feature.id} ({feature.name}) v{feature.status}"
+        )
         cls._persist()
 
     @classmethod
@@ -95,38 +101,55 @@ class FeatureRegistry:
             cls._persist()
 
     @classmethod
-    def update_status(cls, feature_id: str, status: Literal["planned", "in-progress", "done"]) -> None:
+    def update_status(
+        cls, feature_id: str, status: Literal["planned", "in-progress", "done"]
+    ) -> None:
         if feature_id in cls._features:
             cls._features[feature_id].status = status
-            cls._features[feature_id].updated_at = datetime.now(timezone.utc).isoformat()
+            cls._features[feature_id].updated_at = datetime.now(
+                timezone.utc
+            ).isoformat()
             cls._persist()
 
     @classmethod
     def update_last_commit(cls, feature_id: str, commit_hash: str) -> None:
         if feature_id in cls._features:
             cls._features[feature_id].last_commit = commit_hash
-            cls._features[feature_id].updated_at = datetime.now(timezone.utc).isoformat()
+            cls._features[feature_id].updated_at = datetime.now(
+                timezone.utc
+            ).isoformat()
             cls._persist()
 
     @classmethod
     def add_doc_ref(cls, feature_id: str, doc_path: str) -> None:
-        if feature_id in cls._features and doc_path not in cls._features[feature_id].docs:
+        if (
+            feature_id in cls._features
+            and doc_path not in cls._features[feature_id].docs
+        ):
             cls._features[feature_id].docs.append(doc_path)
-            cls._features[feature_id].updated_at = datetime.now(timezone.utc).isoformat()
+            cls._features[feature_id].updated_at = datetime.now(
+                timezone.utc
+            ).isoformat()
             cls._persist()
 
     @classmethod
     def add_code_ref(cls, feature_id: str, code_path: str) -> None:
-        if feature_id in cls._features and code_path not in cls._features[feature_id].code_refs:
+        if (
+            feature_id in cls._features
+            and code_path not in cls._features[feature_id].code_refs
+        ):
             cls._features[feature_id].code_refs.append(code_path)
-            cls._features[feature_id].updated_at = datetime.now(timezone.utc).isoformat()
+            cls._features[feature_id].updated_at = datetime.now(
+                timezone.utc
+            ).isoformat()
             cls._persist()
 
     @classmethod
     def search(cls, query: str) -> list[FeatureEntry]:
         q = query.lower()
         return [
-            f for f in cls._features.values()
+            f
+            for f in cls._features.values()
             if q in f.id.lower() or q in f.name.lower() or q in f.phase.lower()
         ]
 
@@ -156,7 +179,9 @@ class FeatureRegistry:
                 feat["id"]: FeatureEntry.from_dict(feat)
                 for feat in data.get("features", [])
             }
-            logger.info(f"[feature_registry] loaded {len(cls._features)} features from {cls._registry_path}")
+            logger.info(
+                f"[feature_registry] loaded {len(cls._features)} features from {cls._registry_path}"
+            )
         else:
             logger.info("[feature_registry] no existing registry found, starting fresh")
 

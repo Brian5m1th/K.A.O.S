@@ -1,7 +1,13 @@
 from app.audit.commit_classifier import (
-    classify_commit, classify_commits, classify_type,
-    extract_scope, is_breaking, assess_impact, extract_features,
-    CommitType, ImpactLevel
+    classify_commit,
+    classify_commits,
+    classify_type,
+    extract_scope,
+    is_breaking,
+    assess_impact,
+    extract_features,
+    CommitType,
+    ImpactLevel,
 )
 
 
@@ -16,7 +22,10 @@ class TestCommitClassifier:
 
     def test_classify_type_merge(self):
         assert classify_type("merge branch 'dev'") == CommitType.MERGE
-        assert classify_type("Merge remote-tracking branch 'origin/dev'") == CommitType.MERGE
+        assert (
+            classify_type("Merge remote-tracking branch 'origin/dev'")
+            == CommitType.MERGE
+        )
 
     def test_classify_type_test(self):
         assert classify_type("test: add tests") == CommitType.TEST

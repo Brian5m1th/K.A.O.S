@@ -66,10 +66,25 @@ MEDIUM_IMPACT_PATTERNS = [
 ]
 
 FEATURE_KEYWORDS = {
-    "observability": ["observability", "metrics", "prometheus", "grafana", "tracing", "otel", "cost"],
+    "observability": [
+        "observability",
+        "metrics",
+        "prometheus",
+        "grafana",
+        "tracing",
+        "otel",
+        "cost",
+    ],
     "event-bus": ["event.?bus", "subscriber", "publish", "emit"],
     "workflow-engine": ["workflow", "orchestrator", "plan.?executor"],
-    "provider-adapters": ["provider", "adapter", "chat", "embedding", "vector", "memory"],
+    "provider-adapters": [
+        "provider",
+        "adapter",
+        "chat",
+        "embedding",
+        "vector",
+        "memory",
+    ],
     "model-router": ["model.?router", "capability", "selector"],
     "circuit-breaker": ["circuit.?breaker", "fallback", "health.?cache"],
     "dead-letter-queue": ["dead.?letter", "dlq"],
@@ -93,9 +108,17 @@ def classify_type(message: str) -> CommitType:
     if msg.startswith("merge") or "merge branch" in msg:
         return CommitType.MERGE
     for ct in CommitType:
-        if ct != CommitType.UNKNOWN and ct != CommitType.MERGE and msg.startswith(ct.value + ":"):
+        if (
+            ct != CommitType.UNKNOWN
+            and ct != CommitType.MERGE
+            and msg.startswith(ct.value + ":")
+        ):
             return ct
-        if ct != CommitType.UNKNOWN and ct != CommitType.MERGE and msg.startswith(ct.value + "("):
+        if (
+            ct != CommitType.UNKNOWN
+            and ct != CommitType.MERGE
+            and msg.startswith(ct.value + "(")
+        ):
             return ct
     return CommitType.UNKNOWN
 
@@ -153,12 +176,20 @@ def classify_commits(commits: list[tuple[str, str]]) -> list[ClassifiedCommit]:
 if __name__ == "__main__":
     test_commits = [
         ("abc123", "feat: N8N integration, custom webhooks API"),
-        ("def456", "fix: 3 production errors - model validation, Ollama streaming retry"),
-        ("ghi789", "feat: Memory Workflow - save conversation via WorkflowRouter (#70)"),
+        (
+            "def456",
+            "fix: 3 production errors - model validation, Ollama streaming retry",
+        ),
+        (
+            "ghi789",
+            "feat: Memory Workflow - save conversation via WorkflowRouter (#70)",
+        ),
         ("jkl012", "merge branch 'dev'"),
         ("mno345", "feat: Fase 8.5 - Production Observability (#69)"),
         ("pqr678", "fix: normalize docs as single K.A.O.S-storage submodule"),
         ("stu901", "feat: SDD040-03 model router and circuit breaker (#60)"),
     ]
     for c in classify_commits(test_commits):
-        print(f"{c.hash} | {c.type.value:6} | {c.impact.value:6} | {c.scope or '-':15} | {c.features_mentioned}")
+        print(
+            f"{c.hash} | {c.type.value:6} | {c.impact.value:6} | {c.scope or '-':15} | {c.features_mentioned}"
+        )

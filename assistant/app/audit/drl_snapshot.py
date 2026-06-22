@@ -13,7 +13,9 @@ class GraphSummary:
     total_nodes: int = 0
     total_edges: int = 0
     node_types: dict[str, int] = field(default_factory=dict)
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
 
 @dataclass
@@ -25,7 +27,9 @@ class DRLSnapshot:
     graph_summary: GraphSummary = field(default_factory=GraphSummary)
     missing_count: int = 0
     outdated_count: int = 0
-    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    generated_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
 
     def to_dict(self) -> dict:
         return {
@@ -60,6 +64,7 @@ class DRLSnapshotManager:
         commits = []
         try:
             from app.audit.commit_mapper import CommitMapper
+
             commits = CommitMapper.load()
         except Exception:
             pass
@@ -77,13 +82,16 @@ class DRLSnapshotManager:
         )
 
         cls._persist(snapshot)
-        logger.info(f"[drl_snapshot] snapshot built: coverage={snapshot.coverage:.1f}%, drift={snapshot.drift_level}")
+        logger.info(
+            f"[drl_snapshot] snapshot built: coverage={snapshot.coverage:.1f}%, drift={snapshot.drift_level}"
+        )
         return snapshot
 
     @classmethod
     def _persist(cls, snapshot: DRLSnapshot) -> None:
         cls._snapshot_path.parent.mkdir(parents=True, exist_ok=True)
         import json
+
         with open(cls._snapshot_path, "w", encoding="utf-8") as f:
             json.dump(snapshot.to_dict(), f, indent=2, ensure_ascii=False)
 
@@ -91,6 +99,7 @@ class DRLSnapshotManager:
     def load(cls) -> DRLSnapshot | None:
         if cls._snapshot_path.exists():
             import json
+
             with open(cls._snapshot_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             snapshot = DRLSnapshot()
@@ -114,7 +123,9 @@ class DRLSnapshotManager:
         return None
 
     @classmethod
-    def update_graph_summary(cls, total_nodes: int, total_edges: int, node_types: dict[str, int]) -> None:
+    def update_graph_summary(
+        cls, total_nodes: int, total_edges: int, node_types: dict[str, int]
+    ) -> None:
         snapshot = cls.load()
         if snapshot:
             snapshot.graph_summary.total_nodes = total_nodes

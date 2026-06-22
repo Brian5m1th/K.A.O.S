@@ -18,7 +18,9 @@ class DriftSubscriber(EventSubscriber):
         if event.name == "audit.completed":
             report = event.data.get("report")
             if report:
-                logger.info(f"[drift_subscriber] audit completed: coverage={report.get('coverage')}%")
+                logger.info(
+                    f"[drift_subscriber] audit completed: coverage={report.get('coverage')}%"
+                )
                 DRLSnapshotManager.build_snapshot()
 
                 drift_level = report.get("drift_level", "low")
@@ -28,7 +30,9 @@ class DriftSubscriber(EventSubscriber):
         if event.name == "drift.detected":
             severity = event.data.get("severity", "medium")
             missing = event.data.get("missing", [])
-            logger.warning(f"[drift_subscriber] drift detected: {severity}, missing={missing}")
+            logger.warning(
+                f"[drift_subscriber] drift detected: {severity}, missing={missing}"
+            )
 
     async def _emit_alert(self, report: dict) -> None:
         alert_event = Event(
