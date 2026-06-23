@@ -3,7 +3,7 @@ from enum import Enum
 from dataclasses import dataclass, field
 from fastapi import APIRouter
 from loguru import logger
-from app.setup.provider_config import get_config, get_active_provider_config
+from app.setup.provider_config import get_config
 
 router = APIRouter(prefix="/api", tags=["Providers"])
 
@@ -51,9 +51,12 @@ def _get_configured_providers() -> set[str]:
     config = get_config()
     configured = set()
     for pid in PROVIDER_SOURCES:
-        if pid in ("ollama", "openCode"): configured.add(pid); continue
+        if pid in ("ollama", "openCode"):
+            configured.add(pid)
+            continue
         pc = config.get(pid, {})
-        if pc.get("apiKey"): configured.add(pid)
+        if pc.get("apiKey"):
+            configured.add(pid)
     return configured
 
 async def _fetch_models_from_api(provider_id: str, base_url: str, source: ProviderSource) -> list[str]:
@@ -67,10 +70,12 @@ async def _fetch_models_from_api(provider_id: str, base_url: str, source: Provid
                 headers[source.api_key_field] = val
         async with httpx.AsyncClient(timeout=10) as client:
             resp = await client.get(url, headers=headers, params=params)
-            if not resp.is_success: return []
+            if not resp.is_success:
+                return []
             data = resp.json()
-            if provider_id == "ollama": return [m.get("name","") for m in data.get("models",[]) if m.get("name")]
-            return [m.get("id","") for m in data.get("data",[]) if m.get("id")]
+            if provider_id == "ollama":
+                return [m.get("name", "") for m in data.get("models", []) if m.get("name")]
+            return [m.get("id", "") for m in data.get("data", []) if m.get("id")]
     except Exception as e:
         logger.warning("[providers] failed {}: {}", provider_id, e)
         return []

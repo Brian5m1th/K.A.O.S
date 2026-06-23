@@ -19,7 +19,8 @@ async def opencode_status():
 @router.get("/agents")
 async def list_agents():
     d = OPCODE_DIR / "agents"
-    if not d.exists(): return {"agents": []}
+    if not d.exists():
+        return {"agents": []}
     agents = []
     for f in sorted(d.glob("*.md")):
         c = f.read_text(encoding="utf-8")
@@ -29,5 +30,6 @@ async def list_agents():
 @router.get("/agent/{agent_id}")
 async def get_agent(agent_id: str):
     f = OPCODE_DIR / "agents" / f"{agent_id}.md"
-    if not f.exists(): raise HTTPException(404, detail="Agent not found")
+    if not f.exists():
+        raise HTTPException(404, detail="Agent not found")
     return {"id": agent_id, "content": f.read_text(encoding="utf-8")}
