@@ -1,4 +1,8 @@
-import { useAuthStore } from "@/shared/lib/stores";
+let getAccessTokenFn: (() => string | null) | null = null;
+
+export function setAccessTokenProvider(fn: () => string | null) {
+  getAccessTokenFn = fn;
+}
 
 export async function kaosFetch(
   url: string,
@@ -8,7 +12,7 @@ export async function kaosFetch(
   const headers = new Headers(options.headers);
 
   // Auto-detect auth from store (JWT preferred, API key fallback)
-  const { accessToken } = useAuthStore.getState();
+  const accessToken = getAccessTokenFn ? getAccessTokenFn() : null;
   if (accessToken) {
     headers.set("Authorization", `Bearer ${accessToken}`);
   } else if (_fallbackKey) {
