@@ -124,12 +124,12 @@ class GraphBuilder:
                 )
             for code_ref in feat.code_refs:
                 snapshot.edges.append(
-                        ArchEdge(
-                            source=fid,
-                            target=code_ref,
-                            relation="implements",
-                        )
+                    ArchEdge(
+                        source=fid,
+                        target=code_ref,
+                        relation="implements",
                     )
+                )
 
         all_code_refs = (
             code.stores
