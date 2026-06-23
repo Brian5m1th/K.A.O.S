@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-06-22T17:31:21.509469+00:00",
+  "total_features": 1,
+  "features": [
+    {
+      "id": "test",
+      "name": "Test",
+      "phase": "p1",
+      "status": "done",
+      "docs": [],
+      "codeRefs": [],
+      "lastCommit": "",
+      "createdAt": "2026-06-22T17:31:21.508975+00:00",
+      "updatedAt": "2026-06-22T17:31:21.508989+00:00"
+    }
+  ]
+}
