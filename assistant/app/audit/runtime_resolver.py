@@ -48,6 +48,7 @@ class RuntimePathResolver:
         # Check if settings overrides OBSIDIAN_VAULT_PATH
         try:
             from app.config.settings import settings
+
             if settings.OBSIDIAN_VAULT_PATH:
                 return Path(settings.OBSIDIAN_VAULT_PATH).resolve()
         except Exception:

@@ -105,7 +105,9 @@ class VaultReader:
             status=meta.get("status", "unknown"),
             tags=meta.get("tags", []),
             links=meta.get("links", []),
-            path=path.resolve().relative_to(RuntimePathResolver.project_root()).as_posix(),
+            path=path.resolve()
+            .relative_to(RuntimePathResolver.project_root())
+            .as_posix(),
             content=body.strip(),
             wikilinks=wikilinks,
             drift_score=0.0,

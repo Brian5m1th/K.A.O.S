@@ -58,6 +58,7 @@ class SDDResolver:
         # Link SDDs based on FeatureRegistry docs paths and fuzzy name matching
         try:
             from app.audit.feature_registry import FeatureRegistry
+
             features = FeatureRegistry.list()
             for feat in features:
                 # 1. Direct mapping via docs lists
@@ -76,13 +77,18 @@ class SDDResolver:
                 feat_id_clean = feat.id.lower().replace("-", "").replace("_", "")
                 for entry_id, entry in list(cls._sdd_cache.items()):
                     entry_id_clean = entry.id.lower().replace("-", "").replace("_", "")
-                    entry_stem_clean = Path(entry.path).stem.lower().replace("-", "").replace("_", "")
+                    entry_stem_clean = (
+                        Path(entry.path).stem.lower().replace("-", "").replace("_", "")
+                    )
                     # Remove prefixes/suffixes
                     for term in ["sdd", "f1", "f2", "f3", "f4", "f5", "f6", "f7"]:
                         feat_id_clean = feat_id_clean.replace(term, "")
                         entry_id_clean = entry_id_clean.replace(term, "")
                         entry_stem_clean = entry_stem_clean.replace(term, "")
-                    if feat_id_clean == entry_id_clean or feat_id_clean == entry_stem_clean:
+                    if (
+                        feat_id_clean == entry_id_clean
+                        or feat_id_clean == entry_stem_clean
+                    ):
                         if feat.id.lower() not in entry.linked_features:
                             entry.linked_features.append(feat.id.lower())
                         if feat.id.lower() not in cls._feature_to_sdd:
@@ -110,6 +116,7 @@ class SDDResolver:
         if content.strip().startswith("---"):
             try:
                 import yaml
+
                 parts = content.split("---")
                 if len(parts) >= 3:
                     meta = yaml.safe_load(parts[1])
@@ -122,7 +129,9 @@ class SDDResolver:
 
         entry = SDDEntry(
             id=sdd_id,
-            path=path.resolve().relative_to(RuntimePathResolver.project_root()).as_posix(),
+            path=path.resolve()
+            .relative_to(RuntimePathResolver.project_root())
+            .as_posix(),
             title=title,
             linked_features=features,
         )

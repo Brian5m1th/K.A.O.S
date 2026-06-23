@@ -29,7 +29,11 @@ def get_commits_from_range(base: str, head: str) -> list[dict]:
     ]
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, cwd=RuntimePathResolver.project_root(), timeout=30
+            cmd,
+            capture_output=True,
+            text=True,
+            cwd=RuntimePathResolver.project_root(),
+            timeout=30,
         )
         if result.returncode != 0:
             print(f"[audit_pr] ERRO: git log falhou: {result.stderr}")

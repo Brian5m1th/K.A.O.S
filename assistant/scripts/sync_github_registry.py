@@ -24,7 +24,10 @@ try:
     import httpx
 except ImportError:
     import subprocess
-    subprocess.run([sys.executable, "-m", "pip", "install", "httpx"], capture_output=True)
+
+    subprocess.run(
+        [sys.executable, "-m", "pip", "install", "httpx"], capture_output=True
+    )
     import httpx
 
 OWNER = "Brian5m1th"
@@ -86,14 +89,14 @@ def merge_registries(local: dict, remote: dict) -> dict:
     remote_feats = {f["id"]: f for f in remote.get("features", [])}
 
     merged_feats = {}
-    
+
     # Processar todas as chaves
     all_keys = set(local_feats.keys()) | set(remote_feats.keys())
-    
+
     for fid in all_keys:
         loc = local_feats.get(fid)
         rem = remote_feats.get(fid)
-        
+
         if loc and not rem:
             # Apenas no local
             merged_feats[fid] = loc
@@ -103,18 +106,22 @@ def merge_registries(local: dict, remote: dict) -> dict:
         else:
             # Merge das duas
             # Union de listas docs e codeRefs
-            docs_union = list(set(loc.get("docs", []) or []) | set(rem.get("docs", []) or []))
-            code_union = list(set(loc.get("codeRefs", []) or []) | set(rem.get("codeRefs", []) or []))
-            
+            docs_union = list(
+                set(loc.get("docs", []) or []) | set(rem.get("docs", []) or [])
+            )
+            code_union = list(
+                set(loc.get("codeRefs", []) or []) | set(rem.get("codeRefs", []) or [])
+            )
+
             # Preferir updatedAt mais recente se existirem e forem válidos
             local_updated = loc.get("updatedAt", loc.get("updated_at", ""))
             remote_updated = rem.get("updatedAt", rem.get("updated_at", ""))
-            
+
             if remote_updated > local_updated:
                 merged = rem.copy()
             else:
                 merged = loc.copy()
-                
+
             merged["docs"] = sorted(docs_union)
             merged["codeRefs"] = sorted(code_union)
             merged_feats[fid] = merged
@@ -122,14 +129,14 @@ def merge_registries(local: dict, remote: dict) -> dict:
     # Retorna o dict mesclado ordenado por ID
     return {
         "version": local.get("version", remote.get("version", "1.0")),
-        "features": [merged_feats[k] for k in sorted(merged_feats.keys())]
+        "features": [merged_feats[k] for k in sorted(merged_feats.keys())],
     }
 
 
 def main():
     local_path = RuntimePathResolver.features_index_path()
     print(f"[sync] Caminho local do registry: {local_path}")
-    
+
     # 1. Carregar local
     if local_path.exists():
         try:
@@ -155,11 +162,11 @@ def main():
     # 4. Calcular hashes/diferença simples
     local_ids = {f["id"] for f in local_data.get("features", [])}
     remote_ids = {f["id"] for f in remote_data.get("features", [])}
-    
+
     added = remote_ids - local_ids
     removed = local_ids - remote_ids
     common = local_ids & remote_ids
-    
+
     print("[sync] Analisando Registry Diff:")
     print(f"  - No local: {len(local_ids)} features")
     print(f"  - No remoto: {len(remote_ids)} features")
