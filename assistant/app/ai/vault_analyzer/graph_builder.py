@@ -9,6 +9,7 @@ from loguru import logger
 
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.audit.drl_snapshot import DRLSnapshotManager
+from app.audit.feature_registry import FeatureRegistry
 from app.audit.code_scanner import CodeScanner
 from app.audit.runtime_resolver import RuntimePathResolver
 
@@ -94,36 +95,41 @@ class GraphBuilder:
                 )
 
         if drl:
-            for feature in drl.features:
-                fid = f"feature:{feature.id}"
-                if fid not in seen_ids:
-                    snapshot.nodes.append(
-                        ArchNode(
-                            id=fid,
-                            label=feature.name,
-                            type="feature",
-                            status=feature.status,
-                            source="drl",
-                            phase=feature.phase,
-                        )
+            features = drl.features
+        else:
+            FeatureRegistry.load_from_json()
+            features = FeatureRegistry.list()
+
+        for feat in features:
+            fid = f"feature:{feat.id}"
+            if fid not in seen_ids:
+                snapshot.nodes.append(
+                    ArchNode(
+                        id=fid,
+                        label=feat.name,
+                        type="feature",
+                        status=feat.status,
+                        source="drl",
+                        phase=feat.phase,
                     )
-                    seen_ids.add(fid)
-                for doc_ref in feature.docs:
-                    snapshot.edges.append(
-                        ArchEdge(
-                            source=fid,
-                            target=doc_ref,
-                            relation="documents",
-                        )
+                )
+                seen_ids.add(fid)
+            for doc_ref in feat.docs:
+                snapshot.edges.append(
+                    ArchEdge(
+                        source=fid,
+                        target=doc_ref,
+                        relation="documents",
                     )
-                for code_ref in feature.code_refs:
-                    snapshot.edges.append(
-                        ArchEdge(
-                            source=fid,
-                            target=code_ref,
-                            relation="implements",
-                        )
+                )
+            for code_ref in feat.code_refs:
+                snapshot.edges.append(
+                    ArchEdge(
+                        source=fid,
+                        target=code_ref,
+                        relation="implements",
                     )
+                )
 
         all_code_refs = (
             code.stores

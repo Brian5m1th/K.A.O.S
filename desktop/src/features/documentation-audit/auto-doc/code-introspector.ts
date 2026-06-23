@@ -1,3 +1,5 @@
+import { kaosFetch } from "@/shared/api/kaos-client";
+
 export interface IntrospectionResult {
   stores: string[];
   routes: string[];
@@ -22,7 +24,7 @@ export class CodeIntrospector {
 
   static async scanFromApi(): Promise<IntrospectionResult> {
     try {
-      const response = await fetch("/api/audit/scan-code", { method: "POST" });
+      const response = await kaosFetch("/api/audit/scan-code", "", { method: "POST" });
       if (response.ok) {
         const data = await response.json();
         return {

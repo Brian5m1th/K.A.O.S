@@ -11,6 +11,7 @@ import { DriftTimeline } from "../../features/documentation-audit/ui/DriftTimeli
 import { Tabs } from "../../shared/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "../../shared/ui/card";
 import { AlertTriangle, RefreshCw, TrendingUp, FileText, Clock, Download, Upload } from "lucide-react";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 export function DocumentationPage() {
   const { documentation, setDocumentation } = useSystemStore();
@@ -29,8 +30,8 @@ export function DocumentationPage() {
       coverage: driftReport?.coverage || 0,
       driftLevel: driftReport?.driftLevel || "low",
       lastScan: lastScan,
-      missingCount: driftReport?.missingFeatures?.length || 0,
-      outdatedCount: driftReport?.outdatedDocs?.length || 0,
+      missingCount: driftReport?.missing_features?.length || 0,
+      outdatedCount: driftReport?.outdated_docs?.length || 0,
     });
   }, [driftReport, lastScan, setDocumentation]);
 
@@ -51,7 +52,7 @@ export function DocumentationPage() {
 
   const handleSyncVault = useCallback(async () => {
     try {
-      await fetch("/api/audit/scan-commits", { method: "POST" });
+      await kaosFetch("/api/audit/scan-commits", "", { method: "POST" });
       await runAudit();
     } catch {
     }
@@ -198,11 +199,11 @@ export function DocumentationPage() {
       )}
 
       {activeTab === "missing" && (
-        <MissingFeaturesList features={driftReport?.missingFeatures || []} />
+        <MissingFeaturesList features={driftReport?.missing_features || []} />
       )}
 
       {activeTab === "outdated" && (
-        <OutdatedDocsList docs={driftReport?.outdatedDocs || []} />
+        <OutdatedDocsList docs={driftReport?.outdated_docs || []} />
       )}
 
       {activeTab === "timeline" && (

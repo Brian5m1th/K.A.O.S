@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 interface FeatureEntry {
   id: string;
@@ -14,12 +15,12 @@ interface FeatureEntry {
 
 interface DriftReport {
   coverage: number;
-  missingFeatures: string[];
-  outdatedDocs: string[];
-  inconsistentPhases: string[];
-  orphanedSDDs: string[];
-  undocumentedCode: string[];
   driftLevel: "low" | "medium" | "high";
+  missing_features: string[];
+  outdated_docs: string[];
+  inconsistent_phases: string[];
+  orphaned_sdds: string[];
+  undocumented_code: string[];
   coverageHistory: { date: string; coverage: number }[];
   driftHistory: { date: string; level: string; missing: number }[];
 }
@@ -51,7 +52,7 @@ export const useDriftStore = create<DriftState>((set) => ({
   runAudit: async () => {
     set({ isLoading: true });
     try {
-      const response = await fetch("/api/audit/run", { method: "POST" });
+      const response = await kaosFetch("/api/audit/run", "", { method: "POST" });
       if (response.ok) {
         const data = await response.json();
         set({
@@ -69,7 +70,7 @@ export const useDriftStore = create<DriftState>((set) => ({
 
   loadSnapshot: async () => {
     try {
-      const response = await fetch("/api/audit/snapshot");
+      const response = await kaosFetch("/api/audit/snapshot", "");
       if (response.ok) {
         const data = await response.json();
         set({

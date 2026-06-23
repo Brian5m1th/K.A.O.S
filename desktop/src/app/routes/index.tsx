@@ -1,8 +1,10 @@
 import { Suspense } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AppLayout } from "@/app/layouts/AppLayout";
+import { useAuthStore } from "@/shared/lib/stores";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { Loader2 } from "lucide-react";
 import DashboardPage from "./pages/dashboard";
 import ChatPage from "./pages/chat";
 import VaultPage from "./pages/vault";
@@ -13,6 +15,11 @@ import PipelinesPage from "./pages/pipelines";
 import ObservabilityPage from "./pages/observability";
 import DocumentationPage from "./pages/documentation";
 import ArchitecturePage from "./pages/architecture";
+import GraphifyPage from "./pages/graphify";
+import KnowledgeGraphPage from "./pages/knowledge-graph";
+import SetupPage from "./pages/setup";
+import LoginPage from "./pages/login";
+import UsersPage from "./pages/users";
 
 function PageFallback() {
   return (
@@ -48,13 +55,48 @@ function AnimatedPage({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AuthGate({ children }: { children: React.ReactNode }) {
+  const checking = useAuthStore((s) => s.checking);
+  const configured = useAuthStore((s) => s.configured);
+  const accessToken = useAuthStore((s) => s.accessToken);
+
+  if (checking) {
+    return (
+      <div className="flex h-full items-center justify-center bg-canvas">
+        <Loader2 className="h-6 w-6 animate-spin text-text-dim" />
+      </div>
+    );
+  }
+
+  if (!configured) {
+    return <Navigate to="/setup" replace />;
+  }
+
+  if (!accessToken) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
+}
+
 export function AppRoutes() {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route element={<AppLayout />}>
+        {/* Public routes (no sidebar, no auth) */}
+        <Route path="/setup" element={<SetupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Protected routes (sidebar + auth gate) */}
+        <Route
+          element={
+            <AuthGate>
+              <AppLayout />
+            </AuthGate>
+          }
+        >
           <Route
             path="/"
             element={
@@ -120,6 +162,14 @@ export function AppRoutes() {
             }
           />
           <Route
+            path="/users"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><UsersPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
             path="/documentation"
             element={
               <Suspense fallback={<PageFallback />}>
@@ -132,6 +182,22 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><ArchitecturePage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/graphify"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><GraphifyPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/knowledge-graph"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><KnowledgeGraphPage /></AnimatedPage>
               </Suspense>
             }
           />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
-import { useSystemStore } from "@/shared/lib/stores";
+import { useSystemStore, useAuthStore } from "@/shared/lib/stores";
 import { kaosFetch } from "@/shared/api/kaos-client";
 import { Activity, AlertTriangle, Server, Loader2 } from "lucide-react";
 
@@ -9,13 +9,14 @@ export default function ObservabilityPage() {
   const runtime = useSystemStore((s) => s.runtime);
   const metrics = useSystemStore((s) => s.metrics);
   const services = useSystemStore((s) => s.services);
+  const serverUrl = useAuthStore((s) => s.serverUrl);
 
   const [obsServices, setObsServices] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const fetchObs = async () => {
       try {
-        const res = await kaosFetch("http://localhost:8000/api/observability/health", "");
+        const res = await kaosFetch(`${serverUrl}/api/observability/health`, "");
         if (res.ok) {
           const data = await res.json();
           setObsServices(data);
@@ -129,3 +130,4 @@ export default function ObservabilityPage() {
     </div>
   );
 }
+

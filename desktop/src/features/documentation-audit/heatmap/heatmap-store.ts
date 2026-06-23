@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 export interface HeatmapEntry {
   date: string;
@@ -39,7 +40,7 @@ export const useHeatmapStore = create<HeatmapState>((set) => ({
 
   fetchHeatmap: async () => {
     try {
-      const response = await fetch("/api/architecture/heatmap");
+      const response = await kaosFetch("/api/architecture/heatmap", "");
       if (response.ok) {
         const data = await response.json();
         set({
@@ -59,7 +60,7 @@ export const useHeatmapStore = create<HeatmapState>((set) => ({
 
   fetchAnalysis: async () => {
     try {
-      const response = await fetch("/api/architecture/analysis");
+      const response = await kaosFetch("/api/architecture/analysis", "");
       if (response.ok) {
         const data = await response.json();
         set({
@@ -80,7 +81,7 @@ export const useHeatmapStore = create<HeatmapState>((set) => ({
   fetchHistory: async () => {
     set({ isLoading: true });
     try {
-      const response = await fetch("/api/architecture/heatmap");
+      const response = await kaosFetch("/api/architecture/heatmap", "");
       if (response.ok) {
         const data = await response.json();
         const entry: HeatmapEntry = {
