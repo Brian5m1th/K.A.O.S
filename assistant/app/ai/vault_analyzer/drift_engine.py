@@ -118,7 +118,17 @@ class DriftEngine:
             return None
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-        return DriftScore(**data)
+        # Normalize field names (handle both DriftEngine and AnalyzerEngine formats)
+        score = data.get("score", data.get("coverage_score", 0))
+        level = data.get("level", data.get("drift_level", "low"))
+        return DriftScore(
+            score=score,
+            level=level,
+            missing_links=data.get("missing_links", data.get("total_issues", 0)),
+            sdd_mismatch=data.get("sdd_mismatch", 0),
+            code_vs_vault_diff=data.get("code_vs_vault_diff", 0),
+            generated_at=data.get("generated_at", ""),
+        )
 
     @staticmethod
     def get_level_label(level: str) -> str:
