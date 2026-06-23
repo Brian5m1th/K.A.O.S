@@ -79,7 +79,10 @@ function AuthGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+import { useAppInit } from "@/shared/lib/use-init";
+
 export function AppRoutes() {
+  useAppInit();
   const location = useLocation();
 
   return (

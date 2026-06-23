@@ -96,6 +96,8 @@ def configure_logging(log_level: str, env: str) -> None:
             )
 
     logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
+    for logger_name in ("httpx", "httpcore", "urllib3"):
+        logging.getLogger(logger_name).setLevel(logging.WARNING)
 
 
 configure_logging(settings.LOG_LEVEL, settings.APP_ENV)
