@@ -1,6 +1,5 @@
 import httpx
 from fastapi import APIRouter
-from loguru import logger
 
 router = APIRouter(prefix="/api/observability", tags=["Observability"])
 

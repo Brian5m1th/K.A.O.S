@@ -3,7 +3,6 @@ from pathlib import Path
 
 from fastapi import APIRouter
 from loguru import logger
-from pydantic import BaseModel
 
 router = APIRouter(prefix="/api/settings", tags=["Settings"])
 
