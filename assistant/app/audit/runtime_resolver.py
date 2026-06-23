@@ -25,7 +25,9 @@ class RuntimePathResolver:
     """
 
     # Canonical: docs/runtime/ at the project root (submodule docs)
-    CANONICAL: Path = Path(__file__).resolve().parent.parent.parent.parent / "docs" / "runtime"
+    CANONICAL: Path = (
+        Path(__file__).resolve().parent.parent.parent.parent / "docs" / "runtime"
+    )
 
     # Legacy: assistant/docs/runtime/ (old location, to be removed)
     LEGACY: Path = Path(__file__).resolve().parent.parent.parent / "docs" / "runtime"

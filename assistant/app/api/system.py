@@ -6,6 +6,7 @@ from app.config.settings import settings
 router = APIRouter(prefix="/api/system", tags=["System"])
 SERVICE_TIMEOUT = 5
 
+
 async def _check(name: str, url: str) -> bool:
     try:
         async with httpx.AsyncClient(timeout=SERVICE_TIMEOUT) as c:
@@ -15,16 +16,19 @@ async def _check(name: str, url: str) -> bool:
         logger.debug("[system] {} unavailable: {}", name, e)
         return False
 
+
 async def _check_postgres() -> bool:
     try:
         from sqlalchemy import text
         from app.database import async_session_factory
+
         async with async_session_factory() as s:
             r = await s.execute(text("SELECT 1"))
             return r.scalar() == 1
     except Exception as e:
         logger.debug("[system] postgres: {}", e)
         return False
+
 
 @router.get("/status")
 async def system_status():

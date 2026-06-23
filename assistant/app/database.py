@@ -13,6 +13,7 @@ from app.config.settings import settings
 class Base(DeclarativeBase):
     pass
 
+
 _engine = None
 _session_factory = None
 
