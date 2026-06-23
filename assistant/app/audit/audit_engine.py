@@ -24,6 +24,10 @@ class DriftReport:
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
 
+    @property
+    def drift_level(self) -> str:
+        return AuditEngine.get_drift_level(self.coverage)
+
 
 class AuditEngine:
     _audit_dir = RuntimePathResolver.audit_dir()
