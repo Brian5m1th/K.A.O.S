@@ -1,5 +1,6 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
+import hashlib
+from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from typing import Optional
 import json
@@ -148,6 +149,28 @@ class GraphBuilder:
 
         GraphBuilder._infer_system_edges(snapshot)
         GraphBuilder._persist(snapshot)
+
+        # Sync graph summary to DRL snapshot
+        node_types: dict[str, int] = {}
+        edge_types: dict[str, int] = {}
+        for n in snapshot.nodes:
+            node_types[n.type] = node_types.get(n.type, 0) + 1
+        for e in snapshot.edges:
+            edge_types[e.relation] = edge_types.get(e.relation, 0) + 1
+
+        # Compute fingerprint
+        nodes_json = json.dumps([asdict(n) for n in snapshot.nodes], sort_keys=True, default=str)
+        edges_json = json.dumps([asdict(e) for e in snapshot.edges], sort_keys=True, default=str)
+        graph_fingerprint = hashlib.sha256(f"{nodes_json}|{edges_json}".encode()).hexdigest()
+
+        DRLSnapshotManager.update_graph_summary(
+            total_nodes=len(snapshot.nodes),
+            total_edges=len(snapshot.edges),
+            node_types=node_types,
+            edge_types=edge_types,
+            source_hash=graph_fingerprint,
+            graph_version="1.0",
+        )
 
         logger.info(
             f"[graph_builder] built graph: {len(snapshot.nodes)} nodes, {len(snapshot.edges)} edges"
