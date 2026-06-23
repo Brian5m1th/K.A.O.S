@@ -13,6 +13,7 @@ import PipelinesPage from "./pages/pipelines";
 import ObservabilityPage from "./pages/observability";
 import DocumentationPage from "./pages/documentation";
 import ArchitecturePage from "./pages/architecture";
+import GraphifyPage from "./pages/graphify";
 
 function PageFallback() {
   return (
@@ -132,6 +133,14 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><ArchitecturePage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/graphify"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><GraphifyPage /></AnimatedPage>
               </Suspense>
             }
           />
