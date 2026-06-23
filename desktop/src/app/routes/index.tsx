@@ -14,6 +14,7 @@ import ObservabilityPage from "./pages/observability";
 import DocumentationPage from "./pages/documentation";
 import ArchitecturePage from "./pages/architecture";
 import GraphifyPage from "./pages/graphify";
+import KnowledgeGraphPage from "./pages/knowledge-graph";
 
 function PageFallback() {
   return (
@@ -141,6 +142,14 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><GraphifyPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/knowledge-graph"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><KnowledgeGraphPage /></AnimatedPage>
               </Suspense>
             }
           />
