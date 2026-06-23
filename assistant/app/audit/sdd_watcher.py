@@ -4,10 +4,11 @@ from loguru import logger
 
 from app.audit.vault_sync import VaultSync
 from app.audit.drl_snapshot import DRLSnapshotManager
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 class SDDWatcher:
-    _watched_dirs = [Path("docs/sdd"), Path("docs/runtime")]
+    _watched_dirs = [Path("docs/sdd"), RuntimePathResolver.resolve()]
     _interval_seconds = 10
     _running = False
 

@@ -15,6 +15,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from app.audit.runtime_resolver import RuntimePathResolver
+
 
 def get_commits_from_range(base: str, head: str) -> list[dict]:
     """Obtém commits entre base e head."""
@@ -105,7 +107,7 @@ def check_documentation_exists(feature_id: str) -> bool:
         Path(f"docs/sdd/{feature_id}.md"),
         Path(f"docs/sdd/SDD-{feature_id.upper()}.md"),
         Path(f"docs/sdd/sdd_{feature_id}.md"),
-        Path(f"docs/runtime/auto-generated/AUTO-SDD-{feature_id}.md"),
+        RuntimePathResolver.auto_dir() / f"AUTO-SDD-{feature_id}.md",
     ]
     for path in patterns:
         if path.exists():

@@ -5,6 +5,8 @@ from typing import Optional
 
 from loguru import logger
 
+from app.audit.runtime_resolver import RuntimePathResolver
+
 
 @dataclass
 class SDDTemplate:
@@ -19,7 +21,7 @@ class SDDTemplate:
 
 class SDDGenerator:
     _sdd_dir = Path("docs/sdd")
-    _auto_dir = Path("docs/runtime/auto-generated")
+    _auto_dir = RuntimePathResolver.auto_dir()
 
     @classmethod
     def generate_sdd(cls, template: SDDTemplate) -> Path:

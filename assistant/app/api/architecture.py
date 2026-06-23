@@ -6,6 +6,7 @@ from app.ai.vault_analyzer.drift_engine import DriftEngine
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.ai.vault_analyzer.graph_builder import GraphBuilder
 from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder
+from app.audit.runtime_resolver import RuntimePathResolver
 
 router = APIRouter(prefix="/api/architecture", tags=["Architecture"])
 
@@ -53,10 +54,9 @@ async def build_graph():
 @router.get("/issues")
 async def get_issues():
     """Lista evidencias/issues arquiteturais."""
-    from pathlib import Path
     import json
 
-    path = Path("docs/runtime/architecture/issues.json")
+    path = RuntimePathResolver.issues_path()
     if not path.exists():
         return {"total": 0, "evidences": []}
     with open(path, "r", encoding="utf-8") as f:
@@ -66,10 +66,9 @@ async def get_issues():
 @router.get("/suggestions")
 async def get_suggestions():
     """Lista sugestoes arquiteturais."""
-    from pathlib import Path
     import json
 
-    path = Path("docs/runtime/architecture/suggestions.json")
+    path = RuntimePathResolver.suggestions_path()
     if not path.exists():
         return {"total": 0, "suggestions": []}
     with open(path, "r", encoding="utf-8") as f:
@@ -121,10 +120,9 @@ async def get_knowledge_graph():
 @router.get("/history")
 async def get_drift_history():
     """Lista historico temporal de drift."""
-    from pathlib import Path
     import json
 
-    history_dir = Path("docs/runtime/architecture/history")
+    history_dir = RuntimePathResolver.architecture_history_dir()
     if not history_dir.exists():
         return {"total": 0, "history": []}
     entries = []

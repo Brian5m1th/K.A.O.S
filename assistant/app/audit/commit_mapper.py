@@ -6,6 +6,8 @@ from pathlib import Path
 
 from loguru import logger
 
+from app.audit.runtime_resolver import RuntimePathResolver
+
 from app.audit.commit_classifier import classify_commits
 
 
@@ -23,7 +25,7 @@ class CommitMapEntry:
 
 
 class CommitMapper:
-    _map_path: Path = Path("docs/runtime/registry/commit-map.json")
+    _map_path: Path = RuntimePathResolver.commit_map_path()
     _max_commits: int = 200
 
     @classmethod

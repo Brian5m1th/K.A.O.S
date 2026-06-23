@@ -14,8 +14,11 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent / "app"))
+from app.audit.runtime_resolver import RuntimePathResolver
 
-REPORT_PATH = Path("docs/runtime/audit/coverage-report.json")
+
+REPORT_PATH = RuntimePathResolver.audit_dir() / "coverage-report.json"
 DEFAULT_MIN_COVERAGE = 90.0
 
 
