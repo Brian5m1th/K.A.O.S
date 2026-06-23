@@ -1,107 +1,86 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
-import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useSystemStore } from "@/shared/lib/stores";
-import { Sparkline } from "@/shared/ui/sparkline";
-import { Search, Activity, AlertTriangle, Timeline } from "lucide-react";
-
-interface LogEntry {
-  level: "INFO" | "WARN" | "ERROR" | "DEBUG";
-  message: string;
-  timestamp: string;
-}
-
-interface Alert {
-  id: string;
-  severity: "critical" | "warning" | "info";
-  message: string;
-  time: string;
-}
-
-const MOCK_ALERTS: Alert[] = [
-  { id: "1", severity: "critical", message: "Ollama service unresponsive >30s", time: "2m ago" },
-  { id: "2", severity: "warning", message: "VRAM usage above 80% threshold", time: "10m ago" },
-  { id: "3", severity: "info", message: "Model cache refreshed: 3 new models", time: "1h ago" },
-];
+import { kaosFetch } from "@/shared/api/kaos-client";
+import { Activity, AlertTriangle, Server, Loader2 } from "lucide-react";
 
 export default function ObservabilityPage() {
   const runtime = useSystemStore((s) => s.runtime);
+  const metrics = useSystemStore((s) => s.metrics);
   const services = useSystemStore((s) => s.services);
-  const [logFilter, setLogFilter] = useState("");
-  const [logs, setLogs] = useState<LogEntry[]>([
-    { level: "INFO", message: "KAOS Observability initialized", timestamp: new Date().toISOString() },
-    { level: "INFO", message: "Connected to backend: localhost:8000", timestamp: new Date().toISOString() },
-    { level: "DEBUG", message: "System metrics collection started", timestamp: new Date().toISOString() },
-  ]);
+
+  const [obsServices, setObsServices] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const levels: LogEntry["level"][] = ["INFO", "DEBUG", "WARN", "ERROR"];
-      const level = levels[Math.floor(Math.random() * levels.length)];
-      const messages = [
-        "RAG query processed: 4 chunks retrieved",
-        "LLM response: 342 tokens generated",
-        "Qdrant health check passed",
-        "VRAM buffer flushed: 1.2GB freed",
-        "Tool call executed: search_web",
-        "File watcher detected change in vault/",
-      ];
-      setLogs((prev) => [...prev.slice(-49), {
-        level,
-        message: messages[Math.floor(Math.random() * messages.length)],
-        timestamp: new Date().toISOString(),
-      }]);
-    }, 3000);
+    const fetchObs = async () => {
+      try {
+        const res = await kaosFetch("http://localhost:8000/api/observability/health", "");
+        if (res.ok) {
+          const data = await res.json();
+          setObsServices(data);
+        }
+      } catch {}
+    };
+    fetchObs();
+    const interval = setInterval(fetchObs, 15_000);
     return () => clearInterval(interval);
   }, []);
-
-  const filteredLogs = logFilter
-    ? logs.filter((l) => l.message.toLowerCase().includes(logFilter.toLowerCase()))
-    : logs;
 
   const serviceEntries = [
     { name: "Ollama", status: services.ollama },
     { name: "Backend", status: services.backend },
     { name: "Qdrant", status: services.qdrant },
+    { name: "Postgres", status: services.postgres },
+    { name: "N8N", status: services.n8n },
+    { name: "Grafana", status: obsServices.grafana ?? services.grafana },
+    { name: "Prometheus", status: obsServices.prometheus ?? services.prometheus },
+    { name: "Loki", status: obsServices.loki ?? false },
   ];
 
+  const allUp = serviceEntries.some((s) => s.status);
+  const tokenRate = metrics.tokenRate > 0 ? `${metrics.tokenRate} t/s` : "—";
+  const avgLatency = runtime.latency > 0 ? `${runtime.latency}ms` : "—";
+
   return (
-    <div className="flex h-full flex-col gap-4 p-4">
+    <div className="flex h-full flex-col gap-4 p-4 overflow-y-auto">
       <div>
         <h1 className="text-base font-semibold text-text-primary">Observability</h1>
         <p className="text-xs text-text-muted mt-0.5">Monitoramento, métricas e logs do sistema</p>
       </div>
 
-      {/* Top row: Metrics sparklines + services */}
       <div className="grid grid-cols-3 gap-3">
         <Card>
           <CardContent className="p-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-1">
               <span className="text-xs text-text-muted">Token Rate</span>
-              <Badge variant="info">Active</Badge>
-            </div>
-            <p className="mt-1 text-lg font-semibold text-text-primary font-mono">342 t/s</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-text-muted">Avg Latency</span>
-              <Badge variant={runtime.latency > 100 ? "warning" : "success"}>
-                {runtime.latency > 100 ? "Slow" : "Fast"}
+              <Badge variant={metrics.tokenRate > 0 ? "info" : "neutral"}>
+                {metrics.tokenRate > 0 ? "Active" : "N/A"}
               </Badge>
             </div>
-            <p className="mt-1 text-lg font-semibold text-text-primary font-mono">{runtime.latency}ms</p>
+            <p className="text-lg font-semibold text-text-primary font-mono">{tokenRate}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-text-muted">Services</span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-text-muted">Avg Latency</span>
+              <Badge variant={runtime.latency > 100 ? "warning" : runtime.latency > 0 ? "success" : "neutral"}>
+                {runtime.latency > 100 ? "Slow" : runtime.latency > 0 ? "Fast" : "N/A"}
+              </Badge>
             </div>
-            <div className="mt-1 flex gap-2">
+            <p className="text-lg font-semibold text-text-primary font-mono">{avgLatency}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-3">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-text-muted">Services</span>
+              <Badge variant={allUp ? "success" : "warning"}>
+                {serviceEntries.filter((s) => s.status).length}/{serviceEntries.length} UP
+              </Badge>
+            </div>
+            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
               {serviceEntries.map((svc) => (
                 <div key={svc.name} className="flex items-center gap-1.5">
                   <span className={`h-1.5 w-1.5 rounded-full ${svc.status ? "bg-success" : "bg-error"}`} />
@@ -114,45 +93,24 @@ export default function ObservabilityPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 flex-1 min-h-0">
-        {/* Logs */}
         <Card className="flex flex-col">
           <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2 text-xs font-semibold text-text-muted uppercase tracking-wider">
-                <Activity className="h-3.5 w-3.5" />
-                Live Log Stream
-              </CardTitle>
-              <div className="w-48">
-                <Input
-                  value={logFilter}
-                  onChange={(e) => setLogFilter(e.target.value)}
-                  placeholder="Filter logs..."
-                  className="h-7 text-[11px]"
-                />
-              </div>
-            </div>
+            <CardTitle className="flex items-center gap-2 text-xs font-semibold text-text-muted uppercase tracking-wider">
+              <Activity className="h-3.5 w-3.5" />
+              Live Log Stream
+            </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-0 px-4 pb-4">
-            <ScrollArea className="h-full">
-              <div className="font-mono text-[11px] leading-5">
-                {filteredLogs.map((log, i) => (
-                  <div key={i} className={
-                    log.level === "ERROR" ? "text-error" :
-                    log.level === "WARN" ? "text-warning" :
-                    log.level === "DEBUG" ? "text-text-dim" :
-                    "text-text-muted"
-                  }>
-                    <span className="text-text-dim">[{log.timestamp.slice(11, 19)}]</span>{" "}
-                    <span className="font-semibold">[{log.level}]</span>{" "}
-                    {log.message}
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
+          <CardContent className="flex-1 flex items-center justify-center">
+            <p className="text-xs text-text-dim text-center">
+              {obsServices.loki ? (
+                <>Connected to Loki. <a href="http://localhost:3001/explore" target="_blank" rel="noopener noreferrer" className="text-accent-primary underline">Open in Grafana</a></>
+              ) : (
+                <>No telemetry available<br /><span className="text-[10px] text-text-muted">Start Loki + Grafana for live logs</span></>
+              )}
+            </p>
           </CardContent>
         </Card>
 
-        {/* Alerts */}
         <Card className="flex flex-col">
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-xs font-semibold text-text-muted uppercase tracking-wider">
@@ -160,24 +118,11 @@ export default function ObservabilityPage() {
               Alerts
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-0 px-4 pb-4">
-            <div className="flex flex-col gap-1.5">
-              {MOCK_ALERTS.map((alert) => (
-                <div
-                  key={alert.id}
-                  className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className={`h-1.5 w-1.5 rounded-full ${
-                      alert.severity === "critical" ? "bg-error" :
-                      alert.severity === "warning" ? "bg-warning" : "bg-accent-primary"
-                    }`} />
-                    <span className="text-xs text-text-primary">{alert.message}</span>
-                  </div>
-                  <span className="text-[10px] text-text-dim shrink-0">{alert.time}</span>
-                </div>
-              ))}
-            </div>
+          <CardContent className="flex-1 flex items-center justify-center">
+            <p className="text-xs text-text-dim text-center">
+              No alerts<br />
+              <span className="text-[10px] text-text-muted">Alerts will appear here when thresholds are exceeded</span>
+            </p>
           </CardContent>
         </Card>
       </div>
