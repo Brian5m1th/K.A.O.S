@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 
 from loguru import logger
 
 from app.audit.feature_registry import FeatureRegistry, FeatureEntry
 from app.audit.audit_engine import AuditEngine, DriftReport
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -51,7 +51,7 @@ class DRLSnapshot:
 
 
 class DRLSnapshotManager:
-    _snapshot_path = Path("docs/runtime/snapshot.json")
+    _snapshot_path = RuntimePathResolver.snapshot_path()
 
     @classmethod
     def build_snapshot(cls, drift_report: DriftReport | None = None) -> DRLSnapshot:

@@ -1,7 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from pathlib import Path
 import json
 
 from loguru import logger
@@ -10,6 +9,7 @@ from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.audit.feature_registry import FeatureRegistry
 from app.audit.code_scanner import CodeScanner
 from app.audit.sdd_resolver import SDDResolver
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -113,7 +113,7 @@ class DriftEngine:
 
     @staticmethod
     def load_latest() -> DriftScore | None:
-        path = Path("docs/runtime/architecture/analysis.json")
+        path = RuntimePathResolver.analysis_path()
         if not path.exists():
             return None
         with open(path, "r", encoding="utf-8") as f:
@@ -132,12 +132,12 @@ class DriftEngine:
 
     @staticmethod
     def _persist(score: DriftScore):
-        path = Path("docs/runtime/architecture/analysis.json")
+        path = RuntimePathResolver.analysis_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(score.to_dict(), f, indent=2, ensure_ascii=False)
 
-        history_dir = Path("docs/runtime/architecture/history")
+        history_dir = RuntimePathResolver.architecture_history_dir()
         history_dir.mkdir(parents=True, exist_ok=True)
         date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         history_path = history_dir / f"{date_str}.json"

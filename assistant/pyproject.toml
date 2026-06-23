@@ -19,9 +19,13 @@ dependencies = [
     "ollama>=0.6.2",
     "sqlalchemy>=2.0.0",
     "psycopg[pool]>=3.1.0",
+    "psycopg-binary>=3.3.0",
     "einops>=0.8.2",
     "prometheus-fastapi-instrumentator>=7.0.0",
     "pytest-cov>=7.1.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.9",
 ]
 
 [tool.setuptools.packages.find]

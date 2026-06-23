@@ -12,8 +12,10 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+from app.audit.runtime_resolver import RuntimePathResolver
 
-REGISTRY_PATH = Path("docs/runtime/registry/features-index.json")
+
+REGISTRY_PATH = RuntimePathResolver.features_index_path()
 OUTPUT_PATH = Path("docs/features/FEATURE_CATALOG.md")
 
 

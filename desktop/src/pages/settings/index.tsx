@@ -141,7 +141,7 @@ export default function SettingsPage() {
                 { key: "KAOS_API_KEY", value: "sk-...****" },
                 { key: "OLLAMA_HOST", value: "http://localhost:11434" },
                 { key: "QDRANT_URL", value: "http://localhost:6333" },
-                { key: "VAULT_PATH", value: "/workspace/kaos" },
+                { key: "DOCS_PATH", value: "docs/" },
               ].map((env) => (
                 <div key={env.key} className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2">
                   <div className="flex items-center gap-3">

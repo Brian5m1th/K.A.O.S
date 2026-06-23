@@ -1,7 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 import json
 
 from loguru import logger
@@ -9,6 +8,7 @@ from loguru import logger
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.audit.feature_registry import FeatureRegistry
 from app.audit.sdd_resolver import SDDResolver
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -210,7 +210,7 @@ class EvidenceEngine:
 
     @staticmethod
     def _persist(evidences: list[Evidence]):
-        path = Path("docs/runtime/architecture/issues.json")
+        path = RuntimePathResolver.issues_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(

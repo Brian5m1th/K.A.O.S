@@ -7,6 +7,8 @@ from pathlib import Path
 
 from loguru import logger
 
+from app.audit.runtime_resolver import RuntimePathResolver
+
 
 @dataclass
 class FeatureEntry:
@@ -54,7 +56,7 @@ class FeatureEntry:
 
 class FeatureRegistry:
     _features: dict[str, FeatureEntry] = {}
-    _registry_path: Path = Path("docs/runtime/registry/features-index.json")
+    _registry_path: Path = RuntimePathResolver.features_index_path()
 
     @classmethod
     def register(cls, feature: FeatureEntry) -> None:

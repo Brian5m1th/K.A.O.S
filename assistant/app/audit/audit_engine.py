@@ -1,7 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Optional
 
 from loguru import logger
@@ -10,6 +9,7 @@ from app.audit.feature_registry import FeatureRegistry, FeatureEntry
 from app.audit.code_scanner import CodeScanner, CodeSnapshot
 from app.audit.sdd_resolver import SDDResolver
 from app.audit.commit_mapper import CommitMapper
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -26,7 +26,7 @@ class DriftReport:
 
 
 class AuditEngine:
-    _audit_dir = Path("docs/runtime/audit")
+    _audit_dir = RuntimePathResolver.audit_dir()
     _high_drift_threshold = 30.0
     _medium_drift_threshold = 15.0
 

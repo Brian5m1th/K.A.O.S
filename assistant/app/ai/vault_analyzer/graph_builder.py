@@ -1,7 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Optional
 import json
 
@@ -10,6 +9,7 @@ from loguru import logger
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.audit.drl_snapshot import DRLSnapshotManager
 from app.audit.code_scanner import CodeScanner
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -185,14 +185,14 @@ class GraphBuilder:
 
     @staticmethod
     def _persist(snapshot: ArchGraphSnapshot):
-        path = Path("docs/runtime/architecture/graph.json")
+        path = RuntimePathResolver.graph_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(snapshot.to_dict(), f, indent=2, ensure_ascii=False)
 
     @staticmethod
     def load() -> Optional[ArchGraphSnapshot]:
-        path = Path("docs/runtime/architecture/graph.json")
+        path = RuntimePathResolver.graph_path()
         if not path.exists():
             return None
         with open(path, "r", encoding="utf-8") as f:

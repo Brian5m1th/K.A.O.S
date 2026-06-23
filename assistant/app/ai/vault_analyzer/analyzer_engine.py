@@ -1,7 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 import json
 
 from loguru import logger
@@ -10,6 +9,7 @@ from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.ai.vault_analyzer.drift_engine import DriftEngine
 from app.ai.vault_analyzer.evidence_engine import EvidenceEngine, Evidence
 from app.audit.feature_registry import FeatureRegistry
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -134,14 +134,14 @@ class AnalyzerEngine:
 
     @staticmethod
     def _persist(analysis: ArchitectureAnalysis):
-        path = Path("docs/runtime/architecture/analysis.json")
+        path = RuntimePathResolver.analysis_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(analysis.to_dict(), f, indent=2, ensure_ascii=False)
 
     @staticmethod
     def load_latest() -> ArchitectureAnalysis | None:
-        path = Path("docs/runtime/architecture/analysis.json")
+        path = RuntimePathResolver.analysis_path()
         if not path.exists():
             return None
         with open(path, "r", encoding="utf-8") as f:

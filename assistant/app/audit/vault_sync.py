@@ -3,10 +3,11 @@ from loguru import logger
 import shutil
 
 from app.audit.frontmatter_parser import FrontmatterParser
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 class VaultSync:
-    _source_dirs = [Path("docs/sdd"), Path("docs/runtime")]
+    _source_dirs = [Path("docs/sdd"), RuntimePathResolver.resolve()]
     _vault_base = Path("docs/vault")
 
     @classmethod

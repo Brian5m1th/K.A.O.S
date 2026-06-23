@@ -31,6 +31,13 @@ from app.api.apps_api import router as apps_router
 from app.api.notifications import router as notifications_router
 from app.api.audit import router as audit_router
 from app.api.architecture import router as architecture_router
+from app.api.providers import router as providers_router
+from app.api.system import router as system_router
+from app.api.observability import router as observability_router
+from app.api.opencode import router as opencode_router
+from app.api.admin import router as admin_router
+from app.api.settings_api import router as settings_api_router
+from app.api.integrations import router as integrations_router
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
@@ -301,6 +308,13 @@ app.include_router(apps_router)
 app.include_router(notifications_router)
 app.include_router(audit_router)
 app.include_router(architecture_router)
+app.include_router(providers_router)
+app.include_router(system_router)
+app.include_router(observability_router)
+app.include_router(opencode_router)
+app.include_router(admin_router)
+app.include_router(settings_api_router)
+app.include_router(integrations_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

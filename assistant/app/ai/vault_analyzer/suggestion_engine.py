@@ -1,12 +1,12 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from pathlib import Path
 import json
 
 from loguru import logger
 
 from app.ai.vault_analyzer.evidence_engine import Evidence
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -153,7 +153,7 @@ class SuggestionEngine:
 
     @staticmethod
     def persist(suggestions: list[Suggestion]):
-        path = Path("docs/runtime/architecture/suggestions.json")
+        path = RuntimePathResolver.suggestions_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(
