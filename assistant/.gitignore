@@ -1,0 +1,10 @@
+
+# Generated files
+.coverage
+stderr.txt
+stdout.txt
+data/api_key.txt
+users/
+docs/runtime/
+docs/
+

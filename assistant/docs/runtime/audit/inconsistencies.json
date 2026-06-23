@@ -1,8 +1,0 @@
-{
-  "outdatedDocs": [],
-  "inconsistentPhases": [
-    "test: status=done but no docs"
-  ],
-  "orphanedSDDs": [],
-  "undocumentedCode": []
-}
