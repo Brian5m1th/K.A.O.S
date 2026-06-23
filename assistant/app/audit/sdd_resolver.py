@@ -30,6 +30,8 @@ class SDDResolver:
             root / "docs" / "sdd",
             root / "docs" / "architecture",
             root / "docs" / "Arquitetura",
+            root / "docs" / "openCode",
+            root / "docs" / "opencode",
             root / ".opencode" / "plans",
         ]
 
@@ -53,6 +55,43 @@ class SDDResolver:
                             cls._feature_to_sdd[feat] = []
                         cls._feature_to_sdd[feat].append(entry.id)
 
+        # Link SDDs based on FeatureRegistry docs paths and fuzzy name matching
+        try:
+            from app.audit.feature_registry import FeatureRegistry
+            features = FeatureRegistry.list()
+            for feat in features:
+                # 1. Direct mapping via docs lists
+                for doc_path in feat.docs:
+                    doc_stem = Path(doc_path).stem.lower()
+                    for entry_id, entry in list(cls._sdd_cache.items()):
+                        entry_stem = Path(entry.path).stem.lower()
+                        if doc_stem == entry_stem or doc_stem == entry_id:
+                            if feat.id.lower() not in entry.linked_features:
+                                entry.linked_features.append(feat.id.lower())
+                            if feat.id.lower() not in cls._feature_to_sdd:
+                                cls._feature_to_sdd[feat.id.lower()] = []
+                            if entry.id not in cls._feature_to_sdd[feat.id.lower()]:
+                                cls._feature_to_sdd[feat.id.lower()].append(entry.id)
+                # 2. Fuzzy name/id mapping
+                feat_id_clean = feat.id.lower().replace("-", "").replace("_", "")
+                for entry_id, entry in list(cls._sdd_cache.items()):
+                    entry_id_clean = entry.id.lower().replace("-", "").replace("_", "")
+                    entry_stem_clean = Path(entry.path).stem.lower().replace("-", "").replace("_", "")
+                    # Remove prefixes/suffixes
+                    for term in ["sdd", "f1", "f2", "f3", "f4", "f5", "f6", "f7"]:
+                        feat_id_clean = feat_id_clean.replace(term, "")
+                        entry_id_clean = entry_id_clean.replace(term, "")
+                        entry_stem_clean = entry_stem_clean.replace(term, "")
+                    if feat_id_clean == entry_id_clean or feat_id_clean == entry_stem_clean:
+                        if feat.id.lower() not in entry.linked_features:
+                            entry.linked_features.append(feat.id.lower())
+                        if feat.id.lower() not in cls._feature_to_sdd:
+                            cls._feature_to_sdd[feat.id.lower()] = []
+                        if entry.id not in cls._feature_to_sdd[feat.id.lower()]:
+                            cls._feature_to_sdd[feat.id.lower()].append(entry.id)
+        except Exception as e:
+            logger.warning(f"[sdd_resolver] could not link from feature registry: {e}")
+
         logger.info(f"[sdd_resolver] scanned {len(cls._sdd_cache)} SDDs")
         return cls._sdd_cache
 
@@ -66,8 +105,18 @@ class SDDResolver:
         title_match = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
         title = title_match.group(1).strip() if title_match else path.stem
 
-        id_match = re.search(r"(?:SDD[-:]?\s*)?(\w+(?:[-_]\w+)*)", title, re.IGNORECASE)
-        sdd_id = id_match.group(1).lower() if id_match else path.stem.lower()
+        # Parse YAML ID if exists, otherwise use file stem
+        sdd_id = path.stem.lower()
+        if content.strip().startswith("---"):
+            try:
+                import yaml
+                parts = content.split("---")
+                if len(parts) >= 3:
+                    meta = yaml.safe_load(parts[1])
+                    if meta and "id" in meta:
+                        sdd_id = str(meta["id"]).lower().strip()
+            except Exception:
+                pass
 
         features = cls._extract_linked_features(content)
 
