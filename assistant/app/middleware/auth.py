@@ -60,7 +60,9 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
 
                 logger.bind(event="auth.authenticated", user_id=user_id).info(
                     "[auth] JWT authenticated: {} {} {}",
-                    request.method, path, email,
+                    request.method,
+                    path,
+                    email,
                 )
                 return await call_next(request)
 
@@ -86,7 +88,8 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
 
             logger.bind(event="auth.authenticated", user_id=str(user_id)).info(
                 "[auth] API key authenticated: {} {}",
-                request.method, path,
+                request.method,
+                path,
             )
             return await call_next(request)
 

@@ -33,14 +33,53 @@ class RuntimePathResolver:
     LEGACY: Path = Path(__file__).resolve().parent.parent.parent / "docs" / "runtime"
 
     @classmethod
+    def project_root(cls) -> Path:
+        """Return the absolute path to the project root directory."""
+        return Path(__file__).resolve().parent.parent.parent.parent
+
+    @classmethod
+    def docs_root(cls) -> Path:
+        """Return the absolute path to the docs directory."""
+        return cls.project_root() / "docs"
+
+    @classmethod
+    def vault_root(cls) -> Path:
+        """Return the absolute path to the Obsidian vault directory."""
+        # Check if settings overrides OBSIDIAN_VAULT_PATH
+        try:
+            from app.config.settings import settings
+
+            if settings.OBSIDIAN_VAULT_PATH:
+                return Path(settings.OBSIDIAN_VAULT_PATH).resolve()
+        except Exception:
+            pass
+        return cls.docs_root() / "vault"
+
+    @classmethod
+    def workspace_root(cls) -> Path:
+        """Return the absolute path to the workspace directory."""
+        return cls.project_root() / "workspace"
+
+    @classmethod
+    def backend_root(cls) -> Path:
+        """Return the absolute path to the backend directory."""
+        return cls.project_root() / "assistant"
+
+    @classmethod
+    def frontend_root(cls) -> Path:
+        """Return the absolute path to the desktop directory."""
+        return cls.project_root() / "desktop"
+
+    @classmethod
     def resolve(cls) -> Path:
         """Return the active runtime directory.
 
         Uses canonical if it exists, falls back to legacy.
         """
-        if cls.CANONICAL.exists():
-            return cls.CANONICAL
-        return cls.LEGACY
+        canonical_path = cls.docs_root() / "runtime"
+        if canonical_path.exists():
+            return canonical_path
+        return cls.backend_root() / "docs" / "runtime"
 
     @classmethod
     def registry_dir(cls) -> Path:

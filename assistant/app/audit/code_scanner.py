@@ -2,6 +2,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from loguru import logger
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -18,7 +19,7 @@ class CodeSnapshot:
 
 
 class CodeScanner:
-    _root: Path = Path(".")
+    _root: Path = RuntimePathResolver.project_root()
     _exclude_dirs = {
         ".git",
         "__pycache__",
