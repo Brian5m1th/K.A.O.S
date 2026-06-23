@@ -100,7 +100,7 @@ def main():
     if not res:
         sys.exit(1)
 
-    print(f"[desktop_audit] Varredura completa:")
+    print("[desktop_audit] Varredura completa:")
     print(f"  - Páginas detectadas: {len(res['pages'])}")
     print(f"  - Componentes: {len(res['components'])}")
     print(f"  - Stores: {len(res['stores'])}")

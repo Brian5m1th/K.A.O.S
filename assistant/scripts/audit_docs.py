@@ -56,8 +56,8 @@ def main():
         results = DocumentationAuditEngine.execute_recovery_flow()
         
         print("\n==================== COMPARATIVO DE RECUPERAÇÃO ====================")
-        print(f"Métrica                 | Antes    | Depois   | Status")
-        print(f"------------------------|----------|----------|-------")
+        print("Métrica                 | Antes    | Depois   | Status")
+        print("------------------------|----------|----------|-------")
         print(f"Coverage Score          | {results['before']['coverage_score']}%     | {results['after']['coverage_score']}%     | {'[OK]' if results['after']['coverage_score'] >= 90 else '[ERRO]'}")
         print(f"Completeness Score      | {results['before']['completeness_score']}%     | {results['after']['completeness_score']}%     | {'[OK]' if results['after']['completeness_score'] >= 85 else '[ERRO]'}")
         print(f"Consistency Score       | {results['before']['consistency_score']}%     | {results['after']['consistency_score']}%     | {'[OK]' if results['after']['consistency_score'] >= 90 else '[ERRO]'}")

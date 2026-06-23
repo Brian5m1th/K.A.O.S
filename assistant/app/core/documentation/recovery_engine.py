@@ -2,7 +2,7 @@ import re
 import shutil
 import yaml
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 from app.audit.runtime_resolver import RuntimePathResolver
 
 class RecoveryEngine:

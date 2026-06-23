@@ -1,10 +1,8 @@
-import json
-from pathlib import Path
-from typing import Any, Tuple
+from typing import Any
 
 from loguru import logger
 
-from app.audit.feature_registry import FeatureRegistry, FeatureEntry
+from app.audit.feature_registry import FeatureRegistry
 from app.audit.code_scanner import CodeScanner
 from app.audit.sdd_resolver import SDDResolver
 from app.audit.commit_mapper import CommitMapper
@@ -27,10 +25,9 @@ class DocumentationAuditEngine:
         CommitMapper.generate_map()
         SDDResolver.scan_all_sdds()
         code_snapshot = CodeScanner.scan_all()
-        vault_nodes = VaultReader.scan_all()
+        VaultReader.scan_all()
 
         features = FeatureRegistry.list()
-        sdds = SDDResolver.get_all_sdds()
 
         # 2. Rastrear gaps de features e arquivos
         missing_features = []
@@ -326,4 +323,4 @@ def extract_bullet_links(section_name: str, content: str) -> list[str]:
         return []
     bullet_section = match.group(1)
     links = re.findall(r"\[\[([^\]]+?)(?:\|[^\]]+)?\]\]", bullet_section)
-    return [l.strip() for l in links]
+    return [link.strip() for link in links]

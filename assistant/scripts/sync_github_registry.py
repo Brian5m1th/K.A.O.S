@@ -171,7 +171,7 @@ def main():
     merged_data = merge_registries(local_data, remote_data)
 
     # 6. Atualizar metadados
-    merged_data["sync_source"] = f"github"
+    merged_data["sync_source"] = "github"
     merged_data["sync_commit"] = commit_sha
     merged_data["sync_branch"] = "dev"
     merged_data["sync_timestamp"] = datetime.now(timezone.utc).isoformat()
