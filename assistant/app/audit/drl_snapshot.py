@@ -13,6 +13,9 @@ class GraphSummary:
     total_nodes: int = 0
     total_edges: int = 0
     node_types: dict[str, int] = field(default_factory=dict)
+    edge_types: dict[str, int] = field(default_factory=dict)
+    source_hash: str = ""
+    graph_version: str = "1.0"
     generated_at: str = field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
@@ -45,6 +48,9 @@ class DRLSnapshot:
                 "totalNodes": self.graph_summary.total_nodes,
                 "totalEdges": self.graph_summary.total_edges,
                 "nodeTypes": self.graph_summary.node_types,
+                "edgeTypes": self.graph_summary.edge_types,
+                "sourceHash": self.graph_summary.source_hash,
+                "graphVersion": self.graph_summary.graph_version,
                 "generatedAt": self.graph_summary.generated_at,
             },
         }
@@ -116,6 +122,9 @@ class DRLSnapshotManager:
                 total_nodes=gs.get("totalNodes", 0),
                 total_edges=gs.get("totalEdges", 0),
                 node_types=gs.get("nodeTypes", {}),
+                edge_types=gs.get("edgeTypes", {}),
+                source_hash=gs.get("sourceHash", ""),
+                graph_version=gs.get("graphVersion", "1.0"),
                 generated_at=gs.get("generatedAt", ""),
             )
             snapshot.generated_at = data.get("generated_at", "")
@@ -124,13 +133,25 @@ class DRLSnapshotManager:
 
     @classmethod
     def update_graph_summary(
-        cls, total_nodes: int, total_edges: int, node_types: dict[str, int]
+        cls,
+        total_nodes: int,
+        total_edges: int,
+        node_types: dict[str, int] | None = None,
+        edge_types: dict[str, int] | None = None,
+        source_hash: str = "",
+        graph_version: str = "1.0",
     ) -> None:
         snapshot = cls.load()
         if snapshot:
             snapshot.graph_summary.total_nodes = total_nodes
             snapshot.graph_summary.total_edges = total_edges
-            snapshot.graph_summary.node_types = node_types
+            if node_types is not None:
+                snapshot.graph_summary.node_types = node_types
+            if edge_types is not None:
+                snapshot.graph_summary.edge_types = edge_types
+            if source_hash:
+                snapshot.graph_summary.source_hash = source_hash
+            snapshot.graph_summary.graph_version = graph_version
             snapshot.graph_summary.generated_at = datetime.now(timezone.utc).isoformat()
             cls._persist(snapshot)
 

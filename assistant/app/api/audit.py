@@ -7,6 +7,7 @@ from app.audit.feature_registry import FeatureRegistry
 from app.audit.commit_mapper import CommitMapper
 from app.audit.code_scanner import CodeScanner
 from app.audit.sdd_generator import SDDGenerator, SDDTemplate
+from app.audit.readiness_engine import run_readiness_check
 
 router = APIRouter(prefix="/api/audit", tags=["audit"])
 
@@ -187,3 +188,20 @@ async def generate_feature_node(data: dict):
         used_by=data.get("usedBy", []),
     )
     return {"path": str(path), "generated": True}
+
+
+@router.post("/readiness/f2")
+async def readiness_f2():
+    """Execute F2 Readiness Engine — 12 checks for Phase 2 readiness."""
+    report = await run_readiness_check()
+    return {
+        "score": report.score,
+        "passed": report.passed,
+        "failed": report.failed,
+        "total": report.total,
+        "blockers_passed": report.blockers_passed,
+        "categories": report.categories,
+        "checks": report.checks,
+        "input_fingerprint": report.input_fingerprint,
+        "generated_at": report.generated_at,
+    }
