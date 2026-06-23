@@ -18,13 +18,13 @@ export function GraphUpdater({ onGraphUpdate }: GraphUpdaterProps) {
     lastScanRef.current = lastScan;
 
     const graph = GraphBuilder.buildFromSnapshot({
-      features: driftReport.missingFeatures.map(f => ({ id: f, name: f, phase: "", status: "missing", docs: [], codeRefs: [], lastCommit: "", createdAt: "", updatedAt: "" })),
+      features: driftReport.missing_features.map(f => ({ id: f, name: f, phase: "", status: "missing", docs: [], codeRefs: [], lastCommit: "", createdAt: "", updatedAt: "" })),
       coverage: driftReport.coverage,
       driftLevel: driftReport.driftLevel,
       lastCommit: "",
       graphSummary: { totalNodes: 0, totalEdges: 0, nodeTypes: {}, generatedAt: "" },
-      missingCount: driftReport.missingFeatures.length,
-      outdatedCount: driftReport.outdatedDocs.length,
+      missingCount: driftReport.missing_features.length,
+      outdatedCount: driftReport.outdated_docs.length,
       generatedAt: driftReport.driftHistory[0]?.date || new Date().toISOString(),
     });
 
@@ -48,8 +48,8 @@ export function useGraphUpdater() {
       driftLevel: driftReport.driftLevel,
       lastCommit: "",
       graphSummary: { totalNodes: 0, totalEdges: 0, nodeTypes: {}, generatedAt: "" },
-      missingCount: driftReport.missingFeatures.length,
-      outdatedCount: driftReport.outdatedDocs.length,
+      missingCount: driftReport.missing_features.length,
+      outdatedCount: driftReport.outdated_docs.length,
       generatedAt: new Date().toISOString(),
     });
 

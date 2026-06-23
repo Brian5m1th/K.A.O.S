@@ -1,3 +1,5 @@
+import { kaosFetch } from "@/shared/api/kaos-client";
+
 export interface FeatureEntry {
   id: string;
   name: string;
@@ -13,7 +15,7 @@ export interface FeatureEntry {
 export class FeatureScanner {
   static async listAll(): Promise<FeatureEntry[]> {
     try {
-      const response = await fetch("/api/audit/features");
+      const response = await kaosFetch("/api/audit/features", "");
       if (response.ok) {
         const data = await response.json();
         return data.features || [];
@@ -25,7 +27,7 @@ export class FeatureScanner {
 
   static async getById(id: string): Promise<FeatureEntry | null> {
     try {
-      const response = await fetch(`/api/audit/features/${id}`);
+      const response = await kaosFetch(`/api/audit/features/${id}`, "");
       if (response.ok) {
         return await response.json();
       }

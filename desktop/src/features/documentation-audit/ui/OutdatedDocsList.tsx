@@ -3,11 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../../shared/ui/car
 import { Badge } from "../../../shared/ui/badge";
 import { Clock, FileText } from "lucide-react";
 
-interface OutdatedDocsListProps {
+interface outdated_docsListProps {
   docs: string[];
 }
 
-export function OutdatedDocsList({ docs }: OutdatedDocsListProps) {
+export function OutdatedDocsList({ docs }: outdated_docsListProps) {
   if (!docs || docs.length === 0) {
     return (
       <Card>
@@ -47,3 +47,4 @@ export function OutdatedDocsList({ docs }: OutdatedDocsListProps) {
     </Card>
   );
 }
+

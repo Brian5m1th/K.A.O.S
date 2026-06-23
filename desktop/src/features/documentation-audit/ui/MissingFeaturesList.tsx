@@ -3,11 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../../shared/ui/car
 import { Badge } from "../../../shared/ui/badge";
 import { FileText, AlertTriangle } from "lucide-react";
 
-interface MissingFeaturesListProps {
+interface missing_featuresListProps {
   features: string[];
 }
 
-export function MissingFeaturesList({ features }: MissingFeaturesListProps) {
+export function MissingFeaturesList({ features }: missing_featuresListProps) {
   if (!features || features.length === 0) {
     return (
       <Card>
@@ -47,3 +47,4 @@ export function MissingFeaturesList({ features }: MissingFeaturesListProps) {
     </Card>
   );
 }
+

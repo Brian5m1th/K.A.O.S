@@ -1,6 +1,7 @@
 import { eventBus } from "@/shared/lib/event-bus";
 import { CodeIntrospector, IntrospectionResult } from "./code-introspector";
 import { FeatureExtractor, DetectedFeature } from "./feature-extractor";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 export type SyncEvent = "docs:auto-updated" | "docs:sync-complete" | "docs:sync-error";
 
@@ -54,7 +55,7 @@ export class DocSyncEngine {
 
       for (const feature of features) {
         try {
-          const response = await fetch("/api/audit/generate-feature-node", {
+          const response = await kaosFetch("/api/audit/generate-feature-node", "", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

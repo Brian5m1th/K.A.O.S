@@ -1,3 +1,5 @@
+import { kaosFetch } from "@/shared/api/kaos-client";
+
 export interface CommitEntry {
   hash: string;
   message: string;
@@ -12,7 +14,7 @@ export interface CommitEntry {
 export class CommitMapper {
   static async listAll(): Promise<CommitEntry[]> {
     try {
-      const response = await fetch("/api/audit/commit-map");
+      const response = await kaosFetch("/api/audit/commit-map", "");
       if (response.ok) {
         const data = await response.json();
         return data.commits || [];
@@ -24,7 +26,7 @@ export class CommitMapper {
 
   static async scanLatest(limit: number = 200): Promise<CommitEntry[]> {
     try {
-      const response = await fetch(`/api/audit/scan-commits?limit=${limit}`, {
+      const response = await kaosFetch(`/api/audit/scan-commits?limit=${limit}`, "", {
         method: "POST",
       });
       if (response.ok) {
