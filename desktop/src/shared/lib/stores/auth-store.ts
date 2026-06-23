@@ -13,6 +13,7 @@ interface User {
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
+  maskedKey: string;
   user: User | null;
   serverUrl: string;
   configured: boolean;
@@ -30,6 +31,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set, get) => ({
   accessToken: null,
   refreshToken: null,
+  maskedKey: "",
   user: null,
   serverUrl: DEFAULT_SERVER_URL,
   configured: false,
@@ -41,15 +43,21 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   checkSetupStatus: async () => {
     set({ checking: true });
     try {
-      const res = await kaosFetch(
-        `${DEFAULT_SERVER_URL}/auth/setup-status`,
-        "",
-      );
-      if (res.ok) {
-        const data = await res.json();
+      const [setupRes, keyRes] = await Promise.allSettled([
+        kaosFetch(`${DEFAULT_SERVER_URL}/auth/setup-status`, ""),
+        kaosFetch(`${DEFAULT_SERVER_URL}/auth/key`, ""),
+      ]);
+
+      if (setupRes.status === "fulfilled" && setupRes.value.ok) {
+        const data = await setupRes.value.json();
         set({ configured: data.configured ?? false, checking: false });
       } else {
         set({ configured: false, checking: false });
+      }
+
+      if (keyRes.status === "fulfilled" && keyRes.value.ok) {
+        const data = await keyRes.value.json();
+        set({ maskedKey: data.masked || "" });
       }
     } catch {
       set({ configured: false, checking: false });

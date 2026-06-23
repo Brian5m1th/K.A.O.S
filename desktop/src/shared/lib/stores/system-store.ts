@@ -1,8 +1,10 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { kaosFetch } from "@/shared/api/kaos-client";
 
 type SystemStatus = "online" | "degraded" | "offline";
 type DriftLevel = "low" | "medium" | "high";
+type SetupStatus = "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 
 interface SystemServices {
   ollama: boolean;
@@ -17,6 +19,8 @@ interface SystemServices {
 interface SystemState {
   status: SystemStatus;
   version: string;
+  setupStatus: SetupStatus;
+  setupStep: number;
   runtime: {
     activeModel: string;
     latency: number;
@@ -36,6 +40,8 @@ interface SystemState {
     outdatedCount: number;
   };
   setStatus: (status: SystemStatus) => void;
+  setSetupStatus: (status: SetupStatus) => void;
+  setSetupStep: (step: number) => void;
   setRuntime: (runtime: Partial<SystemState["runtime"]>) => void;
   setService: (service: keyof SystemServices, up: boolean) => void;
   setMetrics: (metrics: Partial<SystemState["metrics"]>) => void;
@@ -43,47 +49,53 @@ interface SystemState {
   fetchAll: (serverUrl?: string, apiKey?: string) => Promise<void>;
 }
 
-export const useSystemStore = create<SystemState>((set) => ({
-  status: "offline",
-  version: "0.5.0",
-  runtime: {
-    activeModel: "",
-    latency: 0,
-    vramUsed: 0,
-    vramTotal: 16,
-  },
-  services: {
-    ollama: false,
-    backend: false,
-    qdrant: false,
-    postgres: false,
-    n8n: false,
-    grafana: false,
-    prometheus: false,
-  },
-  metrics: {
-    vectorCount: 0,
-    tokenRate: 0,
-  },
-  documentation: {
-    coverage: 0,
-    driftLevel: "low",
-    lastScan: null,
-    missingCount: 0,
-    outdatedCount: 0,
-  },
+export const useSystemStore = create<SystemState>()(
+  persist(
+    (set) => ({
+      status: "offline",
+      version: "0.5.0",
+      setupStatus: "NOT_STARTED" as SetupStatus,
+      setupStep: 0,
+      runtime: {
+        activeModel: "",
+        latency: 0,
+        vramUsed: 0,
+        vramTotal: 16,
+      },
+      services: {
+        ollama: false,
+        backend: false,
+        qdrant: false,
+        postgres: false,
+        n8n: false,
+        grafana: false,
+        prometheus: false,
+      },
+      metrics: {
+        vectorCount: 0,
+        tokenRate: 0,
+      },
+      documentation: {
+        coverage: 0,
+        driftLevel: "low",
+        lastScan: null,
+        missingCount: 0,
+        outdatedCount: 0,
+      },
 
-  setStatus: (status) => set({ status }),
-  setRuntime: (runtime) =>
-    set((s) => ({ runtime: { ...s.runtime, ...runtime } })),
-  setService: (service, up) =>
-    set((s) => ({ services: { ...s.services, [service]: up } })),
-  setMetrics: (metrics) =>
-    set((s) => ({ metrics: { ...s.metrics, ...metrics } })),
-  setDocumentation: (doc) =>
-    set((s) => ({ documentation: { ...s.documentation, ...doc } })),
+      setStatus: (status) => set({ status }),
+      setSetupStatus: (setupStatus) => set({ setupStatus }),
+      setSetupStep: (setupStep) => set({ setupStep }),
+      setRuntime: (runtime) =>
+        set((s) => ({ runtime: { ...s.runtime, ...runtime } })),
+      setService: (service, up) =>
+        set((s) => ({ services: { ...s.services, [service]: up } })),
+      setMetrics: (metrics) =>
+        set((s) => ({ metrics: { ...s.metrics, ...metrics } })),
+      setDocumentation: (doc) =>
+        set((s) => ({ documentation: { ...s.documentation, ...doc } })),
 
-  fetchAll: async (serverUrl = "http://localhost:8000", apiKey = "") => {
+      fetchAll: async (serverUrl = "http://localhost:8000", apiKey = "") => {
     try {
       const [healthRes, readinessRes, systemStatusRes, providerActiveRes] =
         await Promise.allSettled([
@@ -122,4 +134,13 @@ export const useSystemStore = create<SystemState>((set) => ({
       // Silently fail — stores keep last known values
     }
   },
-}));
+}),
+    {
+      name: "kaos-system-store",
+      partialize: (state) => ({
+        setupStatus: state.setupStatus,
+        setupStep: state.setupStep,
+      }),
+    },
+  ),
+);
