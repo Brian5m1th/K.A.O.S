@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional
 
 from loguru import logger
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -22,12 +23,16 @@ class SDDEntry:
 
 
 class SDDResolver:
-    _sdd_dirs = [
-        Path("docs/sdd"),
-        Path("docs/architecture"),
-        Path("docs/Arquitetura"),
-        Path(".opencode/plans"),
-    ]
+    @classmethod
+    def get_sdd_dirs(cls) -> list[Path]:
+        root = RuntimePathResolver.project_root()
+        return [
+            root / "docs" / "sdd",
+            root / "docs" / "architecture",
+            root / "docs" / "Arquitetura",
+            root / ".opencode" / "plans",
+        ]
+
     _sdd_cache: dict[str, SDDEntry] = {}
     _feature_to_sdd: dict[str, list[str]] = {}
 
@@ -36,7 +41,7 @@ class SDDResolver:
         cls._sdd_cache.clear()
         cls._feature_to_sdd.clear()
 
-        for sdd_dir in cls._sdd_dirs:
+        for sdd_dir in cls.get_sdd_dirs():
             if not sdd_dir.exists():
                 continue
             for md_file in sdd_dir.rglob("*.md"):
@@ -68,7 +73,7 @@ class SDDResolver:
 
         entry = SDDEntry(
             id=sdd_id,
-            path=path.relative_to(Path.cwd()).as_posix(),
+            path=path.resolve().relative_to(RuntimePathResolver.project_root()).as_posix(),
             title=title,
             linked_features=features,
         )

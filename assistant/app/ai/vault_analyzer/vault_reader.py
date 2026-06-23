@@ -6,6 +6,7 @@ import re
 import yaml
 
 from loguru import logger
+from app.audit.runtime_resolver import RuntimePathResolver
 
 
 @dataclass
@@ -26,22 +27,26 @@ class VaultNode:
 
 
 class VaultReader:
-    _scan_dirs: list[Path] = [
-        Path("docs/sdd"),
-        Path("docs/architecture"),
-        Path("docs/guides"),
-        Path("docs/api"),
-        Path("docs/features"),
-        Path("docs/wiki"),
-        Path(".opencode/plans"),
-    ]
+    @classmethod
+    def get_scan_dirs(cls) -> list[Path]:
+        root = RuntimePathResolver.project_root()
+        return [
+            root / "docs" / "sdd",
+            root / "docs" / "architecture",
+            root / "docs" / "guides",
+            root / "docs" / "api",
+            root / "docs" / "features",
+            root / "docs" / "wiki",
+            root / ".opencode" / "plans",
+        ]
 
     @classmethod
     def scan_all(cls) -> list[VaultNode]:
         nodes: list[VaultNode] = []
         seen_ids: set[str] = set()
 
-        for scan_dir in cls._scan_dirs:
+        scan_dirs = cls.get_scan_dirs()
+        for scan_dir in scan_dirs:
             if not scan_dir.exists():
                 continue
             for md_file in scan_dir.rglob("*.md"):
@@ -54,7 +59,7 @@ class VaultReader:
                     logger.warning(f"[vault_reader] error parsing {md_file}: {e}")
 
         logger.info(
-            f"[vault_reader] scanned {len(nodes)} nodes from {len(cls._scan_dirs)} dirs"
+            f"[vault_reader] scanned {len(nodes)} nodes from {len(scan_dirs)} dirs"
         )
         return nodes
 
@@ -100,7 +105,7 @@ class VaultReader:
             status=meta.get("status", "unknown"),
             tags=meta.get("tags", []),
             links=meta.get("links", []),
-            path=path.relative_to(Path.cwd()).as_posix(),
+            path=path.resolve().relative_to(RuntimePathResolver.project_root()).as_posix(),
             content=body.strip(),
             wikilinks=wikilinks,
             drift_score=0.0,

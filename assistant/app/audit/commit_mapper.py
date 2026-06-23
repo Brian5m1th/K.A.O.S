@@ -43,7 +43,7 @@ class CommitMapper:
         ]
         try:
             result = subprocess.run(
-                cmd, capture_output=True, text=True, cwd=Path.cwd(), timeout=30
+                cmd, capture_output=True, text=True, cwd=RuntimePathResolver.project_root(), timeout=30
             )
             if result.returncode != 0:
                 logger.error(f"[commit_mapper] git log failed: {result.stderr}")
