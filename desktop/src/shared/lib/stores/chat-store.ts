@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type { Message } from "@/entities/message/types";
 import { kaosFetch } from "@/shared/api/kaos-client";
 import { eventBus } from "@/shared/lib/event-bus";
-import { createToolEvent, completeToolEvent, failToolEvent } from "@/shared/lib/tool-schema";
+import { createToolEvent } from "@/shared/lib/tool-schema";
 import type { ToolCall } from "@/entities/message/types";
 
 interface ChatState {
