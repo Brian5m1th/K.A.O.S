@@ -315,18 +315,8 @@ async def chat_completions(
                 stream_id, created, body.model, _fast_stream(), body.stream
             )
 
-        async def _simple_stream():
-            yield "Olá! Como posso ajudar você hoje?"
-
-        elapsed = round((time.perf_counter() - start) * 1000, 2)
-        logger.bind(
-            event="generation.completed",
-            route=resolved.value,
-            latency_ms=elapsed,
-        ).info(f"[audit] generation | route={resolved.value} | latency_ms={elapsed}")
-        return await _respond(
-            stream_id, created, body.model, _simple_stream(), body.stream
-        )
+        # Se nenhuma tool foi reconhecida, faz fallback para o AGENT
+        logger.info("[info] openai - CHAT/FAST route fallback to AGENT")
 
     elif resolved == WorkflowType.RAG:
         start = time.perf_counter()

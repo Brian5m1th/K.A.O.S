@@ -1,188 +1,93 @@
 name: Release
 
 on:
-  workflow_dispatch:
   push:
     tags:
-      - "v*"
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+      - 'v*.*.*'
 
 jobs:
-  docker:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          token: ${{ secrets.PAT }}
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=raw,value=latest
-
-      - name: Build and push
-        id: build
-        uses: docker/build-push-action@v6
-        with:
-          context: assistant
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Healthcheck
-        run: |
-          IMAGE="${{ fromJSON(steps.meta.outputs.json).tags[0] }}"
-          docker rm -f kaos-test 2>/dev/null || true
-          docker run -d --name kaos-test -p 8000:8000 "$IMAGE"
-          for i in $(seq 1 24); do
-            sleep 5
-            if ! docker ps -q -f name=kaos-test | grep -q .; then
-              echo "=== Container crashed ==="
-              docker logs kaos-test 2>&1 || true
-              exit 1
-            fi
-            curl -sf http://localhost:8000/health && break
-          done
-          curl -sf http://localhost:8000/health | grep -q '"status":"ok"' || {
-            echo "=== Container logs ==="
-            docker logs kaos-test 2>&1 || true
-            exit 1
-          }
-          docker rm -f kaos-test >/dev/null
-          echo "Healthcheck passed"
-
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v3
-
-      - name: Sign image
-        run: |
-          cosign sign --yes "${{ env.REGISTRY }}/${GITHUB_REPOSITORY,,}@${{ steps.build.outputs.digest }}"
-
-  launcher:
-    runs-on: ${{ matrix.os }}
+  release:
+    name: Build & Publish
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    permissions:
-      contents: write
+        platform: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
+
+    # G-06: secrets explicitos para assinar o binario
+    env:
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          token: ${{ secrets.PAT }}
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: desktop/package-lock.json
+          node-version: 20
 
-      - uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: desktop/src-tauri
-
-      - name: Install Rust (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Rust (Windows)
-        if: runner.os == 'Windows'
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install dependencies (Linux)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf
 
-      - name: Install system deps (Linux)
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-
-      - name: Install frontend deps
-        working-directory: desktop
-        run: npm install
-
-      - name: Generate icons
-        run: pip install Pillow && python scripts/generate_icons.py
+      - name: npm install
+        run: cd desktop && npm ci
 
       - name: Build Tauri
-        working-directory: desktop
-        env:
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-          TAURI_SIGNING_PASSWORD: ${{ secrets.TAURI_SIGNING_PASSWORD }}
-          CARGO_HTTP_RETRY: 3
-          CARGO_HTTP_TIMEOUT: 120
-        run: npm run tauri build
+        run: cd desktop && npm run tauri build
 
-      - name: Upload artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: kaos-launcher-${{ matrix.os }}
+          name: kaos-launcher-${{ matrix.platform }}
           path: desktop/src-tauri/target/release/bundle/**
           if-no-files-found: warn
 
-  release:
+  publish:
+    name: Publish Release
+    needs: [release]
     runs-on: ubuntu-latest
-    needs: [docker, launcher]
-    permissions:
-      contents: write
-
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          token: ${{ secrets.PAT }}
 
-      - name: Generate release notes
-        id: notes
-        run: |
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
-          echo "# KAOS Platform ${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          echo "See the [changelog](../../compare/${{ github.ref_name }}) for details." >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - uses: actions/download-artifact@v4
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
         with:
-          path: artifacts
           pattern: kaos-launcher-*
-          merge-multiple: false
+          merge-multiple: true
+          path: artifacts
 
-      - name: Create release
+      - name: Generate update-proxy.json (NF-06)
+        run: |
+          VERSION=$(node -p "require('./desktop/package.json').version")
+          PUB_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          python3 scripts/gen_update_proxy.py \
+            --version "$VERSION" \
+            --date "$PUB_DATE" \
+            --tag "${{ github.ref_name }}" \
+            --artifacts-dir artifacts \
+            > update-proxy.json
+
+      - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            artifacts/**/*.msi
+            artifacts/**/*.exe
             artifacts/**/*.deb
             artifacts/**/*.rpm
             artifacts/**/*.AppImage
-            artifacts/**/*.msi
-            artifacts/**/*.exe
             artifacts/**/*.dmg
-          body: ${{ steps.notes.outputs.RELEASE_NOTES }}
+            artifacts/**/*.sig
+            update-proxy.json
           fail_on_unmatched_files: false
-          draft: false
-          prerelease: ${{ contains(github.ref_name, '-') }}

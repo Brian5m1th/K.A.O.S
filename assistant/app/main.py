@@ -221,6 +221,15 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info("[auth] API key: {}", _app.state.api_key)
 
+    # Initialize database tables
+    try:
+        from app.database import create_tables
+        logger.info("[db] Verifying/creating core database tables...")
+        await create_tables()
+        logger.info("[db] Database initialization completed")
+    except Exception as e:
+        logger.warning("[db] Failed to verify/create tables on startup: {}", e)
+
     _register_observability(_app.state)
 
     drift_subscriber = DriftSubscriber()
@@ -265,6 +274,12 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")
+
+    # Log all registered routes for debugging
+    logger.info("[routes] Registered routes:")
+    for route in _app.routes:
+        methods = getattr(route, "methods", None)
+        logger.info(f"[routes] Path: {route.path} | Methods: {methods}")
 
     yield
     if _watcher:

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
@@ -6,6 +7,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Tabs } from "@/shared/ui/tabs";
 import { kaosFetch } from "@/shared/api/kaos-client";
 import { useAuthStore, useThemeStore, useSystemStore } from "@/shared/lib/stores";
+import { UpdateCard } from "@/features/auto-update/ui/UpdateCard";
 import {
   Sun, Moon, Key, GitBranch, Workflow, Variable,
   RefreshCw, CheckCircle2, Loader2, Globe, Shield, Cpu, ExternalLink,
@@ -17,6 +19,7 @@ const SETTINGS_TABS = [
   { id: "catalog", label: "Catalog" },
   { id: "integrations", label: "Integrations" },
   { id: "env", label: "Environment" },
+  { id: "updates", label: "Atualizações" },
 ];
 
 const SERVER_URL = "http://localhost:8000";
@@ -42,7 +45,8 @@ export default function SettingsPage() {
   const setMode = useThemeStore((s) => s.setMode);
   const setAccentColor = useThemeStore((s) => s.setAccentColor);
   const saveToBackend = useThemeStore((s) => s.saveToBackend);
-  const [activeTab, setActiveTab] = useState("theme");
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(searchParams.get("tab") ?? "theme");
 
   const [providers, setProviders] = useState<ProviderInfo[]>([]);
   const [forms, setForms] = useState<Record<string, ProviderFormState>>({});
@@ -312,6 +316,9 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Updates Tab */}
+      {activeTab === "updates" && <UpdateCard />}
     </div>
   );
 }
