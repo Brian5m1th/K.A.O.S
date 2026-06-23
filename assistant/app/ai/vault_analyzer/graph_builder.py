@@ -159,9 +159,15 @@ class GraphBuilder:
             edge_types[e.relation] = edge_types.get(e.relation, 0) + 1
 
         # Compute fingerprint
-        nodes_json = json.dumps([asdict(n) for n in snapshot.nodes], sort_keys=True, default=str)
-        edges_json = json.dumps([asdict(e) for e in snapshot.edges], sort_keys=True, default=str)
-        graph_fingerprint = hashlib.sha256(f"{nodes_json}|{edges_json}".encode()).hexdigest()
+        nodes_json = json.dumps(
+            [asdict(n) for n in snapshot.nodes], sort_keys=True, default=str
+        )
+        edges_json = json.dumps(
+            [asdict(e) for e in snapshot.edges], sort_keys=True, default=str
+        )
+        graph_fingerprint = hashlib.sha256(
+            f"{nodes_json}|{edges_json}".encode()
+        ).hexdigest()
 
         DRLSnapshotManager.update_graph_summary(
             total_nodes=len(snapshot.nodes),
