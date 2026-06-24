@@ -37,9 +37,14 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+psycopg://user:password@localhost:5432/kaos"
 
     API_KEY: str = ""
+    CORS_ORIGINS: list[str] = ["http://localhost:1420", "http://localhost:3000"]
+
     HF_TOKEN: str = ""
     N8N_WEBHOOK_URL: str = ""
     N8N_API_URL: str = "http://n8n:5678"
+    N8N_EVENTS: list[str] = ["workflow_completed", "drift.detected", "vault.analysis.completed"]
+
+    AUDIT_INTERVAL_DAYS: int = 7
 
     RAG_SCORE_THRESHOLD: float = 0.3
     RAG_DEFAULT_LIMIT: int = 5
