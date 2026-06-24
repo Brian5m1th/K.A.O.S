@@ -138,8 +138,10 @@ def _register_tools():
     global _tools_registered
     if not _tools_registered:
         from app.tools.github_tools import register_github_tools
+        from app.tools.n8n_webhook_tool import register_n8n_webhook
 
         register_github_tools()
+        register_n8n_webhook()
         _tools_registered = True
 
 
