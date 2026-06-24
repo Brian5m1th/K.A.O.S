@@ -7,6 +7,7 @@ from loguru import logger
 
 from app.audit.audit_engine import AuditEngine
 from app.audit.drl_snapshot import DRLSnapshotManager
+from app.config.settings import settings
 
 from app.ai.vault_analyzer.analyzer_engine import AnalyzerEngine
 
@@ -62,6 +63,20 @@ class AuditScheduler:
 
     @classmethod
     async def run_periodic_audit(cls) -> None:
+        # RF-H02: Só executa automaticamente em production
+        if settings.APP_ENV != "production":
+            logger.info(
+                "[kirl] AuditScheduler desativado em modo {} "
+                "(só executa automaticamente em production)",
+                settings.APP_ENV,
+            )
+            return
+
+        logger.info(
+            "[kirl] AuditScheduler ativo: {} days entre auditorias",
+            settings.AUDIT_INTERVAL_DAYS,
+        )
+
         while True:
             start_event = Event(
                 name="audit.started",
@@ -108,7 +123,13 @@ class AuditScheduler:
                 )
                 await EventBus.publish(drift_event)
 
-            await asyncio.sleep(cls._interval_seconds)
+            interval = settings.AUDIT_INTERVAL_DAYS * 86400
+            logger.debug(
+                "[kirl] next audit in {} days ({} seconds)",
+                settings.AUDIT_INTERVAL_DAYS,
+                interval,
+            )
+            await asyncio.sleep(interval)
 
     @classmethod
     def set_interval(cls, seconds: int) -> None:
