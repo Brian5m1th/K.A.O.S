@@ -26,6 +26,7 @@ class SDDResolver:
     @classmethod
     def get_sdd_dirs(cls) -> list[Path]:
         root = RuntimePathResolver.project_root()
+        vault = RuntimePathResolver.get_vault_path()
         return [
             root / "docs" / "sdd",
             root / "docs" / "architecture",
@@ -33,6 +34,11 @@ class SDDResolver:
             root / "docs" / "openCode",
             root / "docs" / "opencode",
             root / ".opencode" / "plans",
+            vault / "sdd",
+            vault / "architecture",
+            vault / "Arquitetura",
+            vault / "openCode",
+            vault / "opencode",
         ]
 
     _sdd_cache: dict[str, SDDEntry] = {}

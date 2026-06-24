@@ -83,6 +83,7 @@ services:
       - ../../docs:/vault
       - ./logs:/var/log/kaos-api
       - hf_cache:/root/.cache/huggingface
+      - ../../.git:/.git:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
