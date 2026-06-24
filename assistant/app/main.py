@@ -36,6 +36,7 @@ from app.api.system import router as system_router
 from app.api.observability import router as observability_router
 from app.api.opencode import router as opencode_router
 from app.api.admin import router as admin_router
+from app.api.conversations import router as conversations_router
 from app.api.settings_api import router as settings_api_router
 from app.api.integrations import router as integrations_router
 from app.api.opencode import set_watcher as set_opencode_watcher
@@ -349,6 +350,7 @@ app.include_router(opencode_router)
 app.include_router(admin_router)
 app.include_router(settings_api_router)
 app.include_router(integrations_router)
+app.include_router(conversations_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],
