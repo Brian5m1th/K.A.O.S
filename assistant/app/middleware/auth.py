@@ -31,7 +31,9 @@ def _derive_user_id(api_key: str) -> UUID:
 class ApiKeyMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         path = request.url.path
-        logger.info("[auth-middleware] Request path: {} | Method: {}", path, request.method)
+        logger.info(
+            "[auth-middleware] Request path: {} | Method: {}", path, request.method
+        )
 
         if request.method == "OPTIONS":
             logger.info("[auth-middleware] OPTIONS request allowed for {}", path)
@@ -39,7 +41,9 @@ class ApiKeyMiddleware(BaseHTTPMiddleware):
 
         for public in PUBLIC_PATHS:
             if path == public or path.startswith(public + "/"):
-                logger.info("[auth-middleware] Path {} matches public pattern {}", path, public)
+                logger.info(
+                    "[auth-middleware] Path {} matches public pattern {}", path, public
+                )
                 return await call_next(request)
 
         # Initialize state

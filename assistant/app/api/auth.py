@@ -217,27 +217,29 @@ async def login(
 async def reset_password(
     body: ResetPasswordRequest,
     request: Request,
-    session: AsyncSession | None = Depends(_get_db_session)
+    session: AsyncSession | None = Depends(_get_db_session),
 ):
     logger.info("[auth-api] POST /reset-password called for email: {}", body.email)
-    
+
     # Verify Master API key
     app_key = getattr(request.app.state, "api_key", None)
     if not app_key or body.api_key != app_key:
-        logger.warning("[auth-api] reset password rejected: invalid Master API Key for: {}", body.email)
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid Master API Key"
+        logger.warning(
+            "[auth-api] reset password rejected: invalid Master API Key for: {}",
+            body.email,
         )
-        
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Master API Key"
+        )
+
     if len(body.new_password) < 8:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Password must be at least 8 characters"
+            detail="Password must be at least 8 characters",
         )
-        
+
     password_hash = hash_password(body.new_password)
-    
+
     updated = False
     if session is not None:
         try:
@@ -247,24 +249,27 @@ async def reset_password(
                 user.password_hash = password_hash
                 await session.commit()
                 updated = True
-                logger.info("[auth-api] password reset successfully (db) for: {}", body.email)
+                logger.info(
+                    "[auth-api] password reset successfully (db) for: {}", body.email
+                )
         except Exception as e:
             logger.warning("[auth-api] failed to reset password in db: {}", e)
-            
+
     if not updated:
         mem_user = _memory_users.get(body.email)
         if mem_user:
             mem_user["password_hash"] = password_hash
             updated = True
-            logger.info("[auth-api] password reset successfully (memory) for: {}", body.email)
-            
+            logger.info(
+                "[auth-api] password reset successfully (memory) for: {}", body.email
+            )
+
     if not updated:
         logger.warning("[auth-api] reset password user not found: {}", body.email)
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
-        
+
     return {"message": "Password reset successfully"}
 
 

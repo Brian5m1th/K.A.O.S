@@ -1,3 +1,5 @@
+import time
+
 import httpx
 from enum import Enum
 from dataclasses import dataclass, field
@@ -131,6 +133,11 @@ PROVIDER_META = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Configured detection
+# ---------------------------------------------------------------------------
+
+
 def _get_configured_providers() -> set[str]:
     config = get_config()
     configured = set()
@@ -142,6 +149,81 @@ def _get_configured_providers() -> set[str]:
         if pc.get("apiKey"):
             configured.add(pid)
     return configured
+
+
+# ---------------------------------------------------------------------------
+# Health check with TTL cache
+# ---------------------------------------------------------------------------
+
+HEALTH_CACHE_TTL = 30  # seconds
+_health_cache: dict[str, dict] = {}
+_health_cache_ts: float = 0.0
+
+
+async def _check_provider_health(
+    provider_id: str, base_url: str, source: ProviderSource, api_key: str
+) -> tuple[str, int]:
+    """Ping the provider API and return (status, latency_ms).
+
+    Returns ("healthy", ms) on success, ("unhealthy", ms) on failure,
+    or ("unknown", 0) if no URL/api_key available.
+    """
+    if not base_url or not source.endpoint:
+        return "unknown", 0
+
+    url = f"{base_url.rstrip('/')}{source.endpoint}"
+    headers = {}
+    params = {}
+
+    if source.auth_type == "header" and source.api_key_field and api_key:
+        val = (
+            f"Bearer {api_key}" if source.api_key_field == "Authorization" else api_key
+        )
+        headers[source.api_key_field] = val
+    elif source.auth_type == "query" and api_key:
+        params[source.api_key_field] = api_key
+
+    # Providers with no auth and no api_key can still be checked
+    try:
+        t0 = time.monotonic()
+        async with httpx.AsyncClient(timeout=5) as client:
+            resp = await client.get(url, headers=headers, params=params)
+        latency_ms = int((time.monotonic() - t0) * 1000)
+        if resp.is_success:
+            return "healthy", latency_ms
+        return "unhealthy", latency_ms
+    except Exception:
+        return "unhealthy", 0
+
+
+async def _get_health(
+    provider_id: str, base_url: str, source: ProviderSource, api_key: str
+) -> tuple[str, int]:
+    """Get health with TTL caching."""
+    global _health_cache, _health_cache_ts
+
+    now = time.monotonic()
+    cache_key = f"{provider_id}:{base_url}:{bool(api_key)}"
+
+    # Return cached value if still fresh
+    if now - _health_cache_ts < HEALTH_CACHE_TTL and cache_key in _health_cache:
+        return _health_cache[cache_key]
+
+    # Perform real health check
+    status, latency = await _check_provider_health(
+        provider_id, base_url, source, api_key
+    )
+
+    # Update cache
+    _health_cache[cache_key] = (status, latency)
+    _health_cache_ts = now
+
+    return status, latency
+
+
+# ---------------------------------------------------------------------------
+# Model fetching
+# ---------------------------------------------------------------------------
 
 
 async def _fetch_models_from_api(
@@ -174,6 +256,11 @@ async def _fetch_models_from_api(
         return []
 
 
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+
+
 @router.get("/providers")
 async def list_providers():
     configured = _get_configured_providers()
@@ -187,11 +274,20 @@ async def list_providers():
         pc = config.get(pid, {})
         is_cfg = pid in configured
         base = pc.get("url", "") or meta.get("base_url", "")
+        api_key = pc.get("apiKey", "")
+
         models = (
             await _fetch_models_from_api(pid, base, src)
             if (src.type == ProviderSourceType.API and is_cfg)
             else list(src.catalog)
         )
+
+        # Health check — skip for providers without API key (except no-auth ones)
+        if is_cfg or pid in ("ollama", "openCode", "lmstudio"):
+            status, latency = await _get_health(pid, base, src, api_key)
+        else:
+            status, latency = "unknown", 0
+
         result.append(
             {
                 "id": pid,
@@ -202,6 +298,8 @@ async def list_providers():
                 "models": models,
                 "default_model": pc.get("model", ""),
                 "fast_model": pc.get("fastModel", ""),
+                "status": status,
+                "latency": latency,
             }
         )
     return {

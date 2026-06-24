@@ -13,9 +13,9 @@ router = APIRouter(prefix="/api/architecture", tags=["Architecture"])
 
 @router.post("/analyze")
 async def analyze_architecture():
-    """Executa analise arquitetural completa."""
+    """Executa analise arquitetural completa e emite evento no EventBus (RF-B05)."""
     logger.info("[api/architecture] analyze requested")
-    analysis = AnalyzerEngine.analyze()
+    analysis = await AnalyzerEngine.analyze_async()
     return {
         "coverage_score": round(analysis.coverage_score, 1),
         "drift_level": analysis.drift_level,
