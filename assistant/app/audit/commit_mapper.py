@@ -37,16 +37,29 @@ class CommitMapper:
     def _run_git_log(cls, limit: int | None = None) -> list[tuple[str, str, str, str]]:
         project_root = RuntimePathResolver.project_root()
         if not (project_root / ".git").exists():
-            logger.warning("[commit_mapper] git repository not found (no .git directory/file).")
+            logger.warning(
+                "[commit_mapper] git repository not found (no .git directory/file)."
+            )
             # Fallback: check CI environment variables before giving up
             for env_var in ("GITHUB_SHA", "GIT_COMMIT", "CI_COMMIT_SHA"):
                 sha = os.environ.get(env_var)
                 if sha:
-                    logger.info("[commit_mapper] using commit hash from env {}={}", env_var, sha[:12])
+                    logger.info(
+                        "[commit_mapper] using commit hash from env {}={}",
+                        env_var,
+                        sha[:12],
+                    )
                     return [
-                        (sha[:40], f"commit from {env_var}", "ci", datetime.now(timezone.utc).isoformat())
+                        (
+                            sha[:40],
+                            f"commit from {env_var}",
+                            "ci",
+                            datetime.now(timezone.utc).isoformat(),
+                        )
                     ]
-            logger.warning("[commit_mapper] no CI env vars found either. Returning empty.")
+            logger.warning(
+                "[commit_mapper] no CI env vars found either. Returning empty."
+            )
             return []
 
         cmd = [

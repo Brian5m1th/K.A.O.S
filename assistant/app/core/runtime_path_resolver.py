@@ -32,6 +32,7 @@ class RuntimePathResolver:
         """Return the absolute path to the Obsidian vault directory."""
         try:
             from app.config.settings import settings
+
             if settings.OBSIDIAN_VAULT_PATH:
                 return Path(settings.OBSIDIAN_VAULT_PATH).resolve()
         except Exception:

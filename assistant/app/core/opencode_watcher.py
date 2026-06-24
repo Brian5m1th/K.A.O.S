@@ -20,7 +20,9 @@ try:
     HAS_WATCHDOG = True
 except ImportError:
     HAS_WATCHDOG = False
-    logger.warning("[opencode_watcher] watchdog not available; falling back to on-demand scan mode")
+    logger.warning(
+        "[opencode_watcher] watchdog not available; falling back to on-demand scan mode"
+    )
 
 
 DEBOUNCE_INTERVAL = 0.25  # 250ms
@@ -44,11 +46,15 @@ class _OpenCodeHandler(FileSystemEventHandler):
             self._timer.start()
 
     def on_modified(self, event) -> None:
-        if not event.is_directory and event.src_path.endswith((".md", ".yaml", ".yml", ".json")):
+        if not event.is_directory and event.src_path.endswith(
+            (".md", ".yaml", ".yml", ".json")
+        ):
             self._debounce_invalidate()
 
     def on_created(self, event) -> None:
-        if not event.is_directory and event.src_path.endswith((".md", ".yaml", ".yml", ".json")):
+        if not event.is_directory and event.src_path.endswith(
+            (".md", ".yaml", ".yml", ".json")
+        ):
             self._debounce_invalidate()
 
     def on_deleted(self, event) -> None:
@@ -87,12 +93,16 @@ class OpenCodeWatcher:
         a network filesystem (UNC) where watchdog cannot register.
         """
         if not HAS_WATCHDOG:
-            logger.warning("[opencode_watcher] watchdog library not installed, using on-demand scan mode")
+            logger.warning(
+                "[opencode_watcher] watchdog library not installed, using on-demand scan mode"
+            )
             self._fallback_mode = True
             return
 
         if not self._path.exists():
-            logger.warning("[opencode_watcher] path '{}' does not exist yet, skipping", self._path)
+            logger.warning(
+                "[opencode_watcher] path '{}' does not exist yet, skipping", self._path
+            )
             self._fallback_mode = True
             return
 

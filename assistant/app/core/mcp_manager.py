@@ -75,7 +75,9 @@ class _MCPServerProcess(MCPServer):
                 [resolved, *self._args],
                 **kwargs,
             )
-            logger.info("[mcp] server '{}' started (pid={})", self._name, self._process.pid)
+            logger.info(
+                "[mcp] server '{}' started (pid={})", self._name, self._process.pid
+            )
             self._last_health = {"status": "healthy", "latency_ms": 0, "error": None}
             return True
         except (OSError, subprocess.SubprocessError) as exc:
@@ -93,7 +95,9 @@ class _MCPServerProcess(MCPServer):
         try:
             self._process.terminate()
             self._process.wait(timeout=5)
-            logger.info("[mcp] server '{}' terminated (pid={})", self._name, self._process.pid)
+            logger.info(
+                "[mcp] server '{}' terminated (pid={})", self._name, self._process.pid
+            )
             self._process = None
             return True
         except (OSError, subprocess.TimeoutExpired) as exc:
@@ -128,7 +132,11 @@ class _MCPServerProcess(MCPServer):
 
     def get_health(self) -> dict:
         if self._process is None:
-            return {"status": "stopped", "latency_ms": 0, "error": "Process not running"}
+            return {
+                "status": "stopped",
+                "latency_ms": 0,
+                "error": "Process not running",
+            }
         # Ping process
         t0 = time.monotonic()
         ret = self._process.poll()

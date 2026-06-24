@@ -177,9 +177,7 @@ async def _check_provider_health(
 
     if source.auth_type == "header" and source.api_key_field and api_key:
         val = (
-            f"Bearer {api_key}"
-            if source.api_key_field == "Authorization"
-            else api_key
+            f"Bearer {api_key}" if source.api_key_field == "Authorization" else api_key
         )
         headers[source.api_key_field] = val
     elif source.auth_type == "query" and api_key:
@@ -198,7 +196,9 @@ async def _check_provider_health(
         return "unhealthy", 0
 
 
-async def _get_health(provider_id: str, base_url: str, source: ProviderSource, api_key: str) -> tuple[str, int]:
+async def _get_health(
+    provider_id: str, base_url: str, source: ProviderSource, api_key: str
+) -> tuple[str, int]:
     """Get health with TTL caching."""
     global _health_cache, _health_cache_ts
 
@@ -210,7 +210,9 @@ async def _get_health(provider_id: str, base_url: str, source: ProviderSource, a
         return _health_cache[cache_key]
 
     # Perform real health check
-    status, latency = await _check_provider_health(provider_id, base_url, source, api_key)
+    status, latency = await _check_provider_health(
+        provider_id, base_url, source, api_key
+    )
 
     # Update cache
     _health_cache[cache_key] = (status, latency)

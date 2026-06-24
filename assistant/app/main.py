@@ -227,6 +227,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     # Initialize database tables
     try:
         from app.database import create_tables
+
         logger.info("[db] Verifying/creating core database tables...")
         await create_tables()
         logger.info("[db] Database initialization completed")
@@ -278,8 +279,10 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     _opencode_watcher = OpenCodeWatcher()
     _opencode_watcher.start()
     set_opencode_watcher(_opencode_watcher)
-    logger.info("[opencode] watcher {} started",
-                " (fallback mode)" if _opencode_watcher.is_fallback_mode() else "")
+    logger.info(
+        "[opencode] watcher {} started",
+        " (fallback mode)" if _opencode_watcher.is_fallback_mode() else "",
+    )
 
     asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")

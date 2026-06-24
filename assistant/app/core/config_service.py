@@ -74,9 +74,7 @@ def _set_restricted_permissions(path: Path, *, is_secrets: bool = True) -> None:
         token = win32security.OpenProcessToken(
             win32api.GetCurrentProcess(), win32con.TOKEN_QUERY
         )
-        user_sid = win32security.GetTokenInformation(
-            token, win32security.TokenUser
-        )[0]
+        user_sid = win32security.GetTokenInformation(token, win32security.TokenUser)[0]
         token.Close()
 
         # Build ACL with single entry for current user (full control)
@@ -93,9 +91,7 @@ def _set_restricted_permissions(path: Path, *, is_secrets: bool = True) -> None:
         )
         logger.debug("[config] Windows ACL set on {}", path)
     except Exception as exc:
-        logger.warning(
-            "[config] could not set restricted ACL on {}: {}", path, exc
-        )
+        logger.warning("[config] could not set restricted ACL on {}: {}", path, exc)
 
 
 # ---------------------------------------------------------------------------
@@ -111,7 +107,7 @@ def _write_with_retry(path: Path, content: str, *, max_retries: int = 3) -> None
             return
         except PermissionError as exc:
             if attempt < max_retries - 1:
-                wait = 0.1 * (2 ** attempt)
+                wait = 0.1 * (2**attempt)
                 logger.debug(
                     "[config] write lock on {} (attempt {}/{}), retrying in {:.1f}s",
                     path,
@@ -250,7 +246,11 @@ class ConfigService:
         # Serialise and write
         content = json.dumps(data, indent=2, ensure_ascii=False)
         _write_with_retry(config_file, content)
-        logger.info("[config] saved config to {} (schemaVersion={})", config_file, SCHEMA_VERSION)
+        logger.info(
+            "[config] saved config to {} (schemaVersion={})",
+            config_file,
+            SCHEMA_VERSION,
+        )
 
     # ------------------------------------------------------------------
     # Secrets (kaos.secrets.json)
@@ -280,7 +280,9 @@ class ConfigService:
         _write_with_retry(secrets_file, content)
         # Apply restricted permissions
         _set_restricted_permissions(secrets_file, is_secrets=True)
-        logger.info("[config] saved secrets to {} (restricted permissions)", secrets_file)
+        logger.info(
+            "[config] saved secrets to {} (restricted permissions)", secrets_file
+        )
 
     # ------------------------------------------------------------------
     # Backup
@@ -312,7 +314,9 @@ class ConfigService:
         if from_version >= SCHEMA_VERSION:
             return data
 
-        logger.info("[config] migrating schema from v{} to v{}", from_version, SCHEMA_VERSION)
+        logger.info(
+            "[config] migrating schema from v{} to v{}", from_version, SCHEMA_VERSION
+        )
 
         # v0 → v1: ensure all top-level keys exist
         if from_version < 1:

@@ -94,23 +94,25 @@ async def list_vault_files():
     if not vault_dir.exists():
         logger.warning("[rag] vault directory does not exist: /vault")
         return {"files": []}
-        
+
     md_files = []
     # Buscar arquivos md recursivamente no vault
     for p in vault_dir.glob("**/*.md"):
         try:
             rel_path = p.relative_to(vault_dir)
-            md_files.append({
-                "name": p.name,
-                "path": str(rel_path).replace("\\", "/"),
-                "size": p.stat().st_size
-            })
+            md_files.append(
+                {
+                    "name": p.name,
+                    "path": str(rel_path).replace("\\", "/"),
+                    "size": p.stat().st_size,
+                }
+            )
         except Exception:
             pass
-            
+
     # Ordenar pelo caminho relativo
     md_files.sort(key=lambda x: x["path"].lower())
-    
+
     logger.debug("[finish] rag - list_vault_files")
     return {"files": md_files}
 
@@ -119,7 +121,7 @@ async def list_vault_files():
 async def get_vault_file(path: str):
     logger.info("[start] rag - get_vault_file: {}", path)
     vault_dir = Path("/vault").resolve()
-    
+
     # Resolver o caminho absoluto e validar que não sai do vault
     target_path = (vault_dir / path).resolve()
     try:
@@ -127,10 +129,10 @@ async def get_vault_file(path: str):
             raise HTTPException(status_code=403, detail="Access denied")
     except ValueError:
         raise HTTPException(status_code=403, detail="Access denied")
-        
+
     if not target_path.exists() or not target_path.is_file():
         raise HTTPException(status_code=404, detail="File not found")
-        
+
     try:
         content = target_path.read_text(encoding="utf-8")
         return PlainTextResponse(content)

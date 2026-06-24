@@ -28,7 +28,8 @@ async def list_integrations():
                     "metadata": {
                         k: v
                         for k, v in data.items()
-                        if k not in ("status", "token", "apiKey", "botToken", "webhookUrl")
+                        if k
+                        not in ("status", "token", "apiKey", "botToken", "webhookUrl")
                     },
                 }
             )
@@ -57,7 +58,11 @@ async def configure_integration(payload: dict):
     entry = integrations.get(integ_type, {})
     entry["status"] = "connected"
     entry.update(
-        {k: v for k, v in credentials.items() if k not in ("token", "apiKey", "botToken")}
+        {
+            k: v
+            for k, v in credentials.items()
+            if k not in ("token", "apiKey", "botToken")
+        }
     )
     integrations[integ_type] = entry
     config["integrations"] = integrations
@@ -66,7 +71,9 @@ async def configure_integration(payload: dict):
     ConfigService.save_config(config)
 
     # Store sensitive credentials in secrets file
-    secret_fields = {k: v for k, v in credentials.items() if k in ("token", "apiKey", "botToken")}
+    secret_fields = {
+        k: v for k, v in credentials.items() if k in ("token", "apiKey", "botToken")
+    }
     if secret_fields:
         secrets = ConfigService.load_secrets()
         integ_secrets = secrets.setdefault("integrations", {})
@@ -74,4 +81,7 @@ async def configure_integration(payload: dict):
         ConfigService.save_secrets(secrets)
 
     logger.info("[integrations] configured type='{}'", integ_type)
-    return {"status": "ok", "message": f"Integration type {integ_type} connected successfully"}
+    return {
+        "status": "ok",
+        "message": f"Integration type {integ_type} connected successfully",
+    }
