@@ -1,0 +1,189 @@
+name: Feature Registry Sync
+
+on:
+  push:
+    branches: [dev, main]
+    paths:
+      - "assistant/**"
+      - "docs/**"
+      - ".github/workflows/registry-sync.yml"
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - "assistant/**"
+      - "docs/**"
+
+  # Permite rodar manualmente pelo GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      reset:
+        description: "Reset registry completo (reprocessa todos os commits)"
+        required: false
+        default: "false"
+
+env:
+  PYTHON_VERSION: "3.13"
+
+jobs:
+  # ── Job 1: Gera o registry a partir do git e faz commit de volta ────────────
+  sync-registry:
+    name: Bootstrap & Sync Feature Registry
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # necessário para o push do registry atualizado
+
+    steps:
+      - name: Checkout (histórico completo para o bootstrap)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0  # CRÍTICO: sem isso git log retorna 1 commit
+
+      - name: Setup Python + uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          cd assistant
+          uv sync
+
+      - name: Bootstrap Feature Registry (git-history strategy)
+        run: |
+          cd assistant
+          PYTHONIOENCODING=utf-8 uv run python scripts/bootstrap_feature_registry.py \
+            --max-commits 500
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: Verificar resultado do bootstrap
+        run: |
+          REGISTRY="docs/runtime/registry/features-index.json"
+          if [ ! -f "$REGISTRY" ]; then
+            echo "::error::features-index.json não foi gerado!"
+            exit 1
+          fi
+          TOTAL=$(python3 -c "import json; d=json.load(open('$REGISTRY')); print(d['total_features'])")
+          echo "::notice::Features registradas: $TOTAL"
+          if [ "$TOTAL" -lt 10 ]; then
+            echo "::error::Registry com menos de 10 features ($TOTAL). Bootstrap falhou."
+            exit 1
+          fi
+          echo "Registry OK: $TOTAL features"
+
+      - name: Commit registry atualizado (se houve mudança)
+        run: |
+          git config user.name "kaos-bot"
+          git config user.email "kaos-bot@users.noreply.github.com"
+          git add docs/runtime/registry/features-index.json
+          if git diff --staged --quiet; then
+            echo "Sem mudanças no registry."
+          else
+            TOTAL=$(python3 -c "import json; d=json.load(open('docs/runtime/registry/features-index.json')); print(d['total_features'])")
+            git commit -m "chore(registry): auto-sync features-index.json ($TOTAL features) [skip ci]"
+            git push
+            echo "::notice::Registry atualizado e commitado ($TOTAL features)"
+          fi
+
+  # ── Job 2: Drift Check (só roda em PR) ─────────────────────────────────────
+  drift-check:
+    name: Documentation Drift Check
+    runs-on: ubuntu-latest
+    needs: sync-registry  # garante registry atualizado antes de auditar
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0
+
+      - name: Setup Python + uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          cd assistant
+          uv sync
+
+      - name: Run Drift Audit
+        id: drift
+        run: |
+          cd assistant
+          PYTHONIOENCODING=utf-8 uv run python -c "
+          import sys
+          sys.path.insert(0, '.')
+          from app.core.documentation.audit_engine import DocumentationAuditEngine
+
+          print('Rodando auditoria de documentacao...')
+          result = DocumentationAuditEngine.run_audit()
+
+          coverage = result.get('coverage', 0.0)
+          drift = result.get('drift_score', 100.0)
+          total = result.get('total_features', 0)
+          documented = result.get('documented_features', 0)
+
+          print(f'Coverage: {coverage:.1f}% ({documented}/{total} features documentadas)')
+          print(f'Drift Score: {drift:.1f}%')
+
+          # Escrever no GITHUB_OUTPUT
+          import os
+          with open(os.environ.get('GITHUB_OUTPUT', '/dev/null'), 'a') as f:
+              f.write(f'coverage={coverage:.1f}\n')
+              f.write(f'drift={drift:.1f}\n')
+              f.write(f'total={total}\n')
+              f.write(f'documented={documented}\n')
+
+          DRIFT_THRESHOLD = 15.0
+          if drift > DRIFT_THRESHOLD:
+              print(f'')
+              print(f'::error::Drift score {drift:.1f}% acima do limite de {DRIFT_THRESHOLD}%.')
+              print(f'::error::Documentacao desatualizada. Atualize os SDDs antes de mergear.')
+              print(f'Sugestao: rode git log para ver features sem documentacao e atualize docs/sdd/')
+              sys.exit(1)
+
+          print(f'Drift check OK: {drift:.1f}% <= {DRIFT_THRESHOLD}%')
+          "
+        env:
+          OBSIDIAN_VAULT_PATH: ${{ github.workspace }}/docs
+
+      - name: Comentar resultado no PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            const coverage = '${{ steps.drift.outputs.coverage }}' || 'N/A';
+            const drift = '${{ steps.drift.outputs.drift }}' || 'N/A';
+            const total = '${{ steps.drift.outputs.total }}' || 'N/A';
+            const documented = '${{ steps.drift.outputs.documented }}' || 'N/A';
+            const passed = '${{ steps.drift.outcome }}' === 'success';
+            
+            const emoji = passed ? '✅' : '❌';
+            const status = passed ? 'Drift check passou' : 'Drift check falhou';
+            
+            const body = `## ${emoji} K.A.O.S Documentation Drift Check
+            
+            | Métrica | Valor |
+            |---------|-------|
+            | **Coverage** | ${coverage}% (${documented}/${total} features) |
+            | **Drift Score** | ${drift}% |
+            | **Threshold** | 15% |
+            | **Status** | ${status} |
+            
+            ${passed ? '' : '> ⚠️ **Ação necessária:** Atualize `docs/sdd/` para cobrir as features desta PR antes de mergear.'}
+            
+            *Gerado por [registry-sync.yml](.github/workflows/registry-sync.yml)*`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
