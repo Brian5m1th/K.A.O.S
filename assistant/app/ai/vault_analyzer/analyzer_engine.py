@@ -140,6 +140,28 @@ class AnalyzerEngine:
             json.dump(analysis.to_dict(), f, indent=2, ensure_ascii=False)
 
     @staticmethod
+    async def analyze_async() -> ArchitectureAnalysis:
+        """Async wrapper that runs analysis and emits EventBus event (RF-B05)."""
+        analysis = AnalyzerEngine.analyze()
+
+        try:
+            from app.observability.event_bus import EventBus, Event
+
+            await EventBus.publish(Event(
+                name="vault.analysis.completed",
+                data={
+                    "coverage_score": analysis.coverage_score,
+                    "drift_level": analysis.drift_level,
+                    "total_issues": len(analysis.issues),
+                    "generated_at": analysis.generated_at,
+                },
+            ))
+        except Exception as exc:
+            logger.warning("[analyzer_engine] falha ao emitir evento: {}", exc)
+
+        return analysis
+
+    @staticmethod
     def load_latest() -> ArchitectureAnalysis | None:
         path = RuntimePathResolver.analysis_path()
         if not path.exists():

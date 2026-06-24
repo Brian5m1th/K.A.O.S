@@ -6,4 +6,5 @@ export { useChatStore } from "./chat-store";
 export { useAgentStore } from "./agent-store";
 export { useThemeStore } from "./theme-store";
 export { useUpdateStore } from "./update-store";
+export { useConversationStore } from "./conversation-store";
 export type { AgentStatus, AgentConfig, AgentInstance } from "./agent-store";

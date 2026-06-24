@@ -1,3 +1,4 @@
+import asyncio
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any
@@ -57,10 +58,11 @@ class CostTracker(EventSubscriber):
             tokens_in = event.data.get("tokens_in", 0)
             tokens_out = event.data.get("tokens_out", 0)
             provider = event.data.get("provider", "unknown")
+            model = event.data.get("model", "unknown")
             cost = self._estimate_cost(provider, tokens_in, tokens_out)
 
             execution = self._executions.get(event.execution_id)
-            workflow = execution["workflow"] if execution else "unknown"
+            workflow = execution["workflow"] if execution else event.data.get("workflow", "unknown")
 
             self._provider_costs[provider] += cost
             self._workflow_costs[workflow] += cost
@@ -69,6 +71,21 @@ class CostTracker(EventSubscriber):
             _cost_total.labels(provider=provider, workflow=workflow).inc(cost)
             _cost_current_execution.labels(execution_id=str(event.execution_id)).set(
                 self._total_cost
+            )
+
+            # Persist no PostgreSQL (fire-and-forget)
+            user_id = event.data.get("user_id") or (execution.get("user_id") if execution else None)
+            asyncio.create_task(
+                CostTracker._persist_cost_event(
+                    execution_id=event.execution_id,
+                    user_id=user_id,
+                    provider=provider,
+                    workflow=workflow,
+                    model=model,
+                    tokens_in=tokens_in,
+                    tokens_out=tokens_out,
+                    cost_usd=cost,
+                )
             )
 
     def _estimate_cost(self, provider: str, tokens_in: int, tokens_out: int) -> float:
@@ -82,6 +99,39 @@ class CostTracker(EventSubscriber):
         if isinstance(rate, (int, float)):
             return tokens_in * rate + tokens_out * rate
         return tokens_in * rate[0] + tokens_out * rate[1]
+
+    @staticmethod
+    async def _persist_cost_event(
+        execution_id: UUID,
+        user_id: str | None,
+        provider: str,
+        workflow: str,
+        model: str,
+        tokens_in: int,
+        tokens_out: int,
+        cost_usd: float,
+    ) -> None:
+        """Salva evento de custo no PostgreSQL. Fire-and-forget friendly."""
+        try:
+            from app.database import async_session_factory
+            from app.repositories.cost_repository import CostRepository, CostEventData
+
+            factory = async_session_factory()
+            async with factory() as session:
+                repo = CostRepository(session)
+                await repo.save(CostEventData(
+                    execution_id=execution_id,
+                    user_id=user_id,
+                    provider=provider,
+                    workflow=workflow,
+                    model=model,
+                    tokens_in=tokens_in,
+                    tokens_out=tokens_out,
+                    cost_usd=cost_usd,
+                ))
+        except Exception as exc:
+            from loguru import logger
+            logger.debug("[cost_tracker] falha ao persistir custo: {}", exc)
 
     def summary(self) -> dict[str, Any]:
         return {

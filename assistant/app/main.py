@@ -36,8 +36,11 @@ from app.api.system import router as system_router
 from app.api.observability import router as observability_router
 from app.api.opencode import router as opencode_router
 from app.api.admin import router as admin_router
+from app.api.conversations import router as conversations_router
+from app.api.kirl import router as kirl_router
 from app.api.settings_api import router as settings_api_router
 from app.api.integrations import router as integrations_router
+from app.api.mcp import router as mcp_router
 from app.api.opencode import set_watcher as set_opencode_watcher
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.config.settings import settings
@@ -53,6 +56,9 @@ from app.observability.tracing import TracingSubscriber, setup_tracing
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
+
+# Ensure SQLAlchemy models are registered with Base.metadata before create_tables()
+import app.models  # noqa: F401
 from app.audit.sdd_watcher import SDDWatcher
 
 import json
@@ -133,8 +139,10 @@ def _register_tools():
     global _tools_registered
     if not _tools_registered:
         from app.tools.github_tools import register_github_tools
+        from app.tools.n8n_webhook_tool import register_n8n_webhook
 
         register_github_tools()
+        register_n8n_webhook()
         _tools_registered = True
 
 
@@ -202,10 +210,11 @@ def _register_observability(app_state) -> None:
 
     if settings.N8N_WEBHOOK_URL:
         n8n_subscriber = N8NSubscriber()
-        for event_name in EventBus._subscribers:
+        for event_name in settings.N8N_EVENTS:
             EventBus.subscribe(event_name, n8n_subscriber)
         logger.info(
-            f"[observability] N8N subscriber registered (webhook: {settings.N8N_WEBHOOK_URL})"
+            f"[observability] N8N subscriber registered (webhook: {settings.N8N_WEBHOOK_URL}, "
+            f"events: {settings.N8N_EVENTS})"
         )
 
     setup_tracing(
@@ -256,6 +265,15 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     ).info("startup")
 
     _register_tools()
+
+    # Register MCP tools in the LangGraph TOOL_REGISTRY (RF-C03 bridge)
+    try:
+        from app.tools.mcp_adapter import register_all_mcp_tools
+
+        mcp_count = register_all_mcp_tools()
+        logger.info("[mcp] {} MCP tools registradas no TOOL_REGISTRY", mcp_count)
+    except Exception as exc:
+        logger.warning("[mcp] falha ao registrar MCP tools no startup: {}", exc)
 
     async def _warmup():
         global _embedder_ready
@@ -310,10 +328,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-API-Key", "X-User-Id", "X-Username", "X-User-Role"],
 )
 
 app.add_middleware(ApiKeyMiddleware)
@@ -346,6 +364,9 @@ app.include_router(opencode_router)
 app.include_router(admin_router)
 app.include_router(settings_api_router)
 app.include_router(integrations_router)
+app.include_router(mcp_router)
+app.include_router(conversations_router)
+app.include_router(kirl_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],
