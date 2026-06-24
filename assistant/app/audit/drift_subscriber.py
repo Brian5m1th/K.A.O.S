@@ -8,6 +8,8 @@ from loguru import logger
 from app.audit.audit_engine import AuditEngine
 from app.audit.drl_snapshot import DRLSnapshotManager
 
+from app.ai.vault_analyzer.analyzer_engine import AnalyzerEngine
+
 
 class DriftSubscriber(EventSubscriber):
     async def on_event(self, event: Event) -> None:
@@ -33,6 +35,10 @@ class DriftSubscriber(EventSubscriber):
             logger.warning(
                 f"[drift_subscriber] drift detected: {severity}, missing={missing}"
             )
+
+            # Auto-trigger VaultAnalyzer quando drift é detectado (RF-B04)
+            logger.info("[kirl] drift detectado — disparando VaultAnalyzer")
+            asyncio.create_task(AnalyzerEngine.analyze_async())
 
     async def _emit_alert(self, report: dict) -> None:
         alert_event = Event(
