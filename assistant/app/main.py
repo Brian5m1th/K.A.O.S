@@ -53,6 +53,9 @@ from app.observability.tracing import TracingSubscriber, setup_tracing
 from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
+
+# Ensure SQLAlchemy models are registered with Base.metadata before create_tables()
+import app.models  # noqa: F401
 from app.audit.sdd_watcher import SDDWatcher
 
 import json
