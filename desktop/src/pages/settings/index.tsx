@@ -238,7 +238,7 @@ export default function SettingsPage() {
                         )}
                         <Badge variant={
                           p.status === "healthy" ? "success" :
-                          p.status === "unhealthy" ? "danger" :
+                          p.status === "unhealthy" ? "error" :
                           "neutral"
                         }>
                           {p.status === "healthy" ? "Healthy" :

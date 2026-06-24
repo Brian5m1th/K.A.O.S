@@ -6,7 +6,6 @@ with schema versioning, migration, and opportunistic legacy data import.
 """
 
 import json
-import os
 import shutil
 import sys
 import time

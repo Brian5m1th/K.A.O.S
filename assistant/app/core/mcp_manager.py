@@ -173,7 +173,6 @@ class MCPManager:
 
         Returns the number of successfully started servers.
         """
-        registry = MCPRegistry.load()
         server_configs = MCPRegistry.get_enabled_servers()
         started = 0
         for cfg in server_configs:

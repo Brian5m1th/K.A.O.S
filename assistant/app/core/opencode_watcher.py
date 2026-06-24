@@ -9,14 +9,13 @@ Features:
 """
 
 import threading
-import time
 from pathlib import Path
 
 from loguru import logger
 
 try:
     from watchdog.observers import Observer
-    from watchdog.events import FileSystemEventHandler, FileModifiedEvent, FileCreatedEvent, FileDeletedEvent
+    from watchdog.events import FileSystemEventHandler
 
     HAS_WATCHDOG = True
 except ImportError:
