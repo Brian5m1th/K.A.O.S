@@ -1,3 +1,5 @@
+import time
+
 import httpx
 from fastapi import APIRouter
 from loguru import logger
@@ -54,6 +56,13 @@ async def test_provider(payload: dict):
     if not url:
         return {"status": "error", "message": "URL is required"}
 
+    # Reject empty API key (providers that don't need one are handled below)
+    if not api_key and provider not in ("ollama", "openCode", "lmstudio"):
+        return {
+            "status": "error",
+            "message": "API key is required for this provider",
+        }
+
     endpoints = {
         "ollama": f"{url.rstrip('/')}/api/tags",
         "openai": f"{url.rstrip('/')}/models",
@@ -74,10 +83,25 @@ async def test_provider(payload: dict):
             endpoint = f"{endpoint}{sep}key={api_key}"
 
     try:
-        async with httpx.AsyncClient(timeout=10) as client:
+        t0 = time.monotonic()
+        async with httpx.AsyncClient(timeout=5) as client:
             resp = await client.get(endpoint, headers=headers)
-            if resp.is_success or resp.status_code in (401, 403):
-                return {"status": "connected"}
-            return {"status": "error", "message": f"HTTP {resp.status_code}"}
+        latency_ms = int((time.monotonic() - t0) * 1000)
+
+        if resp.is_success:
+            return {"status": "connected", "latency_ms": latency_ms}
+        if resp.status_code in (401, 403):
+            return {
+                "status": "connected",
+                "latency_ms": latency_ms,
+                "warning": f"HTTP {resp.status_code} (auth may be required)",
+            }
+        return {
+            "status": "error",
+            "message": f"HTTP {resp.status_code}",
+            "latency_ms": latency_ms,
+        }
     except httpx.RequestError as e:
         return {"status": "error", "message": f"Connection failed: {e}"}
+    except ValueError as e:
+        return {"status": "error", "message": f"Invalid URL: {e}"}

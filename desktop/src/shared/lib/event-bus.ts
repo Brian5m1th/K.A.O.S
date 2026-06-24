@@ -21,7 +21,10 @@ export type AppEvent =
   | { type: "chat:error"; payload: { message: string } }
   | { type: "graph:updated"; payload: any }
   | { type: "docs:auto-updated"; payload: { timestamp: string; featuresDetected: number; sddsGenerated: number } }
-  | { type: "docs:sync-error"; payload: { timestamp: string; error: string } };
+  | { type: "docs:sync-error"; payload: { timestamp: string; error: string } }
+  | { type: "update:available"; payload: { version: string; date: string } }
+  | { type: "update:skipped";   payload: { lastCheckAt: string } }
+  | { type: "update:error";     payload: { phase: string; message: string } };
 
 type Listener = (event: AppEvent) => void;
 

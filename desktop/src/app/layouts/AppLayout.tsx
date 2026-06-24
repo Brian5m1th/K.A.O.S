@@ -1,11 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/widgets/sidebar";
 import { TopBar } from "@/widgets/topbar";
-import { useAppInit } from "@/shared/lib/use-init";
 
 export function AppLayout() {
-  useAppInit();
-
   return (
     <div className="flex h-full">
       <Sidebar />

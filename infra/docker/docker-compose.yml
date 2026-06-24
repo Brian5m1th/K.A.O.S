@@ -80,6 +80,7 @@ services:
       - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
       - ../../workspace:/workspace
+      - ../../docs:/vault
       - ./logs:/var/log/kaos-api
       - hf_cache:/root/.cache/huggingface
     extra_hosts:

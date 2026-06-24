@@ -34,6 +34,12 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class ResetPasswordRequest(BaseModel):
+    email: str
+    api_key: str
+    new_password: str
+
+
 class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
@@ -59,24 +65,37 @@ class ApiKeyStatusResponse(BaseModel):
 
 
 async def _get_db_session():
+    session = None
     try:
-        async for session in get_session():
-            yield session
+        session_iterator = get_session()
+        session = await anext(session_iterator)
     except Exception as e:
         logger.warning("[auth] database unavailable, using in-memory store: {}", e)
         yield None
+        return
+
+    try:
+        yield session
+    finally:
+        await session.close()
 
 
 @router.get("/setup-status", response_model=SetupStatusResponse)
 async def get_setup_status(session: AsyncSession | None = Depends(_get_db_session)):
+    logger.info("[auth-api] GET /setup-status initiated")
     if session is not None:
         try:
             result = await session.execute(select(User).limit(1))
             user = result.scalar_one_or_none()
-            return SetupStatusResponse(configured=user is not None)
-        except Exception:
+            configured = user is not None
+            logger.info("[auth-api] GET /setup-status: configured={} (db)", configured)
+            return SetupStatusResponse(configured=configured)
+        except Exception as e:
+            logger.warning("[auth-api] GET /setup-status: db query failed: {}", e)
             pass
-    return SetupStatusResponse(configured=len(_memory_users) > 0)
+    configured = len(_memory_users) > 0
+    logger.info("[auth-api] GET /setup-status: configured={} (memory)", configured)
+    return SetupStatusResponse(configured=configured)
 
 
 @router.post(
@@ -85,6 +104,7 @@ async def get_setup_status(session: AsyncSession | None = Depends(_get_db_sessio
 async def register(
     body: RegisterRequest, session: AsyncSession | None = Depends(_get_db_session)
 ):
+    logger.info("[auth-api] POST /register called for email: {}", body.email)
     if len(body.password) < 8:
         raise HTTPException(
             status_code=422, detail="Password must be at least 8 characters"
@@ -191,6 +211,66 @@ async def login(
     logger.info("[auth] user logged in: {} ({})", user_data["name"], user_data["email"])
     tokens = _generate_tokens(user_data["id"], user_data["email"], user_data["role"])
     return TokenResponse(**tokens, user=user_data)
+
+
+@router.post("/reset-password")
+async def reset_password(
+    body: ResetPasswordRequest,
+    request: Request,
+    session: AsyncSession | None = Depends(_get_db_session),
+):
+    logger.info("[auth-api] POST /reset-password called for email: {}", body.email)
+
+    # Verify Master API key
+    app_key = getattr(request.app.state, "api_key", None)
+    if not app_key or body.api_key != app_key:
+        logger.warning(
+            "[auth-api] reset password rejected: invalid Master API Key for: {}",
+            body.email,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Master API Key"
+        )
+
+    if len(body.new_password) < 8:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Password must be at least 8 characters",
+        )
+
+    password_hash = hash_password(body.new_password)
+
+    updated = False
+    if session is not None:
+        try:
+            result = await session.execute(select(User).where(User.email == body.email))
+            user = result.scalar_one_or_none()
+            if user:
+                user.password_hash = password_hash
+                await session.commit()
+                updated = True
+                logger.info(
+                    "[auth-api] password reset successfully (db) for: {}", body.email
+                )
+        except Exception as e:
+            logger.warning("[auth-api] failed to reset password in db: {}", e)
+
+    if not updated:
+        mem_user = _memory_users.get(body.email)
+        if mem_user:
+            mem_user["password_hash"] = password_hash
+            updated = True
+            logger.info(
+                "[auth-api] password reset successfully (memory) for: {}", body.email
+            )
+
+    if not updated:
+        logger.warning("[auth-api] reset password user not found: {}", body.email)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    return {"message": "Password reset successfully"}
 
 
 @router.get("/me", response_model=UserResponse)

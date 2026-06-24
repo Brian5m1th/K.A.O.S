@@ -1,4 +1,7 @@
+mod updater;
+
 use serde::{Deserialize, Serialize};
+use updater::UpdaterState;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HealthResponse {
@@ -46,10 +49,19 @@ async fn check_ollama(url: String) -> Result<String, String> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .manage(UpdaterState {
+            pending_update: std::sync::Mutex::new(None),
+        })
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![check_server, check_ollama])
+        .invoke_handler(tauri::generate_handler![
+            check_server,
+            check_ollama,
+            updater::check_for_update,
+            updater::download_and_install,
+            updater::install_update,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running KAOS");
 }

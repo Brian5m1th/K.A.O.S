@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
@@ -6,6 +7,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Tabs } from "@/shared/ui/tabs";
 import { kaosFetch } from "@/shared/api/kaos-client";
 import { useAuthStore, useThemeStore, useSystemStore } from "@/shared/lib/stores";
+import { UpdateCard } from "@/features/auto-update/ui/UpdateCard";
 import {
   Sun, Moon, Key, GitBranch, Workflow, Variable,
   RefreshCw, CheckCircle2, Loader2, Globe, Shield, Cpu, ExternalLink,
@@ -17,6 +19,7 @@ const SETTINGS_TABS = [
   { id: "catalog", label: "Catalog" },
   { id: "integrations", label: "Integrations" },
   { id: "env", label: "Environment" },
+  { id: "updates", label: "Atualizações" },
 ];
 
 const SERVER_URL = "http://localhost:8000";
@@ -25,6 +28,14 @@ interface ProviderInfo {
   id: string; name: string; base_url: string;
   editable_url: boolean; configured: boolean;
   models: string[]; default_model?: string; fast_model?: string;
+  status?: "healthy" | "unhealthy" | "unknown";
+  latency?: number;
+}
+
+interface IntegrationInfo {
+  type: string;
+  status: string;
+  metadata: Record<string, unknown>;
 }
 
 interface ProviderFormState {
@@ -42,20 +53,24 @@ export default function SettingsPage() {
   const setMode = useThemeStore((s) => s.setMode);
   const setAccentColor = useThemeStore((s) => s.setAccentColor);
   const saveToBackend = useThemeStore((s) => s.saveToBackend);
-  const [activeTab, setActiveTab] = useState("theme");
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(searchParams.get("tab") ?? "theme");
 
   const [providers, setProviders] = useState<ProviderInfo[]>([]);
   const [forms, setForms] = useState<Record<string, ProviderFormState>>({});
   const [loading, setLoading] = useState(true);
   const [fallbackChain, setFallbackChain] = useState<string[]>([]);
   const [embeddingModel, setEmbeddingModel] = useState("");
+  const [integrations, setIntegrations] = useState<IntegrationInfo[]>([]);
+  const [envVars, setEnvVars] = useState<{ key: string; value: string }[]>([]);
 
   useEffect(() => {
-    const fetchProviders = async () => {
+    const fetchAll = async () => {
       try {
-        const res = await kaosFetch(`${SERVER_URL}/api/providers`, "");
-        if (res.ok) {
-          const data = await res.json();
+        // Fetch providers
+        const provRes = await kaosFetch(`${SERVER_URL}/api/providers`, "");
+        if (provRes.ok) {
+          const data = await provRes.json();
           setProviders(data.providers || []);
           setFallbackChain(data.fallbackChain || []);
           setEmbeddingModel(data.embeddingModel || "");
@@ -69,9 +84,29 @@ export default function SettingsPage() {
           }
           setForms(initialForms);
         }
+
+        // Fetch integrations
+        const intRes = await kaosFetch(`${SERVER_URL}/api/integrations`, "");
+        if (intRes.ok) {
+          const intData = await intRes.json();
+          setIntegrations(intData.integrations || []);
+        }
+
+        // Fetch settings (for env vars display)
+        const setRes = await kaosFetch(`${SERVER_URL}/api/settings`, "");
+        if (setRes.ok) {
+          const setData = await setRes.json();
+          const envList: { key: string; value: string }[] = [];
+          for (const [key, val] of Object.entries(setData)) {
+            if (typeof val === "string" && !key.startsWith("_")) {
+              envList.push({ key, value: val });
+            }
+          }
+          setEnvVars(envList);
+        }
       } catch {} finally { setLoading(false); }
     };
-    fetchProviders();
+    fetchAll();
   }, []);
 
   const handleTest = async (id: string) => {
@@ -190,15 +225,28 @@ export default function SettingsPage() {
             return (
               <Card key={p.id}>
                 <CardContent className="p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {providerIcons[p.id] || <Variable className="h-4 w-4 text-zinc-400" />}
-                      <h3 className="text-sm font-medium text-text-primary">{p.name}</h3>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        {providerIcons[p.id] || <Variable className="h-4 w-4 text-zinc-400" />}
+                        <h3 className="text-sm font-medium text-text-primary">{p.name}</h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {p.latency !== undefined && p.latency > 0 && (
+                          <span className="text-[11px] text-text-muted font-mono">
+                            {p.latency}ms
+                          </span>
+                        )}
+                        <Badge variant={
+                          p.status === "healthy" ? "success" :
+                          p.status === "unhealthy" ? "error" :
+                          "neutral"
+                        }>
+                          {p.status === "healthy" ? "Healthy" :
+                           p.status === "unhealthy" ? "Unhealthy" :
+                           p.configured ? "Configured" : "Disabled"}
+                        </Badge>
+                      </div>
                     </div>
-                    <Badge variant={p.configured ? "success" : "neutral"}>
-                      {p.configured ? "Connected" : "Disabled"}
-                    </Badge>
-                  </div>
                   {p.editable_url && (
                     <Input placeholder="API URL" value={f?.url || ""} onChange={(e) => setForms((s) => ({ ...s, [p.id]: { ...s[p.id], url: e.target.value } }))} className="text-xs" />
                   )}
@@ -255,25 +303,28 @@ export default function SettingsPage() {
       {activeTab === "integrations" && (
         <Card>
           <CardContent className="p-4 space-y-3">
-            {[
-              { name: "GitHub", icon: GitBranch, desc: "CI/CD workflows and code review", status: "connected" },
-              { name: "N8N", icon: Workflow, desc: "Workflow automation engine", status: "disconnected" },
-              { name: "Qdrant", icon: Variable, desc: "Vector database for RAG", status: "connected" },
-            ].map((integ) => {
-              const Icon = integ.icon;
+            {loading ? (
+              <div className="flex justify-center py-4"><Loader2 className="h-4 w-4 animate-spin text-text-dim" /></div>
+            ) : integrations.length === 0 ? (
+              <p className="text-xs text-text-muted text-center py-4">No integrations configured. Use the API to add one.</p>
+            ) : integrations.map((integ) => {
+              const Icon = integ.type === "github" ? GitBranch :
+                           integ.type === "n8n" ? Workflow :
+                           Variable;
               return (
-                <div key={integ.name} className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-4 py-3">
+                <div key={integ.type} className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div className="rounded-lg bg-bg-active p-2"><Icon className="h-4 w-4 text-text-primary" /></div>
                     <div>
-                      <p className="text-sm font-medium text-text-primary">{integ.name}</p>
-                      <p className="text-xs text-text-muted">{integ.desc}</p>
+                      <p className="text-sm font-medium text-text-primary capitalize">{integ.type}</p>
+                      {integ.metadata && Object.keys(integ.metadata).length > 0 && (
+                        <p className="text-xs text-text-muted">{JSON.stringify(integ.metadata)}</p>
+                      )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant={integ.status === "connected" ? "success" : "neutral"}>{integ.status}</Badge>
-                    <Button variant="subtle" size="sm" disabled title="Coming Soon">Configure</Button>
-                  </div>
+                  <Badge variant={integ.status === "connected" ? "success" : "neutral"}>
+                    {integ.status}
+                  </Badge>
                 </div>
               );
             })}
@@ -286,32 +337,29 @@ export default function SettingsPage() {
         <Card>
           <CardContent className="p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-text-primary">Environment Variables</p>
-              <Button variant="primary" size="sm" disabled title="Coming Soon"><Key className="h-3.5 w-3.5 mr-1" />Add Variable</Button>
+              <p className="text-sm font-medium text-text-primary">Config Values (from /api/settings)</p>
             </div>
             <div className="space-y-2">
-              {[
-                { key: "KAOS_API_KEY", value: maskedKey || "kaos-...key" },
-                { key: "OLLAMA_HOST", value: "http://localhost:11434" },
-                { key: "QDRANT_URL", value: "http://localhost:6333" },
-                { key: "DOCS_PATH", value: "docs/" },
-              ].map((env) => (
+              {loading ? (
+                <div className="flex justify-center py-4"><Loader2 className="h-4 w-4 animate-spin text-text-dim" /></div>
+              ) : envVars.length === 0 ? (
+                <p className="text-xs text-text-muted text-center py-4">No settings loaded.</p>
+              ) : envVars.map((env) => (
                 <div key={env.key} className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2">
                   <div className="flex items-center gap-3">
                     <Variable className="h-3.5 w-3.5 text-text-dim" />
                     <span className="text-xs font-mono text-text-primary">{env.key}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-text-dim">{env.value}</span>
-                    <Button variant="subtle" size="sm" disabled title="Coming Soon">Edit</Button>
-                    <Button variant="danger" size="sm" disabled title="Coming Soon">Remove</Button>
-                  </div>
+                  <span className="text-xs font-mono text-text-dim">{env.value}</span>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
       )}
+
+      {/* Updates Tab */}
+      {activeTab === "updates" && <UpdateCard />}
     </div>
   );
 }

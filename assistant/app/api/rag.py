@@ -1,5 +1,7 @@
+from pathlib import Path
 from loguru import logger
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
 from qdrant_client import QdrantClient
 
@@ -83,3 +85,57 @@ async def get_rag_diagnostics() -> RAGDiagnosticsResponse:
         logger.error(f"[error] rag - diagnostics: {e}")
     logger.debug("[finish] rag - diagnostics")
     return resp
+
+
+@router.get("/vault/files")
+async def list_vault_files():
+    logger.info("[start] rag - list_vault_files")
+    vault_dir = Path("/vault")
+    if not vault_dir.exists():
+        logger.warning("[rag] vault directory does not exist: /vault")
+        return {"files": []}
+
+    md_files = []
+    # Buscar arquivos md recursivamente no vault
+    for p in vault_dir.glob("**/*.md"):
+        try:
+            rel_path = p.relative_to(vault_dir)
+            md_files.append(
+                {
+                    "name": p.name,
+                    "path": str(rel_path).replace("\\", "/"),
+                    "size": p.stat().st_size,
+                }
+            )
+        except Exception:
+            pass
+
+    # Ordenar pelo caminho relativo
+    md_files.sort(key=lambda x: x["path"].lower())
+
+    logger.debug("[finish] rag - list_vault_files")
+    return {"files": md_files}
+
+
+@router.get("/vault/file")
+async def get_vault_file(path: str):
+    logger.info("[start] rag - get_vault_file: {}", path)
+    vault_dir = Path("/vault").resolve()
+
+    # Resolver o caminho absoluto e validar que não sai do vault
+    target_path = (vault_dir / path).resolve()
+    try:
+        if not target_path.is_relative_to(vault_dir):
+            raise HTTPException(status_code=403, detail="Access denied")
+    except ValueError:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    if not target_path.exists() or not target_path.is_file():
+        raise HTTPException(status_code=404, detail="File not found")
+
+    try:
+        content = target_path.read_text(encoding="utf-8")
+        return PlainTextResponse(content)
+    except Exception as e:
+        logger.error("[rag] failed to read vault file: {}", e)
+        raise HTTPException(status_code=500, detail=f"Failed to read file: {str(e)}")

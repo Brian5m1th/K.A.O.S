@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { AppProviders } from "./app/providers";
 import "./shared/styles/globals.css";
+import { setAccessTokenProvider } from "./shared/api/kaos-client";
+import { useAuthStore } from "./shared/lib/stores/auth-store";
+
+// Registra o provedor de tokens para o kaosFetch de forma a quebrar dependência circular
+setAccessTokenProvider(() => useAuthStore.getState().accessToken);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

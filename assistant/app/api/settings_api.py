@@ -1,45 +1,29 @@
-import json
-from pathlib import Path
-
 from fastapi import APIRouter
 from loguru import logger
 
+from app.core.config_service import ConfigService
+
 router = APIRouter(prefix="/api/settings", tags=["Settings"])
 
-SETTINGS_PATH = Path("data/settings.json")
-DEFAULT_SETTINGS = {
-    "theme": "dark",
-    "accent_color": "#3B82F6",
-    "language": "pt-BR",
-    "telemetry": True,
-}
-
-
-def _load() -> dict:
-    if not SETTINGS_PATH.exists():
-        return dict(DEFAULT_SETTINGS)
-    try:
-        return json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        return dict(DEFAULT_SETTINGS)
-
-
-def _save(data: dict) -> None:
-    SETTINGS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    SETTINGS_PATH.write_text(
-        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
+# Fields that belong to the "settings" subset (not providers/integrations)
+_SETTINGS_KEYS = {"theme", "accent_color", "language", "telemetry", "schemaVersion"}
 
 
 @router.get("")
 async def get_settings():
-    return _load()
+    config = ConfigService.load_config()
+    # Return only the general settings subset plus schemaVersion
+    return {k: config.get(k) for k in _SETTINGS_KEYS if k in config}
 
 
 @router.put("")
 async def save_settings(body: dict):
-    current = _load()
-    current.update(body)
-    _save(current)
+    config = ConfigService.load_config()
+    config.update(body)
+    ConfigService.save_config(config)
     logger.info("[settings] settings updated")
-    return {"status": "saved", "settings": current}
+    # Return the full settings subset after save
+    return {
+        "status": "saved",
+        "settings": {k: config.get(k) for k in _SETTINGS_KEYS if k in config},
+    }

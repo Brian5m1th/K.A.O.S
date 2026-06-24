@@ -44,4 +44,42 @@
   *::-webkit-scrollbar-thumb:hover {
     background-color: #3B82F6;
   }
+
+  /* ------------------------------------------------------------------ */
+  /*  Focus & contrast tokens                                           */
+  /* ------------------------------------------------------------------ */
+
+  /* Visible focus ring for keyboard navigation */
+  *:focus-visible {
+    outline: 2px solid #3B82F6;
+    outline-offset: 2px;
+  }
+
+  /* Disabled inputs — must NEVER be white-on-white */
+  input:disabled,
+  textarea:disabled,
+  select:disabled,
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: #9CA3AF;       /* gray-400 — always visible on dark bg */
+    background-color: #1F2937;  /* gray-800 — dark enough for contrast */
+    border-color: #374151;      /* gray-700 */
+  }
+
+  /* Ensure disabled text on any theme has enough contrast */
+  .disabled\\:text-contrast:disabled {
+    color: #9CA3AF !important;
+  }
+
+  /* Status dots & badges */
+  .status-healthy {
+    color: #10B981;
+  }
+  .status-unhealthy {
+    color: #EF4444;
+  }
+  .status-unknown {
+    color: #9CA3AF;
+  }
 }

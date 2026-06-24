@@ -138,6 +138,16 @@ export default function SetupPage() {
               )}
             </Button>
           </form>
+
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              onClick={() => navigate("/login")}
+              className="text-xs text-text-muted hover:text-text-primary underline transition-colors"
+            >
+              Já possui um workspace? Entrar (Login)
+            </button>
+          </div>
         </CardContent>
       </Card>
     </div>
