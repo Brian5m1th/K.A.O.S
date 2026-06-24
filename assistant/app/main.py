@@ -207,10 +207,11 @@ def _register_observability(app_state) -> None:
 
     if settings.N8N_WEBHOOK_URL:
         n8n_subscriber = N8NSubscriber()
-        for event_name in EventBus._subscribers:
+        for event_name in settings.N8N_EVENTS:
             EventBus.subscribe(event_name, n8n_subscriber)
         logger.info(
-            f"[observability] N8N subscriber registered (webhook: {settings.N8N_WEBHOOK_URL})"
+            f"[observability] N8N subscriber registered (webhook: {settings.N8N_WEBHOOK_URL}, "
+            f"events: {settings.N8N_EVENTS})"
         )
 
     setup_tracing(
