@@ -75,16 +75,21 @@ jobs:
 
       - name: Commit registry atualizado (se houve mudança)
         run: |
-          git config user.name "kaos-bot"
-          git config user.email "kaos-bot@users.noreply.github.com"
-          git add docs/runtime/registry/features-index.json
+          git config --global user.name "kaos-bot"
+          git config --global user.email "kaos-bot@users.noreply.github.com"
+          cd docs
+          git add runtime/registry/features-index.json
           if git diff --staged --quiet; then
             echo "Sem mudanças no registry."
           else
-            TOTAL=$(python3 -c "import json; d=json.load(open('docs/runtime/registry/features-index.json')); print(d['total_features'])")
+            TOTAL=$(python3 -c "import json; d=json.load(open('runtime/registry/features-index.json')); print(d['total_features'])")
             git commit -m "chore(registry): auto-sync features-index.json ($TOTAL features) [skip ci]"
+            git push origin main
+            cd ..
+            git add docs
+            git commit -m "chore(registry): update docs submodule pointer [skip ci]"
             git push
-            echo "::notice::Registry atualizado e commitado ($TOTAL features)"
+            echo "::notice::Registry e submódulo atualizados com sucesso ($TOTAL features)"
           fi
 
   # ── Job 2: Drift Check (só roda em PR) ─────────────────────────────────────
