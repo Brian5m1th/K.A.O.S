@@ -15,6 +15,8 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_session
+from app.domain.chat import Message
+from app.memory.summarizer import ConversationSummarizer
 from app.repositories.conversation_repository import (
     ConversationRepository,
     SessionSummary,
@@ -168,3 +170,93 @@ async def delete_session(
     deleted = await repo.delete_session(session_id=sid, user_id=user_id)
     logger.info("[conversations] deleted session={} user={} count={}", session_id, user_id, deleted)
     return {"deleted": deleted, "session_id": session_id}
+
+
+@router.post("/{session_id}/summarize", response_model=SummarizeResponse)
+async def summarize_session(
+    session_id: str,
+    user_id: str = Query(..., description="User ID (obrigatório)"),
+    force: bool = Query(False, description="Sobrescrever resumo existente"),
+    session: AsyncSession = Depends(get_session),
+):
+    """RF-D04: Gera resumo da sessão e salva como nota no Obsidian.
+
+    O resumo é salvo em: Diário/conversas/{date}-{session_id[:8]}.md
+    """
+    if not user_id:
+        raise HTTPException(status_code=400, detail="user_id is required")
+
+    repo = ConversationRepository(session)
+    try:
+        sid = UUID(session_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid session_id format")
+
+    # Buscar turnos da sessão
+    turns = await repo.get_by_session(session_id=sid, user_id=user_id, limit=500)
+    if not turns:
+        raise HTTPException(status_code=404, detail="Session not found or empty")
+
+    # Converter para Message objects
+    history = [
+        Message(role=t.role, content=t.content)
+        for t in turns
+    ]
+
+    # Gerar resumo
+    summary = ConversationSummarizer.generate(history)
+    if not summary:
+        summary = f"Conversa em {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+
+    title = ConversationSummarizer.generate_title(history)
+
+    # Salvar no Obsidian
+    note_path = ""
+    try:
+        from app.obsidian.services.obsidian_service import ObsidianService
+
+        obsidian = ObsidianService()
+        today = datetime.now().strftime("%Y-%m-%d")
+        folder = "Diário/conversas"
+        note_content = (
+            "---\n"
+            f"type: knowledge\n"
+            f"domain: conversas\n"
+            f"session_id: {session_id}\n"
+            f"created_at: {datetime.now().isoformat()}\n"
+            "---\n\n"
+            f"# {title}\n\n"
+            f"{summary}\n\n"
+            "---\n\n"
+            "## Histórico\n\n"
+        )
+        for t in turns:
+            emoji = "👤" if t.role == "user" else "🤖"
+            note_content += f"- {emoji} **{t.role}**: {t.content[:200]}{'...' if len(t.content) > 200 else ''}\n"
+
+        obsidian.create_note(
+            title=f"{today}-{session_id[:8]}",
+            folder=folder,
+            content=note_content,
+        )
+        note_path = f"{folder}/{today}-{session_id[:8]}.md"
+        logger.info("[conversations] summary saved to Obsidian: {}", note_path)
+    except (FileExistsError, ValueError) as exc:
+        if not force:
+            raise HTTPException(
+                status_code=409,
+                detail=f"Summary already exists. Use ?force=true to overwrite: {exc}",
+            )
+        logger.info("[conversations] summary already exists (force=true), skipping Obsidian save")
+    except Exception as exc:
+        logger.warning("[conversations] failed to save summary to Obsidian: {}", exc)
+        # Não bloqueia a resposta — retorna resumo mesmo sem salvar
+
+    total_tokens = sum(t.tokens_used for t in turns)
+
+    return SummarizeResponse(
+        session_id=session_id,
+        summary=summary,
+        note_path=note_path,
+        tokens_used=total_tokens,
+    )
