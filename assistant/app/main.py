@@ -262,6 +262,15 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     _register_tools()
 
+    # Register MCP tools in the LangGraph TOOL_REGISTRY (RF-C03 bridge)
+    try:
+        from app.tools.mcp_adapter import register_all_mcp_tools
+
+        mcp_count = register_all_mcp_tools()
+        logger.info("[mcp] {} MCP tools registradas no TOOL_REGISTRY", mcp_count)
+    except Exception as exc:
+        logger.warning("[mcp] falha ao registrar MCP tools no startup: {}", exc)
+
     async def _warmup():
         global _embedder_ready
         from app.rag.embeddings.embedder import warmup_embedder
