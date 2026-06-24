@@ -49,9 +49,11 @@ from app.audit.runtime_resolver import RuntimePathResolver  # noqa: E402
 
 # ── Modelos internos ──────────────────────────────────────────────────────────
 
+
 @dataclass
 class GitFeature:
     """Feature extraída do histórico git."""
+
     id: str
     name: str
     phase: str
@@ -78,6 +80,7 @@ class GitFeature:
 
 
 # ── Git helpers ───────────────────────────────────────────────────────────────
+
 
 def _git(*args, cwd: Path = _PROJECT_ROOT) -> str:
     """Roda um comando git e retorna stdout. Nunca lança exceção."""
@@ -110,12 +113,14 @@ def get_all_commits(max_commits: int = 500) -> list[dict]:
     for line in raw.splitlines():
         parts = line.split("\x1f")
         if len(parts) == 4:
-            commits.append({
-                "hash": parts[0],
-                "subject": parts[1].strip(),
-                "author": parts[2],
-                "date": parts[3],
-            })
+            commits.append(
+                {
+                    "hash": parts[0],
+                    "subject": parts[1].strip(),
+                    "author": parts[2],
+                    "date": parts[3],
+                }
+            )
     return commits
 
 
@@ -136,7 +141,9 @@ _CONV_COMMIT = re.compile(
 )
 
 # Padrão Fase explícita: "Fase 8", "Fase 1.3", "F2", "fase9"
-_FASE_PATTERN = re.compile(r"[Ff]ase\s*(\d+[\.\d]*)|[Ff](\d+)(?:\b|[-_])", re.IGNORECASE)
+_FASE_PATTERN = re.compile(
+    r"[Ff]ase\s*(\d+[\.\d]*)|[Ff](\d+)(?:\b|[-_])", re.IGNORECASE
+)
 
 # Padrão SDD explícita: "SDD-KAOS-MCP-001", "SDD040", "SDD-KIRL"
 _SDD_PATTERN = re.compile(r"SDD[-_]?([A-Z0-9\-_]+)", re.IGNORECASE)
@@ -157,7 +164,12 @@ def _normalize_id(raw: str) -> str:
 def _name_from_subject(subject: str) -> str:
     """Extrai um nome limpo de feature a partir do subject do commit."""
     # Remover prefixos tipo "feat:", "fix:", "(#86)", "SDD-XXX"
-    name = re.sub(r"^(feat|fix|refactor|test|docs|ci|chore|style|perf)(\([^)]+\))?:\s*", "", subject, flags=re.IGNORECASE)
+    name = re.sub(
+        r"^(feat|fix|refactor|test|docs|ci|chore|style|perf)(\([^)]+\))?:\s*",
+        "",
+        subject,
+        flags=re.IGNORECASE,
+    )
     name = re.sub(r"SDD[-_][A-Z0-9\-_]+", "", name, flags=re.IGNORECASE)
     name = re.sub(r"\(#\d+\)", "", name)
     name = re.sub(r"#\d+", "", name)
@@ -175,23 +187,43 @@ def _extract_phase(subject: str) -> str:
 
     subject_lower = subject.lower()
     # Heurísticas por keyword
-    if "kirl" in subject_lower or "drl" in subject_lower or "documentation runtime" in subject_lower:
+    if (
+        "kirl" in subject_lower
+        or "drl" in subject_lower
+        or "documentation runtime" in subject_lower
+    ):
         return "Fase 0"
     if "desktop stabilization" in subject_lower or "stabiliz" in subject_lower:
         return "Fase 1"
-    if "graphify" in subject_lower or "knowledge graph" in subject_lower or "readiness" in subject_lower:
+    if (
+        "graphify" in subject_lower
+        or "knowledge graph" in subject_lower
+        or "readiness" in subject_lower
+    ):
         return "Fase 2"
     if "provider" in subject_lower and "catalog" in subject_lower:
         return "Fase 3"
-    if "observability" in subject_lower or "prometheus" in subject_lower or "loki" in subject_lower:
+    if (
+        "observability" in subject_lower
+        or "prometheus" in subject_lower
+        or "loki" in subject_lower
+    ):
         return "Fase 4"
     if "opencode" in subject_lower:
         return "Fase 5"
-    if "rbac" in subject_lower or "multi user" in subject_lower or "multiuser" in subject_lower:
+    if (
+        "rbac" in subject_lower
+        or "multi user" in subject_lower
+        or "multiuser" in subject_lower
+    ):
         return "Fase 6"
     if "mcp" in subject_lower:
         return "Fase 7"
-    if "orchestrat" in subject_lower or "agent runtime" in subject_lower or "circuit breaker" in subject_lower:
+    if (
+        "orchestrat" in subject_lower
+        or "agent runtime" in subject_lower
+        or "circuit breaker" in subject_lower
+    ):
         return "Fase 8"
     if "n8n" in subject_lower:
         return "Fase 8.5"
@@ -205,7 +237,7 @@ def _extract_phase(subject: str) -> str:
 def _extract_feature_id_from_commit(commit: dict) -> str | None:
     """
     Extrai o ID de feature de um commit. Retorna None se não for feat/fix relevante.
-    
+
     Lógica:
     1. Conventional commit com scope → scope é o feature id
     2. SDD-XXX no subject → SDD id é o feature id
@@ -213,7 +245,7 @@ def _extract_feature_id_from_commit(commit: dict) -> str | None:
     4. Descrição livre → normalizar o subject
     """
     subject = commit["subject"]
-    
+
     # Ignorar commits sem valor para features
     if re.match(r"^(style|chore|ci|docs):", subject, re.IGNORECASE):
         # Exceto se mencionar SDD ou Fase explicitamente
@@ -240,8 +272,15 @@ def _extract_feature_id_from_commit(commit: dict) -> str | None:
         num = (fase_m.group(1) or fase_m.group(2)).replace(".", "-")
         # Extrair palavras-chave do subject para diferenciar features da mesma fase
         keywords = re.sub(r"[Ff]ase\s*\d+[\.\d]*|\s*-\s*", " ", subject)
-        keywords = re.sub(r"(feat|fix|chore|docs|ci|style|perf)(\([^)]+\))?:\s*", "", keywords, flags=re.IGNORECASE)
-        keywords = re.sub(r"SDD[-_][A-Z0-9\-_]+|\(#\d+\)|#\d+", "", keywords, flags=re.IGNORECASE)
+        keywords = re.sub(
+            r"(feat|fix|chore|docs|ci|style|perf)(\([^)]+\))?:\s*",
+            "",
+            keywords,
+            flags=re.IGNORECASE,
+        )
+        keywords = re.sub(
+            r"SDD[-_][A-Z0-9\-_]+|\(#\d+\)|#\d+", "", keywords, flags=re.IGNORECASE
+        )
         keywords = keywords.strip()
         # Pegar primeiras 3 palavras significativas
         words = [w for w in keywords.split() if len(w) > 2][:3]
@@ -267,16 +306,31 @@ def _classify_files_to_categories(files: list[str]) -> dict:
     for f in files:
         if f.endswith(".md") or "docs/" in f:
             docs.append(f)
-        elif f.endswith((".py", ".ts", ".tsx", ".rs", ".toml", ".json", ".yml", ".yaml")):
+        elif f.endswith(
+            (".py", ".ts", ".tsx", ".rs", ".toml", ".json", ".yml", ".yaml")
+        ):
             # Ignorar arquivos de lock, generated, etc.
-            if not any(x in f for x in ["lock", "node_modules", "__pycache__", ".venv", "dist/", "build/"]):
+            if not any(
+                x in f
+                for x in [
+                    "lock",
+                    "node_modules",
+                    "__pycache__",
+                    ".venv",
+                    "dist/",
+                    "build/",
+                ]
+            ):
                 code_refs.append(f)
     return {"docs": docs, "code_refs": code_refs}
 
 
 # ── Feature merger ────────────────────────────────────────────────────────────
 
-def _merge_into(features: dict[str, GitFeature], feat_id: str, commit: dict, files: dict):
+
+def _merge_into(
+    features: dict[str, GitFeature], feat_id: str, commit: dict, files: dict
+):
     """Adiciona ou atualiza uma feature no dicionário."""
     if feat_id not in features:
         features[feat_id] = GitFeature(
@@ -296,7 +350,9 @@ def _merge_into(features: dict[str, GitFeature], feat_id: str, commit: dict, fil
         # Atualizar: o commit mais recente win (commits vêm do mais novo para o mais antigo)
         if not feat.last_commit:
             feat.last_commit = commit["hash"][:12]
-        feat.first_commit = commit["hash"][:12]  # sempre sobrescrever (vai para o mais antigo)
+        feat.first_commit = commit["hash"][
+            :12
+        ]  # sempre sobrescrever (vai para o mais antigo)
         feat.created_at = commit["date"]  # mais antigo = data de criação
 
         # Merge de arquivos
@@ -309,6 +365,7 @@ def _merge_into(features: dict[str, GitFeature], feat_id: str, commit: dict, fil
 
 
 # ── SDDs do filesystem ────────────────────────────────────────────────────────
+
 
 def enrich_with_sdds(features: dict[str, GitFeature]) -> None:
     """
@@ -341,6 +398,7 @@ def enrich_with_sdds(features: dict[str, GitFeature]) -> None:
             if content.strip().startswith("---"):
                 try:
                     import yaml
+
                     parts = content.split("---", 2)
                     if len(parts) >= 3:
                         meta = yaml.safe_load(parts[1])
@@ -358,7 +416,9 @@ def enrich_with_sdds(features: dict[str, GitFeature]) -> None:
             feat_id_clean = feat_id.replace("-", "")
             for fid, feat in features.items():
                 fid_clean = fid.replace("-", "")
-                if (feat_id_clean in fid_clean or fid_clean in feat_id_clean) and len(feat_id_clean) >= 3:
+                if (feat_id_clean in fid_clean or fid_clean in feat_id_clean) and len(
+                    feat_id_clean
+                ) >= 3:
                     if rel_path not in feat.docs:
                         feat.docs.append(rel_path)
                     matched = True
@@ -367,14 +427,30 @@ def enrich_with_sdds(features: dict[str, GitFeature]) -> None:
             # SDD sem feature correspondente → criar feature nova
             if not matched:
                 title_m = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
-                name = title_m.group(1).strip() if title_m else _normalize_id(sdd_id).replace("-", " ").title()
+                name = (
+                    title_m.group(1).strip()
+                    if title_m
+                    else _normalize_id(sdd_id).replace("-", " ").title()
+                )
                 name = re.sub(r"\*+|`+", "", name).strip()[:80]
 
                 phase = "Fase 1"
-                status_m = re.search(r"status:\s*(done|approved|in.progress|planned|wip)", content, re.IGNORECASE)
+                status_m = re.search(
+                    r"status:\s*(done|approved|in.progress|planned|wip)",
+                    content,
+                    re.IGNORECASE,
+                )
                 if status_m:
                     s = status_m.group(1).lower()
-                    status = "done" if s in ("done", "approved") else ("in-progress" if "progress" in s or "wip" in s else "planned")
+                    status = (
+                        "done"
+                        if s in ("done", "approved")
+                        else (
+                            "in-progress"
+                            if "progress" in s or "wip" in s
+                            else "planned"
+                        )
+                    )
                 else:
                     status = "done" if "docs/sdd" in rel_path else "in-progress"
 
@@ -392,16 +468,26 @@ def enrich_with_sdds(features: dict[str, GitFeature]) -> None:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main():
     parser = argparse.ArgumentParser(
         description="Gera features-index.json a partir do histórico git + SDDs"
     )
-    parser.add_argument("--dry-run", action="store_true",
-                        help="Não salva, apenas mostra o resultado")
-    parser.add_argument("--verbose", "-v", action="store_true",
-                        help="Mostra todas as features e seus arquivos")
-    parser.add_argument("--max-commits", type=int, default=500,
-                        help="Máximo de commits a analisar (default: 500)")
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Não salva, apenas mostra o resultado"
+    )
+    parser.add_argument(
+        "--verbose",
+        "-v",
+        action="store_true",
+        help="Mostra todas as features e seus arquivos",
+    )
+    parser.add_argument(
+        "--max-commits",
+        type=int,
+        default=500,
+        help="Máximo de commits a analisar (default: 500)",
+    )
     args = parser.parse_args()
 
     print("=" * 60)
@@ -441,7 +527,7 @@ def main():
         processed += 1
 
         if args.verbose:
-            print(f"  [{i+1:3d}] {commit['hash'][:8]} → {feat_id}")
+            print(f"  [{i + 1:3d}] {commit['hash'][:8]} → {feat_id}")
 
     print(f"      → {processed} commits processados, {skipped} ignorados")
     print(f"      → {len(features)} features únicas extraídas do git")
@@ -465,16 +551,16 @@ def main():
         by_status[f.status] = by_status.get(f.status, 0) + 1
         by_phase[f.phase] = by_phase.get(f.phase, 0) + 1
 
-    print(f"\n{'='*60}")
-    print(f"[4/4] Resultado Final")
-    print(f"{'='*60}")
+    print(f"\n{'=' * 60}")
+    print("[4/4] Resultado Final")
+    print(f"{'=' * 60}")
     print(f"  Total features:       {total}")
-    print(f"  Com documentação:     {with_docs} ({with_docs/total*100:.0f}%)")
-    print(f"  Com código rastreado: {with_code} ({with_code/total*100:.0f}%)")
-    print(f"\n  Por status:")
+    print(f"  Com documentação:     {with_docs} ({with_docs / total * 100:.0f}%)")
+    print(f"  Com código rastreado: {with_code} ({with_code / total * 100:.0f}%)")
+    print("\n  Por status:")
     for status, count in sorted(by_status.items()):
         print(f"    {status:15}: {count:3d}")
-    print(f"\n  Por fase:")
+    print("\n  Por fase:")
     for phase, count in sorted(by_phase.items(), key=lambda x: x[0]):
         print(f"    {phase:12}: {count:3d}")
 
@@ -488,14 +574,16 @@ def main():
         print("  ❌ Coverage baixa — pode haver problema no drift check")
 
     if args.verbose:
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("  Todas as features:")
         for feat in sorted_features:
-            print(f"  {feat.id:55} | {feat.phase:10} | {feat.status:12} | "
-                  f"docs={len(feat.docs):2d} refs={len(feat.code_refs):2d} | {feat.last_commit}")
+            print(
+                f"  {feat.id:55} | {feat.phase:10} | {feat.status:12} | "
+                f"docs={len(feat.docs):2d} refs={len(feat.code_refs):2d} | {feat.last_commit}"
+            )
 
     if args.dry_run:
-        print(f"\n[dry-run] Nenhum arquivo salvo.")
+        print("\n[dry-run] Nenhum arquivo salvo.")
         return 0
 
     # Salvar
