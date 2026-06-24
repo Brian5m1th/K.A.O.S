@@ -326,6 +326,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(ApiKeyMiddleware)
+app.add_middleware(UserContextMiddleware)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -340,9 +343,6 @@ app.add_middleware(
         "X-User-Role",
     ],
 )
-
-app.add_middleware(ApiKeyMiddleware)
-app.add_middleware(UserContextMiddleware)
 
 app.include_router(auth_router)
 app.include_router(capabilities_router)
