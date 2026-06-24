@@ -114,9 +114,7 @@ async def list_sessions(
         raise HTTPException(status_code=400, detail="user_id is required")
 
     repo = ConversationRepository(session)
-    sessions, total = await repo.list_sessions(
-        user_id=user_id, page=page, limit=limit
-    )
+    sessions, total = await repo.list_sessions(user_id=user_id, page=page, limit=limit)
 
     return ConversationsListResponse(
         total=total,
@@ -168,7 +166,12 @@ async def delete_session(
         raise HTTPException(status_code=400, detail="Invalid session_id format")
 
     deleted = await repo.delete_session(session_id=sid, user_id=user_id)
-    logger.info("[conversations] deleted session={} user={} count={}", session_id, user_id, deleted)
+    logger.info(
+        "[conversations] deleted session={} user={} count={}",
+        session_id,
+        user_id,
+        deleted,
+    )
     return {"deleted": deleted, "session_id": session_id}
 
 
@@ -198,10 +201,7 @@ async def summarize_session(
         raise HTTPException(status_code=404, detail="Session not found or empty")
 
     # Converter para Message objects
-    history = [
-        Message(role=t.role, content=t.content)
-        for t in turns
-    ]
+    history = [Message(role=t.role, content=t.content) for t in turns]
 
     # Gerar resumo
     summary = ConversationSummarizer.generate(history)
@@ -247,7 +247,9 @@ async def summarize_session(
                 status_code=409,
                 detail=f"Summary already exists. Use ?force=true to overwrite: {exc}",
             )
-        logger.info("[conversations] summary already exists (force=true), skipping Obsidian save")
+        logger.info(
+            "[conversations] summary already exists (force=true), skipping Obsidian save"
+        )
     except Exception as exc:
         logger.warning("[conversations] failed to save summary to Obsidian: {}", exc)
         # Não bloqueia a resposta — retorna resumo mesmo sem salvar

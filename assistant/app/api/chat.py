@@ -68,16 +68,18 @@ async def _persist_turn(
     try:
         async with db_session_factory() as session:
             repo = ConversationRepository(session)
-            await repo.save(ConversationTurn(
-                session_id=UUID(session_id),
-                user_id=user_id or "anonymous",
-                role=role,
-                content=content,
-                workflow_type=workflow_type,
-                tokens_used=tokens_used,
-                model_used=model_used,
-                provider=provider,
-            ))
+            await repo.save(
+                ConversationTurn(
+                    session_id=UUID(session_id),
+                    user_id=user_id or "anonymous",
+                    role=role,
+                    content=content,
+                    workflow_type=workflow_type,
+                    tokens_used=tokens_used,
+                    model_used=model_used,
+                    provider=provider,
+                )
+            )
     except Exception as exc:
         logger.debug("[conversation] falha ao persistir turno: {}", exc)
 
@@ -101,18 +103,30 @@ async def _persist_conversation(
     total_tokens = int(user_tokens + assistant_tokens)
 
     # Salvar user turn
-    asyncio.create_task(_persist_turn(
-        factory, sid, uid, "user", user_msg,
-        workflow_type=workflow_type,
-    ))
+    asyncio.create_task(
+        _persist_turn(
+            factory,
+            sid,
+            uid,
+            "user",
+            user_msg,
+            workflow_type=workflow_type,
+        )
+    )
     # Salvar assistant turn
-    asyncio.create_task(_persist_turn(
-        factory, sid, uid, "assistant", assistant_msg,
-        workflow_type=workflow_type,
-        tokens_used=total_tokens,
-        model_used=model_used,
-        provider=provider,
-    ))
+    asyncio.create_task(
+        _persist_turn(
+            factory,
+            sid,
+            uid,
+            "assistant",
+            assistant_msg,
+            workflow_type=workflow_type,
+            tokens_used=total_tokens,
+            model_used=model_used,
+            provider=provider,
+        )
+    )
     logger.debug("[conversation] persist triggered: session={}", sid)
 
 
@@ -122,18 +136,22 @@ def _wrap_stream_with_persist(
     workflow_type: str,
 ) -> AsyncIterator[str]:
     """Wrapper que coleta tokens do generator e persiste ao final."""
+
     async def wrapper():
         collected = ""
         async for token in gen:
             collected += token
             yield token
         # Ao final do stream, salvar a conversa
-        asyncio.create_task(_persist_conversation(
-            request=request,
-            user_msg=request.message,
-            assistant_msg=collected,
-            workflow_type=workflow_type,
-        ))
+        asyncio.create_task(
+            _persist_conversation(
+                request=request,
+                user_msg=request.message,
+                assistant_msg=collected,
+                workflow_type=workflow_type,
+            )
+        )
+
     return wrapper()
 
 
@@ -160,12 +178,14 @@ async def send_message(
         if result:
             _cache.set(request.message, result)
             # Persist fire-and-forget
-            asyncio.create_task(_persist_conversation(
-                request=request,
-                user_msg=request.message,
-                assistant_msg=result,
-                workflow_type="FAST",
-            ))
+            asyncio.create_task(
+                _persist_conversation(
+                    request=request,
+                    user_msg=request.message,
+                    assistant_msg=result,
+                    workflow_type="FAST",
+                )
+            )
             logger.debug("[finish] chat - send_message (CHAT)")
             return PlainTextResponse(result)
 

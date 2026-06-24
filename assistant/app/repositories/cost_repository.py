@@ -17,6 +17,7 @@ from app.models.cost_event import CostEvent
 @dataclass
 class CostEventData:
     """Input data for recording a cost event."""
+
     execution_id: UUID | None = None
     user_id: str | None = None
     provider: str = "unknown"
@@ -30,6 +31,7 @@ class CostEventData:
 @dataclass
 class CostBreakdown:
     """Aggregated cost by provider and workflow."""
+
     provider: str
     workflow: str
     total_usd: float
@@ -40,6 +42,7 @@ class CostBreakdown:
 @dataclass
 class CostSummary:
     """Overall cost summary for a period."""
+
     total_usd: float
     period: str  # "day" | "week" | "month"
     breakdown: list[CostBreakdown]
@@ -88,7 +91,9 @@ class CostRepository:
                 CostEvent.provider,
                 CostEvent.workflow,
                 func.sum(CostEvent.cost_usd).label("total_usd"),
-                func.sum(CostEvent.tokens_in + CostEvent.tokens_out).label("total_tokens"),
+                func.sum(CostEvent.tokens_in + CostEvent.tokens_out).label(
+                    "total_tokens"
+                ),
                 func.count().label("request_count"),
             )
             .where(*filters)
@@ -126,7 +131,9 @@ class CostRepository:
                 CostEvent.provider,
                 CostEvent.workflow,
                 func.sum(CostEvent.cost_usd).label("total_usd"),
-                func.sum(CostEvent.tokens_in + CostEvent.tokens_out).label("total_tokens"),
+                func.sum(CostEvent.tokens_in + CostEvent.tokens_out).label(
+                    "total_tokens"
+                ),
                 func.count().label("request_count"),
             )
             .where(CostEvent.created_at >= since)

@@ -33,7 +33,9 @@ def build_mcp_tool(server_name: str, tool_def: dict) -> StructuredTool | None:
     Returns None if the tool definition is invalid.
     """
     tool_name = tool_def.get("name", "unknown")
-    description = tool_def.get("description", f"MCP tool '{tool_name}' on server '{server_name}'")
+    description = tool_def.get(
+        "description", f"MCP tool '{tool_name}' on server '{server_name}'"
+    )
 
     fn = _make_tool_fn(server_name, tool_def)
 
@@ -49,7 +51,9 @@ def build_mcp_tool(server_name: str, tool_def: dict) -> StructuredTool | None:
         logger.debug("[mcp_adapter] built tool: {}", structured_name)
         return tool
     except Exception as exc:
-        logger.warning("[mcp_adapter] failed to build tool '{}': {}", structured_name, exc)
+        logger.warning(
+            "[mcp_adapter] failed to build tool '{}': {}", structured_name, exc
+        )
         return None
 
 
@@ -62,7 +66,9 @@ def register_all_mcp_tools() -> int:
 
     manager = MCPManager()
     if not manager.is_initialized():
-        logger.info("[mcp_adapter] MCPManager not initialized, skipping tool registration")
+        logger.info(
+            "[mcp_adapter] MCPManager not initialized, skipping tool registration"
+        )
         return 0
 
     count = 0

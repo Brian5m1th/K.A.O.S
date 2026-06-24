@@ -31,7 +31,9 @@ async def n8n_webhook(flow_name: str, payload: dict = {}) -> str:
         async with httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.post(url, json=payload)
             resp.raise_for_status()
-            logger.info("[n8n_webhook] invoked flow='{}' status={}", flow_name, resp.status_code)
+            logger.info(
+                "[n8n_webhook] invoked flow='{}' status={}", flow_name, resp.status_code
+            )
             return f'{{"success": true, "status": {resp.status_code}}}'
     except httpx.ConnectError:
         logger.warning("[n8n_webhook] N8N unavailable: {}", url)

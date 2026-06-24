@@ -62,7 +62,11 @@ class CostTracker(EventSubscriber):
             cost = self._estimate_cost(provider, tokens_in, tokens_out)
 
             execution = self._executions.get(event.execution_id)
-            workflow = execution["workflow"] if execution else event.data.get("workflow", "unknown")
+            workflow = (
+                execution["workflow"]
+                if execution
+                else event.data.get("workflow", "unknown")
+            )
 
             self._provider_costs[provider] += cost
             self._workflow_costs[workflow] += cost
@@ -74,7 +78,9 @@ class CostTracker(EventSubscriber):
             )
 
             # Persist no PostgreSQL (fire-and-forget)
-            user_id = event.data.get("user_id") or (execution.get("user_id") if execution else None)
+            user_id = event.data.get("user_id") or (
+                execution.get("user_id") if execution else None
+            )
             asyncio.create_task(
                 CostTracker._persist_cost_event(
                     execution_id=event.execution_id,
@@ -119,18 +125,21 @@ class CostTracker(EventSubscriber):
             factory = async_session_factory()
             async with factory() as session:
                 repo = CostRepository(session)
-                await repo.save(CostEventData(
-                    execution_id=execution_id,
-                    user_id=user_id,
-                    provider=provider,
-                    workflow=workflow,
-                    model=model,
-                    tokens_in=tokens_in,
-                    tokens_out=tokens_out,
-                    cost_usd=cost_usd,
-                ))
+                await repo.save(
+                    CostEventData(
+                        execution_id=execution_id,
+                        user_id=user_id,
+                        provider=provider,
+                        workflow=workflow,
+                        model=model,
+                        tokens_in=tokens_in,
+                        tokens_out=tokens_out,
+                        cost_usd=cost_usd,
+                    )
+                )
         except Exception as exc:
             from loguru import logger
+
             logger.debug("[cost_tracker] falha ao persistir custo: {}", exc)
 
     def summary(self) -> dict[str, Any]:

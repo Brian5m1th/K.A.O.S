@@ -85,8 +85,7 @@ class UniversalOrchestrator:
         # RF-A03: Validar capabilities contra role do usuário
         if user_role == "user" and workflow in _ADMIN_ONLY_WORKFLOWS:
             error_msg = (
-                f"Workflow '{workflow}' requires admin role. "
-                f"User role: '{user_role}'"
+                f"Workflow '{workflow}' requires admin role. User role: '{user_role}'"
             )
             logger.warning("[orchestrator] access denied: {}", error_msg)
             raise PermissionError(error_msg)

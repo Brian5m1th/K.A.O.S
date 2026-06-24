@@ -77,16 +77,22 @@ async def list_mcp_tools():
         health = server.get_health()
         status = "active" if health.get("status") == "healthy" else "disabled"
         for tool_def in server.get_tools():
-            tools.append(MCPToolResponse(
-                name=f"mcp_{server_name}_{tool_def.get('name', 'unknown')}",
-                server=server_name,
-                description=tool_def.get("description", ""),
-                schema=MCPSchema(
-                    type=tool_def.get("inputSchema", {}).get("type", "object"),
-                    properties=tool_def.get("inputSchema", {}).get("properties", {}),
-                ) if tool_def.get("inputSchema") else None,
-                status=status,
-            ))
+            tools.append(
+                MCPToolResponse(
+                    name=f"mcp_{server_name}_{tool_def.get('name', 'unknown')}",
+                    server=server_name,
+                    description=tool_def.get("description", ""),
+                    schema=MCPSchema(
+                        type=tool_def.get("inputSchema", {}).get("type", "object"),
+                        properties=tool_def.get("inputSchema", {}).get(
+                            "properties", {}
+                        ),
+                    )
+                    if tool_def.get("inputSchema")
+                    else None,
+                    status=status,
+                )
+            )
 
     return MCPToolsResponse(total=len(tools), tools=tools)
 
@@ -132,13 +138,15 @@ async def register_mcp_server(payload: MCPServerRequest):
     # Adicionar ao registry
     registry = MCPRegistry.load()
     registry.setdefault("servers", [])
-    registry["servers"].append({
-        "name": payload.name,
-        "command": payload.command,
-        "args": payload.args,
-        "env": payload.env,
-        "enabled": True,
-    })
+    registry["servers"].append(
+        {
+            "name": payload.name,
+            "command": payload.command,
+            "args": payload.args,
+            "env": payload.env,
+            "enabled": True,
+        }
+    )
     MCPRegistry.save(registry)
 
     # Tentar inicializar

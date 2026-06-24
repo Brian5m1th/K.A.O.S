@@ -17,6 +17,7 @@ from app.models.conversation import Conversation
 @dataclass
 class ConversationTurn:
     """Represents a single turn in a conversation (user or assistant)."""
+
     session_id: UUID
     user_id: str
     role: str  # "user" | "assistant" | "system"
@@ -42,6 +43,7 @@ class ConversationTurn:
 @dataclass
 class SessionSummary:
     """Summarized view of a conversation session."""
+
     session_id: UUID
     user_id: str
     started_at: datetime
@@ -145,21 +147,21 @@ class ConversationRepository:
             wf_result = await self._session.execute(wf_stmt)
             workflow_types = [r[0] for r in wf_result if r[0]]
 
-            sessions.append(SessionSummary(
-                session_id=row.session_id,
-                user_id=user_id,
-                started_at=row.started_at,
-                last_message_at=row.last_message_at,
-                message_count=row.message_count,
-                workflow_types=workflow_types,
-                total_tokens=row.total_tokens or 0,
-            ))
+            sessions.append(
+                SessionSummary(
+                    session_id=row.session_id,
+                    user_id=user_id,
+                    started_at=row.started_at,
+                    last_message_at=row.last_message_at,
+                    message_count=row.message_count,
+                    workflow_types=workflow_types,
+                    total_tokens=row.total_tokens or 0,
+                )
+            )
 
         return sessions, total
 
-    async def delete_session(
-        self, session_id: str | UUID, user_id: str
-    ) -> int:
+    async def delete_session(self, session_id: str | UUID, user_id: str) -> int:
         """Remove all turns for a session. Returns count of deleted records."""
         sid = UUID(session_id) if isinstance(session_id, str) else session_id
         stmt = delete(Conversation).where(

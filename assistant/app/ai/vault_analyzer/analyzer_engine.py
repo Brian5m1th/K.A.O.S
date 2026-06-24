@@ -147,15 +147,17 @@ class AnalyzerEngine:
         try:
             from app.observability.event_bus import EventBus, Event
 
-            await EventBus.publish(Event(
-                name="vault.analysis.completed",
-                data={
-                    "coverage_score": analysis.coverage_score,
-                    "drift_level": analysis.drift_level,
-                    "total_issues": len(analysis.issues),
-                    "generated_at": analysis.generated_at,
-                },
-            ))
+            await EventBus.publish(
+                Event(
+                    name="vault.analysis.completed",
+                    data={
+                        "coverage_score": analysis.coverage_score,
+                        "drift_level": analysis.drift_level,
+                        "total_issues": len(analysis.issues),
+                        "generated_at": analysis.generated_at,
+                    },
+                )
+            )
         except Exception as exc:
             logger.warning("[analyzer_engine] falha ao emitir evento: {}", exc)
 
