@@ -38,6 +38,8 @@ from app.api.opencode import router as opencode_router
 from app.api.admin import router as admin_router
 from app.api.settings_api import router as settings_api_router
 from app.api.integrations import router as integrations_router
+from app.api.opencode import set_watcher as set_opencode_watcher
+from app.core.opencode_watcher import OpenCodeWatcher
 from app.config.settings import settings
 from app.middleware.auth import ApiKeyMiddleware
 from app.middleware.user_context import UserContextMiddleware
@@ -103,6 +105,7 @@ def configure_logging(log_level: str, env: str) -> None:
 configure_logging(settings.LOG_LEVEL, settings.APP_ENV)
 
 _watcher: VaultWatcher | None = None
+_opencode_watcher: OpenCodeWatcher | None = None
 
 _embedder_ready = False
 _tools_registered = False
@@ -272,6 +275,12 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     _watcher = VaultWatcher()
     _watcher.start()
 
+    _opencode_watcher = OpenCodeWatcher()
+    _opencode_watcher.start()
+    set_opencode_watcher(_opencode_watcher)
+    logger.info("[opencode] watcher {} started",
+                " (fallback mode)" if _opencode_watcher.is_fallback_mode() else "")
+
     asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")
 
@@ -284,6 +293,8 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     yield
     if _watcher:
         _watcher.stop()
+    if _opencode_watcher:
+        _opencode_watcher.stop()
     SDDWatcher.stop()
     logger.debug("[finish] {} - encerrado", settings.APP_NAME)
 
