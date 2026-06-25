@@ -66,7 +66,7 @@ def main() -> None:
         if platform == "windows-x86_64":
             url = (
                 f"https://github.com/{REPO}/releases/download/"
-                f"{args.tag}/KAOS_{args.version}_x64.msi"
+                f"{args.tag}/KAOS_{args.version}_x64_en-US.msi"
             )
         elif platform == "darwin-aarch64":
             url = (
