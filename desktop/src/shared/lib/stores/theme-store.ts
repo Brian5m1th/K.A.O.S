@@ -3,7 +3,7 @@ import { kaosFetch } from "@/shared/api/kaos-client";
 
 const SERVER_URL = "http://localhost:8000";
 
-type ThemeMode = "dark" | "light" | "kaos-blue" | "purple" | "terminal";
+type ThemeMode = "dark" | "light" | "kaos-blue" | "purple" | "terminal" | "cyberpunk" | "nordic" | "forest";
 
 const ACCENT_COLORS: Record<string, string> = {
   "#3B82F6": "Blue",
@@ -59,6 +59,33 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#00cc33",
     "--text-dim": "#008a22",
     "--border-subtle": "#244224",
+  },
+  cyberpunk: {
+    "--bg-canvas": "#05000a",
+    "--bg-surface": "#120024",
+    "--bg-active": "#22003c",
+    "--text-primary": "#00ffcc",
+    "--text-muted": "#ff007f",
+    "--text-dim": "#bc00dd",
+    "--border-subtle": "#22003c",
+  },
+  nordic: {
+    "--bg-canvas": "#2e3440",
+    "--bg-surface": "#3b4252",
+    "--bg-active": "#434c5e",
+    "--text-primary": "#eceff4",
+    "--text-muted": "#d8dee9",
+    "--text-dim": "#81a1c1",
+    "--border-subtle": "#434c5e",
+  },
+  forest: {
+    "--bg-canvas": "#081008",
+    "--bg-surface": "#102010",
+    "--bg-active": "#1b331b",
+    "--text-primary": "#e2efe2",
+    "--text-muted": "#8fb38f",
+    "--text-dim": "#5c8a5c",
+    "--border-subtle": "#1b331b",
   },
 };
 

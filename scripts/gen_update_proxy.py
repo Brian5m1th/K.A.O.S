@@ -79,7 +79,7 @@ def main() -> None:
                 f"{args.tag}/KAOS_{args.version}_amd64.AppImage"
             )
 
-        platforms[platform] = {"url": url if sig else "", "signature": sig}
+        platforms[platform] = {"url": url, "signature": sig}
 
     output = {
         "version": args.version,
