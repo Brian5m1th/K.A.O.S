@@ -40,6 +40,6 @@ async def system_status():
         "ollama": await _check("ollama", f"{ollama_base}/api/tags"),
         "postgres": await _check_postgres(),
         "n8n": await _check("n8n", "http://n8n:5678/healthz"),
-        "grafana": await _check("grafana", "http://grafana:3001/api/health"),
+        "grafana": await _check("grafana", "http://grafana:3000/api/health"),
         "prometheus": await _check("prometheus", "http://prometheus:9090/-/ready"),
     }

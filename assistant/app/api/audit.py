@@ -22,11 +22,17 @@ async def run_audit(background_tasks: BackgroundTasks):
     return {
         "coverage": round(report.coverage, 1),
         "driftLevel": report.drift_level,
+        "drift_level": report.drift_level,
         "missingFeatures": report.missing_features,
+        "missing_features": report.missing_features,
         "outdatedDocs": report.outdated_docs,
+        "outdated_docs": report.outdated_docs,
         "inconsistentPhases": report.inconsistent_phases,
+        "inconsistent_phases": report.inconsistent_phases,
         "orphanedSDDs": report.orphaned_sdds,
+        "orphaned_sdds": report.orphaned_sdds,
         "undocumentedCode": report.undocumented_code,
+        "undocumented_code": report.undocumented_code,
         "timestamp": report.generated_at,
     }
 
@@ -38,13 +44,31 @@ async def get_snapshot():
     if not snapshot:
         return {"error": "No snapshot available. Run audit first."}
 
+    report = AuditEngine.load_latest_report()
+    missing_features = report.missing_features if report else []
+    outdated_docs = report.outdated_docs if report else []
+    inconsistent_phases = report.inconsistent_phases if report else []
+    orphaned_sdds = report.orphaned_sdds if report else []
+    undocumented_code = report.undocumented_code if report else []
+
     return {
         "features": [f.to_dict() for f in snapshot.features],
         "coverage": snapshot.coverage,
         "driftLevel": snapshot.drift_level,
+        "drift_level": snapshot.drift_level,
         "lastCommit": snapshot.last_commit,
         "missingCount": snapshot.missing_count,
         "outdatedCount": snapshot.outdated_count,
+        "missing_features": missing_features,
+        "missingFeatures": missing_features,
+        "outdated_docs": outdated_docs,
+        "outdatedDocs": outdated_docs,
+        "inconsistent_phases": inconsistent_phases,
+        "inconsistentPhases": inconsistent_phases,
+        "orphaned_sdds": orphaned_sdds,
+        "orphanedSDDs": orphaned_sdds,
+        "undocumented_code": undocumented_code,
+        "undocumentedCode": undocumented_code,
         "graphSummary": {
             "totalNodes": snapshot.graph_summary.total_nodes,
             "totalEdges": snapshot.graph_summary.total_edges,

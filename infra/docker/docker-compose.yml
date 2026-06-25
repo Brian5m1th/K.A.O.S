@@ -67,6 +67,14 @@ services:
       - postgres
     restart: unless-stopped
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
   kaos-api:
     build:
       context: ../../assistant
@@ -77,18 +85,20 @@ services:
       - .env
     environment:
       - APP_ENV=production
-      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - OLLAMA_BASE_URL=http://ollama:11434
     volumes:
       - ../../workspace:/workspace
       - ../../docs:/vault
       - ./logs:/var/log/kaos-api
       - hf_cache:/root/.cache/huggingface
       - ../../.git:/.git:ro
+      - ../../config:/app/config
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
       - postgres
       - qdrant
+      - ollama
     restart: unless-stopped
 
   prometheus:
@@ -153,3 +163,4 @@ volumes:
   loki_data:
   grafana_data:
   hf_cache:
+  ollama_data:

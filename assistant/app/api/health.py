@@ -23,7 +23,7 @@ def get_llm_service() -> LLMService:
 
 @router.get("", response_model=HealthResponse)
 async def health_check() -> HealthResponse:
-    logger.info("[info] health - check OK")
+    logger.debug("[info] health - check OK")
     return HealthResponse(status="ok", version="0.1.0")
 
 
@@ -31,10 +31,10 @@ async def health_check() -> HealthResponse:
 async def readiness_check(
     llm: LLMService = Depends(get_llm_service),
 ) -> ReadinessResponse:
-    logger.info("[start] health - readiness_check")
+    logger.debug("[start] health - readiness_check")
     ollama_ok = await llm.check_availability()
     if not ollama_ok:
-        logger.warning("[fallback] health - Ollama indisponivel, modo degradado")
+        logger.debug("[fallback] health - Ollama indisponivel, modo degradado")
     logger.debug("[finish] health - readiness_check")
     return ReadinessResponse(
         status="ready" if ollama_ok else "degraded",

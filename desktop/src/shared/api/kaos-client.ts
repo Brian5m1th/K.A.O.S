@@ -1,7 +1,12 @@
 let getAccessTokenFn: (() => string | null) | null = null;
+let getServerUrlFn: (() => string) | null = null;
 
 export function setAccessTokenProvider(fn: () => string | null) {
   getAccessTokenFn = fn;
+}
+
+export function setServerUrlProvider(fn: () => string) {
+  getServerUrlFn = fn;
 }
 
 export async function kaosFetch(
@@ -20,5 +25,13 @@ export async function kaosFetch(
   }
 
   headers.set("Content-Type", "application/json");
-  return fetch(url, { ...options, headers });
+
+  // Prepends serverUrl if relative path is provided
+  let finalUrl = url;
+  if (url.startsWith("/")) {
+    const serverUrl = getServerUrlFn ? getServerUrlFn() : "http://localhost:8000";
+    finalUrl = `${serverUrl.replace(/\/$/, "")}${url}`;
+  }
+
+  return fetch(finalUrl, { ...options, headers });
 }

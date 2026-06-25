@@ -44,7 +44,7 @@ async def observability_health():
     for name, url in [
         ("prometheus", "http://prometheus:9090/-/ready"),
         ("loki", "http://loki:3100/ready"),
-        ("grafana", "http://grafana:3001/api/health"),
+        ("grafana", "http://grafana:3000/api/health"),
     ]:
         try:
             async with httpx.AsyncClient(timeout=2) as c:
