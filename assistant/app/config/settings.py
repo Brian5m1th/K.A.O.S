@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     N8N_WEBHOOK_URL: str = ""
     N8N_API_URL: str = "http://n8n:5678"
     N8N_EVENTS: list[str] = ["workflow_completed", "drift.detected", "vault.analysis.completed"]
+    KAOS_SECRET_KEY: str = ""
 
     AUDIT_INTERVAL_DAYS: int = 7
 

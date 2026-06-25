@@ -25,6 +25,8 @@ import WelcomePage from "./pages/welcome";
 import PromptsPage from "./pages/prompts";
 import EventsPage from "./pages/events";
 import CostsPage from "./pages/costs";
+import AutomationStudioPage from "./pages/automation-studio";
+import AutomationMarketplacePage from "./pages/marketplace";
 
 function PageFallback() {
   return (
@@ -239,6 +241,22 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><CostsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/automation/studio"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><AutomationStudioPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/automation/marketplace"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><AutomationMarketplacePage /></AnimatedPage>
               </Suspense>
             }
           />

@@ -42,6 +42,7 @@ from app.api.docs import router as docs_router
 from app.api.settings_api import router as settings_api_router
 from app.api.integrations import router as integrations_router
 from app.api.mcp import router as mcp_router
+from app.api.automation import router as automation_router
 from app.api.opencode import set_watcher as set_opencode_watcher
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.config.settings import settings
@@ -306,6 +307,16 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")
 
+    # Start Automation Engine Bus worker and auto-import templates
+    try:
+        from app.core.automation_bus import AutomationBus
+
+        await AutomationBus.start_worker()
+        asyncio.create_task(AutomationBus.auto_import_workflows())
+        logger.info("[automation] Automation Engine Bus worker started and auto-importer scheduled")
+    except Exception as exc:
+        logger.warning("[automation] Failed to initialize automation engine: {}", exc)
+
     # Log all registered routes for debugging
     logger.info("[routes] Registered routes:")
     for route in _app.routes:
@@ -318,6 +329,11 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     if _opencode_watcher:
         _opencode_watcher.stop()
     SDDWatcher.stop()
+    try:
+        from app.core.automation_bus import AutomationBus
+        asyncio.run(AutomationBus.stop_worker())
+    except Exception:
+        pass
     logger.debug("[finish] {} - encerrado", settings.APP_NAME)
 
 
@@ -376,6 +392,7 @@ app.include_router(mcp_router)
 app.include_router(conversations_router)
 app.include_router(kirl_router)
 app.include_router(docs_router)
+app.include_router(automation_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],
