@@ -22,7 +22,8 @@ async def _check_postgres() -> bool:
         from sqlalchemy import text
         from app.database import async_session_factory
 
-        async with async_session_factory() as s:
+        factory = async_session_factory()
+        async with factory() as s:
             r = await s.execute(text("SELECT 1"))
             return r.scalar() == 1
     except Exception as e:
@@ -36,7 +37,7 @@ async def system_status():
     ollama_base = settings.OLLAMA_BASE_URL.rstrip("/")
     return {
         "backend": True,
-        "qdrant": await _check("qdrant", f"http://{q_host}:{q_port}/health"),
+        "qdrant": await _check("qdrant", f"http://{q_host}:{q_port}/"),
         "ollama": await _check("ollama", f"{ollama_base}/api/tags"),
         "postgres": await _check_postgres(),
         "n8n": await _check("n8n", "http://n8n:5678/healthz"),
