@@ -39,13 +39,13 @@ class LLMService:
         logger.debug("[finish] LLMService - stream_chat")
 
     async def check_availability(self) -> bool:
-        logger.info("[start] LLMService - check_availability")
+        logger.debug("[start] LLMService - check_availability")
         try:
             async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.get(f"{self._base_url}/api/tags")
                 logger.debug("[finish] LLMService - check_availability")
                 return response.status_code == 200
-        except httpx.ConnectError:
-            logger.error("[error] LLMService - Ollama nao disponivel")
-            logger.warning("[fallback] LLMService - operacao sem Ollama")
+        except Exception:
+            logger.debug("[error] LLMService - Ollama nao disponivel")
+            logger.debug("[fallback] LLMService - operacao sem Ollama")
             return False

@@ -25,7 +25,21 @@ pub struct UpdaterState {
 #[tauri::command]
 pub async fn check_for_update(app: AppHandle) -> Result<UpdateResult, String> {
     let updater = app.updater().map_err(|e| e.to_string())?;
-    let update = updater.check().await.map_err(|e| e.to_string())?;
+    let update = match updater.check().await {
+        Ok(u) => u,
+        Err(e) => {
+            let err_str = e.to_string();
+            if err_str.contains("relative URL without a base") || err_str.contains("empty") {
+                return Ok(UpdateResult {
+                    available: false,
+                    version: None,
+                    date: None,
+                    body: None,
+                });
+            }
+            return Err(err_str);
+        }
+    };
 
     if let Some(update) = update {
         Ok(UpdateResult {

@@ -20,6 +20,7 @@ import KnowledgeGraphPage from "./pages/knowledge-graph";
 import SetupPage from "./pages/setup";
 import LoginPage from "./pages/login";
 import UsersPage from "./pages/users";
+import ToolsPage from "./pages/tools";
 
 function PageFallback() {
   return (
@@ -161,6 +162,14 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><SettingsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/tools"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><ToolsPage /></AnimatedPage>
               </Suspense>
             }
           />

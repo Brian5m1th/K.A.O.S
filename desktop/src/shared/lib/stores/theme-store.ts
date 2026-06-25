@@ -124,7 +124,7 @@ export const useThemeStore = create<ThemeState>((set, get) => {
 
     loadFromBackend: async () => {
       try {
-        const res = await kaosFetch(`${SERVER_URL}/api/settings`, "");
+        const res = await kaosFetch("/api/settings", "");
         if (res.ok) {
           const data = await res.json();
           const mode = data.theme || "dark";
@@ -139,7 +139,7 @@ export const useThemeStore = create<ThemeState>((set, get) => {
     saveToBackend: async () => {
       const { mode, accentColor } = get();
       try {
-        await kaosFetch(`${SERVER_URL}/api/settings`, "", {
+        await kaosFetch("/api/settings", "", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ theme: mode, accent_color: accentColor }),

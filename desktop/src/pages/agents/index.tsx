@@ -8,6 +8,7 @@ import { Tabs } from "@/shared/ui/tabs";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAgentStore, type AgentConfig, type AgentStatus } from "@/shared/lib/stores";
 import { Bot, MessageSquare, Play, Square, RotateCcw, Plus } from "lucide-react";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 const AGENT_STATUS_MAP: Record<AgentStatus, { variant: "success" | "info" | "warning" | "error" | "neutral"; label: string }> = {
   idle: { variant: "neutral", label: "IDLE" },
@@ -43,12 +44,64 @@ export default function AgentsPage() {
 
   const [systemPrompt, setSystemPrompt] = useState("");
 
-  // Register default agents on mount
+  // Register real agents from backend on mount
   useEffect(() => {
-    DEFAULT_AGENTS.forEach((cfg) => {
-      if (!agents[cfg.id]) register(cfg);
-    });
-  }, []);
+    const fetchOpenCodeAgents = async () => {
+      try {
+        const res = await kaosFetch("/api/opencode/agents", "");
+        if (res.ok) {
+          const data = await res.json();
+          const list = data.agents || [];
+          
+          if (list.length === 0) {
+            // Fallback to default mock agents if no agents are found on backend
+            DEFAULT_AGENTS.forEach((cfg) => {
+              if (!agents[cfg.id]) register(cfg);
+            });
+            return;
+          }
+
+          for (const a of list) {
+            try {
+              const detailRes = await kaosFetch(`/api/opencode/agent/${a.id}`, "");
+              if (detailRes.ok) {
+                const detail = await detailRes.json();
+                const content = detail.content || "";
+                
+                // Parse name from heading or fallback to file name
+                const nameLine = content.split("\n").find((line: string) => line.trim().startsWith("# "));
+                const name = nameLine ? nameLine.replace(/^#\s+/, "").trim() : a.name;
+                
+                const agentCfg: AgentConfig = {
+                  id: a.id,
+                  name: name,
+                  model: "qwen3:14b",
+                  systemPrompt: content,
+                  temperature: 0.1,
+                  topP: 0.9,
+                };
+                register(agentCfg);
+              }
+            } catch (err) {
+              console.error("Failed to load agent detail:", a.id, err);
+            }
+          }
+        } else {
+          // Fallback on HTTP error
+          DEFAULT_AGENTS.forEach((cfg) => {
+            if (!agents[cfg.id]) register(cfg);
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch opencode agents:", err);
+        // Fallback on connect error
+        DEFAULT_AGENTS.forEach((cfg) => {
+          if (!agents[cfg.id]) register(cfg);
+        });
+      }
+    };
+    fetchOpenCodeAgents();
+  }, [register]);
 
   const selectedAgent = selectedId ? agents[selectedId] : null;
 

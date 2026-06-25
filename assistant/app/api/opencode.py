@@ -166,3 +166,24 @@ async def get_agent(agent_id: str):
     if not f.exists():
         raise HTTPException(404, detail="Agent not found")
     return {"id": agent_id, "content": f.read_text(encoding="utf-8")}
+
+
+@router.get("/{category}/{item_id}")
+async def get_category_item(category: str, item_id: str):
+    if category not in SCAN_DIRS:
+        raise HTTPException(404, detail=f"Unknown category '{category}'")
+    subdir = SCAN_DIRS[category]
+    for ext in SUPPORTED_EXTENSIONS:
+        f = _opencode_root() / subdir / f"{item_id}{ext}"
+        if f.exists():
+            try:
+                return {
+                    "id": item_id,
+                    "category": category,
+                    "file": f.name,
+                    "content": f.read_text(encoding="utf-8")
+                }
+            except Exception as exc:
+                raise HTTPException(500, detail=f"Failed to read file: {exc}")
+    raise HTTPException(404, detail=f"Item '{item_id}' not found in category '{category}'")
+

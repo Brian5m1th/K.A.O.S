@@ -11,6 +11,7 @@ import {
   Settings,
   FileText,
   Users,
+  Wrench,
 } from "lucide-react";
 import { useSystemStore } from "@/shared/lib/stores";
 
@@ -28,6 +29,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: "agents", label: "Agents", path: "/agents", icon: Bot },
   { id: "pipelines", label: "Pipelines", path: "/pipelines", icon: Container },
   { id: "vault", label: "Knowledge", path: "/vault", icon: BookOpen },
+  { id: "tools", label: "Tools & Registry", path: "/tools", icon: Wrench },
   { id: "observability", label: "Observability", path: "/observability", icon: Activity },
   { id: "users", label: "Users", path: "/users", icon: Users },
   { id: "documentation", label: "Doc Health", path: "/documentation", icon: FileText },
