@@ -196,9 +196,18 @@ export default function ChatPage() {
     clearMessages();
   };
 
-  const handleProviderChange = (providerId: string) => {
+  const handleProviderChange = async (providerId: string) => {
     setSelectedProvider(providerId);
     setFastMode(false);
+    try {
+      await kaosFetch(`${serverUrl}/api/setup/provider/active`, "", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ provider: providerId }),
+      });
+    } catch (e) {
+      console.error("Failed to sync active provider to backend:", e);
+    }
   };
 
   const handleModelChange = (model: string) => {

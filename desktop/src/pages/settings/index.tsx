@@ -63,6 +63,7 @@ export default function SettingsPage() {
   const [embeddingModel, setEmbeddingModel] = useState("");
   const [integrations, setIntegrations] = useState<IntegrationInfo[]>([]);
   const [envVars, setEnvVars] = useState<{ key: string; value: string }[]>([]);
+  const [activeProvider, setActiveProvider] = useState("ollama");
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -74,6 +75,7 @@ export default function SettingsPage() {
           setProviders(data.providers || []);
           setFallbackChain(data.fallbackChain || []);
           setEmbeddingModel(data.embeddingModel || "");
+          setActiveProvider(data.activeProvider || "ollama");
           const initialForms: Record<string, ProviderFormState> = {};
           for (const p of data.providers || []) {
             initialForms[p.id] = {
@@ -132,6 +134,18 @@ export default function SettingsPage() {
       });
       setProviders((prev) => prev.map((p) => p.id === id ? { ...p, configured: true } : p));
     } catch {} finally { setForms((s) => ({ ...s, [id]: { ...s[id], saving: false } })); }
+  };
+
+  const handleActivate = async (id: string) => {
+    try {
+      const res = await kaosFetch(`${SERVER_URL}/api/setup/provider/active`, "", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ provider: id }),
+      });
+      if (res.ok) {
+        setActiveProvider(id);
+      }
+    } catch {}
   };
 
   const handleSaveGlobal = async () => {
@@ -236,6 +250,9 @@ export default function SettingsPage() {
                             {p.latency}ms
                           </span>
                         )}
+                        {activeProvider === p.id && (
+                          <Badge variant="info">Active</Badge>
+                        )}
                         <Badge variant={
                           p.status === "healthy" ? "success" :
                           p.status === "unhealthy" ? "error" :
@@ -259,6 +276,11 @@ export default function SettingsPage() {
                     <Button variant="primary" size="sm" className="flex-1" onClick={() => handleSave(p.id)} disabled={f?.saving}>
                       {f?.saving ? <Loader2 className="h-3 w-3 mr-1 animate-spin" /> : <CheckCircle2 className="h-3 w-3 mr-1" />} Save
                     </Button>
+                    {activeProvider !== p.id && (
+                      <Button variant="secondary" size="sm" className="flex-1" onClick={() => handleActivate(p.id)} disabled={!p.configured && p.id !== "ollama"}>
+                        Activate
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>

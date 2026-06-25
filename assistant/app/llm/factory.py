@@ -69,6 +69,15 @@ class LLMFactory:
         if model_key in settings.MODEL_MAP:
             return settings.MODEL_MAP[model_key]
 
+        # Smart provider resolution from model name prefix as a safety fallback
+        model_lower = model_key.lower()
+        if model_lower.startswith("gpt-") or model_lower.startswith("text-davinci-") or model_lower == "gpt-4o":
+            return {"provider": "openai", "model": model_key}
+        elif model_lower.startswith("claude-"):
+            return {"provider": "claude", "model": model_key}
+        elif model_lower.startswith("gemini-"):
+            return {"provider": "gemini", "model": model_key}
+
         return {"provider": active["provider"], "model": model_key}
 
     def _create_provider(
