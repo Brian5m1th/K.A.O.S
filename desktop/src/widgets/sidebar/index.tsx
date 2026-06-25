@@ -13,7 +13,7 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
-import { useSystemStore } from "@/shared/lib/stores";
+import { useSystemStore, useUpdateStore } from "@/shared/lib/stores";
 
 interface NavItem {
   id: string;
@@ -40,12 +40,13 @@ export function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
   const systemStatus = useSystemStore((s) => s.status);
+  const currentVersion = useUpdateStore((s) => s.currentVersion);
 
   return (
     <aside className="flex h-full w-56 flex-col border-r border-border-subtle bg-surface">
       <div className="flex items-center gap-2 border-b border-border-subtle px-4 py-3">
         <span className="text-sm font-bold text-text-primary">KAOS</span>
-        <span className="text-[10px] text-text-dim">v0.5.0</span>
+        <span className="text-[10px] text-text-dim">v{currentVersion}</span>
       </div>
 
       <nav className="flex-1 space-y-1 p-2">

@@ -26,6 +26,7 @@ interface UpdateState {
   setLastCheckAt: (date: string) => void;
   setError: (error: string | null) => void;
   setChannel: (channel: UpdateChannel) => void;
+  setCurrentVersion: (version: string) => void;
 }
 
 /**
@@ -34,7 +35,7 @@ interface UpdateState {
  * Segue o padrao de system-store.ts (G-02):
  * - create()(...persist(...)) com partialize para persistir so o necessario
  * - Mutacoes atomicas chamadas APENAS pelo useUpdaterService
- * - currentVersion vem de __APP_VERSION__ (injetado pelo Vite)
+ * - currentVersion vem de __APP_VERSION__ (injetado pelo Vite) como fallback, mas atualizada dinamicamente
  */
 export const useUpdateStore = create<UpdateState>()(
   persist(
@@ -53,6 +54,7 @@ export const useUpdateStore = create<UpdateState>()(
       setLastCheckAt: (lastCheckAt) => set({ lastCheckAt }),
       setError: (error) => set({ error }),
       setChannel: (channel) => set({ channel }),
+      setCurrentVersion: (currentVersion) => set({ currentVersion }),
     }),
     {
       name: "kaos-update-store",

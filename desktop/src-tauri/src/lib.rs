@@ -58,9 +58,11 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             check_server,
             check_ollama,
+            updater::get_app_version,
             updater::check_for_update,
             updater::download_and_install,
             updater::install_update,
+            updater::ensure_docker_services,
         ])
         .run(tauri::generate_context!())
         .expect("error while running KAOS");

@@ -43,7 +43,7 @@ interface ProviderFormState {
   testing: boolean; saving: boolean;
 }
 
-const THEMES = ["dark", "light", "kaos-blue", "purple", "terminal"] as const;
+const THEMES = ["dark", "light", "kaos-blue", "purple", "terminal", "cyberpunk", "nordic", "forest"] as const;
 const ACCENT_COLORS = ["#3B82F6", "#8B5CF6", "#10B981", "#F59E0B", "#EF4444", "#06B6D4"];
 
 export default function SettingsPage() {
@@ -188,7 +188,7 @@ export default function SettingsPage() {
                       : "border-border-subtle bg-canvas/50 opacity-60 hover:opacity-100"
                   }`}
                 >
-                  {t.includes("dark") || t.includes("kaos") || t.includes("purple") || t.includes("terminal")
+                  {t !== "light"
                     ? <Moon className="h-6 w-6 text-accent-primary" />
                     : <Sun className="h-6 w-6 text-text-muted" />
                   }

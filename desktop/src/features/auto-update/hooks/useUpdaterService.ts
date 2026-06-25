@@ -39,10 +39,13 @@ export function useUpdaterService() {
     const store = useUpdateStore.getState();
     store.setPhase("checking");
     store.setError(null);
+    console.log("[UpdaterService] Iniciando verificacao de atualizacoes...");
     try {
       const result = await invoke<UpdateResult>("check_for_update");
+      console.log("[UpdaterService] Resposta do check_for_update:", result);
       store.setLastCheckAt(new Date().toISOString());
       if (result.available) {
+        console.log(`[UpdaterService] Nova versao disponivel: v${result.version}`);
         store.setUpdate({
           version: result.version!,
           date: result.date!,
@@ -54,9 +57,11 @@ export function useUpdaterService() {
           payload: { version: result.version!, date: result.date! },
         });
       } else {
+        console.log("[UpdaterService] Nenhuma atualizacao disponivel.");
         store.setPhase("not-available");
       }
     } catch (e) {
+      console.error("[UpdaterService] Erro ao verificar atualizacoes:", e);
       store.setError(String(e));
       store.setPhase("error");
       eventBus.emit({
@@ -72,6 +77,7 @@ export function useUpdaterService() {
     store.setProgress(0);
     store.setError(null);
     clearListeners();
+    console.log("[UpdaterService] Iniciando download da atualizacao...");
 
     try {
       const unlistenProgress = await listen<ProgressPayload>(
@@ -79,15 +85,18 @@ export function useUpdaterService() {
         (ev) => {
           const s = useUpdateStore.getState();
           if (ev.payload.total) {
-            s.setProgress(
-              Math.round((ev.payload.downloaded / ev.payload.total) * 100),
-            );
+            const pct = Math.round((ev.payload.downloaded / ev.payload.total) * 100);
+            console.log(`[UpdaterService] Progresso do download: ${pct}% (${ev.payload.downloaded}/${ev.payload.total} bytes)`);
+            s.setProgress(pct);
+          } else {
+            console.log(`[UpdaterService] Progresso do download: ${ev.payload.downloaded} bytes (total indefinido)`);
           }
         },
       );
       unlistenersRef.current.push(unlistenProgress);
 
       const unlistenReady = await listen("update:ready", () => {
+        console.log("[UpdaterService] Download concluido com sucesso e pronto para instalacao.");
         useUpdateStore.getState().setPhase("ready");
         clearListeners();
       });
@@ -97,6 +106,7 @@ export function useUpdaterService() {
       const unlistenError = await listen<{ message: string }>(
         "update:error",
         (ev) => {
+          console.error("[UpdaterService] Erro emitido durante o download:", ev.payload.message);
           const s = useUpdateStore.getState();
           s.setError(ev.payload.message);
           s.setPhase("error");
@@ -111,6 +121,7 @@ export function useUpdaterService() {
 
       await invoke("download_and_install");
     } catch (e) {
+      console.error("[UpdaterService] Erro ao chamar download_and_install:", e);
       const s = useUpdateStore.getState();
       s.setError(String(e));
       s.setPhase("error");
@@ -123,7 +134,13 @@ export function useUpdaterService() {
   }, [clearListeners]);
 
   const installUpdate = useCallback(async () => {
-    await invoke("install_update");
+    console.log("[UpdaterService] Iniciando processo de instalacao do update...");
+    try {
+      await invoke("install_update");
+      console.log("[UpdaterService] Comando de instalacao enviado ao backend Rust. O app deve reiniciar.");
+    } catch (e) {
+      console.error("[UpdaterService] Erro ao invocar install_update:", e);
+    }
   }, []);
 
   return { checkForUpdates, downloadUpdate, installUpdate };

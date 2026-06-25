@@ -12,8 +12,8 @@
 
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #0B0F14;
-    color: #F3F4F6;
+    background-color: var(--bg-canvas, #09090b);
+    color: var(--text-primary, #fafafa);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
