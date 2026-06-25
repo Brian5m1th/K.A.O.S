@@ -136,8 +136,11 @@ pub async fn install_update(app: AppHandle) -> Result<(), String> {
                     format!("Install falhou: {}", e)
                 })?;
             println!("[updater] Instalacao bem-sucedida. Reiniciando o aplicativo...");
-            app.restart();
-            Ok(())
+            #[allow(unreachable_code)]
+            {
+                app.restart();
+                Ok(())
+            }
         }
         None => {
             println!("[updater] Instalacao cancelada: Nenhum update baixado.");
