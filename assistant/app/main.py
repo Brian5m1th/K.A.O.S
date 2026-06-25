@@ -38,6 +38,7 @@ from app.api.opencode import router as opencode_router
 from app.api.admin import router as admin_router
 from app.api.conversations import router as conversations_router
 from app.api.kirl import router as kirl_router
+from app.api.docs import router as docs_router
 from app.api.settings_api import router as settings_api_router
 from app.api.integrations import router as integrations_router
 from app.api.mcp import router as mcp_router
@@ -374,6 +375,7 @@ app.include_router(integrations_router)
 app.include_router(mcp_router)
 app.include_router(conversations_router)
 app.include_router(kirl_router)
+app.include_router(docs_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

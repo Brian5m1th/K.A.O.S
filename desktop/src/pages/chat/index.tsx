@@ -8,7 +8,8 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { kaosFetch } from "@/shared/api/kaos-client";
-import { Square, Loader2, MessageSquare, Plus, Trash2, History } from "lucide-react";
+import { Square, Loader2, MessageSquare, Plus, Trash2, History, BookOpen } from "lucide-react";
+import { DocGeneratorModal } from "@/features/generate-docs/ui/DocGeneratorModal";
 
 interface ProviderOption {
   id: string;
@@ -141,6 +142,8 @@ export default function ChatPage() {
   const setActiveModel = useChatStore((s) => s.setActiveModel);
 
   const [showSidebar, setShowSidebar] = useState(true);
+  const [showDocModal, setShowDocModal] = useState(false);
+  const [activeSessionId, setActiveSessionId] = useState("");
   const [providers, setProviders] = useState<ProviderOption[]>([]);
   const [selectedProvider, setSelectedProvider] = useState("ollama");
   const [defaultModel, setDefaultModel] = useState("kaos");
@@ -190,7 +193,8 @@ export default function ChatPage() {
     clearMessages();
   };
 
-  const handleSelectSession = (_sessionId: string) => {
+  const handleSelectSession = (sessionId: string) => {
+    setActiveSessionId(sessionId);
     // TODO: Load session messages from API and populate chat-store
     // For now, just start a new chat
     clearMessages();
@@ -281,14 +285,27 @@ export default function ChatPage() {
               </>
             )}
           </div>
-          <Button
-            onClick={() => cancel()}
-            variant="danger"
-            size="sm"
-            disabled={loading}
-          >
-            Disconnect
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              id="export-docs-btn"
+              onClick={() => setShowDocModal(true)}
+              variant="subtle"
+              size="sm"
+              title="Exportar conversa para Docs"
+              className="flex items-center gap-1.5"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline text-xs">Exportar Docs</span>
+            </Button>
+            <Button
+              onClick={() => cancel()}
+              variant="danger"
+              size="sm"
+              disabled={loading}
+            >
+              Disconnect
+            </Button>
+          </div>
         </div>
 
         <ScrollArea className="flex-1 px-4 py-3">
@@ -307,6 +324,16 @@ export default function ChatPage() {
 
         <ChatInput onSend={handleSend} loading={loading} activeModel={activeModel || defaultModel} />
       </div>
+
+      {/* Doc Generator Modal */}
+      {showDocModal && (
+        <DocGeneratorModal
+          sessionId={activeSessionId}
+          userId={userId}
+          serverUrl={serverUrl}
+          onClose={() => setShowDocModal(false)}
+        />
+      )}
     </div>
   );
 }
