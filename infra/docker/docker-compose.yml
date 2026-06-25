@@ -93,6 +93,7 @@ services:
       - hf_cache:/root/.cache/huggingface
       - ../../.git:/.git:ro
       - ../../config:/app/config
+      - ../../.opencode:/app/.opencode
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:

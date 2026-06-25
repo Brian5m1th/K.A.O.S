@@ -1,3 +1,4 @@
+import asyncio
 import time
 from loguru import logger
 from fastapi import APIRouter
@@ -19,7 +20,7 @@ async def full_reindex() -> dict:
     logger.info("[start] indexing - full_reindex")
     start = time.perf_counter()
     indexer = _get_indexer()
-    result = indexer.index_vault()
+    result = await asyncio.to_thread(indexer.index_vault)
     elapsed = (time.perf_counter() - start) * 1000
     try:
         client = QdrantClient(host=settings.QDRANT_HOST, port=settings.QDRANT_PORT)

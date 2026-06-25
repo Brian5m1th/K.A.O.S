@@ -17,6 +17,7 @@ export default function VaultPage() {
   const [loadingList, setLoadingList] = useState(false);
   const [loadingContent, setLoadingContent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"preview" | "raw">("preview");
 
   const fetchFiles = async () => {
     setLoadingList(true);
@@ -67,6 +68,119 @@ export default function VaultPage() {
     const kb = bytes / 1024;
     if (kb < 1024) return `${kb.toFixed(1)} KB`;
     return `${(kb / 1024).toFixed(1)} MB`;
+  };
+
+  // Helper component to render simple Markdown layout nicely
+  const MarkdownPreview = ({ content }: { content: string }) => {
+    if (!content) return <p className="text-xs text-text-dim">Sem conteúdo</p>;
+
+    const lines = content.split("\n");
+    let inCodeBlock = false;
+    let codeLines: string[] = [];
+    const elements: React.ReactNode[] = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Code blocks
+      if (line.trim().startsWith("```")) {
+        if (inCodeBlock) {
+          elements.push(
+            <pre key={`code-${i}`} className="bg-canvas/80 p-3.5 rounded-lg border border-border-subtle font-mono text-[11px] text-accent-neon my-3 overflow-x-auto select-text">
+              <code>{codeLines.join("\n")}</code>
+            </pre>
+          );
+          codeLines = [];
+          inCodeBlock = false;
+        } else {
+          inCodeBlock = true;
+        }
+        continue;
+      }
+
+      if (inCodeBlock) {
+        codeLines.push(line);
+        continue;
+      }
+
+      // Headers
+      if (line.startsWith("# ")) {
+        elements.push(<h1 key={i} className="text-lg font-bold text-text-primary mt-6 mb-3 border-b border-border-subtle pb-1">{line.slice(2)}</h1>);
+        continue;
+      }
+      if (line.startsWith("## ")) {
+        elements.push(<h2 key={i} className="text-base font-semibold text-text-primary mt-5 mb-2.5">{line.slice(3)}</h2>);
+        continue;
+      }
+      if (line.startsWith("### ")) {
+        elements.push(<h3 key={i} className="text-xs font-semibold text-text-primary mt-4 mb-2">{line.slice(4)}</h3>);
+        continue;
+      }
+
+      // Blockquotes / GitHub-style alerts
+      if (line.startsWith("> ")) {
+        const text = line.slice(2);
+        if (text.startsWith("[!NOTE]") || text.startsWith("[!IMPORTANT]") || text.startsWith("[!WARNING]") || text.startsWith("[!TIP]")) {
+          const type = text.includes("WARNING") ? "warning" : text.includes("IMPORTANT") ? "error" : text.includes("TIP") ? "success" : "info";
+          elements.push(
+            <div key={i} className={`p-3 rounded-lg border my-3 text-xs leading-relaxed ${
+              type === "warning" ? "bg-warning/5 border-warning/30 text-warning" :
+              type === "error" ? "bg-error/5 border-error/30 text-error font-semibold" :
+              type === "success" ? "bg-success/5 border-success/30 text-success" :
+              "bg-accent-primary/5 border-accent-primary/30 text-accent-primary"
+            }`}>
+              {text.replace(/\[!(NOTE|IMPORTANT|WARNING|TIP)\]/, "").trim()}
+            </div>
+          );
+        } else {
+          elements.push(
+            <blockquote key={i} className="border-l-4 border-accent-primary/45 pl-3 italic text-text-muted my-3 text-xs leading-relaxed">
+              {text}
+            </blockquote>
+          );
+        }
+        continue;
+      }
+
+      // Lists
+      if (line.trim().startsWith("- ") || line.trim().startsWith("* ")) {
+        elements.push(
+          <div key={i} className="flex items-start gap-2 pl-3 my-1.5 text-xs text-text-muted leading-relaxed">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent-primary mt-1.5 shrink-0" />
+            <span>{line.trim().slice(2)}</span>
+          </div>
+        );
+        continue;
+      }
+
+      // Divider
+      if (line.trim() === "---" || line.trim() === "***") {
+        elements.push(<hr key={i} className="border-border-subtle my-5" />);
+        continue;
+      }
+
+      // Standard text parsing
+      if (line.trim() === "") {
+        elements.push(<div key={i} className="h-2" />);
+      } else {
+        let renderedText: React.ReactNode = line;
+        if (line.includes("**")) {
+          const parts = line.split("**");
+          renderedText = parts.map((part, index) => index % 2 === 1 ? <strong key={index} className="font-semibold text-text-primary">{part}</strong> : part);
+        }
+        elements.push(<p key={i} className="text-xs text-text-muted leading-relaxed my-2 select-text">{renderedText}</p>);
+      }
+    }
+
+    if (inCodeBlock && codeLines.length > 0) {
+      elements.push(
+        <pre key="code-unclosed" className="bg-canvas/80 p-3.5 rounded-lg border border-border-subtle font-mono text-[11px] text-accent-neon my-3 overflow-x-auto select-text">
+          <code>{codeLines.join("\n")}</code>
+        </pre>
+      );
+    }
+
+    return <div className="space-y-1">{elements}</div>;
   };
 
   return (
@@ -156,8 +270,33 @@ export default function VaultPage() {
                 <h1 className="text-sm font-semibold text-text-primary truncate">{selectedPath.split("/").pop()}</h1>
                 <p className="text-[10px] text-text-dim mt-0.5 font-mono truncate">{selectedPath}</p>
               </div>
-              <div className="text-[10px] text-text-muted px-2 py-1 bg-canvas-subtle rounded border border-border font-mono shrink-0">
-                {formatSize(files.find(f => f.path === selectedPath)?.size || 0)}
+              <div className="flex items-center gap-3">
+                {/* View toggle */}
+                <div className="flex items-center gap-1 bg-canvas-subtle p-0.5 rounded border border-border">
+                  <button
+                    onClick={() => setViewMode("preview")}
+                    className={`px-2.5 py-1 text-[10px] rounded transition-all font-medium ${
+                      viewMode === "preview"
+                        ? "bg-accent-primary text-white shadow-sm font-bold"
+                        : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    Preview
+                  </button>
+                  <button
+                    onClick={() => setViewMode("raw")}
+                    className={`px-2.5 py-1 text-[10px] rounded transition-all font-medium ${
+                      viewMode === "raw"
+                        ? "bg-accent-primary text-white shadow-sm font-bold"
+                        : "text-text-muted hover:text-text-primary"
+                    }`}
+                  >
+                    Raw Source
+                  </button>
+                </div>
+                <div className="text-[10px] text-text-muted px-2 py-1 bg-canvas-subtle rounded border border-border font-mono shrink-0">
+                  {formatSize(files.find(f => f.path === selectedPath)?.size || 0)}
+                </div>
               </div>
             </div>
 
@@ -170,9 +309,13 @@ export default function VaultPage() {
               ) : (
                 <Card className="max-w-4xl mx-auto shadow-sm border border-border">
                   <CardContent className="p-8">
-                    <pre className="whitespace-pre-wrap font-mono text-xs text-text-primary leading-relaxed select-text">
-                      {selectedContent}
-                    </pre>
+                    {viewMode === "preview" ? (
+                      <MarkdownPreview content={selectedContent} />
+                    ) : (
+                      <pre className="whitespace-pre-wrap font-mono text-xs text-text-primary leading-relaxed select-text">
+                        {selectedContent}
+                      </pre>
+                    )}
                   </CardContent>
                 </Card>
               )}
