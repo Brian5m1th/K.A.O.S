@@ -6,6 +6,9 @@ export default {
       colors: {
         canvas: "var(--bg-canvas)",
         surface: "var(--bg-surface)",
+        "surface-raised": "var(--surface-raised)",
+        "surface-elevated": "var(--surface-elevated)",
+        "surface-hover": "var(--surface-hover)",
         "bg-active": "var(--bg-active)",
         overlay: "var(--bg-canvas)",
         "accent-primary": "var(--accent-primary)",
@@ -20,6 +23,23 @@ export default {
         "border-subtle": "var(--border-subtle)",
         "border-hover": "rgba(255,255,255,0.12)",
         "border-focus": "var(--accent-primary)",
+      },
+      boxShadow: {
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+        xl: "var(--shadow-xl)",
+      },
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        xl: "var(--radius-xl)",
+      },
+      transitionDuration: {
+        fast: "var(--duration-fast)",
+        normal: "var(--duration-normal)",
+        slow: "var(--duration-slow)",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useUIStore, useSystemStore, useAppStore } from "@/shared/lib/stores";
+import { useUIStore, useSystemStore, useThemeStore } from "@/shared/lib/stores";
 import { commandRegistry, type CommandContext } from "@/shared/lib/command-registry";
 import { spring } from "@/shared/lib/motion";
 import { Input } from "@/shared/ui/input";
@@ -13,14 +13,17 @@ export function CommandPalette() {
   const open = useUIStore((s) => s.commandPaletteOpen);
   const setOpen = useUIStore((s) => s.setCommandPaletteOpen);
   const navigate = useNavigate();
-  const toggleTheme = useAppStore((s) => s.setTheme);
   const systemState = useSystemStore.getState();
 
   const buildContext = useCallback((): CommandContext => ({
     navigate,
-    toggleTheme: () => toggleTheme("dark"),
+    toggleTheme: () => {
+      const currentTheme = useThemeStore.getState().mode;
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+      useThemeStore.getState().setMode(nextTheme);
+    },
     system: systemState,
-  }), [navigate, toggleTheme, systemState]);
+  }), [navigate, systemState]);
 
   const filtered = query
     ? commandRegistry.search(query)

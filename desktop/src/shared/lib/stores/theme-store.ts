@@ -23,6 +23,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#a1a1aa",
     "--text-dim": "#71717a",
     "--border-subtle": "#27272a",
+    "--surface-raised": "#202023",
+    "--surface-elevated": "#2d2d30",
+    "--surface-hover": "#2d2d30",
+    "--shadow-color": "rgba(0, 0, 0, 0.5)",
   },
   light: {
     "--bg-canvas": "#ffffff",
@@ -32,6 +36,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#71717a",
     "--text-dim": "#a1a1aa",
     "--border-subtle": "#e4e4e7",
+    "--surface-raised": "#fafafa",
+    "--surface-elevated": "#ffffff",
+    "--surface-hover": "#f4f4f5",
+    "--shadow-color": "rgba(0, 0, 0, 0.08)",
   },
   "kaos-blue": {
     "--bg-canvas": "#0c0f1a",
@@ -41,6 +49,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#8892c0",
     "--text-dim": "#5d6785",
     "--border-subtle": "#252b45",
+    "--surface-raised": "#202640",
+    "--surface-elevated": "#2c3355",
+    "--surface-hover": "#252b45",
+    "--shadow-color": "rgba(0, 0, 0, 0.6)",
   },
   purple: {
     "--bg-canvas": "#130c1a",
@@ -50,6 +62,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#9888c0",
     "--text-dim": "#6d5d85",
     "--border-subtle": "#322545",
+    "--surface-raised": "#2b1f40",
+    "--surface-elevated": "#3a2b55",
+    "--surface-hover": "#322545",
+    "--shadow-color": "rgba(0, 0, 0, 0.6)",
   },
   terminal: {
     "--bg-canvas": "#0d1a0d",
@@ -59,6 +75,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#00cc33",
     "--text-dim": "#008a22",
     "--border-subtle": "#244224",
+    "--surface-raised": "#1d331d",
+    "--surface-elevated": "#294a29",
+    "--surface-hover": "#244224",
+    "--shadow-color": "rgba(0, 0, 0, 0.7)",
   },
   cyberpunk: {
     "--bg-canvas": "#05000a",
@@ -68,6 +88,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#ff007f",
     "--text-dim": "#bc00dd",
     "--border-subtle": "#22003c",
+    "--surface-raised": "#190033",
+    "--surface-elevated": "#2a004a",
+    "--surface-hover": "#22003c",
+    "--shadow-color": "rgba(0, 0, 0, 0.8)",
   },
   nordic: {
     "--bg-canvas": "#2e3440",
@@ -77,6 +101,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#d8dee9",
     "--text-dim": "#81a1c1",
     "--border-subtle": "#434c5e",
+    "--surface-raised": "#353d4c",
+    "--surface-elevated": "#4c566a",
+    "--surface-hover": "#434c5e",
+    "--shadow-color": "rgba(0, 0, 0, 0.35)",
   },
   forest: {
     "--bg-canvas": "#081008",
@@ -86,6 +114,10 @@ const THEME_VARS: Record<ThemeMode, Record<string, string>> = {
     "--text-muted": "#8fb38f",
     "--text-dim": "#5c8a5c",
     "--border-subtle": "#1b331b",
+    "--surface-raised": "#142914",
+    "--surface-elevated": "#244724",
+    "--surface-hover": "#1b331b",
+    "--shadow-color": "rgba(0, 0, 0, 0.7)",
   },
 };
 

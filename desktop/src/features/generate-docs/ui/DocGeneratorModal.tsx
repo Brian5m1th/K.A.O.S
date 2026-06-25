@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FileText, BookOpen, StickyNote, X, Loader2, CheckCircle2, ExternalLink } from "lucide-react";
 import { kaosFetch } from "@/shared/api/kaos-client";
 
@@ -48,6 +48,24 @@ export function DocGeneratorModal({ sessionId, userId, serverUrl, onClose }: Doc
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<{ path: string; title: string } | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  // Auto-focus on input mount
+  useEffect(() => {
+    if (status === "idle" && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [status]);
 
   const handleGenerate = async () => {
     setStatus("loading");
@@ -85,20 +103,28 @@ export function DocGeneratorModal({ sessionId, userId, serverUrl, onClose }: Doc
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* Modal panel */}
-      <div className="relative w-full max-w-lg mx-4 rounded-2xl border border-border-subtle bg-surface-raised shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="doc-dialog-title"
+        className="relative w-full max-w-lg mx-4 rounded-2xl border border-border-subtle bg-surface-raised shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200"
+      >
         {/* Gradient accent top bar */}
         <div className="h-1 w-full bg-gradient-to-r from-violet-500 via-sky-500 to-emerald-500" />
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4">
           <div>
-            <h2 className="text-base font-semibold text-text-primary">Exportar para Docs</h2>
+            <h2 id="doc-dialog-title" className="text-base font-semibold text-text-primary">
+              Exportar para Docs
+            </h2>
             <p className="mt-0.5 text-xs text-text-dim">
               Converta essa conversa em documentação técnica com IA.
             </p>
           </div>
           <button
             onClick={onClose}
+            aria-label="Fechar modal"
             className="rounded-lg p-1.5 text-text-dim hover:bg-surface-hover hover:text-text-primary transition-colors"
           >
             <X className="h-4 w-4" />
@@ -182,6 +208,7 @@ export function DocGeneratorModal({ sessionId, userId, serverUrl, onClose }: Doc
                 Título <span className="text-text-dim font-normal">(opcional)</span>
               </label>
               <input
+                ref={inputRef}
                 id="doc-title"
                 type="text"
                 value={title}

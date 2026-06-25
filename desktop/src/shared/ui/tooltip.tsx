@@ -40,7 +40,7 @@ export function Tooltip({ content, children, side = "top", className }: TooltipP
             className,
           )}
         >
-          <div className="whitespace-nowrap rounded-md bg-[#1A2338] px-2 py-1 text-[11px] text-text-primary shadow-lg border border-border-subtle">
+          <div className="whitespace-nowrap rounded-md bg-surface-elevated px-2 py-1 text-[11px] text-text-primary shadow-lg border border-border-subtle">
             {content}
           </div>
         </div>

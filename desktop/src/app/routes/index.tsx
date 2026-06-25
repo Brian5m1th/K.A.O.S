@@ -21,6 +21,10 @@ import SetupPage from "./pages/setup";
 import LoginPage from "./pages/login";
 import UsersPage from "./pages/users";
 import ToolsPage from "./pages/tools";
+import WelcomePage from "./pages/welcome";
+import PromptsPage from "./pages/prompts";
+import EventsPage from "./pages/events";
+import CostsPage from "./pages/costs";
 
 function PageFallback() {
   return (
@@ -92,6 +96,7 @@ export function AppRoutes() {
         {/* Public routes (no sidebar, no auth) */}
         <Route path="/setup" element={<SetupPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
 
         {/* Protected routes (sidebar + auth gate) */}
         <Route
@@ -210,6 +215,30 @@ export function AppRoutes() {
             element={
               <Suspense fallback={<PageFallback />}>
                 <AnimatedPage><KnowledgeGraphPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/prompts"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><PromptsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><EventsPage /></AnimatedPage>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/costs"
+            element={
+              <Suspense fallback={<PageFallback />}>
+                <AnimatedPage><CostsPage /></AnimatedPage>
               </Suspense>
             }
           />

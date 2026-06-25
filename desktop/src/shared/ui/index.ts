@@ -22,3 +22,4 @@ export { Tooltip } from "./tooltip";
 export { StatusDot } from "./status-dot";
 export { Sparkline } from "./sparkline";
 export { Tabs } from "./tabs";
+export { EmptyState } from "./empty-state";
