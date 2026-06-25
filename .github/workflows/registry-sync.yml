@@ -77,7 +77,13 @@ jobs:
         run: |
           git config --global user.name "kaos-bot"
           git config --global user.email "kaos-bot@users.noreply.github.com"
+          
+          # Entrar no submódulo e garantir branch main atualizada
           cd docs
+          git checkout main || git checkout -b main
+          git pull origin main --rebase
+          
+          # Adicionar arquivo e verificar se houve mudanças
           git add runtime/registry/features-index.json
           if git diff --staged --quiet; then
             echo "Sem mudanças no registry."
@@ -85,10 +91,13 @@ jobs:
             TOTAL=$(python3 -c "import json; d=json.load(open('runtime/registry/features-index.json')); print(d['total_features'])")
             git commit -m "chore(registry): auto-sync features-index.json ($TOTAL features) [skip ci]"
             git push origin main
+            
+            # Voltar ao superprojeto e fazer commit/push do ponteiro do submódulo
             cd ..
+            git pull origin main --rebase --no-recurse-submodules
             git add docs
             git commit -m "chore(registry): update docs submodule pointer [skip ci]"
-            git push
+            git push origin main
             echo "::notice::Registry e submódulo atualizados com sucesso ($TOTAL features)"
           fi
 
