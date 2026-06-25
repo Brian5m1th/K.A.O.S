@@ -181,9 +181,10 @@ async def get_category_item(category: str, item_id: str):
                     "id": item_id,
                     "category": category,
                     "file": f.name,
-                    "content": f.read_text(encoding="utf-8")
+                    "content": f.read_text(encoding="utf-8"),
                 }
             except Exception as exc:
                 raise HTTPException(500, detail=f"Failed to read file: {exc}")
-    raise HTTPException(404, detail=f"Item '{item_id}' not found in category '{category}'")
-
+    raise HTTPException(
+        404, detail=f"Item '{item_id}' not found in category '{category}'"
+    )

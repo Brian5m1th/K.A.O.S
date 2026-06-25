@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 from loguru import logger
@@ -106,7 +105,9 @@ def _load_from_disk() -> dict:
     try:
         config = ConfigService.load_config()
         payload = dict(config.get("providers", {}))
-        payload["_activeProvider"] = config.get("_activeProvider", DEFAULT_ACTIVE_PROVIDER)
+        payload["_activeProvider"] = config.get(
+            "_activeProvider", DEFAULT_ACTIVE_PROVIDER
+        )
         payload["_fallbackChain"] = config.get("_fallbackChain", [])
         payload["_embeddingModel"] = config.get("_embeddingModel", "")
 
