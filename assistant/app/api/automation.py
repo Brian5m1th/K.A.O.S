@@ -18,12 +18,14 @@ router = APIRouter(prefix="/api/automation", tags=["Automation"])
 
 
 @router.get("/workflows")
-async def list_workflows(session: AsyncSession = Depends(get_session)) -> dict[str, Any]:
+async def list_workflows(
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, Any]:
     """Lists all registered workflows in the K.A.O.S system."""
     stmt = select(AutomationWorkflow).order_by(AutomationWorkflow.created_at.desc())
     result = await session.execute(stmt)
     workflows = result.scalars().all()
-    
+
     return {
         "workflows": [
             {
@@ -34,7 +36,7 @@ async def list_workflows(session: AsyncSession = Depends(get_session)) -> dict[s
                 "is_active": w.is_active,
                 "version": w.version,
                 "created_at": w.created_at.isoformat() if w.created_at else None,
-                "updated_at": w.updated_at.isoformat() if w.updated_at else None
+                "updated_at": w.updated_at.isoformat() if w.updated_at else None,
             }
             for w in workflows
         ]
@@ -42,7 +44,9 @@ async def list_workflows(session: AsyncSession = Depends(get_session)) -> dict[s
 
 
 @router.post("/workflows/import", status_code=status.HTTP_201_CREATED)
-async def import_workflow(payload: dict[str, Any], session: AsyncSession = Depends(get_session)) -> dict[str, Any]:
+async def import_workflow(
+    payload: dict[str, Any], session: AsyncSession = Depends(get_session)
+) -> dict[str, Any]:
     """
     Imports a new workflow JSON template.
     Saves to n8n first, then registers in K.A.O.S Postgres database.
@@ -50,19 +54,21 @@ async def import_workflow(payload: dict[str, Any], session: AsyncSession = Depen
     name = payload.get("name", "").strip()
     if not name:
         raise HTTPException(status_code=422, detail="Workflow name is required.")
-        
+
     json_data = payload.get("json_data", {})
     if not json_data:
-        raise HTTPException(status_code=422, detail="Workflow JSON structure is required.")
-        
+        raise HTTPException(
+            status_code=422, detail="Workflow JSON structure is required."
+        )
+
     description = payload.get("description", "")
-    
+
     provider = AutomationBus.get_provider()
     try:
         # Import to external engine
         res = await provider.import_workflow(name, json_data)
         remote_id = res.get("remote_id")
-        
+
         # Save to local DB
         workflow = AutomationWorkflow(
             n8n_workflow_id=remote_id,
@@ -70,17 +76,19 @@ async def import_workflow(payload: dict[str, Any], session: AsyncSession = Depen
             description=description,
             is_active=True,
             json_data=json_data,
-            version=1
+            version=1,
         )
         session.add(workflow)
         await session.commit()
         await session.refresh(workflow)
-        
-        logger.info(f"[AutomationAPI] Workflow '{name}' imported successfully. Remote ID: {remote_id}")
+
+        logger.info(
+            f"[AutomationAPI] Workflow '{name}' imported successfully. Remote ID: {remote_id}"
+        )
         return {
             "status": "ok",
             "workflow_id": str(workflow.id),
-            "n8n_workflow_id": remote_id
+            "n8n_workflow_id": remote_id,
         }
     except Exception as e:
         logger.error(f"[AutomationAPI] Import failed: {e}")
@@ -89,42 +97,58 @@ async def import_workflow(payload: dict[str, Any], session: AsyncSession = Depen
 
 
 @router.post("/workflows/{workflow_id}/toggle")
-async def toggle_workflow(workflow_id: UUID, payload: dict[str, Any], session: AsyncSession = Depends(get_session)) -> dict[str, Any]:
+async def toggle_workflow(
+    workflow_id: UUID,
+    payload: dict[str, Any],
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, Any]:
     """Enables or disables a workflow in both n8n and K.A.O.S Postgres database."""
     is_active = payload.get("is_active")
     if is_active is None:
-        raise HTTPException(status_code=422, detail="is_active boolean parameter is required.")
-        
+        raise HTTPException(
+            status_code=422, detail="is_active boolean parameter is required."
+        )
+
     stmt = select(AutomationWorkflow).where(AutomationWorkflow.id == workflow_id)
     result = await session.execute(stmt)
     workflow = result.scalar_one_or_none()
-    
+
     if not workflow:
         raise HTTPException(status_code=404, detail="Workflow not found.")
-        
+
     provider = AutomationBus.get_provider()
-    
+
     # Toggle in n8n
     if workflow.n8n_workflow_id:
         success = await provider.toggle_workflow(workflow.n8n_workflow_id, is_active)
         if not success:
-            raise HTTPException(status_code=500, detail="Failed to toggle workflow in remote engine.")
-            
+            raise HTTPException(
+                status_code=500, detail="Failed to toggle workflow in remote engine."
+            )
+
     # Toggle in database
     workflow.is_active = is_active
     await session.commit()
-    
-    logger.info(f"[AutomationAPI] Workflow '{workflow.name}' active status set to {is_active}")
+
+    logger.info(
+        f"[AutomationAPI] Workflow '{workflow.name}' active status set to {is_active}"
+    )
     return {"status": "ok", "workflow_id": str(workflow.id), "is_active": is_active}
 
 
 @router.get("/history")
-async def get_execution_history(session: AsyncSession = Depends(get_session)) -> dict[str, Any]:
+async def get_execution_history(
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, Any]:
     """Returns execution logs of all automated runs."""
-    stmt = select(AutomationExecution).order_by(AutomationExecution.created_at.desc()).limit(100)
+    stmt = (
+        select(AutomationExecution)
+        .order_by(AutomationExecution.created_at.desc())
+        .limit(100)
+    )
     result = await session.execute(stmt)
     executions = result.scalars().all()
-    
+
     return {
         "history": [
             {
@@ -134,7 +158,7 @@ async def get_execution_history(session: AsyncSession = Depends(get_session)) ->
                 "status": e.status,
                 "trigger_event": e.trigger_event,
                 "duration_ms": e.duration_ms,
-                "created_at": e.created_at.isoformat() if e.created_at else None
+                "created_at": e.created_at.isoformat() if e.created_at else None,
             }
             for e in executions
         ]

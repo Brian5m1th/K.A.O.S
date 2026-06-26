@@ -71,7 +71,11 @@ class LLMFactory:
 
         # Smart provider resolution from model name prefix as a safety fallback
         model_lower = model_key.lower()
-        if model_lower.startswith("gpt-") or model_lower.startswith("text-davinci-") or model_lower == "gpt-4o":
+        if (
+            model_lower.startswith("gpt-")
+            or model_lower.startswith("text-davinci-")
+            or model_lower == "gpt-4o"
+        ):
             return {"provider": "openai", "model": model_key}
         elif model_lower.startswith("claude-"):
             return {"provider": "claude", "model": model_key}

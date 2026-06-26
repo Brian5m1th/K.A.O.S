@@ -9,7 +9,9 @@ from typing import Any
 
 class BaseWorkflowProvider(ABC):
     @abstractmethod
-    async def import_workflow(self, name: str, json_data: dict[str, Any]) -> dict[str, Any]:
+    async def import_workflow(
+        self, name: str, json_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Imports a workflow template into the external automation engine.
         Returns a dict containing at least {"remote_id": str} and any other metadata.
@@ -32,7 +34,9 @@ class BaseWorkflowProvider(ABC):
         pass
 
     @abstractmethod
-    async def trigger_workflow(self, webhook_path_or_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+    async def trigger_workflow(
+        self, webhook_path_or_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Invokes/triggers a workflow execution.
         Returns execution details like {"success": bool, "execution_id": str, "response": dict}.

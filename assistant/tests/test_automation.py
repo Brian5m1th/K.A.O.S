@@ -3,7 +3,6 @@ from httpx import AsyncClient, ASGITransport
 from unittest.mock import MagicMock, AsyncMock, patch
 from app.main import app
 from app.database import get_session
-from app.models.automation_registry import AutomationWorkflow, AutomationExecution
 
 
 @pytest.fixture
@@ -22,7 +21,7 @@ async def test_list_workflows_empty_db(client: AsyncClient) -> None:
     # Mock SQL session execute
     mock_result = MagicMock()
     mock_result.scalars.return_value.all.return_value = []
-    
+
     mock_session = AsyncMock()
     mock_session.execute.return_value = mock_result
 
@@ -42,20 +41,22 @@ async def test_n8n_callback_unregistered_workflow(client: AsyncClient) -> None:
     # Mock SQL select returning None (no workflow found)
     mock_result = MagicMock()
     mock_result.scalar_one_or_none.return_value = None
-    
+
     mock_session = AsyncMock()
     mock_session.execute.return_value = mock_result
-    
+
     # We patch async_session_factory context manager used in webhooks callback
     mock_factory = MagicMock()
     mock_factory.__aenter__.return_value = mock_session
     mock_factory.__aexit__ = AsyncMock(return_value=None)
 
-    with patch("app.api.webhooks.async_session_factory", return_value=lambda: mock_factory):
+    with patch(
+        "app.api.webhooks.async_session_factory", return_value=lambda: mock_factory
+    ):
         payload = {
             "workflow_id": "remote-wf-id",
             "execution_id": "exec-abc-123",
-            "status": "success"
+            "status": "success",
         }
         response = await client.post("/api/webhooks/n8n/callback", json=payload)
         assert response.status_code == 200

@@ -313,7 +313,9 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
         await AutomationBus.start_worker()
         asyncio.create_task(AutomationBus.auto_import_workflows())
-        logger.info("[automation] Automation Engine Bus worker started and auto-importer scheduled")
+        logger.info(
+            "[automation] Automation Engine Bus worker started and auto-importer scheduled"
+        )
     except Exception as exc:
         logger.warning("[automation] Failed to initialize automation engine: {}", exc)
 
@@ -331,6 +333,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     SDDWatcher.stop()
     try:
         from app.core.automation_bus import AutomationBus
+
         asyncio.run(AutomationBus.stop_worker())
     except Exception:
         pass

@@ -50,7 +50,11 @@ def main() -> None:
             if sig_name.endswith(ext + ".sig"):
                 platform = PLATFORM_MAP[ext]
                 with open(sig_path, encoding="utf-8") as f:
-                    sig_map[platform] = f.read().strip()
+                    lines = f.read().splitlines()
+                    if len(lines) >= 2:
+                        sig_map[platform] = lines[1].strip()
+                    else:
+                        sig_map[platform] = "".join(lines).strip()
                 break
 
     platforms: dict[str, dict[str, str]] = {}

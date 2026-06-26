@@ -24,7 +24,9 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
             headers["X-N8N-API-KEY"] = self.api_key
         return headers
 
-    async def import_workflow(self, name: str, json_data: dict[str, Any]) -> dict[str, Any]:
+    async def import_workflow(
+        self, name: str, json_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Imports a workflow template.
         Uses POST /api/v1/workflows to create it in n8n.
@@ -37,16 +39,22 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
             "settings": json_data.get("settings", {}),
             "staticData": json_data.get("staticData", None),
         }
-        
+
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
-                response = await client.post(url, json=payload, headers=self._get_headers())
+                response = await client.post(
+                    url, json=payload, headers=self._get_headers()
+                )
                 if response.status_code == 201:
                     data = response.json()
                     return {"remote_id": str(data.get("id")), "raw": data}
                 else:
-                    logger.error(f"[N8NProvider] Failed to import workflow: {response.text}")
-                    raise ValueError(f"n8n API returned status {response.status_code}: {response.text}")
+                    logger.error(
+                        f"[N8NProvider] Failed to import workflow: {response.text}"
+                    )
+                    raise ValueError(
+                        f"n8n API returned status {response.status_code}: {response.text}"
+                    )
         except httpx.RequestError as exc:
             logger.error(f"[N8NProvider] Connection error during import: {exc}")
             raise ConnectionError(f"Could not connect to n8n at {url}: {exc}")
@@ -63,8 +71,12 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
                 if response.status_code == 200:
                     return response.json()
                 else:
-                    logger.error(f"[N8NProvider] Failed to export workflow {remote_id}: {response.text}")
-                    raise ValueError(f"n8n API returned status {response.status_code}: {response.text}")
+                    logger.error(
+                        f"[N8NProvider] Failed to export workflow {remote_id}: {response.text}"
+                    )
+                    raise ValueError(
+                        f"n8n API returned status {response.status_code}: {response.text}"
+                    )
         except httpx.RequestError as exc:
             logger.error(f"[N8NProvider] Connection error during export: {exc}")
             raise ConnectionError(f"Could not connect to n8n: {exc}")
@@ -82,13 +94,17 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
                 if response.status_code == 200:
                     return True
                 else:
-                    logger.error(f"[N8NProvider] Failed to {action} workflow {remote_id}: {response.text}")
+                    logger.error(
+                        f"[N8NProvider] Failed to {action} workflow {remote_id}: {response.text}"
+                    )
                     return False
         except httpx.RequestError as exc:
             logger.error(f"[N8NProvider] Connection error toggling workflow: {exc}")
             return False
 
-    async def trigger_workflow(self, webhook_path_or_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+    async def trigger_workflow(
+        self, webhook_path_or_id: str, payload: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Triggers a workflow by invoking its Webhook node.
         webhook_path_or_id can be the path component (e.g. 'kaos-vault-sync').
@@ -98,7 +114,7 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
         # Webhook node urls are typically at N8N_API_URL/webhook/path or N8N_API_URL/webhook-test/path
         # If N8N_API_URL is http://n8n:5678, webhooks are hosted at same port.
         url = f"{self.api_url}/webhook/{webhook_path_or_id}"
-        
+
         # Prepare headers for loop tracking and idempotency
         headers = {
             "Content-Type": "application/json",
@@ -106,7 +122,7 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
             "X-KAOS-Trace-ID": payload.get("_trace_id", ""),
             "X-Event-ID": payload.get("_event_id", ""),
         }
-        
+
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.post(url, json=payload, headers=headers)
@@ -114,12 +130,14 @@ class N8NWorkflowProvider(BaseWorkflowProvider):
                 return {
                     "success": success,
                     "execution_id": response.headers.get("X-N8N-Execution-Id", ""),
-                    "response": response.json() if success and response.text else {"status": response.status_code, "text": response.text}
+                    "response": response.json()
+                    if success and response.text
+                    else {"status": response.status_code, "text": response.text},
                 }
         except httpx.RequestError as exc:
             logger.error(f"[N8NProvider] Connection error triggering webhook: {exc}")
             return {
                 "success": False,
                 "execution_id": "",
-                "error": f"Webhook invocation failed: {exc}"
+                "error": f"Webhook invocation failed: {exc}",
             }

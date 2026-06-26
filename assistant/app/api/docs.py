@@ -120,7 +120,7 @@ async def _generate_and_save(
     frontmatter = (
         "---\n"
         f"type: {doc_type}\n"
-        f"title: \"{title}\"\n"
+        f'title: "{title}"\n'
         f"created_at: {now}\n"
         f"turns: {len(turns)}\n"
         "---\n\n"
@@ -171,8 +171,15 @@ async def generate_doc(
         raise HTTPException(status_code=404, detail="Session not found or empty")
 
     # Determine title and slug
-    title = req.title.strip() if req.title.strip() else f"{req.document_type.upper()} — {datetime.now().strftime('%Y-%m-%d %H:%M')}"
-    slug = _slugify(title) or f"{req.document_type}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    title = (
+        req.title.strip()
+        if req.title.strip()
+        else f"{req.document_type.upper()} — {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+    )
+    slug = (
+        _slugify(title)
+        or f"{req.document_type}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    )
     doc_path = _resolve_doc_path(req.document_type, slug)
 
     logger.info(
@@ -206,12 +213,18 @@ async def list_docs():
     for doc_type, sub in [("sdd", "sdd"), ("guide", "guides"), ("general", "notes")]:
         folder = DOCS_ROOT / sub
         if folder.exists():
-            for f in sorted(folder.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True):
-                result.append({
-                    "path": str(f),
-                    "name": f.stem,
-                    "type": doc_type,
-                    "size_bytes": f.stat().st_size,
-                    "modified_at": datetime.fromtimestamp(f.stat().st_mtime).isoformat(),
-                })
+            for f in sorted(
+                folder.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True
+            ):
+                result.append(
+                    {
+                        "path": str(f),
+                        "name": f.stem,
+                        "type": doc_type,
+                        "size_bytes": f.stat().st_size,
+                        "modified_at": datetime.fromtimestamp(
+                            f.stat().st_mtime
+                        ).isoformat(),
+                    }
+                )
     return {"docs": result, "total": len(result)}

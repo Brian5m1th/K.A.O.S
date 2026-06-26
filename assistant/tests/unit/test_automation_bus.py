@@ -1,6 +1,6 @@
 import pytest
 import asyncio
-from unittest.mock import MagicMock, AsyncMock, patch
+from unittest.mock import MagicMock, AsyncMock
 from app.core.automation_bus import AutomationBus
 
 
@@ -12,7 +12,7 @@ async def test_automation_bus_publish_depth_limit():
 
     # Try to publish with depth > 3
     await AutomationBus.publish("test_event", {"val": "x"}, depth=4)
-    
+
     # Assert queue is empty (event was dropped)
     assert AutomationBus._queue.empty()
 
@@ -25,15 +25,19 @@ async def test_automation_bus_publish_and_consume():
 
     # Mock provider
     mock_provider = MagicMock()
-    mock_provider.trigger_workflow = AsyncMock(return_value={"success": True, "execution_id": "mock_exec"})
+    mock_provider.trigger_workflow = AsyncMock(
+        return_value={"success": True, "execution_id": "mock_exec"}
+    )
     AutomationBus._provider = mock_provider
 
     # Start worker
     await AutomationBus.start_worker()
 
     # Publish valid event
-    await AutomationBus.publish("vault.analysis.completed", {"val": "sync_notes"}, depth=0)
-    
+    await AutomationBus.publish(
+        "vault.analysis.completed", {"val": "sync_notes"}, depth=0
+    )
+
     # Wait for queue to be processed
     await asyncio.sleep(0.1)
 

@@ -25,23 +25,34 @@ async def n8n_callback(request: Request) -> dict:
     response_data = body.get("response")
     duration_ms = body.get("duration")
 
-    logger.info(f"[webhook] n8n callback - workflow_id={n8n_wf_id} exec_id={n8n_exec_id} status={status}")
+    logger.info(
+        f"[webhook] n8n callback - workflow_id={n8n_wf_id} exec_id={n8n_exec_id} status={status}"
+    )
 
     if not n8n_wf_id or not n8n_exec_id:
-        return {"status": "error", "message": "workflow_id and execution_id are required"}
+        return {
+            "status": "error",
+            "message": "workflow_id and execution_id are required",
+        }
 
     factory = async_session_factory()
     async with factory() as session:
         # Find local workflow
-        stmt = select(AutomationWorkflow).where(AutomationWorkflow.n8n_workflow_id == n8n_wf_id)
+        stmt = select(AutomationWorkflow).where(
+            AutomationWorkflow.n8n_workflow_id == n8n_wf_id
+        )
         result = await session.execute(stmt)
         wf = result.scalar_one_or_none()
         if not wf:
-            logger.warning(f"[webhook] n8n callback received for unregistered workflow {n8n_wf_id}")
+            logger.warning(
+                f"[webhook] n8n callback received for unregistered workflow {n8n_wf_id}"
+            )
             return {"status": "error", "message": "Workflow not registered."}
 
         # Check if execution already logged
-        exec_stmt = select(AutomationExecution).where(AutomationExecution.n8n_execution_id == n8n_exec_id)
+        exec_stmt = select(AutomationExecution).where(
+            AutomationExecution.n8n_execution_id == n8n_exec_id
+        )
         exec_res = await session.execute(exec_stmt)
         execution = exec_res.scalar_one_or_none()
 
@@ -53,7 +64,7 @@ async def n8n_callback(request: Request) -> dict:
                 trigger_event=event_name,
                 payload=payload,
                 response=response_data,
-                duration_ms=duration_ms
+                duration_ms=duration_ms,
             )
             session.add(execution)
         else:
