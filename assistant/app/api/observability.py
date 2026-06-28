@@ -1,12 +1,89 @@
 from datetime import datetime
+import asyncio
+import json
+from collections import deque
 
 import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_session
 from app.repositories.cost_repository import CostRepository
+from app.observability.event_bus import EventBus, Event, EventSubscriber
+
+# Store last 100 logs
+LOG_BUFFER = deque(maxlen=100)
+LOG_LISTENERS = []
+
+# Store last 100 events
+EVENT_BUFFER = deque(maxlen=100)
+EVENT_LISTENERS = []
+
+def log_sink(message):
+    record = message.record
+    time_str = record["time"].strftime("%Y-%m-%d %H:%M:%S")
+    level_str = record["level"].name
+    msg = f"{time_str} | {level_str:<8} | {record['name']}:{record['function']}:{record['line']} - {record['message']}"
+    LOG_BUFFER.append(msg)
+    for q in list(LOG_LISTENERS):
+        try:
+            q.put_nowait(msg)
+        except Exception:
+            pass
+
+# Register the sink on import
+logger.add(log_sink, format="{message}")
+
+
+class SSEEventSubscriber(EventSubscriber):
+    async def on_event(self, event: Event) -> None:
+        source_map = {
+            "memory": "database",
+            "conversation": "database",
+            "orchestrator": "webhook",
+            "workflow": "webhook",
+            "llm": "agent",
+            "request": "system",
+        }
+        
+        # Determine source
+        source = "system"
+        for prefix, src in source_map.items():
+            if event.name.startswith(prefix):
+                source = src
+                break
+                
+        payload = {
+            "id": f"{event.execution_id}_{event.timestamp.timestamp()}",
+            "source": source,
+            "type": event.name,
+            "message": f"Event data: {event.data}" if event.data else f"Event '{event.name}' processed successfully.",
+            "timestamp": event.timestamp.strftime("%H:%M:%S")
+        }
+        
+        EVENT_BUFFER.append(payload)
+        
+        for q in list(EVENT_LISTENERS):
+            try:
+                q.put_nowait(payload)
+            except Exception:
+                pass
+
+# Subscribe this subscriber to ALL event names on import
+subscriber = SSEEventSubscriber()
+for ev_name in [
+    "request_started", "intent_classified", "model_selected", "workflow_started",
+    "workflow_completed", "workflow_step", "llm_request", "llm_response",
+    "fallback_triggered", "request_completed", "error", "orchestrator.execution_started",
+    "orchestrator.execution_completed", "orchestrator.execution_failed",
+    "memory.write.started", "memory.write.completed", "memory.write.failed",
+    "memory.read.started", "memory.read.completed", "memory.deleted",
+    "conversation.summarized", "conversation.stored"
+]:
+    EventBus.subscribe(ev_name, subscriber)
 
 router = APIRouter(prefix="/api/observability", tags=["Observability"])
 
@@ -116,3 +193,51 @@ async def get_costs_summary(
             for b in summary.breakdown
         ],
     )
+
+
+@router.get("/logs/stream")
+async def stream_logs():
+    """SSE endpoint to stream real-time system log records."""
+    async def event_generator():
+        # 1. Yield history from the logs buffer
+        for log in list(LOG_BUFFER):
+            yield f"data: {log}\n\n"
+
+        # 2. Listen to future log records
+        q = asyncio.Queue()
+        LOG_LISTENERS.append(q)
+        try:
+            while True:
+                log = await q.get()
+                yield f"data: {log}\n\n"
+        except asyncio.CancelledError:
+            pass
+        finally:
+            if q in LOG_LISTENERS:
+                LOG_LISTENERS.remove(q)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
+
+@router.get("/events/stream")
+async def stream_events():
+    """SSE endpoint to stream real-time EventBus events."""
+    async def event_generator():
+        # 1. Yield history from the event buffer
+        for ev in list(EVENT_BUFFER):
+            yield f"data: {json.dumps(ev)}\n\n"
+
+        # 2. Listen to future events
+        q = asyncio.Queue()
+        EVENT_LISTENERS.append(q)
+        try:
+            while True:
+                ev = await q.get()
+                yield f"data: {json.dumps(ev)}\n\n"
+        except asyncio.CancelledError:
+            pass
+        finally:
+            if q in EVENT_LISTENERS:
+                EVENT_LISTENERS.remove(q)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")

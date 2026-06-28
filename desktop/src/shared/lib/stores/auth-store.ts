@@ -44,8 +44,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ checking: true });
     try {
       const [setupRes, keyRes] = await Promise.allSettled([
-        kaosFetch(`${DEFAULT_SERVER_URL}/auth/setup-status`, ""),
-        kaosFetch(`${DEFAULT_SERVER_URL}/auth/key`, ""),
+        kaosFetch("/auth/setup-status", ""),
+        kaosFetch("/auth/key", ""),
       ]);
 
       if (setupRes.status === "fulfilled" && setupRes.value.ok) {
@@ -68,7 +68,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ error: null });
     try {
       const res = await kaosFetch(
-        `${DEFAULT_SERVER_URL}/auth/register`,
+        "/auth/register",
         "",
         {
           method: "POST",
@@ -95,7 +95,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ error: null });
     try {
       const res = await kaosFetch(
-        `${DEFAULT_SERVER_URL}/auth/login`,
+        "/auth/login",
         "",
         {
           method: "POST",
@@ -125,7 +125,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
     try {
       const res = await kaosFetch(
-        `${DEFAULT_SERVER_URL}/auth/refresh`,
+        "/auth/refresh",
         "",
         {
           method: "POST",

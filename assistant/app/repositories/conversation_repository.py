@@ -133,20 +133,27 @@ class ConversationRepository:
             .limit(limit)
         )
         rows = await self._session.execute(stmt)
-        sessions = []
-        for row in rows:
-            # Collect workflow types for this session
+        rows_list = list(rows)
+
+        session_ids = [row.session_id for row in rows_list]
+        wf_map = {}
+        if session_ids:
             wf_stmt = (
-                select(Conversation.workflow_type)
+                select(Conversation.session_id, Conversation.workflow_type)
                 .where(
-                    Conversation.session_id == row.session_id,
+                    Conversation.session_id.in_(session_ids),
                     Conversation.workflow_type.isnot(None),
                 )
                 .distinct()
             )
             wf_result = await self._session.execute(wf_stmt)
-            workflow_types = [r[0] for r in wf_result if r[0]]
+            for sid, wf in wf_result:
+                if wf:
+                    wf_map.setdefault(sid, []).append(wf)
 
+        sessions = []
+        for row in rows_list:
+            workflow_types = wf_map.get(row.session_id, [])
             sessions.append(
                 SessionSummary(
                     session_id=row.session_id,

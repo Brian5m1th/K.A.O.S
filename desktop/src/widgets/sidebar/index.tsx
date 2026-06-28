@@ -19,7 +19,7 @@ import {
   Terminal,
   Coins,
 } from "lucide-react";
-import { useSystemStore, useUpdateStore, useUIStore } from "@/shared/lib/stores";
+import { useSystemStore, useUpdateStore, useUIStore, useAuthStore } from "@/shared/lib/stores";
 import { Tooltip } from "@/shared/ui/tooltip";
 
 interface NavItem {
@@ -27,6 +27,7 @@ interface NavItem {
   label: string;
   path: string;
   icon: typeof LayoutDashboard;
+  allowedRoles?: string[];
 }
 
 interface NavGroup {
@@ -46,34 +47,34 @@ const NAV_GROUPS: NavGroup[] = [
     name: "Intelligence",
     items: [
       { id: "agents", label: "Agents", path: "/agents", icon: Bot },
-      { id: "orchestration", label: "Orquestração", path: "/orchestration", icon: GitBranch },
-      { id: "prompts", label: "Prompt Library", path: "/prompts", icon: FileText },
+      { id: "orchestration", label: "Automation Studio", path: "/automation/studio", icon: GitBranch, allowedRoles: ["admin", "editor"] },
+      { id: "prompts", label: "Prompt Library", path: "/prompts", icon: FileText, allowedRoles: ["admin", "editor"] },
     ],
   },
   {
     name: "Knowledge",
     items: [
-      { id: "vault", label: "Knowledge Vault", path: "/vault", icon: BookOpen },
-      { id: "knowledge-graph", label: "Knowledge Graph", path: "/knowledge-graph", icon: Network },
-      { id: "graphify", label: "Graphify Docs", path: "/graphify", icon: Share2 },
+      { id: "vault", label: "Knowledge Vault", path: "/vault", icon: BookOpen, allowedRoles: ["admin", "editor"] },
+      { id: "knowledge-graph", label: "Knowledge Graph", path: "/knowledge-graph", icon: Network, allowedRoles: ["admin", "editor"] },
+      { id: "graphify", label: "Graphify Docs", path: "/graphify", icon: Share2, allowedRoles: ["admin", "editor"] },
     ],
   },
   {
     name: "DevOps",
     items: [
-      { id: "pipelines", label: "Pipelines", path: "/pipelines", icon: Container },
-      { id: "observability", label: "Observability", path: "/observability", icon: Activity },
-      { id: "events", label: "Event Explorer", path: "/events", icon: Terminal },
-      { id: "tools", label: "Tools & Registry", path: "/tools", icon: Wrench },
+      { id: "pipelines", label: "Pipelines", path: "/pipelines", icon: Container, allowedRoles: ["admin", "editor"] },
+      { id: "observability", label: "Observability", path: "/observability", icon: Activity, allowedRoles: ["admin", "editor"] },
+      { id: "events", label: "Event Explorer", path: "/events", icon: Terminal, allowedRoles: ["admin", "editor"] },
+      { id: "tools", label: "Tools & Registry", path: "/tools", icon: Wrench, allowedRoles: ["admin"] },
     ],
   },
   {
     name: "System",
     items: [
-      { id: "users", label: "Users", path: "/users", icon: Users },
-      { id: "documentation", label: "Doc Health", path: "/documentation", icon: FileText },
-      { id: "costs", label: "Cost Center", path: "/costs", icon: Coins },
-      { id: "settings", label: "Settings", path: "/settings", icon: Settings },
+      { id: "users", label: "Users", path: "/users", icon: Users, allowedRoles: ["admin"] },
+      { id: "documentation", label: "Doc Health", path: "/documentation", icon: FileText, allowedRoles: ["admin", "editor"] },
+      { id: "costs", label: "Cost Center", path: "/costs", icon: Coins, allowedRoles: ["admin"] },
+      { id: "settings", label: "Settings", path: "/settings", icon: Settings, allowedRoles: ["admin", "editor"] },
     ],
   },
 ];
@@ -86,6 +87,16 @@ export function Sidebar() {
   const sidebarCollapsed = useUIStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUIStore((s) => s.toggleSidebar);
   const setCommandPaletteOpen = useUIStore((s) => s.setCommandPaletteOpen);
+  const user = useAuthStore((s) => s.user);
+
+  const role = user?.role || "viewer";
+
+  const visibleGroups = NAV_GROUPS.map((group) => {
+    const items = group.items.filter(
+      (item) => !item.allowedRoles || item.allowedRoles.includes(role)
+    );
+    return { ...group, items };
+  }).filter((group) => group.items.length > 0);
 
   return (
     <aside
@@ -119,7 +130,7 @@ export function Sidebar() {
 
       {/* Nav Menu */}
       <nav className="flex-1 space-y-4 overflow-y-auto p-2 scrollbar-thin">
-        {NAV_GROUPS.map((group, groupIdx) => (
+        {visibleGroups.map((group, groupIdx) => (
           <div key={group.name} className="space-y-1">
             {!sidebarCollapsed ? (
               <h3 className="px-3 text-[10px] font-semibold uppercase tracking-wider text-text-dim/80">

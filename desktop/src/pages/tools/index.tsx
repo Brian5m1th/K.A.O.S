@@ -21,6 +21,7 @@ import {
   Play,
   Layers,
   ChevronRight,
+  Trash2,
 } from "lucide-react";
 import { kaosFetch } from "@/shared/api/kaos-client";
 
@@ -232,6 +233,24 @@ export default function ToolsPage() {
     }
   };
 
+  const handleDeleteServer = async (name: string) => {
+    if (!confirm(`Are you sure you want to delete MCP server '${name}'?`)) return;
+    try {
+      const res = await kaosFetch(`/api/mcp/servers/${encodeURIComponent(name)}`, "", {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        fetchMcpData();
+      } else {
+        const data = await res.json();
+        alert(data.detail || "Failed to delete MCP server");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Network error. Please try again.");
+    }
+  };
+
   // Load appropriate data on mount or tab change
   useEffect(() => {
     if (activeTab === "mcp") {
@@ -332,9 +351,23 @@ export default function ToolsPage() {
                                 <p className="text-[11px] text-text-dim mt-0.5">{server.tools_count} ferramentas registradas</p>
                               </div>
                             </div>
-                            <Badge variant={isHealthy ? "success" : "error"}>
-                              {server.health?.status?.toUpperCase() || "UNKNOWN"}
-                            </Badge>
+                            <div className="flex items-center gap-1.5">
+                              <Badge variant={isHealthy ? "success" : "error"}>
+                                {server.health?.status?.toUpperCase() || "UNKNOWN"}
+                              </Badge>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteServer(server.name);
+                                }}
+                                className="p-1 h-auto text-text-muted hover:text-error hover:bg-error/10 transition-all rounded"
+                                title="Delete server"
+                              >
+                                <Trash2 className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
                           </CardContent>
                         </Card>
                       );

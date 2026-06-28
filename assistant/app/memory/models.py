@@ -144,3 +144,18 @@ class RegisteredApp(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
+
+
+class UserPreference(Base):
+    __tablename__ = "user_preferences"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    user_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    key: Mapped[str] = mapped_column(String(255), nullable=False)
+    value: Mapped[str] = mapped_column(Text, nullable=False)
+
+    __table_args__ = (
+        Index("ix_user_prefs_user_id_key", "user_id", "key", unique=True),
+    )

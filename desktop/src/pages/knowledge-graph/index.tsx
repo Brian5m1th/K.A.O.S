@@ -6,8 +6,6 @@ import { Badge } from "@/shared/ui/badge";
 import { Card, CardContent } from "@/shared/ui/card";
 import { Loader2, RefreshCw, GitGraph } from "lucide-react";
 
-const SERVER_URL = "http://localhost:8000";
-
 export default function KnowledgeGraphPage() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -19,7 +17,7 @@ export default function KnowledgeGraphPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/architecture/knowledge-graph`, "");
+      const res = await kaosFetch("/api/architecture/knowledge-graph", "");
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
 

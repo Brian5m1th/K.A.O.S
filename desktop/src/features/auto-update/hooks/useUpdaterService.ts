@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef } from "react";
-import { invoke } from "@tauri-apps/api/core";
-import { listen, type UnlistenFn } from "@tauri-apps/api/event";
+import { invokeIpc, listenIpc } from "@/shared/api/ipc-bridge";
 import { useUpdateStore } from "@/shared/lib/stores";
 import { eventBus } from "@/shared/lib/event-bus";
+
+type UnlistenFn = () => void;
 
 interface UpdateResult {
   available: boolean;
@@ -41,7 +42,7 @@ export function useUpdaterService() {
     store.setError(null);
     console.log("[UpdaterService] Iniciando verificacao de atualizacoes...");
     try {
-      const result = await invoke<UpdateResult>("check_for_update");
+      const result = await invokeIpc<UpdateResult>("check_for_update");
       console.log("[UpdaterService] Resposta do check_for_update:", result);
       store.setLastCheckAt(new Date().toISOString());
       if (result.available) {
@@ -80,7 +81,7 @@ export function useUpdaterService() {
     console.log("[UpdaterService] Iniciando download da atualizacao...");
 
     try {
-      const unlistenProgress = await listen<ProgressPayload>(
+      const unlistenProgress = await listenIpc<ProgressPayload>(
         "update:progress",
         (ev) => {
           const s = useUpdateStore.getState();
@@ -95,7 +96,7 @@ export function useUpdaterService() {
       );
       unlistenersRef.current.push(unlistenProgress);
 
-      const unlistenReady = await listen("update:ready", () => {
+      const unlistenReady = await listenIpc("update:ready", () => {
         console.log("[UpdaterService] Download concluido com sucesso e pronto para instalacao.");
         useUpdateStore.getState().setPhase("ready");
         clearListeners();
@@ -103,7 +104,7 @@ export function useUpdaterService() {
       unlistenersRef.current.push(unlistenReady);
 
       // G-01: tratar update:error como promise separada
-      const unlistenError = await listen<{ message: string }>(
+      const unlistenError = await listenIpc<{ message: string }>(
         "update:error",
         (ev) => {
           console.error("[UpdaterService] Erro emitido durante o download:", ev.payload.message);
@@ -119,7 +120,7 @@ export function useUpdaterService() {
       );
       unlistenersRef.current.push(unlistenError);
 
-      await invoke("download_and_install");
+      await invokeIpc("download_and_install");
     } catch (e) {
       console.error("[UpdaterService] Erro ao chamar download_and_install:", e);
       const s = useUpdateStore.getState();
@@ -136,7 +137,7 @@ export function useUpdaterService() {
   const installUpdate = useCallback(async () => {
     console.log("[UpdaterService] Iniciando processo de instalacao do update...");
     try {
-      await invoke("install_update");
+      await invokeIpc("install_update");
       console.log("[UpdaterService] Comando de instalacao enviado ao backend Rust. O app deve reiniciar.");
     } catch (e) {
       console.error("[UpdaterService] Erro ao invocar install_update:", e);

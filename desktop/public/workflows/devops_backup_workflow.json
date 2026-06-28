@@ -1,0 +1,41 @@
+{
+  "name": "DevOps DB & Vector Backup",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "backup-trigger",
+        "options": {}
+      },
+      "id": "node-1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/system/backup",
+        "method": "POST",
+        "options": {}
+      },
+      "id": "node-2",
+      "name": "Backup Runner API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [300, 200]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Backup Runner API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

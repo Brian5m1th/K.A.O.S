@@ -19,7 +19,9 @@ async def get_settings():
 @router.put("")
 async def save_settings(body: dict):
     config = ConfigService.load_config()
-    config.update(body)
+    # Filter the incoming body to only allow updating general settings keys
+    filtered_body = {k: v for k, v in body.items() if k in _SETTINGS_KEYS}
+    config.update(filtered_body)
     ConfigService.save_config(config)
     logger.info("[settings] settings updated")
     # Return the full settings subset after save

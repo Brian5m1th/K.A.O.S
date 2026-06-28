@@ -1,0 +1,50 @@
+{
+  "name": "GitHub PR Reviewer",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "github-pr",
+        "options": {}
+      },
+      "id": "node-1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/audit/pr-review",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "pr_url",
+              "value": "={{ $json.body.pr_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-2",
+      "name": "PR Auditor API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [300, 200]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "PR Auditor API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

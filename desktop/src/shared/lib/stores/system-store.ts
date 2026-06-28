@@ -24,6 +24,7 @@ interface SystemState {
   runtime: {
     activeModel: string;
     latency: number;
+    cpu: number;
     vramUsed: number;
     vramTotal: number;
   };
@@ -59,6 +60,7 @@ export const useSystemStore = create<SystemState>()(
       runtime: {
         activeModel: "",
         latency: 0,
+        cpu: 0,
         vramUsed: 0,
         vramTotal: 16,
       },
@@ -97,12 +99,13 @@ export const useSystemStore = create<SystemState>()(
 
       fetchAll: async (serverUrl = "http://localhost:8000", apiKey = "") => {
     try {
-      const [healthRes, readinessRes, systemStatusRes, providerActiveRes] =
+      const [healthRes, readinessRes, systemStatusRes, providerActiveRes, systemMetricsRes] =
         await Promise.allSettled([
           kaosFetch(`${serverUrl}/health`, apiKey),
           kaosFetch(`${serverUrl}/health/readiness`, apiKey),
           kaosFetch(`${serverUrl}/api/system/status`, apiKey),
           kaosFetch(`${serverUrl}/api/setup/provider/active`, apiKey),
+          kaosFetch(`${serverUrl}/api/system/metrics`, apiKey),
         ]);
 
       if (healthRes.status === "fulfilled" && healthRes.value.ok) {
@@ -128,6 +131,18 @@ export const useSystemStore = create<SystemState>()(
         const data = await providerActiveRes.value.json();
         set((s) => ({
           runtime: { ...s.runtime, activeModel: data.model || s.runtime.activeModel },
+        }));
+      }
+
+      if (systemMetricsRes.status === "fulfilled" && systemMetricsRes.value.ok) {
+        const data = await systemMetricsRes.value.json();
+        set((s) => ({
+          runtime: {
+            ...s.runtime,
+            cpu: data.cpu ?? s.runtime.cpu,
+            vramUsed: data.vram?.used ?? s.runtime.vramUsed,
+            vramTotal: data.vram?.total ?? s.runtime.vramTotal,
+          },
         }));
       }
     } catch {

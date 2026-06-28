@@ -189,15 +189,29 @@ export default function ChatPage() {
     streamMessage(input, activeModel, serverUrl, "");
   };
 
+  const setMessages = useChatStore((s) => s.setMessages);
+
   const handleNewChat = () => {
+    setActiveSessionId("");
     clearMessages();
   };
 
-  const handleSelectSession = (sessionId: string) => {
+  const handleSelectSession = async (sessionId: string) => {
     setActiveSessionId(sessionId);
-    // TODO: Load session messages from API and populate chat-store
-    // For now, just start a new chat
-    clearMessages();
+    if (!sessionId || !userId) return;
+    try {
+      const res = await kaosFetch(`/api/conversations/${sessionId}?user_id=${encodeURIComponent(userId)}`, "");
+      if (res.ok) {
+        const data = await res.json();
+        const loadedMessages = (data.turns || []).map((t: any) => ({
+          role: t.role,
+          text: t.content
+        }));
+        setMessages(loadedMessages.length > 0 ? loadedMessages : [{ role: "assistant", text: "Conversation is empty." }]);
+      }
+    } catch (err) {
+      console.error("Failed to load conversation history:", err);
+    }
   };
 
   const handleProviderChange = async (providerId: string) => {

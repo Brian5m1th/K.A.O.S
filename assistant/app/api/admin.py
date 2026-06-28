@@ -28,6 +28,11 @@ async def list_users(
     request: Request,
     session: AsyncSession = Depends(get_session),
 ):
+    if getattr(request.state, "role", "user") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required",
+        )
     result = await session.execute(select(User).order_by(User.created_at))
     users = result.scalars().all()
     return {
@@ -50,6 +55,11 @@ async def create_user(
     body: CreateUserRequest,
     session: AsyncSession = Depends(get_session),
 ):
+    if getattr(request.state, "role", "user") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required",
+        )
     existing = await session.execute(select(User).where(User.email == body.email))
     if existing.scalar_one_or_none():
         raise HTTPException(status_code=400, detail="Email already in use")
@@ -82,6 +92,11 @@ async def update_user_role(
     body: UpdateUserRoleRequest,
     session: AsyncSession = Depends(get_session),
 ):
+    if getattr(request.state, "role", "user") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required",
+        )
     result = await session.execute(select(User).where(User.id == user_id))
     user = result.scalar_one_or_none()
     if not user:
@@ -97,6 +112,11 @@ async def delete_user(
     user_id: str,
     session: AsyncSession = Depends(get_session),
 ):
+    if getattr(request.state, "role", "user") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin privileges required",
+        )
     result = await session.execute(select(User).where(User.id == user_id))
     user = result.scalar_one_or_none()
     if not user:

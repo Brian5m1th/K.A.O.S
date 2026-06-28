@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
-import { BookOpen, Copy, Check, Search, Plus, Terminal, Edit3 } from "lucide-react";
+import { kaosFetch } from "@/shared/api/kaos-client";
+import {
+  Copy, Check, Search, Plus, Edit3, Trash2, Loader2, X
+} from "lucide-react";
 
 interface PromptItem {
   id: string;
@@ -13,47 +16,131 @@ interface PromptItem {
   description: string;
 }
 
-const INITIAL_PROMPTS: PromptItem[] = [
-  {
-    id: "1",
-    title: "Code Reviewer Pro",
-    category: "coding",
-    description: "Revisa código procurando por bugs, gargalos de performance e riscos de segurança.",
-    prompt: "Aja como um engenheiro de software sênior. Revise as alterações de código a seguir analisando: complexidade ciclomática, vazamentos de memória e conformidade com clean code.",
-  },
-  {
-    id: "2",
-    title: "Technical Spec Writer (SDD)",
-    category: "writing",
-    description: "Estrutura discussões e ideias em documentos formais de SDD (Software Design Document).",
-    prompt: "Escreva um Software Design Document (SDD) estruturado baseado no seguinte backlog de decisões técnicas. Inclua seções de Objetivo, Requisitos Funcionais, Arquitetura Proposta e Plano de Verificação.",
-  },
-  {
-    id: "3",
-    title: "Tailwind UI Designer",
-    category: "ux",
-    description: "Gera layouts em Tailwind CSS elegantes, responsivos e acessíveis com foco em dark mode.",
-    prompt: "Escreva código HTML/JSX com classes utilitárias do Tailwind CSS que crie um componente interativo moderno, utilizando cores frias e efeitos de blur de fundo (glassmorphism).",
-  },
-  {
-    id: "4",
-    title: "Commit Message Formatter",
-    category: "system",
-    description: "Gera mensagens de commit seguindo a especificação de Conventional Commits.",
-    prompt: "Com base nas alterações de código fornecidas, gere uma mensagem de commit curta e sem ambiguidades no formato Conventional Commits (ex: feat(ui): add collapse button).",
-  },
-];
-
 export default function PromptsPage() {
-  const [prompts, setPrompts] = useState<PromptItem[]>(INITIAL_PROMPTS);
+  const [prompts, setPrompts] = useState<PromptItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Modal / Form state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [formError, setFormError] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "coding",
+    description: "",
+    prompt: ""
+  });
+
+  const fetchPrompts = async () => {
+    setLoading(true);
+    try {
+      const res = await kaosFetch("/api/prompts", "");
+      if (res.ok) {
+        const data = await res.json();
+        setPrompts(data || []);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrompts();
+  }, []);
 
   const handleCopy = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const openCreateModal = () => {
+    setFormData({
+      title: "",
+      category: "coding",
+      description: "",
+      prompt: ""
+    });
+    setEditingId(null);
+    setModalMode("create");
+    setFormError("");
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (item: PromptItem) => {
+    setFormData({
+      title: item.title,
+      category: item.category,
+      description: item.description,
+      prompt: item.prompt
+    });
+    setEditingId(item.id);
+    setModalMode("edit");
+    setFormError("");
+    setIsModalOpen(true);
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError("");
+
+    if (!formData.title.trim()) {
+      setFormError("Title is required");
+      return;
+    }
+    if (!formData.description.trim()) {
+      setFormError("Description is required");
+      return;
+    }
+    if (!formData.prompt.trim()) {
+      setFormError("Prompt body is required");
+      return;
+    }
+
+    try {
+      let res;
+      if (modalMode === "create") {
+        res = await kaosFetch("/api/prompts", "", {
+          method: "POST",
+          body: JSON.stringify(formData)
+        });
+      } else {
+        res = await kaosFetch(`/api/prompts/${editingId}`, "", {
+          method: "PUT",
+          body: JSON.stringify(formData)
+        });
+      }
+
+      if (res.ok) {
+        setIsModalOpen(false);
+        fetchPrompts();
+      } else {
+        const data = await res.json();
+        setFormError(data.detail || "Failed to save prompt");
+      }
+    } catch {
+      setFormError("Connection error. Please try again.");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this prompt?")) return;
+    try {
+      const res = await kaosFetch(`/api/prompts/${id}`, "", {
+        method: "DELETE"
+      });
+      if (res.ok) {
+        fetchPrompts();
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const filteredPrompts = prompts.filter((p) => {
@@ -65,7 +152,7 @@ export default function PromptsPage() {
   });
 
   return (
-    <div className="flex h-full flex-col gap-4 p-4">
+    <div className="flex h-full flex-col gap-4 p-4 relative overflow-y-auto">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-base font-semibold text-text-primary">Prompt Library</h1>
@@ -73,7 +160,7 @@ export default function PromptsPage() {
             Gerenciador e hub de prompts de sistema pré-configurados
           </p>
         </div>
-        <Button variant="primary" size="sm">
+        <Button variant="primary" size="sm" onClick={openCreateModal}>
           <Plus className="h-3.5 w-3.5 mr-1.5" />
           Add Prompt
         </Button>
@@ -107,55 +194,153 @@ export default function PromptsPage() {
         </div>
       </div>
 
-      {/* Prompt cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredPrompts.map((p) => (
-          <Card key={p.id} className="flex flex-col border border-border-subtle bg-surface-raised/35">
-            <CardHeader className="pb-2">
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-sm font-semibold">{p.title}</CardTitle>
-                  <CardDescription className="text-[11px] mt-1 text-text-muted">
-                    {p.description}
-                  </CardDescription>
+      {/* Loading indicator */}
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-12 gap-2 text-text-muted">
+          <Loader2 className="h-6 w-6 animate-spin" />
+          <span className="text-xs">Carregando biblioteca...</span>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {filteredPrompts.map((p) => (
+            <Card key={p.id} className="flex flex-col border border-border-subtle bg-surface-raised/35">
+              <CardHeader className="pb-2">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-sm font-semibold text-text-primary">{p.title}</CardTitle>
+                    <CardDescription className="text-[11px] mt-1 text-text-muted leading-relaxed">
+                      {p.description}
+                    </CardDescription>
+                  </div>
+                  <Badge variant="info" className="text-[9px] uppercase font-mono px-2 py-0.5">
+                    {p.category}
+                  </Badge>
                 </div>
-                <Badge variant="info" className="text-[9px] uppercase font-mono">
-                  {p.category}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col gap-3 pt-1">
-              <div className="bg-canvas p-3 rounded-lg border border-border-subtle/80 font-mono text-[10px] text-text-muted select-all max-h-24 overflow-y-auto relative scrollbar-thin">
-                {p.prompt}
-              </div>
-              <div className="flex gap-2 justify-end mt-auto pt-2 border-t border-border-subtle/30">
-                <Button variant="ghost" size="sm">
-                  <Edit3 className="h-3 w-3 mr-1" />
-                  Edit
-                </Button>
-                <Button
-                  variant="subtle"
-                  size="sm"
-                  onClick={() => handleCopy(p.id, p.prompt)}
-                  className="min-w-[80px]"
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col gap-3 pt-1">
+                <div className="bg-canvas p-3 rounded-lg border border-border-subtle/80 font-mono text-[10px] text-text-muted select-all max-h-24 overflow-y-auto relative scrollbar-thin">
+                  {p.prompt}
+                </div>
+                <div className="flex gap-2 justify-end mt-auto pt-2 border-t border-border-subtle/30">
+                  <Button variant="ghost" size="sm" onClick={() => openEditModal(p)} className="text-text-muted hover:text-text-primary">
+                    <Edit3 className="h-3 w-3 mr-1" />
+                    Edit
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleDelete(p.id)} className="text-text-muted hover:text-error">
+                    <Trash2 className="h-3 w-3 mr-1" />
+                    Delete
+                  </Button>
+                  <Button
+                    variant="subtle"
+                    size="sm"
+                    onClick={() => handleCopy(p.id, p.prompt)}
+                    className="min-w-[80px]"
+                  >
+                    {copiedId === p.id ? (
+                      <>
+                        <Check className="h-3 w-3 mr-1 text-success" />
+                        Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-3 w-3 mr-1" />
+                        Copy
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+          {filteredPrompts.length === 0 && (
+            <div className="col-span-full text-center py-8 text-xs text-text-muted">
+              Nenhum prompt encontrado nesta categoria.
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Modal Dialog Form */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-md bg-surface border border-border-subtle rounded-xl shadow-2xl overflow-hidden relative">
+            <div className="h-1 bg-gradient-to-r from-accent-primary to-accent-neon" />
+            <div className="p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-semibold text-text-primary">
+                  {modalMode === "create" ? "Add New Prompt" : "Edit Prompt"}
+                </h3>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="p-1 rounded hover:bg-bg-active text-text-muted hover:text-text-primary transition-colors"
                 >
-                  {copiedId === p.id ? (
-                    <>
-                      <Check className="h-3 w-3 mr-1 text-success" />
-                      Copied!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3 w-3 mr-1" />
-                      Copy
-                    </>
-                  )}
-                </Button>
+                  <X className="h-4 w-4" />
+                </button>
               </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+
+              <form onSubmit={handleSave} className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-text-muted">Title</label>
+                  <Input
+                    value={formData.title}
+                    onChange={(e) => setFormData((s) => ({ ...s, title: e.target.value }))}
+                    placeholder="e.g. Code Reviewer Pro"
+                    className="text-xs bg-canvas"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-text-muted">Category</label>
+                  <select
+                    value={formData.category}
+                    onChange={(e) => setFormData((s) => ({ ...s, category: e.target.value }))}
+                    className="w-full rounded-lg border border-border-subtle bg-canvas px-3 py-2 text-xs text-text-primary outline-none focus:border-accent-primary"
+                  >
+                    <option value="coding">Coding</option>
+                    <option value="writing">Writing</option>
+                    <option value="ux">UX/UI</option>
+                    <option value="system">System</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-text-muted">Description</label>
+                  <Input
+                    value={formData.description}
+                    onChange={(e) => setFormData((s) => ({ ...s, description: e.target.value }))}
+                    placeholder="Briefly describe what this prompt does"
+                    className="text-xs bg-canvas"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-text-muted">Prompt Body</label>
+                  <textarea
+                    rows={4}
+                    value={formData.prompt}
+                    onChange={(e) => setFormData((s) => ({ ...s, prompt: e.target.value }))}
+                    placeholder="Enter the system instructions..."
+                    className="w-full rounded-lg border border-border-subtle bg-canvas p-3 text-xs text-text-primary outline-none focus:border-accent-primary font-mono"
+                  />
+                </div>
+
+                {formError && (
+                  <p className="text-[11px] font-semibold text-[#EF4444]">{formError}</p>
+                )}
+
+                <div className="flex gap-2 justify-end pt-2 border-t border-border-subtle/50">
+                  <Button type="button" variant="secondary" size="sm" onClick={() => setIsModalOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" variant="primary" size="sm">
+                    {modalMode === "create" ? "Create" : "Save Changes"}
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

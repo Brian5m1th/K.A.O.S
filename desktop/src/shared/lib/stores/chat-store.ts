@@ -15,6 +15,7 @@ interface ChatState {
   cancel: () => void;
   clearMessages: () => void;
   setActiveModel: (model: string) => void;
+  setMessages: (messages: Message[]) => void;
 }
 
 let abortController: AbortController | null = null;
@@ -26,6 +27,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
   activeModel: "kaos",
 
   setActiveModel: (activeModel) => set({ activeModel }),
+
+  setMessages: (messages) => set({ messages }),
 
   clearMessages: () =>
     set({ messages: [{ role: "assistant", text: "KAOS initialized. How can I help you?" }] }),

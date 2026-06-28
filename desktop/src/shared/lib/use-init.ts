@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAuthStore, useUpdateStore } from "@/shared/lib/stores";
 import { useUpdateCheck } from "@/features/auto-update/hooks/useUpdateCheck";
-import { invoke } from "@tauri-apps/api/core";
+import { invokeIpc } from "@/shared/api/ipc-bridge";
 
 export function useAppInit() {
   const checkSetupStatus = useAuthStore((s) => s.checkSetupStatus);
@@ -14,7 +14,7 @@ export function useAppInit() {
     const startDocker = async () => {
       console.log("[useAppInit] Iniciando contêineres Docker (Ollama, Postgres, etc.)...");
       try {
-        await invoke("ensure_docker_services");
+        await invokeIpc("ensure_docker_services");
         console.log("[useAppInit] Comando Docker Compose disparado.");
       } catch (e) {
         console.error("[useAppInit] Erro ao iniciar serviços Docker:", e);
@@ -25,7 +25,7 @@ export function useAppInit() {
     // Buscar a versão real do binário do Tauri e atualizar o store
     const fetchRealVersion = async () => {
       try {
-        const version = await invoke<string>("get_app_version");
+        const version = await invokeIpc<string>("get_app_version");
         useUpdateStore.getState().setCurrentVersion(version);
         console.log(`[useAppInit] Dynamic version retrieved: ${version}`);
       } catch (e) {

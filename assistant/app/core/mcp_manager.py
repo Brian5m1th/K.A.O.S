@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import time
+import json
 from threading import Lock
 
 from loguru import logger
@@ -28,6 +29,42 @@ class _MCPServerProcess(MCPServer):
         self._process: subprocess.Popen | None = None
         self._tools_cache: list[dict] = []
         self._last_health: dict = {"status": "unknown", "latency_ms": 0, "error": None}
+
+    # ------------------------------------------------------------------
+    # Lifecycle
+    def _send_request(self, method: str, params: dict) -> dict:
+        if not self._process or not self._process.stdin or not self._process.stdout:
+            return {"error": "Process not running"}
+
+        req_id = int(time.time() * 1000)
+        req = {
+            "jsonrpc": "2.0",
+            "id": req_id,
+            "method": method,
+            "params": params
+        }
+
+        try:
+            req_str = json.dumps(req) + "\n"
+            self._process.stdin.write(req_str.encode("utf-8"))
+            self._process.stdin.flush()
+
+            # Read lines until we get the response with matching id
+            while True:
+                line = self._process.stdout.readline()
+                if not line:
+                    return {"error": "Connection closed"}
+
+                try:
+                    resp = json.loads(line.decode("utf-8"))
+                    if resp.get("id") == req_id:
+                        return resp
+                except Exception:
+                    # Skip logs or notifications
+                    continue
+        except Exception as e:
+            logger.error("[mcp] JSON-RPC exchange failed: {}", e)
+            return {"error": str(e)}
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -78,6 +115,31 @@ class _MCPServerProcess(MCPServer):
             logger.info(
                 "[mcp] server '{}' started (pid={})", self._name, self._process.pid
             )
+
+            # Handshake
+            init_resp = self._send_request("initialize", {
+                "protocolVersion": "2024-11-05",
+                "capabilities": {},
+                "clientInfo": {"name": "kaos-client", "version": "1.0.0"}
+            })
+            if "error" in init_resp:
+                logger.error("[mcp] Handshake failed for server '{}': {}", self._name, init_resp["error"])
+                self.shutdown()
+                return False
+
+            # Send initialized notification
+            notif = {
+                "jsonrpc": "2.0",
+                "method": "notifications/initialized"
+            }
+            self._process.stdin.write((json.dumps(notif) + "\n").encode("utf-8"))
+            self._process.stdin.flush()
+
+            # Cache tools list
+            tools_resp = self._send_request("tools/list", {})
+            self._tools_cache = tools_resp.get("result", {}).get("tools", [])
+            logger.info("[mcp] server '{}' registered {} tools", self._name, len(self._tools_cache))
+
             self._last_health = {"status": "healthy", "latency_ms": 0, "error": None}
             return True
         except (OSError, subprocess.SubprocessError) as exc:
@@ -118,13 +180,10 @@ class _MCPServerProcess(MCPServer):
         return self._tools_cache
 
     def call_tool(self, tool_name: str, params: dict) -> dict:
-        # TODO: Implement actual STDIO JSON-RPC exchange per MCP spec
-        # For now, return a stub
-        return {
-            "status": "not_implemented",
-            "tool": tool_name,
-            "message": f"MCP STDIO transport not yet implemented for '{self._name}'",
-        }
+        resp = self._send_request("tools/call", {"name": tool_name, "arguments": params})
+        if "error" in resp:
+            return {"status": "error", "error": resp["error"]}
+        return resp.get("result", {})
 
     # ------------------------------------------------------------------
     # Health
@@ -211,6 +270,15 @@ class MCPManager:
         self._initialized = False
         logger.info("[mcp] stopped {}/{} servers", stopped, stopped)
         return stopped
+
+    def delete_server(self, name: str) -> bool:
+        """Shut down and remove a single MCP server process from memory."""
+        proc = self._servers.get(name)
+        if proc:
+            proc.shutdown()
+            del self._servers[name]
+            return True
+        return False
 
     # ------------------------------------------------------------------
     # Accessors

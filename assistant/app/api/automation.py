@@ -35,6 +35,7 @@ async def list_workflows(
                 "description": w.description,
                 "is_active": w.is_active,
                 "version": w.version,
+                "json_data": w.json_data,
                 "created_at": w.created_at.isoformat() if w.created_at else None,
                 "updated_at": w.updated_at.isoformat() if w.updated_at else None,
             }
