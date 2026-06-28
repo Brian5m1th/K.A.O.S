@@ -175,16 +175,20 @@ class KnowledgeGraphBuilder:
         """Atualiza incrementalmente um unico arquivo no grafo de conhecimento."""
         path = Path(file_path).resolve()
         project_root = RuntimePathResolver.project_root().resolve()
-        
+
         try:
             rel_path = path.relative_to(project_root).as_posix()
         except ValueError:
-            logger.warning(f"[knowledge_graph] file {path} is not in project root {project_root}")
+            logger.warning(
+                f"[knowledge_graph] file {path} is not in project root {project_root}"
+            )
             return
 
         kg = KnowledgeGraphBuilder.load()
         if not kg:
-            logger.info("[knowledge_graph] no existing graph found, performing full rebuild")
+            logger.info(
+                "[knowledge_graph] no existing graph found, performing full rebuild"
+            )
             KnowledgeGraphBuilder.build()
             return
 
@@ -194,7 +198,7 @@ class KnowledgeGraphBuilder:
         wikilinks = []
 
         is_md = path.suffix.lower() == ".md"
-        
+
         if is_md:
             vn = VaultReader.scan_single(path)
             if vn:
@@ -259,9 +263,13 @@ class KnowledgeGraphBuilder:
 
             # Adicionar edges
             for link in links:
-                kg.edges.append({"source": node_id, "target": link, "relation": "depends_on"})
+                kg.edges.append(
+                    {"source": node_id, "target": link, "relation": "depends_on"}
+                )
             for wl in wikilinks:
-                kg.edges.append({"source": node_id, "target": wl, "relation": "documents"})
+                kg.edges.append(
+                    {"source": node_id, "target": wl, "relation": "documents"}
+                )
 
             kg.generated_at = datetime.now(timezone.utc).isoformat()
             KnowledgeGraphBuilder._persist(kg)
@@ -303,7 +311,11 @@ class KnowledgeGraphBuilder:
                 kg.sdds = [s for s in kg.sdds if s["id"] != node_id]
                 kg.workflows = [w for w in kg.workflows if w["id"] != node_id]
                 kg.agents = [a for a in kg.agents if a["id"] != node_id]
-                kg.edges = [e for e in kg.edges if e["source"] != node_id and e["target"] != node_id]
+                kg.edges = [
+                    e
+                    for e in kg.edges
+                    if e["source"] != node_id and e["target"] != node_id
+                ]
                 logger.info(f"[knowledge_graph] incrementally removed node: {node_id}")
 
             kg.generated_at = datetime.now(timezone.utc).isoformat()

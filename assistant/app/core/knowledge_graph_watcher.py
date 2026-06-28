@@ -13,6 +13,7 @@ from app.core.runtime_path_resolver import RuntimePathResolver
 try:
     from watchdog.observers import Observer
     from watchdog.events import FileSystemEventHandler
+
     HAS_WATCHDOG = True
 except ImportError:
     HAS_WATCHDOG = False
@@ -36,7 +37,16 @@ class KnowledgeGraphEventHandler(FileSystemEventHandler):
         if any(part.startswith(".") for part in path.parts):
             return False
         # Ignorar diretorios comuns de build/cache
-        exclude_dirs = {"__pycache__", "node_modules", "dist", "build", "history", "runtime", "logs", "data"}
+        exclude_dirs = {
+            "__pycache__",
+            "node_modules",
+            "dist",
+            "build",
+            "history",
+            "runtime",
+            "logs",
+            "data",
+        }
         if any(part in exclude_dirs for part in path.parts):
             return False
         # Filtro de extensao
@@ -100,7 +110,9 @@ class KnowledgeGraphWatcher:
 
     def start(self) -> None:
         if not HAS_WATCHDOG:
-            logger.warning("[kg_watcher] watchdog nao esta instalado, watcher desativado")
+            logger.warning(
+                "[kg_watcher] watchdog nao esta instalado, watcher desativado"
+            )
             return
 
         if self._running:
@@ -113,7 +125,7 @@ class KnowledgeGraphWatcher:
         watch_dirs = [
             project_root / "docs",
             project_root / "assistant" / "app",
-            project_root / "desktop" / "src"
+            project_root / "desktop" / "src",
         ]
 
         started_any = False
