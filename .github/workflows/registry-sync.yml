@@ -81,7 +81,12 @@ jobs:
           # Entrar no submódulo e garantir branch main atualizada
           cd docs
           git checkout main || git checkout -b main
+          mv runtime/registry/features-index.json /tmp/features-index.json || cp runtime/registry/features-index.json /tmp/features-index.json || true
+          git checkout -- . || true
+          git clean -fd || true
           git pull origin main --rebase
+          mkdir -p runtime/registry
+          mv /tmp/features-index.json runtime/registry/features-index.json || cp /tmp/features-index.json runtime/registry/features-index.json || true
           
           # Adicionar arquivo e verificar se houve mudanças
           git add runtime/registry/features-index.json
