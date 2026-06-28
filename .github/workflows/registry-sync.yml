@@ -101,10 +101,10 @@ jobs:
             
             # Voltar ao superprojeto e fazer commit/push do ponteiro do submódulo
             cd ..
-            git pull origin main --rebase --no-recurse-submodules
+            git pull origin ${{ github.ref_name }} --rebase --no-recurse-submodules
             git add docs
             git commit -m "chore(registry): update docs submodule pointer [skip ci]"
-            git push origin main
+            git push origin HEAD:${{ github.ref_name }}
             echo "::notice::Registry e submódulo atualizados com sucesso ($TOTAL features)"
           fi
 
