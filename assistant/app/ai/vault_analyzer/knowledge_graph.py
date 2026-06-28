@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import json
+from pathlib import Path
 
 from loguru import logger
 
@@ -168,3 +169,154 @@ class KnowledgeGraphBuilder:
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(kg.to_dict(), f, indent=2, ensure_ascii=False)
+
+    @staticmethod
+    def update_file(file_path: str | Path) -> None:
+        """Atualiza incrementalmente um unico arquivo no grafo de conhecimento."""
+        path = Path(file_path).resolve()
+        project_root = RuntimePathResolver.project_root().resolve()
+
+        try:
+            rel_path = path.relative_to(project_root).as_posix()
+        except ValueError:
+            logger.warning(
+                f"[knowledge_graph] file {path} is not in project root {project_root}"
+            )
+            return
+
+        kg = KnowledgeGraphBuilder.load()
+        if not kg:
+            logger.info(
+                "[knowledge_graph] no existing graph found, performing full rebuild"
+            )
+            KnowledgeGraphBuilder.build()
+            return
+
+        node_id = None
+        new_entry = None
+        links = []
+        wikilinks = []
+
+        is_md = path.suffix.lower() == ".md"
+
+        if is_md:
+            vn = VaultReader.scan_single(path)
+            if vn:
+                node_id = vn.id
+                new_entry = {
+                    "id": vn.id,
+                    "title": vn.title,
+                    "type": vn.type,
+                    "owner": vn.owner,
+                    "status": vn.status,
+                    "tags": vn.tags,
+                    "links": vn.links,
+                    "wikilinks": vn.wikilinks,
+                    "source": "vault",
+                    "path": rel_path,
+                }
+                links = vn.links
+                wikilinks = vn.wikilinks
+        else:
+            code = CodeScanner.scan_all()
+            all_code_refs = (
+                code.stores
+                + code.routes
+                + code.tools
+                + code.events
+                + code.agents
+                + code.workflows
+                + code.providers
+            )
+            if rel_path in all_code_refs:
+                node_id = rel_path
+                ref_type = KnowledgeGraphBuilder._infer_type(rel_path)
+                new_entry = {
+                    "id": rel_path,
+                    "title": rel_path.split("/")[-1],
+                    "type": ref_type,
+                    "source": "code",
+                    "path": rel_path,
+                }
+
+        if node_id:
+            # Remover old node
+            kg.nodes = [n for n in kg.nodes if n["id"] != node_id]
+            kg.features = [f for f in kg.features if f["id"] != node_id]
+            kg.sdds = [s for s in kg.sdds if s["id"] != node_id]
+            kg.workflows = [w for w in kg.workflows if w["id"] != node_id]
+            kg.agents = [a for a in kg.agents if a["id"] != node_id]
+
+            # Remover old outgoing edges
+            kg.edges = [e for e in kg.edges if e["source"] != node_id]
+
+            # Adicionar novo node
+            kg.nodes.append(new_entry)
+            if new_entry.get("type") == "feature":
+                kg.features.append(new_entry)
+            elif new_entry.get("type") == "sdd":
+                kg.sdds.append(new_entry)
+            elif new_entry.get("type") == "agent":
+                kg.agents.append(new_entry)
+            elif new_entry.get("type") == "workflow":
+                kg.workflows.append(new_entry)
+
+            # Adicionar edges
+            for link in links:
+                kg.edges.append(
+                    {"source": node_id, "target": link, "relation": "depends_on"}
+                )
+            for wl in wikilinks:
+                kg.edges.append(
+                    {"source": node_id, "target": wl, "relation": "documents"}
+                )
+
+            kg.generated_at = datetime.now(timezone.utc).isoformat()
+            KnowledgeGraphBuilder._persist(kg)
+            logger.info(f"[knowledge_graph] incrementally updated node: {node_id}")
+        else:
+            # Se nao for detectado como node ativo (ex: deletado ou alterado de forma a nao dar match), remove
+            KnowledgeGraphBuilder.delete_file(file_path, kg=kg)
+
+    @staticmethod
+    def delete_file(file_path: str | Path, kg: KnowledgeGraph | None = None) -> None:
+        """Remove incrementalmente um arquivo do grafo de conhecimento."""
+        path = Path(file_path).resolve()
+        project_root = RuntimePathResolver.project_root().resolve()
+        try:
+            rel_path = path.relative_to(project_root).as_posix()
+        except ValueError:
+            return
+
+        if not kg:
+            kg = KnowledgeGraphBuilder.load()
+        if not kg:
+            return
+
+        node_ids_to_remove = []
+        for n in kg.nodes:
+            if n.get("path") == rel_path or n.get("id") == rel_path:
+                node_ids_to_remove.append(n.get("id"))
+
+        if not node_ids_to_remove:
+            stem = path.stem.lower()
+            for n in kg.nodes:
+                if n.get("id") == stem:
+                    node_ids_to_remove.append(n.get("id"))
+
+        if node_ids_to_remove:
+            for node_id in node_ids_to_remove:
+                kg.nodes = [n for n in kg.nodes if n["id"] != node_id]
+                kg.features = [f for f in kg.features if f["id"] != node_id]
+                kg.sdds = [s for s in kg.sdds if s["id"] != node_id]
+                kg.workflows = [w for w in kg.workflows if w["id"] != node_id]
+                kg.agents = [a for a in kg.agents if a["id"] != node_id]
+                kg.edges = [
+                    e
+                    for e in kg.edges
+                    if e["source"] != node_id and e["target"] != node_id
+                ]
+                logger.info(f"[knowledge_graph] incrementally removed node: {node_id}")
+
+            kg.generated_at = datetime.now(timezone.utc).isoformat()
+            KnowledgeGraphBuilder._persist(kg)

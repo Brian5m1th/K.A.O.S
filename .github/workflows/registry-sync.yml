@@ -75,6 +75,11 @@ jobs:
 
       - name: Commit registry atualizado (se houve mudança)
         run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "Skipping registry commit & push in pull request events."
+            exit 0
+          fi
+
           git config --global user.name "kaos-bot"
           git config --global user.email "kaos-bot@users.noreply.github.com"
           
