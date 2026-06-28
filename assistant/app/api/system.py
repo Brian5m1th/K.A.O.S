@@ -68,12 +68,16 @@ async def system_metrics():
     if nvidia_smi:
         try:
             res = subprocess.run(
-                [nvidia_smi, "--query-gpu=memory.used,memory.total", "--format=csv,noheader,nounits"],
+                [
+                    nvidia_smi,
+                    "--query-gpu=memory.used,memory.total",
+                    "--format=csv,noheader,nounits",
+                ],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
                 check=True,
-                timeout=1
+                timeout=1,
             )
             parts = res.stdout.strip().split(",")
             if len(parts) >= 2:
@@ -88,12 +92,6 @@ async def system_metrics():
 
     return {
         "cpu": cpu_percent,
-        "ram": {
-            "used": ram_used,
-            "total": ram_total
-        },
-        "vram": {
-            "used": vram_used,
-            "total": vram_total
-        }
+        "ram": {"used": ram_used, "total": ram_total},
+        "vram": {"used": vram_used, "total": vram_total},
     }

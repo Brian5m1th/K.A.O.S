@@ -20,4 +20,3 @@ class UserContextMiddleware(BaseHTTPMiddleware):
             )
 
         return await call_next(request)
-

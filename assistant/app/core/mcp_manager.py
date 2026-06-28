@@ -37,12 +37,7 @@ class _MCPServerProcess(MCPServer):
             return {"error": "Process not running"}
 
         req_id = int(time.time() * 1000)
-        req = {
-            "jsonrpc": "2.0",
-            "id": req_id,
-            "method": method,
-            "params": params
-        }
+        req = {"jsonrpc": "2.0", "id": req_id, "method": method, "params": params}
 
         try:
             req_str = json.dumps(req) + "\n"
@@ -117,28 +112,36 @@ class _MCPServerProcess(MCPServer):
             )
 
             # Handshake
-            init_resp = self._send_request("initialize", {
-                "protocolVersion": "2024-11-05",
-                "capabilities": {},
-                "clientInfo": {"name": "kaos-client", "version": "1.0.0"}
-            })
+            init_resp = self._send_request(
+                "initialize",
+                {
+                    "protocolVersion": "2024-11-05",
+                    "capabilities": {},
+                    "clientInfo": {"name": "kaos-client", "version": "1.0.0"},
+                },
+            )
             if "error" in init_resp:
-                logger.error("[mcp] Handshake failed for server '{}': {}", self._name, init_resp["error"])
+                logger.error(
+                    "[mcp] Handshake failed for server '{}': {}",
+                    self._name,
+                    init_resp["error"],
+                )
                 self.shutdown()
                 return False
 
             # Send initialized notification
-            notif = {
-                "jsonrpc": "2.0",
-                "method": "notifications/initialized"
-            }
+            notif = {"jsonrpc": "2.0", "method": "notifications/initialized"}
             self._process.stdin.write((json.dumps(notif) + "\n").encode("utf-8"))
             self._process.stdin.flush()
 
             # Cache tools list
             tools_resp = self._send_request("tools/list", {})
             self._tools_cache = tools_resp.get("result", {}).get("tools", [])
-            logger.info("[mcp] server '{}' registered {} tools", self._name, len(self._tools_cache))
+            logger.info(
+                "[mcp] server '{}' registered {} tools",
+                self._name,
+                len(self._tools_cache),
+            )
 
             self._last_health = {"status": "healthy", "latency_ms": 0, "error": None}
             return True
@@ -180,7 +183,9 @@ class _MCPServerProcess(MCPServer):
         return self._tools_cache
 
     def call_tool(self, tool_name: str, params: dict) -> dict:
-        resp = self._send_request("tools/call", {"name": tool_name, "arguments": params})
+        resp = self._send_request(
+            "tools/call", {"name": tool_name, "arguments": params}
+        )
         if "error" in resp:
             return {"status": "error", "error": resp["error"]}
         return resp.get("result", {})

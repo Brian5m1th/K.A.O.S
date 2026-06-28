@@ -123,7 +123,7 @@ async def list_vault_files():
 @router.get("/vault/file")
 async def get_vault_file(path: str):
     logger.info("[start] rag - get_vault_file: {}", path)
-    
+
     # Prevenir Path Traversal e inputs absolutos maliciosos
     if Path(path).is_absolute() or ".." in path:
         raise HTTPException(status_code=403, detail="Access denied")

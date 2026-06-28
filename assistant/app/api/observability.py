@@ -22,6 +22,7 @@ LOG_LISTENERS = []
 EVENT_BUFFER = deque(maxlen=100)
 EVENT_LISTENERS = []
 
+
 def log_sink(message):
     record = message.record
     time_str = record["time"].strftime("%Y-%m-%d %H:%M:%S")
@@ -33,6 +34,7 @@ def log_sink(message):
             q.put_nowait(msg)
         except Exception:
             pass
+
 
 # Register the sink on import
 logger.add(log_sink, format="{message}")
@@ -48,40 +50,58 @@ class SSEEventSubscriber(EventSubscriber):
             "llm": "agent",
             "request": "system",
         }
-        
+
         # Determine source
         source = "system"
         for prefix, src in source_map.items():
             if event.name.startswith(prefix):
                 source = src
                 break
-                
+
         payload = {
             "id": f"{event.execution_id}_{event.timestamp.timestamp()}",
             "source": source,
             "type": event.name,
-            "message": f"Event data: {event.data}" if event.data else f"Event '{event.name}' processed successfully.",
-            "timestamp": event.timestamp.strftime("%H:%M:%S")
+            "message": f"Event data: {event.data}"
+            if event.data
+            else f"Event '{event.name}' processed successfully.",
+            "timestamp": event.timestamp.strftime("%H:%M:%S"),
         }
-        
+
         EVENT_BUFFER.append(payload)
-        
+
         for q in list(EVENT_LISTENERS):
             try:
                 q.put_nowait(payload)
             except Exception:
                 pass
 
+
 # Subscribe this subscriber to ALL event names on import
 subscriber = SSEEventSubscriber()
 for ev_name in [
-    "request_started", "intent_classified", "model_selected", "workflow_started",
-    "workflow_completed", "workflow_step", "llm_request", "llm_response",
-    "fallback_triggered", "request_completed", "error", "orchestrator.execution_started",
-    "orchestrator.execution_completed", "orchestrator.execution_failed",
-    "memory.write.started", "memory.write.completed", "memory.write.failed",
-    "memory.read.started", "memory.read.completed", "memory.deleted",
-    "conversation.summarized", "conversation.stored"
+    "request_started",
+    "intent_classified",
+    "model_selected",
+    "workflow_started",
+    "workflow_completed",
+    "workflow_step",
+    "llm_request",
+    "llm_response",
+    "fallback_triggered",
+    "request_completed",
+    "error",
+    "orchestrator.execution_started",
+    "orchestrator.execution_completed",
+    "orchestrator.execution_failed",
+    "memory.write.started",
+    "memory.write.completed",
+    "memory.write.failed",
+    "memory.read.started",
+    "memory.read.completed",
+    "memory.deleted",
+    "conversation.summarized",
+    "conversation.stored",
 ]:
     EventBus.subscribe(ev_name, subscriber)
 
@@ -198,6 +218,7 @@ async def get_costs_summary(
 @router.get("/logs/stream")
 async def stream_logs():
     """SSE endpoint to stream real-time system log records."""
+
     async def event_generator():
         # 1. Yield history from the logs buffer
         for log in list(LOG_BUFFER):
@@ -222,6 +243,7 @@ async def stream_logs():
 @router.get("/events/stream")
 async def stream_events():
     """SSE endpoint to stream real-time EventBus events."""
+
     async def event_generator():
         # 1. Yield history from the event buffer
         for ev in list(EVENT_BUFFER):

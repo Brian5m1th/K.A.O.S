@@ -144,9 +144,7 @@ async def update_prompt(
 
 
 @router.delete("/{prompt_id}")
-async def delete_prompt(
-    prompt_id: str, session: AsyncSession = Depends(get_session)
-):
+async def delete_prompt(prompt_id: str, session: AsyncSession = Depends(get_session)):
     logger.info(f"[start] delete_prompt: {prompt_id}")
     try:
         pid = uuid.UUID(prompt_id)

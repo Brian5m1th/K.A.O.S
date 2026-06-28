@@ -7,7 +7,13 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.orm import selectinload
 
 from app.config.settings import settings
-from app.memory.models import Base, MemorySession, MemoryMessage, MemorySummary, UserPreference
+from app.memory.models import (
+    Base,
+    MemorySession,
+    MemoryMessage,
+    MemorySummary,
+    UserPreference,
+)
 from app.memory.repository import MemoryRepository
 
 
@@ -47,8 +53,7 @@ class PostgresMemoryRepository(MemoryRepository):
         async with self._session_factory() as session:
             result = await session.execute(
                 select(UserPreference).where(
-                    UserPreference.user_id == user_id,
-                    UserPreference.key == key
+                    UserPreference.user_id == user_id, UserPreference.key == key
                 )
             )
             pref = result.scalars().first()

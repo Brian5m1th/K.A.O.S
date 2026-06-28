@@ -235,7 +235,11 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher, _embedder_ready
     logger.info("[start] {} - modo {}", settings.APP_NAME, settings.APP_ENV)
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
-    logger.info("[auth] API key: {}***{}", _app.state.api_key[:4] if _app.state.api_key else "", _app.state.api_key[-4:] if _app.state.api_key else "")
+    logger.info(
+        "[auth] API key: {}***{}",
+        _app.state.api_key[:4] if _app.state.api_key else "",
+        _app.state.api_key[-4:] if _app.state.api_key else "",
+    )
 
     # Initialize database tables
     try:

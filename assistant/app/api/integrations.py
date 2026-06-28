@@ -102,15 +102,18 @@ async def get_github_runs():
     from datetime import datetime
 
     token = _get_github_token()
-    headers = {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"}
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
     if token:
         headers["Authorization"] = f"Bearer {token}"
-        
+
     try:
         async with httpx.AsyncClient(timeout=5) as client:
             res = await client.get(
                 "https://api.github.com/repos/Brian5m1th/K.A.O.S/actions/runs",
-                headers=headers
+                headers=headers,
             )
             if res.is_success:
                 data = res.json()
@@ -119,13 +122,17 @@ async def get_github_runs():
                     duration = "—"
                     if run.get("run_started_at") and run.get("updated_at"):
                         try:
-                            start = datetime.fromisoformat(run["run_started_at"].replace("Z", "+00:00"))
-                            end = datetime.fromisoformat(run["updated_at"].replace("Z", "+00:00"))
+                            start = datetime.fromisoformat(
+                                run["run_started_at"].replace("Z", "+00:00")
+                            )
+                            end = datetime.fromisoformat(
+                                run["updated_at"].replace("Z", "+00:00")
+                            )
                             diff = int((end - start).total_seconds())
                             duration = f"{diff // 60}m {diff % 60}s"
                         except Exception:
                             pass
-                            
+
                     status = "pending"
                     conclusion = run.get("conclusion")
                     run_status = run.get("status")
@@ -133,27 +140,53 @@ async def get_github_runs():
                         status = "success" if conclusion == "success" else "failed"
                     elif run_status in ("in_progress", "queued"):
                         status = "running"
-                        
-                    runs.append({
-                        "id": str(run["id"]),
-                        "name": run.get("name", "Workflow Run"),
-                        "branch": run.get("head_branch", "main"),
-                        "commit": run.get("head_sha", "")[:7],
-                        "status": status,
-                        "duration": duration,
-                        "timestamp": run.get("created_at", "")
-                    })
+
+                    runs.append(
+                        {
+                            "id": str(run["id"]),
+                            "name": run.get("name", "Workflow Run"),
+                            "branch": run.get("head_branch", "main"),
+                            "commit": run.get("head_sha", "")[:7],
+                            "status": status,
+                            "duration": duration,
+                            "timestamp": run.get("created_at", ""),
+                        }
+                    )
                 return {"runs": runs, "source": "github_api"}
     except Exception as e:
         logger.warning(f"Failed to fetch real GitHub Actions runs: {e}")
-        
+
     return {
         "source": "mock_fallback",
         "runs": [
-            { "id": "1", "name": "CI: Build & Test [Disconnected]", "branch": "main", "commit": "a1b2c3d", "status": "success", "duration": "2m 34s", "timestamp": "2026-06-28T21:40:00Z" },
-            { "id": "2", "name": "Docker: Deploy API [Disconnected]", "branch": "main", "commit": "e4f5g6h", "status": "running", "duration": "1m 12s", "timestamp": "2026-06-28T21:42:00Z" },
-            { "id": "3", "name": "Lint & Format [Disconnected]", "branch": "feature/ui", "commit": "i7j8k9l", "status": "failed", "duration": "0m 45s", "timestamp": "2026-06-28T21:30:00Z" }
-        ]
+            {
+                "id": "1",
+                "name": "CI: Build & Test [Disconnected]",
+                "branch": "main",
+                "commit": "a1b2c3d",
+                "status": "success",
+                "duration": "2m 34s",
+                "timestamp": "2026-06-28T21:40:00Z",
+            },
+            {
+                "id": "2",
+                "name": "Docker: Deploy API [Disconnected]",
+                "branch": "main",
+                "commit": "e4f5g6h",
+                "status": "running",
+                "duration": "1m 12s",
+                "timestamp": "2026-06-28T21:42:00Z",
+            },
+            {
+                "id": "3",
+                "name": "Lint & Format [Disconnected]",
+                "branch": "feature/ui",
+                "commit": "i7j8k9l",
+                "status": "failed",
+                "duration": "0m 45s",
+                "timestamp": "2026-06-28T21:30:00Z",
+            },
+        ],
     }
 
 
@@ -165,27 +198,33 @@ async def trigger_github_workflow():
     token = _get_github_token()
     if not token:
         logger.info("[github] Trigger manual simulated (No GitHub token configured)")
-        return {"status": "ok", "message": "Manual trigger simulated (disconnected mode)"}
-         
+        return {
+            "status": "ok",
+            "message": "Manual trigger simulated (disconnected mode)",
+        }
+
     headers = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {token}",
-        "X-GitHub-Api-Version": "2022-11-28"
+        "X-GitHub-Api-Version": "2022-11-28",
     }
-    
+
     try:
         async with httpx.AsyncClient(timeout=5) as client:
             res = await client.post(
                 "https://api.github.com/repos/Brian5m1th/K.A.O.S/dispatches",
                 headers=headers,
-                json={"event_type": "manual-trigger"}
+                json={"event_type": "manual-trigger"},
             )
             if res.is_success:
-                return {"status": "ok", "message": "Repository dispatch trigger sent successfully"}
-                
+                return {
+                    "status": "ok",
+                    "message": "Repository dispatch trigger sent successfully",
+                }
+
             wf_res = await client.get(
                 "https://api.github.com/repos/Brian5m1th/K.A.O.S/actions/workflows",
-                headers=headers
+                headers=headers,
             )
             if wf_res.is_success:
                 workflows = wf_res.json().get("workflows", [])
@@ -194,11 +233,14 @@ async def trigger_github_workflow():
                     dispatch_res = await client.post(
                         f"https://api.github.com/repos/Brian5m1th/K.A.O.S/actions/workflows/{wf_id}/dispatches",
                         headers=headers,
-                        json={"ref": "main"}
+                        json={"ref": "main"},
                     )
                     if dispatch_res.is_success:
-                        return {"status": "ok", "message": f"Workflow {workflows[0]['name']} trigger sent successfully"}
+                        return {
+                            "status": "ok",
+                            "message": f"Workflow {workflows[0]['name']} trigger sent successfully",
+                        }
     except Exception as e:
         logger.warning(f"Failed to trigger GitHub Actions run: {e}")
-        
+
     return {"status": "ok", "message": "Manual trigger simulated"}

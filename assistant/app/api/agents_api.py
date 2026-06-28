@@ -1,5 +1,5 @@
 import datetime
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
@@ -10,12 +10,14 @@ router = APIRouter(prefix="/api/agents", tags=["Agents"])
 # In-memory registry of running agent instances
 AGENT_INSTANCES = {}
 
+
 class AgentConfigPayload(BaseModel):
     name: str
     model: str
     systemPrompt: str
     temperature: float
     topP: float
+
 
 @router.get("/status")
 async def list_agent_statuses():
@@ -31,6 +33,7 @@ async def list_agent_statuses():
         }
     }
 
+
 @router.post("/{agent_id}/start")
 async def start_agent(agent_id: str, payload: AgentConfigPayload):
     AGENT_INSTANCES[agent_id] = {
@@ -40,9 +43,10 @@ async def start_agent(agent_id: str, payload: AgentConfigPayload):
         "temperature": payload.temperature,
         "topP": payload.topP,
         "status": "running",
-        "started_at": datetime.datetime.now().isoformat()
+        "started_at": datetime.datetime.now().isoformat(),
     }
     return {"status": "running", "agent_id": agent_id}
+
 
 @router.post("/{agent_id}/stop")
 async def stop_agent(agent_id: str):
@@ -51,12 +55,14 @@ async def stop_agent(agent_id: str):
         return {"status": "stopped", "agent_id": agent_id}
     return {"status": "stopped", "agent_id": agent_id}
 
+
 @router.post("/{agent_id}/pause")
 async def pause_agent(agent_id: str):
     if agent_id in AGENT_INSTANCES:
         AGENT_INSTANCES[agent_id]["status"] = "paused"
         return {"status": "paused", "agent_id": agent_id}
     return {"status": "paused", "agent_id": agent_id}
+
 
 @router.post("/{agent_id}/resume")
 async def resume_agent(agent_id: str):
@@ -65,9 +71,11 @@ async def resume_agent(agent_id: str):
         return {"status": "running", "agent_id": agent_id}
     return {"status": "running", "agent_id": agent_id}
 
+
 class ChatPayload(BaseModel):
     message: str
     history: list[dict] = []
+
 
 @router.post("/{agent_id}/chat")
 async def chat_with_agent(agent_id: str, payload: ChatPayload):
@@ -90,7 +98,7 @@ async def chat_with_agent(agent_id: str, payload: ChatPayload):
         provider = factory.build(model, temperature=temperature)
         resp = await provider.ainvoke(messages_list)
         return {"response": resp.content}
-    except Exception as e:
+    except Exception:
         return {
             "response": f"[Agent Response] Ollama model '{model}' offline or not ready. Echo: '{payload.message}'"
         }
