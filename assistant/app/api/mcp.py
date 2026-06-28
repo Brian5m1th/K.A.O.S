@@ -167,3 +167,33 @@ async def register_mcp_server(payload: MCPServerRequest):
             status="register_failed",
             message=f"Server registered but initialization failed: {exc}",
         )
+
+
+@router.delete("/servers/{server_name}")
+async def delete_mcp_server(server_name: str):
+    """Deletes an MCP server from configuration and stops its subprocess."""
+    name = server_name.strip()
+    if not name:
+        raise HTTPException(status_code=422, detail="server_name is required")
+
+    manager = MCPManager()
+
+    # 1. Stop the running process in the manager
+    stopped = manager.delete_server(name)
+
+    # 2. Remove from the registry config file
+    registry = MCPRegistry.load()
+    servers = registry.get("servers", [])
+    filtered_servers = [s for s in servers if s.get("name") != name]
+
+    if len(servers) == len(filtered_servers) and not stopped:
+        raise HTTPException(status_code=404, detail=f"Server '{name}' not found")
+
+    registry["servers"] = filtered_servers
+    MCPRegistry.save(registry)
+
+    return {
+        "status": "deleted",
+        "name": name,
+        "message": f"Server '{name}' stopped and removed from configuration",
+    }

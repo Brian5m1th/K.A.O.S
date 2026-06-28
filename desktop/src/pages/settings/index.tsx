@@ -22,8 +22,6 @@ const SETTINGS_TABS = [
   { id: "updates", label: "Atualizações" },
 ];
 
-const SERVER_URL = "http://localhost:8000";
-
 interface ProviderInfo {
   id: string; name: string; base_url: string;
   editable_url: boolean; configured: boolean;
@@ -69,7 +67,7 @@ export default function SettingsPage() {
     const fetchAll = async () => {
       try {
         // Fetch providers
-        const provRes = await kaosFetch(`${SERVER_URL}/api/providers`, "");
+        const provRes = await kaosFetch("/api/providers", "");
         if (provRes.ok) {
           const data = await provRes.json();
           setProviders(data.providers || []);
@@ -88,14 +86,14 @@ export default function SettingsPage() {
         }
 
         // Fetch integrations
-        const intRes = await kaosFetch(`${SERVER_URL}/api/integrations`, "");
+        const intRes = await kaosFetch("/api/integrations", "");
         if (intRes.ok) {
           const intData = await intRes.json();
           setIntegrations(intData.integrations || []);
         }
 
         // Fetch settings (for env vars display)
-        const setRes = await kaosFetch(`${SERVER_URL}/api/settings`, "");
+        const setRes = await kaosFetch("/api/settings", "");
         if (setRes.ok) {
           const setData = await setRes.json();
           const envList: { key: string; value: string }[] = [];
@@ -115,7 +113,7 @@ export default function SettingsPage() {
     const f = forms[id]; if (!f) return;
     setForms((s) => ({ ...s, [id]: { ...s[id], testing: true } }));
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/setup/provider/test`, "", {
+      const res = await kaosFetch("/api/setup/provider/test", "", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ provider: id, url: f.url, apiKey: f.apiKey }),
       });
@@ -128,7 +126,7 @@ export default function SettingsPage() {
     const f = forms[id]; if (!f) return;
     setForms((s) => ({ ...s, [id]: { ...s[id], saving: true } }));
     try {
-      await kaosFetch(`${SERVER_URL}/api/setup/provider`, "", {
+      await kaosFetch("/api/setup/provider", "", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ [id]: { url: f.url, apiKey: f.apiKey, model: f.model } }),
       });
@@ -138,7 +136,7 @@ export default function SettingsPage() {
 
   const handleActivate = async (id: string) => {
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/setup/provider/active`, "", {
+      const res = await kaosFetch("/api/setup/provider/active", "", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ provider: id }),
       });
@@ -154,7 +152,7 @@ export default function SettingsPage() {
       const f = forms[p.id];
       if (f) payload[p.id] = { url: f.url, apiKey: f.apiKey, model: f.model, fastModel: f.model };
     }
-    await kaosFetch(`${SERVER_URL}/api/setup/provider`, "", {
+    await kaosFetch("/api/setup/provider", "", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });

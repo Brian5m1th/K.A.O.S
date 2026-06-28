@@ -5,17 +5,18 @@ from loguru import logger
 
 class UserContextMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
-        user_id = request.headers.get("x-user-id", "")
-        username = request.headers.get("x-username", "")
-        role = request.headers.get("x-user-role", "user")
+        # Prevent header injection of user context: do not read x-user- headers directly from untrusted client requests.
+        # Authenticators (like ApiKeyMiddleware) will set request.state variables.
+        if not hasattr(request.state, "user_id"):
+            request.state.user_id = ""
+        if not hasattr(request.state, "username"):
+            request.state.username = ""
+        if not hasattr(request.state, "role"):
+            request.state.role = "user"
 
-        request.state.user_id = user_id
-        request.state.username = username
-        request.state.role = role
-
-        if user_id:
+        if request.state.user_id:
             logger.debug(
-                f"[middleware] user_context - id={user_id} username={username} role={role}"
+                f"[middleware] user_context - id={request.state.user_id} username={request.state.username} role={request.state.role}"
             )
 
         return await call_next(request)

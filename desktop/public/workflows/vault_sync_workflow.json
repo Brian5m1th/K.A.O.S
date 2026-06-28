@@ -1,0 +1,41 @@
+{
+  "name": "Obsidian Vault RAG Sync",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "vault-sync",
+        "options": {}
+      },
+      "id": "node-1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/indexing/reindex",
+        "method": "POST",
+        "options": {}
+      },
+      "id": "node-2",
+      "name": "RAG Indexer API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [300, 200]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "RAG Indexer API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { kaosFetch } from "@/shared/api/kaos-client";
 
-const SERVER_URL = "http://localhost:8000";
-
 type ThemeMode = "dark" | "light" | "kaos-blue" | "purple" | "terminal" | "cyberpunk" | "nordic" | "forest";
 
 const ACCENT_COLORS: Record<string, string> = {

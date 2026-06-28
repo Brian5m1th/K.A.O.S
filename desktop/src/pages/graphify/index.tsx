@@ -16,8 +16,6 @@ import { Card, CardContent } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Loader2, RefreshCw, Network } from "lucide-react";
 
-const SERVER_URL = "http://localhost:8000";
-
 const NODE_COLORS: Record<string, string> = {
   feature: "#3B82F6",
   store: "#10B981",
@@ -41,7 +39,7 @@ export default function GraphifyPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/architecture/graph`, "");
+      const res = await kaosFetch("/api/architecture/graph", "");
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
 

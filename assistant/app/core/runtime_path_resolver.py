@@ -4,6 +4,7 @@ Responsible for resolving absolute paths for workspace, config, logs, vault, and
 """
 
 from pathlib import Path
+from loguru import logger
 
 
 class RuntimePathResolver:
@@ -35,8 +36,11 @@ class RuntimePathResolver:
 
             if settings.OBSIDIAN_VAULT_PATH:
                 return Path(settings.OBSIDIAN_VAULT_PATH).resolve()
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning(
+                "[runtime_path_resolver] failed to resolve Obsidian vault path from settings, falling back: {}",
+                exc,
+            )
         return cls.project_root() / "docs" / "vault"
 
     @classmethod

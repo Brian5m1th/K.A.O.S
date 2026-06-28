@@ -14,8 +14,6 @@ import { kaosFetch } from "@/shared/api/kaos-client";
 import { Badge } from "@/shared/ui/badge";
 import { Loader2, RefreshCw, GitGraph, Hammer, Search, X, Link, Compass } from "lucide-react";
 
-const SERVER_URL = "http://localhost:8000";
-
 function KnowledgeGraphInner() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -32,7 +30,7 @@ function KnowledgeGraphInner() {
     setLoading(true);
     setError("");
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/architecture/knowledge-graph`, "");
+      const res = await kaosFetch("/api/architecture/knowledge-graph", "");
       if (!res.ok) throw new Error("Erro na API do grafo");
       const data = await res.json();
 
@@ -102,7 +100,7 @@ function KnowledgeGraphInner() {
   const rebuildGraph = async () => {
     setRebuilding(true);
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/architecture/knowledge-graph`, "POST");
+      const res = await kaosFetch("/api/architecture/knowledge-graph", "POST");
       if (!res.ok) throw new Error("Erro ao reconstruir o grafo no backend");
       await fetchKG();
     } catch (e: any) {

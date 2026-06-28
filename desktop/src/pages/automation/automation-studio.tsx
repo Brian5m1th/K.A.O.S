@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -81,6 +82,7 @@ const INITIAL_EDGES: Edge[] = [
 ];
 
 export default function AutomationStudio() {
+  const navigate = useNavigate();
   const [workflows, setWorkflows] = useState<WorkflowItem[]>([]);
   const [selectedWorkflow, setSelectedWorkflow] = useState<WorkflowItem | null>(null);
   const [history, setHistory] = useState<ExecutionLog[]>([]);
@@ -95,6 +97,57 @@ export default function AutomationStudio() {
     fetchWorkflows();
     fetchHistory();
   }, []);
+
+  useEffect(() => {
+    if (!selectedWorkflow) return;
+    
+    const jsonData = (selectedWorkflow as any).json_data || {};
+    const n8nNodes = jsonData.nodes || [];
+    const n8nConnections = jsonData.connections || {};
+
+    // 1. Map nodes
+    const mappedNodes: Node[] = n8nNodes.map((n: any) => {
+      const isInput = n.type?.includes("webhook") || n.type?.includes("trigger");
+      const isOutput = n.type?.includes("httpRequest") || n.type?.includes("respond");
+      
+      let style: React.CSSProperties = { background: "#0c0f1d", color: "#c084fc", border: "1px solid #6b21a8", borderRadius: "8px" };
+      if (isInput) {
+        style = { background: "#0c0f1d", color: "#60a5fa", border: "1px solid #1d4ed8", borderRadius: "8px", boxShadow: "0 0 10px rgba(59, 130, 246, 0.2)" };
+      } else if (isOutput) {
+        style = { background: "#0c0f1d", color: "#10b981", border: "1px solid #047857", borderRadius: "8px", boxShadow: "0 0 10px rgba(16, 185, 129, 0.2)" };
+      }
+
+      return {
+        id: n.name,
+        type: isInput ? "input" : isOutput ? "output" : undefined,
+        data: { label: n.name },
+        position: { x: n.position?.[0] ?? 100, y: n.position?.[1] ?? 150 },
+        style
+      };
+    });
+
+    // 2. Map edges
+    const mappedEdges: Edge[] = [];
+    Object.entries(n8nConnections).forEach(([sourceName, connectionData]: [string, any]) => {
+      const mainConnections = connectionData.main || [];
+      mainConnections.forEach((targetsList: any[]) => {
+        targetsList.forEach((target: any) => {
+          if (target && target.node) {
+            mappedEdges.push({
+              id: `e_${sourceName}_${target.node}`,
+              source: sourceName,
+              target: target.node,
+              animated: true,
+              markerEnd: { type: MarkerType.ArrowClosed }
+            });
+          }
+        });
+      });
+    });
+
+    setNodes(mappedNodes.length > 0 ? mappedNodes : INITIAL_NODES);
+    setEdges(mappedEdges.length > 0 ? mappedEdges : INITIAL_EDGES);
+  }, [selectedWorkflow, setNodes, setEdges]);
 
   const fetchWorkflows = async () => {
     try {
@@ -170,9 +223,14 @@ export default function AutomationStudio() {
               <Activity className="h-4 w-4 text-accent-neon animate-pulse" />
               <h2 className="text-sm font-semibold text-text-primary">Automation Studio</h2>
             </div>
-            <Button variant="subtle" size="sm" onClick={fetchWorkflows}>
-              <RefreshCw className="h-3 w-3" />
-            </Button>
+            <div className="flex items-center gap-1">
+              <Button variant="subtle" size="sm" onClick={() => navigate("/automation/marketplace")} className="text-[11px] px-2 py-1">
+                Marketplace
+              </Button>
+              <Button variant="subtle" size="sm" onClick={fetchWorkflows}>
+                <RefreshCw className="h-3 w-3" />
+              </Button>
+            </div>
           </div>
           
           <div className="flex-1 overflow-y-auto p-3 flex flex-col gap-2">

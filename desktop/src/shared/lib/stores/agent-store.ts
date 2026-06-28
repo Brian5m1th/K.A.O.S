@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 export type AgentStatus =
   | "idle"
@@ -29,10 +30,10 @@ interface AgentState {
   agents: Record<string, AgentInstance>;
   register: (config: AgentConfig) => void;
   unregister: (id: string) => void;
-  start: (id: string) => void;
-  stop: (id: string) => void;
-  pause: (id: string) => void;
-  resume: (id: string) => void;
+  start: (id: string) => Promise<void>;
+  stop: (id: string) => Promise<void>;
+  pause: (id: string) => Promise<void>;
+  resume: (id: string) => Promise<void>;
   setError: (id: string, error: string) => void;
   updateConfig: (id: string, config: Partial<AgentConfig>) => void;
 }
@@ -54,37 +55,78 @@ export const useAgentStore = create<AgentState>((set) => ({
       return { agents: rest };
     }),
 
-  start: (id) =>
+  start: async (id) => {
     set((s) => ({
       agents: {
         ...s.agents,
         [id]: { ...s.agents[id], status: "starting", startedAt: Date.now() },
       },
-    })),
+    }));
+    try {
+      const agent = useAgentStore.getState().agents[id];
+      await kaosFetch(`/api/agents/${id}/start`, "", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(agent.config),
+      });
+      set((s) => ({
+        agents: {
+          ...s.agents,
+          [id]: { ...s.agents[id], status: "running" },
+        },
+      }));
+    } catch (e) {
+      console.error("[agent-store] start failed:", e);
+      set((s) => ({
+        agents: {
+          ...s.agents,
+          [id]: { ...s.agents[id], status: "error", error: "Failed to start on backend" },
+        },
+      }));
+    }
+  },
 
-  stop: (id) =>
+  stop: async (id) => {
     set((s) => ({
       agents: {
         ...s.agents,
         [id]: { ...s.agents[id], status: "stopped" },
       },
-    })),
+    }));
+    try {
+      await kaosFetch(`/api/agents/${id}/stop`, "", { method: "POST" });
+    } catch (e) {
+      console.error("[agent-store] stop failed:", e);
+    }
+  },
 
-  pause: (id) =>
+  pause: async (id) => {
     set((s) => ({
       agents: {
         ...s.agents,
         [id]: { ...s.agents[id], status: "paused" },
       },
-    })),
+    }));
+    try {
+      await kaosFetch(`/api/agents/${id}/pause`, "", { method: "POST" });
+    } catch (e) {
+      console.error("[agent-store] pause failed:", e);
+    }
+  },
 
-  resume: (id) =>
+  resume: async (id) => {
     set((s) => ({
       agents: {
         ...s.agents,
         [id]: { ...s.agents[id], status: "running" },
       },
-    })),
+    }));
+    try {
+      await kaosFetch(`/api/agents/${id}/resume`, "", { method: "POST" });
+    } catch (e) {
+      console.error("[agent-store] resume failed:", e);
+    }
+  },
 
   setError: (id, error) =>
     set((s) => ({

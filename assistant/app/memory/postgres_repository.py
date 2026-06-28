@@ -7,7 +7,13 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.orm import selectinload
 
 from app.config.settings import settings
-from app.memory.models import Base, MemorySession, MemoryMessage, MemorySummary
+from app.memory.models import (
+    Base,
+    MemorySession,
+    MemoryMessage,
+    MemorySummary,
+    UserPreference,
+)
 from app.memory.repository import MemoryRepository
 
 
@@ -32,10 +38,31 @@ class PostgresMemoryRepository(MemoryRepository):
         return self._session_factory()
 
     async def get_preferences(self, user_id: str) -> str:
-        return ""
+        async with self._session_factory() as session:
+            result = await session.execute(
+                select(UserPreference)
+                .where(UserPreference.user_id == user_id)
+                .order_by(UserPreference.key)
+            )
+            prefs = result.scalars().all()
+            if not prefs:
+                return ""
+            return "\n".join(f"- **{p.key}**: {p.value}" for p in prefs) + "\n"
 
     async def save_preference(self, user_id: str, key: str, value: str) -> None:
-        pass
+        async with self._session_factory() as session:
+            result = await session.execute(
+                select(UserPreference).where(
+                    UserPreference.user_id == user_id, UserPreference.key == key
+                )
+            )
+            pref = result.scalars().first()
+            if pref:
+                pref.value = value
+            else:
+                pref = UserPreference(user_id=user_id, key=key, value=value)
+                session.add(pref)
+            await session.commit()
 
     async def save_conversation(
         self,

@@ -23,11 +23,11 @@ export function useSystemMetrics() {
 
       // Collect real runtime data from store after fetch
       const state = useSystemStore.getState();
-      const cpuEstimate = state.runtime.latency > 0 ? Math.min(100, Math.round(state.runtime.latency / 2)) : 0;
+      const cpuValue = state.runtime.cpu;
       const vramValue = state.runtime.vramUsed;
       const latencyValue = state.runtime.latency;
 
-      metricsHistory.current.cpu.push(cpuEstimate);
+      metricsHistory.current.cpu.push(cpuValue);
       metricsHistory.current.vram.push(vramValue);
       metricsHistory.current.latency.push(latencyValue);
 

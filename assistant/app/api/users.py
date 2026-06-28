@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_session
@@ -11,7 +11,19 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 
 
 @router.get("/{user_id}")
-async def get_user(user_id: str, session: AsyncSession = Depends(get_session)):
+async def get_user(
+    request: Request,
+    user_id: str,
+    session: AsyncSession = Depends(get_session),
+):
+    curr_id = getattr(request.state, "user_id", "")
+    curr_role = getattr(request.state, "role", "user")
+    if curr_id != user_id and curr_role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: Cannot access profile of another user",
+        )
+
     repo = UserProfileRepository(session)
     record = await repo.get(user_id)
     if record is None:
@@ -21,6 +33,7 @@ async def get_user(user_id: str, session: AsyncSession = Depends(get_session)):
 
 @router.put("/{user_id}")
 async def upsert_user(
+    request: Request,
     user_id: str,
     theme: str = "dark",
     language: str = "pt-BR",
@@ -29,6 +42,14 @@ async def upsert_user(
     telemetry_enabled: bool = False,
     session: AsyncSession = Depends(get_session),
 ):
+    curr_id = getattr(request.state, "user_id", "")
+    curr_role = getattr(request.state, "role", "user")
+    if curr_id != user_id and curr_role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: Cannot update profile of another user",
+        )
+
     repo = UserProfileRepository(session)
     record = UserProfileRecord(
         user_id=user_id,
