@@ -1,32 +1,32 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AppLayout } from "@/app/layouts/AppLayout";
 import { useAuthStore } from "@/shared/lib/stores";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { Loader2 } from "lucide-react";
-import DashboardPage from "./pages/dashboard";
-import ChatPage from "./pages/chat";
-import VaultPage from "./pages/vault";
-import SettingsPage from "./pages/settings";
-import OrchestrationPage from "./pages/orchestration";
-import AgentsPage from "./pages/agents";
-import PipelinesPage from "./pages/pipelines";
-import ObservabilityPage from "./pages/observability";
-import DocumentationPage from "./pages/documentation";
-import ArchitecturePage from "./pages/architecture";
-import GraphifyPage from "./pages/graphify";
-import KnowledgeGraphPage from "./pages/knowledge-graph";
-import SetupPage from "./pages/setup";
-import LoginPage from "./pages/login";
-import UsersPage from "./pages/users";
-import ToolsPage from "./pages/tools";
-import WelcomePage from "./pages/welcome";
-import PromptsPage from "./pages/prompts";
-import EventsPage from "./pages/events";
-import CostsPage from "./pages/costs";
-import AutomationStudioPage from "./pages/automation-studio";
-import AutomationMarketplacePage from "./pages/marketplace";
+
+const DashboardPage = lazy(() => import("@/pages/dashboard"));
+const ChatPage = lazy(() => import("@/pages/chat"));
+const VaultPage = lazy(() => import("@/pages/vault"));
+const SettingsPage = lazy(() => import("@/pages/settings"));
+const AgentsPage = lazy(() => import("@/pages/agents"));
+const PipelinesPage = lazy(() => import("@/pages/pipelines"));
+const ObservabilityPage = lazy(() => import("@/pages/observability"));
+const DocumentationPage = lazy(() => import("@/pages/documentation").then(m => ({ default: m.DocumentationPage })));
+const ArchitecturePage = lazy(() => import("@/pages/architecture").then(m => ({ default: m.ArchitecturePage })));
+const GraphifyPage = lazy(() => import("@/pages/graphify"));
+const KnowledgeGraphPage = lazy(() => import("@/pages/knowledge-graph"));
+const SetupPage = lazy(() => import("@/pages/setup"));
+const LoginPage = lazy(() => import("@/pages/login"));
+const UsersPage = lazy(() => import("@/pages/users"));
+const ToolsPage = lazy(() => import("@/pages/tools"));
+const WelcomePage = lazy(() => import("@/pages/welcome"));
+const PromptsPage = lazy(() => import("@/pages/prompts"));
+const EventsPage = lazy(() => import("@/pages/events"));
+const CostsPage = lazy(() => import("@/pages/costs"));
+const AutomationStudioPage = lazy(() => import("@/pages/automation/automation-studio"));
+const AutomationMarketplacePage = lazy(() => import("@/pages/automation/marketplace"));
 
 function PageFallback() {
   return (
@@ -96,9 +96,9 @@ export function AppRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         {/* Public routes (no sidebar, no auth) */}
-        <Route path="/setup" element={<SetupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/setup" element={<Suspense fallback={<PageFallback />}><SetupPage /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<PageFallback />}><LoginPage /></Suspense>} />
+        <Route path="/welcome" element={<Suspense fallback={<PageFallback />}><WelcomePage /></Suspense>} />
 
         {/* Protected routes (sidebar + auth gate) */}
         <Route
@@ -126,11 +126,7 @@ export function AppRoutes() {
           />
           <Route
             path="/orchestration"
-            element={
-              <Suspense fallback={<PageFallback />}>
-                <AnimatedPage><OrchestrationPage /></AnimatedPage>
-              </Suspense>
-            }
+            element={<Navigate to="/automation/studio" replace />}
           />
           <Route
             path="/agents"

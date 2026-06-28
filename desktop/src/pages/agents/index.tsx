@@ -218,47 +218,22 @@ export default function AgentsPage() {
 
     try {
       const payload = {
-        session_id: `playground-${selectedId}`,
         message: userMessageText,
-        history: updatedMessages.slice(0, -1).map((m) => ({
+        history: updatedMessages.slice(1, -1).map((m) => ({
           role: m.role,
           content: m.content,
         })),
-        user_id: "playground-user",
-        role: "user",
       };
 
-      const res = await kaosFetch("/api/chat/message", "", {
+      const res = await kaosFetch(`/api/agents/${selectedId}/chat`, "", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
       if (res.ok) {
-        const reader = res.body?.getReader();
-        if (reader) {
-          const decoder = new TextDecoder();
-          let assistantText = "";
-
-          setChatMessages((prev) => [...prev, { role: "assistant", content: "" }]);
-
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            const chunk = decoder.decode(value, { stream: true });
-            assistantText += chunk;
-            setChatMessages((prev) => {
-              const next = [...prev];
-              if (next.length > 0) {
-                next[next.length - 1] = { role: "assistant", content: assistantText };
-              }
-              return next;
-            });
-          }
-        } else {
-          const text = await res.text();
-          setChatMessages((prev) => [...prev, { role: "assistant", content: text }]);
-        }
+        const data = await res.json();
+        setChatMessages((prev) => [...prev, { role: "assistant", content: data.response || "" }]);
       } else {
         setChatMessages((prev) => [
           ...prev,

@@ -503,7 +503,7 @@ def main():
     # 1. Carregar todos os commits
     print(f"\n[1/4] Lendo commits (máx: {args.max_commits})...")
     commits = get_all_commits(args.max_commits)
-    print(f"      → {len(commits)} commits encontrados")
+    print(f"      -> {len(commits)} commits encontrados")
 
     # 2. Extrair features dos commits
     print("\n[2/4] Extraindo features do histórico git...")
@@ -527,17 +527,17 @@ def main():
         processed += 1
 
         if args.verbose:
-            print(f"  [{i + 1:3d}] {commit['hash'][:8]} → {feat_id}")
+            print(f"  [{i + 1:3d}] {commit['hash'][:8]} -> {feat_id}")
 
-    print(f"      → {processed} commits processados, {skipped} ignorados")
-    print(f"      → {len(features)} features únicas extraídas do git")
+    print(f"      -> {processed} commits processados, {skipped} ignorados")
+    print(f"      -> {len(features)} features únicas extraídas do git")
 
     # 3. Enriquecer com SDDs do filesystem
     print("\n[3/4] Correlacionando SDDs do filesystem...")
     before_count = len(features)
     enrich_with_sdds(features)
     new_from_sdds = len(features) - before_count
-    print(f"      → {new_from_sdds} features adicionais de SDDs não rastreados no git")
+    print(f"      -> {new_from_sdds} features adicionais de SDDs não rastreados no git")
 
     # 4. Estatísticas e output
     total = len(features)
@@ -567,11 +567,11 @@ def main():
     projected_coverage = (with_docs / total * 100) if total > 0 else 0
     print(f"\n  Coverage projetada:   {projected_coverage:.1f}%")
     if projected_coverage >= 50:
-        print("  ✅ Drift check deverá passar (threshold 15% OK)")
+        print("  [OK] Drift check deverá passar (threshold 15% OK)")
     elif projected_coverage >= 15:
-        print("  ⚠️  Coverage limítrofe — adicionar mais docs refs")
+        print("  [WARN] Coverage limítrofe — adicionar mais docs refs")
     else:
-        print("  ❌ Coverage baixa — pode haver problema no drift check")
+        print("  [FAIL] Coverage baixa — pode haver problema no drift check")
 
     if args.verbose:
         print(f"\n{'=' * 60}")
@@ -602,7 +602,7 @@ def main():
     with open(registry_path, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"\n✅ Salvo em: {registry_path}")
+    print(f"\n[OK] Salvo em: {registry_path}")
     print(f"   {total} features registradas a partir do git history")
     return 0
 

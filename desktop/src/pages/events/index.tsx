@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
 import { Play, Pause, Trash2, ShieldAlert, Cpu, Database, Info, GitBranch } from "lucide-react";
+import { useAuthStore } from "@/shared/lib/stores";
 
 interface EventLog {
   id: string;
@@ -23,31 +24,37 @@ export default function EventsPage() {
   const [events, setEvents] = useState<EventLog[]>(INITIAL_EVENTS);
   const [paused, setPaused] = useState(false);
 
-  // Generate dynamic logs periodically if not paused
+  const serverUrl = useAuthStore((s) => s.serverUrl);
+  const pausedRef = useRef(paused);
+
   useEffect(() => {
-    if (paused) return;
-
-    const templates = [
-      { source: "agent" as const, type: "agent:thought", message: "Agente 'memory-agent' está recuperando contexto semântico do Obsidian." },
-      { source: "database" as const, type: "db:postgres_query", message: "Turno da conversa persistido com sucesso no PostgreSQL." },
-      { source: "webhook" as const, type: "webhook:n8n_receive", message: "Webhook recebido de n8n com as notas sincronizadas." },
-      { source: "system" as const, type: "system:vram_update", message: "Uso de VRAM medido: 6.4 / 16.0 GB (latência estável)." },
-    ];
-
-    const timer = setInterval(() => {
-      const selected = templates[Math.floor(Math.random() * templates.length)];
-      const newEvent: EventLog = {
-        id: String(Date.now()),
-        source: selected.source,
-        type: selected.type,
-        message: selected.message,
-        timestamp: new Date().toLocaleTimeString(),
-      };
-      setEvents((prev) => [newEvent, ...prev.slice(0, 19)]);
-    }, 4000);
-
-    return () => clearInterval(timer);
+    pausedRef.current = paused;
   }, [paused]);
+
+  useEffect(() => {
+    const cleanUrl = serverUrl.replace(/\/+$/, "");
+    const eventSource = new EventSource(`${cleanUrl}/api/observability/events/stream`);
+
+    eventSource.onmessage = (event) => {
+      if (pausedRef.current) return;
+      if (event.data) {
+        try {
+          const parsed = JSON.parse(event.data);
+          setEvents((prev) => [parsed, ...prev].slice(0, 100));
+        } catch (e) {
+          console.error("Failed to parse EventBus event:", e);
+        }
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      console.error("EventSource failed:", err);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [serverUrl]);
 
   const handleClear = () => {
     setEvents([]);

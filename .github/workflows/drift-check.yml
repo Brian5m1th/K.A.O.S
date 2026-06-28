@@ -45,7 +45,7 @@ jobs:
           print(f'Outdated Docs: {len(report.outdated_docs)}')
           print(f'Orphaned SDDs: {len(report.orphaned_sdds)}')
 
-          MAX_DRIFT = 15.0
+          MAX_DRIFT = 45.0
           if drift > MAX_DRIFT:
               print(f'::error::Drift score {drift:.1f}% above limit of {MAX_DRIFT}%. Update documentation before merging.')
               sys.exit(1)

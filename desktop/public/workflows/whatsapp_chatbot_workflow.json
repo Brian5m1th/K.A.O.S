@@ -1,0 +1,50 @@
+{
+  "name": "WhatsApp/Telegram Chatbot Gateway",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "chat-gateway",
+        "options": {}
+      },
+      "id": "node-1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/api/chat/message",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.body.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-2",
+      "name": "KAOS Chat API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [300, 200]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "KAOS Chat API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -7,8 +7,6 @@ import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
 import { UserPlus, UserMinus, Shield, Loader2 } from "lucide-react";
 
-const SERVER_URL = "http://localhost:8000";
-
 interface UserRecord {
   id: string;
   name: string;
@@ -29,10 +27,11 @@ export default function UsersPage() {
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRole, setNewRole] = useState("editor");
+  const [formError, setFormError] = useState("");
 
   const fetchUsers = async () => {
     try {
-      const res = await kaosFetch(`${SERVER_URL}/api/admin/users`, "");
+      const res = await kaosFetch("/api/admin/users", "");
       if (res.ok) {
         const data = await res.json();
         setUsers(data.users || []);
@@ -44,25 +43,47 @@ export default function UsersPage() {
   useEffect(() => { fetchUsers(); }, []);
 
   const handleCreate = async () => {
-    const res = await kaosFetch(`${SERVER_URL}/api/admin/users`, "", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: newName, email: newEmail, password: newPassword, role: newRole }),
-    });
-    if (res.ok) {
-      setShowForm(false);
-      setNewName(""); setNewEmail(""); setNewPassword("");
-      fetchUsers();
+    setFormError("");
+    if (!newName.trim()) {
+      setFormError("Name is required");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newEmail)) {
+      setFormError("Please enter a valid email address");
+      return;
+    }
+    if (newPassword.length < 8) {
+      setFormError("Password must be at least 8 characters");
+      return;
+    }
+
+    try {
+      const res = await kaosFetch("/api/admin/users", "", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newName, email: newEmail, password: newPassword, role: newRole }),
+      });
+      if (res.ok) {
+        setShowForm(false);
+        setNewName(""); setNewEmail(""); setNewPassword("");
+        fetchUsers();
+      } else {
+        const data = await res.json();
+        setFormError(data.detail || "Failed to create user");
+      }
+    } catch {
+      setFormError("Connection error. Could not create user.");
     }
   };
 
   const handleDelete = async (userId: string) => {
-    await kaosFetch(`${SERVER_URL}/api/admin/users/${userId}`, "", { method: "DELETE" });
+    await kaosFetch(`/api/admin/users/${userId}`, "", { method: "DELETE" });
     fetchUsers();
   };
 
   const handleRoleChange = async (userId: string, role: string) => {
-    await kaosFetch(`${SERVER_URL}/api/admin/users/${userId}/role`, "", {
+    await kaosFetch(`/api/admin/users/${userId}/role`, "", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role }),
@@ -94,6 +115,7 @@ export default function UsersPage() {
             <Input placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)} className="text-xs" />
             <Input placeholder="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} className="text-xs" />
             <Input type="password" placeholder="Password (min 8 chars)" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="text-xs" />
+            {formError && <p className="text-xs font-semibold text-[#EF4444]">{formError}</p>}
             <div className="flex gap-2">
               <select value={newRole} onChange={(e) => setNewRole(e.target.value)} className="rounded-lg border border-border-subtle bg-canvas px-2 py-1 text-xs text-text-primary">
                 <option value="admin">Admin</option>

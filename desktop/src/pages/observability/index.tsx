@@ -53,29 +53,25 @@ export default function ObservabilityPage() {
     return () => clearInterval(interval);
   }, [serverUrl]);
 
-  // Append new simulated logs periodically
+  // Stream real-time logs from backend using SSE
   useEffect(() => {
-    const templates = [
-      "2026-06-25 {time} | INFO     | app.audit.feature_registry:load_from_json:188 - [feature_registry] registry found, starting check",
-      "2026-06-25 {time} | DEBUG    | app.service.llm_service:check_ollama:88 - [ollama] latency check: 45ms",
-      "2026-06-25 {time} | INFO     | app.core.mcp_manager:init_mcp:55 - [mcp] registered 3 tools from filesystem server",
-      "2026-06-25 {time} | WARN     | app.audit.drift_engine:detect:112 - [drift_engine] document drift level medium on sdd_obsidian",
-      "2026-06-25 {time} | DEBUG    | app.observability.cost_tracker:save:30 - [cost_tracker] saved cost event, cost=0.0014 USD",
-      "2026-06-25 {time} | INFO     | app.workflows.chat:execute:60 - [workflow] routing user request to SMART workflow",
-      "2026-06-25 {time} | ERROR    | app.api.integrations:webhook:75 - [integrations] webhook to n8n timed out, retrying...",
-      "2026-06-25 {time} | INFO     | app.memory.storage.postgres_storage:save:82 - [postgres] conversation snapshot saved",
-      "2026-06-25 {time} | DEBUG    | app.api.opencode:catalog:115 - [opencode] tools cache refreshed, found 14 files",
-    ];
+    const cleanUrl = serverUrl.replace(/\/+$/, "");
+    const eventSource = new EventSource(`${cleanUrl}/api/observability/logs/stream`);
 
-    const logInterval = setInterval(() => {
-      const randomTpl = templates[Math.floor(Math.random() * templates.length)];
-      const nowStr = new Date().toLocaleTimeString("pt-BR", { hour12: false });
-      const entry = randomTpl.replace("{time}", nowStr);
-      setSimulatedLogs((prev) => [...prev.slice(-18), entry]);
-    }, 4000);
+    eventSource.onmessage = (event) => {
+      if (event.data) {
+        setSimulatedLogs((prev) => [...prev.slice(-199), event.data]);
+      }
+    };
 
-    return () => clearInterval(logInterval);
-  }, []);
+    eventSource.onerror = (err) => {
+      console.error("EventSource failed:", err);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [serverUrl]);
 
   // Auto scroll logs
   useEffect(() => {

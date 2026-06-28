@@ -33,6 +33,8 @@ from app.api.audit import router as audit_router
 from app.api.architecture import router as architecture_router
 from app.api.providers import router as providers_router
 from app.api.system import router as system_router
+from app.api.prompts import router as prompts_router
+from app.api.agents_api import router as agents_api_router
 from app.api.observability import router as observability_router
 from app.api.opencode import router as opencode_router
 from app.api.admin import router as admin_router
@@ -62,6 +64,8 @@ from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
 # Ensure SQLAlchemy models are registered with Base.metadata before create_tables()
 import app.models  # noqa: F401
 from app.audit.sdd_watcher import SDDWatcher
+from app.core.knowledge_graph_watcher import KnowledgeGraphWatcher
+from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder
 
 import json
 
@@ -114,6 +118,7 @@ configure_logging(settings.LOG_LEVEL, settings.APP_ENV)
 
 _watcher: VaultWatcher | None = None
 _opencode_watcher: OpenCodeWatcher | None = None
+_kg_watcher: KnowledgeGraphWatcher | None = None
 
 _embedder_ready = False
 _tools_registered = False
@@ -230,10 +235,14 @@ def _register_observability(app_state) -> None:
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
-    global _watcher, _embedder_ready
+    global _watcher, _opencode_watcher, _kg_watcher, _embedder_ready
     logger.info("[start] {} - modo {}", settings.APP_NAME, settings.APP_ENV)
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
-    logger.info("[auth] API key: {}", _app.state.api_key)
+    logger.info(
+        "[auth] API key: {}***{}",
+        _app.state.api_key[:4] if _app.state.api_key else "",
+        _app.state.api_key[-4:] if _app.state.api_key else "",
+    )
 
     # Initialize database tables
     try:
@@ -307,6 +316,17 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")
 
+    # Build Knowledge Graph initially
+    try:
+        logger.info("[knowledge_graph] running initial workspace graph index...")
+        await asyncio.to_thread(KnowledgeGraphBuilder.build)
+    except Exception as exc:
+        logger.warning("[knowledge_graph] Initial build failed: {}", exc)
+
+    # Start Knowledge Graph file watcher
+    _kg_watcher = KnowledgeGraphWatcher()
+    _kg_watcher.start()
+
     # Start Automation Engine Bus worker and auto-import templates
     try:
         from app.core.automation_bus import AutomationBus
@@ -330,6 +350,8 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         _watcher.stop()
     if _opencode_watcher:
         _opencode_watcher.stop()
+    if _kg_watcher:
+        _kg_watcher.stop()
     SDDWatcher.stop()
     try:
         from app.core.automation_bus import AutomationBus
@@ -396,6 +418,8 @@ app.include_router(conversations_router)
 app.include_router(kirl_router)
 app.include_router(docs_router)
 app.include_router(automation_router)
+app.include_router(prompts_router)
+app.include_router(agents_api_router)
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

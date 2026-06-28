@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { Container, Play, GitCommit, GitPullRequest, ExternalLink, Loader2 } from "lucide-react";
+import { kaosFetch } from "@/shared/api/kaos-client";
+import { Container, Play, GitCommit, GitPullRequest, ExternalLink, Loader2, RefreshCw } from "lucide-react";
 
 interface PipelineRun {
   id: string;
@@ -14,64 +15,68 @@ interface PipelineRun {
   timestamp: string;
 }
 
-const INITIAL_PIPELINES: PipelineRun[] = [
-  { id: "1", name: "CI: Build & Test", branch: "main", commit: "a1b2c3d", status: "success", duration: "2m 34s", timestamp: "2m ago" },
-  { id: "2", name: "Docker: Deploy API", branch: "main", commit: "e4f5g6h", status: "running", duration: "1m 12s", timestamp: "now" },
-  { id: "3", name: "Lint & Format", branch: "feature/ui", commit: "i7j8k9l", status: "failed", duration: "0m 45s", timestamp: "15m ago" },
-  { id: "4", name: "Release: v0.6.0", branch: "release", commit: "m0n1o2p", status: "pending", duration: "—", timestamp: "queued" },
-  { id: "5", name: "Sync: Docs Deploy", branch: "main", commit: "q3r4s5t", status: "success", duration: "1m 05s", timestamp: "1h ago" },
-  { id: "6", name: "Test: E2E Suite", branch: "feature/agents", commit: "u6v7w8x", status: "pending", duration: "—", timestamp: "queued" },
-];
-
 export default function PipelinesPage() {
-  const [runs, setRuns] = useState<PipelineRun[]>(INITIAL_PIPELINES);
+  const [runs, setRuns] = useState<PipelineRun[]>([]);
+  const [loading, setLoading] = useState(true);
   const [triggering, setTriggering] = useState(false);
 
-  // Simulate pipeline transitions
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRuns((currentRuns) =>
-        currentRuns.map((run) => {
-          if (run.status === "pending") {
-            return { ...run, status: "running", timestamp: "now" };
+  const fetchPipelines = async () => {
+    setLoading(true);
+    try {
+      const res = await kaosFetch("/api/integrations/github/runs");
+      if (res.ok) {
+        const data = await res.json();
+        // Map ISO timestamp to relative time or clean date
+        const formatted = (data.runs || []).map((r: any) => {
+          let timeLabel = r.timestamp;
+          if (r.timestamp) {
+            try {
+              const diffMs = Date.now() - new Date(r.timestamp).getTime();
+              const mins = Math.floor(diffMs / 60000);
+              if (mins < 1) timeLabel = "now";
+              else if (mins < 60) timeLabel = `${mins}m ago`;
+              else {
+                const hrs = Math.floor(mins / 60);
+                if (hrs < 24) timeLabel = `${hrs}h ago`;
+                else timeLabel = new Date(r.timestamp).toLocaleDateString();
+              }
+            } catch {}
           }
-          if (run.status === "running") {
-            // Keep running for a bit, or transition
-            const shouldTransition = Math.random() > 0.5;
-            if (shouldTransition) {
-              const status = Math.random() > 0.15 ? "success" : "failed";
-              return {
-                ...run,
-                status,
-                duration: `${Math.floor(Math.random() * 3)}m ${Math.floor(Math.random() * 60)}s`,
-                timestamp: "just now",
-              };
-            }
-          }
-          return run;
-        })
-      );
-    }, 4000);
+          return {
+            ...r,
+            timestamp: timeLabel
+          };
+        });
+        setRuns(formatted);
+      }
+    } catch (e) {
+      console.error("Failed to load pipeline runs:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return () => clearInterval(timer);
+  useEffect(() => {
+    fetchPipelines();
+    const interval = setInterval(fetchPipelines, 15000);
+    return () => clearInterval(interval);
   }, []);
 
-  const handleTriggerManual = () => {
+  const handleTriggerManual = async () => {
     setTriggering(true);
-    setTimeout(() => {
-      const newId = String(runs.length + 1);
-      const newRun: PipelineRun = {
-        id: newId,
-        name: "Manual Trigger: CI Build",
-        branch: "dev",
-        commit: Math.random().toString(36).substring(2, 9),
-        status: "pending",
-        duration: "—",
-        timestamp: "queued",
-      };
-      setRuns((prev) => [newRun, ...prev]);
+    try {
+      const res = await kaosFetch("/api/integrations/github/trigger", "", {
+        method: "POST"
+      });
+      if (res.ok) {
+        // Wait briefly for GitHub API to process the run creation
+        setTimeout(fetchPipelines, 2000);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
       setTriggering(false);
-    }, 1000);
+    }
   };
 
   const handleOpenGithub = () => {
@@ -86,6 +91,9 @@ export default function PipelinesPage() {
           <p className="text-xs text-text-muted mt-0.5">CI/CD e automações de deploy</p>
         </div>
         <div className="flex items-center gap-2">
+          <Button variant="subtle" size="sm" onClick={fetchPipelines} disabled={loading}>
+            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
+          </Button>
           <Button variant="subtle" size="sm" onClick={handleOpenGithub}>
             <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
             Open GitHub Actions
@@ -108,58 +116,69 @@ export default function PipelinesPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0 px-4 pb-4">
-          <div className="flex flex-col gap-1">
-            {runs.map((pipe) => (
-              <div
-                key={pipe.id}
-                className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2.5 transition-colors hover:bg-bg-active"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className={`rounded-full p-1 ${
-                    pipe.status === "success" ? "bg-success/10" :
-                    pipe.status === "failed" ? "bg-error/10" :
-                    pipe.status === "running" ? "bg-accent-primary/10" :
-                    "bg-text-dim/10"
-                  }`}>
-                    {pipe.status === "running" ? (
-                      <Loader2 className="h-3.5 w-3.5 text-accent-primary animate-spin" />
-                    ) : (
-                      <Container className={`h-3.5 w-3.5 ${
-                        pipe.status === "success" ? "text-success" :
-                        pipe.status === "failed" ? "text-error" :
-                        "text-text-dim"
-                      }`} />
-                    )}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-text-primary truncate">{pipe.name}</p>
-                    <div className="flex items-center gap-2 text-[11px] text-text-dim">
-                      <GitPullRequest className="h-3 w-3" />
-                      <span>{pipe.branch}</span>
-                      <GitCommit className="h-3 w-3 ml-1" />
-                      <span className="font-mono">{pipe.commit}</span>
+          {loading && runs.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 gap-2 text-text-muted">
+              <Loader2 className="h-6 w-6 animate-spin" />
+              <span className="text-xs">Carregando execuções do GitHub...</span>
+            </div>
+          ) : runs.length === 0 ? (
+            <div className="text-center py-8 text-xs text-text-muted">
+              Nenhuma execução encontrada. Conecte sua integração do GitHub nas configurações.
+            </div>
+          ) : (
+            <div className="flex flex-col gap-1">
+              {runs.map((pipe) => (
+                <div
+                  key={pipe.id}
+                  className="flex items-center justify-between rounded-lg border border-border-subtle bg-canvas/50 px-3 py-2.5 transition-colors hover:bg-bg-active"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className={`rounded-full p-1 ${
+                      pipe.status === "success" ? "bg-success/10" :
+                      pipe.status === "failed" ? "bg-error/10" :
+                      pipe.status === "running" ? "bg-accent-primary/10" :
+                      "bg-text-dim/10"
+                    }`}>
+                      {pipe.status === "running" ? (
+                        <Loader2 className="h-3.5 w-3.5 text-accent-primary animate-spin" />
+                      ) : (
+                        <Container className={`h-3.5 w-3.5 ${
+                          pipe.status === "success" ? "text-success" :
+                          pipe.status === "failed" ? "text-error" :
+                          "text-text-dim"
+                        }`} />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-text-primary truncate">{pipe.name}</p>
+                      <div className="flex items-center gap-2 text-[11px] text-text-dim">
+                        <GitPullRequest className="h-3 w-3" />
+                        <span>{pipe.branch}</span>
+                        <GitCommit className="h-3 w-3 ml-1" />
+                        <span className="font-mono">{pipe.commit}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <div className="text-right">
-                    <p className="text-[11px] text-text-dim font-mono">{pipe.duration}</p>
-                    <p className="text-[10px] text-text-dim">{pipe.timestamp}</p>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="text-right">
+                      <p className="text-[11px] text-text-dim font-mono">{pipe.duration}</p>
+                      <p className="text-[10px] text-text-dim">{pipe.timestamp}</p>
+                    </div>
+                    <Badge
+                      variant={
+                        pipe.status === "success" ? "success" :
+                        pipe.status === "failed" ? "error" :
+                        pipe.status === "running" ? "info" :
+                        "neutral"
+                      }
+                    >
+                      {pipe.status.toUpperCase()}
+                    </Badge>
                   </div>
-                  <Badge
-                    variant={
-                      pipe.status === "success" ? "success" :
-                      pipe.status === "failed" ? "error" :
-                      pipe.status === "running" ? "info" :
-                      "neutral"
-                    }
-                  >
-                    {pipe.status.toUpperCase()}
-                  </Badge>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

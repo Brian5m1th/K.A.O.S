@@ -5,6 +5,7 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Card, CardContent } from "@/shared/ui/card";
 import { Loader2 } from "lucide-react";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/auth/reset-password", {
+      const response = await kaosFetch("/auth/reset-password", "", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

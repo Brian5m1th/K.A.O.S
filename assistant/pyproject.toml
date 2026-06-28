@@ -26,6 +26,8 @@ dependencies = [
     "python-jose[cryptography]>=3.3.0",
     "passlib[bcrypt]>=1.7.4",
     "python-multipart>=0.0.9",
+    "alembic>=1.18.5",
+    "psutil>=7.2.2",
 ]
 
 [tool.setuptools.packages.find]
