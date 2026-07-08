@@ -18,72 +18,44 @@ interface WorkflowTemplate {
   installed: boolean;
 }
 
-const OFFICIAL_TEMPLATES: WorkflowTemplate[] = [
-  {
-    id: "tpl_1",
-    name: "Obsidian Vault RAG Sync",
-    description: "Sincroniza automaticamente notas do Obsidian com o banco vetorial Qdrant quando novos arquivos são criados ou alterados.",
-    category: "IA",
-    icon: Database,
-    json_name: "vault_sync_workflow.json",
-    installed: false,
-  },
-  {
-    id: "tpl_2",
-    name: "AI Cost Fallback Router",
-    description: "Monitora o custo acumulado em tokens de LLM e redireciona automaticamente requests para o Ollama local caso o limite financeiro diário seja atingido.",
-    category: "IA",
-    icon: RefreshCcw,
-    json_name: "cost_tracker_workflow.json",
-    installed: false,
-  },
-  {
-    id: "tpl_3",
-    name: "GitHub PR Reviewer",
-    description: "Lê Pull Requests abertos no repositório GitHub, extrai o diff de código e faz uma revisão automática focada em bugs, performance e conformidade com KIRL.",
-    category: "GitHub",
-    icon: GitPullRequest,
-    json_name: "github_review_workflow.json",
-    installed: false,
-  },
-  {
-    id: "tpl_4",
-    name: "WhatsApp/Telegram Chatbot Gateway",
-    description: "Cria um gateway bidirecional que conecta conversas recebidas do WhatsApp ou Telegram à inteligência agentica RAG do K.A.O.S.",
-    category: "Messaging",
-    icon: MessageSquare,
-    json_name: "whatsapp_chatbot_workflow.json",
-    installed: false,
-  },
-  {
-    id: "tpl_5",
-    name: "DevOps DB & Vector Backup",
-    description: "Agenda backups compactados diários das tabelas PostgreSQL e do storage do Qdrant e envia-os criptografados para o S3.",
-    category: "DevOps",
-    icon: ShieldCheck,
-    json_name: "devops_backup_workflow.json",
-    installed: false,
-  },
-  {
-    id: "tpl_6",
-    name: "MCP Server Health Monitor",
-    description: "Monitora continuamente o status dos servidores MCP registrados e dispara reinicializações em caso de falha nos subprocessos.",
-    category: "MCP",
-    icon: GitBranch,
-    json_name: "mcp_health_workflow.json",
-    installed: false,
-  }
-];
+const CATEGORY_ICONS: Record<string, any> = {
+  IA: Database,
+  GitHub: GitPullRequest,
+  Messaging: MessageSquare,
+  DevOps: ShieldCheck,
+  MCP: GitBranch,
+};
 
 export default function AutomationMarketplace() {
-  const [templates, setTemplates] = useState<WorkflowTemplate[]>(OFFICIAL_TEMPLATES);
+  const [templates, setTemplates] = useState<WorkflowTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [installingId, setInstallingId] = useState<string | null>(null);
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
-    fetchInstalledWorkflows();
+    Promise.all([fetchTemplates(), fetchInstalledWorkflows()]);
   }, []);
+
+  const fetchTemplates = async () => {
+    try {
+      const res = await kaosFetch("/api/automation/templates");
+      if (res.ok) {
+        const data = await res.json();
+        const tpls: WorkflowTemplate[] = (data.templates || []).map((t: any, i: number) => ({
+          id: `tpl_${i + 1}`,
+          name: t.name,
+          description: t.description,
+          category: t.category || "IA",
+          icon: CATEGORY_ICONS[t.category] || Database,
+          json_name: t.json_name,
+          installed: false,
+        }));
+        setTemplates(tpls);
+      }
+    } catch (e) {
+      console.error("Failed to fetch templates", e);
+    }
+  };
 
   const fetchInstalledWorkflows = async () => {
     setLoading(true);
@@ -111,15 +83,20 @@ export default function AutomationMarketplace() {
     setInstallingId(tpl.id);
     setMessage(null);
     try {
-      // 1. Fetch template JSON schema from backend public data
+      // 1. Fetch template JSON schema from backend static assets
+      let jsonData: any = null;
       const jsonRes = await fetch(`/workflows/${tpl.json_name}`).catch(() => null);
-      
-      // Fallback: If public asset fetch fails, request backend to handle default auto-import triggers
-      // For this implementation, we simulate/fetch from the backend workflows API directly
+      if (jsonRes && jsonRes.ok) {
+        jsonData = await jsonRes.json();
+        console.log(`[marketplace] Template JSON loaded: ${tpl.json_name}`);
+      } else {
+        console.warn(`[marketplace] Template JSON not found at /workflows/${tpl.json_name}, using fallback`);
+      }
+
       const payload = {
         name: tpl.name,
         description: tpl.description,
-        json_data: {
+        json_data: jsonData || {
           name: tpl.name,
           nodes: [
             {
