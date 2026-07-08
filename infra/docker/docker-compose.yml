@@ -84,22 +84,37 @@ services:
     env_file:
       - .env
     environment:
-      - APP_ENV=production
+      - APP_ENV=development
       - OLLAMA_BASE_URL=http://ollama:11434
     volumes:
+      # ── Workspace / Dados ──────────────────────────────────────────
       - ../../workspace:/workspace
       - ../../docs:/vault
       - ./logs:/var/log/kaos-api
       - hf_cache:/root/.cache/huggingface
-      - ../../.git:/.git:ro
+      # ── Configuracao ───────────────────────────────────────────────
       - ../../config:/app/config
       - ../../.opencode:/app/.opencode
+      # ── Codigo Fonte (para Scanner + hot-reload) ───────────────────
+      - ../../assistant/app:/app/app:ro
+      - ../../desktop:/app/desktop:ro
+      # ── Git (para CommitMapper) ────────────────────────────────────
+      - ../../.git:/.git:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
-      - postgres
-      - qdrant
-      - ollama
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      ollama:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: unless-stopped
 
   prometheus:
