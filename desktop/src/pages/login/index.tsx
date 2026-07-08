@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/shared/lib/stores";
 import { Button } from "@/shared/ui/button";
@@ -26,9 +26,15 @@ export default function LoginPage() {
   const [localError, setLocalError] = useState("");
   const [localSuccess, setLocalSuccess] = useState("");
 
-  // If already logged in, redirect to dashboard
+  // Redirect when accessToken is populated
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/", { replace: true });
+    }
+  }, [accessToken, navigate]);
+
+  // If already logged in, do not render login form
   if (accessToken) {
-    navigate("/", { replace: true });
     return null;
   }
 
