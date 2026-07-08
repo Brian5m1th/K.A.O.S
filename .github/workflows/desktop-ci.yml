@@ -56,6 +56,9 @@ jobs:
         working-directory: desktop
         run: npm install
 
+      - name: Verify version consistency
+        run: node scripts/check-version-consistency.js
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
