@@ -93,6 +93,22 @@ export default function GraphifyPage() {
     }
   }, [setNodes, setEdges]);
 
+  const [rebuilding, setRebuilding] = useState(false);
+
+  const rebuildGraph = async () => {
+    setRebuilding(true);
+    setError("");
+    try {
+      const res = await kaosFetch("/api/architecture/graph", "", { method: "POST" });
+      if (!res.ok) throw new Error("Erro ao construir o grafo no backend");
+      await fetchGraph();
+    } catch (e: any) {
+      setError(e.message || "Erro ao construir o grafo");
+    } finally {
+      setRebuilding(false);
+    }
+  };
+
   useEffect(() => {
     fetchGraph();
   }, [fetchGraph]);
@@ -107,17 +123,27 @@ export default function GraphifyPage() {
             <Badge variant="info">{stats.nodes} nodes / {stats.edges} edges</Badge>
           )}
         </div>
-        <button
-          onClick={fetchGraph}
-          disabled={loading}
-          className="flex items-center gap-1 rounded-md bg-bg-active px-2 py-1 text-[11px] text-text-muted hover:text-text-primary transition-colors"
-        >
-          <RefreshCw className={`h-3 w-3 ${loading ? "animate-spin" : ""}`} />
-          Refresh
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={rebuildGraph}
+            disabled={loading || rebuilding}
+            className="flex items-center gap-1 rounded-md bg-bg-active px-2 py-1 text-[11px] text-text-muted hover:text-text-primary transition-colors"
+          >
+            <RefreshCw className={`h-3 w-3 ${rebuilding ? "animate-spin" : ""}`} />
+            Rebuild
+          </button>
+          <button
+            onClick={fetchGraph}
+            disabled={loading || rebuilding}
+            className="flex items-center gap-1 rounded-md bg-bg-active px-2 py-1 text-[11px] text-text-muted hover:text-text-primary transition-colors"
+          >
+            <RefreshCw className={`h-3 w-3 ${loading ? "animate-spin" : ""}`} />
+            Refresh
+          </button>
+        </div>
       </div>
 
-      {loading ? (
+      {loading || rebuilding ? (
         <div className="flex flex-1 items-center justify-center">
           <Loader2 className="h-6 w-6 animate-spin text-text-dim" />
         </div>
@@ -127,10 +153,10 @@ export default function GraphifyPage() {
             <Network className="h-10 w-10 text-text-dim mx-auto mb-3" />
             <p className="text-sm text-text-dim">{error}</p>
             <button
-              onClick={fetchGraph}
+              onClick={rebuildGraph}
               className="mt-3 text-xs text-accent-primary hover:underline"
             >
-              Build graph first via POST /api/architecture/graph
+              Build graph now (POST /api/architecture/graph)
             </button>
           </div>
         </div>

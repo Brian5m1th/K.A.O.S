@@ -23,6 +23,7 @@ interface DriftReport {
   undocumented_code: string[];
   coverageHistory: { date: string; coverage: number }[];
   driftHistory: { date: string; level: string; missing: number }[];
+  features?: any[];
 }
 
 interface DriftSnapshot {

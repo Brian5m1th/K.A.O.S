@@ -100,7 +100,7 @@ function KnowledgeGraphInner() {
   const rebuildGraph = async () => {
     setRebuilding(true);
     try {
-      const res = await kaosFetch("/api/architecture/knowledge-graph", "POST");
+      const res = await kaosFetch("/api/architecture/knowledge-graph", "", { method: "POST" });
       if (!res.ok) throw new Error("Erro ao reconstruir o grafo no backend");
       await fetchKG();
     } catch (e: any) {
