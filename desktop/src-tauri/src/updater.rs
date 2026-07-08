@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 use tauri::{AppHandle, Emitter, Manager};
 use tauri_plugin_updater::UpdaterExt;
@@ -153,30 +153,41 @@ pub async fn install_update(app: AppHandle) -> Result<(), String> {
 pub async fn ensure_docker_services() -> Result<(), String> {
     println!("[docker] Verificando se os servicos do Docker estao ativos...");
     
-    // Localizar o arquivo docker-compose.yml subindo a arvore de diretorios a partir da pasta atual
-    let mut compose_path = match std::env::current_dir() {
-        Ok(dir) => dir,
-        Err(e) => return Err(format!("Erro ao obter diretorio atual: {}", e)),
-    };
-    
+    // Localizar o arquivo docker-compose.yml
+    let mut compose_path = std::path::PathBuf::new();
     let mut found = false;
-    for _ in 0..5 {
-        let path = compose_path.join("infra/docker/docker-compose.yml");
-        if path.exists() {
-            compose_path = path;
-            found = true;
-            break;
+    
+    let env_workspace = std::env::var("KAOS_WORKSPACE").ok().map(std::path::PathBuf::from);
+    let current_dir = std::env::current_dir().unwrap_or_default();
+    let exe_dir = std::env::current_exe().unwrap_or_default().parent().unwrap_or(std::path::Path::new("")).to_path_buf();
+    let hardcoded_workspace = std::path::PathBuf::from("C:\\workspace\\Freelancer\\K.A.O.S");
+
+    let mut search_dirs = vec![];
+    if let Some(p) = env_workspace { search_dirs.push(p); }
+    search_dirs.push(current_dir);
+    search_dirs.push(exe_dir);
+    search_dirs.push(hardcoded_workspace);
+
+    for dir in search_dirs {
+        let mut current = dir.clone();
+        for _ in 0..5 {
+            let path = current.join("infra/docker/docker-compose.yml");
+            if path.exists() {
+                compose_path = path;
+                found = true;
+                break;
+            }
+            if let Some(parent) = current.parent() {
+                current = parent.to_path_buf();
+            } else {
+                break;
+            }
         }
-        if let Some(parent) = compose_path.parent() {
-            compose_path = parent.to_path_buf();
-        } else {
-            break;
-        }
+        if found { break; }
     }
     
     if !found {
-        // Fallback: tentar no diretorio padrão relativo ao workspace local
-        compose_path = std::path::PathBuf::from("../../infra/docker/docker-compose.yml");
+        return Err("Nao foi possivel encontrar o arquivo infra/docker/docker-compose.yml. Defina a variavel de ambiente KAOS_WORKSPACE apontando para a raiz do projeto.".to_string());
     }
 
     println!("[docker] Caminho do docker-compose: {:?}", compose_path);
@@ -206,6 +217,196 @@ pub async fn ensure_docker_services() -> Result<(), String> {
         Err(e) => {
             println!("[docker] Erro ao executar comando docker: {}", e);
             Err(format!("Nao foi possivel executar o comando docker. Certifique-se de que o Docker Desktop esta instalado e rodando. Erro: {}", e))
+        }
+    }
+}
+
+// ── Fase 6: Bootstrap Commands ─────────────────────────────────────────────
+
+#[derive(Serialize)]
+pub struct DockerVersion {
+    pub available: bool,
+    pub version: Option<String>,
+}
+
+#[derive(Serialize)]
+pub struct DockerEngine {
+    pub running: bool,
+    pub info: Option<String>,
+}
+
+#[derive(Serialize)]
+pub struct BackendHealth {
+    pub reachable: bool,
+    pub status: Option<String>,
+    pub error: Option<String>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct BootstrapState {
+    pub state: String,
+    pub is_ready: bool,
+    pub degraded: bool,
+    pub boot_complete: bool,
+    pub stages: Vec<serde_json::Value>,
+    pub errors: Vec<String>,
+    pub total_elapsed_ms: f64,
+}
+
+/// Comando 1: Verificar se o CLI do Docker esta instalado.
+#[tauri::command]
+pub async fn check_docker() -> DockerVersion {
+    println!("[docker] Verificando instalacao do Docker CLI...");
+    let output = std::process::Command::new("docker")
+        .arg("--version")
+        .output();
+
+    match output {
+        Ok(out) if out.status.success() => {
+            let version = String::from_utf8_lossy(&out.stdout).trim().to_string();
+            println!("[docker] Docker encontrado: {}", version);
+            DockerVersion {
+                available: true,
+                version: Some(version),
+            }
+        }
+        Ok(out) => {
+            let stderr = String::from_utf8_lossy(&out.stderr);
+            println!("[docker] Docker CLI nao disponivel: {}", stderr);
+            DockerVersion {
+                available: false,
+                version: None,
+            }
+        }
+        Err(e) => {
+            println!("[docker] Erro ao executar docker --version: {}", e);
+            DockerVersion {
+                available: false,
+                version: None,
+            }
+        }
+    }
+}
+
+/// Comando 2: Verificar se o Docker Engine esta rodando.
+#[tauri::command]
+pub async fn check_docker_engine() -> DockerEngine {
+    println!("[docker] Verificando Docker Engine...");
+    let output = std::process::Command::new("docker")
+        .args(["info", "--format", "{{.ServerVersion}}"])
+        .output();
+
+    match output {
+        Ok(out) if out.status.success() => {
+            let version = String::from_utf8_lossy(&out.stdout).trim().to_string();
+            println!("[docker] Docker Engine rodando (versao: {})", version);
+            DockerEngine {
+                running: true,
+                info: Some(version),
+            }
+        }
+        Ok(out) => {
+            let stderr = String::from_utf8_lossy(&out.stderr).trim().to_string();
+            println!("[docker] Docker Engine nao respondeu: {}", stderr);
+            DockerEngine {
+                running: false,
+                info: Some(stderr),
+            }
+        }
+        Err(e) => {
+            println!("[docker] Erro ao verificar docker info: {}", e);
+            DockerEngine {
+                running: false,
+                info: None,
+            }
+        }
+    }
+}
+
+/// Comando 3: Verificar saude do backend K.A.O.S.
+#[tauri::command]
+pub async fn check_backend_health(server_url: Option<String>) -> BackendHealth {
+    let base = server_url.unwrap_or_else(|| "http://localhost:8000".to_string());
+    let url = format!("{}/health", base.trim_end_matches('/'));
+    println!("[backend] Verificando saude do backend em {}...", url);
+
+    match reqwest::get(&url).await {
+        Ok(resp) => {
+            let status = resp.status().to_string();
+            let body: serde_json::Value = resp.json().await.unwrap_or_default();
+            let status_msg = body.get("status").and_then(|s| s.as_str()).unwrap_or(&status).to_string();
+            println!("[backend] Backend respondeu: {}", status_msg);
+            BackendHealth {
+                reachable: true,
+                status: Some(status_msg),
+                error: None,
+            }
+        }
+        Err(e) => {
+            println!("[backend] Backend inacessivel: {}", e);
+            BackendHealth {
+                reachable: false,
+                status: None,
+                error: Some(e.to_string()),
+            }
+        }
+    }
+}
+
+/// Comando 4: Obter estado do bootstrap do backend.
+#[tauri::command]
+pub async fn get_bootstrap_state(server_url: Option<String>) -> BootstrapState {
+    let base = server_url.unwrap_or_else(|| "http://localhost:8000".to_string());
+    let url = format!("{}/api/system/bootstrap", base.trim_end_matches('/'));
+    println!("[bootstrap] Obtendo estado do bootstrap de {}...", url);
+
+    match reqwest::get(&url).await {
+        Ok(resp) if resp.status().is_success() => {
+            let data: serde_json::Value = resp.json().await.unwrap_or_default();
+            let state = data.get("state").and_then(|s| s.as_str()).unwrap_or("unknown").to_string();
+            let is_ready = data.get("is_ready").and_then(|v| v.as_bool()).unwrap_or(false);
+            let degraded = data.get("degraded").and_then(|v| v.as_bool()).unwrap_or(false);
+            let boot_complete = data.get("boot_complete").and_then(|v| v.as_bool()).unwrap_or(false);
+            let stages = data.get("stages").and_then(|v| v.as_array()).cloned().unwrap_or_default();
+            let errors = data.get("errors").and_then(|v| v.as_array())
+                .map(|arr| arr.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect())
+                .unwrap_or_default();
+            let total_elapsed_ms = data.get("total_elapsed_ms").and_then(|v| v.as_f64()).unwrap_or(0.0);
+
+            println!("[bootstrap] Estado: {} ready={} degraded={}", state, is_ready, degraded);
+            BootstrapState {
+                state,
+                is_ready,
+                degraded,
+                boot_complete,
+                stages,
+                errors,
+                total_elapsed_ms,
+            }
+        }
+        Ok(resp) => {
+            println!("[bootstrap] Backend retornou status {}", resp.status());
+            BootstrapState {
+                state: "backend_error".to_string(),
+                is_ready: false,
+                degraded: false,
+                boot_complete: false,
+                stages: vec![],
+                errors: vec![format!("Backend retornou HTTP {}", resp.status())],
+                total_elapsed_ms: 0.0,
+            }
+        }
+        Err(e) => {
+            println!("[bootstrap] Backend inacessivel: {}", e);
+            BootstrapState {
+                state: "backend_unreachable".to_string(),
+                is_ready: false,
+                degraded: false,
+                boot_complete: false,
+                stages: vec![],
+                errors: vec![format!("Backend inacessivel: {}", e)],
+                total_elapsed_ms: 0.0,
+            }
         }
     }
 }

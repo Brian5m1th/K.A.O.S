@@ -23,6 +23,11 @@ pub fn run() {
             updater::download_and_install,
             updater::install_update,
             updater::ensure_docker_services,
+            // Fase 6: Bootstrap
+            updater::check_docker,
+            updater::check_docker_engine,
+            updater::check_backend_health,
+            updater::get_bootstrap_state,
         ])
         .run(tauri::generate_context!())
         .expect("error while running KAOS");
