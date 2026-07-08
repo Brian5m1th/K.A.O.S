@@ -6,7 +6,7 @@ import re
 import yaml
 
 from loguru import logger
-from app.audit.runtime_resolver import RuntimePathResolver
+from app.core.environment_service import EnvironmentService
 
 
 @dataclass
@@ -29,15 +29,16 @@ class VaultNode:
 class VaultReader:
     @classmethod
     def get_scan_dirs(cls) -> list[Path]:
-        root = RuntimePathResolver.project_root()
+        """Retorna diretorios para scan, usando EnvironmentService."""
+        env = EnvironmentService.detect()
         return [
-            root / "docs" / "sdd",
-            root / "docs" / "architecture",
-            root / "docs" / "guides",
-            root / "docs" / "api",
-            root / "docs" / "features",
-            root / "docs" / "wiki",
-            root / ".opencode" / "plans",
+            env.docs / "sdd",
+            env.docs / "architecture",
+            env.docs / "guides",
+            env.docs / "api",
+            env.docs / "features",
+            env.docs / "wiki",
+            env.project_root / ".opencode" / "plans",
         ]
 
     @classmethod
@@ -106,7 +107,7 @@ class VaultReader:
             tags=meta.get("tags", []),
             links=meta.get("links", []),
             path=path.resolve()
-            .relative_to(RuntimePathResolver.project_root())
+            .relative_to(EnvironmentService.detect().project_root)
             .as_posix(),
             content=body.strip(),
             wikilinks=wikilinks,

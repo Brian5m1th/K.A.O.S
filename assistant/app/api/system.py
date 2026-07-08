@@ -46,6 +46,23 @@ async def system_status():
     }
 
 
+@router.get("/environment")
+async def system_environment():
+    """Retorna diagnostico completo do ambiente (EnvironmentService)."""
+    from app.core.environment_service import EnvironmentService
+
+    env = EnvironmentService.detect()
+    return env.to_dict()
+
+
+@router.get("/bootstrap")
+async def system_bootstrap_state():
+    """Retorna estado atual do bootstrap (BootstrapManager)."""
+    from app.core.bootstrap_manager import BootstrapManager
+
+    return BootstrapManager.get_state()
+
+
 @router.get("/metrics")
 async def system_metrics():
     import psutil
