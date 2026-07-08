@@ -1,6 +1,7 @@
 {
   "name": "kaos",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "description": "K.A.O.S — Universal AI Orchestration Platform",
   "scripts": {
