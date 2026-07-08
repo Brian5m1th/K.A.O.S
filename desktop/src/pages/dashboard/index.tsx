@@ -247,54 +247,60 @@ export default function DashboardPage() {
     return () => clearInterval(interval);
   }, [serverUrl, isOnline]);
 
-  // Simulate sys logs
+  // Real SSE system logs stream
   useEffect(() => {
-    const templates = [
-      "INFO: [smart_router] Classified query intent as RAG workflow",
-      "INFO: [qdrant] Similarity query executed in 14ms",
-      "DEBUG: [cost_tracker] Accumulated session cost updated, total=0.0034 USD",
-      "INFO: [kirl] Drift scan completed, no significant drifts found",
-      "INFO: [ollama] Local model tags fetched, active: qwen2.5:latest",
-      "INFO: [mcp_manager] Tool execution request: filesystem_read_file",
-      "INFO: [memory] smart context window injected in system prompt",
-    ];
+    if (!isOnline) return;
 
-    const sysLogInterval = setInterval(() => {
-      const randomTpl = templates[Math.floor(Math.random() * templates.length)];
-      setSysLogs((prev) => [...prev.slice(-8), randomTpl]);
-    }, 5000);
+    const url = `${serverUrl}/api/observability/logs/stream`;
+    console.log("[DashboardPage] Conectando ao Live System Logs:", url);
 
-    return () => clearInterval(sysLogInterval);
-  }, []);
+    const eventSource = new EventSource(url);
 
-  // Simulate agent active toggling
-  useEffect(() => {
-    const agentInterval = setInterval(() => {
-      setAgents((prev) =>
-        prev.map((agent) => {
-          if (agent.name === "kaos-coder") {
-            const isNowActive = Math.random() > 0.5;
+    eventSource.onmessage = (event) => {
+      if (event.data) {
+        setSysLogs((prev) => [...prev.slice(-49), event.data]);
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      console.error("[DashboardPage] Erro no EventSource de logs:", err);
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [serverUrl, isOnline]);
+
+  // Fetch real agent status from backend
+  const fetchAgentStatus = async () => {
+    if (!isOnline) return;
+    try {
+      const res = await kaosFetch(`${serverUrl}/api/agents/status`, "");
+      if (res.ok) {
+        const data = await res.json();
+        const runningNames = Object.values(data.instances || {}).map((inst: any) => inst.name);
+        setAgents((prev) =>
+          prev.map((agent) => {
+            const isRunning = runningNames.includes(agent.name);
             return {
               ...agent,
-              status: isNowActive ? "active" : "idle",
-              activity: isNowActive ? "Gerando testes unitários..." : "Aguardando tarefas",
+              status: isRunning ? "active" : "idle",
+              activity: isRunning ? "Processando tarefas..." : "Aguardando gatilho",
             };
-          }
-          if (agent.name === "kaos-architect") {
-            const isNowIdle = Math.random() > 0.7;
-            return {
-              ...agent,
-              status: isNowIdle ? "idle" : "active",
-              activity: isNowIdle ? "Aguardando trigger" : "Analisando estrutura do código...",
-            };
-          }
-          return agent;
-        })
-      );
-    }, 6000);
+          })
+        );
+      }
+    } catch (e) {
+      console.error("Erro ao carregar status dos agentes:", e);
+    }
+  };
 
-    return () => clearInterval(agentInterval);
-  }, []);
+  useEffect(() => {
+    fetchAgentStatus();
+    const interval = setInterval(fetchAgentStatus, 10000);
+    return () => clearInterval(interval);
+  }, [serverUrl, isOnline]);
 
   // Auto scroll logs
   useEffect(() => {
@@ -595,10 +601,10 @@ export default function DashboardPage() {
             Live System Log
           </CardTitle>
           <Badge
-            variant="neutral"
-            className="text-[9px] bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono tracking-wider"
+            variant="success"
+            className="text-[9px] bg-green-500/10 text-green-500 border border-green-500/20 font-mono tracking-wider animate-pulse"
           >
-            SIMULATED
+            LIVE
           </Badge>
         </CardHeader>
         <CardContent className="p-2 bg-canvas/60 overflow-y-auto flex-1 font-mono text-[10px] text-text-muted space-y-1 select-text scrollbar-thin">
