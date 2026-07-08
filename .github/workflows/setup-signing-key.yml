@@ -38,7 +38,7 @@ jobs:
           else
             echo "Generating new signing key..."
             rm -f "$KEY_PATH" "$PUB_PATH"
-            npx @tauri-apps/cli signer generate -w "$KEY_PATH" || true
+            npx @tauri-apps/cli signer generate --ci -p "kaos-master-key-password" -w "$KEY_PATH"
           fi
 
           if [ -f "$PUB_PATH" ]; then
