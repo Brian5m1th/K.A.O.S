@@ -68,18 +68,18 @@ export function DocumentationPage() {
 
   const getDriftColor = (level: string) => {
     switch (level) {
-      case "high": return "bg-red-100 text-red-800 border-red-200";
-      case "medium": return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      default: return "bg-green-100 text-green-800 border-green-200";
+      case "high": return "bg-error/10 text-error border-error/30";
+      case "medium": return "bg-warning/10 text-warning border-warning/30";
+      default: return "bg-success/10 text-success border-success/30";
     }
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-canvas text-text-primary">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Documentation Health</h1>
-          <p className="text-gray-500 mt-1">Real-time architectural documentation audit</p>
+          <h1 className="text-2xl font-bold text-text-primary">Documentation Health</h1>
+          <p className="text-text-muted mt-1">Real-time architectural documentation audit</p>
         </div>
         <div className="flex items-center gap-3">
           <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getDriftColor(documentation.driftLevel)}`}>
@@ -89,7 +89,7 @@ export function DocumentationPage() {
           <button
             onClick={handleRunAudit}
             disabled={isLoading}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50 flex items-center gap-2"
           >
             <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
             {isLoading ? "Scanning..." : "Run Audit"}
@@ -98,45 +98,45 @@ export function DocumentationPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="border border-border-subtle bg-surface-raised/40">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Coverage</CardTitle>
+            <CardTitle className="text-sm font-medium text-text-muted">Coverage</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold text-gray-900">{documentation.coverage.toFixed(1)}%</span>
-              <TrendingUp className="w-5 h-5 text-green-500" />
+              <span className="text-3xl font-bold text-text-primary">{documentation.coverage.toFixed(1)}%</span>
+              <TrendingUp className="w-5 h-5 text-success" />
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border border-border-subtle bg-surface-raised/40">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Missing Docs</CardTitle>
+            <CardTitle className="text-sm font-medium text-text-muted">Missing Docs</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
-              <span className="text-3xl font-bold text-red-600">{documentation.missingCount}</span>
-              <FileText className="w-5 h-5 text-red-500" />
+              <span className="text-3xl font-bold text-error">{documentation.missingCount}</span>
+              <FileText className="w-5 h-5 text-error" />
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border border-border-subtle bg-surface-raised/40">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Outdated SDDs</CardTitle>
+            <CardTitle className="text-sm font-medium text-text-muted">Outdated SDDs</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
-              <span className="text-3xl font-bold text-yellow-600">{documentation.outdatedCount}</span>
-              <Clock className="w-5 h-5 text-yellow-500" />
+              <span className="text-3xl font-bold text-warning">{documentation.outdatedCount}</span>
+              <Clock className="w-5 h-5 text-warning" />
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border border-border-subtle bg-surface-raised/40">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Last Scan</CardTitle>
+            <CardTitle className="text-sm font-medium text-text-muted">Last Scan</CardTitle>
           </CardHeader>
           <CardContent>
-            <span className="text-lg font-medium text-gray-900">
+            <span className="text-lg font-medium text-text-primary font-mono">
               {documentation.lastScan ? new Date(documentation.lastScan).toLocaleTimeString() : "Never"}
             </span>
           </CardContent>
@@ -160,37 +160,37 @@ export function DocumentationPage() {
 
       {activeTab === "overview" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Card>
+          <Card className="border border-border-subtle bg-surface-raised/40">
             <CardHeader>
-              <CardTitle>Coverage Trend</CardTitle>
+              <CardTitle className="text-text-primary">Coverage Trend</CardTitle>
             </CardHeader>
             <CardContent>
               <CoverageChart data={driftReport?.coverageHistory || []} />
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border border-border-subtle bg-surface-raised/40">
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
+              <CardTitle className="text-text-primary">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <button onClick={() => setActiveTab("missing")} className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center justify-center gap-2 text-left">
-                <FileText className="w-4 h-4" />
+              <button onClick={() => setActiveTab("missing")} className="w-full px-4 py-2 bg-surface hover:bg-surface-hover rounded-lg flex items-center justify-center gap-2 text-left text-text-primary border border-border-subtle transition-colors">
+                <FileText className="w-4 h-4 text-text-muted" />
                 View Undocumented Features
               </button>
-              <button onClick={() => setActiveTab("outdated")} className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center justify-center gap-2 text-left">
-                <Clock className="w-4 h-4" />
+              <button onClick={() => setActiveTab("outdated")} className="w-full px-4 py-2 bg-surface hover:bg-surface-hover rounded-lg flex items-center justify-center gap-2 text-left text-text-primary border border-border-subtle transition-colors">
+                <Clock className="w-4 h-4 text-text-muted" />
                 View Outdated SDDs
               </button>
-              <button onClick={handleGenerateDocs} className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center justify-center gap-2 text-left">
-                <Upload className="w-4 h-4" />
+              <button onClick={handleGenerateDocs} className="w-full px-4 py-2 bg-surface hover:bg-surface-hover rounded-lg flex items-center justify-center gap-2 text-left text-text-primary border border-border-subtle transition-colors">
+                <Upload className="w-4 h-4 text-text-muted" />
                 Generate Documentation
               </button>
-              <button onClick={handleSyncVault} className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center justify-center gap-2 text-left">
-                <RefreshCw className="w-4 h-4" />
+              <button onClick={handleSyncVault} className="w-full px-4 py-2 bg-surface hover:bg-surface-hover rounded-lg flex items-center justify-center gap-2 text-left text-text-primary border border-border-subtle transition-colors">
+                <RefreshCw className="w-4 h-4 text-text-muted" />
                 Sync Documentation
               </button>
-              <button onClick={handleExportArch} className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center justify-center gap-2 text-left">
-                <Download className="w-4 h-4" />
+              <button onClick={handleExportArch} className="w-full px-4 py-2 bg-surface hover:bg-surface-hover rounded-lg flex items-center justify-center gap-2 text-left text-text-primary border border-border-subtle transition-colors">
+                <Download className="w-4 h-4 text-text-muted" />
                 Export Architecture
               </button>
             </CardContent>

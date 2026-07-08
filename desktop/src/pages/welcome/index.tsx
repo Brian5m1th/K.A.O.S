@@ -6,6 +6,7 @@ import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
 import { CheckCircle2, ChevronRight, Server, Cpu, Play, Loader2 } from "lucide-react";
 import { useAuthStore } from "@/shared/lib/stores";
+import { kaosFetch } from "@/shared/api/kaos-client";
 
 export default function WelcomePage() {
   const navigate = useNavigate();
@@ -17,25 +18,56 @@ export default function WelcomePage() {
   const [provider, setProvider] = useState("ollama");
   const [testResult, setTestResult] = useState<string | null>(null);
 
-  const handleNextStep1 = () => {
+  const handleNextStep1 = async () => {
     setChecking(true);
-    setTimeout(() => {
-      useAuthStore.setState({ serverUrl: urlInput });
+    setTestResult(null);
+    const targetUrl = urlInput.replace(/\/+$/, "");
+    try {
+      // Temporarily write target URL to store so kaosFetch uses it
+      useAuthStore.setState({ serverUrl: targetUrl });
+      
+      const res = await kaosFetch("/api/setup/provider/active", "");
+      if (res.ok) {
+        setStep(2);
+      } else {
+        throw new Error("O servidor respondeu com status inválido");
+      }
+    } catch (e: any) {
+      alert(`Falha de conexão com o K.A.O.S Backend em "${targetUrl}". Certifique-se de que o backend está rodando.\n\nDetalhes: ${e.message || String(e)}`);
+      // Restore previous url
+      useAuthStore.setState({ serverUrl });
+    } finally {
       setChecking(false);
-      setStep(2);
-    }, 1200);
+    }
   };
 
-  const handleNextStep2 = () => {
-    setStep(3);
+  const handleNextStep2 = async () => {
+    setChecking(true);
+    try {
+      const res = await kaosFetch("/api/setup/provider/active", "", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ provider })
+      });
+      if (!res.ok) throw new Error("Erro ao definir o provedor ativo");
+      setStep(3);
+    } catch (e: any) {
+      alert(`Não foi possível salvar o provedor no backend:\n${e.message || String(e)}`);
+    } finally {
+      setChecking(false);
+    }
   };
 
   const handleFinish = () => {
     setChecking(true);
-    setTimeout(() => {
+    try {
+      useAuthStore.setState({ configured: true });
       setChecking(false);
       navigate("/");
-    }, 1000);
+    } catch (e: any) {
+      alert(`Erro ao finalizar setup: ${e.message || String(e)}`);
+      setChecking(false);
+    }
   };
 
   return (

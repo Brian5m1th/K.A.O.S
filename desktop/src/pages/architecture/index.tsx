@@ -24,10 +24,18 @@ export function ArchitecturePage() {
   const graph = useGraphData();
   const { selectedNode, hoveredNode } = useGraphSelection();
   const { zoom, pan } = useGraphView();
-  const { filterType, layout: layoutType } = useGraphFilters();
   const { selectNode, setHoveredNode, setZoom, setPan, resetView, setLayout, setFilterType, setGraph } = useGraphStore();
+  const { filterType, layout: layoutType } = useGraphFilters();
   const { loadSnapshot } = useDriftActions();
   const [layoutResult, setLayoutResult] = React.useState<LayoutResult | null>(null);
+
+  const updatedGraph = useGraphUpdater();
+
+  useEffect(() => {
+    if (updatedGraph) {
+      setGraph(updatedGraph);
+    }
+  }, [updatedGraph, setGraph]);
 
   useEffect(() => {
     loadSnapshot();
@@ -101,32 +109,32 @@ export function ArchitecturePage() {
   const nodeTypes = graph ? Array.from(new Set(graph.nodes.map((n) => n.type))) : [];
 
   return (
-    <div className="p-6 space-y-4">
+    <div className="p-6 space-y-4 bg-canvas text-text-primary">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Architecture Graph</h1>
+        <h1 className="text-2xl font-bold text-text-primary">Architecture Graph</h1>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-surface-raised rounded-lg p-1 border border-border-subtle">
             {(["force", "hierarchical", "radial"] as const).map((l) => (
               <button
                 key={l}
                 onClick={() => setLayout(l)}
-                className={`px-3 py-1 text-xs rounded-md ${layoutType === l ? "bg-white shadow text-gray-900" : "text-gray-500"}`}
+                className={`px-3 py-1 text-xs rounded-md transition-colors ${layoutType === l ? "bg-surface border border-border-subtle text-text-primary shadow" : "text-text-dim hover:text-text-primary"}`}
               >
                 {l === "force" ? "Force" : l === "hierarchical" ? "Hierarchical" : "Radial"}
               </button>
             ))}
           </div>
-          <button onClick={() => setZoom(zoom + 0.2)} className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+          <button onClick={() => setZoom(zoom + 0.2)} className="p-2 bg-surface-raised border border-border-subtle rounded-lg hover:bg-surface-hover text-text-primary">
             <ZoomIn className="w-4 h-4" />
           </button>
-          <button onClick={() => setZoom(zoom - 0.2)} className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+          <button onClick={() => setZoom(zoom - 0.2)} className="p-2 bg-surface-raised border border-border-subtle rounded-lg hover:bg-surface-hover text-text-primary">
             <ZoomOut className="w-4 h-4" />
           </button>
-          <button onClick={resetView} className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+          <button onClick={resetView} className="p-2 bg-surface-raised border border-border-subtle rounded-lg hover:bg-surface-hover text-text-primary">
             <Maximize2 className="w-4 h-4" />
           </button>
           {graph && (
-            <button onClick={() => GraphExport.downloadJSON(graph)} className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+            <button onClick={() => GraphExport.downloadJSON(graph)} className="p-2 bg-surface-raised border border-border-subtle rounded-lg hover:bg-surface-hover text-text-primary">
               <Download className="w-4 h-4" />
             </button>
           )}
@@ -192,7 +200,7 @@ export function ArchitecturePage() {
                               x={node.x + 12}
                               y={node.y + 4}
                               fontSize="11"
-                              fill="#374151"
+                              fill="var(--text-primary, #ffffff)"
                               fontWeight={isSelected ? "bold" : "normal"}
                             >
                               {node.label}
@@ -204,7 +212,7 @@ export function ArchitecturePage() {
                   </g>
                 </svg>
               ) : (
-                <div className="h-[600px] flex items-center justify-center text-gray-500">
+                <div className="h-[600px] flex items-center justify-center text-text-muted">
                   No graph data available. Run audit first.
                 </div>
               )}
@@ -213,15 +221,15 @@ export function ArchitecturePage() {
         </div>
 
         <div className="space-y-4">
-          <Card>
+          <Card className="border border-border-subtle bg-surface-raised/40">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Node Types</CardTitle>
+              <CardTitle className="text-sm text-text-primary">Node Types</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-1">
                 <button
                   onClick={() => setFilterType(null)}
-                  className={`w-full text-left px-2 py-1 text-xs rounded ${!filterType ? "bg-blue-100 text-blue-800" : "text-gray-600 hover:bg-gray-100"}`}
+                  className={`w-full text-left px-2 py-1 text-xs rounded transition-colors ${!filterType ? "bg-primary/20 text-text-primary border border-primary/30" : "text-text-muted hover:bg-surface-hover hover:text-text-primary"}`}
                 >
                   All ({graph?.nodes.length || 0})
                 </button>
@@ -231,7 +239,7 @@ export function ArchitecturePage() {
                     <button
                       key={type}
                       onClick={() => setFilterType(type)}
-                      className={`w-full text-left px-2 py-1 text-xs rounded ${filterType === type ? "bg-blue-100 text-blue-800" : "text-gray-600 hover:bg-gray-100"}`}
+                      className={`w-full text-left px-2 py-1 text-xs rounded transition-colors ${filterType === type ? "bg-primary/20 text-text-primary border border-primary/30" : "text-text-muted hover:bg-surface-hover hover:text-text-primary"}`}
                     >
                       {type} ({count})
                     </button>
@@ -242,35 +250,35 @@ export function ArchitecturePage() {
           </Card>
 
           {selectedNode && (
-            <Card>
+            <Card className="border border-border-subtle bg-surface-raised/40 text-text-primary">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm">Node Details</CardTitle>
               </CardHeader>
-              <CardContent className="text-xs space-y-1">
-                <p><span className="font-medium">ID:</span> {selectedNode.id}</p>
-                <p><span className="font-medium">Label:</span> {selectedNode.label}</p>
-                <p><span className="font-medium">Type:</span> {selectedNode.type}</p>
-                {selectedNode.phase && <p><span className="font-medium">Phase:</span> {selectedNode.phase}</p>}
-                {selectedNode.status && <p><span className="font-medium">Status:</span> {selectedNode.status}</p>}
+              <CardContent className="text-xs space-y-1 text-text-muted">
+                <p><span className="font-medium text-text-primary">ID:</span> {selectedNode.id}</p>
+                <p><span className="font-medium text-text-primary">Label:</span> {selectedNode.label}</p>
+                <p><span className="font-medium text-text-primary">Type:</span> {selectedNode.type}</p>
+                {selectedNode.phase && <p><span className="font-medium text-text-primary">Phase:</span> {selectedNode.phase}</p>}
+                {selectedNode.status && <p><span className="font-medium text-text-primary">Status:</span> {selectedNode.status}</p>}
               </CardContent>
             </Card>
           )}
 
           {graph && (
-            <Card>
+            <Card className="border border-border-subtle bg-surface-raised/40">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Export</CardTitle>
+                <CardTitle className="text-sm text-text-primary">Export</CardTitle>
               </CardHeader>
               <CardContent className="space-y-1">
-                <button onClick={() => GraphExport.downloadJSON(graph)} className="w-full px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-xs flex items-center gap-2">
-                  <Download className="w-3 h-3" /> Export JSON
+                <button onClick={() => GraphExport.downloadJSON(graph)} className="w-full px-3 py-2 bg-surface hover:bg-surface-hover rounded text-xs flex items-center gap-2 text-text-primary border border-border-subtle transition-colors">
+                  <Download className="w-3 h-3 text-text-muted" /> Export JSON
                 </button>
-                <button onClick={() => GraphExport.downloadGraphML(graph)} className="w-full px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-xs flex items-center gap-2">
-                  <Download className="w-3 h-3" /> Export GraphML
+                <button onClick={() => GraphExport.downloadGraphML(graph)} className="w-full px-3 py-2 bg-surface hover:bg-surface-hover rounded text-xs flex items-center gap-2 text-text-primary border border-border-subtle transition-colors">
+                  <Download className="w-3 h-3 text-text-muted" /> Export GraphML
                 </button>
                 {layoutResult && (
-                  <button onClick={() => GraphExport.downloadSVG(layoutResult)} className="w-full px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-xs flex items-center gap-2">
-                    <Download className="w-3 h-3" /> Export SVG
+                  <button onClick={() => GraphExport.downloadSVG(layoutResult)} className="w-full px-3 py-2 bg-surface hover:bg-surface-hover rounded text-xs flex items-center gap-2 text-text-primary border border-border-subtle transition-colors">
+                    <Download className="w-3 h-3 text-text-muted" /> Export SVG
                   </button>
                 )}
               </CardContent>

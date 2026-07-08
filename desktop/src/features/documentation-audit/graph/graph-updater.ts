@@ -18,7 +18,7 @@ export function GraphUpdater({ onGraphUpdate }: GraphUpdaterProps) {
     lastScanRef.current = lastScan;
 
     const graph = GraphBuilder.buildFromSnapshot({
-      features: driftReport.missing_features.map(f => ({ id: f, name: f, phase: "", status: "missing", docs: [], codeRefs: [], lastCommit: "", createdAt: "", updatedAt: "" })),
+      features: driftReport.features || [],
       coverage: driftReport.coverage,
       driftLevel: driftReport.driftLevel,
       lastCommit: "",
@@ -43,7 +43,7 @@ export function useGraphUpdater() {
     if (!driftReport) return;
 
     const g = GraphBuilder.buildFromSnapshot({
-      features: [],
+      features: driftReport.features || [],
       coverage: driftReport.coverage,
       driftLevel: driftReport.driftLevel,
       lastCommit: "",
