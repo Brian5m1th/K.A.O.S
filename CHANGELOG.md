@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.0...v2.2.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* **ci:** allow release.yml to trigger on semantic-release published events ([258c8a0](https://github.com/Brian5m1th/K.A.O.S/commit/258c8a0f51b9e6ab796c8fe78262adc474fd4235))
+
 # [2.2.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.1.0...v2.2.0) (2026-07-08)
 
 
