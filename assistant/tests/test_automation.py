@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+from typing import Any
 import pytest
 from httpx import AsyncClient, ASGITransport
 from unittest.mock import MagicMock, AsyncMock, patch
@@ -14,6 +17,48 @@ def client() -> AsyncClient:
         base_url="http://test",
         headers={"x-api-key": "test-api-key"},
     )
+
+
+@pytest.fixture(autouse=True)
+def _ensure_workflow_templates(tmp_path: Path, monkeypatch: Any) -> None:
+    """Cria templates de workflow minimos para que os testes passem em CI."""
+    templates_dir = tmp_path / "data" / "workflows"
+    templates_dir.mkdir(parents=True, exist_ok=True)
+
+    templates = {
+        "vault_sync_workflow.json": {
+            "name": "Vault Sync",
+            "nodes": [{"name": "Webhook Trigger"}, {"name": "Ollama LLM"}],
+        },
+        "github_review_workflow.json": {
+            "name": "GitHub Review",
+            "nodes": [{"name": "Webhook Trigger"}, {"name": "GitHub PR"}],
+        },
+        "devops_backup_workflow.json": {
+            "name": "DevOps Backup",
+            "nodes": [{"name": "Cron Trigger"}, {"name": "S3 Backup"}],
+        },
+        "mcp_health_workflow.json": {
+            "name": "MCP Health",
+            "nodes": [{"name": "MCP Health Check"}],
+        },
+        "cost_tracker_workflow.json": {
+            "name": "Cost Tracker",
+            "nodes": [{"name": "Cron Trigger"}, {"name": "Cost Calculator"}],
+        },
+        "whatsapp_chatbot_workflow.json": {
+            "name": "WhatsApp Chatbot",
+            "nodes": [
+                {"name": "Incoming Chat Message Webhook"},
+                {"name": "WhatsApp Send"},
+            ],
+        },
+    }
+
+    for fname, content in templates.items():
+        (templates_dir / fname).write_text(json.dumps(content), encoding="utf-8")
+
+    monkeypatch.chdir(tmp_path)
 
 
 @pytest.mark.asyncio
@@ -62,3 +107,66 @@ async def test_n8n_callback_unregistered_workflow(client: AsyncClient) -> None:
         assert response.status_code == 200
         assert response.json()["status"] == "error"
         assert "not registered" in response.json()["message"]
+
+
+# ── Marketplace / Templates ────────────────────────────────────────────────
+
+
+@pytest.mark.asyncio
+async def test_list_templates_no_dir(client: AsyncClient) -> None:
+    """Quando data/workflows/ nao existe, retorna lista vazia."""
+    with patch("pathlib.Path.exists", return_value=False):
+        response = await client.get("/api/automation/templates")
+        assert response.status_code == 200
+        data = response.json()
+        assert "templates" in data
+        assert data["templates"] == []
+
+
+@pytest.mark.asyncio
+async def test_list_templates_uses_real_files(client: AsyncClient) -> None:
+    """Usa os templates reais em data/workflows/ (criados na Fase 7)."""
+    response = await client.get("/api/automation/templates")
+    assert response.status_code == 200
+    data = response.json()
+    assert "templates" in data
+    # Devem existir ao menos os 6 templates que criamos
+    assert len(data["templates"]) >= 6
+
+
+@pytest.mark.asyncio
+async def test_list_templates_has_names(client: AsyncClient) -> None:
+    """Templates retornados tem nome e descricao."""
+    response = await client.get("/api/automation/templates")
+    data = response.json()
+    for tpl in data["templates"]:
+        assert "name" in tpl
+        assert "description" in tpl
+        assert "json_name" in tpl
+        assert "category" in tpl
+
+
+@pytest.mark.asyncio
+async def test_list_templates_categories_present(client: AsyncClient) -> None:
+    """Categorias incluem valores esperados."""
+    response = await client.get("/api/automation/templates")
+    data = response.json()
+    categories = {t["category"] for t in data["templates"]}
+    # Deve ter pelo menos IA
+    assert "IA" in categories
+
+
+@pytest.mark.asyncio
+async def test_import_workflow_validates_name(client: AsyncClient) -> None:
+    """Import sem nome retorna 422."""
+    response = await client.post("/api/automation/workflows/import", json={})
+    assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_import_workflow_validates_json(client: AsyncClient) -> None:
+    """Import sem json_data retorna 422."""
+    response = await client.post(
+        "/api/automation/workflows/import", json={"name": "Test"}
+    )
+    assert response.status_code == 422

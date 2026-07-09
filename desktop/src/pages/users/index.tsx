@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAuthStore } from "@/shared/lib/stores";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { useAuthStore } from "@/application";
+import { kaosFetch } from "@/infrastructure";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";

@@ -1,9 +1,13 @@
-export { useAuthStore } from "./auth-store";
-export { useUIStore } from "./ui-store";
-export { useSystemStore } from "./system-store";
-export { useChatStore } from "./chat-store";
-export { useAgentStore } from "./agent-store";
-export { useThemeStore } from "./theme-store";
-export { useUpdateStore } from "./update-store";
-export { useConversationStore } from "./conversation-store";
-export type { AgentStatus, AgentConfig, AgentInstance } from "./agent-store";
+// ---- Barrel de compatibilidade retroativa ----
+// As stores foram migradas para application/stores/
+// Mantido para backward compatibility durante a transicao.
+// Novos imports devem usar @/application diretamente.
+export {
+  useAgentStore, useAuthStore, useChatStore,
+  useConversationStore, useSystemStore,
+  useThemeStore, useUpdateStore, useUIStore
+} from "@/application/stores";
+export type {
+  AgentStatus, AgentConfig, AgentInstance,
+  ConversationSession
+} from "@/application/stores";

@@ -11,7 +11,7 @@ import { DriftTimeline } from "../../features/documentation-audit/ui/DriftTimeli
 import { Tabs } from "../../shared/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "../../shared/ui/card";
 import { AlertTriangle, RefreshCw, TrendingUp, FileText, Clock, Download, Upload } from "lucide-react";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 export function DocumentationPage() {
   const { documentation, setDocumentation } = useSystemStore();

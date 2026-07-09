@@ -1,8 +1,10 @@
+import json
 import time
 
 import httpx
 from fastapi import APIRouter
 from loguru import logger
+from pydantic import BaseModel
 
 from app.setup.provider_config import (
     get_config,
@@ -105,3 +107,28 @@ async def test_provider(payload: dict):
         return {"status": "error", "message": f"Connection failed: {e}"}
     except ValueError as e:
         return {"status": "error", "message": f"Invalid URL: {e}"}
+
+
+# Secure encrypted setup endpoint
+
+
+class SecureSetupRequest(BaseModel):
+    client_id: str
+    encrypted_data: str
+
+
+@router.post("/provider/secure")
+async def set_secure_provider_config(payload: SecureSetupRequest):
+    from app.auth.handshake import HandshakeService
+
+    service = HandshakeService()
+    try:
+        # Descriptografar payload usando o segredo compartilhado derivado do handshake
+        decrypted_json = service.decrypt(payload.client_id, payload.encrypted_data)
+        config_data = json.loads(decrypted_json)
+
+        merged = save_config(config_data)
+        return {"status": "ok", "config": merged}
+    except Exception as e:
+        logger.error(f"[setup] Secure provider setup failed: {e}")
+        return {"status": "error", "message": str(e)}

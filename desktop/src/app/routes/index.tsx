@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AppLayout } from "@/app/layouts/AppLayout";
-import { useAuthStore } from "@/shared/lib/stores";
+import { useAuthStore } from "@/application";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { Loader2 } from "lucide-react";
 

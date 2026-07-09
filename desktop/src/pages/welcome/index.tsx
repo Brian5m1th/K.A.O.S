@@ -1,22 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
-import { CheckCircle2, ChevronRight, Server, Cpu, Play, Loader2 } from "lucide-react";
-import { useAuthStore } from "@/shared/lib/stores";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { CheckCircle2, ChevronRight, Server, Cpu, Play, Loader2, AlertTriangle } from "lucide-react";
+import { useAuthStore } from "@/application";
+import { kaosFetch } from "@/infrastructure";
+import { useAppInit, onBootstrapProgress } from "@/shared/lib/use-init";
 
 export default function WelcomePage() {
   const navigate = useNavigate();
   const serverUrl = useAuthStore((s) => s.serverUrl);
+  const bootProgress = useAppInit();
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);  // Step 0 = bootstrap health check
   const [urlInput, setUrlInput] = useState(serverUrl || "http://localhost:8000");
   const [checking, setChecking] = useState(false);
   const [provider, setProvider] = useState("ollama");
   const [testResult, setTestResult] = useState<string | null>(null);
+  const [bootstrapMsg, setBootstrapMsg] = useState("Aguardando inicializacao...");
+  const [bootstrapError, setBootstrapError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsub = onBootstrapProgress((p) => {
+      setBootstrapMsg(p.message);
+      if (p.error) setBootstrapError(p.error);
+      // Auto-avancar quando bootstrap concluir
+      if (p.step === "done" && step === 0) {
+        setTimeout(() => setStep(1), 1500);
+      }
+    });
+    return unsub;
+  }, [step]);
+
+  useEffect(() => {
+    if (bootProgress.step === "done" && step === 0) {
+      const timer = setTimeout(() => setStep(1), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [bootProgress, step]);
 
   const handleNextStep1 = async () => {
     setChecking(true);
@@ -94,7 +117,7 @@ export default function WelcomePage() {
 
             {/* Stepper indicators */}
             <div className="flex items-center gap-1 mt-4">
-              {[1, 2, 3].map((s) => (
+              {[0, 1, 2, 3].map((s) => (
                 <div
                   key={s}
                   className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
@@ -106,6 +129,62 @@ export default function WelcomePage() {
           </CardHeader>
 
           <CardContent className="py-4 min-h-[180px]">
+            {step === 0 && (
+              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                <div className="flex items-start gap-3 rounded-lg border border-border-subtle bg-surface p-3">
+                  <div className="relative">
+                    {bootProgress.step === "done" ? (
+                      <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                    ) : bootProgress.step === "error" ? (
+                      <AlertTriangle className="h-5 w-5 text-warning shrink-0 mt-0.5" />
+                    ) : (
+                      <Loader2 className="h-5 w-5 text-accent-primary shrink-0 mt-0.5 animate-spin" />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xs font-semibold text-text-primary">
+                      {bootProgress.step === "done" ? "Sistema pronto!" : "Verificando infraestrutura..."}
+                    </h3>
+                    <p className="text-[11px] text-text-muted mt-0.5">{bootstrapMsg}</p>
+                    {bootstrapError && (
+                      <p className="text-[10px] text-warning mt-1">{bootstrapError}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Progress indicators for each bootstrap step */}
+                <div className="space-y-1.5">
+                  {[
+                    { key: "check_docker_cli", label: "Docker CLI instalado" },
+                    { key: "check_docker_engine", label: "Docker Engine rodando" },
+                    { key: "start_docker_compose", label: "Servicos iniciados (Postgres, Ollama)" },
+                    { key: "wait_backend_health", label: "Backend saudavel" },
+                    { key: "wait_bootstrap_ready", label: "Bootstrap completo" },
+                  ].map((item) => {
+                    const stepOrder = ["check_docker_cli", "check_docker_engine", "start_docker_compose", "wait_backend_health", "wait_bootstrap_ready", "done"];
+                    const currentIdx = stepOrder.indexOf(bootProgress.step);
+                    const itemIdx = stepOrder.indexOf(item.key);
+                    const isDone = itemIdx < currentIdx;
+                    const isActive = itemIdx === currentIdx;
+                    return (
+                      <div key={item.key} className="flex items-center gap-2 text-[11px]">
+                        {isDone ? (
+                          <CheckCircle2 className="h-3 w-3 text-success shrink-0" />
+                        ) : isActive ? (
+                          <Loader2 className="h-3 w-3 text-accent-primary shrink-0 animate-spin" />
+                        ) : (
+                          <div className="h-3 w-3 rounded-full border border-border-subtle shrink-0" />
+                        )}
+                        <span className={isDone ? "text-text-primary" : isActive ? "text-accent-primary" : "text-text-dim"}>
+                          {item.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {step === 1 && (
               <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <div className="flex items-start gap-3 rounded-lg border border-border-subtle bg-surface p-3">
@@ -202,7 +281,32 @@ export default function WelcomePage() {
               </Button>
             )}
             
-            {step < 3 ? (
+            {step === 0 && (
+              <>
+                <Button
+                  variant="subtle"
+                  size="sm"
+                  onClick={() => setStep(1)}
+                >
+                  Pular verificação
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => setStep(1)}
+                  disabled={bootProgress.step !== "done"}
+                >
+                  {bootProgress.step === "done" ? (
+                    <ChevronRight className="h-3.5 w-3.5 mr-1.5" />
+                  ) : (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" />
+                  )}
+                  {bootProgress.step === "done" ? "Continuar" : "Verificando..."}
+                </Button>
+              </>
+            )}
+
+            {step > 0 && step < 3 && (
               <Button
                 variant="primary"
                 size="sm"
@@ -216,7 +320,9 @@ export default function WelcomePage() {
                 )}
                 Avançar
               </Button>
-            ) : (
+            )}
+            
+            {step === 3 && (
               <Button
                 variant="primary"
                 size="sm"

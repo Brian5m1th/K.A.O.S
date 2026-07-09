@@ -1,4 +1,4 @@
-import { useSystemStore, useUpdateStore } from "@/shared/lib/stores";
+import { useSystemStore, useUpdateStore } from "@/application";
 import { cn } from "@/shared/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";

@@ -60,9 +60,36 @@ class Embedder:
 
     def embed(self, texts: list[str]) -> list[list[float]]:
         logger.info(f"[start] Embedder - embed batch_size={len(texts)}")
-        vectors = self._model.encode(texts, normalize_embeddings=True)
+        from app.rag.embeddings.cache import EmbeddingCache
+
+        cache = EmbeddingCache()
+
+        vectors = [None] * len(texts)
+        miss_indices = []
+        miss_texts = []
+
+        model_key = self.model_key
+        for idx, text in enumerate(texts):
+            vec = cache.get(text, model_key)
+            if vec is not None:
+                vectors[idx] = vec
+            else:
+                miss_indices.append(idx)
+                miss_texts.append(text)
+
+        if miss_texts:
+            logger.info(
+                f"[info] Embedder - cache miss: embedding {len(miss_texts)} texts"
+            )
+            computed = self._model.encode(
+                miss_texts, normalize_embeddings=True
+            ).tolist()
+            for idx, vec in zip(miss_indices, computed):
+                vectors[idx] = vec
+                cache.set(texts[idx], model_key, vec)
+
         logger.debug("[finish] Embedder - embed")
-        return vectors.tolist()
+        return vectors
 
     def embed_single(self, text: str) -> list[float]:
         logger.info("[start] Embedder - embed_single")
@@ -73,19 +100,10 @@ class Embedder:
     def embed_batch(
         self, texts: list[str], batch_size: int | None = None
     ) -> list[list[float]]:
-        batch_size = batch_size or settings.EMBEDDING_BATCH_SIZE
-        logger.info(
-            f"[start] Embedder - embed_batch size={len(texts)} batch={batch_size}"
-        )
-        all_vectors = []
-        for i in range(0, len(texts), batch_size):
-            batch = texts[i : i + batch_size]
-            vectors = self._model.encode(
-                batch, normalize_embeddings=True, show_progress_bar=False
-            )
-            all_vectors.extend(vectors.tolist())
+        logger.info(f"[start] Embedder - embed_batch size={len(texts)}")
+        result = self.embed(texts)
         logger.debug("[finish] Embedder - embed_batch")
-        return all_vectors
+        return result
 
 
 def get_embedder(model_key: str | None = None) -> Embedder:

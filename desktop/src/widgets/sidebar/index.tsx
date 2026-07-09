@@ -18,8 +18,9 @@ import {
   ChevronRight,
   Terminal,
   Coins,
+  Store,
 } from "lucide-react";
-import { useSystemStore, useUpdateStore, useUIStore, useAuthStore } from "@/shared/lib/stores";
+import { useSystemStore, useUpdateStore, useUIStore, useAuthStore } from "@/application";
 import { Tooltip } from "@/shared/ui/tooltip";
 
 interface NavItem {
@@ -48,6 +49,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: "agents", label: "Agents", path: "/agents", icon: Bot },
       { id: "orchestration", label: "Automation Studio", path: "/automation/studio", icon: GitBranch, allowedRoles: ["admin", "editor"] },
+      { id: "marketplace", label: "Marketplace", path: "/automation/marketplace", icon: Store, allowedRoles: ["admin", "editor"] },
       { id: "prompts", label: "Prompt Library", path: "/prompts", icon: FileText, allowedRoles: ["admin", "editor"] },
     ],
   },

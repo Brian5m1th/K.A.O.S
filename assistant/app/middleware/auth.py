@@ -15,6 +15,8 @@ PUBLIC_PATHS = {
     "/auth/login",
     "/auth/refresh",
     "/auth/reset-password",
+    "/auth/handshake/public-key",
+    "/auth/handshake/exchange",
     "/api/setup",
     "/",
     "/metrics",

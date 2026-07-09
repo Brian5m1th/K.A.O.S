@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from loguru import logger
 from prometheus_fastapi_instrumentator import Instrumentator
 
@@ -57,7 +58,6 @@ from app.observability.subscribers.logger_subscriber import LoggerSubscriber
 from app.observability.subscribers.metrics_subscriber import MetricsSubscriber
 from app.observability.subscribers.n8n_subscriber import N8NSubscriber
 from app.observability.tracing import TracingSubscriber, setup_tracing
-from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
 
@@ -65,15 +65,24 @@ from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
 import app.models  # noqa: F401
 from app.audit.sdd_watcher import SDDWatcher
 from app.core.knowledge_graph_watcher import KnowledgeGraphWatcher
-from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder
-
 import json
 
 
 def configure_logging(log_level: str, env: str) -> None:
     logger.remove()
 
-    log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+    def patch_log(record):
+        try:
+            from app.middleware.user_context import user_id_context
+
+            uid = user_id_context.get() or "anonymous"
+        except ImportError:
+            uid = "anonymous"
+        record["extra"]["user_id"] = uid
+
+    logger.configure(patcher=patch_log)
+
+    log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | <magenta>[user={extra[user_id]}]</magenta> - <level>{message}</level>"
 
     logger.add(
         sys.stdout,
@@ -237,22 +246,19 @@ def _register_observability(app_state) -> None:
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher, _opencode_watcher, _kg_watcher, _embedder_ready
     logger.info("[start] {} - modo {}", settings.APP_NAME, settings.APP_ENV)
+
+    # ── Bootstrap Manager: pipeline completo de inicializacao ─────────────
+    from app.core.bootstrap_manager import BootstrapManager
+
+    bootstrap_result = await BootstrapManager.boot()
+    _app.state.bootstrap = bootstrap_result
+
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info(
         "[auth] API key: {}***{}",
         _app.state.api_key[:4] if _app.state.api_key else "",
         _app.state.api_key[-4:] if _app.state.api_key else "",
     )
-
-    # Initialize database tables
-    try:
-        from app.database import create_tables
-
-        logger.info("[db] Verifying/creating core database tables...")
-        await create_tables()
-        logger.info("[db] Database initialization completed")
-    except Exception as e:
-        logger.warning("[db] Failed to verify/create tables on startup: {}", e)
 
     _register_observability(_app.state)
 
@@ -295,12 +301,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         _embedder_ready = True
         logger.debug("[finish] lifespan - warmup embedder")
 
-    async def _init_vault():
-        logger.info("[info] lifespan - init vault structure")
-        await asyncio.to_thread(create_vault_structure)
-        logger.debug("[finish] lifespan - init vault structure")
-
-    await asyncio.gather(_warmup(), _init_vault())
+    await _warmup()
 
     _watcher = VaultWatcher()
     _watcher.start()
@@ -316,14 +317,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     asyncio.create_task(SDDWatcher.start())
     logger.info("[kirl] SDD watcher started")
 
-    # Build Knowledge Graph initially
-    try:
-        logger.info("[knowledge_graph] running initial workspace graph index...")
-        await asyncio.to_thread(KnowledgeGraphBuilder.build)
-    except Exception as exc:
-        logger.warning("[knowledge_graph] Initial build failed: {}", exc)
-
-    # Start Knowledge Graph file watcher
+    # Start Knowledge Graph file watcher (incremental updates apos bootstrap)
     _kg_watcher = KnowledgeGraphWatcher()
     _kg_watcher.start()
 
@@ -344,6 +338,16 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     for route in _app.routes:
         methods = getattr(route, "methods", None)
         logger.info(f"[routes] Path: {route.path} | Methods: {methods}")
+
+    # Se bootstrap falhou, logar estado
+    if not bootstrap_result.is_ready:
+        logger.warning(
+            "[boot] Backend iniciou em estado {} com {} erros",
+            bootstrap_result.state.value,
+            len(bootstrap_result.errors),
+        )
+        for err in bootstrap_result.errors:
+            logger.warning("[boot]   - {}", err)
 
     yield
     if _watcher:
@@ -420,6 +424,17 @@ app.include_router(docs_router)
 app.include_router(automation_router)
 app.include_router(prompts_router)
 app.include_router(agents_api_router)
+
+# Serve workflow templates como static assets para o Marketplace
+workflows_static = Path("data/workflows")
+if workflows_static.exists():
+    app.mount(
+        "/workflows", StaticFiles(directory=str(workflows_static)), name="workflows"
+    )
+    logger.info(
+        "[main] Workflow templates mounted at /workflows from {}",
+        workflows_static.resolve(),
+    )
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

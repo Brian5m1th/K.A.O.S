@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/sha
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
 import { Play, Pause, Trash2, ShieldAlert, Cpu, Database, Info, GitBranch } from "lucide-react";
-import { useAuthStore } from "@/shared/lib/stores";
+import { useAuthStore } from "@/application";
 
 interface EventLog {
   id: string;

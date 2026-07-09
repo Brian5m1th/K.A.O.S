@@ -1,4 +1,4 @@
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 export interface FeatureEntry {
   id: string;

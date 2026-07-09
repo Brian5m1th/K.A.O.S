@@ -10,7 +10,9 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 from loguru import logger
+from pydantic import BaseModel
 
+from app.core.opencode_executor import OpenCodeExecutor
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.core.runtime_path_resolver import RuntimePathResolver
 
@@ -188,3 +190,16 @@ async def get_category_item(category: str, item_id: str):
     raise HTTPException(
         404, detail=f"Item '{item_id}' not found in category '{category}'"
     )
+
+
+# Executar comandos CLI propostos na sandbox (Docker ou local)
+
+
+class ExecuteCommandRequest(BaseModel):
+    command: str
+    user_approved: bool = False
+
+
+@router.post("/execute")
+async def execute_opencode_command(payload: ExecuteCommandRequest):
+    return OpenCodeExecutor.execute(payload.command, payload.user_approved)

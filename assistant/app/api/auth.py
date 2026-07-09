@@ -330,3 +330,35 @@ def _generate_tokens(user_id: str, email: str, role: str) -> dict:
     access = create_access_token({"sub": user_id, "email": email, "role": role})
     refresh = create_refresh_token({"sub": user_id, "email": email, "role": role})
     return {"access_token": access, "refresh_token": refresh}
+
+
+# Handshake criptográfico (PyNaCl) para tráfego seguro de chaves de API
+
+
+class HandshakeExchangeRequest(BaseModel):
+    client_id: str
+    client_public_key: str
+
+
+@router.get("/handshake/public-key")
+async def get_handshake_public_key():
+    from app.auth.handshake import HandshakeService
+
+    service = HandshakeService()
+    return {"public_key": service.get_public_key_hex()}
+
+
+@router.post("/handshake/exchange")
+async def post_handshake_exchange(payload: HandshakeExchangeRequest):
+    from app.auth.handshake import HandshakeService
+
+    service = HandshakeService()
+    try:
+        service.register_client_key(
+            client_id=payload.client_id,
+            client_pubkey_hex=payload.client_public_key,
+        )
+        return {"status": "established"}
+    except Exception as e:
+        logger.error(f"[auth] Handshake exchange falhou: {e}")
+        raise HTTPException(status_code=400, detail=f"Erro no handshake: {e}")

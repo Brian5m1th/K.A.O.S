@@ -61,6 +61,10 @@ class EvidenceEngine:
             "severity": "medium",
             "description": "Node with excessive dependencies.",
         },
+        "logical_contradiction": {
+            "severity": "high",
+            "description": "Semantic or logical contradiction detected between nodes.",
+        },
     }
 
     @staticmethod
@@ -149,6 +153,7 @@ class EvidenceEngine:
 
         EvidenceEngine._detect_cycles(evidences, vault_nodes)
         EvidenceEngine._detect_overcoupled(evidences, vault_nodes)
+        EvidenceEngine._detect_contradictions(evidences, vault_nodes)
         EvidenceEngine._persist(evidences)
 
         logger.info(f"[evidence_engine] collected {len(evidences)} evidences")
@@ -207,6 +212,74 @@ class EvidenceEngine:
                         confidence=0.7,
                     )
                 )
+
+    @staticmethod
+    def _detect_contradictions(evidences: list[Evidence], nodes: list):
+        node_map = {n.id: n for n in nodes}
+        for node in nodes:
+            current_phase = getattr(node, "phase", None)
+            if not current_phase or current_phase == "unknown":
+                continue
+
+            def parse_phase(p_str: str) -> int | None:
+                if not p_str or not isinstance(p_str, str):
+                    return None
+                p_lower = p_str.lower()
+                if "phase 1" in p_lower or "fase 1" in p_lower:
+                    return 1
+                if "phase 2" in p_lower or "fase 2" in p_lower:
+                    return 2
+                if "phase 3" in p_lower or "fase 3" in p_lower:
+                    return 3
+                return None
+
+            c_val = parse_phase(current_phase)
+            if c_val is None:
+                continue
+
+            all_deps = set(node.links) | set(node.wikilinks)
+            for dep_id in all_deps:
+                if dep_id in node_map:
+                    dep_node = node_map[dep_id]
+                    dep_phase = getattr(dep_node, "phase", None)
+                    d_val = parse_phase(dep_phase)
+                    if d_val and d_val > c_val:
+                        evidences.append(
+                            Evidence(
+                                rule="logical_contradiction",
+                                severity="high",
+                                source_files=[node.path, dep_node.path],
+                                source_sdds=[],
+                                explanation=(
+                                    f"Contradição de Cronograma: Node '{node.title}' ({current_phase}) "
+                                    f"depende de '{dep_node.title}' que está planejado para uma fase posterior ({dep_phase})."
+                                ),
+                                confidence=0.9,
+                            )
+                        )
+
+        # Deprecated dependency validation
+        for node in nodes:
+            node_status = getattr(node, "status", "")
+            if node_status in ("implemented", "active", "stable"):
+                all_deps = set(node.links) | set(node.wikilinks)
+                for dep_id in all_deps:
+                    if dep_id in node_map:
+                        dep_node = node_map[dep_id]
+                        if getattr(dep_node, "status", "") == "deprecated":
+                            evidences.append(
+                                Evidence(
+                                    rule="logical_contradiction",
+                                    severity="high",
+                                    source_files=[node.path, dep_node.path],
+                                    source_sdds=[],
+                                    explanation=(
+                                        f"Contradição de Status: Node ativo/implementado '{node.title}' "
+                                        f"depende do node obsoleto/deprecated '{dep_node.title}'."
+                                    ),
+                                    confidence=0.95,
+                                )
+                            )
 
     @staticmethod
     def _persist(evidences: list[Evidence]):

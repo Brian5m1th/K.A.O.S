@@ -17,6 +17,50 @@ from app.core.automation_bus import AutomationBus
 router = APIRouter(prefix="/api/automation", tags=["Automation"])
 
 
+@router.get("/templates")
+async def list_templates() -> dict:
+    """Lista templates disponiveis no Marketplace (da pasta data/workflows/)."""
+    from pathlib import Path
+    import json
+
+    templates_dir = Path("data/workflows")
+    if not templates_dir.exists():
+        return {"templates": []}
+
+    templates = []
+    for fpath in sorted(templates_dir.glob("*.json")):
+        try:
+            data = json.loads(fpath.read_text(encoding="utf-8"))
+            templates.append(
+                {
+                    "name": data.get("name", fpath.stem),
+                    "description": data.get("description", ""),
+                    "json_name": fpath.name,
+                    "category": _infer_category(data.get("nodes", [])),
+                }
+            )
+        except Exception as e:
+            logger.warning("[marketplace] Erro ao ler template {}: {}", fpath.name, e)
+    return {"templates": templates}
+
+
+def _infer_category(nodes: list) -> str:
+    """Infere categoria do workflow baseado nos nodes."""
+    names = [n.get("name", "").lower() for n in nodes]
+    text = " ".join(names)
+    if any(w in text for w in ["whatsapp", "telegram", "chat", "message"]):
+        return "Messaging"
+    if any(w in text for w in ["github", "pr", "pull request"]):
+        return "GitHub"
+    if any(w in text for w in ["backup", "s3", "devops"]):
+        return "DevOps"
+    if any(w in text for w in ["mcp", "health"]):
+        return "MCP"
+    if any(w in text for w in ["ollama", "cost", "llm", "ai"]):
+        return "IA"
+    return "IA"
+
+
 @router.get("/workflows")
 async def list_workflows(
     session: AsyncSession = Depends(get_session),

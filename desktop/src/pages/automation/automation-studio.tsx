@@ -15,7 +15,7 @@ import "reactflow/dist/style.css";
 import { Card, CardContent } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import {
   Play, ToggleLeft, ToggleRight, Activity, AlertTriangle, CheckCircle, Info, RefreshCw
 } from "lucide-react";
