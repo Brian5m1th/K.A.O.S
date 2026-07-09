@@ -5,8 +5,13 @@ import { kaosFetch } from "@/infrastructure/http";
 vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 
-const mockEntry = { date: "2025-01-01", score: 80, level: "low" as const, missingLinks: 2, sddMismatch: 1, codeVsVaultDiff: 3 };
-const mockEntry2 = { date: "2025-01-02", score: 60, level: "medium" as const, missingLinks: 5, sddMismatch: 3, codeVsVaultDiff: 7 };
+const mockHistoryResponse = {
+  total: 2,
+  history: [
+    { date: "2025-01-01", score: 80, level: "low", missing_links: 2, sdd_mismatch: 1, code_vs_vault_diff: 3 },
+    { date: "2025-01-02", score: 60, level: "medium", missing_links: 5, sdd_mismatch: 3, code_vs_vault_diff: 7 },
+  ],
+};
 const mockAnalysis = { coverageScore: 65, driftLevel: "medium", totalIssues: 12, suggestions: ["Add tests"], warnings: ["Low coverage"], generatedAt: "2025-01-02T00:00:00Z" };
 
 describe("HeatmapStore", () => {
@@ -15,11 +20,20 @@ describe("HeatmapStore", () => {
     mockFetch.mockReset();
   });
 
-  it("fetchHistory should populate history", async () => {
-    mockFetch.mockResolvedValue(new Response(JSON.stringify(mockEntry), { status: 200 }));
+  it("fetchHistory should populate history from /api/architecture/history", async () => {
+    mockFetch.mockResolvedValue(new Response(JSON.stringify(mockHistoryResponse), { status: 200 }));
     await useHeatmapStore.getState().fetchHistory();
-    expect(useHeatmapStore.getState().history).toHaveLength(1);
-    expect(useHeatmapStore.getState().currentScore?.score).toBe(80);
+    expect(useHeatmapStore.getState().history).toHaveLength(2);
+    expect(useHeatmapStore.getState().currentScore?.score).toBe(60);
+    expect(useHeatmapStore.getState().history[0].date).toBe("2025-01-01");
+    expect(useHeatmapStore.getState().history[1].score).toBe(60);
+  });
+
+  it("fetchHistory should handle empty history", async () => {
+    mockFetch.mockResolvedValue(new Response(JSON.stringify({ total: 0, history: [] }), { status: 200 }));
+    await useHeatmapStore.getState().fetchHistory();
+    expect(useHeatmapStore.getState().history).toHaveLength(0);
+    expect(useHeatmapStore.getState().currentScore).toBeNull();
   });
 
   it("fetchAnalysis should store analysis", async () => {

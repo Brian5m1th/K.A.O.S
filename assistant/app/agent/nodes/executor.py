@@ -25,6 +25,9 @@ from app.obsidian.tools.wiki import (
     read_wiki_page,
     lint_wiki,
 )
+from app.providers.email.email_tool import read_emails, send_email
+from app.providers.whatsapp.whatsapp_tool import send_whatsapp
+from app.providers.aws.aws_tool import aws_list_instances, aws_describe_service, aws_run_command
 
 TOOL_REGISTRY: dict = {
     "create_note": create_note,
@@ -49,6 +52,12 @@ TOOL_REGISTRY: dict = {
     "list_drafts": list_drafts,
     "read_wiki_page": read_wiki_page,
     "lint_wiki": lint_wiki,
+    "read_emails": read_emails,
+    "send_email": send_email,
+    "send_whatsapp": send_whatsapp,
+    "aws_list_instances": aws_list_instances,
+    "aws_describe_service": aws_describe_service,
+    "aws_run_command": aws_run_command,
 }
 
 

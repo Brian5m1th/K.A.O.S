@@ -1,5 +1,4 @@
 import React from "react";
-import { Card, CardContent } from "@/shared/ui/card";
 import { levelColors, levelBgColors, levelTextColors, levelLabels, HeatmapEntry } from "./heatmap-store";
 
 interface HeatmapChartProps {
@@ -11,11 +10,9 @@ interface HeatmapChartProps {
 export function HeatmapChart({ history, selectedDate, onSelectDate }: HeatmapChartProps) {
   if (!history || history.length === 0) {
     return (
-      <Card>
-        <CardContent className="h-48 flex items-center justify-center text-gray-500">
-          No heatmap data available. Run architecture analysis first.
-        </CardContent>
-      </Card>
+      <div className="h-48 flex items-center justify-center text-gray-500">
+        No heatmap data available. Run architecture analysis first.
+      </div>
     );
   }
 
@@ -26,8 +23,7 @@ export function HeatmapChart({ history, selectedDate, onSelectDate }: HeatmapCha
   const chartWidth = 600;
 
   return (
-    <Card>
-      <CardContent>
+    <div>
         <svg width="100%" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`}>
           <text x="0" y="16" fontSize="12" fill="#6b7280">Data</text>
           <text x="100" y="16" fontSize="12" fill="#6b7280">Score</text>
@@ -99,8 +95,7 @@ export function HeatmapChart({ history, selectedDate, onSelectDate }: HeatmapCha
             );
           })}
         </svg>
-      </CardContent>
-    </Card>
+    </div>
   );
 }
 

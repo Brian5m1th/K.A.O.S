@@ -1,5 +1,6 @@
 from typing import AsyncIterator
 import time
+from pathlib import Path
 from loguru import logger
 from langchain_core.messages import SystemMessage, HumanMessage
 from app.config.settings import settings
@@ -16,10 +17,83 @@ class MemoryRouter:
         self._retriever = SemanticRetriever()
         self._factory = LLMFactory()
         self._model_key = model or settings.API_MODEL_ID
+        self._vault_path: Path | None = None
+        self._wiki_cache: str | None = None
         logger.debug("[finish] MemoryRouter - __init__")
+
+    def _get_vault_path(self) -> Path | None:
+        """Retorna o caminho do vault, se configurado."""
+        if self._vault_path is None:
+            vault = settings.OBSIDIAN_VAULT_PATH
+            if vault:
+                self._vault_path = Path(vault)
+        return self._vault_path
+
+    def _search_wiki_local(self, query: str) -> str:
+        """Busca no wiki local (wiki/index.md + wiki/synthesis/) antes de ir ao Qdrant.
+
+        Implementa o padrao Wiki-First: consulta o indice local primeiro,
+        que eh mais rapido e nao depende do Qdrant.
+        """
+        vault = self._get_vault_path()
+        if not vault:
+            return ""
+
+        query_lower = query.lower()
+        matches: list[str] = []
+        wiki_paths = [
+            vault / "wiki" / "index.md",
+            vault / "wiki" / "synthesis",
+        ]
+
+        # Buscar no wiki/index.md
+        index_path = wiki_paths[0]
+        if index_path.exists():
+            try:
+                content = index_path.read_text(encoding="utf-8")
+                if query_lower in content.lower():
+                    idx = content.lower().index(query_lower)
+                    start = max(0, idx - 100)
+                    end = min(len(content), idx + 300)
+                    matches.append(f"[wiki/index.md]\n{content[start:end].strip()}")
+            except (OSError, UnicodeDecodeError):
+                pass
+
+        # Buscar na pasta wiki/synthesis/
+        synth_path = wiki_paths[1]
+        if synth_path.exists() and synth_path.is_dir():
+            try:
+                for f in sorted(synth_path.glob("*.md")):
+                    if f.name.startswith("."):
+                        continue
+                    content = f.read_text(encoding="utf-8")
+                    if query_lower in content.lower():
+                        idx = content.lower().index(query_lower)
+                        start = max(0, idx - 100)
+                        end = min(len(content), idx + 300)
+                        matches.append(f"[{f.relative_to(vault)}]\n{content[start:end].strip()}")
+                        if len(matches) >= 3:  # max 3 wiki matches
+                            break
+            except (OSError, UnicodeDecodeError):
+                pass
+
+        return "\n\n".join(matches)
 
     async def retrieve_context(self, query: str) -> str:
         start = time.perf_counter()
+
+        # Wiki-First: buscar no wiki local primeiro
+        wiki_context = self._search_wiki_local(query)
+
+        # Se encontrou match via wiki, usar esse resultado (mais rapido)
+        if wiki_context:
+            elapsed = (time.perf_counter() - start) * 1000
+            logger.info(
+                f"[metrics] MemoryRouter - wiki_first: {elapsed:.0f}ms (wiki match)"
+            )
+            return wiki_context
+
+        # Fallback para busca vetorial no Qdrant
         results = self._retriever.search(query=query, limit=5)
         elapsed = (time.perf_counter() - start) * 1000
         logger.info(
