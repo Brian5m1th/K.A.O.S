@@ -147,7 +147,7 @@ class TestBootstrapEndpointIntegration:
         """Chamar boot() multiplas vezes nao quebra."""
         from app.core.bootstrap_manager import BootstrapManager
 
-        result1 = await BootstrapManager.boot()
+        result1 = await BootstrapManager.boot()  # noqa: F841 — first call for idempotency check / unused
         result2 = await BootstrapManager.boot()
 
         # Segunda chamada nao reinicia se ja completo (stateless: roda de novo)

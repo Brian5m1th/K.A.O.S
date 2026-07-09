@@ -29,7 +29,7 @@ class TestSecureHandshake:
         # Encrypt a secret on client side
         secret_plaintext = "Minha API Key Secreta 123"
         server_pubkey_obj = PublicKey(bytes.fromhex(server_pubkey_hex))
-        client_box = Box(client_privkey, server_pubkey_obj)
+        client_box = Box(client_privkey, server_pubkey_obj)  # noqa: F841 — verify Box construction works
 
         encrypted_base64 = service.encrypt(client_id, secret_plaintext)
         decrypted = service.decrypt(client_id, encrypted_base64)
