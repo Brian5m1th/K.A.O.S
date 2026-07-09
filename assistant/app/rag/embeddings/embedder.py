@@ -61,6 +61,7 @@ class Embedder:
     def embed(self, texts: list[str]) -> list[list[float]]:
         logger.info(f"[start] Embedder - embed batch_size={len(texts)}")
         from app.rag.embeddings.cache import EmbeddingCache
+
         cache = EmbeddingCache()
 
         vectors = [None] * len(texts)
@@ -77,8 +78,12 @@ class Embedder:
                 miss_texts.append(text)
 
         if miss_texts:
-            logger.info(f"[info] Embedder - cache miss: embedding {len(miss_texts)} texts")
-            computed = self._model.encode(miss_texts, normalize_embeddings=True).tolist()
+            logger.info(
+                f"[info] Embedder - cache miss: embedding {len(miss_texts)} texts"
+            )
+            computed = self._model.encode(
+                miss_texts, normalize_embeddings=True
+            ).tolist()
             for idx, vec in zip(miss_indices, computed):
                 vectors[idx] = vec
                 cache.set(texts[idx], model_key, vec)

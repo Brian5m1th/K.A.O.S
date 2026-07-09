@@ -203,4 +203,3 @@ class ExecuteCommandRequest(BaseModel):
 @router.post("/execute")
 async def execute_opencode_command(payload: ExecuteCommandRequest):
     return OpenCodeExecutor.execute(payload.command, payload.user_approved)
-

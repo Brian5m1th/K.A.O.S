@@ -5,7 +5,7 @@ Valida:
 - BootstrapState enum
 - StageResult e BootstrapResult dataclasses
 - get_state() antes/durante/depois do boot
-- reset() 
+- reset()
 - _run_stage com timeout e erro
 - Pipeline boot em modo offline (sem DB)
 """
@@ -38,8 +38,13 @@ class TestBootstrapState:
         assert BootstrapState.DATABASE_INITIALIZING.value == "database_initializing"
         assert BootstrapState.WORKSPACE_SCANNING.value == "workspace_scanning"
         assert BootstrapState.VAULT_INDEXING.value == "vault_indexing"
-        assert BootstrapState.KNOWLEDGE_GRAPH_BUILDING.value == "knowledge_graph_building"
-        assert BootstrapState.ARCHITECTURE_GRAPH_BUILDING.value == "architecture_graph_building"
+        assert (
+            BootstrapState.KNOWLEDGE_GRAPH_BUILDING.value == "knowledge_graph_building"
+        )
+        assert (
+            BootstrapState.ARCHITECTURE_GRAPH_BUILDING.value
+            == "architecture_graph_building"
+        )
         assert BootstrapState.AUDIT_SCANNING.value == "audit_scanning"
         assert BootstrapState.READY.value == "ready"
         assert BootstrapState.FAILED.value == "failed"
@@ -131,7 +136,9 @@ class TestBootstrapResult:
         result = BootstrapResult(
             state=BootstrapState.DEGRADED,
             stages=[
-                StageResult(stage=BootstrapStage.ENVIRONMENT, success=True, elapsed_ms=100.0),
+                StageResult(
+                    stage=BootstrapStage.ENVIRONMENT, success=True, elapsed_ms=100.0
+                ),
                 StageResult(
                     stage=BootstrapStage.DATABASE,
                     success=False,
@@ -168,7 +175,9 @@ class TestBootstrapManagerState:
         """Estado com stages parciais e refletido."""
         BootstrapManager._state = BootstrapState.DATABASE_INITIALIZING
         BootstrapManager._stages = [
-            StageResult(stage=BootstrapStage.ENVIRONMENT, success=True, elapsed_ms=200.0),
+            StageResult(
+                stage=BootstrapStage.ENVIRONMENT, success=True, elapsed_ms=200.0
+            ),
         ]
         BootstrapManager._started_at = __import__("time").monotonic()
         state = BootstrapManager.get_state()
@@ -180,17 +189,24 @@ class TestBootstrapManagerState:
         # Vai falhar porque nao tem DB, mas retorna resultado
         result = await BootstrapManager.boot()
         assert isinstance(result, BootstrapResult)
-        assert result.state in (BootstrapState.READY, BootstrapState.DEGRADED, BootstrapState.FAILED)
+        assert result.state in (
+            BootstrapState.READY,
+            BootstrapState.DEGRADED,
+            BootstrapState.FAILED,
+        )
 
 
 class TestRunStage:
     @pytest.mark.asyncio
     async def test_successful_stage(self):
         """Stage que sucede retorna StageResult com success=True."""
+
         async def good_stage():
             return {"ok": True}
 
-        result = await BootstrapManager._run_stage(BootstrapStage.ENVIRONMENT, good_stage)
+        result = await BootstrapManager._run_stage(
+            BootstrapStage.ENVIRONMENT, good_stage
+        )
         assert result.success is True
         assert result.error is None
         assert result.elapsed_ms >= 0

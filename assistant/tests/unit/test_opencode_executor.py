@@ -15,7 +15,10 @@ class TestOpenCodeExecutor:
 
     def test_validate_command_unknown(self) -> None:
         assert OpenCodeExecutor.validate_command("curl https://malicious.com") is False
-        assert OpenCodeExecutor.validate_command("powershell.exe Set-ExecutionPolicy") is False
+        assert (
+            OpenCodeExecutor.validate_command("powershell.exe Set-ExecutionPolicy")
+            is False
+        )
 
     def test_execute_without_approval_fails(self) -> None:
         res = OpenCodeExecutor.execute("git status", user_approved=False)

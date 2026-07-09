@@ -15,7 +15,9 @@ class TestSecureHandshake:
     def test_handshake_service_flow(self) -> None:
         service = HandshakeService()
         server_pubkey_hex = service.get_public_key_hex()
-        assert len(server_pubkey_hex) == 64  # X25519 public keys are 32 bytes (64 hex characters)
+        assert (
+            len(server_pubkey_hex) == 64
+        )  # X25519 public keys are 32 bytes (64 hex characters)
 
         # Simulate client generating keypair
         client_privkey = PrivateKey.generate()

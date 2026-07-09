@@ -20,6 +20,7 @@ class MemoryService:
             return user_id
         try:
             from app.middleware.user_context import user_id_context
+
             return user_id_context.get() or self._default_user()
         except Exception:
             return self._default_user()

@@ -31,12 +31,14 @@ async def list_templates() -> dict:
     for fpath in sorted(templates_dir.glob("*.json")):
         try:
             data = json.loads(fpath.read_text(encoding="utf-8"))
-            templates.append({
-                "name": data.get("name", fpath.stem),
-                "description": data.get("description", ""),
-                "json_name": fpath.name,
-                "category": _infer_category(data.get("nodes", [])),
-            })
+            templates.append(
+                {
+                    "name": data.get("name", fpath.stem),
+                    "description": data.get("description", ""),
+                    "json_name": fpath.name,
+                    "category": _infer_category(data.get("nodes", [])),
+                }
+            )
         except Exception as e:
             logger.warning("[marketplace] Erro ao ler template {}: {}", fpath.name, e)
     return {"templates": templates}

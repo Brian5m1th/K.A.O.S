@@ -78,9 +78,7 @@ class CodeScanner:
             return path.as_posix()
 
     @classmethod
-    def _walk(
-        cls, base: Path, pattern: str, ext: str = ".py"
-    ) -> list[str]:
+    def _walk(cls, base: Path, pattern: str, ext: str = ".py") -> list[str]:
         """Walk em um diretorio buscando arquivos que contem pattern."""
         results = []
         if not base.exists():
@@ -213,7 +211,9 @@ class CodeScanner:
         results: list[str] = []
         widgets_dir = cls._desktop_path("widgets")
         if widgets_dir:
-            results.extend(cls._walk_tsx(widgets_dir, r"export.*function|export.*const"))
+            results.extend(
+                cls._walk_tsx(widgets_dir, r"export.*function|export.*const")
+            )
         ui_dir = cls._desktop_path("shared", "ui")
         if ui_dir:
             results.extend(cls._walk_tsx(ui_dir, r"export.*function|export.*const"))

@@ -48,7 +48,10 @@ def _ensure_workflow_templates(tmp_path: Path, monkeypatch: Any) -> None:
         },
         "whatsapp_chatbot_workflow.json": {
             "name": "WhatsApp Chatbot",
-            "nodes": [{"name": "Incoming Chat Message Webhook"}, {"name": "WhatsApp Send"}],
+            "nodes": [
+                {"name": "Incoming Chat Message Webhook"},
+                {"name": "WhatsApp Send"},
+            ],
         },
     }
 
@@ -163,5 +166,7 @@ async def test_import_workflow_validates_name(client: AsyncClient) -> None:
 @pytest.mark.asyncio
 async def test_import_workflow_validates_json(client: AsyncClient) -> None:
     """Import sem json_data retorna 422."""
-    response = await client.post("/api/automation/workflows/import", json={"name": "Test"})
+    response = await client.post(
+        "/api/automation/workflows/import", json={"name": "Test"}
+    )
     assert response.status_code == 422

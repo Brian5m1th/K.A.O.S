@@ -3,7 +3,7 @@ Testes unitarios do EnvironmentService.
 
 Valida:
 - Singleton (detect() retorna mesma instancia)
-- EnvironmentType inference 
+- EnvironmentType inference
 - Path resolution para todos os diretorios KIRL
 - Estrategias de resolucao de workspace
 - to_dict() serialization
@@ -182,7 +182,9 @@ class TestContainerDetection:
         # Mock interno via acesso a Path
         original = ES._detect_environment_type
         try:
-            ES._detect_environment_type = classmethod(lambda cls: EnvironmentType.DOCKER)
+            ES._detect_environment_type = classmethod(
+                lambda cls: EnvironmentType.DOCKER
+            )
             env_type = ES._detect_environment_type()
             assert env_type == EnvironmentType.DOCKER
         finally:

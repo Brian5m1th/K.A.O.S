@@ -75,7 +75,9 @@ class OpenCodeExecutor:
         )
 
         if not user_approved:
-            logger.error("[opencode_executor] Execução negada: consentimento do usuário ausente.")
+            logger.error(
+                "[opencode_executor] Execução negada: consentimento do usuário ausente."
+            )
             return {
                 "status": "error",
                 "message": "Consentimento manual do usuário obrigatório para executar comandos CLI.",
@@ -92,7 +94,9 @@ class OpenCodeExecutor:
         project_root = EnvironmentService.detect().project_root.resolve().as_posix()
 
         if docker_available:
-            logger.info("[opencode_executor] Docker detectado. Executando em sandbox...")
+            logger.info(
+                "[opencode_executor] Docker detectado. Executando em sandbox..."
+            )
             # We map the project root to a workspace directory in docker
             # Running alpine or python container for single-use sandbox
             docker_cmd = [
@@ -126,7 +130,9 @@ class OpenCodeExecutor:
                     "sandbox": "docker",
                 }
             except subprocess.TimeoutExpired:
-                logger.warning("[opencode_executor] Execução docker expirou por timeout.")
+                logger.warning(
+                    "[opencode_executor] Execução docker expirou por timeout."
+                )
                 return {
                     "status": "error",
                     "message": "Execução do container docker expirou (timeout).",
@@ -137,9 +143,7 @@ class OpenCodeExecutor:
                 )
 
         # Fallback to local subprocess execution with restricted path scoping
-        logger.info(
-            "[opencode_executor] Docker indisponível. Executando localmente..."
-        )
+        logger.info("[opencode_executor] Docker indisponível. Executando localmente...")
         try:
             res = subprocess.run(
                 command,

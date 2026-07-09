@@ -162,7 +162,9 @@ class TestBootstrapEndpointIntegration:
 class TestEnvironmentAndBootstrapTogether:
     """Testa que ambos servicos funcionam juntos no mesmo ciclo de vida."""
 
-    async def test_environment_runs_before_bootstrap_in_pipeline(self, client: AsyncClient):
+    async def test_environment_runs_before_bootstrap_in_pipeline(
+        self, client: AsyncClient
+    ):
         """Environment e chamado antes do bootstrap no pipeline."""
         from app.core.bootstrap_manager import BootstrapManager
 

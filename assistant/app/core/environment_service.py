@@ -195,7 +195,9 @@ class EnvironmentService:
         if not docs.exists():
             errors.append(f"docs {docs} nao existe")
         if not backend_src.exists():
-            errors.append(f"backend_src {backend_src} nao existe (pode ser normal em container sem volume app)")
+            errors.append(
+                f"backend_src {backend_src} nao existe (pode ser normal em container sem volume app)"
+            )
 
         is_valid = len(errors) == 0
 
@@ -216,7 +218,9 @@ class EnvironmentService:
         # 4. Log obrigatorio de diagnostico
         cls._log_diagnostic(info, errors)
         cls._cached = info
-        logger.info("[env] Deteccao concluida: type={} valid={}", env_type.value, is_valid)
+        logger.info(
+            "[env] Deteccao concluida: type={} valid={}", env_type.value, is_valid
+        )
         return info
 
     @classmethod
@@ -296,7 +300,9 @@ class EnvironmentService:
                 return path.resolve()
 
         # Se nada funcionou, usar a primeira estrategia (env ou default)
-        logger.warning("[env] workspace NAO ENCONTRADO. Estrategias tentadas: {}", tried)
+        logger.warning(
+            "[env] workspace NAO ENCONTRADO. Estrategias tentadas: {}", tried
+        )
         fallback = strategies[0][1] if strategies else Path.cwd() / "workspace"
         logger.warning("[env] Usando fallback: {}", fallback)
         return fallback.resolve()
@@ -344,11 +350,15 @@ class EnvironmentService:
             return docs_path.resolve()
 
         # Fallback
-        logger.warning("[env] docs NAO ENCONTRADO, usando fallback: {}", workspace.parent / "docs")
+        logger.warning(
+            "[env] docs NAO ENCONTRADO, usando fallback: {}", workspace.parent / "docs"
+        )
         return (workspace.parent / "docs").resolve()
 
     @classmethod
-    def _resolve_vault(cls, env_type: EnvironmentType, workspace: Path, docs: Path) -> Path:
+    def _resolve_vault(
+        cls, env_type: EnvironmentType, workspace: Path, docs: Path
+    ) -> Path:
         """
         Resolve o diretorio do vault (observian).
         Estrategias:
@@ -381,11 +391,16 @@ class EnvironmentService:
         # 4. workspace/kaos/vault
         vault_path = workspace / "kaos" / "vault"
         if vault_path.exists():
-            logger.info("[env] vault resolvido por workspace/kaos/vault: {}", vault_path)
+            logger.info(
+                "[env] vault resolvido por workspace/kaos/vault: {}", vault_path
+            )
             return vault_path.resolve()
 
         # Fallback
-        logger.warning("[env] vault NAO ENCONTRADO, usando fallback: {}", workspace / "kaos" / "vault")
+        logger.warning(
+            "[env] vault NAO ENCONTRADO, usando fallback: {}",
+            workspace / "kaos" / "vault",
+        )
         return (workspace / "kaos" / "vault").resolve()
 
     @classmethod
@@ -425,7 +440,9 @@ class EnvironmentService:
         return Path(__file__).resolve().parent.parent
 
     @classmethod
-    def _resolve_desktop_src(cls, env_type: EnvironmentType, workspace: Path) -> Optional[Path]:
+    def _resolve_desktop_src(
+        cls, env_type: EnvironmentType, workspace: Path
+    ) -> Optional[Path]:
         """
         Resolve o diretorio do codigo fonte do frontend (desktop/src).
         Pode nao existir em ambientes de producao.

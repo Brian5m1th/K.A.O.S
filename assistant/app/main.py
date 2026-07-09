@@ -74,6 +74,7 @@ def configure_logging(log_level: str, env: str) -> None:
     def patch_log(record):
         try:
             from app.middleware.user_context import user_id_context
+
             uid = user_id_context.get() or "anonymous"
         except ImportError:
             uid = "anonymous"
@@ -340,9 +341,11 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     # Se bootstrap falhou, logar estado
     if not bootstrap_result.is_ready:
-        logger.warning("[boot] Backend iniciou em estado {} com {} erros",
+        logger.warning(
+            "[boot] Backend iniciou em estado {} com {} erros",
             bootstrap_result.state.value,
-            len(bootstrap_result.errors))
+            len(bootstrap_result.errors),
+        )
         for err in bootstrap_result.errors:
             logger.warning("[boot]   - {}", err)
 
@@ -425,8 +428,13 @@ app.include_router(agents_api_router)
 # Serve workflow templates como static assets para o Marketplace
 workflows_static = Path("data/workflows")
 if workflows_static.exists():
-    app.mount("/workflows", StaticFiles(directory=str(workflows_static)), name="workflows")
-    logger.info("[main] Workflow templates mounted at /workflows from {}", workflows_static.resolve())
+    app.mount(
+        "/workflows", StaticFiles(directory=str(workflows_static)), name="workflows"
+    )
+    logger.info(
+        "[main] Workflow templates mounted at /workflows from {}",
+        workflows_static.resolve(),
+    )
 
 Instrumentator(
     excluded_handlers=[".*health.*", "/metrics"],

@@ -180,9 +180,7 @@ class BootstrapManager:
 
         # ── 3. DATABASE ───────────────────────────────────────────────
         cls._state = BootstrapState.DATABASE_INITIALIZING
-        stage_result = await cls._run_stage(
-            BootstrapStage.DATABASE, cls._init_database
-        )
+        stage_result = await cls._run_stage(BootstrapStage.DATABASE, cls._init_database)
         cls._stages.append(stage_result)
         if not stage_result.success:
             cls._errors.append(stage_result.error or "Database init failed")
@@ -200,9 +198,7 @@ class BootstrapManager:
 
         # ── 5. VAULT INDEX ────────────────────────────────────────────
         cls._state = BootstrapState.VAULT_INDEXING
-        stage_result = await cls._run_stage(
-            BootstrapStage.VAULT, cls._index_vault
-        )
+        stage_result = await cls._run_stage(BootstrapStage.VAULT, cls._index_vault)
         cls._stages.append(stage_result)
         if not stage_result.success:
             cls._errors.append(stage_result.error or "Vault index failed")
@@ -230,9 +226,7 @@ class BootstrapManager:
 
         # ── 8. AUDIT SCAN ─────────────────────────────────────────────
         cls._state = BootstrapState.AUDIT_SCANNING
-        stage_result = await cls._run_stage(
-            BootstrapStage.AUDIT, cls._run_audit
-        )
+        stage_result = await cls._run_stage(BootstrapStage.AUDIT, cls._run_audit)
         cls._stages.append(stage_result)
         if not stage_result.success:
             cls._errors.append(stage_result.error or "Audit scan failed")
@@ -289,9 +283,7 @@ class BootstrapManager:
     # ── Executor de etapa com timeout ─────────────────────────────────
 
     @classmethod
-    async def _run_stage(
-        cls, stage: BootstrapStage, coro
-    ) -> StageResult:
+    async def _run_stage(cls, stage: BootstrapStage, coro) -> StageResult:
         """
         Executa uma etapa do bootstrap com timeout.
         Falha em uma etapa NAO propaga excecao — retorna StageResult com erro.

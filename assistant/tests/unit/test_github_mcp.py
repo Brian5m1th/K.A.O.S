@@ -43,23 +43,27 @@ class TestGithubMCP:
         # 2. tools/list response
         responses = [
             # initialize response
-            json.dumps({
-                "jsonrpc": "2.0",
-                "id": 12345,  # will be dynamic, mock will return this to match
-                "result": {
-                    "protocolVersion": "2024-11-05",
-                    "capabilities": {},
-                    "serverInfo": {"name": "github-mcp", "version": "1.0.0"}
+            json.dumps(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 12345,  # will be dynamic, mock will return this to match
+                    "result": {
+                        "protocolVersion": "2024-11-05",
+                        "capabilities": {},
+                        "serverInfo": {"name": "github-mcp", "version": "1.0.0"},
+                    },
                 }
-            }).encode("utf-8") + b"\n",
+            ).encode("utf-8")
+            + b"\n",
             # tools/list response
-            json.dumps({
-                "jsonrpc": "2.0",
-                "id": 12345,
-                "result": {
-                    "tools": [{"name": "github_read_code"}]
+            json.dumps(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 12345,
+                    "result": {"tools": [{"name": "github_read_code"}]},
                 }
-            }).encode("utf-8") + b"\n",
+            ).encode("utf-8")
+            + b"\n",
         ]
 
         def mock_readline():
@@ -75,6 +79,7 @@ class TestGithubMCP:
 
         # Mock writing to stdin to capture request id
         written_data = []
+
         def mock_write(b_data):
             written_data.append(b_data)
             try:
@@ -101,19 +106,21 @@ class TestGithubMCP:
         # Clear active servers
         MCPManager._instances = {}
         manager = MCPManager()
-        
+
         # Test loading registry and configuring
-        with patch.object(MCPRegistry, "get_enabled_servers", return_value=[server_config]):
+        with patch.object(
+            MCPRegistry, "get_enabled_servers", return_value=[server_config]
+        ):
             # Start/initialize servers
             success = manager.start_all()
             assert success == 1
-            
+
             # Verify we registered tools in manager
             server = manager.get_server("github")
             assert server is not None
             tools = server.get_tools()
             assert len(tools) == 1
             assert tools[0]["name"] == "github_read_code"
-            
+
             # Shutdown
             manager.shutdown_all()

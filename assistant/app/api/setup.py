@@ -132,4 +132,3 @@ async def set_secure_provider_config(payload: SecureSetupRequest):
     except Exception as e:
         logger.error(f"[setup] Secure provider setup failed: {e}")
         return {"status": "error", "message": str(e)}
-

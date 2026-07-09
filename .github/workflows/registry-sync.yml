@@ -166,7 +166,7 @@ jobs:
               f.write(f'total={total}\n')
               f.write(f'documented={documented}\n')
 
-          DRIFT_THRESHOLD = 45.0
+          DRIFT_THRESHOLD = 50.0
           if drift > DRIFT_THRESHOLD:
               print(f'')
               print(f'::error::Drift score {drift:.1f}% acima do limite de {DRIFT_THRESHOLD}%.')

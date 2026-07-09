@@ -362,4 +362,3 @@ async def post_handshake_exchange(payload: HandshakeExchangeRequest):
     except Exception as e:
         logger.error(f"[auth] Handshake exchange falhou: {e}")
         raise HTTPException(status_code=400, detail=f"Erro no handshake: {e}")
-
