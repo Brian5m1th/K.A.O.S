@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+from typing import Any
 import pytest
 from httpx import AsyncClient, ASGITransport
 from unittest.mock import MagicMock, AsyncMock, patch
@@ -14,6 +17,45 @@ def client() -> AsyncClient:
         base_url="http://test",
         headers={"x-api-key": "test-api-key"},
     )
+
+
+@pytest.fixture(autouse=True)
+def _ensure_workflow_templates(tmp_path: Path, monkeypatch: Any) -> None:
+    """Cria templates de workflow minimos para que os testes passem em CI."""
+    templates_dir = tmp_path / "data" / "workflows"
+    templates_dir.mkdir(parents=True, exist_ok=True)
+
+    templates = {
+        "vault_sync_workflow.json": {
+            "name": "Vault Sync",
+            "nodes": [{"name": "Webhook Trigger"}, {"name": "Ollama LLM"}],
+        },
+        "github_review_workflow.json": {
+            "name": "GitHub Review",
+            "nodes": [{"name": "Webhook Trigger"}, {"name": "GitHub PR"}],
+        },
+        "devops_backup_workflow.json": {
+            "name": "DevOps Backup",
+            "nodes": [{"name": "Cron Trigger"}, {"name": "S3 Backup"}],
+        },
+        "mcp_health_workflow.json": {
+            "name": "MCP Health",
+            "nodes": [{"name": "MCP Health Check"}],
+        },
+        "cost_tracker_workflow.json": {
+            "name": "Cost Tracker",
+            "nodes": [{"name": "Cron Trigger"}, {"name": "Cost Calculator"}],
+        },
+        "whatsapp_chatbot_workflow.json": {
+            "name": "WhatsApp Chatbot",
+            "nodes": [{"name": "Incoming Chat Message Webhook"}, {"name": "WhatsApp Send"}],
+        },
+    }
+
+    for fname, content in templates.items():
+        (templates_dir / fname).write_text(json.dumps(content), encoding="utf-8")
+
+    monkeypatch.chdir(tmp_path)
 
 
 @pytest.mark.asyncio

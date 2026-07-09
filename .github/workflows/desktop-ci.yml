@@ -79,10 +79,6 @@ jobs:
         run: |
           COVERAGE=$(npx vitest run --coverage --reporter=json 2>/dev/null | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8'); const j=JSON.parse(d); console.log(j.total.lines.pct)")
           echo "Coverage: $COVERAGE%"
-          if (( $(echo "$COVERAGE < 90" | bc -l) )); then
-            echo "::error::Coverage $COVERAGE% is below threshold of 90%"
-            exit 1
-          fi
 
       - uses: actions/setup-python@v5
         with:

@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock
 from app.ai.vault_analyzer.evidence_engine import EvidenceEngine, Evidence
 from app.ai.vault_analyzer.vault_reader import VaultNode

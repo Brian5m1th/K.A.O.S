@@ -1,4 +1,3 @@
-import os
 import pytest
 from app.rag.embeddings.cache import EmbeddingCache
 

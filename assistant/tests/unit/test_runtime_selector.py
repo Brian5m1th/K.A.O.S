@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock
 from app.runtime.runtime_selector import RuntimeSelector
 from app.runtime.runtime_layer import AIRuntime

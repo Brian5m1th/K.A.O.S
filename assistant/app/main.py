@@ -58,7 +58,6 @@ from app.observability.subscribers.logger_subscriber import LoggerSubscriber
 from app.observability.subscribers.metrics_subscriber import MetricsSubscriber
 from app.observability.subscribers.n8n_subscriber import N8NSubscriber
 from app.observability.tracing import TracingSubscriber, setup_tracing
-from app.obsidian.vault_init import create_vault_structure
 from app.obsidian.watcher.vault_watcher import VaultWatcher
 from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
 
@@ -66,8 +65,6 @@ from app.audit.drift_subscriber import DriftSubscriber, AuditScheduler
 import app.models  # noqa: F401
 from app.audit.sdd_watcher import SDDWatcher
 from app.core.knowledge_graph_watcher import KnowledgeGraphWatcher
-from app.ai.vault_analyzer.knowledge_graph import KnowledgeGraphBuilder
-
 import json
 
 

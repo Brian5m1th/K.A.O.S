@@ -1,8 +1,10 @@
+import json
 import time
 
 import httpx
 from fastapi import APIRouter
 from loguru import logger
+from pydantic import BaseModel
 
 from app.setup.provider_config import (
     get_config,
@@ -108,9 +110,6 @@ async def test_provider(payload: dict):
 
 
 # Secure encrypted setup endpoint
-
-from pydantic import BaseModel
-import json
 
 
 class SecureSetupRequest(BaseModel):

@@ -1,5 +1,4 @@
 import json
-import pytest
 from unittest.mock import patch, MagicMock
 from app.tools.github_tool import call_tool
 from app.core.mcp_manager import MCPManager

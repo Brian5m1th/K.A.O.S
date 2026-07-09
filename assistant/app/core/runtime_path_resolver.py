@@ -11,7 +11,6 @@ Compatibilidade retroativa mantida para todos os consumidores existentes.
 """
 
 from pathlib import Path
-from loguru import logger
 
 from app.core.environment_service import EnvironmentService, EnvironmentInfo
 

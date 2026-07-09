@@ -10,7 +10,9 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 from loguru import logger
+from pydantic import BaseModel
 
+from app.core.opencode_executor import OpenCodeExecutor
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.core.runtime_path_resolver import RuntimePathResolver
 
@@ -191,9 +193,6 @@ async def get_category_item(category: str, item_id: str):
 
 
 # Executar comandos CLI propostos na sandbox (Docker ou local)
-
-from pydantic import BaseModel
-from app.core.opencode_executor import OpenCodeExecutor
 
 
 class ExecuteCommandRequest(BaseModel):
