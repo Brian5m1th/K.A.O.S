@@ -5,8 +5,8 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
 import { Tabs } from "@/shared/ui/tabs";
-import { kaosFetch } from "@/shared/api/kaos-client";
-import { useAuthStore, useThemeStore, useSystemStore } from "@/shared/lib/stores";
+import { kaosFetch } from "@/infrastructure";
+import { useAuthStore, useThemeStore, useSystemStore } from "@/application";
 import { UpdateCard } from "@/features/auto-update/ui/UpdateCard";
 import {
   Sun, Moon, Key, GitBranch, Workflow, Variable,

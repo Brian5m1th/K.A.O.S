@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import { Container, Play, GitCommit, GitPullRequest, ExternalLink, Loader2, RefreshCw } from "lucide-react";
 
 interface PipelineRun {

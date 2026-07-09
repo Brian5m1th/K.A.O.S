@@ -10,7 +10,7 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import { Badge } from "@/shared/ui/badge";
 import { Loader2, RefreshCw, GitGraph, Hammer, Search, X, Link, Compass } from "lucide-react";
 

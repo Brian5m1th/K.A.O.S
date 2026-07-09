@@ -1,7 +1,7 @@
-import { eventBus } from "@/shared/lib/event-bus";
+import { eventBus } from "@/infrastructure";
 import { CodeIntrospector, IntrospectionResult } from "./code-introspector";
 import { FeatureExtractor, DetectedFeature } from "./feature-extractor";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 export type SyncEvent = "docs:auto-updated" | "docs:sync-complete" | "docs:sync-error";
 

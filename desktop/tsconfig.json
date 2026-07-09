@@ -18,7 +18,11 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@application/*": ["src/application/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@domain/*": ["src/domain/*"]
     }
   },
   "include": ["src"]

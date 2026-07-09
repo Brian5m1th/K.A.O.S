@@ -1,8 +1,8 @@
 import { Card, CardContent } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
-import { useUpdateStore } from "@/shared/lib/stores";
-import { useUpdaterService } from "../hooks/useUpdaterService";
+import { useUpdateStore } from "@/application";
+import { useUpdaterService } from "@/application/hooks/useUpdaterService";
 import { Loader2, Download, RotateCcw, AlertCircle } from "lucide-react";
 
 /**

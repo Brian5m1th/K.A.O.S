@@ -10,8 +10,8 @@ import ReactFlow, {
   type Edge,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import { kaosFetch } from "@/shared/api/kaos-client";
-import { useAuthStore } from "@/shared/lib/stores";
+import { kaosFetch } from "@/infrastructure";
+import { useAuthStore } from "@/application";
 import { Card, CardContent } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Loader2, RefreshCw, Network } from "lucide-react";

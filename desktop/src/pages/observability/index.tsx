@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
-import { useSystemStore, useAuthStore } from "@/shared/lib/stores";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { useSystemStore, useAuthStore } from "@/application";
+import { kaosFetch } from "@/infrastructure";
 import { Activity, AlertTriangle, Server, Loader2, Play, Terminal } from "lucide-react";
 
 interface AlertItem {

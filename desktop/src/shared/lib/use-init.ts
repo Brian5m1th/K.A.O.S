@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAuthStore, useUpdateStore } from "@/shared/lib/stores";
+import { useAuthStore, useUpdateStore } from "@/application";
 import { useUpdateCheck } from "@/features/auto-update/hooks/useUpdateCheck";
-import { invokeIpc } from "@/shared/api/ipc-bridge";
+import { invokeIpc } from "@/infrastructure";
 import { DocSyncEngine } from "@/features/documentation-audit/auto-doc/doc-sync-engine";
 
 // ── Bootstrap State Machine (Singleton) ──────────────────────────────────────

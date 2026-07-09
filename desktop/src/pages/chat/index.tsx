@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useChatStore, useAuthStore, useConversationStore } from "@/shared/lib/stores";
+import { useChatStore, useAuthStore, useConversationStore } from "@/application";
 import { ModelSelector } from "@/features/ask-ai/ui/ModelSelector";
 import { ChatInput } from "@/features/ask-ai/ui/ChatInput";
 import { MessageBubble } from "@/entities/message/ui/MessageBubble";
@@ -7,7 +7,7 @@ import { ScrollArea } from "@/shared/ui/scroll-area";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import { Square, Loader2, MessageSquare, Plus, Trash2, History, BookOpen } from "lucide-react";
 import { DocGeneratorModal } from "@/features/generate-docs/ui/DocGeneratorModal";
 

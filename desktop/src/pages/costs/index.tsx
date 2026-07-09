@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/sha
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Coins, Database, TrendingUp, AlertCircle, Sparkles, Loader2, RefreshCw } from "lucide-react";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 interface CostBreakdown {
   provider: string;

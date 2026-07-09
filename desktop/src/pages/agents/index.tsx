@@ -10,9 +10,9 @@ import { Dialog } from "@/shared/ui/dialog";
 import { MessageBubble } from "@/entities/message/ui/MessageBubble";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAgentStore, type AgentConfig, type AgentStatus } from "@/shared/lib/stores";
+import { useAgentStore, type AgentConfig, type AgentStatus } from "@/application";
 import { Bot, MessageSquare, Play, Square, RotateCcw, Plus, Send, Loader2 } from "lucide-react";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 const AGENT_STATUS_MAP: Record<
   AgentStatus,

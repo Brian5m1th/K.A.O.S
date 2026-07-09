@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDriftStore } from "../store/drift-store";
 import { GraphBuilder, GraphData } from "./graph-builder";
-import { eventBus } from "@/shared/lib/event-bus";
+import { eventBus } from "@/infrastructure";
 
 interface GraphUpdaterProps {
   onGraphUpdate: (graph: GraphData) => void;

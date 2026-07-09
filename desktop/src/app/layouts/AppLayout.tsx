@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/widgets/sidebar";
 import { TopBar } from "@/widgets/topbar";
-import { useThemeStore } from "@/shared/lib/stores";
+import { useThemeStore } from "@/application";
 
 export function AppLayout() {
   const loadFromBackend = useThemeStore((s) => s.loadFromBackend);

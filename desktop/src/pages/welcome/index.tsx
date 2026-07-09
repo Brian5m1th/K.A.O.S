@@ -5,8 +5,8 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Badge } from "@/shared/ui/badge";
 import { CheckCircle2, ChevronRight, Server, Cpu, Play, Loader2, AlertTriangle } from "lucide-react";
-import { useAuthStore } from "@/shared/lib/stores";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { useAuthStore } from "@/application";
+import { kaosFetch } from "@/infrastructure";
 import { useAppInit, onBootstrapProgress } from "@/shared/lib/use-init";
 
 export default function WelcomePage() {

@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSystemStore, useAuthStore } from "@/shared/lib/stores";
+import { useSystemStore, useAuthStore } from "@/application";
 import { useSystemMetrics } from "@/features/dashboard/hooks/useSystemMetrics";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Sparkline } from "@/shared/ui/sparkline";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookOpen, FileText, Search, Loader2, RefreshCw } from "lucide-react";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import { Card, CardContent } from "@/shared/ui/card";
 
 interface VaultFile {

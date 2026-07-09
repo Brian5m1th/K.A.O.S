@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 import {
   Download, CheckCircle, RefreshCw, AlertCircle, FileJson,
   GitBranch, GitPullRequest, MessageSquare, ShieldCheck, Database, RefreshCcw

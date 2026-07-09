@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 interface FeatureEntry {
   id: string;

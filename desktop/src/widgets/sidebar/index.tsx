@@ -20,7 +20,7 @@ import {
   Coins,
   Store,
 } from "lucide-react";
-import { useSystemStore, useUpdateStore, useUIStore, useAuthStore } from "@/shared/lib/stores";
+import { useSystemStore, useUpdateStore, useUIStore, useAuthStore } from "@/application";
 import { Tooltip } from "@/shared/ui/tooltip";
 
 interface NavItem {

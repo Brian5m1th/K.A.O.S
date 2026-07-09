@@ -23,7 +23,7 @@ import {
   ChevronRight,
   Trash2,
 } from "lucide-react";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 interface MCPServer {
   name: string;

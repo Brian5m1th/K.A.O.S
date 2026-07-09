@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useSystemStore } from "@/shared/lib/stores";
-import { useAuthStore } from "@/shared/lib/stores";
+import { useSystemStore } from "@/application";
+import { useAuthStore } from "@/application";
 
 const POLL_INTERVAL_MS = 5_000;
 

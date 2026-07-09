@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useUIStore, useSystemStore, useThemeStore } from "@/shared/lib/stores";
-import { commandRegistry, type CommandContext } from "@/shared/lib/command-registry";
+import { useUIStore, useSystemStore, useThemeStore } from "@/application";
+import { commandRegistry, type CommandContext } from "@/infrastructure";
 import { spring } from "@/shared/lib/motion";
 import { Input } from "@/shared/ui/input";
 import { Search } from "lucide-react";

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FileText, BookOpen, StickyNote, X, Loader2, CheckCircle2, ExternalLink } from "lucide-react";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure";
 
 interface DocGeneratorModalProps {
   sessionId: string;
