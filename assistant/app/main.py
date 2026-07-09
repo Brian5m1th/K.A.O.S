@@ -74,7 +74,17 @@ import json
 def configure_logging(log_level: str, env: str) -> None:
     logger.remove()
 
-    log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+    def patch_log(record):
+        try:
+            from app.middleware.user_context import user_id_context
+            uid = user_id_context.get() or "anonymous"
+        except ImportError:
+            uid = "anonymous"
+        record["extra"]["user_id"] = uid
+
+    logger.configure(patcher=patch_log)
+
+    log_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | <magenta>[user={extra[user_id]}]</magenta> - <level>{message}</level>"
 
     logger.add(
         sys.stdout,

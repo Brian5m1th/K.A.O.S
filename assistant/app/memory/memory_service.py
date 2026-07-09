@@ -15,8 +15,18 @@ class MemoryService:
         self._base_dir = self._vault / "users"
         self._base_dir.mkdir(parents=True, exist_ok=True)
 
-    def _user_dir(self, user_id: str) -> Path:
-        user_path = self._base_dir / user_id
+    def _resolve_uid(self, user_id: str | None = None) -> str:
+        if user_id:
+            return user_id
+        try:
+            from app.middleware.user_context import user_id_context
+            return user_id_context.get() or self._default_user()
+        except Exception:
+            return self._default_user()
+
+    def _user_dir(self, user_id: str | None = None) -> Path:
+        uid = self._resolve_uid(user_id)
+        user_path = self._base_dir / uid
         user_path.mkdir(parents=True, exist_ok=True)
         return user_path
 
@@ -50,7 +60,7 @@ class MemoryService:
         user_message: str,
         assistant_response: str,
     ) -> str:
-        uid = user_id or self._default_user()
+        uid = self._resolve_uid(user_id)
         logger.info(f"[start] MemoryService - save_conversation [user={uid}]")
         user_path = self._user_dir(uid)
         date_str = datetime.now().strftime("%Y-%m-%d")
@@ -100,14 +110,14 @@ class MemoryService:
     async def save_snapshot(self, snapshot, user_id: str, session_id: str) -> None:
         from app.memory.storage.postgres_storage import PostgresStorage
 
-        uid = user_id or self._default_user()
+        uid = self._resolve_uid(user_id)
         logger.info(f"[start] MemoryService - save_snapshot [user={uid}]")
         storage = PostgresStorage()
         await storage.save(snapshot, uid, session_id)
         logger.debug("[finish] MemoryService - save_snapshot")
 
     def save_preference(self, user_id: str, key: str, value: str) -> None:
-        uid = user_id or self._default_user()
+        uid = self._resolve_uid(user_id)
         logger.info(f"[start] MemoryService - save_preference [user={uid}]")
         user_path = self._user_dir(uid)
         prefs_file = user_path / "preferencias.md"
@@ -132,7 +142,7 @@ class MemoryService:
         logger.debug("[finish] MemoryService - save_preference")
 
     def get_preferences(self, user_id: str = "") -> str:
-        uid = user_id or self._default_user()
+        uid = self._resolve_uid(user_id)
         user_path = self._user_dir(uid)
         prefs_file = user_path / "preferencias.md"
         if prefs_file.exists():
@@ -140,7 +150,7 @@ class MemoryService:
         return ""
 
     def list_recent_conversations(self, user_id: str = "", limit: int = 5) -> list[str]:
-        uid = user_id or self._default_user()
+        uid = self._resolve_uid(user_id)
         logger.info(f"[start] MemoryService - list_recent_conversations [user={uid}]")
         user_path = self._user_dir(uid)
         files = sorted(
