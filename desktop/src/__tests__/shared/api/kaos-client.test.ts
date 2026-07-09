@@ -3,7 +3,7 @@ import {
   kaosFetch,
   setAccessTokenProvider,
   setServerUrlProvider,
-} from "@/shared/api/kaos-client";
+} from "@/infrastructure/http";
 
 describe("kaos-client", () => {
   beforeEach(() => {
@@ -38,10 +38,9 @@ describe("kaos-client", () => {
       expect(fetch).toHaveBeenCalledTimes(1);
       const [url, options] = vi.mocked(fetch).mock.calls[0];
       expect(url).toBe("http://localhost:8000/api/data");
-      expect(options?.headers).toContain({
-        Authorization: "Bearer my-jwt-token",
-        "Content-Type": "application/json",
-      });
+      const headers = new Headers(options?.headers);
+      expect(headers.get("Authorization")).toBe("Bearer my-jwt-token");
+      expect(headers.get("Content-Type")).toBe("application/json");
     });
 
     it("should inject X-API-Key when fallback key is provided and no token", async () => {
@@ -52,10 +51,9 @@ describe("kaos-client", () => {
 
       expect(fetch).toHaveBeenCalledTimes(1);
       const [, options] = vi.mocked(fetch).mock.calls[0];
-      expect(options?.headers).toContain({
-        "X-API-Key": "fallback-key-123",
-        "Content-Type": "application/json",
-      });
+      const headers = new Headers(options?.headers);
+      expect(headers.get("X-API-Key")).toBe("fallback-key-123");
+      expect(headers.get("Content-Type")).toBe("application/json");
     });
 
     it("should not inject auth headers when no token and no fallback", async () => {
@@ -65,9 +63,10 @@ describe("kaos-client", () => {
       await kaosFetch("/api/data");
 
       const [, options] = vi.mocked(fetch).mock.calls[0];
-      expect(options?.headers).not.toContain("Authorization");
-      expect(options?.headers).not.toContain("X-API-Key");
-      expect(options?.headers).toContain({ "Content-Type": "application/json" });
+      const headers = new Headers(options?.headers);
+      expect(headers.get("Authorization")).toBeNull();
+      expect(headers.get("X-API-Key")).toBeNull();
+      expect(headers.get("Content-Type")).toBe("application/json");
     });
 
     it("should preserve existing custom headers", async () => {
@@ -78,10 +77,9 @@ describe("kaos-client", () => {
       });
 
       const [, options] = vi.mocked(fetch).mock.calls[0];
-      expect(options?.headers).toContain({
-        "X-Custom": "value123",
-        "Content-Type": "application/json",
-      });
+      const headers = new Headers(options?.headers);
+      expect(headers.get("X-Custom")).toBe("value123");
+      expect(headers.get("Content-Type")).toBe("application/json");
     });
 
     it("should not modify absolute URLs", async () => {

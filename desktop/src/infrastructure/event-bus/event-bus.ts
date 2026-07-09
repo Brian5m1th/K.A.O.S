@@ -1,5 +1,5 @@
-import type { ToolEvent, ToolEventType } from "./tool-schema";
-import type { AgentStatus } from "./stores/agent-store";
+import type { ToolEvent, ToolEventType } from "@/shared/lib/tool-schema";
+import type { AgentStatus } from "@/application/stores/agent-store";
 
 export interface SystemMetrics {
   cpu: number;

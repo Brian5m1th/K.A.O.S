@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { LayoutEngine } from "@/features/documentation-ui/graph/layout-engine";
+import { LayoutEngine } from "@/features/documentation-audit/graph/layout-engine";
 
 describe("LayoutEngine", () => {
   const nodes = [

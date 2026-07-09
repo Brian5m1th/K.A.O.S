@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useThemeStore } from "@/shared/lib/stores/theme-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure/http";
 
-vi.mock("@/shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 
 // Mock localStorage for theme
@@ -48,7 +48,7 @@ describe("Theme Store", () => {
     useThemeStore.setState({ mode: "light", accentColor: "#EF4444" });
     mockFetch.mockResolvedValue(new Response(null, { status: 200 }));
     await useThemeStore.getState().saveToBackend();
-    expect(mockFetch).toHaveBeenCalledWith("/api/settings", undefined, expect.objectContaining({
+    expect(mockFetch).toHaveBeenCalledWith("/api/settings", expect.any(String), expect.objectContaining({
       method: "PUT",
       body: expect.stringContaining("light"),
     }));

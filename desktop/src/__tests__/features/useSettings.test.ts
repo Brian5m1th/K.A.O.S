@@ -3,7 +3,7 @@ import { useSettings } from "@/features/manage-settings/hooks/useSettings";
 import { kaosFetch } from "@/shared/api/kaos-client";
 import { TauriStoreService } from "@/shared/api/tauri-store-service";
 
-vi.mock("@/shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 vi.mock("@/shared/api/tauri-store-service", () => ({ TauriStoreService: { get: vi.fn(), set: vi.fn() } }));
 
 const mockFetch = vi.mocked(kaosFetch);

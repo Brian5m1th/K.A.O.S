@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useConversationStore } from "@/shared/lib/stores/conversation-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure/http";
 
-vi.mock("@/shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 const session = { sessionId: "s1", userId: "u1", startedAt: "2025-01-01T00:00:00Z", lastMessageAt: "2025-01-01T01:00:00Z", messageCount: 5, workflowTypes: ["chat"], totalTokens: 100 };
-const resp = { sessions: [session], total: 1, page: 1, limit: 20 };
+const resp = { conversations: [session], total: 1, page: 1, limit: 20 };
 
 describe("Conversation Store", () => {
   beforeEach(() => {

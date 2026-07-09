@@ -1,17 +1,23 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Tabs } from "@/shared/ui/tabs";
 
 describe("Tabs", () => {
-  it("should render tab labels", () => {
-    render(<Tabs tabs={[{ label: "Tab A", content: <p>A</p> }, { label: "Tab B", content: <p>B</p> }]} />);
+  const tabs = [
+    { id: "tab-a", label: "Tab A" },
+    { id: "tab-b", label: "Tab B" },
+  ];
+
+  it("should render tab labels with active state", () => {
+    render(<Tabs tabs={tabs} activeTab="tab-a" onTabChange={vi.fn()} />);
     expect(screen.getByText("Tab A")).toBeInTheDocument();
     expect(screen.getByText("Tab B")).toBeInTheDocument();
   });
 
-  it("should show first tab content by default", () => {
-    render(<Tabs tabs={[{ label: "Tab A", content: <p>Content A</p> }, { label: "Tab B", content: <p>Content B</p> }]} />);
-    expect(screen.getByText("Content A")).toBeInTheDocument();
+  it("should call onTabChange when clicking a tab", () => {
+    const onChange = vi.fn();
+    render(<Tabs tabs={tabs} activeTab="tab-a" onTabChange={onChange} />);
+    fireEvent.click(screen.getByText("Tab B"));
+    expect(onChange).toHaveBeenCalledWith("tab-b");
   });
 });

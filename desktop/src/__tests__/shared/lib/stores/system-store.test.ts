@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { useSystemStore } from "@/shared/lib/stores/system-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure/http";
 import { vi } from "vitest";
 
-vi.mock("@/shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 
 describe("System Store", () => {

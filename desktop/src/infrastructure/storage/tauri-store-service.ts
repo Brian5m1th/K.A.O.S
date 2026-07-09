@@ -1,4 +1,4 @@
-import { isTauri } from "./ipc-bridge";
+import { isTauri } from "@/infrastructure/ipc";
 
 const STORE_NAME = "settings.json";
 

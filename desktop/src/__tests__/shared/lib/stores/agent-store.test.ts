@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useAgentStore } from "@/shared/lib/stores/agent-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure/http";
 
-vi.mock("@/shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 const cfg = { id: "a1", name: "Agent", model: "gpt-4", systemPrompt: "Test", temperature: 0.7, topP: 1 };
 
@@ -37,7 +37,7 @@ describe("Agent Store", () => {
     useAgentStore.getState().register(cfg);
     mockFetch.mockResolvedValue(new Response(null, { status: 200 }));
     await useAgentStore.getState().start("a1");
-    expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining("/start"), undefined, expect.anything());
+    expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining("/start"), expect.any(String), expect.objectContaining({ method: "POST" }));
     expect(useAgentStore.getState().agents["a1"].status).toBe("running");
   });
 

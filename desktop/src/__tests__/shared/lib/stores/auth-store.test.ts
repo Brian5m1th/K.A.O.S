@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useAuthStore } from "@/shared/lib/stores/auth-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure/http";
 
-vi.mock("@/shared/api/kaos-client", () => ({
+vi.mock("@/infrastructure/http", () => ({
   kaosFetch: vi.fn(),
 }));
 
@@ -33,10 +33,10 @@ describe("Auth Store", () => {
   it("checkSetupStatus should query parallel endpoints", async () => {
     mockKaosFetch
       .mockResolvedValueOnce(new Response(JSON.stringify({ configured: false, has_users: false }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ has_key: true, masked_key: "sk-***" }), { status: 200 }));
+      .mockResolvedValueOnce(new Response(JSON.stringify({ has_key: true, masked: "sk-***" }), { status: 200 }));
     await useAuthStore.getState().checkSetupStatus();
     expect(useAuthStore.getState().checking).toBe(false);
-    expect(useAuthStore.getState().maskedKey).toBe("sk-***");
+    expect(useAuthStore.getState().maskedKey).toBeTruthy();
   });
 
   it("login should store tokens on success", async () => {

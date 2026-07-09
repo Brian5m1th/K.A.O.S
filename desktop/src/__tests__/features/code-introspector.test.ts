@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { CodeIntrospector } from "@/features/documentation-ui/auto-doc/code-introspector";
+import { CodeIntrospector } from "@/features/documentation-audit/auto-doc/code-introspector";
 
 describe("CodeIntrospector", () => {
   it("scan should return categorized modules", () => {

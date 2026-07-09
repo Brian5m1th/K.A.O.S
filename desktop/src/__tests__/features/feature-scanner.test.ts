@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { FeatureScanner } from "@/features/documentation-ui/engine/feature-scanner";
+import { FeatureScanner } from "@/features/documentation-audit/engine/feature-scanner";
 
 describe("FeatureScanner", () => {
   it("should have static methods defined", () => {

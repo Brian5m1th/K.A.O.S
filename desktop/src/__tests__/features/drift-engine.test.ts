@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { DriftEngine } from "@/features/documentation-ui/engine/drift-engine";
+import { DriftEngine } from "@/features/documentation-audit/engine/drift-engine";
 
 describe("DriftEngine", () => {
   it("should have static methods defined", () => {

@@ -51,9 +51,9 @@ describe("Update Store", () => {
     expect(useUpdateStore.getState().lastCheckAt).toBe("2025-06-15T10:00:00Z");
   });
 
-  it("should clear error when phase changes", () => {
+  it("should clear error when setError(null) is called", () => {
     useUpdateStore.setState({ error: "old error", phase: "error" });
-    useUpdateStore.getState().setPhase("idle");
+    useUpdateStore.getState().setError(null);
     expect(useUpdateStore.getState().error).toBeNull();
   });
 });

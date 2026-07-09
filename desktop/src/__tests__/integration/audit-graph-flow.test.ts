@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useDriftStore } from "@/features/documentation-ui/store/drift-store";
-import { GraphBuilder } from "@/features/documentation-ui/graph/graph-builder";
-import { useGraphStore } from "@/features/documentation-ui/graph/graph-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { useDriftStore } from "@/features/documentation-audit/store/drift-store";
+import { GraphBuilder } from "@/features/documentation-audit/graph/graph-builder";
+import { useGraphStore } from "@/features/documentation-audit/graph/graph-store";
+import { kaosFetch } from "@/infrastructure/http";
 
-vi.mock("@shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 
 const mockSnapshot = {

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { GraphBuilder, type GraphNode, type GraphEdge, type GraphData } from "@/features/documentation-ui/graph/graph-builder";
+import { GraphBuilder, type GraphNode, type GraphEdge, type GraphData } from "@/features/documentation-audit/graph/graph-builder";
 
 describe("GraphBuilder", () => {
   const snapshot = {

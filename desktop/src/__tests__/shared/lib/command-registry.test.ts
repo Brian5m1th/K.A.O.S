@@ -1,108 +1,45 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import {
-  commandRegistry,
-  Command,
-} from "@/shared/lib/command-registry";
+import { commandRegistry, type Command, type CommandContext } from "@/infrastructure/commands";
+
+const mockCtx: CommandContext = {
+  navigate: vi.fn(),
+  toggleTheme: vi.fn(),
+  system: {} as any,
+};
 
 describe("CommandRegistry", () => {
-  beforeEach(() => {
-    commandRegistry.clear();
+  // Nota: Nao ha metodo clear/unregister no CommandRegistry
+  // Os testes acumulam comandos, mas sao independentes
+
+  it("should register and find commands via getAll", () => {
+    const cmd: Command = {
+      id: "test", label: "Test", keywords: ["t"],
+      icon: vi.fn() as any, action: vi.fn(), category: "actions",
+    };
+    commandRegistry.register(cmd);
+    expect(commandRegistry.getAll()).toHaveLength(1);
+    expect(commandRegistry.getAll()[0].id).toBe("test");
   });
 
-  describe("register", () => {
-    it("should register a new command", () => {
-      const command: Command = {
-        id: "test-command",
-        name: "Test Command",
-        handler: vi.fn(),
-      };
-
-      commandRegistry.register(command);
-      const retrieved = commandRegistry.get("test-command");
-      expect(retrieved).toEqual(command);
-    });
-
-    it("should overwrite existing command with same id", () => {
-      const cmd1: Command = { id: "same-id", name: "First", handler: vi.fn() };
-      const cmd2: Command = {
-        id: "same-id",
-        name: "Second",
-        handler: vi.fn(),
-      };
-
-      commandRegistry.register(cmd1);
-      commandRegistry.register(cmd2);
-
-      expect(commandRegistry.get("same-id")?.name).toBe("Second");
-    });
+  it("should register many commands", () => {
+    const before = commandRegistry.getAll().length;
+    const c1: Command = { id: "a", label: "A", keywords: [], icon: vi.fn() as any, action: vi.fn(), category: "navigation" };
+    const c2: Command = { id: "b", label: "B", keywords: [], icon: vi.fn() as any, action: vi.fn(), category: "actions" };
+    commandRegistry.registerMany([c1, c2]);
+    expect(commandRegistry.getAll()).toHaveLength(before + 2);
   });
 
-  describe("get", () => {
-    it("should return undefined for non-registered command", () => {
-      expect(commandRegistry.get("non-existent")).toBeUndefined();
-    });
+  it("should search by label", () => {
+    commandRegistry.register({ id: "x", label: "MyCommand", keywords: [], icon: vi.fn() as any, action: vi.fn(), category: "actions" });
+    expect(commandRegistry.search("My")).toHaveLength(1);
+    expect(commandRegistry.search("zzz")).toHaveLength(0);
   });
 
-  describe("execute", () => {
-    it("should execute a registered command", () => {
-      const handler = vi.fn(() => "executed");
-      commandRegistry.register({
-        id: "my-cmd",
-        name: "My Command",
-        handler,
-      });
-
-      const result = commandRegistry.execute("my-cmd", { arg: 1 });
-
-      expect(handler).toHaveBeenCalledWith({ arg: 1 });
-      expect(result).toBe("executed");
-    });
-
-    it("should throw for non-registered command", () => {
-      expect(() =>
-        commandRegistry.execute("unknown-cmd", {})
-      ).toThrowError(
-        expect.objectContaining({
-          message: expect.stringContaining("unknown-cmd"),
-        })
-      );
-    });
-  });
-
-  describe("list", () => {
-    it("should return all registered command ids", () => {
-      commandRegistry.register({
-        id: "cmd-a",
-        name: "Command A",
-        handler: vi.fn(),
-      });
-      commandRegistry.register({
-        id: "cmd-b",
-        name: "Command B",
-        handler: vi.fn(),
-      });
-
-      const ids = commandRegistry.list();
-      expect(ids).toContain("cmd-a");
-      expect(ids).toContain("cmd-b");
-      expect(ids).toHaveLength(2);
-    });
-
-    it("should return empty array when no commands are registered", () => {
-      expect(commandRegistry.list()).toEqual([]);
-    });
-  });
-
-  describe("clear", () => {
-    it("should remove all commands", () => {
-      commandRegistry.register({
-        id: "cmd",
-        name: "Cmd",
-        handler: vi.fn(),
-      });
-
-      commandRegistry.clear();
-      expect(commandRegistry.list()).toEqual([]);
-    });
+  it("should execute a command and throw for unknown", () => {
+    const action = vi.fn();
+    commandRegistry.register({ id: "exec", label: "Exec", keywords: [], icon: vi.fn() as any, action, category: "actions" });
+    commandRegistry.execute("exec", mockCtx);
+    expect(action).toHaveBeenCalledWith(mockCtx);
+    expect(() => commandRegistry.execute("unknown", mockCtx)).toThrow();
   });
 });

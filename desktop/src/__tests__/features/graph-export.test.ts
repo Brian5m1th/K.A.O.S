@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { GraphExport } from "@/features/documentation-ui/graph/graph-export";
+import { GraphExport } from "@/features/documentation-audit/graph/graph-export";
 
 describe("GraphExport", () => {
   const graphData = {

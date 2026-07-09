@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useChatStore } from "@/shared/lib/stores/chat-store";
 import { useAuthStore } from "@/shared/lib/stores/auth-store";
-import { kaosFetch } from "@/shared/api/kaos-client";
+import { kaosFetch } from "@/infrastructure/http";
 
-vi.mock("@/shared/api/kaos-client", () => ({ kaosFetch: vi.fn() }));
+vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));
 const mockFetch = vi.mocked(kaosFetch);
 
 describe("Integration: Auth -> Chat Flow", () => {
@@ -29,7 +29,7 @@ describe("Integration: Auth -> Chat Flow", () => {
     });
     mockFetch.mockResolvedValueOnce(new Response(stream, { status: 200, headers: { "Content-Type": "text/event-stream" } }));
     await useChatStore.getState().streamMessage("Hello");
-    expect(useChatStore.getState().messages[0].role).toBe("user");
+    expect(useChatStore.getState().messages[1].role).toBe("user");
 
     // Logout
     useAuthStore.getState().logout();

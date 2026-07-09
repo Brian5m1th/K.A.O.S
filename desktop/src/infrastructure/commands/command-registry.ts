@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import type { useSystemStore } from "./stores/system-store";
+import type { useSystemStore } from "@/application/stores/system-store";
 
 type SystemState = ReturnType<typeof useSystemStore.getState>;
 
@@ -44,9 +44,10 @@ class CommandRegistry {
 
   execute(id: string, ctx: CommandContext) {
     const cmd = this.commands.get(id);
-    if (cmd) {
-      cmd.action(ctx);
+    if (!cmd) {
+      throw new Error(`Command '${id}' not found`);
     }
+    cmd.action(ctx);
   }
 }
 
