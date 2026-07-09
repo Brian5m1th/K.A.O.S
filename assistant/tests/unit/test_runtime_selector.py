@@ -1,24 +1,43 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 from app.runtime.runtime_selector import RuntimeSelector
+from app.runtime.runtime_layer import AIRuntime
 
 
 class TestRuntimeSelector:
-    @patch("app.llm.factory.LLMFactory")
-    def test_select_by_objectives(self, MockFactory) -> None:
-        # Mock LLMFactory build method to avoid actual provider initialization
-        mock_factory = MagicMock()
-        mock_factory.build.return_value = MagicMock()
-        MockFactory.return_value = mock_factory
-
+    def test_select_by_objectives(self) -> None:
         selector = RuntimeSelector()
 
-        # Test selecting offline/privacidade -> should select local runtime (ollama)
+        # Mock three test runtimes with different capabilities
+        local_run = MagicMock(spec=AIRuntime)
+        local_run.name = "local-model"
+        local_run.type = "local"
+        local_run.capabilities = {
+            "offline": True,
+            "reasoning": False,
+            "cost": 0.0,
+            "latency": 3.0,
+            "context_window": 8192,
+        }
+
+        cloud_run = MagicMock(spec=AIRuntime)
+        cloud_run.name = "cloud-model"
+        cloud_run.type = "cloud"
+        cloud_run.capabilities = {
+            "offline": False,
+            "reasoning": True,
+            "cost": 0.005,
+            "latency": 1.5,
+            "context_window": 128000,
+        }
+
+        # Override Selector's runtimes with our isolated mocks
+        selector._runtimes = [local_run, cloud_run]
+
+        # Test selecting offline/privacidade -> should select local
         run_offline = selector.select("privacidade")
         assert run_offline.type == "local"
-        assert run_offline.capabilities["offline"] is True
 
-        # Test selecting raciocinio/qualidade -> should select cloud (openai or gemini because of reasoning = True)
+        # Test selecting raciocinio/qualidade -> should select cloud
         run_quality = selector.select("raciocinio")
         assert run_quality.type == "cloud"
-        assert run_quality.capabilities["reasoning"] is True
