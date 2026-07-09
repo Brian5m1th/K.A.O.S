@@ -24,6 +24,7 @@ class VaultNode:
     drift_score: float = 0.0
     created: str = ""
     updated: str = ""
+    phase: str = "unknown"
 
 
 class VaultReader:
@@ -114,6 +115,7 @@ class VaultReader:
             drift_score=0.0,
             created=meta.get("created", ""),
             updated=meta.get("updated", ""),
+            phase=meta.get("phase", "unknown"),
         )
 
     @classmethod
