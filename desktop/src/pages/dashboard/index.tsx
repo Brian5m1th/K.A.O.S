@@ -140,6 +140,17 @@ export default function DashboardPage() {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [alertsLoading, setAlertsLoading] = useState(true);
 
+  // Observability & Costs States
+  const [obsHealth, setObsHealth] = useState<{ prometheus: boolean; loki: boolean; grafana: boolean }>({
+    prometheus: false,
+    loki: false,
+    grafana: false,
+  });
+  const [costs, setCosts] = useState<{ total_usd: number; total_tokens: number }>({
+    total_usd: 0.0,
+    total_tokens: 0,
+  });
+
   // Active agents simulated state list
   const [agents, setAgents] = useState<AgentItem[]>([
     {
@@ -221,6 +232,44 @@ export default function DashboardPage() {
     };
     fetchDlq();
     const interval = setInterval(fetchDlq, 15_000);
+    return () => clearInterval(interval);
+  }, [serverUrl, isOnline]);
+
+  // Fetch real observability health & costs
+  useEffect(() => {
+    if (!isOnline) return;
+    const fetchObservabilityData = async () => {
+      try {
+        const [healthRes, costsRes] = await Promise.all([
+          kaosFetch(`${serverUrl}/api/observability/health`, ""),
+          kaosFetch(`${serverUrl}/api/observability/costs`, ""),
+        ]);
+        if (healthRes.ok) {
+          const healthData = await healthRes.json();
+          setObsHealth({
+            prometheus: !!healthData.prometheus,
+            loki: !!healthData.loki,
+            grafana: !!healthData.grafana,
+          });
+        }
+        if (costsRes.ok) {
+          const costsData = await costsRes.json();
+          const totalTokens = (costsData.breakdown || []).reduce(
+            (acc: number, item: any) => acc + (item.total_tokens || 0),
+            0
+          );
+          setCosts({
+            total_usd: costsData.total_usd || 0,
+            total_tokens: totalTokens,
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch observability data", err);
+      }
+    };
+
+    fetchObservabilityData();
+    const interval = setInterval(fetchObservabilityData, 10_000);
     return () => clearInterval(interval);
   }, [serverUrl, isOnline]);
 
@@ -480,58 +529,47 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Agent Monitor */}
+        {/* Observability & Cost Monitor */}
         <Card className="flex flex-col border border-border-subtle bg-surface/30 min-h-[220px]">
           <CardHeader className="pb-2 border-b border-border-subtle flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-primary">
-              <Bot className="h-4 w-4 text-accent-neon" />
-              Agent core Status
+              <Activity className="h-4 w-4 text-accent-neon" />
+              Observability & Costs
             </CardTitle>
-            <Badge
-              variant="neutral"
-              className="text-[9px] bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono tracking-wider"
-            >
-              SIMULATED
-            </Badge>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-3 space-y-2 overflow-y-auto">
-            {agents.map((agent) => {
-              const isActive = agent.status === "active";
-              const indicatorColor = isActive ? "bg-success" : "bg-text-dim";
+          <CardContent className="flex-1 min-h-0 p-3 space-y-3 overflow-y-auto text-xs">
+            <div className="space-y-1.5">
+              <div className="flex justify-between border-b border-border-subtle pb-1">
+                <span className="text-text-muted">Total Cost (USD)</span>
+                <span className="font-mono font-bold text-accent-neon">${costs.total_usd.toFixed(6)}</span>
+              </div>
+              <div className="flex justify-between border-b border-border-subtle pb-1">
+                <span className="text-text-muted">Tokens Consumed</span>
+                <span className="font-mono font-bold">{costs.total_tokens.toLocaleString()}</span>
+              </div>
+            </div>
 
-              return (
-                <div
-                  key={agent.name}
-                  className={`flex items-center justify-between p-3 border border-border-subtle rounded-lg bg-canvas/30 transition-all ${
-                    isActive ? "border-accent-neon/30 bg-accent-neon/5" : ""
-                  }`}
-                >
-                  <div className="flex items-start gap-3 min-w-0">
-                    <div className="relative mt-1">
-                      <span
-                        className={`h-2.5 w-2.5 rounded-full block ${indicatorColor} ${isActive ? "animate-pulse" : ""}`}
-                      />
-                      {isActive && (
-                        <span className="absolute inset-0 rounded-full bg-success animate-ping opacity-75" />
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs font-bold text-text-primary">{agent.name}</p>
-                      <p className="text-[10px] text-text-muted mt-0.5">{agent.role}</p>
-                      <span className="text-[10px] text-accent-neon block mt-1 truncate">
-                        {agent.activity}
-                      </span>
-                    </div>
-                  </div>
-                  <Badge
-                    variant={isActive ? "success" : "neutral"}
-                    className="text-[9px] py-0 px-1 font-mono uppercase tracking-wider"
-                  >
-                    {agent.status}
-                  </Badge>
-                </div>
-              );
-            })}
+            <div className="space-y-2 mt-2">
+              <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Metrics Infrastructure</p>
+              <div className="flex items-center justify-between">
+                <span className="text-text-muted">Prometheus</span>
+                <Badge variant={obsHealth.prometheus ? "success" : "error"} className="text-[9px]">
+                  {obsHealth.prometheus ? "ONLINE" : "OFFLINE"}
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-text-muted">Loki</span>
+                <Badge variant={obsHealth.loki ? "success" : "error"} className="text-[9px]">
+                  {obsHealth.loki ? "ONLINE" : "OFFLINE"}
+                </Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-text-muted">Grafana</span>
+                <Badge variant={obsHealth.grafana ? "success" : "error"} className="text-[9px]">
+                  {obsHealth.grafana ? "ONLINE" : "OFFLINE"}
+                </Badge>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
