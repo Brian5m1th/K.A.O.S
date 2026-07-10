@@ -1,3 +1,10 @@
+## [2.3.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.4...v2.3.5) (2026-07-10)
+
+
+### Bug Fixes
+
+* **infra:** relaxar dependencia do ollama para service_started (imagem sem curl) ([b7ecc16](https://github.com/Brian5m1th/K.A.O.S/commit/b7ecc168f1ee9976809a0bd3cda84072a77b52c3))
+
 ## [2.3.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.3...v2.3.4) (2026-07-10)
 
 
