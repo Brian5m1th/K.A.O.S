@@ -90,7 +90,7 @@ services:
       # ── Workspace / Dados ──────────────────────────────────────────
       - ../../workspace:/workspace
       - ../../docs:/vault
-      - ./logs:/var/log/kaos-api
+      - ./logs:/app/logs
       - hf_cache:/root/.cache/huggingface
       # ── Configuracao ───────────────────────────────────────────────
       - ../../config:/app/config
