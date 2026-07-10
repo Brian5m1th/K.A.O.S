@@ -138,6 +138,7 @@ services:
     build:
       context: ../../assistant
       dockerfile: Dockerfile
+    image: kaos-platform-kaos-api:${API_IMAGE_TAG:-latest}
     restart: unless-stopped
     logging: *default-logging
     networks:
@@ -149,6 +150,10 @@ services:
     environment:
       - APP_ENV=production
       - OLLAMA_BASE_URL=http://ollama:11434
+      - COMMIT_SHA=${COMMIT_SHA:-unknown}
+      - BUILD_DATE=${BUILD_DATE:-unknown}
+      - API_IMAGE_TAG=${API_IMAGE_TAG:-latest}
+      - BRANCH_NAME=${BRANCH_NAME:-main}
     volumes:
       # ── Workspace / Dados ──────────────────────────────────────────
       - ../../workspace:/workspace
