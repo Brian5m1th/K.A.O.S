@@ -28,15 +28,24 @@ jobs:
 
       - name: Prepare Environment File
         working-directory: infra/docker
+        env:
+          ENV_PROD: ${{ secrets.ENV_PROD }}
         run: |
-          if [ -f "/opt/kaos/infra/docker/.env.prod" ]; then
+          if [ -n "$ENV_PROD" ]; then
+            printf '%s\n' "$ENV_PROD" > .env.prod
+            echo "::notice::.env.prod gerado a partir do secret ENV_PROD."
+          elif [ -f "/opt/kaos/infra/docker/.env.prod" ]; then
             cp /opt/kaos/infra/docker/.env.prod .env.prod
           elif [ -f "$HOME/kaos/infra/docker/.env.prod" ]; then
             cp "$HOME/kaos/infra/docker/.env.prod" .env.prod
           elif [ -f "$HOME/.env.prod" ]; then
             cp "$HOME/.env.prod" .env.prod
           else
-            echo "::error::Arquivo .env.prod de produção não encontrado no host! Por favor, crie-o em /opt/kaos/infra/docker/.env.prod ou ~/kaos/infra/docker/.env.prod no servidor."
+            echo "::error::Arquivo .env.prod de produção não encontrado (nem o secret ENV_PROD foi definido)! Por favor, crie o secret ENV_PROD no repo ou o arquivo em /opt/kaos/infra/docker/.env.prod ou ~/kaos/infra/docker/.env.prod no servidor."
+            exit 1
+          fi
+          if [ ! -s .env.prod ]; then
+            echo "::error::.env.prod vazio! Verifique o conteudo do secret ENV_PROD ou do arquivo no host."
             exit 1
           fi
 
