@@ -69,6 +69,7 @@ async def system_version():
     import os
     import socket
     import platform
+
     return {
         "application": "K.A.O.S API",
         "environment": os.getenv("APP_ENV", "production"),
