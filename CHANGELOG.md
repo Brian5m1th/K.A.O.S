@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.2...v2.3.3) (2026-07-10)
+
+
+### Bug Fixes
+
+* **cd:** resolve .env.prod via secret and fix qdrant/ollama healthchecks ([0edb183](https://github.com/Brian5m1th/K.A.O.S/commit/0edb1831b0b4f7c3784592cc7245e8fa920b9192))
+
 ## [2.3.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.1...v2.3.2) (2026-07-10)
 
 
