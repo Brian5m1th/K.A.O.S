@@ -26,6 +26,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prepare Environment File
+        working-directory: infra/docker
+        run: |
+          if [ -f "/opt/kaos/infra/docker/.env.prod" ]; then
+            cp /opt/kaos/infra/docker/.env.prod .env.prod
+          elif [ -f "$HOME/kaos/infra/docker/.env.prod" ]; then
+            cp "$HOME/kaos/infra/docker/.env.prod" .env.prod
+          elif [ -f "$HOME/.env.prod" ]; then
+            cp "$HOME/.env.prod" .env.prod
+          else
+            echo "::error::Arquivo .env.prod de produção não encontrado no host! Por favor, crie-o em /opt/kaos/infra/docker/.env.prod ou ~/kaos/infra/docker/.env.prod no servidor."
+            exit 1
+          fi
+
       - name: Deploy Stack
         working-directory: infra/docker
         run: |
