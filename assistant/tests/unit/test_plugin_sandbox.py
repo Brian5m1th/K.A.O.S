@@ -3,6 +3,7 @@
 Testa validacao de manifesto, carregamento e execucao de modulos Wasm,
 e recursos de seguranca do sandbox.
 """
+
 import pytest
 from unittest.mock import patch, MagicMock
 
@@ -18,6 +19,7 @@ from app.core.plugin_sandbox import (
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def valid_manifest_data() -> dict:
@@ -82,20 +84,28 @@ class TestPluginManifest:
         assert "version eh obrigatorio" in errors
 
     def test_validate_denied_permissions(self) -> None:
-        m = PluginManifest.from_dict({
-            "id": "x", "name": "x", "version": "1",
-            "permissions": ["filesystem", "network"],
-        })
+        m = PluginManifest.from_dict(
+            {
+                "id": "x",
+                "name": "x",
+                "version": "1",
+                "permissions": ["filesystem", "network"],
+            }
+        )
         errors = m.validate()
         assert "permissao negada: filesystem" in errors
         assert "permissao negada: network" in errors
 
     def test_validate_allowed_permissions(self) -> None:
         """Permissoes nao proibidas devem passar."""
-        m = PluginManifest.from_dict({
-            "id": "x", "name": "x", "version": "1",
-            "permissions": ["storage:local"],
-        })
+        m = PluginManifest.from_dict(
+            {
+                "id": "x",
+                "name": "x",
+                "version": "1",
+                "permissions": ["storage:local"],
+            }
+        )
         errors = m.validate()
         assert errors == []
 
@@ -160,12 +170,14 @@ class TestPluginSandbox:
 
     def test_execute_function_not_in_whitelist(self) -> None:
         """Funcao nao listada no allowed_functions deve ser rejeitada."""
-        manifest = PluginManifest.from_dict({
-            "id": "secure-plugin",
-            "name": "Secure",
-            "version": "1.0.0",
-            "allowed_functions": ["safe_func"],
-        })
+        manifest = PluginManifest.from_dict(
+            {
+                "id": "secure-plugin",
+                "name": "Secure",
+                "version": "1.0.0",
+                "allowed_functions": ["safe_func"],
+            }
+        )
 
         # Mock WasmPlugin para testar apenas a whitelist
         sandbox = PluginSandbox()

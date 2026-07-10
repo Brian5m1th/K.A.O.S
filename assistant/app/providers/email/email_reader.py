@@ -1,4 +1,5 @@
 """Email Reader — Leitura e triagem de mensagens via IMAP."""
+
 from __future__ import annotations
 
 import imaplib
@@ -15,6 +16,7 @@ from app.config.settings import settings
 @dataclass
 class EmailMessage:
     """Representa uma mensagem de email."""
+
     uid: str
     subject: str
     sender: str
@@ -112,14 +114,16 @@ class EmailReader:
                 date = msg.get("Date", "")
                 body = self._get_email_body(msg)
 
-                messages.append(EmailMessage(
-                    uid=uid.decode() if isinstance(uid, bytes) else str(uid),
-                    subject=subject,
-                    sender=sender,
-                    date=date,
-                    body=body,
-                    snippet=body[:200].strip(),
-                ))
+                messages.append(
+                    EmailMessage(
+                        uid=uid.decode() if isinstance(uid, bytes) else str(uid),
+                        subject=subject,
+                        sender=sender,
+                        date=date,
+                        body=body,
+                        snippet=body[:200].strip(),
+                    )
+                )
 
             mail.logout()
             self._connected = True

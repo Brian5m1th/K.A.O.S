@@ -3,6 +3,7 @@
 Utiliza subprocess para executar comandos AWS CLI, ou boto3
 se disponivel para operacoes mais ricas.
 """
+
 from __future__ import annotations
 
 import json
@@ -11,7 +12,6 @@ from typing import Any
 
 from langchain_core.tools import tool
 from loguru import logger
-
 
 
 def _run_aws_cli(command: list[str], profile: str = "") -> dict[str, Any]:
@@ -50,9 +50,15 @@ def _run_aws_cli(command: list[str], profile: str = "") -> dict[str, Any]:
             }
 
     except FileNotFoundError:
-        return {"status": "error", "message": "AWS CLI nao encontrado. Instale via 'pip install awscli' ou 'choco install awscli'"}
+        return {
+            "status": "error",
+            "message": "AWS CLI nao encontrado. Instale via 'pip install awscli' ou 'choco install awscli'",
+        }
     except subprocess.TimeoutExpired:
-        return {"status": "error", "message": "Comando AWS CLI excedeu o tempo limite (30s)"}
+        return {
+            "status": "error",
+            "message": "Comando AWS CLI excedeu o tempo limite (30s)",
+        }
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
@@ -79,13 +85,15 @@ def aws_list_instances(profile: str = "", region: str = "") -> dict:
         reservations = result["output"].get("Reservations", [])
         for res in reservations:
             for inst in res.get("Instances", []):
-                instances.append({
-                    "id": inst.get("InstanceId"),
-                    "state": inst.get("State", {}).get("Name"),
-                    "type": inst.get("InstanceType"),
-                    "az": inst.get("Placement", {}).get("AvailabilityZone"),
-                    "launch_time": inst.get("LaunchTime"),
-                })
+                instances.append(
+                    {
+                        "id": inst.get("InstanceId"),
+                        "state": inst.get("State", {}).get("Name"),
+                        "type": inst.get("InstanceType"),
+                        "az": inst.get("Placement", {}).get("AvailabilityZone"),
+                        "launch_time": inst.get("LaunchTime"),
+                    }
+                )
         return {"status": "ok", "total": len(instances), "instances": instances}
 
     return result
@@ -126,14 +134,24 @@ def aws_run_command(service_cmd: str, profile: str = "", region: str = "") -> di
         Dict com resultado do comando.
     """
     # Whitelist de comandos de leitura
-    blocked_prefixes = ["create", "delete", "update", "put", "terminate", "stop", "start", "reboot", "modify"]
+    blocked_prefixes = [
+        "create",
+        "delete",
+        "update",
+        "put",
+        "terminate",
+        "stop",
+        "start",
+        "reboot",
+        "modify",
+    ]
     parts = service_cmd.strip().split()
     for part in parts:
         if any(part.lower().startswith(prefix) for prefix in blocked_prefixes):
             return {
                 "status": "error",
                 "message": f"Comando '{part}' nao permitido (apenas comandos de leitura). "
-                           f"Comandos bloqueados: {', '.join(blocked_prefixes)}",
+                f"Comandos bloqueados: {', '.join(blocked_prefixes)}",
             }
 
     cmd_parts = service_cmd.split()

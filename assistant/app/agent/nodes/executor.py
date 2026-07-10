@@ -27,7 +27,11 @@ from app.obsidian.tools.wiki import (
 )
 from app.providers.email.email_tool import read_emails, send_email
 from app.providers.whatsapp.whatsapp_tool import send_whatsapp
-from app.providers.aws.aws_tool import aws_list_instances, aws_describe_service, aws_run_command
+from app.providers.aws.aws_tool import (
+    aws_list_instances,
+    aws_describe_service,
+    aws_run_command,
+)
 
 TOOL_REGISTRY: dict = {
     "create_note": create_note,

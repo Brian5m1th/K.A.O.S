@@ -1,4 +1,5 @@
 """WhatsApp Provider — Envio de mensagens via Evolution API / N8N."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -36,7 +37,10 @@ class WhatsAppProvider:
             Dict com status da operacao.
         """
         if not self._enabled:
-            return {"status": "error", "message": "WhatsApp nao configurado (WHATSAPP_API_URL e WHATSAPP_API_KEY)"}
+            return {
+                "status": "error",
+                "message": "WhatsApp nao configurado (WHATSAPP_API_URL e WHATSAPP_API_KEY)",
+            }
 
         try:
             async with httpx.AsyncClient(timeout=15) as client:
@@ -56,8 +60,13 @@ class WhatsAppProvider:
                     logger.info("[whatsapp] sent to {}: '{}'", to, message[:50])
                     return {"status": "sent", "to": to}
                 else:
-                    logger.warning("[whatsapp] HTTP {}: {}", resp.status_code, resp.text)
-                    return {"status": "error", "message": f"HTTP {resp.status_code}: {resp.text[:200]}"}
+                    logger.warning(
+                        "[whatsapp] HTTP {}: {}", resp.status_code, resp.text
+                    )
+                    return {
+                        "status": "error",
+                        "message": f"HTTP {resp.status_code}: {resp.text[:200]}",
+                    }
 
         except httpx.RequestError as e:
             logger.error("[whatsapp] request failed: {}", e)

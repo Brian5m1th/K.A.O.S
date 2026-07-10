@@ -1,4 +1,5 @@
 """WhatsApp Tools — Ferramentas LangChain para integracao WhatsApp."""
+
 from __future__ import annotations
 
 from langchain_core.tools import tool
@@ -20,9 +21,13 @@ def send_whatsapp(to: str, message: str) -> dict:
     """
     provider = WhatsAppProvider()
     if not provider.is_configured():
-        return {"status": "error", "message": "WhatsApp nao configurado (defina WHATSAPP_API_URL e WHATSAPP_API_KEY no .env)"}
+        return {
+            "status": "error",
+            "message": "WhatsApp nao configurado (defina WHATSAPP_API_URL e WHATSAPP_API_KEY no .env)",
+        }
 
     import asyncio
+
     loop = asyncio.new_event_loop()
     try:
         result = loop.run_until_complete(provider.send_message(to, message))

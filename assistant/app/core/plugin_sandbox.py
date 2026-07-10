@@ -3,6 +3,7 @@
 Permite carregar e executar binarios .wasm em ambiente controlado,
 sem acesso ao sistema operacional host, filesystem ou rede.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -31,6 +32,7 @@ ALLOWED_IMPORTS: list[str] = []  # nenhum import permitido por padrao
 # ---------------------------------------------------------------------------
 # DTOs
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class PluginManifest:
@@ -89,6 +91,7 @@ class PluginExecutionResult:
 # Wasm Plugin
 # ---------------------------------------------------------------------------
 
+
 class WasmPlugin:
     """Representa um plugin carregado em memoria, pronto para execucao."""
 
@@ -114,9 +117,7 @@ class WasmPlugin:
     def load(self) -> None:
         """Compila e instancia o modulo Wasm no sandbox."""
         if not HAS_WASMTIME:
-            raise RuntimeError(
-                "wasmtime nao esta instalado. Execute: uv add wasmtime"
-            )
+            raise RuntimeError("wasmtime nao esta instalado. Execute: uv add wasmtime")
 
         config = wasmtime.Config()
         config.cache = False
@@ -208,6 +209,7 @@ class WasmPlugin:
 # ---------------------------------------------------------------------------
 # Plugin Sandbox (Engine Principal)
 # ---------------------------------------------------------------------------
+
 
 class PluginSandbox:
     """Engine de sandbox para plugins Wasm.
@@ -302,6 +304,7 @@ class PluginSandbox:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def validate_wasm_bytes(data: bytes) -> bool:
     """Valida rapidamente se o conteudo parece um modulo Wasm valido.

@@ -3,6 +3,7 @@
 Mantem registro dos plugins instalados em SQLite, permitindo
 listar, instalar e remover plugins.
 """
+
 from __future__ import annotations
 
 import json
@@ -20,6 +21,7 @@ from app.core.runtime_path_resolver import RuntimePathResolver
 # ---------------------------------------------------------------------------
 # Plugin Registry — Persistencia em SQLite
 # ---------------------------------------------------------------------------
+
 
 class PluginRecord:
     """Representacao de um plugin registrado no banco."""
@@ -55,16 +57,18 @@ class PluginRecord:
             description=manifest.description,
             author=manifest.author,
             wasm_path=wasm_path,
-            manifest_json=json.dumps({
-                "id": manifest.id,
-                "name": manifest.name,
-                "version": manifest.version,
-                "description": manifest.description,
-                "author": manifest.author,
-                "entrypoint": manifest.entrypoint,
-                "permissions": manifest.permissions,
-                "allowed_functions": manifest.allowed_functions,
-            }),
+            manifest_json=json.dumps(
+                {
+                    "id": manifest.id,
+                    "name": manifest.name,
+                    "version": manifest.version,
+                    "description": manifest.description,
+                    "author": manifest.author,
+                    "entrypoint": manifest.entrypoint,
+                    "permissions": manifest.permissions,
+                    "allowed_functions": manifest.allowed_functions,
+                }
+            ),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -156,7 +160,9 @@ class PluginRegistry:
     def uninstall(self, plugin_id: str) -> bool:
         """Remove o registro de um plugin."""
         with sqlite3.connect(str(self._db_path)) as conn:
-            cursor = conn.execute("DELETE FROM plugins WHERE plugin_id = ?", (plugin_id,))
+            cursor = conn.execute(
+                "DELETE FROM plugins WHERE plugin_id = ?", (plugin_id,)
+            )
             conn.commit()
             removed = cursor.rowcount > 0
         if removed:

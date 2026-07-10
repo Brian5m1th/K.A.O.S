@@ -1,4 +1,5 @@
 """Email Tools — Ferramentas LangChain para integracao de email."""
+
 from __future__ import annotations
 
 from langchain_core.tools import tool
@@ -21,7 +22,10 @@ def read_emails(limit: int = 5, folder: str = "INBOX") -> dict:
     """
     reader = EmailReader()
     if not reader.is_configured():
-        return {"status": "error", "message": "Email nao configurado (defina EMAIL_HOST, EMAIL_USER, EMAIL_PASS no .env)"}
+        return {
+            "status": "error",
+            "message": "Email nao configurado (defina EMAIL_HOST, EMAIL_USER, EMAIL_PASS no .env)",
+        }
 
     messages = reader.fetch_inbox(limit=min(limit, 20))
     return {
@@ -54,7 +58,10 @@ def send_email(to: str, subject: str, body: str) -> dict:
     """
     sender = EmailSender()
     if not sender.is_configured():
-        return {"status": "error", "message": "Email nao configurado (defina EMAIL_HOST, EMAIL_USER, EMAIL_PASS no .env)"}
+        return {
+            "status": "error",
+            "message": "Email nao configurado (defina EMAIL_HOST, EMAIL_USER, EMAIL_PASS no .env)",
+        }
 
     return sender.send(to=to, subject=subject, body=body)
 

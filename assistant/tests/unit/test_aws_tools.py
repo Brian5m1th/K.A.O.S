@@ -1,4 +1,5 @@
 """Testes do provedor AWS."""
+
 from unittest.mock import patch, MagicMock
 
 from app.providers.aws.aws_tool import aws_list_instances, aws_run_command, _run_aws_cli
@@ -6,7 +7,9 @@ from app.providers.aws.aws_tool import aws_list_instances, aws_run_command, _run
 
 class TestAWSTools:
     def test_run_aws_cli_not_found(self) -> None:
-        with patch("app.providers.aws.aws_tool.subprocess.run", side_effect=FileNotFoundError()):
+        with patch(
+            "app.providers.aws.aws_tool.subprocess.run", side_effect=FileNotFoundError()
+        ):
             result = _run_aws_cli(["ec2", "describe-instances"])
             assert result["status"] == "error"
             assert "AWS CLI nao encontrado" in result["message"]
@@ -42,7 +45,12 @@ class TestAWSTools:
 
     def test_aws_run_command_blocked_write(self) -> None:
         """Comandos de escrita devem ser bloqueados."""
-        blocked = ["create-bucket", "delete-bucket", "terminate-instances", "put-object"]
+        blocked = [
+            "create-bucket",
+            "delete-bucket",
+            "terminate-instances",
+            "put-object",
+        ]
         for cmd in blocked:
             result = aws_run_command.invoke({"service_cmd": cmd})
             assert result["status"] == "error"

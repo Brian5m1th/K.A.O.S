@@ -1,8 +1,9 @@
 """Testes de integracao E2E para validacao de notas geradas pelo Python no Obsidian.
 
-Valida o ciclo completo: criacao -> leitura -> verificacao de integridade -> 
+Valida o ciclo completo: criacao -> leitura -> verificacao de integridade ->
 atualizacao -> delecao, simulando o uso real das ferramentas da IA.
 """
+
 import pytest
 from pathlib import Path
 from datetime import datetime
@@ -13,6 +14,7 @@ from app.obsidian.services.obsidian_service import ObsidianService
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture
 def vault(tmp_path: Path) -> Path:
@@ -37,10 +39,14 @@ def svc(vault: Path) -> ObsidianService:
 class TestNoteCreationE2E:
     """Validacao completa do ciclo de vida de notas criadas pelo Python."""
 
-    def test_full_roundtrip_create_read(self, svc: ObsidianService, vault: Path) -> None:
+    def test_full_roundtrip_create_read(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Cria uma nota via Python e verifica que pode ser lida de volta com
         conteudo identico."""
-        original_content = "# Nota de Teste\n\nConteudo criado pelo Python.\n\n- Item 1\n- Item 2"
+        original_content = (
+            "# Nota de Teste\n\nConteudo criado pelo Python.\n\n- Item 1\n- Item 2"
+        )
         relative_path = svc.create_note(
             title="Roundtrip Test",
             folder="Projetos",
@@ -49,7 +55,9 @@ class TestNoteCreationE2E:
 
         # Verificar pelo servico
         result = svc.read_note(relative_path)
-        assert result.content == original_content, "Conteudo lido deve ser identico ao original"
+        assert result.content == original_content, (
+            "Conteudo lido deve ser identico ao original"
+        )
         assert relative_path in result.path, "Path deve conter o caminho relativo"
 
         # Verificar pelo filesystem diretamente
@@ -58,7 +66,9 @@ class TestNoteCreationE2E:
         disk_content = disk_path.read_text(encoding="utf-8")
         assert disk_content == original_content, "Conteudo em disco deve ser identico"
 
-    def test_create_note_with_frontmatter(self, svc: ObsidianService, vault: Path) -> None:
+    def test_create_note_with_frontmatter(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Valida que notas com frontmatter YAML sao preservadas."""
         content = """---
 id: test-note
@@ -78,7 +88,9 @@ Conteudo da nota com metadados.
         assert "status: active" in result.content
         assert "# Nota com Frontmatter" in result.content
 
-    def test_create_note_utf8_special_chars(self, svc: ObsidianService, vault: Path) -> None:
+    def test_create_note_utf8_special_chars(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Valida que caracteres UTF-8 especiais (acentos, emoji, simbolos)
         sao preservados corretamente."""
         content = "# Acentuação\n\nAção, contribuição, órgão, FAQ.\n\n🔍 Busca\n\nCódigo: 42 ✓"
@@ -96,7 +108,9 @@ Conteudo da nota com metadados.
         raw_bytes = disk_path.read_bytes()
         raw_bytes.decode("utf-8")  # Nao deve levantar excecao
 
-    def test_create_and_list_consistency(self, svc: ObsidianService, vault: Path) -> None:
+    def test_create_and_list_consistency(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Apos criar notas, a listagem deve retorna-las."""
         svc.create_note("Listagem A", "Inbox", "Conteudo A")
         svc.create_note("Listagem B", "Estudos", "Conteudo B")
@@ -120,7 +134,9 @@ Conteudo da nota com metadados.
         assert "Versao 2" in result.content
         assert "Versao 3" in result.content
 
-    def test_create_delete_confirm_removed(self, svc: ObsidianService, vault: Path) -> None:
+    def test_create_delete_confirm_removed(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Cria nota, deleta, e confirma que foi removida do disco e do servico."""
         path = svc.create_note("Serah Deletada", "Inbox", "Conteudo temporario")
         disk_path = vault / path
@@ -132,7 +148,9 @@ Conteudo da nota com metadados.
         with pytest.raises(FileNotFoundError):
             svc.read_note(path)
 
-    def test_create_multiple_folders_deep_path(self, svc: ObsidianService, vault: Path) -> None:
+    def test_create_multiple_folders_deep_path(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Cria nota em subpasta aninhada e valida resolucao de caminho."""
         content = "# Nota Profunda"
         path = svc.create_note("Profunda", "Arquitetura/Decisoes/ADR-042", content)
@@ -144,7 +162,9 @@ Conteudo da nota com metadados.
         assert "Arquitetura" in path
         assert "Decisoes" in path
 
-    def test_note_content_roundtrip_markdown_structure(self, svc: ObsidianService, vault: Path) -> None:
+    def test_note_content_roundtrip_markdown_structure(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Valida que a estrutura Markdown complexa e preservada."""
         content = """# Documento Complexo
 
@@ -178,11 +198,15 @@ def hello():
         assert "> Citacao importante" in result.content
         assert result.content == content
 
-    def test_large_content_preservation(self, svc: ObsidianService, vault: Path) -> None:
+    def test_large_content_preservation(
+        self, svc: ObsidianService, vault: Path
+    ) -> None:
         """Valida que notas com conteudo grande (>10KB) sao preservadas."""
         paragraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 300
         content = f"# Nota Grande\n\n{paragraph}\n\n## Fim\n\n{paragraph[:500]}"
-        assert len(content) > 10_000, f"Conteudo deve ter mais de 10KB (tem {len(content)} bytes)"
+        assert len(content) > 10_000, (
+            f"Conteudo deve ter mais de 10KB (tem {len(content)} bytes)"
+        )
 
         path = svc.create_note("Nota Grande", "Inbox", content)
         result = svc.read_note(path)

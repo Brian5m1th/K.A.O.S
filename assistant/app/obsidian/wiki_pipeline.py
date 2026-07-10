@@ -3,6 +3,7 @@
 Consolida as ferramentas wiki existentes em um fluxo unificado
 que pode ser executado de forma atomica ou em etapas.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
@@ -23,9 +24,11 @@ from app.observability.event_bus import EventBus
 # DTOs
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class PipelineStageResult:
     """Resultado de uma etapa do pipeline."""
+
     stage: str
     success: bool
     output: Any = None
@@ -36,6 +39,7 @@ class PipelineStageResult:
 @dataclass
 class PipelineResult:
     """Resultado completo da execucao do pipeline."""
+
     source_path: str
     stages: list[PipelineStageResult] = field(default_factory=list)
     started_at: str = ""
@@ -55,6 +59,7 @@ class PipelineResult:
 # ---------------------------------------------------------------------------
 # Wiki Pipeline
 # ---------------------------------------------------------------------------
+
 
 class WikiPipeline:
     """Pipeline orquestrado do fluxo Wiki-First.
@@ -98,12 +103,14 @@ class WikiPipeline:
         """
         try:
             # Usa a tool existente de criacao de sintese
-            result = create_synthesis.invoke({
-                "title": title,
-                "content": content,
-                "citations": citations or [],
-                "tags": tags or [],
-            })
+            result = create_synthesis.invoke(
+                {
+                    "title": title,
+                    "content": content,
+                    "citations": citations or [],
+                    "tags": tags or [],
+                }
+            )
             logger.info("[wiki] synthesis created: {}", title)
             return {"status": "created", "title": title, "result": result}
         except Exception as e:
@@ -158,7 +165,9 @@ class WikiPipeline:
                     approve_draft.invoke({"path": path})
                     approved += 1
             except Exception as e:
-                logger.warning("[wiki] failed to approve draft {}: {}", draft.get("path"), e)
+                logger.warning(
+                    "[wiki] failed to approve draft {}: {}", draft.get("path"), e
+                )
 
         logger.info("[wiki] approved {} / {} drafts", approved, len(drafts))
         return approved
@@ -187,23 +196,31 @@ class WikiPipeline:
 
         # Emitir evento de inicio
         if self._event_bus:
-            self._event_bus.publish("WIKI_PIPELINE_STARTED", {
-                "source_path": source_path,
-                "auto_approve": auto_approve,
-            })
+            self._event_bus.publish(
+                "WIKI_PIPELINE_STARTED",
+                {
+                    "source_path": source_path,
+                    "auto_approve": auto_approve,
+                },
+            )
 
         try:
             # Etapa 1: Ler o arquivo fonte
             logger.info("[pipeline] stage 1/5: reading source {}", source_path)
             note = self._obsidian.read_note(source_path)
-            result.stages.append(PipelineStageResult(
-                stage="read_source",
-                success=True,
-                output={"path": source_path, "size": len(note.content)},
-            ))
+            result.stages.append(
+                PipelineStageResult(
+                    stage="read_source",
+                    success=True,
+                    output={"path": source_path, "size": len(note.content)},
+                )
+            )
 
             # Extrair titulo do conteudo
-            title = note.content.split("\n")[0].replace("# ", "").strip() or Path(source_path).stem
+            title = (
+                note.content.split("\n")[0].replace("# ", "").strip()
+                or Path(source_path).stem
+            )
 
             # Etapa 2-5: Criar sintese (unifica entities -> concepts -> synthesis)
             logger.info("[pipeline] stage 2/5: creating synthesis for '{}'", title)
@@ -213,44 +230,50 @@ class WikiPipeline:
                 tags=["auto-generated", "pipeline"],
                 folder="wiki/synthesis",
             )
-            result.stages.append(PipelineStageResult(
-                stage="create_synthesis",
-                success=synthesis_result["status"] == "created",
-                output=synthesis_result,
-                error=synthesis_result.get("error"),
-            ))
+            result.stages.append(
+                PipelineStageResult(
+                    stage="create_synthesis",
+                    success=synthesis_result["status"] == "created",
+                    output=synthesis_result,
+                    error=synthesis_result.get("error"),
+                )
+            )
 
             # Etapa 6: Lint (opcional, sempre executa)
             logger.info("[pipeline] stage 3/5: running lint")
             lint_result = self.run_lint()
-            result.stages.append(PipelineStageResult(
-                stage="lint",
-                success=lint_result["status"] == "ok",
-                output=lint_result,
-                error=lint_result.get("error"),
-            ))
+            result.stages.append(
+                PipelineStageResult(
+                    stage="lint",
+                    success=lint_result["status"] == "ok",
+                    output=lint_result,
+                    error=lint_result.get("error"),
+                )
+            )
 
             # Auto-approve se solicitado
             if auto_approve:
                 logger.info("[pipeline] stage 4/5: approving drafts")
                 approved = self.approve_all_drafts()
-                result.stages.append(PipelineStageResult(
-                    stage="approve_drafts",
-                    success=True,
-                    output={"approved": approved},
-                ))
+                result.stages.append(
+                    PipelineStageResult(
+                        stage="approve_drafts",
+                        success=True,
+                        output={"approved": approved},
+                    )
+                )
 
-            result.overall_success = all(
-                s.success for s in result.stages
-            )
+            result.overall_success = all(s.success for s in result.stages)
 
         except Exception as e:
             logger.error("[pipeline] failed: {}", e)
-            result.stages.append(PipelineStageResult(
-                stage="pipeline",
-                success=False,
-                error=str(e),
-            ))
+            result.stages.append(
+                PipelineStageResult(
+                    stage="pipeline",
+                    success=False,
+                    error=str(e),
+                )
+            )
             result.overall_success = False
 
         finally:
@@ -281,13 +304,19 @@ class WikiPipeline:
                 results.append(pr)
             except Exception as e:
                 logger.error("[pipeline] error processing {}: {}", path, e)
-                results.append(PipelineResult(
-                    source_path=path,
-                    overall_success=False,
-                    stages=[PipelineStageResult(
-                        stage="pipeline", success=False, error=str(e),
-                    )],
-                ))
+                results.append(
+                    PipelineResult(
+                        source_path=path,
+                        overall_success=False,
+                        stages=[
+                            PipelineStageResult(
+                                stage="pipeline",
+                                success=False,
+                                error=str(e),
+                            )
+                        ],
+                    )
+                )
 
         return results
 

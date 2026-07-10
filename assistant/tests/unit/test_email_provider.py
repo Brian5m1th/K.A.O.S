@@ -1,4 +1,5 @@
 """Testes do provedor de Email."""
+
 from unittest.mock import patch, MagicMock
 
 from app.providers.email.email_reader import EmailReader
@@ -76,11 +77,17 @@ class TestEmailSender:
 
 class TestEmailTools:
     def test_read_emails_not_configured(self) -> None:
-        with patch("app.providers.email.email_tool.EmailReader.is_configured", return_value=False):
+        with patch(
+            "app.providers.email.email_tool.EmailReader.is_configured",
+            return_value=False,
+        ):
             result = read_emails.invoke({"limit": 5})
             assert result["status"] == "error"
 
     def test_send_email_not_configured(self) -> None:
-        with patch("app.providers.email.email_tool.EmailSender.is_configured", return_value=False):
+        with patch(
+            "app.providers.email.email_tool.EmailSender.is_configured",
+            return_value=False,
+        ):
             result = send_email.invoke({"to": "a@b.com", "subject": "S", "body": "B"})
             assert result["status"] == "error"

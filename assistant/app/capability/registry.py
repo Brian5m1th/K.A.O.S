@@ -3,6 +3,7 @@
 SDD-KAOS-EVOLUTION-001: Dynamic discoverability of Capabilities based on manifests
                        and lifecycle states.
 """
+
 import yaml
 from pathlib import Path
 from typing import Any, Dict, List
@@ -34,15 +35,21 @@ class CapabilityRegistry:
             "error_message": None,
             "health_score": 1.0,
         }
-        logger.info(f"[CapabilityRegistry] Registered: '{cap_id}' (version {manifest.get('version', '1.0')})")
+        logger.info(
+            f"[CapabilityRegistry] Registered: '{cap_id}' (version {manifest.get('version', '1.0')})"
+        )
 
     @classmethod
-    def update_status(cls, cap_id: str, status: str, error_message: str | None = None) -> None:
+    def update_status(
+        cls, cap_id: str, status: str, error_message: str | None = None
+    ) -> None:
         """Update the capability's current lifecycle state."""
         if cap_id in cls._capabilities:
             cls._capabilities[cap_id]["status"] = status
             cls._capabilities[cap_id]["error_message"] = error_message
-            logger.info(f"[CapabilityRegistry] Capability '{cap_id}' lifecycle state changed to: {status}")
+            logger.info(
+                f"[CapabilityRegistry] Capability '{cap_id}' lifecycle state changed to: {status}"
+            )
 
     @classmethod
     def get_capability(cls, cap_id: str) -> Dict[str, Any] | None:
@@ -78,7 +85,9 @@ class CapabilityRegistry:
     def autodiscover(cls, base_dir: Path) -> None:
         """Autodiscovers capabilities by scanning the base directory for yaml manifests."""
         if not base_dir.exists():
-            logger.warning(f"[CapabilityRegistry] Autodiscover base_dir does not exist: {base_dir}")
+            logger.warning(
+                f"[CapabilityRegistry] Autodiscover base_dir does not exist: {base_dir}"
+            )
             return
         logger.info(f"[CapabilityRegistry] Starting autodiscover in: {base_dir}")
         for sub in base_dir.iterdir():
@@ -91,6 +100,10 @@ class CapabilityRegistry:
                             if manifest and "id" in manifest:
                                 cap_id = manifest["id"]
                                 cls.register(cap_id, manifest)
-                                cls.update_status(cap_id, CapabilityLifecycle.INITIALIZED)
+                                cls.update_status(
+                                    cap_id, CapabilityLifecycle.INITIALIZED
+                                )
                     except Exception as e:
-                        logger.error(f"[CapabilityRegistry] Error loading manifest from {manifest_file}: {e}")
+                        logger.error(
+                            f"[CapabilityRegistry] Error loading manifest from {manifest_file}: {e}"
+                        )

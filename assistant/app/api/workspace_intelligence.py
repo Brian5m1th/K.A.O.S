@@ -3,13 +3,16 @@
 SDD-KAOS-EVOLUTION-001: Provides FastAPI routes for Vault analysis, auto-tagging,
                        and connection recommendations.
 """
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from app.capability.workspace_intelligence.service import WorkspaceIntelligenceService
 from app.capability.registry import CapabilityRegistry, CapabilityLifecycle
 
-router = APIRouter(prefix="/api/workspace-intelligence", tags=["Workspace Intelligence"])
+router = APIRouter(
+    prefix="/api/workspace-intelligence", tags=["Workspace Intelligence"]
+)
 
 
 class AutoTagRequest(BaseModel):
@@ -25,14 +28,14 @@ async def auto_tag_endpoint(body: AutoTagRequest):
     """Auto-tags a file inside the Obsidian Vault based on content or neighbors."""
     service = WorkspaceIntelligenceService()
     try:
-        CapabilityRegistry.update_status("workspace_intelligence", CapabilityLifecycle.HEALTHY)
+        CapabilityRegistry.update_status(
+            "workspace_intelligence", CapabilityLifecycle.HEALTHY
+        )
         tags = await service.auto_tag(body.path)
         return {"status": "success", "tags": tags}
     except Exception as e:
         CapabilityRegistry.update_status(
-            "workspace_intelligence", 
-            CapabilityLifecycle.FAILED, 
-            error_message=str(e)
+            "workspace_intelligence", CapabilityLifecycle.FAILED, error_message=str(e)
         )
         raise HTTPException(status_code=500, detail=str(e))
 

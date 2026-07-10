@@ -2,6 +2,7 @@
 
 SDD-KAOS-EVOLUTION-001: Abstract provider contract for multiple communication channels.
 """
+
 from abc import ABC, abstractmethod
 from typing import Any, List
 

@@ -3,6 +3,7 @@
 SDD-KAOS-EVOLUTION-001: Exposes CredentialManager and pluggable providers
                        (e.g., Encrypted File fallback).
 """
+
 from abc import ABC, abstractmethod
 from loguru import logger
 
@@ -69,7 +70,9 @@ class CredentialManager:
     def register_provider(cls, provider: CredentialProvider) -> None:
         """Register a new credential provider (e.g. Keychain, Vault)."""
         cls._providers.insert(0, provider)  # Newer/Specific providers take precedence
-        logger.info(f"[CredentialService] Registered provider: {provider.__class__.__name__}")
+        logger.info(
+            f"[CredentialService] Registered provider: {provider.__class__.__name__}"
+        )
 
     @classmethod
     def get_credential(cls, service: str, key: str) -> str | None:

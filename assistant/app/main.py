@@ -251,6 +251,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     # ── Capability Registry Autodiscover ─────────────────────────────────
     from app.capability.registry import CapabilityRegistry
+
     base_dir = Path(__file__).parent / "capabilities"
     CapabilityRegistry.autodiscover(base_dir)
 

@@ -3,6 +3,7 @@
 Permite instalar, listar, executar e remover plugins
 em ambiente sandbox via WebAssembly.
 """
+
 from __future__ import annotations
 
 import json
@@ -85,12 +86,16 @@ async def install_plugin(
     # Validar manifesto
     errors = plugin_manifest.validate()
     if errors:
-        raise HTTPException(status_code=400, detail=f"Manifesto invalido: {'; '.join(errors)}")
+        raise HTTPException(
+            status_code=400, detail=f"Manifesto invalido: {'; '.join(errors)}"
+        )
 
     # Ler bytes do Wasm
     wasm_bytes = await wasm.read()
     if not validate_wasm_bytes(wasm_bytes):
-        raise HTTPException(status_code=400, detail="Arquivo nao parece ser um modulo Wasm valido")
+        raise HTTPException(
+            status_code=400, detail="Arquivo nao parece ser um modulo Wasm valido"
+        )
 
     # Salvar em disco para persistencia
     plugins_dir = Path("data/plugins")
@@ -117,7 +122,9 @@ async def install_plugin(
         manifest=manifest_data,
     )
 
-    logger.info("[plugins] installed: {} v{}", plugin_manifest.id, plugin_manifest.version)
+    logger.info(
+        "[plugins] installed: {} v{}", plugin_manifest.id, plugin_manifest.version
+    )
     return {"status": "installed", "plugin": record.to_dict()}
 
 
@@ -156,7 +163,9 @@ async def uninstall_plugin(plugin_id: str) -> dict[str, str]:
         wasm_path.unlink()
 
     if not removed:
-        raise HTTPException(status_code=404, detail=f"Plugin nao encontrado: {plugin_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Plugin nao encontrado: {plugin_id}"
+        )
 
     return {"status": "removed", "plugin_id": plugin_id}
 
@@ -167,7 +176,9 @@ async def get_plugin(plugin_id: str) -> dict[str, Any]:
     registry = _get_registry()
     record = registry.get_plugin(plugin_id)
     if not record:
-        raise HTTPException(status_code=404, detail=f"Plugin nao encontrado: {plugin_id}")
+        raise HTTPException(
+            status_code=404, detail=f"Plugin nao encontrado: {plugin_id}"
+        )
 
     sandbox = _get_sandbox()
     d = record.to_dict()

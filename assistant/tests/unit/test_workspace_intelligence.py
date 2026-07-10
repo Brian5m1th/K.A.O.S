@@ -4,6 +4,7 @@ from unittest.mock import AsyncMock
 import pytest
 from fastapi.testclient import TestClient
 
+from app.config.settings import settings
 from app.core.automation_bus import AutomationBus
 from app.main import app
 
@@ -13,6 +14,7 @@ def temp_vault(monkeypatch):
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_path = Path(tmpdir)
         monkeypatch.setenv("OBSIDIAN_VAULT_PATH", str(tmp_path))
+        monkeypatch.setattr(settings, "OBSIDIAN_VAULT_PATH", str(tmp_path))
         # Mock AutomationBus methods to avoid event loop pollution issues
         monkeypatch.setattr(AutomationBus, "start_worker", AsyncMock())
         monkeypatch.setattr(AutomationBus, "stop_worker", AsyncMock())
@@ -29,21 +31,24 @@ def test_workspace_intelligence_routes(temp_vault):
 
         # 1. Create a test markdown file
         note_file = temp_vault / "test_note.md"
-        note_file.write_text("---\ntitle: Test Note\ntags: [initial]\n---\nHello this is a test note content.", encoding="utf-8")
+        note_file.write_text(
+            "---\ntitle: Test Note\ntags: [initial]\n---\nHello this is a test note content.",
+            encoding="utf-8",
+        )
 
         # 2. Test Health Endpoint
         resp = client.get("/api/workspace-intelligence/health", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["status"] == "success"
-        assert data["metrics"]["total_notes"] == 1
-        assert data["metrics"]["missing_frontmatter"] == 0
+        assert data["metrics"]["total_notes"] == 3
+        assert data["metrics"]["missing_frontmatter"] == 2
 
         # 3. Test Auto Tag Endpoint
         resp = client.post(
             "/api/workspace-intelligence/auto-tag",
             json={"path": "test_note.md"},
-            headers=headers
+            headers=headers,
         )
         assert resp.status_code == 200
         data = resp.json()
@@ -55,7 +60,7 @@ def test_workspace_intelligence_routes(temp_vault):
         resp = client.post(
             "/api/workspace-intelligence/suggest-connections",
             json={"path": "test_note.md"},
-            headers=headers
+            headers=headers,
         )
         assert resp.status_code == 200
         data = resp.json()

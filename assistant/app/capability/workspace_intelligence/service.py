@@ -3,6 +3,7 @@
 SDD-KAOS-EVOLUTION-001: Central service to manage Vault/Workspace sanity, tags,
                        and semantic links.
 """
+
 from __future__ import annotations
 
 import re
@@ -27,25 +28,31 @@ class WorkspaceIntelligenceService:
         """Parses frontmatter and content of a Markdown file."""
         if not note_path.exists():
             return {}, ""
-        content = note_path.read_text(encoding="utf-8")
-        
+        content = note_path.read_text(encoding="utf-8", errors="replace")
+
         frontmatter = {}
         body = content
-        
+
         # Regex to parse frontmatter YAML
         match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
         if match:
             try:
                 frontmatter = yaml.safe_load(match.group(1)) or {}
-                body = content[match.end():]
+                body = content[match.end() :]
             except Exception as e:
-                logger.warning(f"[WorkspaceIntelligence] YAML parse fail for {note_path.name}: {e}")
-                
+                logger.warning(
+                    f"[WorkspaceIntelligence] YAML parse fail for {note_path.name}: {e}"
+                )
+
         return frontmatter, body
 
-    def _write_note(self, note_path: Path, frontmatter: dict[str, Any], body: str) -> None:
+    def _write_note(
+        self, note_path: Path, frontmatter: dict[str, Any], body: str
+    ) -> None:
         """Saves frontmatter and content back to a Markdown file."""
-        fm_yaml = yaml.dump(frontmatter, allow_unicode=True, default_flow_style=False).strip()
+        fm_yaml = yaml.dump(
+            frontmatter, allow_unicode=True, default_flow_style=False
+        ).strip()
         new_content = f"---\n{fm_yaml}\n---\n{body}"
         note_path.write_text(new_content, encoding="utf-8")
 
@@ -57,14 +64,16 @@ class WorkspaceIntelligenceService:
             return []
 
         frontmatter, body = self._read_note(abs_path)
-        
+
         # 1. Look for semantic tags in Qdrant (similar notes)
         suggested_tags = set()
         try:
             embedder = get_embedder()
             query_vector = embedder.embed_query(body[:1000])
-            hits = await self.vector_store.search(settings.QDRANT_COLLECTION, query_vector, limit=5)
-            
+            hits = await self.vector_store.search(
+                settings.QDRANT_COLLECTION, query_vector, limit=5
+            )
+
             for hit in hits:
                 hit_abs_path = self.vault_path / hit.path.lstrip("/")
                 if hit_abs_path.exists() and hit_abs_path != abs_path:
@@ -80,7 +89,9 @@ class WorkspaceIntelligenceService:
         # Heuristic fallback if no semantic tags found
         if not suggested_tags:
             # Match words longer than 5 chars that appear multiple times as placeholder tags
-            words = re.findall(r"\b[a-zA-ZáéíóúâêîôûãõçÁÉÍÓÚÂÊÎÔÛÃÕÇ]{5,}\b", body.lower())
+            words = re.findall(
+                r"\b[a-zA-ZáéíóúâêîôûãõçÁÉÍÓÚÂÊÎÔÛÃÕÇ]{5,}\b", body.lower()
+            )
             freq = {}
             for w in words:
                 freq[w] = freq.get(w, 0) + 1
@@ -93,12 +104,14 @@ class WorkspaceIntelligenceService:
             current_tags = [current_tags]
         elif not isinstance(current_tags, list):
             current_tags = []
-            
+
         tags_list = list(set(current_tags) | suggested_tags)
         frontmatter["tags"] = tags_list
         self._write_note(abs_path, frontmatter, body)
-        
-        logger.info(f"[WorkspaceIntelligence] Tagged '{relative_path}' with {tags_list}")
+
+        logger.info(
+            f"[WorkspaceIntelligence] Tagged '{relative_path}' with {tags_list}"
+        )
         return tags_list
 
     async def suggest_links(self, relative_path: str) -> list[dict[str, Any]]:
@@ -108,32 +121,36 @@ class WorkspaceIntelligenceService:
             return []
 
         _, body = self._read_note(abs_path)
-        
+
         # Find existing links in note body
         existing_links = set(re.findall(r"\[\[(.*?)\]\]", body))
-        
+
         recommendations = []
         try:
             embedder = get_embedder()
             query_vector = embedder.embed_query(body[:1000])
-            hits = await self.vector_store.search(settings.QDRANT_COLLECTION, query_vector, limit=10)
-            
+            hits = await self.vector_store.search(
+                settings.QDRANT_COLLECTION, query_vector, limit=10
+            )
+
             for hit in hits:
                 hit_name = Path(hit.path).stem
                 # Don't suggest if same file, already linked, or duplicate suggestion
                 if (
-                    hit.path != relative_path 
-                    and hit_name not in existing_links 
+                    hit.path != relative_path
+                    and hit_name not in existing_links
                     and hit.score > 0.4
                 ):
-                    recommendations.append({
-                        "path": hit.path,
-                        "title": hit_name,
-                        "score": round(hit.score, 4)
-                    })
+                    recommendations.append(
+                        {
+                            "path": hit.path,
+                            "title": hit_name,
+                            "score": round(hit.score, 4),
+                        }
+                    )
         except Exception as e:
             logger.debug(f"[WorkspaceIntelligence] Link suggestion skipped/failed: {e}")
-            
+
         return recommendations
 
     def check_vault_health(self) -> dict[str, Any]:
@@ -149,18 +166,20 @@ class WorkspaceIntelligenceService:
         for path in self.vault_path.glob("**/*.md"):
             total_notes += 1
             all_note_names.add(path.stem)
-            
-            content = path.read_text(encoding="utf-8")
+
+            content = path.read_text(encoding="utf-8", errors="replace")
             if not content.startswith("---"):
                 missing_frontmatter += 1
-                
+
             # Extract links
             links = re.findall(r"\[\[(.*?)\]\]", content)
             links_found.extend(links)
 
         # Basic health metric
-        broken_links_count = sum(1 for link in links_found if link.split("|")[0] not in all_note_names)
-        
+        broken_links_count = sum(
+            1 for link in links_found if link.split("|")[0] not in all_note_names
+        )
+
         return {
             "total_notes": total_notes,
             "missing_frontmatter": missing_frontmatter,

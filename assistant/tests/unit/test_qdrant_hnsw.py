@@ -3,6 +3,7 @@
 Verifica que os parametros HNSW (m=32, ef_construct=200)
 estao sendo aplicados na criacao das colecoes.
 """
+
 import pytest
 from unittest.mock import patch, MagicMock
 

@@ -5,14 +5,26 @@ from app.runtime.communication.manager import CommunicationRuntime
 
 
 class MockProvider(CommunicationProvider):
-    async def connect(self) -> bool: return True
-    async def disconnect(self) -> bool: return True
-    async def health(self) -> dict: return {"healthy": True}
+    async def connect(self) -> bool:
+        return True
+
+    async def disconnect(self) -> bool:
+        return True
+
+    async def health(self) -> dict:
+        return {"healthy": True}
+
     async def send(self, to: str, message: str) -> dict:
         return {"status": "sent", "to": to, "message": message, "provider": "mock"}
-    async def receive(self) -> list: return []
-    async def authenticate(self, credentials: dict) -> bool: return True
-    async def refresh(self) -> bool: return True
+
+    async def receive(self) -> list:
+        return []
+
+    async def authenticate(self, credentials: dict) -> bool:
+        return True
+
+    async def refresh(self) -> bool:
+        return True
 
 
 @pytest.mark.anyio

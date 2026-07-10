@@ -1,4 +1,5 @@
 """Testes do provedor WhatsApp."""
+
 from unittest.mock import patch, MagicMock, AsyncMock
 import pytest
 
@@ -27,7 +28,9 @@ class TestWhatsAppProvider:
         mock_client = AsyncMock()
         mock_client.post = AsyncMock(return_value=mock_response)
 
-        with patch("app.providers.whatsapp.whatsapp_provider.httpx.AsyncClient") as mock_client_class:
+        with patch(
+            "app.providers.whatsapp.whatsapp_provider.httpx.AsyncClient"
+        ) as mock_client_class:
             mock_client_class.return_value.__aenter__.return_value = mock_client
 
             result = await provider.send_message("5511999999999", "Hello!")
@@ -45,7 +48,9 @@ class TestWhatsAppProvider:
         mock_client = AsyncMock()
         mock_client.post = AsyncMock(return_value=mock_response)
 
-        with patch("app.providers.whatsapp.whatsapp_provider.httpx.AsyncClient") as mock_client_class:
+        with patch(
+            "app.providers.whatsapp.whatsapp_provider.httpx.AsyncClient"
+        ) as mock_client_class:
             mock_client_class.return_value.__aenter__.return_value = mock_client
 
             result = await provider.send_message("5511999999999", "Hello!")
@@ -54,6 +59,9 @@ class TestWhatsAppProvider:
 
 class TestWhatsAppTool:
     def test_tool_not_configured(self) -> None:
-        with patch("app.providers.whatsapp.whatsapp_tool.WhatsAppProvider.is_configured", return_value=False):
+        with patch(
+            "app.providers.whatsapp.whatsapp_tool.WhatsAppProvider.is_configured",
+            return_value=False,
+        ):
             result = send_whatsapp.invoke({"to": "5511999999999", "message": "Hello"})
             assert result["status"] == "error"

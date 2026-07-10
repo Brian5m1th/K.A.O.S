@@ -1,4 +1,5 @@
 """Testes do Wiki Pipeline orquestrado."""
+
 import pytest
 from pathlib import Path
 from unittest.mock import patch
@@ -33,7 +34,9 @@ class TestWikiPipeline:
         )
         assert result["status"] == "created"
 
-    def test_create_synthesis_with_citations(self, pipeline: WikiPipeline, vault: Path) -> None:
+    def test_create_synthesis_with_citations(
+        self, pipeline: WikiPipeline, vault: Path
+    ) -> None:
         """Cria sintese com citacoes."""
         (vault / "wiki" / "synthesis").mkdir(parents=True, exist_ok=True)
 
@@ -50,10 +53,14 @@ class TestWikiPipeline:
         drafts = pipeline.list_pending_drafts()
         assert isinstance(drafts, list)
 
-    def test_list_pending_drafts_with_files(self, pipeline: WikiPipeline, vault: Path) -> None:
+    def test_list_pending_drafts_with_files(
+        self, pipeline: WikiPipeline, vault: Path
+    ) -> None:
         """Lista rascunhos quando existem arquivos .draft.md."""
         (vault / "wiki" / "drafts").mkdir(parents=True, exist_ok=True)
-        (vault / "wiki" / "drafts" / "test.draft.md").write_text("# Draft", encoding="utf-8")
+        (vault / "wiki" / "drafts" / "test.draft.md").write_text(
+            "# Draft", encoding="utf-8"
+        )
 
         drafts = pipeline.list_pending_drafts()
         assert len(drafts) >= 0  # pode ou nao encontrar dependendo da implementacao
@@ -96,7 +103,9 @@ class TestWikiPipeline:
         assert count == 0
 
     @patch("app.obsidian.wiki_pipeline.EventBus")
-    def test_pipeline_emits_events(self, mock_event_bus, pipeline: WikiPipeline) -> None:
+    def test_pipeline_emits_events(
+        self, mock_event_bus, pipeline: WikiPipeline
+    ) -> None:
         """Pipeline emite eventos de inicio e fim."""
         pipeline._event_bus = mock_event_bus
 

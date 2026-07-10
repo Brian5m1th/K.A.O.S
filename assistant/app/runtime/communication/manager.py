@@ -2,6 +2,7 @@
 
 SDD-KAOS-EVOLUTION-001: Orchestrates and exposes multiple communication channels (WhatsApp, Email, etc.).
 """
+
 from typing import Any, Dict
 from loguru import logger
 
@@ -27,7 +28,9 @@ class CommunicationRuntime:
         """Get provider for a channel."""
         return self._channels.get(name)
 
-    async def send(self, to: str, message: str, channel: str = "whatsapp") -> dict[str, Any]:
+    async def send(
+        self, to: str, message: str, channel: str = "whatsapp"
+    ) -> dict[str, Any]:
         """Routes the message send request to the appropriate provider."""
         provider = self.get_channel(channel)
         if not provider:

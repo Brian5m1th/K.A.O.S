@@ -1,4 +1,5 @@
 """Email Sender — Envio de mensagens via SMTP."""
+
 from __future__ import annotations
 
 import smtplib

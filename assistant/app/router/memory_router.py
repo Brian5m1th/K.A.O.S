@@ -71,7 +71,9 @@ class MemoryRouter:
                         idx = content.lower().index(query_lower)
                         start = max(0, idx - 100)
                         end = min(len(content), idx + 300)
-                        matches.append(f"[{f.relative_to(vault)}]\n{content[start:end].strip()}")
+                        matches.append(
+                            f"[{f.relative_to(vault)}]\n{content[start:end].strip()}"
+                        )
                         if len(matches) >= 3:  # max 3 wiki matches
                             break
             except (OSError, UnicodeDecodeError):

@@ -2,6 +2,7 @@
 
 SDD-KAOS-EVOLUTION-001: Agnostic implementation wrapping Evolution API logic.
 """
+
 from __future__ import annotations
 
 import hmac
@@ -31,7 +32,9 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
     async def connect(self) -> bool:
         api_key = self._get_api_key()
         if not self._api_url or not api_key:
-            logger.warning("[whatsapp-evolution] Missing api_url or api_key in CredentialManager.")
+            logger.warning(
+                "[whatsapp-evolution] Missing api_url or api_key in CredentialManager."
+            )
             return False
         return True
 
@@ -43,18 +46,22 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
         api_key = self._get_api_key()
         if not self._api_url or not api_key:
             return {"status": "unconfigured", "healthy": False}
-        
+
         try:
             start = time.perf_counter()
             async with httpx.AsyncClient(timeout=5) as client:
                 # Check health of local evolution api container
                 resp = await client.get(
                     f"{self._api_url}/instance/fetch",
-                    headers={"Authorization": f"Bearer {api_key}"}
+                    headers={"Authorization": f"Bearer {api_key}"},
                 )
                 latency = round((time.perf_counter() - start) * 1000, 2)
                 if resp.is_success:
-                    return {"status": "connected", "healthy": True, "latency_ms": latency}
+                    return {
+                        "status": "connected",
+                        "healthy": True,
+                        "latency_ms": latency,
+                    }
                 return {"status": f"HTTP {resp.status_code}", "healthy": False}
         except Exception as e:
             return {"status": "error", "healthy": False, "error": str(e)}
@@ -71,13 +78,16 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
                     json={"number": to, "text": message},
                     headers={
                         "Authorization": f"Bearer {api_key}",
-                        "Content-Type": "application/json"
-                    }
+                        "Content-Type": "application/json",
+                    },
                 )
                 if resp.is_success:
                     logger.info(f"[whatsapp-evolution] Message sent to {to}")
                     return {"status": "sent", "to": to}
-                return {"status": "error", "message": f"HTTP {resp.status_code}: {resp.text}"}
+                return {
+                    "status": "error",
+                    "message": f"HTTP {resp.status_code}: {resp.text}",
+                }
         except Exception as e:
             logger.error(f"[whatsapp-evolution] Send failed: {e}")
             return {"status": "error", "message": str(e)}
@@ -88,7 +98,7 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
 
     async def authenticate(self, credentials: dict[str, Any]) -> bool:
         """Runs the registration/polling/activation flow.
-        
+
         Credentials can include: {"step": "init"}, {"step": "status", "token": "..."}
         """
         step = credentials.get("step")
@@ -119,19 +129,21 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
                     json={
                         "tier": "community",
                         "version": "2.4.0",
-                        "instance_id": self._instance_id
-                    }
+                        "instance_id": self._instance_id,
+                    },
                 )
                 if resp.is_success:
                     data = resp.json()
                     return {
                         "register_url": data.get("register_url"),
                         "token": data.get("token"),
-                        "instance_id": self._instance_id
+                        "instance_id": self._instance_id,
                     }
                 logger.error(f"[whatsapp-evolution] Init failed: {resp.text}")
         except Exception as e:
-            logger.exception(f"[whatsapp-evolution] Exception during registration init: {e}")
+            logger.exception(
+                f"[whatsapp-evolution] Exception during registration init: {e}"
+            )
         return None
 
     async def _activate_license(self, token: str, api_key: str) -> bool:
@@ -140,15 +152,10 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
             CredentialManager.set_credential("whatsapp", "api_key", api_key)
 
             # 2. Call the activate endpoint on the licensing server using HMAC signature
-            payload = {
-                "instance_id": self._instance_id,
-                "version": "2.4.0"
-            }
+            payload = {"instance_id": self._instance_id, "version": "2.4.0"}
             body = json.dumps(payload, separators=(",", ":"))
             signature = hmac.new(
-                api_key.encode(),
-                body.encode(),
-                hashlib.sha256
+                api_key.encode(), body.encode(), hashlib.sha256
             ).hexdigest()
 
             async with httpx.AsyncClient(timeout=10) as client:
@@ -158,15 +165,17 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
                     headers={
                         "Content-Type": "application/json",
                         "X-API-Key": api_key,
-                        "X-Signature": signature
-                    }
+                        "X-Signature": signature,
+                    },
                 )
                 if resp.is_success:
                     logger.info("[whatsapp-evolution] License activated successfully!")
                     return True
                 logger.error(f"[whatsapp-evolution] Activation failed: {resp.text}")
         except Exception as e:
-            logger.exception(f"[whatsapp-evolution] Exception during license activation: {e}")
+            logger.exception(
+                f"[whatsapp-evolution] Exception during license activation: {e}"
+            )
         return False
 
     async def send_heartbeat(self, api_key: str) -> bool:
@@ -175,14 +184,12 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
                 "instance_id": self._instance_id,
                 "telemetry_bundle": {
                     "features": ["whatsapp", "automation", "assistant"],
-                    "uptime": 1234
-                }
+                    "uptime": 1234,
+                },
             }
             body = json.dumps(payload, separators=(",", ":"))
             signature = hmac.new(
-                api_key.encode(),
-                body.encode(),
-                hashlib.sha256
+                api_key.encode(), body.encode(), hashlib.sha256
             ).hexdigest()
 
             async with httpx.AsyncClient(timeout=10) as client:
@@ -192,13 +199,15 @@ class EvolutionWhatsAppAdapter(CommunicationProvider):
                     headers={
                         "Content-Type": "application/json",
                         "X-API-Key": api_key,
-                        "X-Signature": signature
-                    }
+                        "X-Signature": signature,
+                    },
                 )
                 if resp.is_success:
                     logger.debug("[whatsapp-evolution] Heartbeat sent successfully.")
                     return True
-                logger.warning(f"[whatsapp-evolution] Heartbeat HTTP {resp.status_code}: {resp.text}")
+                logger.warning(
+                    f"[whatsapp-evolution] Heartbeat HTTP {resp.status_code}: {resp.text}"
+                )
         except Exception as e:
             logger.error(f"[whatsapp-evolution] Heartbeat request failed: {e}")
         return False
