@@ -1,3 +1,10 @@
+## [2.3.8](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.7...v2.3.8) (2026-07-10)
+
+
+### Bug Fixes
+
+* **kaos-api:** move BootstrapManager.boot() to background task to pass container healthcheck on startup ([f2bad1b](https://github.com/Brian5m1th/K.A.O.S/commit/f2bad1b906d2c1be8c49bdc06d4662c750cc0234))
+
 ## [2.3.7](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.6...v2.3.7) (2026-07-10)
 
 
