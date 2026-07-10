@@ -308,7 +308,12 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         _embedder_ready = True
         logger.debug("[finish] lifespan - warmup embedder")
 
-    await _warmup()
+    # Warmup do embedder em background: nao bloqueia o startup do uvicorn,
+    # entao /health responde imediatamente e o deploy nao falha no healthcheck
+    # (o modelo bge-m3 e grande e lento em CPU). O embedder tambem e
+    # carregado sob demanda via get_embedder(), entao requisicoes continuam
+    # funcionando apos o warmup terminar.
+    asyncio.create_task(_warmup())
 
     _watcher = VaultWatcher()
     _watcher.start()
