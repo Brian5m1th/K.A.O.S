@@ -1,3 +1,11 @@
+## [2.3.9](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.8...v2.3.9) (2026-07-10)
+
+
+### Bug Fixes
+
+* **cd:** gerar .env.prod a partir do secret ENV_PROD ([5bd21c5](https://github.com/Brian5m1th/K.A.O.S/commit/5bd21c5698b366230d65fea88042e6e8a0aaf984))
+* **deploy:** update healthcheck verification port to 1010 to match docker compose external mapping ([cb4e1f1](https://github.com/Brian5m1th/K.A.O.S/commit/cb4e1f1f96f93c1a48d3ca162c9d1dca9405606f))
+
 ## [2.3.8](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.7...v2.3.8) (2026-07-10)
 
 
