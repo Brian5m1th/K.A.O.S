@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.1...v2.2.2) (2026-07-10)
+
+
+### Bug Fixes
+
+* **ci:** grant issues write permission and guard PR comment against forks ([383e65d](https://github.com/Brian5m1th/K.A.O.S/commit/383e65ddb03cc217557df09bdd1d7831d250efe8))
+
 ## [2.2.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.0...v2.2.1) (2026-07-08)
 
 
