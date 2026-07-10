@@ -1,3 +1,10 @@
+## [2.3.7](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.6...v2.3.7) (2026-07-10)
+
+
+### Bug Fixes
+
+* **cd:** remover --build do deploy e ampliar janela de health do kaos-api ([d4d355d](https://github.com/Brian5m1th/K.A.O.S/commit/d4d355db8b471e6ace2f5dd31879518b49cf8a84))
+
 ## [2.3.6](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.5...v2.3.6) (2026-07-10)
 
 
