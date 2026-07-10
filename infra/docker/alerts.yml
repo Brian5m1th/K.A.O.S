@@ -1,0 +1,38 @@
+groups:
+  - name: kaos-alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is down"
+          description: "Scrape target {{ $labels.instance }} has been down for more than 1 minute."
+
+      - alert: DiskSpaceLow
+        expr: node_filesystem_free_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"} < 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low disk space on {{ $labels.instance }}"
+          description: "Disk space on {{ $labels.instance }} (mountpoint {{ $labels.mountpoint }}) is below 20%."
+
+      - alert: InodeLimitReached
+        expr: node_filesystem_files_free{mountpoint="/"} / node_filesystem_files{mountpoint="/"} < 0.1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low inodes on {{ $labels.instance }}"
+          description: "Inodes on {{ $labels.instance }} (mountpoint {{ $labels.mountpoint }}) is below 10%."
+
+      - alert: APIEndpointDown
+        expr: probe_success == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Public endpoint {{ $labels.instance }} is down"
+          description: "The external check for {{ $labels.instance }} returned failure."

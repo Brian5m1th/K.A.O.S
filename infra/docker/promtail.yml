@@ -15,4 +15,4 @@ scrape_configs:
           - localhost
         labels:
           job: kaos-api
-          __path__: /var/log/kaos-api/*.log
+          __path__: /var/log/kaos-api/*.json
