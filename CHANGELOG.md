@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.9...v2.4.0) (2026-07-10)
+
+
+### Features
+
+* **deploy:** implement runtime version endpoint and add --build with tag interpolation to CD ([5d2498c](https://github.com/Brian5m1th/K.A.O.S/commit/5d2498cf41554c715eee251cca73a59b2d4abea1))
+
 ## [2.3.9](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.8...v2.3.9) (2026-07-10)
 
 
