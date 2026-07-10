@@ -129,12 +129,10 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
-      interval: 15s
-      timeout: 10s
-      retries: 10
-      start_period: 60s
+    # O image ollama/ollama (ubuntu:24.04) nao traz curl/wget -> healthcheck via
+    # curl falha sempre. A saude e monitorada pelo kaos-api (provider ollama) e
+    # pelo endpoint /health/readiness e /health/observability. O kaos-api depende
+    # apenas de "service_started".
 
   kaos-api:
     build:
@@ -168,7 +166,7 @@ services:
       qdrant:
         condition: service_started
       ollama:
-        condition: service_healthy
+        condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 15s
