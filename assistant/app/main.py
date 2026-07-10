@@ -255,7 +255,11 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     base_dir = Path(__file__).parent / "capabilities"
     CapabilityRegistry.autodiscover(base_dir)
     # ── Bootstrap Manager: pipeline completo de inicializacao ─────────────
-    from app.core.bootstrap_manager import BootstrapManager, BootstrapResult, BootstrapState
+    from app.core.bootstrap_manager import (
+        BootstrapManager,
+        BootstrapResult,
+        BootstrapState,
+    )
 
     # Inicializar com estado pendente para evitar erros de atributo no startup
     _app.state.bootstrap = BootstrapResult(state=BootstrapState.PENDING)
