@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.4.0...v2.5.0) (2026-07-10)
+
+
+### Features
+
+* **infra:** update prod docker stack with logging limits, alertmanager, and blackbox monitoring ([2988362](https://github.com/Brian5m1th/K.A.O.S/commit/2988362fdb8af286ba6d88b06f1c027c5b0509c9))
+
 # [2.4.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.9...v2.4.0) (2026-07-10)
 
 
