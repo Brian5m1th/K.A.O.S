@@ -1,3 +1,10 @@
+## [2.3.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.3...v2.3.4) (2026-07-10)
+
+
+### Bug Fixes
+
+* **cd:** tornar prepare do .env.prod anterior ao login e tolerar falhas de ghcr ([2ded963](https://github.com/Brian5m1th/K.A.O.S/commit/2ded9637ff74c9238471ef7f4e8c7ee8a49f474e))
+
 ## [2.3.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.2...v2.3.3) (2026-07-10)
 
 
