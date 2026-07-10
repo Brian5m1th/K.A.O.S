@@ -45,11 +45,10 @@ services:
     environment:
       - QDRANT__SERVICE__API_PORT=6333
       - QDRANT__SERVICE__GRPC_PORT=6334
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    # O image qdrant/qdrant e distroless (sem curl/shell) -> healthcheck via curl
+    # falha sempre. A saude e monitorada pelo kaos-api (provider qdrant) e pelo
+    # endpoint /health/observability. O kaos-api depende apenas de "service_started".
+    # start_period nao se aplica sem healthcheck.
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:latest
@@ -130,11 +129,10 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
-      interval: 15s
-      timeout: 10s
-      retries: 3
+    # O image ollama/ollama (ubuntu:24.04) nao traz curl/wget -> healthcheck via
+    # curl falha sempre. A saude e monitorada pelo kaos-api (provider ollama) e
+    # pelo endpoint /health/readiness e /health/observability. O kaos-api depende
+    # apenas de "service_started".
 
   kaos-api:
     build:
@@ -166,15 +164,15 @@ services:
       postgres:
         condition: service_healthy
       qdrant:
-        condition: service_healthy
+        condition: service_started
       ollama:
-        condition: service_healthy
+        condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+      timeout: 10s
+      retries: 30
+      start_period: 300s
     deploy:
       resources:
         limits:

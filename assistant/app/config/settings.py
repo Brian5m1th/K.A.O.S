@@ -43,6 +43,8 @@ class Settings(BaseSettings):
         "http://localhost:1420",
         "http://localhost:3000",
         "tauri://localhost",
+        "http://tauri.localhost",
+        "https://tauri.localhost",
     ]
 
     HF_TOKEN: str = ""

@@ -255,10 +255,19 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     base_dir = Path(__file__).parent / "capabilities"
     CapabilityRegistry.autodiscover(base_dir)
     # ── Bootstrap Manager: pipeline completo de inicializacao ─────────────
-    from app.core.bootstrap_manager import BootstrapManager
+    from app.core.bootstrap_manager import BootstrapManager, BootstrapResult, BootstrapState
 
-    bootstrap_result = await BootstrapManager.boot()
-    _app.state.bootstrap = bootstrap_result
+    # Inicializar com estado pendente para evitar erros de atributo no startup
+    _app.state.bootstrap = BootstrapResult(state=BootstrapState.PENDING)
+
+    async def _run_bootstrap():
+        try:
+            res = await BootstrapManager.boot()
+            _app.state.bootstrap = res
+        except Exception as exc:
+            logger.error("[boot] Falha grave no bootstrap em background: {}", exc)
+
+    asyncio.create_task(_run_bootstrap())
 
     _app.state.api_key = _init_api_key(Path("data/api_key.txt"))
     logger.info(
@@ -308,7 +317,12 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         _embedder_ready = True
         logger.debug("[finish] lifespan - warmup embedder")
 
-    await _warmup()
+    # Warmup do embedder em background: nao bloqueia o startup do uvicorn,
+    # entao /health responde imediatamente e o deploy nao falha no healthcheck
+    # (o modelo bge-m3 e grande e lento em CPU). O embedder tambem e
+    # carregado sob demanda via get_embedder(), entao requisicoes continuam
+    # funcionando apos o warmup terminar.
+    asyncio.create_task(_warmup())
 
     _watcher = VaultWatcher()
     _watcher.start()
@@ -345,16 +359,6 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     for route in _app.routes:
         methods = getattr(route, "methods", None)
         logger.info(f"[routes] Path: {route.path} | Methods: {methods}")
-
-    # Se bootstrap falhou, logar estado
-    if not bootstrap_result.is_ready:
-        logger.warning(
-            "[boot] Backend iniciou em estado {} com {} erros",
-            bootstrap_result.state.value,
-            len(bootstrap_result.errors),
-        )
-        for err in bootstrap_result.errors:
-            logger.warning("[boot]   - {}", err)
 
     yield
     if _watcher:
