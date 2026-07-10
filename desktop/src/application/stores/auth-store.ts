@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { kaosFetch } from "@/infrastructure";
+import { kaosFetch, TauriStoreService } from "@/infrastructure";
 
-const DEFAULT_SERVER_URL = "http://localhost:8000";
+const DEFAULT_SERVER_URL = "https://api.kaostech.com.br";
 
 interface User {
   id: string;
@@ -20,6 +20,7 @@ interface AuthState {
   checking: boolean;
   error: string | null;
 
+  setServerUrl: (url: string) => Promise<void>;
   checkSetupStatus: () => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
@@ -40,9 +41,19 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   clearError: () => set({ error: null }),
 
+  setServerUrl: async (url) => {
+    const cleanUrl = url.replace(/\/+$/, "");
+    set({ serverUrl: cleanUrl });
+    await TauriStoreService.set("kaosServerUrl", cleanUrl);
+  },
+
   checkSetupStatus: async () => {
     set({ checking: true });
     try {
+      const savedUrl = await TauriStoreService.get<string>("kaosServerUrl");
+      if (savedUrl) {
+        set({ serverUrl: savedUrl });
+      }
       const [setupRes, keyRes] = await Promise.allSettled([
         kaosFetch("/auth/setup-status", ""),
         kaosFetch("/auth/key", ""),

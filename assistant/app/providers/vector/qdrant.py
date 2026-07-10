@@ -4,6 +4,7 @@ from qdrant_client.models import (
     Distance,
     FieldCondition,
     Filter,
+    HnswConfigDiff,
     MatchValue,
     PointStruct,
     VectorParams,
@@ -49,6 +50,11 @@ class QdrantVectorStore(BaseVectorStore):
                     collection_name=self._collection,
                     vectors_config=VectorParams(
                         size=embedder.dimension, distance=Distance.COSINE
+                    ),
+                    hnsw_config=HnswConfigDiff(
+                        m=32,
+                        ef_construct=200,
+                        full_scan_threshold=10000,
                     ),
                 )
             self._ready = True

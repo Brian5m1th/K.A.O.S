@@ -7,6 +7,7 @@ from qdrant_client.models import (
     Distance,
     FieldCondition,
     Filter,
+    HnswConfigDiff,
     MatchValue,
     PointStruct,
     VectorParams,
@@ -53,6 +54,11 @@ class VaultIndexer:
                     collection_name=self.COLLECTION,
                     vectors_config=VectorParams(
                         size=self._embedder.dimension, distance=Distance.COSINE
+                    ),
+                    hnsw_config=HnswConfigDiff(
+                        m=32,
+                        ef_construct=200,
+                        full_scan_threshold=10000,
                     ),
                 )
                 logger.info(

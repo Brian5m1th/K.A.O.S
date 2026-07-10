@@ -51,6 +51,18 @@ class Settings(BaseSettings):
     N8N_EVENTS: list[str] = ["workflow_completed", "drift.detected", "vault.analysis.completed"]
     KAOS_SECRET_KEY: str = ""
 
+    # Email (IMAP/SMTP)
+    EMAIL_HOST: str = ""
+    EMAIL_PORT: int = 993
+    EMAIL_SMTP_PORT: int = 587
+    EMAIL_USER: str = ""
+    EMAIL_PASS: str = ""
+    EMAIL_FROM: str = ""
+
+    # WhatsApp (Evolution API)
+    WHATSAPP_API_URL: str = ""
+    WHATSAPP_API_KEY: str = ""
+
     AUDIT_INTERVAL_DAYS: int = 7
 
     RAG_SCORE_THRESHOLD: float = 0.3

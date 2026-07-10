@@ -46,6 +46,8 @@ from app.api.settings_api import router as settings_api_router
 from app.api.integrations import router as integrations_router
 from app.api.mcp import router as mcp_router
 from app.api.automation import router as automation_router
+from app.api.plugins import router as plugins_router
+from app.api.workspace_intelligence import router as workspace_intelligence_router
 from app.api.opencode import set_watcher as set_opencode_watcher
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.config.settings import settings
@@ -247,6 +249,11 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     global _watcher, _opencode_watcher, _kg_watcher, _embedder_ready
     logger.info("[start] {} - modo {}", settings.APP_NAME, settings.APP_ENV)
 
+    # ── Capability Registry Autodiscover ─────────────────────────────────
+    from app.capability.registry import CapabilityRegistry
+
+    base_dir = Path(__file__).parent / "capabilities"
+    CapabilityRegistry.autodiscover(base_dir)
     # ── Bootstrap Manager: pipeline completo de inicializacao ─────────────
     from app.core.bootstrap_manager import BootstrapManager
 
@@ -424,6 +431,19 @@ app.include_router(docs_router)
 app.include_router(automation_router)
 app.include_router(prompts_router)
 app.include_router(agents_api_router)
+app.include_router(plugins_router)
+app.include_router(workspace_intelligence_router)
+
+# Serve workflow templates como static assets para o Marketplace
+workflows_static = Path("data/workflows")
+if workflows_static.exists():
+    app.mount(
+        "/workflows", StaticFiles(directory=str(workflows_static)), name="workflows"
+    )
+    logger.info(
+        "[main] Workflow templates mounted at /workflows from {}",
+        workflows_static.resolve(),
+    )
 
 # Serve workflow templates como static assets para o Marketplace
 workflows_static = Path("data/workflows")

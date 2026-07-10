@@ -12,6 +12,8 @@ export default function LoginPage() {
   const login = useAuthStore((s) => s.login);
   const error = useAuthStore((s) => s.error);
   const accessToken = useAuthStore((s) => s.accessToken);
+  const serverUrl = useAuthStore((s) => s.serverUrl);
+  const setServerUrl = useAuthStore((s) => s.setServerUrl);
 
   const [mode, setMode] = useState<"login" | "forgot">("login");
   const [email, setEmail] = useState("");
@@ -25,6 +27,26 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState("");
   const [localSuccess, setLocalSuccess] = useState("");
+  const [showServerUrl, setShowServerUrl] = useState(false);
+  const [urlInput, setUrlInput] = useState(serverUrl);
+
+  useEffect(() => {
+    setUrlInput(serverUrl);
+  }, [serverUrl]);
+
+  const handleTestConnection = async () => {
+    try {
+      const cleanUrl = urlInput.replace(/\/+$/, "");
+      const res = await fetch(`${cleanUrl}/health`);
+      if (res.ok) {
+        alert("Conexão estabelecida com sucesso!");
+      } else {
+        alert("Servidor respondeu, mas com status inválido.");
+      }
+    } catch (e: any) {
+      alert(`Falha ao conectar: ${e.message || String(e)}`);
+    }
+  };
 
   // Redirect when accessToken is populated
   useEffect(() => {
@@ -48,6 +70,7 @@ export default function LoginPage() {
     }
 
     setLoading(true);
+    await setServerUrl(urlInput);
     await login(email, password);
     setLoading(false);
 
@@ -234,6 +257,44 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="border-b border-border-subtle/50 pb-3 mb-2">
+              <button
+                type="button"
+                onClick={() => setShowServerUrl(!showServerUrl)}
+                className="text-xs text-text-muted hover:text-text-primary flex items-center gap-1.5 focus:outline-none"
+              >
+                <span>⚙️ Configurações do Servidor:</span>
+                <span className="font-mono text-[10px] bg-canvas px-1.5 py-0.5 rounded text-accent-primary">
+                  {urlInput}
+                </span>
+              </button>
+              
+              {showServerUrl && (
+                <div className="mt-2.5 p-3 rounded-lg border border-border-subtle bg-canvas space-y-2 animate-in fade-in duration-200">
+                  <label className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+                    URL do Servidor Backend
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      value={urlInput}
+                      onChange={(e) => setUrlInput(e.target.value)}
+                      placeholder="http://localhost:8000"
+                      className="text-xs font-mono"
+                    />
+                    <Button 
+                      type="button" 
+                      variant="subtle" 
+                      size="sm" 
+                      onClick={handleTestConnection}
+                      className="text-[11px]"
+                    >
+                      Testar
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div>
               <label className="mb-1 block text-xs font-medium text-text-muted">
                 Email

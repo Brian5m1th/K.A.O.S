@@ -1,0 +1,65 @@
+name: Deploy (CD)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assistant/**"
+      - "infra/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy-production:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy Stack
+        working-directory: infra/docker
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          echo "Deploying K.A.O.S stack for SHA sha-$SHORT_SHA..."
+          
+          # Habilitar tag dinamicamente se o Compose suportar interpolação
+          export API_IMAGE_TAG="sha-$SHORT_SHA"
+          
+          docker compose -f docker-compose.prod.yml pull
+          docker compose -f docker-compose.prod.yml up -d
+          docker image prune -f
+
+      - name: Healthcheck Verification
+        run: |
+          echo "Verifying health of production services..."
+          for i in $(seq 1 18); do
+            sleep 10
+            # Testa o endpoint de saude exposto publicamente ou na porta local
+            if curl -sf http://localhost:8000/health | grep -q '"status":"ok"'; then
+              echo "=== K.A.O.S API is healthy and running ==="
+              exit 0
+            fi
+            echo "Aguardando inicializacao ($i/18)..."
+          done
+          echo "::error::API falhou no healthcheck!"
+          exit 1
+
+      - name: Automatic Rollback
+        if: failure()
+        working-directory: infra/docker
+        run: |
+          echo "=== ALERTA: Deploy falhou. Iniciando Rollback automático para a tag 'latest' estável... ==="
+          export API_IMAGE_TAG="latest"
+          docker compose -f docker-compose.prod.yml pull
+          docker compose -f docker-compose.prod.yml up -d
+          echo "=== Rollback finalizado para a tag 'latest' ==="

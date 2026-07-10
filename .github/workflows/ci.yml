@@ -5,29 +5,29 @@ on:
     branches: [dev, main]
     paths:
       - "assistant/**"
+      - "desktop/**"
       - "infra/**"
+      - "scripts/**"
       - ".github/workflows/ci.yml"
   push:
     branches: [dev, main]
     paths:
       - "assistant/**"
+      - "desktop/**"
       - "infra/**"
+      - "scripts/**"
       - ".github/workflows/ci.yml"
 
 env:
-  PYTHON_VERSION: "3.13"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  lint:
+  # ── Job 1: Validacao do Backend (Assistant) ──────────────────────────────────
+  validate-backend:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    defaults:
-      run:
-        working-directory: assistant
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,42 +36,113 @@ jobs:
 
       - uses: astral-sh/setup-uv@v3
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: "3.13"
 
       - name: Install dependencies
+        working-directory: assistant
         run: uv sync --only-dev
 
       - name: Ruff lint
+        working-directory: assistant
         run: uv run ruff check .
 
       - name: Ruff format check
+        working-directory: assistant
         run: uv run ruff format --check .
 
-  test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: assistant
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          token: ${{ secrets.PAT }}
-
-      - uses: astral-sh/setup-uv@v3
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install dependencies
-        run: uv sync
-
       - name: Run tests
+        working-directory: assistant
         run: uv run pytest tests/ -v --asyncio-mode=auto
         env:
           OLLAMA_HOST: http://localhost:11434
 
-  docker:
+  # ── Job 2: Validacao do Desktop Client (Tauri/Vite) ──────────────────────────
+  validate-desktop:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: desktop/src-tauri
+
+      - name: Cache Vite
+        uses: actions/cache@v4
+        with:
+          path: desktop/node_modules/.vite
+          key: vite-${{ runner.os }}-${{ hashFiles('desktop/package-lock.json') }}
+
+      - name: Install system deps
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install frontend deps
+        working-directory: desktop
+        run: npm install
+
+      - name: Verify version consistency
+        run: node scripts/check-version-consistency.js
+
+      - name: TypeScript type check
+        working-directory: desktop
+        run: npx tsc --noEmit
+
+      - name: Run unit & integration tests
+        working-directory: desktop
+        run: npx vitest run --coverage --reporter=verbose
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: desktop/coverage/
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Generate icons
+        run: |
+          pip install --break-system-packages Pillow
+          python scripts/generate_icons.py
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update icons [skip ci]"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          file_pattern: desktop/src-tauri/icons/*
+
+      - name: Build Tauri
+        working-directory: desktop
+        env:
+          CARGO_HTTP_RETRY: 3
+          CARGO_HTTP_TIMEOUT: 120
+        run: npm run tauri build
+
+      - name: Upload bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: kaos-desktop-linux
+          path: desktop/src-tauri/target/release/bundle/**
+
+  # ── Job 3: Compilacao e Envio do Docker Otimizado (GHCR) ───────────────────
+  docker-build:
+    needs: [validate-backend, validate-desktop]
     if: github.event_name == 'push' && github.ref_name == 'main'
     runs-on: ubuntu-latest
     permissions:
@@ -101,6 +172,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+          token: ${{ secrets.PAT }}
 
       - name: Lowercase repo name
         run: |
@@ -126,8 +198,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}
           tags: |
             type=ref,event=branch
-            type=sha,prefix={{branch}}-
-            type=raw,value=nightly
+            type=sha,prefix=sha-
+            type=raw,value=latest
 
       - name: Build and push
         id: build
@@ -138,10 +210,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Healthcheck
         run: |
-          IMAGE="${{ fromJSON(steps.meta.outputs.json).tags[0] }}"
+          IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}:sha-${GITHUB_SHA::7}"
           docker rm -f kaos-test 2>/dev/null || true
           docker run -d --name kaos-test --network=host \
             -e DATABASE_URL=postgresql+asyncpg://kaos:kaos@localhost:5432/kaos \
@@ -170,4 +244,4 @@ jobs:
 
       - name: Sign image
         run: |
-          cosign sign --yes "${{ env.REGISTRY }}/${GITHUB_REPOSITORY,,}@${{ steps.build.outputs.digest }}"
+          cosign sign --yes "${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}@${{ steps.build.outputs.digest }}"

@@ -1,0 +1,20 @@
+id: workspace_intelligence
+version: 1.0
+owner: Backend
+permissions:
+  - vault_read
+  - filesystem_write
+dependencies:
+  - memory_runtime
+  - embedding_runtime
+  - ai_runtime
+health:
+  endpoint: /api/workspace-intelligence/health
+events_subscribed:
+  - vault_updated
+  - git.commit_detected
+commands_exposed:
+  - auto_tag
+  - suggest_links
+  - detect_duplicates
+  - check_vault_health

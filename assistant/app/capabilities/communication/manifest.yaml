@@ -1,0 +1,12 @@
+id: communication
+version: 1.0
+owner: Backend
+permissions:
+  - network
+dependencies:
+  - credential_service
+health:
+  endpoint: /api/integrations/whatsapp/license/status
+events_subscribed: []
+commands_exposed:
+  - send_message

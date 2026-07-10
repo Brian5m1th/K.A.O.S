@@ -81,24 +81,20 @@ export const useHeatmapStore = create<HeatmapState>((set) => ({
   fetchHistory: async () => {
     set({ isLoading: true });
     try {
-      const response = await kaosFetch("/api/architecture/heatmap", "");
+      const response = await kaosFetch("/api/architecture/history", "");
       if (response.ok) {
         const data = await response.json();
-        const entry: HeatmapEntry = {
-          date: data.generated_at?.split("T")[0] || new Date().toISOString().split("T")[0],
-          score: data.score || 0,
-          level: data.level || "low",
-          missingLinks: data.missing_links || 0,
-          sddMismatch: data.sdd_mismatch || 0,
-          codeVsVaultDiff: data.code_vs_vault_diff || 0,
-        };
-        set((state) => {
-          const existing = state.history.findIndex((h) => h.date === entry.date);
-          const newHistory = existing >= 0
-            ? state.history.map((h, i) => (i === existing ? entry : h))
-            : [...state.history, entry].sort((a, b) => a.date.localeCompare(b.date));
-          return { history: newHistory, currentScore: entry, isLoading: false };
-        });
+        const entries: HeatmapEntry[] = (data.history || []).map((entry: any) => ({
+          date: entry.date || new Date().toISOString().split("T")[0],
+          score: entry.score || 0,
+          level: entry.level || "low",
+          missingLinks: entry.missing_links || 0,
+          sddMismatch: entry.sdd_mismatch || 0,
+          codeVsVaultDiff: entry.code_vs_vault_diff || 0,
+        }));
+        // Update currentScore from latest history entry if available
+        const latest = entries.length > 0 ? entries[entries.length - 1] : null;
+        set({ history: entries, currentScore: latest, isLoading: false });
       } else {
         set({ isLoading: false });
       }
