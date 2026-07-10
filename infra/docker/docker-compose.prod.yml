@@ -45,11 +45,10 @@ services:
     environment:
       - QDRANT__SERVICE__API_PORT=6333
       - QDRANT__SERVICE__GRPC_PORT=6334
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    # O image qdrant/qdrant e distroless (sem curl/shell) -> healthcheck via curl
+    # falha sempre. A saude e monitorada pelo kaos-api (provider qdrant) e pelo
+    # endpoint /health/observability. O kaos-api depende apenas de "service_started".
+    # start_period nao se aplica sem healthcheck.
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:latest
@@ -134,7 +133,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
       interval: 15s
       timeout: 10s
-      retries: 3
+      retries: 10
+      start_period: 60s
 
   kaos-api:
     build:
@@ -166,7 +166,7 @@ services:
       postgres:
         condition: service_healthy
       qdrant:
-        condition: service_healthy
+        condition: service_started
       ollama:
         condition: service_healthy
     healthcheck:
