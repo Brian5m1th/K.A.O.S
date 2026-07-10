@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.1...v2.3.2) (2026-07-10)
+
+
+### Bug Fixes
+
+* **cd:** gerar .env.prod a partir do secret ENV_PROD ([#94](https://github.com/Brian5m1th/K.A.O.S/issues/94)) ([cda358d](https://github.com/Brian5m1th/K.A.O.S/commit/cda358d87b7c70da7ed6820ff36c657caafd7e3f))
+
 ## [2.3.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.0...v2.3.1) (2026-07-10)
 
 
