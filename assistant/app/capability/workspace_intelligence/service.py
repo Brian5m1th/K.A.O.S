@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 import yaml
 from loguru import logger
 
@@ -141,7 +141,6 @@ class WorkspaceIntelligenceService:
         total_notes = 0
         missing_frontmatter = 0
         all_note_names = set()
-        orphans = 0
         links_found = []
 
         if not self.vault_path.exists():

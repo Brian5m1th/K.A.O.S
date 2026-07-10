@@ -3,9 +3,8 @@
 SDD-KAOS-EVOLUTION-001: Provides FastAPI routes for Vault analysis, auto-tagging,
                        and connection recommendations.
 """
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Any, List
 
 from app.capability.workspace_intelligence.service import WorkspaceIntelligenceService
 from app.capability.registry import CapabilityRegistry, CapabilityLifecycle

@@ -13,7 +13,7 @@ from typing import Any
 
 from loguru import logger
 
-from app.core.plugin_sandbox import PluginManifest, PluginSandbox
+from app.core.plugin_sandbox import PluginManifest
 from app.core.runtime_path_resolver import RuntimePathResolver
 
 

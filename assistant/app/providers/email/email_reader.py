@@ -5,8 +5,7 @@ import imaplib
 import email
 from email.header import decode_header
 from email.message import Message
-from dataclasses import dataclass, field
-from typing import Any
+from dataclasses import dataclass
 
 from loguru import logger
 

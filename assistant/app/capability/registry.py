@@ -3,7 +3,6 @@
 SDD-KAOS-EVOLUTION-001: Dynamic discoverability of Capabilities based on manifests
                        and lifecycle states.
 """
-import os
 import yaml
 from pathlib import Path
 from typing import Any, Dict, List

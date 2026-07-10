@@ -5,7 +5,6 @@ que pode ser executado de forma atomica ou em etapas.
 """
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,7 +15,7 @@ from loguru import logger
 from app.obsidian.services.obsidian_service import ObsidianService
 from app.obsidian.tools.wiki.create_synthesis_tool import create_synthesis
 from app.obsidian.tools.wiki.lint_wiki_tool import lint_wiki
-from app.obsidian.tools.wiki.draft_tools import approve_draft, reject_draft, list_drafts
+from app.obsidian.tools.wiki.draft_tools import approve_draft, list_drafts
 from app.observability.event_bus import EventBus
 
 

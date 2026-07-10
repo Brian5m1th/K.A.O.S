@@ -4,7 +4,7 @@ Verifica que os parametros HNSW (m=32, ef_construct=200)
 estao sendo aplicados na criacao das colecoes.
 """
 import pytest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch, MagicMock
 
 from qdrant_client.models import HnswConfigDiff
 
@@ -58,7 +58,7 @@ class TestHNSWConfig:
                 mock_embedder.dimension = 1024
                 mock_get_emb.return_value = mock_embedder
 
-                indexer = VaultIndexer()
+                _ = VaultIndexer()
 
         # Verificar que create_collection foi chamado com HnswConfigDiff
         mock_client.create_collection.assert_called_once()

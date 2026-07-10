@@ -3,10 +3,8 @@
 Testa validacao de manifesto, carregamento e execucao de modulos Wasm,
 e recursos de seguranca do sandbox.
 """
-import json
 import pytest
-from pathlib import Path
-from unittest.mock import patch, MagicMock, PropertyMock
+from unittest.mock import patch, MagicMock
 
 from app.core.plugin_sandbox import (
     PluginManifest,

@@ -4,7 +4,6 @@ SDD-KAOS-EVOLUTION-001: Exposes CredentialManager and pluggable providers
                        (e.g., Encrypted File fallback).
 """
 from abc import ABC, abstractmethod
-from typing import Any, Dict
 from loguru import logger
 
 from app.core.config_service import ConfigService

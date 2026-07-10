@@ -12,7 +12,6 @@ from typing import Any
 from langchain_core.tools import tool
 from loguru import logger
 
-from app.config.settings import settings
 
 
 def _run_aws_cli(command: list[str], profile: str = "") -> dict[str, Any]:

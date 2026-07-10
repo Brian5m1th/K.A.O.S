@@ -1,4 +1,3 @@
-import pytest
 from app.core.credential_service import CredentialManager, CredentialProvider
 
 

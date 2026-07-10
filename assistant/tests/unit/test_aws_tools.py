@@ -1,8 +1,7 @@
 """Testes do provedor AWS."""
 from unittest.mock import patch, MagicMock
-import pytest
 
-from app.providers.aws.aws_tool import aws_list_instances, aws_describe_service, aws_run_command, _run_aws_cli
+from app.providers.aws.aws_tool import aws_list_instances, aws_run_command, _run_aws_cli
 
 
 class TestAWSTools:

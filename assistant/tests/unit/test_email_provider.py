@@ -1,8 +1,7 @@
 """Testes do provedor de Email."""
 from unittest.mock import patch, MagicMock
-import pytest
 
-from app.providers.email.email_reader import EmailReader, EmailMessage
+from app.providers.email.email_reader import EmailReader
 from app.providers.email.email_sender import EmailSender
 from app.providers.email.email_tool import read_emails, send_email
 

@@ -1,7 +1,7 @@
 """Testes do Wiki Pipeline orquestrado."""
 import pytest
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from app.obsidian.wiki_pipeline import WikiPipeline, PipelineResult, PipelineStageResult
 from app.config.settings import settings
@@ -100,6 +100,6 @@ class TestWikiPipeline:
         """Pipeline emite eventos de inicio e fim."""
         pipeline._event_bus = mock_event_bus
 
-        result = pipeline.run_pipeline("nonexistent.md")
+        _ = pipeline.run_pipeline("nonexistent.md")
         # Eventos devem ser publicados mesmo em caso de falha
         assert mock_event_bus.publish.called
