@@ -1,3 +1,10 @@
+## [2.3.6](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.5...v2.3.6) (2026-07-10)
+
+
+### Bug Fixes
+
+* **kaos-api:** warmup do embedder nao-bloqueante + rebuild no deploy ([4887ce0](https://github.com/Brian5m1th/K.A.O.S/commit/4887ce0cd91d14b1e8aa866d86ab4880fb450a86))
+
 ## [2.3.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.4...v2.3.5) (2026-07-10)
 
 
