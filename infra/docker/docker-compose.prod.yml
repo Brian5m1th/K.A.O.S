@@ -4,7 +4,7 @@ x-logging: &default-logging
   driver: "json-file"
   options:
     max-size: "10m"
-    max-file: "3"
+    max-file: "5"
 
 networks:
   kaos_prod_network:
@@ -101,6 +101,9 @@ services:
       - N8N_HOST=localhost
       - N8N_PORT=5678
       - WEBHOOK_URL=http://n8n:5678
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=168
+      - EXECUTIONS_DATA_PRUNE_TIMEOUT=3600
     volumes:
       - n8n_data:/home/node/.n8n
     extra_hosts:
@@ -109,10 +112,10 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5678/healthz"]
-      interval: 15s
+      test: ["CMD", "node", "-e", "const http = require('http'); http.get('http://localhost:5678/healthz', (res) => { if (res.statusCode === 200) process.exit(0); else process.exit(1); }).on('error', () => process.exit(1));"]
+      interval: 30s
       timeout: 5s
-      retries: 3
+      retries: 5
     deploy:
       resources:
         limits:
@@ -158,7 +161,7 @@ services:
       # ── Workspace / Dados ──────────────────────────────────────────
       - ../../workspace:/workspace
       - ../../docs:/vault
-      - ./logs:/var/log/kaos-api
+      - ./logs:/app/logs
       - hf_cache:/root/.cache/huggingface
       # ── Configuracao ───────────────────────────────────────────────
       - ../../config:/app/config
@@ -174,10 +177,10 @@ services:
         condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 15s
-      timeout: 10s
-      retries: 30
-      start_period: 300s
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
     deploy:
       resources:
         limits:
@@ -201,6 +204,9 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+      - '--storage.tsdb.retention.size=5GB'
+      - '--storage.tsdb.wal-compression'
 
   loki:
     image: grafana/loki:3.0.0
@@ -263,7 +269,7 @@ services:
     volumes:
       - evolution_instances_prod:/evolution/instances
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "node", "-e", "const http = require('http'); http.get('http://localhost:8080/health', (res) => { if (res.statusCode === 200) process.exit(0); else process.exit(1); }).on('error', () => process.exit(1));"]
       interval: 20s
       timeout: 10s
       retries: 3
@@ -280,6 +286,62 @@ services:
     depends_on:
       kaos-api:
         condition: service_healthy
+
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    restart: unless-stopped
+    logging: *default-logging
+    pid: host
+    network_mode: host
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    restart: unless-stopped
+    logging: *default-logging
+    privileged: true
+    devices:
+      - /dev/kmsg
+    networks:
+      - kaos_prod_network
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    restart: unless-stopped
+    logging: *default-logging
+    networks:
+      - kaos_prod_network
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.25.0
+    restart: unless-stopped
+    logging: *default-logging
+    networks:
+      - kaos_prod_network
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox.yml:/etc/blackbox_exporter/config.yml
 
 volumes:
   postgres_data:
