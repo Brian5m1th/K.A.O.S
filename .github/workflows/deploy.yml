@@ -62,7 +62,7 @@ jobs:
           export API_IMAGE_TAG="sha-$SHORT_SHA"
           
           docker compose -f docker-compose.prod.yml --env-file .env.prod pull || echo "::warning::pull falhou (possivelmente rede/ghcr indisponivel); usando imagens em cache se disponiveis."
-          docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+          docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
           docker image prune -f
 
       - name: Healthcheck Verification
@@ -87,5 +87,5 @@ jobs:
           echo "=== ALERTA: Deploy falhou. Iniciando Rollback automático para a tag 'latest' estável... ==="
           export API_IMAGE_TAG="latest"
           docker compose -f docker-compose.prod.yml --env-file .env.prod pull || echo "::warning::rollback pull falhou; usando imagens em cache."
-          docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+          docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
           echo "=== Rollback finalizado para a tag 'latest' ==="
