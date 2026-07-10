@@ -54,7 +54,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (savedUrl) {
         set({ serverUrl: savedUrl });
       }
-
       const [setupRes, keyRes] = await Promise.allSettled([
         kaosFetch("/auth/setup-status", ""),
         kaosFetch("/auth/key", ""),

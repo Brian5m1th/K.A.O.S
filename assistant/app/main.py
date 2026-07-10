@@ -254,7 +254,6 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     base_dir = Path(__file__).parent / "capabilities"
     CapabilityRegistry.autodiscover(base_dir)
-
     # ── Bootstrap Manager: pipeline completo de inicializacao ─────────────
     from app.core.bootstrap_manager import BootstrapManager
 
@@ -434,6 +433,17 @@ app.include_router(prompts_router)
 app.include_router(agents_api_router)
 app.include_router(plugins_router)
 app.include_router(workspace_intelligence_router)
+
+# Serve workflow templates como static assets para o Marketplace
+workflows_static = Path("data/workflows")
+if workflows_static.exists():
+    app.mount(
+        "/workflows", StaticFiles(directory=str(workflows_static)), name="workflows"
+    )
+    logger.info(
+        "[main] Workflow templates mounted at /workflows from {}",
+        workflows_static.resolve(),
+    )
 
 # Serve workflow templates como static assets para o Marketplace
 workflows_static = Path("data/workflows")
