@@ -60,9 +60,12 @@ jobs:
           
           # Habilitar tag dinamicamente se o Compose suportar interpolação
           export API_IMAGE_TAG="sha-$SHORT_SHA"
+          export COMMIT_SHA="$SHORT_SHA"
+          export BRANCH_NAME="${{ github.ref_name }}"
+          export BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           
           docker compose -f docker-compose.prod.yml --env-file .env.prod pull || echo "::warning::pull falhou (possivelmente rede/ghcr indisponivel); usando imagens em cache se disponiveis."
-          docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
+          docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
           docker image prune -f
 
       - name: Healthcheck Verification
@@ -86,6 +89,9 @@ jobs:
         run: |
           echo "=== ALERTA: Deploy falhou. Iniciando Rollback automático para a tag 'latest' estável... ==="
           export API_IMAGE_TAG="latest"
+          export COMMIT_SHA="latest"
+          export BRANCH_NAME="main"
+          export BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           docker compose -f docker-compose.prod.yml --env-file .env.prod pull || echo "::warning::rollback pull falhou; usando imagens em cache."
           docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
           echo "=== Rollback finalizado para a tag 'latest' ==="

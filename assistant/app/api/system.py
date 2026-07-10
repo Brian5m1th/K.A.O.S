@@ -63,6 +63,24 @@ async def system_bootstrap_state():
     return BootstrapManager.get_state()
 
 
+@router.get("/version")
+async def system_version():
+    """Retorna versao, branch e commit ativo na imagem Docker do container."""
+    import os
+    import socket
+    import platform
+    return {
+        "application": "K.A.O.S API",
+        "environment": os.getenv("APP_ENV", "production"),
+        "branch": os.getenv("BRANCH_NAME", "main"),
+        "commit": os.getenv("COMMIT_SHA", "unknown"),
+        "build_date": os.getenv("BUILD_DATE", "unknown"),
+        "image_tag": os.getenv("API_IMAGE_TAG", "latest"),
+        "container_id": socket.gethostname(),
+        "runtime_version": f"Python {platform.python_version()}",
+    }
+
+
 @router.get("/metrics")
 async def system_metrics():
     import psutil
