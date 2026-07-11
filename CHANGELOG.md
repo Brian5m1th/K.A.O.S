@@ -1,3 +1,60 @@
+## [2.5.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.3...v2.5.4) (2026-07-11)
+
+
+### Bug Fixes
+
+* **backend:** initialize VaultWatcher in the background to prevent lifespan startup block ([dd66826](https://github.com/Brian5m1th/K.A.O.S/commit/dd668264ecac67f4d149f390c11af8cc5c844c56))
+
+## [2.5.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.2...v2.5.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* **ci:** run workspace permissions cleanup unconditionally and stop containers first ([b6e5729](https://github.com/Brian5m1th/K.A.O.S/commit/b6e57292a6fc007d54a5c7bf15393f175b7c609a))
+
+## [2.5.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.1...v2.5.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* **ci:** add workspace permissions cleanup step before checkout on self-hosted runner ([e60ed4f](https://github.com/Brian5m1th/K.A.O.S/commit/e60ed4f4a9494f4e148691d13ec544dd8c3bdd98))
+
+## [2.5.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.0...v2.5.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* **infra:** adjust postgres and kaos-api healthchecks to prevent deploy and rollback timeouts ([8c07c27](https://github.com/Brian5m1th/K.A.O.S/commit/8c07c27f3ed85030b1af8c19e4050f155775186a))
+
+# [2.5.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.4.0...v2.5.0) (2026-07-10)
+
+
+### Features
+
+* **infra:** update prod docker stack with logging limits, alertmanager, and blackbox monitoring ([2988362](https://github.com/Brian5m1th/K.A.O.S/commit/2988362fdb8af286ba6d88b06f1c027c5b0509c9))
+
+# [2.4.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.9...v2.4.0) (2026-07-10)
+
+
+### Features
+
+* **deploy:** implement runtime version endpoint and add --build with tag interpolation to CD ([5d2498c](https://github.com/Brian5m1th/K.A.O.S/commit/5d2498cf41554c715eee251cca73a59b2d4abea1))
+
+## [2.3.9](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.8...v2.3.9) (2026-07-10)
+
+
+### Bug Fixes
+
+* **cd:** gerar .env.prod a partir do secret ENV_PROD ([5bd21c5](https://github.com/Brian5m1th/K.A.O.S/commit/5bd21c5698b366230d65fea88042e6e8a0aaf984))
+* **deploy:** update healthcheck verification port to 1010 to match docker compose external mapping ([cb4e1f1](https://github.com/Brian5m1th/K.A.O.S/commit/cb4e1f1f96f93c1a48d3ca162c9d1dca9405606f))
+
+## [2.3.8](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.7...v2.3.8) (2026-07-10)
+
+
+### Bug Fixes
+
+* **kaos-api:** move BootstrapManager.boot() to background task to pass container healthcheck on startup ([f2bad1b](https://github.com/Brian5m1th/K.A.O.S/commit/f2bad1b906d2c1be8c49bdc06d4662c750cc0234))
+
 ## [2.3.7](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.6...v2.3.7) (2026-07-10)
 
 
