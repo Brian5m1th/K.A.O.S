@@ -1,3 +1,12 @@
+## [2.5.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.4...v2.5.5) (2026-07-11)
+
+
+### Bug Fixes
+
+* **cargo:** remove unused net.timeout key and update docs submodule ([a17619c](https://github.com/Brian5m1th/K.A.O.S/commit/a17619cb7269160920e445e28d53ec77cd948f45))
+* **desktop:** resolve duplicate kaos-client module state causing localhost fallback ([57646c0](https://github.com/Brian5m1th/K.A.O.S/commit/57646c0dd8b8820f1aa59a328a6fdd38b64451f2))
+* **ops:** restore production api gateway, update deploy cleanup, and update docs submodule ([dd409df](https://github.com/Brian5m1th/K.A.O.S/commit/dd409dfc9267b4ab97b96d53c0c8c9e9e9b010c3))
+
 ## [2.5.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.3...v2.5.4) (2026-07-11)
 
 
