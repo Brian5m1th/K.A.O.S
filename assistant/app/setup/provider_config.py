@@ -35,6 +35,12 @@ DEFAULT_CONFIG = {
         "model": "gemini-2.0-flash",
         "fastModel": "",
     },
+    "airllm": {
+        "url": "",
+        "apiKey": "",
+        "model": "airllm-llama3-70b",
+        "fastModel": "",
+    },
 }
 
 _config_version: int = 0
@@ -49,6 +55,7 @@ SETTINGS_KEY_MAP = {
     "openai": {"url": None, "apiKey": "OPENAI_API_KEY", "model": None},
     "anthropic": {"url": None, "apiKey": "ANTHROPIC_API_KEY", "model": None},
     "gemini": {"url": None, "apiKey": "GEMINI_API_KEY", "model": None},
+    "airllm": {"url": "AIRLLM_SAVING_PATH", "apiKey": None, "model": "AIRLLM_MODEL"},
 }
 
 
@@ -77,6 +84,12 @@ def get_default_config() -> dict:
             "url": "https://generativelanguage.googleapis.com",
             "apiKey": settings.GEMINI_API_KEY or "",
             "model": "gemini-2.0-flash",
+            "fastModel": "",
+        },
+        "airllm": {
+            "url": settings.AIRLLM_SAVING_PATH or "",
+            "apiKey": "",
+            "model": settings.AIRLLM_MODEL or "airllm-llama3-70b",
             "fastModel": "",
         },
     }

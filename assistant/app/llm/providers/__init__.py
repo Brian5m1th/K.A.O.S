@@ -1,1 +1,1 @@
-__all__ = ["OllamaProvider", "OpenAIProvider", "ClaudeProvider", "GeminiProvider"]
+__all__ = ["OllamaProvider", "OpenAIProvider", "ClaudeProvider", "GeminiProvider", "AirLLMProvider"]
