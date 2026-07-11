@@ -15,10 +15,15 @@ jobs:
     steps:
       - name: Clean Workspace Permissions
         run: |
-          if [ -d .git ]; then
-            echo "Cleaning up permissions of files created by root in containers..."
-            docker run --rm -v "$(pwd)":/workspace -w /workspace alpine chown -R $(id -u):$(id -g) . || true
+          echo "Stopping existing containers to release volume mounts..."
+          CONTAINERS=$(docker ps -a --filter "name=kaos-platform-" -q)
+          if [ -n "$CONTAINERS" ]; then
+            docker rm -f $CONTAINERS || true
           fi
+          docker rm -f evolution_api_prod 2>/dev/null || true
+
+          echo "Cleaning up permissions of files created by root in containers..."
+          docker run --rm -v "$(pwd)":/workspace -w /workspace alpine chown -R $(id -u):$(id -g) . || true
 
       - name: Checkout Code
         uses: actions/checkout@v4
