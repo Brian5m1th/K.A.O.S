@@ -16,7 +16,7 @@ jobs:
       - name: Clean Workspace Permissions
         run: |
           echo "Stopping existing containers to release volume mounts..."
-          CONTAINERS=$(docker ps -a --filter "name=kaos-platform-" -q)
+          CONTAINERS=$(docker ps -a --filter "name=kaos-platform-" -q; docker ps -a --filter "name=kaos-backend-tunnel" -q)
           if [ -n "$CONTAINERS" ]; then
             docker rm -f $CONTAINERS || true
           fi
@@ -82,17 +82,32 @@ jobs:
 
       - name: Healthcheck Verification
         run: |
+          echo "Verifying that no conflicting standalone tunnels are running..."
+          ACTIVE_TUNNELS=$(docker ps --format "{{.Names}}" | grep -E "kaos-backend-tunnel" || true)
+          if [ -n "$ACTIVE_TUNNELS" ]; then
+            echo "::error::Conflicting tunnel container detected: $ACTIVE_TUNNELS"
+            exit 1
+          fi
+
           echo "Verifying health of production services..."
           for i in $(seq 1 18); do
             sleep 10
-            # Testa o endpoint de saude exposto publicamente ou na porta local
+            # Testa o endpoint de saude na porta local
             if curl -sf http://localhost:1010/health | grep -q '"status":"ok"'; then
-              echo "=== K.A.O.S API is healthy and running ==="
-              exit 0
+              echo "=== K.A.O.S Local API is healthy ==="
+              
+              # Testa o endpoint de saude público via HTTPS
+              if curl -sf https://api.kaostech.com.br/health | grep -q '"status":"ok"'; then
+                echo "=== K.A.O.S Public API is healthy and accessible via Cloudflare ==="
+                exit 0
+              else
+                echo "Aguardando conexao publica do Cloudflare Tunnel..."
+              fi
+            else
+              echo "Aguardando inicializacao local ($i/18)..."
             fi
-            echo "Aguardando inicializacao ($i/18)..."
           done
-          echo "::error::API falhou no healthcheck!"
+          echo "::error::API ou Tunel falhou no healthcheck!"
           exit 1
 
       - name: Automatic Rollback
