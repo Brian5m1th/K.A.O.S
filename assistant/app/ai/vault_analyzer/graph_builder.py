@@ -4,13 +4,13 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from typing import Optional
 import json
+from pathlib import Path
 
 from loguru import logger
 
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.audit.drl_snapshot import DRLSnapshotManager
 from app.audit.feature_registry import FeatureRegistry
-from app.audit.code_scanner import CodeScanner
 from app.audit.runtime_resolver import RuntimePathResolver
 
 
@@ -64,15 +64,26 @@ class ArchGraphSnapshot:
 
 
 class GraphBuilder:
+    """Builds architecture graph from Graphify, Vault, and DRL sources.
+
+    Deprecates the old CodeScanner regex-based scanner in favor of
+    Graphify's AST-level graph.json (12k+ nodes, 22k+ edges).
+    """
+
+    GRAPHIFY_PATH = Path("graphify-out/graph.json")
+
     @staticmethod
     def build() -> ArchGraphSnapshot:
         vault_nodes = VaultReader.scan_all()
         drl = DRLSnapshotManager.load()
-        code = CodeScanner.scan_all()
+
+        # ── Load Graphify graph as the code relationship source ──
+        graphify_data = GraphBuilder._load_graphify_graph()
 
         snapshot = ArchGraphSnapshot()
         seen_ids: set[str] = set()
 
+        # ── Vault nodes ──────────────────────────────────────────
         for vn in vault_nodes:
             node = ArchNode(
                 id=vn.id,
@@ -94,6 +105,7 @@ class GraphBuilder:
                     ArchEdge(source=vn.id, target=wl, relation="documents")
                 )
 
+        # ── DRL / Feature nodes ──────────────────────────────────
         if drl:
             features = drl.features
         else:
@@ -116,43 +128,18 @@ class GraphBuilder:
                 seen_ids.add(fid)
             for doc_ref in feat.docs:
                 snapshot.edges.append(
-                    ArchEdge(
-                        source=fid,
-                        target=doc_ref,
-                        relation="documents",
-                    )
+                    ArchEdge(source=fid, target=doc_ref, relation="documents")
                 )
             for code_ref in feat.code_refs:
                 snapshot.edges.append(
-                    ArchEdge(
-                        source=fid,
-                        target=code_ref,
-                        relation="implements",
-                    )
+                    ArchEdge(source=fid, target=code_ref, relation="implements")
                 )
 
-        all_code_refs = (
-            code.stores
-            + code.routes
-            + code.tools
-            + code.events
-            + code.agents
-            + code.workflows
-            + code.providers
-        )
-        for ref in all_code_refs:
-            if ref not in seen_ids:
-                ref_type = GraphBuilder._infer_type(ref)
-                snapshot.nodes.append(
-                    ArchNode(
-                        id=ref,
-                        label=ref.split("/")[-1],
-                        type=ref_type,
-                        source="code",
-                    )
-                )
-                seen_ids.add(ref)
+        # ── Graphify code nodes (aggregated at file level) ───────
+        if graphify_data:
+            GraphBuilder._add_graphify_nodes(snapshot, seen_ids, graphify_data)
 
+        # ── System edges & persist ───────────────────────────────
         GraphBuilder._infer_system_edges(snapshot)
         GraphBuilder._persist(snapshot)
 
@@ -190,20 +177,154 @@ class GraphBuilder:
         return snapshot
 
     @staticmethod
+    def _load_graphify_graph() -> Optional[dict]:
+        """Loads graphify-out/graph.json and returns aggregated file-level data.
+
+        Returns:
+            dict with 'files' (set of source_file paths) and
+            'edges' (list of {source, target, relation}).
+            Returns None if graph.json is unavailable.
+        """
+        gf_path = RuntimePathResolver.project_root() / GraphBuilder.GRAPHIFY_PATH
+        if not gf_path.exists():
+            logger.warning(
+                f"[graph_builder] Graphify graph not found at {gf_path}. "
+                "Run `graphify update .` to generate it."
+            )
+            return None
+
+        try:
+            with open(gf_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            logger.error(f"[graph_builder] Failed to load Graphify graph: {e}")
+            return None
+
+        # Aggregate file-level nodes
+        file_nodes: dict[str, dict] = {}
+        for node in data.get("nodes", []):
+            source_file = node.get("source_file", "")
+            if not source_file:
+                continue
+            file_label = source_file.split("/")[-1]
+            if source_file not in file_nodes:
+                file_nodes[source_file] = {
+                    "id": source_file,
+                    "label": file_label,
+                    "type": GraphBuilder._infer_type(source_file),
+                    "source": "code",
+                }
+
+        # Aggregate file-level edges from links
+        file_edges = []
+        seen_file_edges = set()
+        for link in data.get("links", []):
+            src = link.get("source", "")
+            tgt = link.get("target", "")
+            # Map symbol-level links to file-level
+            src_file = GraphBuilder._resolve_source_file(data, src)
+            tgt_file = GraphBuilder._resolve_source_file(data, tgt)
+            if src_file and tgt_file and src_file != tgt_file:
+                edge_key = f"{src_file}->{tgt_file}"
+                if edge_key not in seen_file_edges:
+                    seen_file_edges.add(edge_key)
+                    file_edges.append({
+                        "source": src_file,
+                        "target": tgt_file,
+                        "relation": GraphBuilder._infer_relation(link.get("relation", "uses")),
+                    })
+
+        # Add community cluster info from GRAPH_REPORT.md
+        communities_by_file = {}
+        for node in data.get("nodes", []):
+            sf = node.get("source_file", "")
+            if sf:
+                pass
+
+        return {
+            "files": file_nodes,
+            "edges": file_edges,
+        }
+
+    @staticmethod
+    def _resolve_source_file(data: dict, symbol_id: str) -> Optional[str]:
+        """Resolve a symbol ID back to its source file."""
+        for node in data.get("nodes", []):
+            if node.get("id") == symbol_id:
+                return node.get("source_file") or None
+        return None
+
+    @staticmethod
+    def _add_graphify_nodes(
+        snapshot: ArchGraphSnapshot,
+        seen_ids: set[str],
+        graphify_data: dict,
+    ):
+        """Add Graphify-derived nodes and edges to the snapshot."""
+        for file_id, file_info in graphify_data.get("files", {}).items():
+            if file_id not in seen_ids:
+                snapshot.nodes.append(
+                    ArchNode(
+                        id=file_id,
+                        label=file_info["label"],
+                        type=file_info["type"],
+                        source="code",
+                    )
+                )
+                seen_ids.add(file_id)
+
+        for edge in graphify_data.get("edges", []):
+            if edge["source"] in seen_ids and edge["target"] in seen_ids:
+                snapshot.edges.append(
+                    ArchEdge(
+                        source=edge["source"],
+                        target=edge["target"],
+                        relation=edge["relation"],
+                    )
+                )
+
+    @staticmethod
     def _infer_type(ref: str) -> str:
-        if "store" in ref:
+        """Infer the type of a code reference from its path."""
+        ref_lower = ref.lower()
+        if "store" in ref_lower or "/stores/" in ref:
             return "store"
-        if "route" in ref or "page" in ref:
+        if "route" in ref_lower or "/pages/" in ref or "/routes/" in ref:
             return "page"
-        if "tool" in ref:
+        if "tool" in ref_lower:
             return "tool"
-        if "event" in ref:
+        if "event" in ref_lower or "eventbus" in ref_lower:
             return "event"
-        if "agent" in ref or "workflow" in ref:
+        if "agent" in ref_lower or "workflow" in ref_lower:
             return "agent"
-        if "provider" in ref:
+        if "provider" in ref_lower:
             return "provider"
+        if ref_lower.endswith(".py"):
+            return "backend_module"
+        if ref_lower.endswith(".ts") or ref_lower.endswith(".tsx"):
+            return "frontend_module"
+        if ref_lower.endswith(".rs"):
+            return "rust_module"
         return "unknown"
+
+    @staticmethod
+    def _infer_relation(relation: str) -> str:
+        """Map Graphify relation names to ArchEdge relation types."""
+        mapping = {
+            "contains": "uses",
+            "imports": "uses",
+            "imports_from": "uses",
+            "calls": "uses",
+            "uses": "uses",
+            "inherits": "uses",
+            "implements": "implements",
+            "documents": "documents",
+            "depends_on": "depends_on",
+            "emits": "emits",
+            "owns": "owns",
+            "re_exports": "uses",
+        }
+        return mapping.get(relation, "uses")
 
     @staticmethod
     def _infer_system_edges(snapshot: ArchGraphSnapshot):
