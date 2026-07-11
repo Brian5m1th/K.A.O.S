@@ -1,3 +1,10 @@
+## [2.5.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.2...v2.5.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* **ci:** run workspace permissions cleanup unconditionally and stop containers first ([b6e5729](https://github.com/Brian5m1th/K.A.O.S/commit/b6e57292a6fc007d54a5c7bf15393f175b7c609a))
+
 ## [2.5.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.1...v2.5.2) (2026-07-11)
 
 
