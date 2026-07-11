@@ -1,3 +1,10 @@
+## [2.5.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.3...v2.5.4) (2026-07-11)
+
+
+### Bug Fixes
+
+* **backend:** initialize VaultWatcher in the background to prevent lifespan startup block ([dd66826](https://github.com/Brian5m1th/K.A.O.S/commit/dd668264ecac67f4d149f390c11af8cc5c844c56))
+
 ## [2.5.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.2...v2.5.3) (2026-07-11)
 
 
