@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.0...v2.5.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* **infra:** adjust postgres and kaos-api healthchecks to prevent deploy and rollback timeouts ([8c07c27](https://github.com/Brian5m1th/K.A.O.S/commit/8c07c27f3ed85030b1af8c19e4050f155775186a))
+
 # [2.5.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.4.0...v2.5.0) (2026-07-10)
 
 
