@@ -48,6 +48,12 @@ from app.api.mcp import router as mcp_router
 from app.api.automation import router as automation_router
 from app.api.plugins import router as plugins_router
 from app.api.workspace_intelligence import router as workspace_intelligence_router
+from app.api.graph_api import router as graph_api_router
+from app.api.memory_api import router as memory_api_router
+from app.api.knowledge_api import router as knowledge_api_router
+from app.api.inference_api import router as inference_api_router
+from app.api.planner_api import router as planner_api_router
+from app.api.evidence_api import router as evidence_api_router
 from app.api.opencode import set_watcher as set_opencode_watcher
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.config.settings import settings
@@ -303,6 +309,14 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
 
     _register_tools()
 
+    # ── Initialize K.A.O.S Capability Services (Phase 5) ──────────────
+    try:
+        from app.dependencies.services import init_services
+        init_services()
+        logger.info("[services] K.A.O.S capability services initialized")
+    except Exception as exc:
+        logger.warning("[services] Failed to initialize services: {}", exc)
+
     # Register MCP tools in the LangGraph TOOL_REGISTRY (RF-C03 bridge)
     try:
         from app.tools.mcp_adapter import register_all_mcp_tools
@@ -452,6 +466,12 @@ app.include_router(prompts_router)
 app.include_router(agents_api_router)
 app.include_router(plugins_router)
 app.include_router(workspace_intelligence_router)
+app.include_router(graph_api_router)
+app.include_router(memory_api_router)
+app.include_router(knowledge_api_router)
+app.include_router(inference_api_router)
+app.include_router(planner_api_router)
+app.include_router(evidence_api_router)
 
 # Serve workflow templates como static assets para o Marketplace
 workflows_static = Path("data/workflows")
@@ -493,9 +513,14 @@ async def root() -> dict:
             "openai": "/v1/chat/completions",
             "models": "/v1/models",
             "indexing": "/indexing/full",
-            "init_folders": "/indexing/init-folders",
             "rag_context": "/rag/context",
             "orchestrator": "/api/orchestrator/execute",
             "setup_provider": "/api/setup/provider",
+            "graph": "/api/graph/explain/{concept}",
+            "memory": "/api/memory/search",
+            "knowledge": "/api/knowledge/query",
+            "inference": "/api/inference/invoke",
+            "planner": "/api/planner/plan",
+            "evidence": "/api/evidence/report",
         },
     }
