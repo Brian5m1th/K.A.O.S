@@ -1,0 +1,8 @@
+[
+  {"id": "q1", "question": "Como o OllamaProvider se conecta ao LLMFactory?", "expected": "LLMFactory._create_provider instancia OllamaProvider", "type": "code_structure"},
+  {"id": "q2", "question": "Quais servicos o dashboard monitora?", "expected": "Postgres, Qdrant, Ollama, N8N, Grafana, Prometheus", "type": "system_knowledge"},
+  {"id": "q3", "question": "Como o Evidence Engine coleta dados?", "expected": "Graphify + Git + Tests + Benchmarks + ADRs + Runtime", "type": "architecture"},
+  {"id": "q4", "question": "Qual o papel do ProviderRegistry?", "expected": "Container generico para trocar providers em runtime", "type": "architecture"},
+  {"id": "q5", "question": "Como funciona o bootstrap do Desktop?", "expected": "Docker check, Backend health, Readiness, Bootstrap, completo", "type": "system_knowledge"},
+  {"id": "q6", "question": "Encontre ciclos de import no frontend", "expected": "7 ciclos: system-store, agent-store, hooks", "type": "bug_finding"}
+]
