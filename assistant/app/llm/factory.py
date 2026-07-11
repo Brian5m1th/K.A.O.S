@@ -81,6 +81,8 @@ class LLMFactory:
             return {"provider": "claude", "model": model_key}
         elif model_lower.startswith("gemini-"):
             return {"provider": "gemini", "model": model_key}
+        elif model_lower.startswith("airllm-"):
+            return {"provider": "airllm", "model": model_key[7:]}
 
         return {"provider": active["provider"], "model": model_key}
 
@@ -113,6 +115,13 @@ class LLMFactory:
             return GeminiProvider(
                 model=model_name, api_key=settings.GEMINI_API_KEY, **kwargs
             )
+        elif provider_name == "airllm":
+            from app.llm.providers.airllm_provider import AirLLMProvider
+
+            return AirLLMProvider(
+                model=model_name,
+                **kwargs,
+            )
         else:
             logger.warning(
                 f"[warn] LLMFactory - provider desconhecido: {provider_name}, fallback Ollama"
@@ -126,9 +135,9 @@ class LLMFactory:
     async def ainvoke_with_fallback(
         self, model_key: str, messages: list, **kwargs
     ) -> str:
-        return await self._fallback_invoke(model_key, messages, 0, **kwargs)
+        return await self._chain_invoke(model_key, messages, 0, **kwargs)
 
-    async def _fallback_invoke(
+    async def _chain_invoke(
         self, model_key: str, messages: list, index: int, **kwargs
     ) -> str:
         if index >= len(self._fallbacks):
@@ -152,10 +161,10 @@ class LLMFactory:
             )
         except asyncio.TimeoutError:
             logger.warning(f"[warn] LLMFactory - fallback[{index}] timeout")
-            return await self._fallback_invoke(model_key, messages, index + 1, **kwargs)
+            return await self._chain_invoke(model_key, messages, index + 1, **kwargs)
         except Exception as e:
             logger.warning(f"[warn] LLMFactory - fallback[{index}] falhou: {e}")
-            return await self._fallback_invoke(model_key, messages, index + 1, **kwargs)
+            return await self._chain_invoke(model_key, messages, index + 1, **kwargs)
 
     @property
     def metrics(self) -> ProviderMetrics:

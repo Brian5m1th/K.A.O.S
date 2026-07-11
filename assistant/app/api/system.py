@@ -47,6 +47,60 @@ async def system_status():
     }
 
 
+@router.get("/readiness")
+async def system_readiness():
+    """
+    Boot readiness endpoint — validates core services before frontend
+    allows navigation past the offline gate (Constitution Article IV).
+
+    Returns readiness state for: Postgres, Qdrant, vector index, and providers.
+    Never fabricates data — returns None for unavailable services.
+    """
+    postgres_ok = await _check_postgres()
+
+    q_host, q_port = settings.QDRANT_HOST, settings.QDRANT_PORT
+    qdrant_ok = await _check("qdrant", f"http://{q_host}:{q_port}/")
+
+    ollama_base = settings.OLLAMA_BASE_URL.rstrip("/")
+    ollama_ok = await _check("ollama", f"{ollama_base}/api/tags")
+
+    # Check vector index exists and has data
+    vector_count = None
+    vector_ready = False
+    try:
+        import httpx
+        async with httpx.AsyncClient(timeout=3) as c:
+            r = await c.post(
+                f"http://{q_host}:{q_port}/collections/kaos/points/count",
+                json={},
+            )
+            if r.is_success:
+                vector_count = r.json().get("result", {}).get("count", 0)
+                vector_ready = True
+    except Exception:
+        pass
+
+    all_ready = postgres_ok and qdrant_ok
+    degraded = postgres_ok and qdrant_ok and not vector_ready
+
+    return {
+        "ready": all_ready,
+        "degraded": degraded,
+        "message": "All core services operational" if all_ready
+                   else "Degraded: vector index unavailable" if degraded
+                   else "Core services unavailable",
+        "services": {
+            "postgres": postgres_ok,
+            "qdrant": qdrant_ok,
+            "ollama": ollama_ok,
+        },
+        "vectors": {
+            "ready": vector_ready,
+            "count": vector_count,
+        },
+    }
+
+
 @router.get("/environment")
 async def system_environment():
     """Retorna diagnostico completo do ambiente (EnvironmentService)."""
@@ -138,6 +192,7 @@ async def system_dashboard():
     response built via asyncio.gather.
 
     Returns services, runtime, metrics, costs, DLQ, and alert data.
+    Never fabricates data — returns None for unavailable values.
     """
     # Run all independent queries in parallel
     (
@@ -157,25 +212,57 @@ async def system_dashboard():
         return_exceptions=True,
     )
 
+    # Build response — propagate None for unavailable data instead of fabricating zeros
+    services = services_status if not isinstance(services_status, Exception) else {
+        "backend": True,
+        "postgres": None,
+        "qdrant": None,
+        "ollama": None,
+        "n8n": None,
+        "grafana": None,
+        "prometheus": None,
+        "error": str(services_status),
+    }
+
+    runtime = runtime_info if not isinstance(runtime_info, Exception) else {
+        "activeModel": None,
+        "latency": None,
+        "cpu": None,
+        "ram": {"used": None, "total": None},
+        "vram": {"used": None, "total": None},
+        "error": str(runtime_info),
+    }
+
+    metrics = metrics_data if not isinstance(metrics_data, Exception) else {
+        "vectorCount": None,
+        "tokenRate": None,
+        "error": str(metrics_data),
+    }
+
+    costs = costs_data if not isinstance(costs_data, Exception) else {
+        "total_usd": None,
+        "total_tokens": None,
+        "error": str(costs_data),
+    }
+
+    dlq = dlq_data if not isinstance(dlq_data, Exception) else {
+        "failed": None,
+        "count": None,
+        "error": str(dlq_data),
+    }
+
+    alerts = alerts_data if not isinstance(alerts_data, Exception) else {
+        "notifications": None,
+        "error": str(alerts_data),
+    }
+
     return {
-        "services": services_status
-        if not isinstance(services_status, Exception)
-        else _fallback_services(),
-        "runtime": runtime_info
-        if not isinstance(runtime_info, Exception)
-        else _fallback_runtime(),
-        "metrics": metrics_data
-        if not isinstance(metrics_data, Exception)
-        else _fallback_metrics(),
-        "costs": costs_data
-        if not isinstance(costs_data, Exception)
-        else {"total_usd": 0.0, "total_tokens": 0},
-        "dlq": dlq_data
-        if not isinstance(dlq_data, Exception)
-        else {"failed": [], "count": 0},
-        "alerts": alerts_data
-        if not isinstance(alerts_data, Exception)
-        else {"notifications": []},
+        "services": services,
+        "runtime": runtime,
+        "metrics": metrics,
+        "costs": costs,
+        "dlq": dlq,
+        "alerts": alerts,
         "status": "ready",
     }
 
@@ -375,30 +462,8 @@ async def _get_alerts_data() -> dict:
         return {"notifications": []}
 
 
-# ── Fallback helpers (returned when asyncio.gather catches an Exception) ──
-
-
-def _fallback_services() -> dict:
-    return {
-        "backend": True,
-        "postgres": False,
-        "qdrant": False,
-        "ollama": False,
-        "n8n": False,
-        "grafana": False,
-        "prometheus": False,
-    }
-
-
-def _fallback_runtime() -> dict:
-    return {
-        "activeModel": "Unknown",
-        "latency": 0.0,
-        "cpu": 0.0,
-        "ram": {"used": 0.0, "total": 0.0},
-        "vram": {"used": None, "total": None},
-    }
-
-
-def _fallback_metrics() -> dict:
-    return {"vectorCount": 0, "tokenRate": 0.0}
+# Fallback helpers have been removed.
+# Per Constitution Art. I (Zero Tolerance for Fabricated Data):
+# When data is unavailable, the backend returns None for the field
+# and the frontend displays "Unknown", "No Data", or appropriate empty state.
+# No zeros, empty strings, or fabricated defaults are used.

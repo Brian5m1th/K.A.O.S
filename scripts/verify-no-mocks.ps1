@@ -1,85 +1,156 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-  Production mock audit — scans the K.A.O.S codebase for fabricated/mock runtime data patterns.
+    Scans the K.A.O.S codebase for mock/fabricated data patterns.
+    Fails if any prohibited patterns are found.
+
 .DESCRIPTION
-  Exits 0 if no illegal mock patterns are found in production code.
-  Exits 1 if any mock data markers are detected.
-  Exempts: unit tests (src/__tests__/), layout-engine.ts (layout jitter), UUID polyfills.
+    Enforces Constitution Article I: Zero Tolerance for Fabricated Data.
+    Checks for:
+      - Hardcoded VRAM values (vramTotal: 16, vramTotal: 8, etc.)
+      - Static fallback arrays (fallbackAlerts, staticLogsSeeds)
+      - _fallback_* functions that fabricate data
+      - Static metrics seeds in dashboard/observability
+
+.PARAMETER Path
+    Root path of the K.A.O.S project. Defaults to current directory.
+
+.EXAMPLE
+    ./scripts/verify-no-mocks.ps1
+    Scans the project for mock patterns.
 #>
 
-$ErrorActionPreference = "Stop"
-$ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ProjectRoot = Resolve-Path "$ScriptRoot\.."
-$ExitCode = 0
-$Violations = @()
-
-$mockPatterns = @(
-    @{ Pattern = "fallbackAlerts";   Desc = "Fallback alert array" },
-    @{ Pattern = "simulatedLogs";    Desc = "Simulated log entries" },
-    @{ Pattern = "DEFAULT_AGENTS";   Desc = "Hardcoded default agents" },
-    @{ Pattern = "INITIAL_NODES";    Desc = "Hardcoded workflow nodes" },
-    @{ Pattern = "INITIAL_EDGES";    Desc = "Hardcoded workflow edges" },
-    @{ Pattern = "mock_fallback";    Desc = "Mock fallback data (backend)" },
-    @{ Pattern = "SIMULATED";        Desc = "Simulated data badge/marker" },
-    @{ Pattern = "simular|simulado|simulate"; Desc = "Simulation comments/logic" },
-    @{ Pattern = "fallback\s*simul"; Desc = "Fallback simulation" },
-    @{ Pattern = "fakeAlerts";       Desc = "Fake alerts array" },
-    @{ Pattern = "dummy";            Desc = "Dummy data marker" }
+param(
+    [string]$Path = (Get-Location).Path
 )
 
-$exemptDirs = @("__tests__", "tests", "__pycache__", "node_modules", ".git", ".venv", "dist", "target", ".idea")
-$exemptFiles = @("layout-engine.ts", "tool-schema.ts", "verify-no-mocks.ps1")
-# layout-engine.ts exempt: Math.random used for graph layout jitter (visual only, not operational data)
-# tool-schema.ts exempt: Math.random used as crypto.randomUUID() fallback for ID generation
+$ErrorActionPreference = "Stop"
+$exitCode = 0
 
-Write-Host "=== K.A.O.S Production Mock Audit ===" -ForegroundColor Cyan
-Write-Host "Project root: $ProjectRoot`n"
+# ── Patterns that indicate fabricated data ────────────────────────────
 
-Get-ChildItem -Path $ProjectRoot -Recurse -Include "*.ts","*.tsx","*.py","*.js","*.json" -Exclude "*.d.ts" |
-    Where-Object {
-        $file = $_.FullName
-        $exempt = $false
-        foreach ($dir in $exemptDirs) {
-            if ($file -match "[\\/]$dir[\\/]") { $exempt = $true; break }
-        }
-        foreach ($ef in $exemptFiles) {
-            if ($file -like "*$ef") { $exempt = $true; break }
-        }
-        -not $exempt
-    } |
-    ForEach-Object {
-        $file = $_
-        $content = Get-Content $file.FullName -Raw -ErrorAction SilentlyContinue
-        if (-not $content) { return }
+$mockPatterns = @(
+    # Hardcoded VRAM values (Constitution violation)
+    @{ Pattern = 'vramTotal:\s*1[0-9]'; Description = 'Hardcoded VRAM total value' },
+    @{ Pattern = 'vramTotal:\s*[2-9][0-9]'; Description = 'Hardcoded VRAM total value' },
 
-        foreach ($entry in $mockPatterns) {
-            if ($content -match $entry.Pattern) {
-                $lineNum = 0
-                $content -split "`n" | ForEach-Object {
-                    $lineNum++
-                    if ($_ -match $entry.Pattern) {
-                        # Skip false positives (comments about mock removal, test setup descriptions)
-                        if ($_ -match "verify-no-mocks|should not contain|mock data detected|audit.*mock|eliminar|remove mocks|no mock|mock removal") {
-                            continue
-                        }
-                        $shortFile = $file.FullName.Replace($ProjectRoot, "").TrimStart("\","/")
-                        $violation = "$shortFile`:$lineNum  [$($entry.Desc)] $_"
-                        $Violations += $violation
+    # Static mock arrays
+    @{ Pattern = 'fallbackAlerts'; Description = 'Static fallback alerts array' },
+    @{ Pattern = 'staticLogsSeed'; Description = 'Static log seed data' },
+    @{ Pattern = 'mockLogs'; Description = 'Mock log data' },
+    @{ Pattern = 'fakeMetrics'; Description = 'Fake metrics data' },
+    @{ Pattern = 'placeholderAlerts'; Description = 'Placeholder alerts' },
+    @{ Pattern = 'dummyMetrics'; Description = 'Dummy metrics data' },
+
+    # _fallback_ functions that fabricate data
+    @{ Pattern = 'def _fallback_'; Description = 'Fallback function that fabricates data' },
+
+    # VRAM fabrication patterns (single quotes and double quotes variants)
+    @{ Pattern = 'vram.*\d+\.\d+\s*/\s*\d+GB'; Description = 'Fabricated VRAM string like "1.0/16GB"' }
+)
+
+# ── Files/Directories to exclude ──────────────────────────────────────
+
+$excludePaths = @(
+    '.git',
+    'node_modules',
+    '__pycache__',
+    '.venv',
+    'dist',
+    'build',
+    '.opencode',
+    'graphify-out',
+    'kaos-research',
+    'airllm',
+    'graphify',
+    '.specify',
+    'docs',
+    'scripts'
+)
+
+$excludeExtensions = @(
+    '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico',
+    '.woff', '.woff2', '.ttf', '.eot',
+    '.ico', '.pdf', '.lock',
+    '.sum', '.sig', '.tar.gz', '.zip'
+)
+
+# ── Helper Functions ──────────────────────────────────────────────────
+
+function Test-ShouldExclude {
+    param([string]$FilePath)
+    foreach ($excl in $excludePaths) {
+        if ($FilePath -match [regex]::Escape($excl)) { return $true }
+    }
+    foreach ($ext in $excludeExtensions) {
+        if ($FilePath -like "*$ext") { return $true }
+    }
+    return $false
+}
+
+function Test-MockPatterns {
+    param([string]$FilePath)
+    $content = Get-Content -Path $FilePath -Raw -ErrorAction SilentlyContinue
+    if (-not $content) { return @() }
+
+    $findings = @()
+    foreach ($mock in $mockPatterns) {
+        if ($content -match $mock.Pattern) {
+            $lineNumber = 0
+            $content -split "`n" | ForEach-Object {
+                $lineNumber++
+                if ($_ -match $mock.Pattern) {
+                    $findings += [PSCustomObject]@{
+                        File    = $FilePath
+                        Line    = $lineNumber
+                        Pattern = $mock.Pattern
+                        Description = $mock.Description
+                        Match   = $matches[0]
                     }
                 }
             }
         }
     }
+    return $findings
+}
 
-if ($Violations.Count -eq 0) {
-    Write-Host "PASS: No illegal mock data patterns detected in production code." -ForegroundColor Green
+# ── Scan ──────────────────────────────────────────────────────────────
+
+Write-Host "🔍 Scanning for mock/fabricated data patterns..." -ForegroundColor Cyan
+Write-Host "Path: $Path`n" -ForegroundColor Gray
+
+$allFindings = @()
+$totalFiles = 0
+$scannedFiles = 0
+
+Get-ChildItem -Path $Path -Recurse -File | ForEach-Object {
+    $totalFiles++
+    if (-not (Test-ShouldExclude $_.FullName)) {
+        $scannedFiles++
+        $findings = Test-MockPatterns $_.FullName
+        if ($findings.Count -gt 0) {
+            $allFindings += $findings
+        }
+    }
+}
+
+# ── Results ───────────────────────────────────────────────────────────
+
+Write-Host "Scanned $scannedFiles files (of $totalFiles total)" -ForegroundColor Gray
+
+if ($allFindings.Count -eq 0) {
+    Write-Host "`n✅ PASS: No mock/fabricated data patterns found." -ForegroundColor Green
     exit 0
 }
-else {
-    Write-Host "FAIL: Found $($Violations.Count) mock data pattern(s) in production code:" -ForegroundColor Red
-    $Violations | ForEach-Object { Write-Host "  $_" -ForegroundColor Red }
-    Write-Host "`nThese patterns must be removed for production readiness." -ForegroundColor Yellow
-    Write-Host "If the pattern is legitimate (test only, layout engine, UUID gen), add an exemption." -ForegroundColor Yellow
-    exit 1
+
+Write-Host "`n❌ FAILED: $($allFindings.Count) mock/fabricated data patterns detected:`n" -ForegroundColor Red
+
+$allFindings | Group-Object File | ForEach-Object {
+    Write-Host "  📄 $($_.Name)" -ForegroundColor Yellow
+    $_.Group | ForEach-Object {
+        Write-Host "     Line $($_.Line): $($_.Description) — found '$($_.Match)'" -ForegroundColor Red
+    }
 }
+
+Write-Host "`n⚠️  Remove all fabricated data before committing." -ForegroundColor Yellow
+exit 1

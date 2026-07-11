@@ -136,6 +136,32 @@ async function runBootstrapPipeline(serverUrl: string) {
     return;
   }
 
+  // 4.5. Aguardar readiness check (Postgres + Qdrant)
+  progress("wait_backend_health", "Verificando readiness do backend (Postgres, Qdrant)...");
+  let readinessOk = false;
+  for (let i = 0; i < 10; i++) {
+    await new Promise((r) => setTimeout(r, 2000));
+    try {
+      const r = await fetch(`${serverUrl}/api/system/readiness`);
+      if (r.ok) {
+        const data = await r.json();
+        if (data.ready) {
+          progress("wait_backend_health", `Readiness: ${data.message}`);
+          readinessOk = true;
+          break;
+        }
+        if (i % 2 === 0) {
+          progress("wait_backend_health", `Aguardando readiness: ${data.message} (tentativa ${i + 1}/10)...`);
+        }
+      }
+    } catch {
+      // Backend pode ainda estar subindo
+    }
+  }
+  if (!readinessOk) {
+    progress("wait_backend_health", "Servicos do backend nao estao prontos. Continuando...", "degraded");
+  }
+
   // 5. Aguardar bootstrap completo
   progress("wait_bootstrap_ready", "Aguardando bootstrap do backend...");
   let bootstrapComplete = false;

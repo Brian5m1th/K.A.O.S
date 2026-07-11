@@ -66,7 +66,7 @@ export const useSystemStore = create<SystemState>()(
         latency: 0,
         cpu: 0,
         vramUsed: 0,
-        vramTotal: 16,
+        vramTotal: 0,
       },
       services: {
         ollama: false,

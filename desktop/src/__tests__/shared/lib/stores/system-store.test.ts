@@ -10,7 +10,7 @@ describe("System Store", () => {
   beforeEach(() => {
     useSystemStore.setState({
       status: "offline", version: "0.5.0", setupStatus: "NOT_STARTED", setupStep: 0,
-      runtime: { activeModel: "", latency: 0, cpu: 0, vramUsed: 0, vramTotal: 16 },
+      runtime: { activeModel: "", latency: 0, cpu: 0, vramUsed: 0, vramTotal: 0 },
       services: { ollama: false, backend: false, qdrant: false, postgres: false, n8n: false, grafana: false, prometheus: false },
       metrics: { vectorCount: 0, tokenRate: 0 },
       documentation: { coverage: 0, driftLevel: "low", lastScan: null, missingCount: 0, outdatedCount: 0 },
@@ -36,7 +36,7 @@ describe("System Store", () => {
     useSystemStore.getState().setRuntime({ cpu: 45, latency: 120 });
     expect(useSystemStore.getState().runtime.cpu).toBe(45);
     expect(useSystemStore.getState().runtime.latency).toBe(120);
-    expect(useSystemStore.getState().runtime.vramTotal).toBe(16);
+    expect(useSystemStore.getState().runtime.vramTotal).toBe(0);
   });
 
   it("setService should toggle service", () => {
