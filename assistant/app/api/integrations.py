@@ -157,36 +157,9 @@ async def get_github_runs():
         logger.warning(f"Failed to fetch real GitHub Actions runs: {e}")
 
     return {
-        "source": "mock_fallback",
-        "runs": [
-            {
-                "id": "1",
-                "name": "CI: Build & Test [Disconnected]",
-                "branch": "main",
-                "commit": "a1b2c3d",
-                "status": "success",
-                "duration": "2m 34s",
-                "timestamp": "2026-06-28T21:40:00Z",
-            },
-            {
-                "id": "2",
-                "name": "Docker: Deploy API [Disconnected]",
-                "branch": "main",
-                "commit": "e4f5g6h",
-                "status": "running",
-                "duration": "1m 12s",
-                "timestamp": "2026-06-28T21:42:00Z",
-            },
-            {
-                "id": "3",
-                "name": "Lint & Format [Disconnected]",
-                "branch": "feature/ui",
-                "commit": "i7j8k9l",
-                "status": "failed",
-                "duration": "0m 45s",
-                "timestamp": "2026-06-28T21:30:00Z",
-            },
-        ],
+        "source": "offline",
+        "message": "GitHub token not configured. Configure a GitHub integration to view CI/CD pipeline runs.",
+        "runs": [],
     }
 
 
@@ -197,10 +170,10 @@ async def trigger_github_workflow():
 
     token = _get_github_token()
     if not token:
-        logger.info("[github] Trigger manual simulated (No GitHub token configured)")
+        logger.info("[github] Manual trigger blocked: No GitHub token configured")
         return {
-            "status": "ok",
-            "message": "Manual trigger simulated (disconnected mode)",
+            "status": "error",
+            "message": "Cannot trigger workflow: No GitHub token configured. Configure a GitHub integration first.",
         }
 
     headers = {
@@ -243,4 +216,4 @@ async def trigger_github_workflow():
     except Exception as e:
         logger.warning(f"Failed to trigger GitHub Actions run: {e}")
 
-    return {"status": "ok", "message": "Manual trigger simulated"}
+    return {"status": "error", "message": "Failed to trigger GitHub workflow: API request unsuccessful"}

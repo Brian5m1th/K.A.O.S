@@ -151,67 +151,14 @@ export default function DashboardPage() {
     total_tokens: 0,
   });
 
-  // Active agents simulated state list
-  const [agents, setAgents] = useState<AgentItem[]>([
-    {
-      name: "kaos-architect",
-      role: "Arquitetura & SDD",
-      status: "active",
-      activity: "Analisando dependências...",
-    },
-    {
-      name: "kaos-auditor",
-      role: "Drift & KIRL Verification",
-      status: "idle",
-      activity: "Aguardando novos commits",
-    },
-    {
-      name: "kaos-coder",
-      role: "Code Generation",
-      status: "idle",
-      activity: "Aguardando tarefas",
-    },
-  ]);
+  // Active agents — populated from backend
+  const [agents, setAgents] = useState<AgentItem[]>([]);
 
-  // System logs rolling simulated state
-  const [sysLogs, setSysLogs] = useState<string[]>([
-    "INFO: Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)",
-    "INFO: Connecting to Qdrant vector database at localhost:6333",
-    "INFO: Qdrant client connected successfully. Collection 'kaos' ready.",
-    "INFO: PostgreSQL asyncpg pool initialized, size=20",
-    "INFO: LangGraph compilation completed successfully. 12 nodes, 8 edges registered.",
-  ]);
+  // System logs — populated via SSE from backend
+  const [sysLogs, setSysLogs] = useState<string[]>([]);
 
-  // Combined real + fallback simulated notifications
-  const fallbackAlerts: NotificationItem[] = [
-    {
-      id: "drift",
-      level: "warning",
-      title: "Drift de documentação",
-      message: "Drift médio detectado em SDD-KIRL.md",
-      source: "audit",
-      created_at: new Date(Date.now() - 14 * 60000).toISOString(),
-      read: false,
-    },
-    {
-      id: "latency",
-      level: "critical",
-      title: "Ollama VRAM Degradado",
-      message: "Latência ultrapassou 120ms (VRAM cheia)",
-      source: "system",
-      created_at: new Date(Date.now() - 5 * 60000).toISOString(),
-      read: false,
-    },
-    {
-      id: "n8n",
-      level: "error",
-      title: "Conexão com Webhook Falhou",
-      message: "Webhook N8N 'backup-vault' timed out",
-      source: "integrations",
-      created_at: new Date().toISOString(),
-      read: false,
-    },
-  ];
+  // Active alerts — populated from backend notifications
+  const activeAlerts = notifications;
 
   // Fetch workflows from DLQ
   useEffect(() => {
@@ -356,9 +303,6 @@ export default function DashboardPage() {
     logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [sysLogs]);
 
-  const activeAlerts = notifications.length > 0 ? notifications : fallbackAlerts;
-  const isSimulatedAlerts = notifications.length === 0;
-
   const sysState: PanelState =
     history.cpu.length === 0 && !isOnline ? "loading" : isOnline ? "online" : "offline";
 
@@ -460,7 +404,7 @@ export default function DashboardPage() {
         <MetricCard
           icon={<MemoryStick className="h-4 w-4 text-accent-neon" />}
           label="VRAM Alloc"
-          value={`${runtime.vramUsed.toFixed(1)} / ${runtime.vramTotal}GB`}
+          value={runtime.vramTotal > 0 ? `${runtime.vramUsed.toFixed(1)} / ${runtime.vramTotal}GB` : "CPU Mode"}
           data={history.vram}
           color="var(--accent-neon)"
           state={sysState}
@@ -580,14 +524,6 @@ export default function DashboardPage() {
               <AlertCircle className="h-4 w-4 text-accent-neon" />
               Active System Alerts
             </CardTitle>
-            {isSimulatedAlerts && (
-              <Badge
-                variant="neutral"
-                className="text-[9px] bg-amber-500/10 text-amber-500 border border-amber-500/20 font-mono tracking-wider"
-              >
-                SIMULATED
-              </Badge>
-            )}
           </CardHeader>
           <CardContent className="flex-1 min-h-0 p-3 space-y-2 overflow-y-auto">
             {alertsLoading ? (

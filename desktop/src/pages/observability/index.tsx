@@ -21,23 +21,36 @@ export default function ObservabilityPage() {
   const [obsServices, setObsServices] = useState<Record<string, boolean>>({});
   const logsEndRef = useRef<HTMLDivElement>(null);
 
-  // Simulated live logs state
-  const [simulatedLogs, setSimulatedLogs] = useState<string[]>([
-    "2026-06-25 14:12:00 | INFO     | app.audit.feature_registry:load_from_json:188 - [feature_registry] loading features...",
-    "2026-06-25 14:12:05 | INFO     | app.setup.provider_config:get_active_provider:42 - [provider_config] active provider: ollama (local)",
-    "2026-06-25 14:12:12 | DEBUG    | app.service.llm_service:check_ollama:88 - [ollama] health check response: status=ok",
-    "2026-06-25 14:12:20 | INFO     | app.database:connect:35 - [postgres] session pool initialized successfully",
-    "2026-06-25 14:12:35 | INFO     | app.api.system:system_status:34 - [system] health check completed nominal",
-  ]);
+  // Live logs — populated via SSE from backend
+  const [liveLogs, setLiveLogs] = useState<string[]>([]);
 
-  // Simulated alerts
-  const [alerts, setAlerts] = useState<AlertItem[]>([
-    { id: 1, type: "warn", message: "Drift de documentação médio detectado em SDD-KIRL.md", time: "14m atrás" },
-    { id: 2, type: "info", message: "Latência do Ollama local ultrapassou 120ms (VRAM cheia)", time: "5m atrás" },
-    { id: 3, type: "error", message: "Conexão com webhook N8N 'backup-vault' falhou (Timeout)", time: "Agora" },
-  ]);
+  // System alerts — fetched from backend notifications
+  const [alerts, setAlerts] = useState<any[]>([]);
+  const [alertsLoading, setAlertsLoading] = useState(true);
 
-  // Fetch telemetry status
+  // Fetch real notifications from backend
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const res = await kaosFetch(`${serverUrl}/api/notifications?unread_only=true&limit=10`, "");
+        if (res.ok) {
+          const data = await res.json();
+          const items = (data.notifications || []).map((n: any) => ({
+            id: n.id,
+            type: n.level === "critical" || n.level === "error" ? "error" : n.level === "warning" ? "warn" : "info",
+            message: `${n.title}: ${n.message}`,
+            time: n.created_at ? new Date(n.created_at).toLocaleString() : "—",
+          }));
+          setAlerts(items);
+        }
+      } catch {} finally {
+        setAlertsLoading(false);
+      }
+    };
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 10_000);
+    return () => clearInterval(interval);
+  }, [serverUrl]);
   useEffect(() => {
     const fetchObs = async () => {
       try {
@@ -60,7 +73,7 @@ export default function ObservabilityPage() {
 
     eventSource.onmessage = (event) => {
       if (event.data) {
-        setSimulatedLogs((prev) => [...prev.slice(-199), event.data]);
+        setLiveLogs((prev) => [...prev.slice(-199), event.data]);
       }
     };
 
@@ -76,7 +89,7 @@ export default function ObservabilityPage() {
   // Auto scroll logs
   useEffect(() => {
     logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [simulatedLogs]);
+  }, [liveLogs]);
 
   const serviceEntries = [
     { name: "Ollama", status: services.ollama },
@@ -160,7 +173,7 @@ export default function ObservabilityPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 min-h-0 p-3 bg-canvas/40 overflow-y-auto font-mono text-[10px] space-y-1 select-text scrollbar-thin">
-            {simulatedLogs.map((log, idx) => {
+            {liveLogs.map((log, idx) => {
               const isError = log.includes("ERROR");
               const isWarn = log.includes("WARN");
               const isDebug = log.includes("DEBUG");

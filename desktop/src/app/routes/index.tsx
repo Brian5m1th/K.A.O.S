@@ -2,9 +2,10 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { AppLayout } from "@/app/layouts/AppLayout";
-import { useAuthStore } from "@/application";
+import { useAuthStore, useSystemStore } from "@/application";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { Loader2 } from "lucide-react";
+import { Button } from "@/shared/ui/button";
+import { Loader2, ServerCrash, RefreshCw } from "lucide-react";
 
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 const ChatPage = lazy(() => import("@/pages/chat"));
@@ -66,6 +67,8 @@ function AuthGate({ children }: { children: React.ReactNode }) {
   const checking = useAuthStore((s) => s.checking);
   const configured = useAuthStore((s) => s.configured);
   const accessToken = useAuthStore((s) => s.accessToken);
+  const serverUrl = useAuthStore((s) => s.serverUrl);
+  const systemStatus = useSystemStore((s) => s.status);
 
   if (checking) {
     return (
@@ -81,6 +84,33 @@ function AuthGate({ children }: { children: React.ReactNode }) {
 
   if (!accessToken) {
     return <Navigate to="/login" replace />;
+  }
+
+  // Offline gate: block all protected pages when backend is unreachable
+  if (systemStatus === "offline") {
+    return (
+      <div className="flex h-full flex-col items-center justify-center bg-canvas p-8">
+        <div className="flex flex-col items-center gap-6 max-w-md text-center">
+          <ServerCrash className="h-16 w-16 text-error" />
+          <div>
+            <h1 className="text-xl font-bold text-text-primary">Servidor K.A.O.S Offline</h1>
+            <p className="text-sm text-text-muted mt-2">
+              Nao foi possivel conectar ao backend em{" "}
+              <code className="rounded bg-surface-raised px-1.5 py-0.5 text-xs font-mono text-accent-primary">
+                {serverUrl}
+              </code>
+            </p>
+            <p className="text-xs text-text-dim mt-3">
+              Verifique se o backend esta rodando e tente novamente.
+            </p>
+          </div>
+          <Button variant="primary" size="sm" onClick={() => window.location.reload()}>
+            <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
+            Tentar Novamente
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return <>{children}</>;

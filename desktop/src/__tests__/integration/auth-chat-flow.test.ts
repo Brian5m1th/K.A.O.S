@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useChatStore } from "@/shared/lib/stores/chat-store";
-import { useAuthStore } from "@/shared/lib/stores/auth-store";
+import { useChatStore } from "@/application/stores/chat-store";
+import { useAuthStore } from "@/application/stores/auth-store";
 import { kaosFetch } from "@/infrastructure/http";
 
 vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));

@@ -50,6 +50,10 @@ interface SystemState {
   fetchAll: (serverUrl?: string, apiKey?: string) => Promise<void>;
 }
 
+// ── TTL cache to prevent redundant parallel requests ──
+let _lastFetchTs = 0;
+const FETCH_TTL_MS = 3_000;
+
 export const useSystemStore = create<SystemState>()(
   persist(
     (set) => ({
@@ -98,53 +102,57 @@ export const useSystemStore = create<SystemState>()(
         set((s) => ({ documentation: { ...s.documentation, ...doc } })),
 
       fetchAll: async (serverUrl = "http://localhost:8000", apiKey = "") => {
+    // 3-second TTL throttle — skip redundant parallel requests
+    const now = Date.now();
+    if (now - _lastFetchTs < FETCH_TTL_MS) return;
+    _lastFetchTs = now;
+
     try {
-      const [healthRes, readinessRes, systemStatusRes, providerActiveRes, systemMetricsRes] =
-        await Promise.allSettled([
-          kaosFetch(`${serverUrl}/health`, apiKey),
-          kaosFetch(`${serverUrl}/health/readiness`, apiKey),
-          kaosFetch(`${serverUrl}/api/system/status`, apiKey),
-          kaosFetch(`${serverUrl}/api/setup/provider/active`, apiKey),
-          kaosFetch(`${serverUrl}/api/system/metrics`, apiKey),
-        ]);
+      const res = await kaosFetch(`${serverUrl}/api/system/dashboard`, apiKey);
+      if (!res.ok) return;
 
-      if (healthRes.status === "fulfilled" && healthRes.value.ok) {
-        const data = await healthRes.value.json();
-        set({ status: data.status === "ok" ? "online" : "degraded" });
-      }
+      const data = await res.json();
 
-      if (readinessRes.status === "fulfilled" && readinessRes.value.ok) {
-        const data = await readinessRes.value.json();
-        set((s) => ({
-          services: { ...s.services, ollama: data.services?.ollama ?? false },
-        }));
-      }
+      // ── Services ──
+      const svc = data.services || {};
+      set({
+        status: svc.backend ? "online" : "offline",
+        services: {
+          ollama: svc.ollama ?? false,
+          backend: svc.backend ?? false,
+          qdrant: svc.qdrant ?? false,
+          postgres: svc.postgres ?? false,
+          n8n: svc.n8n ?? false,
+          grafana: svc.grafana ?? false,
+          prometheus: svc.prometheus ?? false,
+        },
+      });
 
-      if (systemStatusRes.status === "fulfilled" && systemStatusRes.value.ok) {
-        const data = await systemStatusRes.value.json();
-        set((s) => ({
-          services: { ...s.services, ...data },
-        }));
-      }
+      // ── Runtime ──
+      const rt = data.runtime || {};
+      // VRAM: null means CPU mode — store as 0.0/0.0 for display compatibility
+      const vramUsed = rt.vram?.used ?? null;
+      const vramTotal = rt.vram?.total ?? null;
+      set((s) => ({
+        runtime: {
+          ...s.runtime,
+          activeModel: rt.activeModel ?? s.runtime.activeModel,
+          latency: rt.latency ?? s.runtime.latency,
+          cpu: rt.cpu ?? s.runtime.cpu,
+          vramUsed: vramUsed ?? 0.0,
+          vramTotal: vramTotal ?? 0.0,
+        },
+      }));
 
-      if (providerActiveRes.status === "fulfilled" && providerActiveRes.value.ok) {
-        const data = await providerActiveRes.value.json();
-        set((s) => ({
-          runtime: { ...s.runtime, activeModel: data.model || s.runtime.activeModel },
-        }));
-      }
-
-      if (systemMetricsRes.status === "fulfilled" && systemMetricsRes.value.ok) {
-        const data = await systemMetricsRes.value.json();
-        set((s) => ({
-          runtime: {
-            ...s.runtime,
-            cpu: data.cpu ?? s.runtime.cpu,
-            vramUsed: data.vram?.used ?? s.runtime.vramUsed,
-            vramTotal: data.vram?.total ?? s.runtime.vramTotal,
-          },
-        }));
-      }
+      // ── Metrics ──
+      const m = data.metrics || {};
+      set((s) => ({
+        metrics: {
+          ...s.metrics,
+          vectorCount: m.vectorCount ?? s.metrics.vectorCount,
+          tokenRate: m.tokenRate ?? s.metrics.tokenRate,
+        },
+      }));
     } catch {
       // Silently fail — stores keep last known values
     }

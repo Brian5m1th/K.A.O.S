@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useUpdateStore } from "@/shared/lib/stores/update-store";
+import { useUpdateStore } from "@/application/stores/update-store";
 
 describe("Update Store", () => {
   beforeEach(() => {

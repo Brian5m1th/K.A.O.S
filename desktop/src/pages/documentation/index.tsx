@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSystemStore } from "../../shared/lib/stores/system-store";
+import { useSystemStore } from "@/application";
 import { useDriftStore } from "../../features/documentation-audit/store/drift-store";
 import { DocSyncEngine } from "../../features/documentation-audit/auto-doc/doc-sync-engine";
 import { ArchitectureHealth } from "../../features/documentation-audit/heatmap/architecture-health";

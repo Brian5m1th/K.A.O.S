@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { useSystemStore } from "@/shared/lib/stores/system-store";
+import { useSystemStore } from "@/application/stores/system-store";
 import { kaosFetch } from "@/infrastructure/http";
 import { vi } from "vitest";
 
@@ -55,17 +55,35 @@ describe("System Store", () => {
     expect(useSystemStore.getState().documentation.driftLevel).toBe("medium");
   });
 
-  it("fetchAll should query multiple endpoints", async () => {
-    mockFetch
-      .mockResolvedValueOnce(new Response(JSON.stringify({ status: "ok" }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ ready: true }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ ollama: true, backend: true }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ provider_id: "gpt-4" }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ cpu: 50, vram_used: 4 }), { status: 200 }));
+  it("fetchAll should query the consolidated dashboard endpoint", async () => {
+    const mockDashboardData = {
+      services: {
+        backend: true,
+        ollama: true,
+        qdrant: true,
+        postgres: true,
+        n8n: false,
+        grafana: false,
+        prometheus: false,
+      },
+      runtime: {
+        activeModel: "gpt-4",
+        latency: 120,
+        cpu: 50,
+        vram: { used: 4, total: 16 }
+      },
+      metrics: {
+        vectorCount: 15234,
+        tokenRate: 42.3
+      }
+    };
+
+    mockFetch.mockResolvedValueOnce(new Response(JSON.stringify(mockDashboardData), { status: 200 }));
 
     await useSystemStore.getState().fetchAll();
 
-    expect(mockFetch).toHaveBeenCalledTimes(5);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(useSystemStore.getState().services.backend).toBe(true);
+    expect(useSystemStore.getState().runtime.activeModel).toBe("gpt-4");
   });
 });
