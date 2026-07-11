@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.1...v2.5.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* **ci:** add workspace permissions cleanup step before checkout on self-hosted runner ([e60ed4f](https://github.com/Brian5m1th/K.A.O.S/commit/e60ed4f4a9494f4e148691d13ec544dd8c3bdd98))
+
 ## [2.5.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.0...v2.5.1) (2026-07-11)
 
 
