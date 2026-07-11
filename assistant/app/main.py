@@ -328,8 +328,19 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     # funcionando apos o warmup terminar.
     asyncio.create_task(_warmup())
 
-    _watcher = VaultWatcher()
-    _watcher.start()
+    async def _start_vault_watcher():
+        global _watcher
+        logger.info("[info] Aguardando embedder para iniciar VaultWatcher...")
+        while not _embedder_ready:
+            await asyncio.sleep(1)
+        try:
+            _watcher = VaultWatcher()
+            _watcher.start()
+            logger.info("[info] VaultWatcher iniciado com sucesso em background")
+        except Exception as exc:
+            logger.error("[error] Falha ao iniciar VaultWatcher em background: {}", exc)
+
+    asyncio.create_task(_start_vault_watcher())
 
     _opencode_watcher = OpenCodeWatcher()
     _opencode_watcher.start()
