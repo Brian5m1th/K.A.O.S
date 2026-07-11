@@ -13,6 +13,13 @@ jobs:
   deploy-production:
     runs-on: self-hosted
     steps:
+      - name: Clean Workspace Permissions
+        run: |
+          if [ -d .git ]; then
+            echo "Cleaning up permissions of files created by root in containers..."
+            docker run --rm -v "$(pwd)":/workspace -w /workspace alpine chown -R $(id -u):$(id -g) . || true
+          fi
+
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
