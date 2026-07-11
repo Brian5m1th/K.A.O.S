@@ -39,6 +39,7 @@ async def get_active_provider():
     if active_provider in ("ollama", "lmstudio"):
         try:
             import httpx
+
             ollama_url = config.get("url", settings.OLLAMA_BASE_URL).rstrip("/")
             async with httpx.AsyncClient(timeout=3) as client:
                 resp = await client.get(f"{ollama_url}/api/tags")
@@ -46,7 +47,10 @@ async def get_active_provider():
                     data = resp.json()
                     installed_models = {m["name"] for m in data.get("models", [])}
                     # Match model name (ollama may suffix with :latest)
-                    if active_model not in installed_models and f"{active_model}:latest" not in installed_models:
+                    if (
+                        active_model not in installed_models
+                        and f"{active_model}:latest" not in installed_models
+                    ):
                         active_model = "No model installed"
         except Exception:
             # Can't reach ollama — model status unknown, return as-is

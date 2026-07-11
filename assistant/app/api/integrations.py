@@ -216,4 +216,7 @@ async def trigger_github_workflow():
     except Exception as e:
         logger.warning(f"Failed to trigger GitHub Actions run: {e}")
 
-    return {"status": "error", "message": "Failed to trigger GitHub workflow: API request unsuccessful"}
+    return {
+        "status": "error",
+        "message": "Failed to trigger GitHub workflow: API request unsuccessful",
+    }

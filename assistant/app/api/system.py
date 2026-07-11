@@ -158,12 +158,24 @@ async def system_dashboard():
     )
 
     return {
-        "services": services_status if not isinstance(services_status, Exception) else _fallback_services(),
-        "runtime": runtime_info if not isinstance(runtime_info, Exception) else _fallback_runtime(),
-        "metrics": metrics_data if not isinstance(metrics_data, Exception) else _fallback_metrics(),
-        "costs": costs_data if not isinstance(costs_data, Exception) else {"total_usd": 0.0, "total_tokens": 0},
-        "dlq": dlq_data if not isinstance(dlq_data, Exception) else {"failed": [], "count": 0},
-        "alerts": alerts_data if not isinstance(alerts_data, Exception) else {"notifications": []},
+        "services": services_status
+        if not isinstance(services_status, Exception)
+        else _fallback_services(),
+        "runtime": runtime_info
+        if not isinstance(runtime_info, Exception)
+        else _fallback_runtime(),
+        "metrics": metrics_data
+        if not isinstance(metrics_data, Exception)
+        else _fallback_metrics(),
+        "costs": costs_data
+        if not isinstance(costs_data, Exception)
+        else {"total_usd": 0.0, "total_tokens": 0},
+        "dlq": dlq_data
+        if not isinstance(dlq_data, Exception)
+        else {"failed": [], "count": 0},
+        "alerts": alerts_data
+        if not isinstance(alerts_data, Exception)
+        else {"notifications": []},
         "status": "ready",
     }
 
@@ -200,6 +212,7 @@ async def _get_runtime_info() -> dict:
 
     # Active model from provider config
     from app.setup.provider_config import get_active_provider_config
+
     config = get_active_provider_config()
     active_model = config.get("model", "")
 
@@ -210,6 +223,7 @@ async def _get_runtime_info() -> dict:
     avg_latency = 0.0
     try:
         from app.llm.metrics import ProviderMetrics
+
         summary = ProviderMetrics.global_summary()
         avg_latency = summary.get("avg_latency_ms", 0.0)
     except Exception:
@@ -234,9 +248,16 @@ async def _read_vram() -> dict:
 
     try:
         res = subprocess.run(
-            [nvidia_smi, "--query-gpu=memory.used,memory.total", "--format=csv,noheader,nounits"],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            text=True, check=True, timeout=1,
+            [
+                nvidia_smi,
+                "--query-gpu=memory.used,memory.total",
+                "--format=csv,noheader,nounits",
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+            timeout=1,
         )
         parts = res.stdout.strip().split(",")
         if len(parts) >= 2:
@@ -254,6 +275,7 @@ async def _get_metrics_data() -> dict:
     vector_count = 0
     try:
         import httpx
+
         q_host, q_port = settings.QDRANT_HOST, settings.QDRANT_PORT
         async with httpx.AsyncClient(timeout=3) as c:
             r = await c.post(
@@ -269,6 +291,7 @@ async def _get_metrics_data() -> dict:
     token_rate = 0.0
     try:
         from app.llm.metrics import ProviderMetrics
+
         token_rate = ProviderMetrics.global_token_rate()
     except Exception:
         pass
@@ -284,9 +307,18 @@ async def _get_costs_data() -> dict:
     try:
         from app.observability.cost_tracker import CostTracker
         from app.observability.event_bus import EventBus
-        trackers = [s for s in EventBus._subscribers.get("llm_response", []) if isinstance(s, CostTracker)]
+
+        trackers = [
+            s
+            for s in EventBus._subscribers.get("llm_response", [])
+            if isinstance(s, CostTracker)
+        ]
         if not trackers:
-            trackers = [s for s in EventBus._subscribers.get("workflow_completed", []) if isinstance(s, CostTracker)]
+            trackers = [
+                s
+                for s in EventBus._subscribers.get("workflow_completed", [])
+                if isinstance(s, CostTracker)
+            ]
         if trackers:
             summary = trackers[0].summary()
             return {
@@ -301,6 +333,7 @@ async def _get_costs_data() -> dict:
 async def _get_dlq_data() -> dict:
     try:
         from app.orchestrator.dead_letter_queue import DeadLetterQueue
+
         failed = DeadLetterQueue.list_all()
         return {
             "failed": [
@@ -322,6 +355,7 @@ async def _get_dlq_data() -> dict:
 async def _get_alerts_data() -> dict:
     try:
         from app.notifications.service import NotificationService
+
         notifications = NotificationService.list(unread_only=True, limit=10)
         return {
             "notifications": [
@@ -347,8 +381,12 @@ async def _get_alerts_data() -> dict:
 def _fallback_services() -> dict:
     return {
         "backend": True,
-        "postgres": False, "qdrant": False, "ollama": False,
-        "n8n": False, "grafana": False, "prometheus": False,
+        "postgres": False,
+        "qdrant": False,
+        "ollama": False,
+        "n8n": False,
+        "grafana": False,
+        "prometheus": False,
     }
 
 

@@ -114,7 +114,9 @@ class ProviderMetrics:
             "total_calls": len(cls._global_entries),
             "total_cost": round(total_cost, 6),
             "total_latency_ms": round(total_latency, 0),
-            "avg_latency_ms": round(total_latency / len(cls._global_entries), 0) if cls._global_entries else 0.0,
+            "avg_latency_ms": round(total_latency / len(cls._global_entries), 0)
+            if cls._global_entries
+            else 0.0,
         }
 
     @classmethod
