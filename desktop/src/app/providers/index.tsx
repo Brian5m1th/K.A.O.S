@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "@/app/routes";
 import { CommandPalette } from "@/widgets/command-palette";
+import { ToastProvider } from "@/shared/components/toast";
 import { initializeCommands } from "@/shared/lib/commands-init";
 initializeCommands();
 
@@ -12,8 +13,10 @@ interface Props {
 export function AppProviders({ children }: Props) {
   return (
     <BrowserRouter>
-      {children || <AppRoutes />}
-      <CommandPalette />
+      <ToastProvider>
+        {children || <AppRoutes />}
+        <CommandPalette />
+      </ToastProvider>
     </BrowserRouter>
   );
 }

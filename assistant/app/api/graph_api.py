@@ -26,9 +26,14 @@ class GraphQueryRequest(BaseModel):
 def get_graph_service() -> GraphService:
     from app.providers.graph.graphify_adapter import GraphifyAdapter
     from app.providers.graph.networkx_fallback import NetworkXFallback
+    from app.providers.graph.enriched_adapter import EnrichedGraphAdapter
 
     svc = GraphService()
+    # Enriched adapter (primary) — provides descriptions, quality, risks, doc links
+    svc.registry.register("enriched", EnrichedGraphAdapter())
+    # Graphify CLI adapter (fallback for explain/path)
     svc.registry.register("graphify", GraphifyAdapter())
+    # NetworkX in-memory (last resort)
     svc.registry.register("networkx", NetworkXFallback())
     return svc
 

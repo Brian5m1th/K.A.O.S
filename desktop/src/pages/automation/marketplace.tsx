@@ -5,7 +5,7 @@ import { Badge } from "@/shared/ui/badge";
 import { kaosFetch } from "@/infrastructure";
 import {
   Download, CheckCircle, RefreshCw, AlertCircle, FileJson,
-  GitBranch, GitPullRequest, MessageSquare, ShieldCheck, Database, RefreshCcw
+  GitBranch, GitPullRequest, MessageSquare, ShieldCheck, Database, RefreshCcw, type LucideIcon
 } from "lucide-react";
 
 interface WorkflowTemplate {
@@ -13,12 +13,27 @@ interface WorkflowTemplate {
   name: string;
   description: string;
   category: "IA" | "GitHub" | "Messaging" | "DevOps" | "MCP";
-  icon: any;
+  icon: LucideIcon;
   json_name: string;
   installed: boolean;
 }
 
-const CATEGORY_ICONS: Record<string, any> = {
+interface TemplateApiItem {
+  name: string;
+  description: string;
+  category: string;
+  json_name: string;
+  nodes?: unknown[];
+  connections?: unknown;
+}
+
+interface WorkflowApiItem {
+  name: string;
+  id: string;
+  is_active: boolean;
+}
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
   IA: Database,
   GitHub: GitPullRequest,
   Messaging: MessageSquare,
@@ -41,11 +56,11 @@ export default function AutomationMarketplace() {
       const res = await kaosFetch("/api/automation/templates");
       if (res.ok) {
         const data = await res.json();
-        const tpls: WorkflowTemplate[] = (data.templates || []).map((t: any, i: number) => ({
+        const tpls: WorkflowTemplate[] = (data.templates || []).map((t: TemplateApiItem, i: number) => ({
           id: `tpl_${i + 1}`,
           name: t.name,
           description: t.description,
-          category: t.category || "IA",
+          category: (t.category as WorkflowTemplate["category"]) || "IA",
           icon: CATEGORY_ICONS[t.category] || Database,
           json_name: t.json_name,
           installed: false,
@@ -63,7 +78,7 @@ export default function AutomationMarketplace() {
       const res = await kaosFetch("/api/automation/workflows");
       if (res.ok) {
         const data = await res.json();
-        const activeNames = new Set(data.workflows.map((w: any) => w.name));
+        const activeNames = new Set(data.workflows.map((w: WorkflowApiItem) => w.name));
         
         setTemplates((prev) =>
           prev.map((t) => ({
@@ -84,7 +99,7 @@ export default function AutomationMarketplace() {
     setMessage(null);
     try {
       // 1. Fetch template JSON schema from backend static assets
-      let jsonData: any = null;
+      let jsonData: Record<string, unknown> | null = null;
       const jsonRes = await fetch(`/workflows/${tpl.json_name}`).catch(() => null);
       if (jsonRes && jsonRes.ok) {
         jsonData = await jsonRes.json();

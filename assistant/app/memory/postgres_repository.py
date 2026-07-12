@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 
 from loguru import logger
-from sqlalchemy import select, desc
+from sqlalchemy import select, desc, delete as sa_delete
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.orm import selectinload
 
@@ -156,6 +156,24 @@ class PostgresMemoryRepository(MemoryRepository):
                 }
                 for m in messages
             ]
+
+    async def delete_session(self, session_id: str) -> None:
+        """Delete all memory data for a session."""
+        session_uuid = uuid.uuid5(uuid.NAMESPACE_DNS, session_id)
+        async with self._session_factory() as session:
+            await session.execute(
+                sa_delete(MemoryMessage).where(MemoryMessage.session_id == session_uuid)
+            )
+            await session.execute(
+                sa_delete(MemorySummary).where(MemorySummary.session_id == session_uuid)
+            )
+            await session.execute(
+                sa_delete(MemorySession).where(MemorySession.id == session_uuid)
+            )
+            await session.commit()
+            logger.info(
+                f"[info] PostgresMemoryRepository - deleted session {session_id}"
+            )
 
 
 _postgres_repo: PostgresMemoryRepository | None = None

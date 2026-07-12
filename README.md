@@ -354,6 +354,37 @@ K.A.O.S/
 └── setup.ps1                    # Script de bootstrap
 ```
 
+### Novas Capacidades (Sprint 7 + Q4 2026)
+
+#### Intelligence & Memory
+* **AI Architecture Reviewer**: LLM-powered analysis reading Graph + SDD + Code → suggests refactors
+* **Self-Healing DRL**: Auto-detects documentation drift and applies corrective actions
+* **Predictive Architecture**: Estimates change impact before merges using knowledge graph
+* **Mem0 Adapter**: Persistent conversational memory with semantic search
+* **GraphRAG Experiment**: Hybrid graph + vector retrieval for code-aware RAG
+* **Auto-Tag Engine**: ML-based tag suggestions for vault notes using embedding similarity
+
+#### Adapters & Integrations
+* **Neo4j Adapter**: Cypher-based property graph queries for code intelligence
+* **FalkorDB Adapter**: Graph-native vector search for hybrid retrieval
+* **WhatsApp Integration**: Send/receive messages via Evolution API with webhook support
+* **Email Integration**: SMTP send + IMAP receive with LangChain tooling
+* **AWS Integration**: Read-only CLI tools (EC2, ECS) with command whitelist
+* **N8N Automation**: Webhook tool, workflow import/export, GitOps sync
+* **WireGuard VPN**: Production access configuration and setup scripts
+
+#### Planning & Execution
+* **LangGraphAdapter**: Real plan execution with step dependency resolution
+* **Evidence Engine**: 6-source evidence collection (graphify, git, tests, benchmarks, adrs, runtime)
+* **Session History**: Full conversation persistence with PostgreSQL + Obsidian export
+* **Knowledge Graph**: Graphify + React Flow visualization with search and navigation
+
+#### Documentation System
+* **KIRL Audit Engine**: Automated documentation drift detection and reporting
+* **Auto-Documentação Contínua**: CI/CD job syncing docs/wiki/ → Obsidian vault
+* **SDD Management**: Deduplicated, single-source-of-truth architecture documents
+* **Migration Maps**: Cross-reference between PT-BR and EN architecture docs
+
 ---
 
 ## Stack Tecnologica

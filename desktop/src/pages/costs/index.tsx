@@ -4,6 +4,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Coins, Database, TrendingUp, AlertCircle, Sparkles, Loader2, RefreshCw } from "lucide-react";
 import { kaosFetch } from "@/infrastructure";
+import { useToast } from "@/shared/components/toast";
 
 interface CostBreakdown {
   provider: string;
@@ -14,6 +15,7 @@ interface CostBreakdown {
 }
 
 export default function CostsPage() {
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(true);
   const [totalCost, setTotalCost] = useState(0);
   const [breakdown, setBreakdown] = useState<CostBreakdown[]>([]);
@@ -36,7 +38,7 @@ export default function CostsPage() {
   };
 
   const handleOptimisePrompts = async () => {
-    alert("Otimização de prompts disparada! O assistente está compilando templates eficientes para reduzir o consumo de tokens.");
+    showToast("Otimização de prompts disparada! O assistente está compilando templates eficientes para reduzir o consumo de tokens.", "info");
   };
 
   useEffect(() => {

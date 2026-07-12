@@ -13,6 +13,26 @@ interface FeatureEntry {
   updatedAt: string;
 }
 
+interface DriftFeature {
+  id: string;
+  name: string;
+  phase: string;
+  status: string;
+  docs: string[];
+  codeRefs: string[];
+  lastCommit: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface GraphSummary {
+  totalNodes: number;
+  totalEdges: number;
+  featureCount: number;
+  sddCount: number;
+  lastUpdated: string;
+}
+
 interface DriftReport {
   coverage: number;
   driftLevel: "low" | "medium" | "high";
@@ -23,15 +43,15 @@ interface DriftReport {
   undocumented_code: string[];
   coverageHistory: { date: string; coverage: number }[];
   driftHistory: { date: string; level: string; missing: number }[];
-  features?: any[];
+  features?: DriftFeature[];
 }
 
 interface DriftSnapshot {
-  features: any[];
+  features: DriftFeature[];
   coverage: number;
   driftLevel: string;
   lastCommit: string;
-  graphSummary: any;
+  graphSummary: GraphSummary;
   missingCount: number;
   outdatedCount: number;
   generatedAt: string;

@@ -130,8 +130,10 @@ async def get_github_runs():
                             )
                             diff = int((end - start).total_seconds())
                             duration = f"{diff // 60}m {diff % 60}s"
-                        except Exception:
-                            pass
+                        except Exception as exc:
+                            logger.warning(
+                                f"[integrations] failed to parse run time: {exc}"
+                            )
 
                     status = "pending"
                     conclusion = run.get("conclusion")

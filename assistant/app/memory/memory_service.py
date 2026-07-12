@@ -162,3 +162,21 @@ class MemoryService:
         result = [str(f.relative_to(self._vault)) for f in files[:limit]]
         logger.debug("[finish] MemoryService - list_recent_conversations")
         return result
+
+    def delete_conversation_files(self, session_id: str, user_id: str = "") -> int:
+        """Delete all conversation files matching a session_id. Returns count of deleted files."""
+        uid = self._resolve_uid(user_id)
+        user_path = self._user_dir(uid)
+        deleted = 0
+        for f in user_path.glob(f"*{session_id[:8]}*.md"):
+            try:
+                f.unlink()
+                deleted += 1
+                logger.info(
+                    f"[info] MemoryService - deleted conversation file: {f.name}"
+                )
+            except OSError as exc:
+                logger.warning(
+                    f"[warn] MemoryService - failed to delete {f.name}: {exc}"
+                )
+        return deleted

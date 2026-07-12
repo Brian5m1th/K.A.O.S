@@ -5,8 +5,10 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Card, CardContent } from "@/shared/ui/card";
 import { Loader2 } from "lucide-react";
+import { useToast } from "@/shared/components/toast";
 
 export default function SetupPage() {
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const register = useAuthStore((s) => s.register);
   const error = useAuthStore((s) => s.error);
@@ -31,12 +33,12 @@ export default function SetupPage() {
       const cleanUrl = urlInput.replace(/\/+$/, "");
       const res = await fetch(`${cleanUrl}/health`);
       if (res.ok) {
-        alert("Conexão estabelecida com sucesso!");
+        showToast("Conexão estabelecida com sucesso!", "success");
       } else {
-        alert("Servidor respondeu, mas com status inválido.");
+        showToast("Servidor respondeu, mas com status inválido.", "warning");
       }
     } catch (e: any) {
-      alert(`Falha ao conectar: ${e.message || String(e)}`);
+      showToast(`Falha ao conectar: ${e.message || String(e)}`, "error");
     }
   };
 

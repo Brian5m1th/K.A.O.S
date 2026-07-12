@@ -45,6 +45,8 @@ class PostgresMemoryProvider(BaseMemoryProvider):
 
     async def clear(self, session_id: str) -> None:
         logger.info(f"[start] PostgresMemoryProvider - clear session={session_id}")
+        repo = await self._ensure_repo()
+        await repo.delete_session(session_id)
         logger.debug("[finish] PostgresMemoryProvider - clear")
 
     async def healthcheck(self) -> bool:

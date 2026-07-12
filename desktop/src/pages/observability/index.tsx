@@ -25,8 +25,16 @@ export default function ObservabilityPage() {
   const [liveLogs, setLiveLogs] = useState<string[]>([]);
 
   // System alerts — fetched from backend notifications
-  const [alerts, setAlerts] = useState<any[]>([]);
+  const [alerts, setAlerts] = useState<AlertItem[]>([]);
   const [alertsLoading, setAlertsLoading] = useState(true);
+
+  interface NotificationItem {
+    id: number;
+    level: string;
+    title: string;
+    message: string;
+    created_at: string;
+  }
 
   // Fetch real notifications from backend
   useEffect(() => {
@@ -34,8 +42,8 @@ export default function ObservabilityPage() {
       try {
         const res = await kaosFetch(`${serverUrl}/api/notifications?unread_only=true&limit=10`, "");
         if (res.ok) {
-          const data = await res.json();
-          const items = (data.notifications || []).map((n: any) => ({
+          const data: { notifications: NotificationItem[] } = await res.json();
+          const items = (data.notifications || []).map((n: NotificationItem) => ({
             id: n.id,
             type: n.level === "critical" || n.level === "error" ? "error" : n.level === "warning" ? "warn" : "info",
             message: `${n.title}: ${n.message}`,
@@ -220,7 +228,7 @@ export default function ObservabilityPage() {
                         <span className="text-[10px] text-text-dim block mt-1">{alert.time}</span>
                       </div>
                     </div>
-                    <Badge variant={alert.type as any} className="capitalize text-[9px] py-0 px-1 font-mono select-none">
+                    <Badge variant={alert.type as "success" | "warning" | "error" | "info"} className="capitalize text-[9px] py-0 px-1 font-mono select-none">
                       {alert.type}
                     </Badge>
                   </div>

@@ -1,0 +1,8 @@
+#!/bin/sh
+# pre-commit hook — sync vault antes de commits no docs/
+# Instalar: git config core.hooksPath .githooks
+
+if git diff --cached --name-only | grep -q "^docs/"; then
+    echo "[githooks] docs/ modificado, sincronizando vault..."
+    pwsh ./scripts/sync-vault.ps1
+fi
