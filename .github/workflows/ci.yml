@@ -73,7 +73,7 @@ jobs:
           enable-cache: true
 
       - name: Install Graphify
-        run: uv pip install --system graphifyy
+        run: uv pip install graphifyy
 
       - name: Enrich Graph (structural quality, no LLM)
         continue-on-error: true
