@@ -56,7 +56,56 @@ jobs:
         env:
           OLLAMA_HOST: http://localhost:11434
 
-  # ── Job 2: Validacao do Desktop Client (Tauri/Vite) ──────────────────────────
+  # ── Job 2: Enriquecimento do Knowledge Graph ──────────────────────────────────
+  enrich-graph:
+    runs-on: ubuntu-latest
+    needs: validate-backend
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.13"
+
+      - name: Install Graphify
+        run: uv pip install graphifyy
+
+      - name: Enrich Graph (structural quality, no LLM)
+        continue-on-error: true
+        run: |
+          if graphify enrich --skip-llm --skip-community 2>/dev/null; then
+            echo "enriched=true" >> $GITHUB_OUTPUT
+          else
+            echo "enriched=false" >> $GITHUB_OUTPUT
+          fi
+        id: enrich
+
+      - name: Generate Dashboard
+        if: steps.enrich.outputs.enriched == 'true'
+        run: |
+          python -c "
+          import json
+          from pathlib import Path
+          ep = Path('graphify-out/enriched/graph.enriched.json')
+          if ep.exists():
+              print(f'Enriched graph OK: {ep.stat().st_size} bytes')
+          else:
+              print('No enriched graph found')
+          "
+
+      - name: Commit enriched graph
+        if: steps.enrich.outputs.enriched == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-enrich knowledge graph [skip ci]"
+          file_pattern: graphify-out/enriched/
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+
+  # ── Job 3: Validacao do Desktop Client (Tauri/Vite) ──────────────────────────
   validate-desktop:
     runs-on: ubuntu-latest
     permissions:
