@@ -24,7 +24,10 @@ interface GraphNodeData {
   status?: string;
   phase?: string;
   description?: string;
-  [key: string]: unknown;
+  source?: string;
+  path?: string;
+  owner?: string;
+  tags?: string[];
 }
 
 interface GraphEdgeData {
