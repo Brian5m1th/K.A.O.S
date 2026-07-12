@@ -17,7 +17,13 @@ from pathlib import Path
 from typing import Optional
 
 from loguru import logger
-from app.domain.ports.graph_port import GraphPort, NodeInfo, PathInfo, GraphQuery, GraphResult
+from app.domain.ports.graph_port import (
+    GraphPort,
+    NodeInfo,
+    PathInfo,
+    GraphQuery,
+    GraphResult,
+)
 
 
 class EnrichedGraphAdapter(GraphPort):
@@ -49,10 +55,18 @@ class EnrichedGraphAdapter(GraphPort):
             return True
 
         try:
-            from graphify.graph_sync.graph_port_v2 import EnrichedGraphAdapter as CoreAdapter
+            from graphify.graph_sync.graph_port_v2 import (
+                EnrichedGraphAdapter as CoreAdapter,
+            )
 
-            enriched = str(self.ENRICHED_PATH.resolve()) if self.ENRICHED_PATH.exists() else None
-            legacy = str(self.LEGACY_PATH.resolve()) if self.LEGACY_PATH.exists() else None
+            enriched = (
+                str(self.ENRICHED_PATH.resolve())
+                if self.ENRICHED_PATH.exists()
+                else None
+            )
+            legacy = (
+                str(self.LEGACY_PATH.resolve()) if self.LEGACY_PATH.exists() else None
+            )
 
             self._adapter = CoreAdapter(
                 enriched_path=enriched,
@@ -60,6 +74,7 @@ class EnrichedGraphAdapter(GraphPort):
             )
             # Force load
             import asyncio
+
             health = asyncio.run(self._adapter.health())
             self._loaded = health.status != "unavailable"
             return self._loaded
@@ -110,7 +125,9 @@ class EnrichedGraphAdapter(GraphPort):
                 source=result.source,
                 target=result.target,
                 hops=result.hops,
-                path=[f"{p['from']} --[{p['relation']}]--> {p['to']}" for p in result.path],
+                path=[
+                    f"{p['from']} --[{p['relation']}]--> {p['to']}" for p in result.path
+                ],
                 description=result.description,
             )
         except Exception as exc:
