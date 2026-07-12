@@ -5,7 +5,6 @@ Provides semantic vector search over the 'kaos' collection.
 """
 
 import httpx
-from typing import Optional
 
 from loguru import logger
 from app.config.settings import settings

@@ -10,7 +10,6 @@ Endpoints:
 
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
-from typing import Optional
 
 from app.core.services.graph_service import GraphService
 from app.domain.ports.graph_port import GraphQuery

@@ -9,7 +9,7 @@ Endpoints:
   GET    /api/memory/health      — Service health check
 """
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from typing import Optional
 
