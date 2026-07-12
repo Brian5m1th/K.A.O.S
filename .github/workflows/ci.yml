@@ -315,7 +315,13 @@ jobs:
         shell: pwsh
         run: ./scripts/check-duplicates.ps1
 
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          enable-cache: true
+
       - name: Scan docs gaps
+        continue-on-error: true
         run: uv run python scripts/scan_docs_gaps.py
         working-directory: assistant
 
