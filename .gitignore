@@ -50,6 +50,7 @@ graphify/
 
 # Generated graph files
 graphify-out/cache/
+SDD/
 
 # Local config files
 .agents/
