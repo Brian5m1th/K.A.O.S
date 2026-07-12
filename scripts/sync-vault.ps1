@@ -32,3 +32,4 @@ if ($robocopyExit -ge 8) {
 }
 
 Write-Host "Sync concluído com sucesso."
+exit 0
