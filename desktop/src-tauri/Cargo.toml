@@ -1,6 +1,6 @@
 [package]
 name = "kaos-desktop"
-version = "2.7.0"
+version = "2.7.1"
 description = "KAOS Desktop Launcher"
 authors = ["Brian"]
 edition = "2021"

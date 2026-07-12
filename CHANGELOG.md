@@ -1,3 +1,17 @@
+## [2.7.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.7.0...v2.7.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* add setup-uv to auto-docs job, make scan-docs-gaps continue-on-error ([8a75190](https://github.com/Brian5m1th/K.A.O.S/commit/8a75190d8b7344f446ddb538414a28c49acfaca6))
+* explicit exit 0 at end of sync-vault.ps1 ([1bee305](https://github.com/Brian5m1th/K.A.O.S/commit/1bee30521668d4ad5ac2c7dc988914529a39169b))
+* remove --system from uv pip install graphifyy (venv already exists) ([e2e9d9d](https://github.com/Brian5m1th/K.A.O.S/commit/e2e9d9dd5233335dcd96933d0e0121a52ed1ea09))
+* robocopy exit code handling in sync-vault.ps1 ([2a2021b](https://github.com/Brian5m1th/K.A.O.S/commit/2a2021bfba8d6ca1e6b3661b05b3f90e116c90ac))
+* set PSNativeCommandUseErrorActionPreference=false in sync-vault.ps1 ([4af88d4](https://github.com/Brian5m1th/K.A.O.S/commit/4af88d493ce365c1ee06d60030910a6b4d9fdefb))
+* test assertion in doc-generator, setup-uv version arg, graphify install with --system ([9f4fc25](https://github.com/Brian5m1th/K.A.O.S/commit/9f4fc25890988fa68a79d3a1eda6cdd0f0435003))
+* TS type errors in graph-updater, knowledge-graph, and commands-init ([c922cf9](https://github.com/Brian5m1th/K.A.O.S/commit/c922cf9d8f18a1d7e23dda47964893a37ad30d36))
+* unused import in enriched_adapter.py, broken import path in commands-init.ts ([1c04713](https://github.com/Brian5m1th/K.A.O.S/commit/1c0471397ce39168d4f832d266f54443bc877f4a))
+
 # [2.7.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.6.0...v2.7.0) (2026-07-12)
 
 
