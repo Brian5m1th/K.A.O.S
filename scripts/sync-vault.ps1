@@ -3,7 +3,8 @@
 # Uso: ./scripts/sync-vault.ps1
 # One-way sync: docs/ é a fonte de verdade
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
+$PSNativeCommandUseErrorActionPreference = $false
 $root = Split-Path -Parent $PSScriptRoot
 
 $source = Join-Path $root "docs/wiki"
