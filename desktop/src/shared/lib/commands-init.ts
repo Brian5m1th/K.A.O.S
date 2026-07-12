@@ -1,4 +1,4 @@
-import { commandRegistry } from "./command-registry";
+import { commandRegistry } from "@/infrastructure/commands/command-registry";
 import { useDriftStore } from "@/features/documentation-audit/store/drift-store";
 import {
   LayoutDashboard,
