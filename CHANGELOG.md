@@ -1,3 +1,29 @@
+# [2.6.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.5...v2.6.0) (2026-07-12)
+
+
+### Bug Fixes
+
+* **deploy:** use --ignore-buildable flag on docker compose pull ([df0d98f](https://github.com/Brian5m1th/K.A.O.S/commit/df0d98f3c3db4f0f25907e556963963ca6540ed6))
+* eliminate all mock/fabricated data patterns ([a206737](https://github.com/Brian5m1th/K.A.O.S/commit/a20673759ca8f9e7d5703697655cbbdc3dd77333))
+* gitignore — exclude airllm/, graphify/, graphify-out/cache/, local config dirs ([b5d6916](https://github.com/Brian5m1th/K.A.O.S/commit/b5d6916a636d73415adaac748d1bbd6dd27c5942))
+* lint errors — ruff cleanup (30 issues fixed) ([cdd503f](https://github.com/Brian5m1th/K.A.O.S/commit/cdd503f3406f1d4e257c20107033c15564de06b6))
+* remove graphify/ submodule from index — no .gitmodules entry ([f657a3b](https://github.com/Brian5m1th/K.A.O.S/commit/f657a3bc3020af68f9f800839354803b986a36d5))
+* ruff auto-fix — 13 unused import issues ([477fe66](https://github.com/Brian5m1th/K.A.O.S/commit/477fe66ba753b73de7cbcb6831b2a9269c14c3c4))
+
+
+### Features
+
+* 11 framework adapters — Graphify, Qdrant, Ollama, AirLLM, OpenAI, Gemini, Claude, LangGraph, PostgreSQL, NetworkX, EvidenceEngine ([2c3683f](https://github.com/Brian5m1th/K.A.O.S/commit/2c3683f14cdac0ae509040739209e9dceb4b2f6b))
+* 5 Desktop stores + Graphify Inspector — zero framework imports ([5c5234b](https://github.com/Brian5m1th/K.A.O.S/commit/5c5234b24b6a7480b8260c6d3ad00a1f9020a450))
+* 6 REST APIs, 24 endpoints, FastAPI dependency injection ([d1fe5b8](https://github.com/Brian5m1th/K.A.O.S/commit/d1fe5b8ec140ba48801d51c9cd42ac0a22e806de))
+* 7 capability services — Graph, Memory, Retrieval, Inference, Planner, Evidence, Knowledge ([5806684](https://github.com/Brian5m1th/K.A.O.S/commit/5806684206236db8d83041b8a6ac0434b5bbeadf))
+* define 6 domain ports for capability-first architecture ([dd6003d](https://github.com/Brian5m1th/K.A.O.S/commit/dd6003d2931cd5dad4375e2b8e956f196ec5fb29))
+* generic ProviderRegistry for runtime provider swapping ([bc1c6a4](https://github.com/Brian5m1th/K.A.O.S/commit/bc1c6a4bfe8e8f8e8133978222bc0d6eb9e5417f))
+* GitHub Actions graphify-update, secrets API/desktop store, graphify obsidian export scripts ([11ac716](https://github.com/Brian5m1th/K.A.O.S/commit/11ac7163f1e3a987bb9a63c05c591523c2bfab43))
+* integrate Graphify graph.json as code intelligence source ([39216a8](https://github.com/Brian5m1th/K.A.O.S/commit/39216a8fb79b6a4c772b2f81f0e49927c4d36d0a))
+* kaos-research laboratory — evidence-driven framework evaluation ([16b14d0](https://github.com/Brian5m1th/K.A.O.S/commit/16b14d0c53cdb87004b9eb49cb04f18d976b085f))
+* **production:** K.A.O.S production readiness — mock elimination, store consolidation, unified dashboard, offline gate, Windows fix ([77593e4](https://github.com/Brian5m1th/K.A.O.S/commit/77593e49a6fcee0f47b9ffaa7c1ef891934620c7))
+
 ## [2.5.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.4...v2.5.5) (2026-07-11)
 
 
