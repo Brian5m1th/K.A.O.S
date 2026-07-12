@@ -1,0 +1,81 @@
+# graphify\tests\test_read_hook.py
+
+## Símbolos
+
+- [[graphify_tests_test_read_hook]] — code: test_read_hook.py
+- [[graphify_tests_test_read_hook_read_matcher]] — code: _read_matcher()
+- [[graphify_tests_test_read_hook_env]] — code: _env()
+- [[graphify_tests_test_read_hook_run]] — code: _run()
+- [[graphify_tests_test_read_hook_test_matcher_targets_read_and_glob]] — code: test_matcher_targets_read_and_glob()
+- [[graphify_tests_test_read_hook_test_command_has_no_shell_syntax]] — code: test_command_has_no_shell_syntax()
+- [[graphify_tests_test_read_hook_test_silent_without_graph]] — code: test_silent_without_graph()
+- [[graphify_tests_test_read_hook_test_nudges_on_source_read_with_graph]] — code: test_nudges_on_source_read_with_graph()
+- [[graphify_tests_test_read_hook_test_nudge_payload_is_valid_pretooluse_json]] — code: test_nudge_payload_is_valid_pretooluse_json()
+- [[graphify_tests_test_read_hook_test_silent_on_graphify_out_targets]] — code: test_silent_on_graphify_out_targets()
+- [[graphify_tests_test_read_hook_test_silent_on_non_source_files]] — code: test_silent_on_non_source_files()
+- [[graphify_tests_test_read_hook_test_glob_pattern_nudges]] — code: test_glob_pattern_nudges()
+- [[graphify_tests_test_read_hook_test_nudges_on_framework_source]] — code: test_nudges_on_framework_source()
+- [[graphify_tests_test_read_hook_test_astro_glob_nudges]] — code: test_astro_glob_nudges()
+- [[graphify_tests_test_read_hook_test_silent_on_json_config]] — code: test_silent_on_json_config()
+- [[graphify_tests_test_read_hook_test_nudges_on_multi_dot_source]] — code: test_nudges_on_multi_dot_source()
+- [[graphify_tests_test_read_hook_test_windows_path_nudges]] — code: test_windows_path_nudges()
+- [[graphify_tests_test_read_hook_test_silent_when_extension_is_on_a_directory_segment]] — code: test_silent_when_extension_is_on_a_directory_segment()
+- [[graphify_tests_test_read_hook_test_fails_open_on_malformed_stdin]] — code: test_fails_open_on_malformed_stdin()
+- [[graphify_tests_test_read_hook_test_never_blocks]] — code: test_never_blocks()
+- [[graphify_tests_test_read_hook_rationale_1]] — code: The Read|Glob PreToolUse guard nudges toward the graph instead of raw reads.
+- [[graphify_tests_test_read_hook_rationale_72]] — code: Reading the graph's own report must not start a go-read-the-graph loop.
+- [[graphify_tests_test_read_hook_rationale_89]] — code: .astro/.vue/.svelte are real source types and must nudge (regression).
+- [[graphify_tests_test_read_hook_rationale_101]] — code: Config files must stay silent: '.json' must not match the '.js' extension.
+- [[graphify_tests_test_read_hook_rationale_108]] — code: A real trailing extension must win on multi-dot names (the segment split):
+- [[graphify_tests_test_read_hook_rationale_116]] — code: Backslash-separated paths split on the real final segment, then its ext.
+- [[graphify_tests_test_read_hook_rationale_122]] — code: An extension that sits on a directory component, not the final segment,     mus
+- [[graphify_tests_test_read_hook_rationale_140]] — code: A nudge is additionalContext only - the guard must exit 0, never deny.
+
+## Dependências
+
+- [[graphify_tests_test_read_hook]] → `imports_from` → [[graphify_graphify_main]]
+- [[graphify_tests_test_read_hook_read_matcher]] → `calls` → [[graphify_graphify_install_claude_pretooluse_hooks]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_env]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_read_matcher]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_astro_glob_nudges]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_command_has_no_shell_syntax]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_fails_open_on_malformed_stdin]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_glob_pattern_nudges]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_matcher_targets_read_and_glob]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_never_blocks]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_nudge_payload_is_valid_pretooluse_json]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_nudges_on_framework_source]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_nudges_on_multi_dot_source]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_nudges_on_source_read_with_graph]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_silent_on_graphify_out_targets]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_silent_on_json_config]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_silent_on_non_source_files]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_silent_when_extension_is_on_a_directory_segment]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_silent_without_graph]]
+- [[graphify_tests_test_read_hook]] → `contains` → [[graphify_tests_test_read_hook_test_windows_path_nudges]]
+- [[graphify_tests_test_read_hook_rationale_1]] → `rationale_for` → [[graphify_tests_test_read_hook]]
+- [[graphify_tests_test_read_hook_test_command_has_no_shell_syntax]] → `calls` → [[graphify_tests_test_read_hook_read_matcher]]
+- [[graphify_tests_test_read_hook_test_matcher_targets_read_and_glob]] → `calls` → [[graphify_tests_test_read_hook_read_matcher]]
+- [[graphify_tests_test_read_hook_run]] → `calls` → [[graphify_tests_test_read_hook_env]]
+- [[graphify_tests_test_read_hook_test_fails_open_on_malformed_stdin]] → `calls` → [[graphify_tests_test_read_hook_env]]
+- [[graphify_tests_test_read_hook_test_astro_glob_nudges]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_glob_pattern_nudges]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_never_blocks]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_nudge_payload_is_valid_pretooluse_json]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_nudges_on_framework_source]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_nudges_on_multi_dot_source]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_nudges_on_source_read_with_graph]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_silent_on_graphify_out_targets]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_silent_on_json_config]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_silent_on_non_source_files]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_silent_when_extension_is_on_a_directory_segment]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_silent_without_graph]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_test_windows_path_nudges]] → `calls` → [[graphify_tests_test_read_hook_run]]
+- [[graphify_tests_test_read_hook_rationale_72]] → `rationale_for` → [[graphify_tests_test_read_hook_test_silent_on_graphify_out_targets]]
+- [[graphify_tests_test_read_hook_rationale_89]] → `rationale_for` → [[graphify_tests_test_read_hook_test_nudges_on_framework_source]]
+- [[graphify_tests_test_read_hook_rationale_101]] → `rationale_for` → [[graphify_tests_test_read_hook_test_silent_on_json_config]]
+- [[graphify_tests_test_read_hook_rationale_108]] → `rationale_for` → [[graphify_tests_test_read_hook_test_nudges_on_multi_dot_source]]
+- [[graphify_tests_test_read_hook_rationale_116]] → `rationale_for` → [[graphify_tests_test_read_hook_test_windows_path_nudges]]
+- [[graphify_tests_test_read_hook_rationale_122]] → `rationale_for` → [[graphify_tests_test_read_hook_test_silent_when_extension_is_on_a_directory_segment]]
+- [[graphify_tests_test_read_hook_rationale_140]] → `rationale_for` → [[graphify_tests_test_read_hook_test_never_blocks]]

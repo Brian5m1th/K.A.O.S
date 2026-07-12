@@ -1,0 +1,72 @@
+# assistant\app\core\mcp_manager.py
+
+## Símbolos
+
+- [[assistant_app_core_mcp_manager]] — code: mcp_manager.py
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] — code: _MCPServerProcess
+- [[assistant_app_core_mcp_manager_mcpserverprocess_init]] — code: .__init__()
+- [[assistant_app_core_mcp_manager_mcpserverprocess_send_request]] — code: ._send_request()
+- [[assistant_app_core_mcp_manager_mcpserverprocess_initialize]] — code: .initialize()
+- [[assistant_app_core_mcp_manager_mcpserverprocess_shutdown]] — code: .shutdown()
+- [[assistant_app_core_mcp_manager_mcpserverprocess_get_tools]] — code: .get_tools()
+- [[assistant_app_core_mcp_manager_mcpserverprocess_call_tool]] — code: .call_tool()
+- [[assistant_app_core_mcp_manager_mcpserverprocess_get_health]] — code: .get_health()
+- [[assistant_app_core_mcp_manager_mcpmanager]] — code: MCPManager
+- [[assistant_app_core_mcp_manager_mcpmanager_new]] — code: .__new__()
+- [[assistant_app_core_mcp_manager_mcpmanager_start_all]] — code: .start_all()
+- [[assistant_app_core_mcp_manager_mcpmanager_shutdown_all]] — code: .shutdown_all()
+- [[assistant_app_core_mcp_manager_mcpmanager_delete_server]] — code: .delete_server()
+- [[assistant_app_core_mcp_manager_mcpmanager_get_server]] — code: .get_server()
+- [[assistant_app_core_mcp_manager_mcpmanager_list_servers]] — code: .list_servers()
+- [[assistant_app_core_mcp_manager_mcpmanager_is_initialized]] — code: .is_initialized()
+- [[assistant_app_core_mcp_manager_mcpmanager_servers]] — code: .servers()
+- [[assistant_app_core_mcp_manager_rationale_1]] — code: MCP Manager — singleton responsible for initialising, running, and shutting dow
+- [[assistant_app_core_mcp_manager_rationale_21]] — code: Concrete MCPServer wrapping a local STDIO subprocess.
+- [[assistant_app_core_mcp_manager_rationale_225]] — code: Singleton that manages all configured MCP server subprocesses.
+- [[assistant_app_core_mcp_manager_rationale_244]] — code: Read the registry and start all enabled MCP servers.          Returns the numb
+- [[assistant_app_core_mcp_manager_rationale_266]] — code: Gracefully stop all running MCP servers.          Returns the number of succes
+- [[assistant_app_core_mcp_manager_rationale_280]] — code: Shut down and remove a single MCP server process from memory.
+
+## Dependências
+
+- [[assistant_app_core_mcp_manager]] → `contains` → [[assistant_app_core_mcp_manager_mcpmanager]]
+- [[assistant_app_core_mcp_manager]] → `contains` → [[assistant_app_core_mcp_manager_mcpserverprocess]]
+- [[assistant_app_core_mcp_manager_rationale_1]] → `rationale_for` → [[assistant_app_core_mcp_manager]]
+- [[assistant_app_core_mcp_manager_mcpmanager_get_server]] → `references` → [[assistant_app_core_mcp_manager_mcpserverprocess]]
+- [[assistant_app_core_mcp_manager_mcpmanager_servers]] → `references` → [[assistant_app_core_mcp_manager_mcpserverprocess]]
+- [[assistant_app_core_mcp_manager_mcpmanager_start_all]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_call_tool]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_get_health]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_get_tools]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_init]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_initialize]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_send_request]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `method` → [[assistant_app_core_mcp_manager_mcpserverprocess_shutdown]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `uses` → [[assistant_app_core_mcp_registry_mcpregistry]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `uses` → [[assistant_app_core_mcp_server_base_mcpserver]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess]] → `inherits` → [[mcpserver]]
+- [[assistant_app_core_mcp_manager_rationale_21]] → `rationale_for` → [[assistant_app_core_mcp_manager_mcpserverprocess]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess_call_tool]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_send_request]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess_initialize]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_send_request]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess_send_request]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_core_mcp_manager_mcpmanager_start_all]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_initialize]]
+- [[assistant_app_core_mcp_manager_mcpserverprocess_initialize]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_shutdown]]
+- [[assistant_app_core_mcp_manager_mcpmanager_delete_server]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_shutdown]]
+- [[assistant_app_core_mcp_manager_mcpmanager_shutdown_all]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_shutdown]]
+- [[assistant_app_core_mcp_manager_mcpmanager_list_servers]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_get_tools]]
+- [[assistant_app_core_mcp_manager_mcpmanager_list_servers]] → `calls` → [[assistant_app_core_mcp_manager_mcpserverprocess_get_health]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_delete_server]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_get_server]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_is_initialized]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_list_servers]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_new]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_servers]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_shutdown_all]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `method` → [[assistant_app_core_mcp_manager_mcpmanager_start_all]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `uses` → [[assistant_app_core_mcp_registry_mcpregistry]]
+- [[assistant_app_core_mcp_manager_mcpmanager]] → `uses` → [[assistant_app_core_mcp_server_base_mcpserver]]
+- [[assistant_app_core_mcp_manager_rationale_225]] → `rationale_for` → [[assistant_app_core_mcp_manager_mcpmanager]]
+- [[assistant_app_core_mcp_manager_mcpmanager_start_all]] → `calls` → [[assistant_app_core_mcp_registry_mcpregistry_get_enabled_servers]]
+- [[assistant_app_core_mcp_manager_rationale_244]] → `rationale_for` → [[assistant_app_core_mcp_manager_mcpmanager_start_all]]
+- [[assistant_app_core_mcp_manager_rationale_266]] → `rationale_for` → [[assistant_app_core_mcp_manager_mcpmanager_shutdown_all]]
+- [[assistant_app_core_mcp_manager_rationale_280]] → `rationale_for` → [[assistant_app_core_mcp_manager_mcpmanager_delete_server]]

@@ -1,0 +1,112 @@
+# docs\Arquitetura\Infraestrutura Docker.md
+
+## Símbolos
+
+- [[docs_arquitetura_infraestrutura_docker]] — code: Infraestrutura Docker.md
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] — code: Infraestrutura Docker
+- [[docs_arquitetura_infraestrutura_docker_parent]] — code: Parent
+- [[docs_arquitetura_infraestrutura_docker_children]] — code: Children
+- [[docs_arquitetura_infraestrutura_docker_related]] — code: Related
+- [[docs_arquitetura_infraestrutura_docker_tags]] — code: Tags
+- [[docs_arquitetura_infraestrutura_docker_conteudo]] — code: Conteudo
+- [[docs_arquitetura_infraestrutura_docker_aspectos_conceituais_e_requisitos]] — code: Aspectos Conceituais e Requisitos
+- [[docs_arquitetura_infraestrutura_docker_user_story]] — code: User Story
+- [[docs_arquitetura_infraestrutura_docker_contexto]] — code: Contexto
+- [[docs_arquitetura_infraestrutura_docker_objetivo]] — code: Objetivo
+- [[docs_arquitetura_infraestrutura_docker_escopo]] — code: Escopo
+- [[docs_arquitetura_infraestrutura_docker_incluído]] — code: Incluído
+- [[docs_arquitetura_infraestrutura_docker_não_incluído]] — code: Não Incluído
+- [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]] — code: Princípios Arquiteturais
+- [[docs_arquitetura_infraestrutura_docker_pa_001]] — code: PA-001
+- [[docs_arquitetura_infraestrutura_docker_pa_002]] — code: PA-002
+- [[docs_arquitetura_infraestrutura_docker_pa_003]] — code: PA-003
+- [[docs_arquitetura_infraestrutura_docker_pa_004]] — code: PA-004
+- [[docs_arquitetura_infraestrutura_docker_pa_005]] — code: PA-005
+- [[docs_arquitetura_infraestrutura_docker_arquitetura]] — code: Arquitetura
+- [[docs_arquitetura_infraestrutura_docker_componentes]] — code: Componentes
+- [[docs_arquitetura_infraestrutura_docker_estratégia_para_obsidian]] — code: Estratégia para Obsidian
+- [[docs_arquitetura_infraestrutura_docker_requisito]] — code: Requisito
+- [[docs_arquitetura_infraestrutura_docker_implementação]] — code: Implementação
+- [[docs_arquitetura_infraestrutura_docker_configuração]] — code: Configuração
+- [[docs_arquitetura_infraestrutura_docker_benefícios]] — code: Benefícios
+- [[docs_arquitetura_infraestrutura_docker_estrutura_de_diretórios]] — code: Estrutura de Diretórios
+- [[docs_arquitetura_infraestrutura_docker_desenvolvimento]] — code: Desenvolvimento
+- [[docs_arquitetura_infraestrutura_docker_produção]] — code: Produção
+- [[docs_arquitetura_infraestrutura_docker_estratégia_de_configuração]] — code: Estratégia de Configuração
+- [[docs_arquitetura_infraestrutura_docker_arquivos]] — code: Arquivos
+- [[docs_arquitetura_infraestrutura_docker_variáveis_obrigatórias]] — code: Variáveis Obrigatórias
+- [[docs_arquitetura_infraestrutura_docker_persistência]] — code: Persistência
+- [[docs_arquitetura_infraestrutura_docker_volumes_docker]] — code: Volumes Docker
+- [[docs_arquitetura_infraestrutura_docker_objetivo_222]] — code: Objetivo
+- [[docs_arquitetura_infraestrutura_docker_fluxo_de_execução]] — code: Fluxo de Execução
+- [[docs_arquitetura_infraestrutura_docker_fluxo_de_desenvolvimento]] — code: Fluxo de Desenvolvimento
+- [[docs_arquitetura_infraestrutura_docker_fluxo_de_produção]] — code: Fluxo de Produção
+- [[docs_arquitetura_infraestrutura_docker_requisitos_do_sistema]] — code: Requisitos do Sistema
+- [[docs_arquitetura_infraestrutura_docker_requisitos_funcionais]] — code: Requisitos Funcionais
+- [[docs_arquitetura_infraestrutura_docker_requisitos_não_funcionais]] — code: Requisitos Não Funcionais
+- [[docs_arquitetura_infraestrutura_docker_critério_de_sucesso]] — code: Critério de Sucesso
+- [[docs_arquitetura_infraestrutura_docker_configuração_operacional_e_comandos]] — code: ConfiguraçÃo Operacional e Comandos
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker_270]] — code: Infraestrutura Docker
+- [[docs_arquitetura_infraestrutura_docker_docker_compose]] — code: Docker Compose
+- [[docs_arquitetura_infraestrutura_docker_servicos]] — code: Servicos
+- [[docs_arquitetura_infraestrutura_docker_postgresql_postgres_16_alpine]] — code: PostgreSQL (`postgres:16-alpine`)
+- [[docs_arquitetura_infraestrutura_docker_qdrant_qdrant_qdrant_latest]] — code: Qdrant (`qdrant/qdrant:latest`)
+- [[docs_arquitetura_infraestrutura_docker_open_webui_ghcr_io_open_webui_open_webui_latest]] — code: Open WebUI (`ghcr.io/open-webui/open-webui:latest`)
+- [[docs_arquitetura_infraestrutura_docker_variaveis_de_ambiente]] — code: Variaveis de Ambiente
+- [[docs_arquitetura_infraestrutura_docker_comandos]] — code: Comandos
+
+## Dependências
+
+- [[docs_arquitetura_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]]
+- [[docs_arquitetura_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker_270]]
+- [[docs_arquitetura_infraestrutura_docker]] → `references` → [[docs_arquitetura_integracoes_de_servicos]]
+- [[docs_arquitetura_infraestrutura_docker]] → `references` → [[docs_arquitetura_visao_geral]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_arquitetura]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_children]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_componentes]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_conteudo]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_contexto]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_critério_de_sucesso]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_escopo]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_estratégia_de_configuração]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_estratégia_para_obsidian]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_estrutura_de_diretórios]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_fluxo_de_execução]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_objetivo]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_parent]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_persistência]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_related]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_requisitos_do_sistema]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_tags]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker]] → `contains` → [[docs_arquitetura_infraestrutura_docker_user_story]]
+- [[docs_arquitetura_infraestrutura_docker_conteudo]] → `contains` → [[docs_arquitetura_infraestrutura_docker_aspectos_conceituais_e_requisitos]]
+- [[docs_arquitetura_infraestrutura_docker_escopo]] → `contains` → [[docs_arquitetura_infraestrutura_docker_incluído]]
+- [[docs_arquitetura_infraestrutura_docker_escopo]] → `contains` → [[docs_arquitetura_infraestrutura_docker_não_incluído]]
+- [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]] → `contains` → [[docs_arquitetura_infraestrutura_docker_pa_001]]
+- [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]] → `contains` → [[docs_arquitetura_infraestrutura_docker_pa_002]]
+- [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]] → `contains` → [[docs_arquitetura_infraestrutura_docker_pa_003]]
+- [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]] → `contains` → [[docs_arquitetura_infraestrutura_docker_pa_004]]
+- [[docs_arquitetura_infraestrutura_docker_princípios_arquiteturais]] → `contains` → [[docs_arquitetura_infraestrutura_docker_pa_005]]
+- [[docs_arquitetura_infraestrutura_docker_estratégia_para_obsidian]] → `contains` → [[docs_arquitetura_infraestrutura_docker_benefícios]]
+- [[docs_arquitetura_infraestrutura_docker_estratégia_para_obsidian]] → `contains` → [[docs_arquitetura_infraestrutura_docker_configuração]]
+- [[docs_arquitetura_infraestrutura_docker_estratégia_para_obsidian]] → `contains` → [[docs_arquitetura_infraestrutura_docker_implementação]]
+- [[docs_arquitetura_infraestrutura_docker_estratégia_para_obsidian]] → `contains` → [[docs_arquitetura_infraestrutura_docker_requisito]]
+- [[docs_arquitetura_infraestrutura_docker_estrutura_de_diretórios]] → `contains` → [[docs_arquitetura_infraestrutura_docker_desenvolvimento]]
+- [[docs_arquitetura_infraestrutura_docker_estrutura_de_diretórios]] → `contains` → [[docs_arquitetura_infraestrutura_docker_produção]]
+- [[docs_arquitetura_infraestrutura_docker_estratégia_de_configuração]] → `contains` → [[docs_arquitetura_infraestrutura_docker_arquivos]]
+- [[docs_arquitetura_infraestrutura_docker_estratégia_de_configuração]] → `contains` → [[docs_arquitetura_infraestrutura_docker_variáveis_obrigatórias]]
+- [[docs_arquitetura_infraestrutura_docker_persistência]] → `contains` → [[docs_arquitetura_infraestrutura_docker_objetivo_222]]
+- [[docs_arquitetura_infraestrutura_docker_persistência]] → `contains` → [[docs_arquitetura_infraestrutura_docker_volumes_docker]]
+- [[docs_arquitetura_infraestrutura_docker_fluxo_de_execução]] → `contains` → [[docs_arquitetura_infraestrutura_docker_fluxo_de_desenvolvimento]]
+- [[docs_arquitetura_infraestrutura_docker_fluxo_de_execução]] → `contains` → [[docs_arquitetura_infraestrutura_docker_fluxo_de_produção]]
+- [[docs_arquitetura_infraestrutura_docker_requisitos_do_sistema]] → `contains` → [[docs_arquitetura_infraestrutura_docker_requisitos_funcionais]]
+- [[docs_arquitetura_infraestrutura_docker_requisitos_do_sistema]] → `contains` → [[docs_arquitetura_infraestrutura_docker_requisitos_não_funcionais]]
+- [[docs_arquitetura_infraestrutura_docker_critério_de_sucesso]] → `contains` → [[docs_arquitetura_infraestrutura_docker_configuração_operacional_e_comandos]]
+- [[docs_arquitetura_infraestrutura_docker_infraestrutura_docker_270]] → `contains` → [[docs_arquitetura_infraestrutura_docker_docker_compose]]
+- [[docs_arquitetura_infraestrutura_docker_docker_compose]] → `contains` → [[docs_arquitetura_infraestrutura_docker_comandos]]
+- [[docs_arquitetura_infraestrutura_docker_docker_compose]] → `contains` → [[docs_arquitetura_infraestrutura_docker_servicos]]
+- [[docs_arquitetura_infraestrutura_docker_docker_compose]] → `contains` → [[docs_arquitetura_infraestrutura_docker_variaveis_de_ambiente]]
+- [[docs_arquitetura_infraestrutura_docker_servicos]] → `contains` → [[docs_arquitetura_infraestrutura_docker_open_webui_ghcr_io_open_webui_open_webui_latest]]
+- [[docs_arquitetura_infraestrutura_docker_servicos]] → `contains` → [[docs_arquitetura_infraestrutura_docker_postgresql_postgres_16_alpine]]
+- [[docs_arquitetura_infraestrutura_docker_servicos]] → `contains` → [[docs_arquitetura_infraestrutura_docker_qdrant_qdrant_qdrant_latest]]

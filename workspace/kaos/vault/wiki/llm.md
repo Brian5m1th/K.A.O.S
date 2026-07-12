@@ -1,0 +1,386 @@
+# graphify\graphify\llm.py
+
+## Símbolos
+
+- [[graphify_graphify_llm]] — code: llm.py
+- [[graphify_graphify_llm_get_tokenizer]] — code: _get_tokenizer()
+- [[graphify_graphify_llm_custom_providers_path]] — code: _custom_providers_path()
+- [[graphify_graphify_llm_provider_base_url_ok]] — code: provider_base_url_ok()
+- [[graphify_graphify_llm_load_custom_providers]] — code: _load_custom_providers()
+- [[graphify_graphify_llm_resolve_max_tokens]] — code: _resolve_max_tokens()
+- [[graphify_graphify_llm_model_requires_default_temperature]] — code: _model_requires_default_temperature()
+- [[graphify_graphify_llm_resolve_temperature]] — code: _resolve_temperature()
+- [[graphify_graphify_llm_bedrock_inference_config]] — code: _bedrock_inference_config()
+- [[graphify_graphify_llm_no_window_kwargs]] — code: _no_window_kwargs()
+- [[graphify_graphify_llm_resolve_api_timeout]] — code: _resolve_api_timeout()
+- [[graphify_graphify_llm_resolve_max_retries]] — code: _resolve_max_retries()
+- [[graphify_graphify_llm_thinking_disabled_via_env]] — code: _thinking_disabled_via_env()
+- [[graphify_graphify_llm_extraction_system]] — code: _extraction_system()
+- [[graphify_graphify_llm_file_to_text]] — code: _file_to_text()
+- [[graphify_graphify_llm_resolve_under_root]] — code: _resolve_under_root()
+- [[graphify_graphify_llm_neutralise_injection_sentinels]] — code: _neutralise_injection_sentinels()
+- [[graphify_graphify_llm_wrap_untrusted]] — code: _wrap_untrusted()
+- [[graphify_graphify_llm_read_files]] — code: _read_files()
+- [[graphify_graphify_llm_imageref]] — code: _ImageRef
+- [[graphify_graphify_llm_imageref_b64]] — code: .b64()
+- [[graphify_graphify_llm_imageref_bedrock_format]] — code: .bedrock_format()
+- [[graphify_graphify_llm_is_vision_image]] — code: _is_vision_image()
+- [[graphify_graphify_llm_partition_semantic_files]] — code: _partition_semantic_files()
+- [[graphify_graphify_llm_build_image_refs]] — code: _build_image_refs()
+- [[graphify_graphify_llm_strip_pixels]] — code: _strip_pixels()
+- [[graphify_graphify_llm_backend_supports_vision]] — code: _backend_supports_vision()
+- [[graphify_graphify_llm_image_notes]] — code: _image_notes()
+- [[graphify_graphify_llm_with_image_notes]] — code: _with_image_notes()
+- [[graphify_graphify_llm_anthropic_content]] — code: _anthropic_content()
+- [[graphify_graphify_llm_openai_content]] — code: _openai_content()
+- [[graphify_graphify_llm_bedrock_content]] — code: _bedrock_content()
+- [[graphify_graphify_llm_sanitize_fragment]] — code: _sanitize_fragment()
+- [[graphify_graphify_llm_parse_llm_json]] — code: _parse_llm_json()
+- [[graphify_graphify_llm_response_is_hollow]] — code: _response_is_hollow()
+- [[graphify_graphify_llm_backend_env_keys]] — code: _backend_env_keys()
+- [[graphify_graphify_llm_get_backend_api_key]] — code: _get_backend_api_key()
+- [[graphify_graphify_llm_format_backend_env_keys]] — code: _format_backend_env_keys()
+- [[graphify_graphify_llm_default_model_for_backend]] — code: _default_model_for_backend()
+- [[graphify_graphify_llm_backend_pkg_hint]] — code: _backend_pkg_hint()
+- [[graphify_graphify_llm_call_openai_compat]] — code: _call_openai_compat()
+- [[graphify_graphify_llm_call_claude]] — code: _call_claude()
+- [[graphify_graphify_llm_claude_cli_envelope]] — code: _claude_cli_envelope()
+- [[graphify_graphify_llm_call_claude_cli]] — code: _call_claude_cli()
+- [[graphify_graphify_llm_azure_client]] — code: _azure_client()
+- [[graphify_graphify_llm_call_azure]] — code: _call_azure()
+- [[graphify_graphify_llm_call_bedrock]] — code: _call_bedrock()
+- [[graphify_graphify_llm_extract_files_direct]] — code: extract_files_direct()
+- [[graphify_graphify_llm_estimate_file_tokens]] — code: _estimate_file_tokens()
+- [[graphify_graphify_llm_pack_chunks_by_tokens]] — code: _pack_chunks_by_tokens()
+- [[graphify_graphify_llm_looks_like_context_exceeded]] — code: _looks_like_context_exceeded()
+- [[graphify_graphify_llm_extract_with_adaptive_retry]] — code: _extract_with_adaptive_retry()
+- [[graphify_graphify_llm_extract_corpus_parallel]] — code: extract_corpus_parallel()
+- [[graphify_graphify_llm_merge_into]] — code: _merge_into()
+- [[graphify_graphify_llm_call_llm]] — code: _call_llm()
+- [[graphify_graphify_llm_estimate_cost]] — code: estimate_cost()
+- [[graphify_graphify_llm_ollama_host_is_link_local_or_metadata]] — code: _ollama_host_is_link_local_or_metadata()
+- [[graphify_graphify_llm_validate_ollama_base_url]] — code: _validate_ollama_base_url()
+- [[graphify_graphify_llm_detect_backend]] — code: detect_backend()
+- [[graphify_graphify_llm_placeholder_community_labels]] — code: _placeholder_community_labels()
+- [[graphify_graphify_llm_community_label_lines]] — code: _community_label_lines()
+- [[graphify_graphify_llm_parse_label_response]] — code: _parse_label_response()
+- [[graphify_graphify_llm_label_batch_with_retry]] — code: _label_batch_with_retry()
+- [[graphify_graphify_llm_label_communities]] — code: label_communities()
+- [[graphify_graphify_llm_generate_community_labels]] — code: generate_community_labels()
+- [[graphify_graphify_llm_rationale_40]] — code: Return a tiktoken encoder for accurate token counts, or None if tiktoken     is
+- [[graphify_graphify_llm_rationale_187]] — code: Structural safety check for a custom-provider base_url.      A custom provider
+- [[graphify_graphify_llm_rationale_264]] — code: Honour GRAPHIFY_MAX_OUTPUT_TOKENS env var override, else use backend default.
+- [[graphify_graphify_llm_rationale_286]] — code: True if `model` is a reasoning model that rejects an explicit temperature.
+- [[graphify_graphify_llm_rationale_305]] — code: Resolve the temperature to send, honouring GRAPHIFY_LLM_TEMPERATURE.      Prec
+- [[graphify_graphify_llm_rationale_337]] — code: Build Bedrock inferenceConfig, honouring GRAPHIFY_LLM_TEMPERATURE.      Bedroc
+- [[graphify_graphify_llm_rationale_351]] — code: subprocess kwargs that suppress the console window claude.cmd would     otherwi
+- [[graphify_graphify_llm_rationale_363]] — code: Honour GRAPHIFY_API_TIMEOUT env var override, else use default (seconds).
+- [[graphify_graphify_llm_rationale_376]] — code: How many times the provider SDK retries a transient error (notably HTTP 429
+- [[graphify_graphify_llm_rationale_395]] — code: Opt-in (GRAPHIFY_DISABLE_THINKING) to send ``{"thinking": {"type": "disabled"}}`
+- [[graphify_graphify_llm_rationale_450]] — code: Return the semantic-extraction system prompt, optionally in deep mode.
+- [[graphify_graphify_llm_rationale_457]] — code: Return a text-like file's content for the extraction prompt.      Most files a
+- [[graphify_graphify_llm_rationale_471]] — code: Return the resolved path only when it stays inside ``root``.
+- [[graphify_graphify_llm_rationale_498]] — code: Defang known chat-template / jailbreak control tokens in untrusted text.
+- [[graphify_graphify_llm_rationale_508]] — code: Wrap one file's content in a labelled, hash-stamped untrusted-data block.
+- [[graphify_graphify_llm_rationale_524]] — code: Return file/slice contents formatted for the extraction prompt.      Each unit
+- [[graphify_graphify_llm_rationale_595]] — code: A single image destined for a vision request.      `raw` is None when the imag
+- [[graphify_graphify_llm_rationale_625]] — code: Split a chunk into (text-like units, raster-image files).      A ``FileSlice``
+- [[graphify_graphify_llm_rationale_636]] — code: Build `_ImageRef`s for raster images.      `read_bytes=True` (base64 backends)
+- [[graphify_graphify_llm_rationale_676]] — code: Return refs with pixel data dropped (for non-vision backends).
+- [[graphify_graphify_llm_rationale_681]] — code: Whether `backend`'s configured model can see images.      Ollama is special-ca
+- [[graphify_graphify_llm_rationale_693]] — code: Text block listing the images so the model emits one node per image.      Alwa
+- [[graphify_graphify_llm_rationale_738]] — code: Build the Anthropic `messages[].content` value (str, or block list with images).
+- [[graphify_graphify_llm_rationale_751]] — code: Build the OpenAI-compatible user `content` value (str, or part list with images)
+- [[graphify_graphify_llm_rationale_767]] — code: Build the Bedrock Converse user content list (raw bytes, not base64).
+- [[graphify_graphify_llm_rationale_781]] — code: Force ``nodes``/``edges``/``hyperedges`` to lists of dicts, in place.      A m
+- [[graphify_graphify_llm_rationale_805]] — code: Strip optional markdown fences and parse JSON. Returns empty fragment on failure
+- [[graphify_graphify_llm_rationale_885]] — code: Detect a successful HTTP response that yielded no usable extraction.      A lo
+- [[graphify_graphify_llm_rationale_905]] — code: Return accepted API-key environment variables for a backend.
+- [[graphify_graphify_llm_rationale_917]] — code: Return the first configured API key for backend, or an empty string.
+- [[graphify_graphify_llm_rationale_926]] — code: Return user-facing accepted API-key variable names.
+- [[graphify_graphify_llm_rationale_932]] — code: Return configured model override or backend default model.
+- [[graphify_graphify_llm_rationale_943]] — code: Package-missing message that works for the recommended `uv tool` install.
+- [[graphify_graphify_llm_rationale_971]] — code: Call any OpenAI-compatible API (Kimi, OpenAI, etc.) and return parsed JSON.
+- [[graphify_graphify_llm_rationale_1108]] — code: Call Anthropic Claude directly (not via OpenAI compat layer).
+- [[graphify_graphify_llm_rationale_1146]] — code: Parse the JSON returned by `claude -p --output-format json`.      Older Claude
+- [[graphify_graphify_llm_rationale_1178]] — code: Call Claude via the locally-installed Claude Code CLI (`claude -p`).      Rout
+- [[graphify_graphify_llm_rationale_1307]] — code: Construct an AzureOpenAI client with env-driven api_version and timeout.
+- [[graphify_graphify_llm_rationale_1338]] — code: Call Azure OpenAI Service via the AzureOpenAI SDK client.
+- [[graphify_graphify_llm_rationale_1370]] — code: Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain.
+- [[graphify_graphify_llm_rationale_1422]] — code: Extract semantic nodes/edges from a list of files using the given backend.
+- [[graphify_graphify_llm_rationale_1526]] — code: Estimate the prompt-token cost of a file or slice under `_read_files` rules.
+- [[graphify_graphify_llm_rationale_1568]] — code: Greedily pack files/slices into chunks that fit a token budget.      Units are
+- [[graphify_graphify_llm_rationale_1626]] — code: Heuristically classify an exception as a context-window overflow.      Differe
+- [[graphify_graphify_llm_rationale_1650]] — code: Extract a chunk; if the response is truncated (`finish_reason="length"`)     or
+- [[graphify_graphify_llm_rationale_1826]] — code: Extract a corpus in chunks, merging results.      Chunking strategy:
+- [[graphify_graphify_llm_rationale_1983]] — code: Append a chunk result into the running merged accumulator.
+- [[graphify_graphify_llm_rationale_1999]] — code: Send a plain-text prompt to `backend` and return the model's text reply.
+- [[graphify_graphify_llm_rationale_2173]] — code: Estimate USD cost for a given token count using published pricing.
+- [[graphify_graphify_llm_rationale_2181]] — code: True if *host* is, or resolves to, a link-local / cloud-metadata address.
+- [[graphify_graphify_llm_rationale_2208]] — code: Warn if OLLAMA_BASE_URL looks unsafe; hard-block link-local/metadata (F3).
+- [[graphify_graphify_llm_rationale_2255]] — code: Return the name of whichever backend has an API key set, or None.      Priorit
+- [[graphify_graphify_llm_rationale_2304]] — code: One prompt line per community (largest first), sampling up to ``top_k``     rep
+- [[graphify_graphify_llm_rationale_2331]] — code: Parse the backend's JSON ``{cid: name}`` reply. Raises on non-JSON or a     non
+- [[graphify_graphify_llm_rationale_2377]] — code: Label a batch of communities, splitting in half and retrying on parse failure.
+- [[graphify_graphify_llm_rationale_2454]] — code: Return a complete ``{cid: name}`` map using ``backend`` for naming.      Commu
+- [[graphify_graphify_llm_rationale_2562]] — code: CLI entry point: resolve a backend, name communities, and degrade to     ``Comm
+
+## Dependências
+
+- [[graphify_graphify_llm]] → `imports` → [[graphify_graphify_cache_save_semantic_cache]]
+- [[graphify_graphify_llm_extract_corpus_parallel]] → `calls` → [[graphify_graphify_cache_save_semantic_cache]]
+- [[graphify_graphify_llm_file_to_text]] → `calls` → [[graphify_graphify_detect_extract_pdf_text]]
+- [[graphify_graphify_llm]] → `imports_from` → [[graphify_graphify_file_slice]]
+- [[graphify_graphify_llm_estimate_file_tokens]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_extract_corpus_parallel]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_extract_files_direct]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_imageref]] → `uses` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_pack_chunks_by_tokens]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_partition_semantic_files]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_read_files]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_graphify_llm_extract_with_adaptive_retry]] → `calls` → [[graphify_graphify_file_slice_unit_path]]
+- [[graphify_graphify_llm_pack_chunks_by_tokens]] → `calls` → [[graphify_graphify_file_slice_unit_path]]
+- [[graphify_graphify_llm_read_files]] → `calls` → [[graphify_graphify_file_slice_unit_path]]
+- [[graphify_graphify_llm_extract_corpus_parallel]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_graphify_llm_estimate_file_tokens]] → `calls` → [[graphify_graphify_file_slice_read_slice_text]]
+- [[graphify_graphify_llm_read_files]] → `calls` → [[graphify_graphify_file_slice_read_slice_text]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_anthropic_content]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_azure_client]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_backend_env_keys]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_backend_pkg_hint]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_backend_supports_vision]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_bedrock_content]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_bedrock_inference_config]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_build_image_refs]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_call_azure]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_call_bedrock]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_call_claude]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_call_claude_cli]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_call_llm]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_call_openai_compat]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_claude_cli_envelope]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_community_label_lines]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_custom_providers_path]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_default_model_for_backend]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_detect_backend]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_estimate_cost]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_estimate_file_tokens]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_extract_files_direct]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_file_to_text]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_format_backend_env_keys]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_generate_community_labels]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_get_tokenizer]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_image_notes]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_is_vision_image]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_label_batch_with_retry]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_load_custom_providers]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_looks_like_context_exceeded]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_merge_into]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_model_requires_default_temperature]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_neutralise_injection_sentinels]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_no_window_kwargs]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_ollama_host_is_link_local_or_metadata]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_openai_content]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_parse_label_response]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_partition_semantic_files]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_placeholder_community_labels]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_provider_base_url_ok]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_read_files]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_resolve_api_timeout]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_resolve_max_retries]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_resolve_max_tokens]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_resolve_temperature]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_resolve_under_root]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_sanitize_fragment]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_strip_pixels]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_thinking_disabled_via_env]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_validate_ollama_base_url]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_with_image_notes]]
+- [[graphify_graphify_llm]] → `contains` → [[graphify_graphify_llm_wrap_untrusted]]
+- [[graphify_graphify_llm_rationale_40]] → `rationale_for` → [[graphify_graphify_llm_get_tokenizer]]
+- [[graphify_graphify_llm_custom_providers_path]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_load_custom_providers]] → `calls` → [[graphify_graphify_llm_custom_providers_path]]
+- [[graphify_graphify_llm_build_image_refs]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_extract_corpus_parallel]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_extract_files_direct]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_extract_with_adaptive_retry]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_file_to_text]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_is_vision_image]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_partition_semantic_files]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_read_files]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_resolve_under_root]] → `references` → [[graphify_graphify_llm_py_path]]
+- [[graphify_graphify_llm_load_custom_providers]] → `calls` → [[graphify_graphify_llm_provider_base_url_ok]]
+- [[graphify_graphify_llm_rationale_187]] → `rationale_for` → [[graphify_graphify_llm_provider_base_url_ok]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_resolve_max_tokens]]
+- [[graphify_graphify_llm_label_batch_with_retry]] → `calls` → [[graphify_graphify_llm_resolve_max_tokens]]
+- [[graphify_graphify_llm_rationale_264]] → `rationale_for` → [[graphify_graphify_llm_resolve_max_tokens]]
+- [[graphify_graphify_llm_rationale_286]] → `rationale_for` → [[graphify_graphify_llm_model_requires_default_temperature]]
+- [[graphify_graphify_llm_resolve_temperature]] → `calls` → [[graphify_graphify_llm_model_requires_default_temperature]]
+- [[graphify_graphify_llm_bedrock_inference_config]] → `calls` → [[graphify_graphify_llm_resolve_temperature]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_resolve_temperature]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_resolve_temperature]]
+- [[graphify_graphify_llm_rationale_305]] → `rationale_for` → [[graphify_graphify_llm_resolve_temperature]]
+- [[graphify_graphify_llm_call_bedrock]] → `calls` → [[graphify_graphify_llm_bedrock_inference_config]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_bedrock_inference_config]]
+- [[graphify_graphify_llm_rationale_337]] → `rationale_for` → [[graphify_graphify_llm_bedrock_inference_config]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_no_window_kwargs]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_no_window_kwargs]]
+- [[graphify_graphify_llm_rationale_351]] → `rationale_for` → [[graphify_graphify_llm_no_window_kwargs]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_resolve_api_timeout]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_resolve_api_timeout]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_resolve_api_timeout]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_resolve_api_timeout]]
+- [[graphify_graphify_llm_rationale_363]] → `rationale_for` → [[graphify_graphify_llm_resolve_api_timeout]]
+- [[graphify_graphify_llm_azure_client]] → `calls` → [[graphify_graphify_llm_resolve_max_retries]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_resolve_max_retries]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_resolve_max_retries]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_resolve_max_retries]]
+- [[graphify_graphify_llm_rationale_376]] → `rationale_for` → [[graphify_graphify_llm_resolve_max_retries]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_thinking_disabled_via_env]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_thinking_disabled_via_env]]
+- [[graphify_graphify_llm_rationale_395]] → `rationale_for` → [[graphify_graphify_llm_thinking_disabled_via_env]]
+- [[graphify_graphify_llm_call_azure]] → `calls` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm_call_bedrock]] → `calls` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm_rationale_450]] → `rationale_for` → [[graphify_graphify_llm_extraction_system]]
+- [[graphify_graphify_llm_rationale_457]] → `rationale_for` → [[graphify_graphify_llm_file_to_text]]
+- [[graphify_graphify_llm_read_files]] → `calls` → [[graphify_graphify_llm_file_to_text]]
+- [[graphify_graphify_llm_build_image_refs]] → `calls` → [[graphify_graphify_llm_resolve_under_root]]
+- [[graphify_graphify_llm_rationale_471]] → `rationale_for` → [[graphify_graphify_llm_resolve_under_root]]
+- [[graphify_graphify_llm_read_files]] → `calls` → [[graphify_graphify_llm_resolve_under_root]]
+- [[graphify_graphify_llm_rationale_498]] → `rationale_for` → [[graphify_graphify_llm_neutralise_injection_sentinels]]
+- [[graphify_graphify_llm_wrap_untrusted]] → `calls` → [[graphify_graphify_llm_neutralise_injection_sentinels]]
+- [[graphify_graphify_llm_rationale_508]] → `rationale_for` → [[graphify_graphify_llm_wrap_untrusted]]
+- [[graphify_graphify_llm_read_files]] → `calls` → [[graphify_graphify_llm_wrap_untrusted]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_read_files]]
+- [[graphify_graphify_llm_rationale_524]] → `rationale_for` → [[graphify_graphify_llm_read_files]]
+- [[graphify_graphify_llm_anthropic_content]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_bedrock_content]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_build_image_refs]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_call_bedrock]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_call_claude]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_call_claude_cli]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_call_openai_compat]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_image_notes]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_imageref]] → `method` → [[graphify_graphify_llm_imageref_b64]]
+- [[graphify_graphify_llm_imageref]] → `method` → [[graphify_graphify_llm_imageref_bedrock_format]]
+- [[graphify_graphify_llm_openai_content]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_rationale_595]] → `rationale_for` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_strip_pixels]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_with_image_notes]] → `references` → [[graphify_graphify_llm_imageref]]
+- [[graphify_graphify_llm_estimate_file_tokens]] → `calls` → [[graphify_graphify_llm_is_vision_image]]
+- [[graphify_graphify_llm_pack_chunks_by_tokens]] → `calls` → [[graphify_graphify_llm_is_vision_image]]
+- [[graphify_graphify_llm_partition_semantic_files]] → `calls` → [[graphify_graphify_llm_is_vision_image]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_partition_semantic_files]]
+- [[graphify_graphify_llm_rationale_625]] → `rationale_for` → [[graphify_graphify_llm_partition_semantic_files]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_build_image_refs]]
+- [[graphify_graphify_llm_rationale_636]] → `rationale_for` → [[graphify_graphify_llm_build_image_refs]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_strip_pixels]]
+- [[graphify_graphify_llm_rationale_676]] → `rationale_for` → [[graphify_graphify_llm_strip_pixels]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_backend_supports_vision]]
+- [[graphify_graphify_llm_rationale_681]] → `rationale_for` → [[graphify_graphify_llm_backend_supports_vision]]
+- [[graphify_graphify_llm_rationale_693]] → `rationale_for` → [[graphify_graphify_llm_image_notes]]
+- [[graphify_graphify_llm_with_image_notes]] → `calls` → [[graphify_graphify_llm_image_notes]]
+- [[graphify_graphify_llm_anthropic_content]] → `calls` → [[graphify_graphify_llm_with_image_notes]]
+- [[graphify_graphify_llm_bedrock_content]] → `calls` → [[graphify_graphify_llm_with_image_notes]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_with_image_notes]]
+- [[graphify_graphify_llm_openai_content]] → `calls` → [[graphify_graphify_llm_with_image_notes]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_anthropic_content]]
+- [[graphify_graphify_llm_rationale_738]] → `rationale_for` → [[graphify_graphify_llm_anthropic_content]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_openai_content]]
+- [[graphify_graphify_llm_rationale_751]] → `rationale_for` → [[graphify_graphify_llm_openai_content]]
+- [[graphify_graphify_llm_call_bedrock]] → `calls` → [[graphify_graphify_llm_bedrock_content]]
+- [[graphify_graphify_llm_rationale_767]] → `rationale_for` → [[graphify_graphify_llm_bedrock_content]]
+- [[graphify_graphify_llm_parse_llm_json]] → `calls` → [[graphify_graphify_llm_sanitize_fragment]]
+- [[graphify_graphify_llm_rationale_781]] → `rationale_for` → [[graphify_graphify_llm_sanitize_fragment]]
+- [[graphify_graphify_llm_call_azure]] → `calls` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm_call_bedrock]] → `calls` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm_rationale_805]] → `rationale_for` → [[graphify_graphify_llm_parse_llm_json]]
+- [[graphify_graphify_llm_call_azure]] → `calls` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm_call_bedrock]] → `calls` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm_rationale_885]] → `rationale_for` → [[graphify_graphify_llm_response_is_hollow]]
+- [[graphify_graphify_llm_format_backend_env_keys]] → `calls` → [[graphify_graphify_llm_backend_env_keys]]
+- [[graphify_graphify_llm_get_backend_api_key]] → `calls` → [[graphify_graphify_llm_backend_env_keys]]
+- [[graphify_graphify_llm_rationale_905]] → `rationale_for` → [[graphify_graphify_llm_backend_env_keys]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_llm_detect_backend]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_llm_rationale_917]] → `rationale_for` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_format_backend_env_keys]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_format_backend_env_keys]]
+- [[graphify_graphify_llm_rationale_926]] → `rationale_for` → [[graphify_graphify_llm_format_backend_env_keys]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_default_model_for_backend]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_default_model_for_backend]]
+- [[graphify_graphify_llm_rationale_932]] → `rationale_for` → [[graphify_graphify_llm_default_model_for_backend]]
+- [[graphify_graphify_llm_call_claude]] → `calls` → [[graphify_graphify_llm_backend_pkg_hint]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_backend_pkg_hint]]
+- [[graphify_graphify_llm_call_openai_compat]] → `calls` → [[graphify_graphify_llm_backend_pkg_hint]]
+- [[graphify_graphify_llm_rationale_943]] → `rationale_for` → [[graphify_graphify_llm_backend_pkg_hint]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_call_openai_compat]]
+- [[graphify_graphify_llm_rationale_971]] → `rationale_for` → [[graphify_graphify_llm_call_openai_compat]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_call_claude]]
+- [[graphify_graphify_llm_rationale_1108]] → `rationale_for` → [[graphify_graphify_llm_call_claude]]
+- [[graphify_graphify_llm_call_claude_cli]] → `calls` → [[graphify_graphify_llm_claude_cli_envelope]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_claude_cli_envelope]]
+- [[graphify_graphify_llm_rationale_1146]] → `rationale_for` → [[graphify_graphify_llm_claude_cli_envelope]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_call_claude_cli]]
+- [[graphify_graphify_llm_rationale_1178]] → `rationale_for` → [[graphify_graphify_llm_call_claude_cli]]
+- [[graphify_graphify_llm_call_azure]] → `calls` → [[graphify_graphify_llm_azure_client]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_azure_client]]
+- [[graphify_graphify_llm_rationale_1307]] → `rationale_for` → [[graphify_graphify_llm_azure_client]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_call_azure]]
+- [[graphify_graphify_llm_rationale_1338]] → `rationale_for` → [[graphify_graphify_llm_call_azure]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_call_bedrock]]
+- [[graphify_graphify_llm_rationale_1370]] → `rationale_for` → [[graphify_graphify_llm_call_bedrock]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_detect_backend]]
+- [[graphify_graphify_llm_extract_files_direct]] → `calls` → [[graphify_graphify_llm_validate_ollama_base_url]]
+- [[graphify_graphify_llm_extract_with_adaptive_retry]] → `calls` → [[graphify_graphify_llm_extract_files_direct]]
+- [[graphify_graphify_llm_rationale_1422]] → `rationale_for` → [[graphify_graphify_llm_extract_files_direct]]
+- [[graphify_graphify_llm_pack_chunks_by_tokens]] → `calls` → [[graphify_graphify_llm_estimate_file_tokens]]
+- [[graphify_graphify_llm_rationale_1526]] → `rationale_for` → [[graphify_graphify_llm_estimate_file_tokens]]
+- [[graphify_graphify_llm_extract_corpus_parallel]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_graphify_llm_rationale_1568]] → `rationale_for` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_graphify_llm_extract_with_adaptive_retry]] → `calls` → [[graphify_graphify_llm_looks_like_context_exceeded]]
+- [[graphify_graphify_llm_looks_like_context_exceeded]] → `references` → [[baseexception]]
+- [[graphify_graphify_llm_rationale_1626]] → `rationale_for` → [[graphify_graphify_llm_looks_like_context_exceeded]]
+- [[graphify_graphify_llm_rationale_1650]] → `rationale_for` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_graphify_llm_extract_corpus_parallel]] → `calls` → [[graphify_graphify_llm_merge_into]]
+- [[graphify_graphify_llm_rationale_1826]] → `rationale_for` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_graphify_llm_rationale_1983]] → `rationale_for` → [[graphify_graphify_llm_merge_into]]
+- [[graphify_graphify_llm_call_llm]] → `calls` → [[graphify_graphify_llm_validate_ollama_base_url]]
+- [[graphify_graphify_llm_label_batch_with_retry]] → `calls` → [[graphify_graphify_llm_call_llm]]
+- [[graphify_graphify_llm_rationale_1999]] → `rationale_for` → [[graphify_graphify_llm_call_llm]]
+- [[graphify_graphify_llm_rationale_2173]] → `rationale_for` → [[graphify_graphify_llm_estimate_cost]]
+- [[graphify_graphify_llm_rationale_2181]] → `rationale_for` → [[graphify_graphify_llm_ollama_host_is_link_local_or_metadata]]
+- [[graphify_graphify_llm_validate_ollama_base_url]] → `calls` → [[graphify_graphify_llm_ollama_host_is_link_local_or_metadata]]
+- [[graphify_graphify_llm_detect_backend]] → `calls` → [[graphify_graphify_llm_validate_ollama_base_url]]
+- [[graphify_graphify_llm_rationale_2208]] → `rationale_for` → [[graphify_graphify_llm_validate_ollama_base_url]]
+- [[graphify_graphify_llm_generate_community_labels]] → `calls` → [[graphify_graphify_llm_detect_backend]]
+- [[graphify_graphify_llm_rationale_2255]] → `rationale_for` → [[graphify_graphify_llm_detect_backend]]
+- [[graphify_graphify_llm_generate_community_labels]] → `calls` → [[graphify_graphify_llm_placeholder_community_labels]]
+- [[graphify_graphify_llm_label_communities]] → `calls` → [[graphify_graphify_llm_placeholder_community_labels]]
+- [[graphify_graphify_llm_label_communities]] → `calls` → [[graphify_graphify_llm_community_label_lines]]
+- [[graphify_graphify_llm_rationale_2304]] → `rationale_for` → [[graphify_graphify_llm_community_label_lines]]
+- [[graphify_graphify_llm_label_batch_with_retry]] → `calls` → [[graphify_graphify_llm_parse_label_response]]
+- [[graphify_graphify_llm_rationale_2331]] → `rationale_for` → [[graphify_graphify_llm_parse_label_response]]
+- [[graphify_graphify_llm_rationale_2377]] → `rationale_for` → [[graphify_graphify_llm_label_batch_with_retry]]
+- [[graphify_graphify_llm_generate_community_labels]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_graphify_llm_rationale_2454]] → `rationale_for` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_graphify_llm_rationale_2562]] → `rationale_for` → [[graphify_graphify_llm_generate_community_labels]]

@@ -1,0 +1,88 @@
+# graphify\worked\httpx\raw\models.py
+
+## Símbolos
+
+- [[graphify_worked_httpx_raw_models]] — code: models.py
+- [[graphify_worked_httpx_raw_models_url]] — code: URL
+- [[graphify_worked_httpx_raw_models_url_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_models_url_copy_with]] — code: .copy_with()
+- [[graphify_worked_httpx_raw_models_url_str]] — code: .__str__()
+- [[graphify_worked_httpx_raw_models_url_repr]] — code: .__repr__()
+- [[graphify_worked_httpx_raw_models_headers]] — code: Headers
+- [[graphify_worked_httpx_raw_models_headers_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_models_headers_get]] — code: .get()
+- [[graphify_worked_httpx_raw_models_headers_items]] — code: .items()
+- [[graphify_worked_httpx_raw_models_headers_setitem]] — code: .__setitem__()
+- [[graphify_worked_httpx_raw_models_headers_getitem]] — code: .__getitem__()
+- [[graphify_worked_httpx_raw_models_headers_contains]] — code: .__contains__()
+- [[graphify_worked_httpx_raw_models_cookies]] — code: Cookies
+- [[graphify_worked_httpx_raw_models_cookies_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_models_cookies_set]] — code: .set()
+- [[graphify_worked_httpx_raw_models_cookies_get]] — code: .get()
+- [[graphify_worked_httpx_raw_models_cookies_delete]] — code: .delete()
+- [[graphify_worked_httpx_raw_models_cookies_clear]] — code: .clear()
+- [[graphify_worked_httpx_raw_models_cookies_items]] — code: .items()
+- [[graphify_worked_httpx_raw_models_request]] — code: Request
+- [[graphify_worked_httpx_raw_models_request_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_models_request_repr]] — code: .__repr__()
+- [[graphify_worked_httpx_raw_models_response]] — code: Response
+- [[graphify_worked_httpx_raw_models_response_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_models_response_text]] — code: .text()
+- [[graphify_worked_httpx_raw_models_response_json]] — code: .json()
+- [[graphify_worked_httpx_raw_models_response_read]] — code: .read()
+- [[graphify_worked_httpx_raw_models_response_is_success]] — code: .is_success()
+- [[graphify_worked_httpx_raw_models_response_is_error]] — code: .is_error()
+- [[graphify_worked_httpx_raw_models_response_raise_for_status]] — code: .raise_for_status()
+- [[graphify_worked_httpx_raw_models_response_cookies]] — code: .cookies()
+- [[graphify_worked_httpx_raw_models_response_repr]] — code: .__repr__()
+- [[graphify_worked_httpx_raw_models_rationale_1]] — code: Core data models: URL, Headers, Cookies, Request, Response. These are the centr
+
+## Dependências
+
+- [[graphify_worked_httpx_raw_models]] → `imports_from` → [[graphify_worked_httpx_raw_exceptions]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `uses` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_models_headers]] → `uses` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_models_request]] → `uses` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_models_response]] → `uses` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_models_response_raise_for_status]] → `calls` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_models_url]] → `uses` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_models]] → `contains` → [[graphify_worked_httpx_raw_models_cookies]]
+- [[graphify_worked_httpx_raw_models]] → `contains` → [[graphify_worked_httpx_raw_models_headers]]
+- [[graphify_worked_httpx_raw_models]] → `contains` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_models]] → `contains` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_models]] → `contains` → [[graphify_worked_httpx_raw_models_url]]
+- [[graphify_worked_httpx_raw_models_rationale_1]] → `rationale_for` → [[graphify_worked_httpx_raw_models]]
+- [[graphify_worked_httpx_raw_models_url]] → `method` → [[graphify_worked_httpx_raw_models_url_copy_with]]
+- [[graphify_worked_httpx_raw_models_url]] → `method` → [[graphify_worked_httpx_raw_models_url_init]]
+- [[graphify_worked_httpx_raw_models_url]] → `method` → [[graphify_worked_httpx_raw_models_url_repr]]
+- [[graphify_worked_httpx_raw_models_url]] → `method` → [[graphify_worked_httpx_raw_models_url_str]]
+- [[graphify_worked_httpx_raw_models_url_copy_with]] → `calls` → [[graphify_worked_httpx_raw_models_cookies_get]]
+- [[graphify_worked_httpx_raw_models_headers]] → `method` → [[graphify_worked_httpx_raw_models_headers_contains]]
+- [[graphify_worked_httpx_raw_models_headers]] → `method` → [[graphify_worked_httpx_raw_models_headers_get]]
+- [[graphify_worked_httpx_raw_models_headers]] → `method` → [[graphify_worked_httpx_raw_models_headers_getitem]]
+- [[graphify_worked_httpx_raw_models_headers]] → `method` → [[graphify_worked_httpx_raw_models_headers_init]]
+- [[graphify_worked_httpx_raw_models_headers]] → `method` → [[graphify_worked_httpx_raw_models_headers_items]]
+- [[graphify_worked_httpx_raw_models_headers]] → `method` → [[graphify_worked_httpx_raw_models_headers_setitem]]
+- [[graphify_worked_httpx_raw_models_headers_init]] → `calls` → [[graphify_worked_httpx_raw_models_cookies_items]]
+- [[graphify_worked_httpx_raw_models_headers_get]] → `calls` → [[graphify_worked_httpx_raw_models_cookies_get]]
+- [[graphify_worked_httpx_raw_models_headers_items]] → `calls` → [[graphify_worked_httpx_raw_models_cookies_items]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `method` → [[graphify_worked_httpx_raw_models_cookies_clear]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `method` → [[graphify_worked_httpx_raw_models_cookies_delete]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `method` → [[graphify_worked_httpx_raw_models_cookies_get]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `method` → [[graphify_worked_httpx_raw_models_cookies_init]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `method` → [[graphify_worked_httpx_raw_models_cookies_items]]
+- [[graphify_worked_httpx_raw_models_cookies]] → `method` → [[graphify_worked_httpx_raw_models_cookies_set]]
+- [[graphify_worked_httpx_raw_models_request_init]] → `calls` → [[graphify_worked_httpx_raw_models_cookies]]
+- [[graphify_worked_httpx_raw_models_response_cookies]] → `references` → [[graphify_worked_httpx_raw_models_cookies]]
+- [[graphify_worked_httpx_raw_models_response_cookies]] → `calls` → [[graphify_worked_httpx_raw_models_cookies_get]]
+- [[graphify_worked_httpx_raw_models_request]] → `method` → [[graphify_worked_httpx_raw_models_request_init]]
+- [[graphify_worked_httpx_raw_models_request]] → `method` → [[graphify_worked_httpx_raw_models_request_repr]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_cookies]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_init]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_is_error]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_is_success]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_json]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_raise_for_status]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_read]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_repr]]
+- [[graphify_worked_httpx_raw_models_response]] → `method` → [[graphify_worked_httpx_raw_models_response_text]]

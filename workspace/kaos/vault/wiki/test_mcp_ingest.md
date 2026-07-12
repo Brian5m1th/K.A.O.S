@@ -1,0 +1,133 @@
+# graphify\tests\test_mcp_ingest.py
+
+## Símbolos
+
+- [[graphify_tests_test_mcp_ingest]] — code: test_mcp_ingest.py
+- [[graphify_tests_test_mcp_ingest_labels]] — code: _labels()
+- [[graphify_tests_test_mcp_ingest_node_kinds]] — code: _node_kinds()
+- [[graphify_tests_test_mcp_ingest_relations]] — code: _relations()
+- [[graphify_tests_test_mcp_ingest_label_by_kind]] — code: _label_by_kind()
+- [[graphify_tests_test_mcp_ingest_write]] — code: _write()
+- [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_recognises_known_filenames]] — code: test_is_mcp_config_path_recognises_known_filenames()
+- [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_rejects_generic_json]] — code: test_is_mcp_config_path_rejects_generic_json()
+- [[graphify_tests_test_mcp_ingest_test_recognised_filenames_set_is_frozen]] — code: test_recognised_filenames_set_is_frozen()
+- [[graphify_tests_test_mcp_ingest_test_fixture_parses_without_error]] — code: test_fixture_parses_without_error()
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_every_server]] — code: test_fixture_emits_every_server()
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_commands_as_global_nodes]] — code: test_fixture_emits_commands_as_global_nodes()
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_npm_packages]] — code: test_fixture_emits_npm_packages()
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_python_packages]] — code: test_fixture_emits_python_packages()
+- [[graphify_tests_test_mcp_ingest_test_fixture_strips_version_from_npm_package]] — code: test_fixture_strips_version_from_npm_package()
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_env_var_names]] — code: test_fixture_emits_env_var_names()
+- [[graphify_tests_test_mcp_ingest_test_env_var_values_never_appear_anywhere]] — code: test_env_var_values_never_appear_anywhere()
+- [[graphify_tests_test_mcp_ingest_test_filesystem_path_not_persisted_as_node]] — code: test_filesystem_path_not_persisted_as_node()
+- [[graphify_tests_test_mcp_ingest_test_fixture_relations_include_contains_references_requires_env]] — code: test_fixture_relations_include_contains_references_requires_env()
+- [[graphify_tests_test_mcp_ingest_test_no_dangling_edges]] — code: test_no_dangling_edges()
+- [[graphify_tests_test_mcp_ingest_test_every_edge_has_confidence_score]] — code: test_every_edge_has_confidence_score()
+- [[graphify_tests_test_mcp_ingest_test_same_command_collapses_to_one_node_across_configs]] — code: test_same_command_collapses_to_one_node_across_configs()
+- [[graphify_tests_test_mcp_ingest_test_same_env_var_collapses_to_one_node_across_configs]] — code: test_same_env_var_collapses_to_one_node_across_configs()
+- [[graphify_tests_test_mcp_ingest_test_same_server_name_in_different_dirs_does_not_collide]] — code: test_same_server_name_in_different_dirs_does_not_collide()
+- [[graphify_tests_test_mcp_ingest_test_missing_mcp_servers_key]] — code: test_missing_mcp_servers_key()
+- [[graphify_tests_test_mcp_ingest_test_nested_mcp_servers_shape]] — code: test_nested_mcp_servers_shape()
+- [[graphify_tests_test_mcp_ingest_test_malformed_json_returns_error]] — code: test_malformed_json_returns_error()
+- [[graphify_tests_test_mcp_ingest_test_oversize_file_skipped]] — code: test_oversize_file_skipped()
+- [[graphify_tests_test_mcp_ingest_test_root_not_an_object]] — code: test_root_not_an_object()
+- [[graphify_tests_test_mcp_ingest_test_non_dict_server_entry_skipped]] — code: test_non_dict_server_entry_skipped()
+- [[graphify_tests_test_mcp_ingest_test_package_detection_skips_flags]] — code: test_package_detection_skips_flags()
+- [[graphify_tests_test_mcp_ingest_test_no_package_detected_for_unknown_arg_shape]] — code: test_no_package_detected_for_unknown_arg_shape()
+- [[graphify_tests_test_mcp_ingest_test_server_without_command_still_emits_server_node]] — code: test_server_without_command_still_emits_server_node()
+- [[graphify_tests_test_mcp_ingest_test_dispatch_routes_mcp_filename_to_mcp_extractor]] — code: test_dispatch_routes_mcp_filename_to_mcp_extractor()
+- [[graphify_tests_test_mcp_ingest_test_dispatch_does_not_reroute_generic_json]] — code: test_dispatch_does_not_reroute_generic_json()
+- [[graphify_tests_test_mcp_ingest_rationale_1]] — code: Tests for graphify.mcp_ingest — MCP config file extraction.
+
+## Dependências
+
+- [[graphify_tests_test_mcp_ingest_test_dispatch_does_not_reroute_generic_json]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_mcp_ingest_test_dispatch_routes_mcp_filename_to_mcp_extractor]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_mcp_ingest]] → `imports_from` → [[graphify_graphify_mcp_ingest]]
+- [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_recognises_known_filenames]] → `calls` → [[graphify_graphify_mcp_ingest_is_mcp_config_path]]
+- [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_rejects_generic_json]] → `calls` → [[graphify_graphify_mcp_ingest_is_mcp_config_path]]
+- [[graphify_tests_test_mcp_ingest_test_env_var_values_never_appear_anywhere]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_every_edge_has_confidence_score]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_filesystem_path_not_persisted_as_node]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_commands_as_global_nodes]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_env_var_names]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_every_server]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_npm_packages]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_python_packages]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_parses_without_error]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_relations_include_contains_references_requires_env]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_strips_version_from_npm_package]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_malformed_json_returns_error]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_missing_mcp_servers_key]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_nested_mcp_servers_shape]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_no_dangling_edges]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_no_package_detected_for_unknown_arg_shape]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_non_dict_server_entry_skipped]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_oversize_file_skipped]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_package_detection_skips_flags]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_root_not_an_object]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_same_command_collapses_to_one_node_across_configs]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_same_env_var_collapses_to_one_node_across_configs]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_same_server_name_in_different_dirs_does_not_collide]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest_test_server_without_command_still_emits_server_node]] → `calls` → [[graphify_graphify_mcp_ingest_extract_mcp_config]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_labels]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_node_kinds]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_relations]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_dispatch_does_not_reroute_generic_json]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_dispatch_routes_mcp_filename_to_mcp_extractor]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_env_var_values_never_appear_anywhere]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_every_edge_has_confidence_score]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_filesystem_path_not_persisted_as_node]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_emits_commands_as_global_nodes]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_emits_env_var_names]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_emits_every_server]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_emits_npm_packages]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_emits_python_packages]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_parses_without_error]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_relations_include_contains_references_requires_env]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_fixture_strips_version_from_npm_package]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_recognises_known_filenames]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_rejects_generic_json]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_malformed_json_returns_error]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_missing_mcp_servers_key]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_nested_mcp_servers_shape]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_no_dangling_edges]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_no_package_detected_for_unknown_arg_shape]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_non_dict_server_entry_skipped]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_oversize_file_skipped]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_package_detection_skips_flags]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_recognised_filenames_set_is_frozen]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_root_not_an_object]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_same_command_collapses_to_one_node_across_configs]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_same_env_var_collapses_to_one_node_across_configs]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_same_server_name_in_different_dirs_does_not_collide]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_test_server_without_command_still_emits_server_node]]
+- [[graphify_tests_test_mcp_ingest]] → `contains` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_rationale_1]] → `rationale_for` → [[graphify_tests_test_mcp_ingest]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_relations_include_contains_references_requires_env]] → `calls` → [[graphify_tests_test_mcp_ingest_relations]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_commands_as_global_nodes]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_env_var_names]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_every_server]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_npm_packages]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_emits_python_packages]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_fixture_strips_version_from_npm_package]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_nested_mcp_servers_shape]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_no_package_detected_for_unknown_arg_shape]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_non_dict_server_entry_skipped]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_package_detection_skips_flags]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_server_without_command_still_emits_server_node]] → `calls` → [[graphify_tests_test_mcp_ingest_label_by_kind]]
+- [[graphify_tests_test_mcp_ingest_test_dispatch_does_not_reroute_generic_json]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_dispatch_routes_mcp_filename_to_mcp_extractor]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_missing_mcp_servers_key]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_nested_mcp_servers_shape]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_no_package_detected_for_unknown_arg_shape]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_non_dict_server_entry_skipped]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_package_detection_skips_flags]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_same_command_collapses_to_one_node_across_configs]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_same_env_var_collapses_to_one_node_across_configs]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_same_server_name_in_different_dirs_does_not_collide]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_test_server_without_command_still_emits_server_node]] → `calls` → [[graphify_tests_test_mcp_ingest_write]]
+- [[graphify_tests_test_mcp_ingest_write]] → `references` → [[graphify_tests_test_mcp_ingest_py_path]]
+- [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_recognises_known_filenames]] → `calls` → [[graphify_tests_test_mcp_ingest_py_path]]
+- [[graphify_tests_test_mcp_ingest_test_is_mcp_config_path_rejects_generic_json]] → `calls` → [[graphify_tests_test_mcp_ingest_py_path]]

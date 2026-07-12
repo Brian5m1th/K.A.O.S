@@ -1,0 +1,72 @@
+# graphify\tests\test_file_slice.py
+
+## Símbolos
+
+- [[graphify_tests_test_file_slice]] — code: test_file_slice.py
+- [[graphify_tests_test_file_slice_test_slice_boundaries_small_text_is_one_range]] — code: test_slice_boundaries_small_text_is_one_range()
+- [[graphify_tests_test_file_slice_test_slice_boundaries_full_coverage_and_bounds]] — code: test_slice_boundaries_full_coverage_and_bounds()
+- [[graphify_tests_test_file_slice_test_slice_boundaries_single_huge_line_still_progresses]] — code: test_slice_boundaries_single_huge_line_still_progresses()
+- [[graphify_tests_test_file_slice_test_slice_boundaries_prefers_heading_boundary]] — code: test_slice_boundaries_prefers_heading_boundary()
+- [[graphify_tests_test_file_slice_write]] — code: _write()
+- [[graphify_tests_test_file_slice_test_expand_small_file_stays_whole]] — code: test_expand_small_file_stays_whole()
+- [[graphify_tests_test_file_slice_test_expand_oversized_markdown_is_sliced_with_full_coverage]] — code: test_expand_oversized_markdown_is_sliced_with_full_coverage()
+- [[graphify_tests_test_file_slice_test_expand_does_not_slice_code_even_when_oversized]] — code: test_expand_does_not_slice_code_even_when_oversized()
+- [[graphify_tests_test_file_slice_test_expand_unreadable_file_passes_through]] — code: test_expand_unreadable_file_passes_through()
+- [[graphify_tests_test_file_slice_test_read_files_keys_every_slice_to_parent_path]] — code: test_read_files_keys_every_slice_to_parent_path()
+- [[graphify_tests_test_file_slice_test_unit_path_resolves_slice_and_path]] — code: test_unit_path_resolves_slice_and_path()
+- [[graphify_tests_test_file_slice_test_estimate_tokens_for_slice_scales_with_range]] — code: test_estimate_tokens_for_slice_scales_with_range()
+- [[graphify_tests_test_file_slice_test_partition_keeps_slices_as_text]] — code: test_partition_keeps_slices_as_text()
+- [[graphify_tests_test_file_slice_test_pack_chunks_handles_slices]] — code: test_pack_chunks_handles_slices()
+- [[graphify_tests_test_file_slice_test_bisect_slice_splits_at_newline]] — code: test_bisect_slice_splits_at_newline()
+- [[graphify_tests_test_file_slice_test_bisect_slice_returns_none_for_tiny]] — code: test_bisect_slice_returns_none_for_tiny()
+
+## Dependências
+
+- [[graphify_tests_test_file_slice]] → `imports_from` → [[graphify_graphify_file_slice]]
+- [[graphify_tests_test_file_slice_test_bisect_slice_returns_none_for_tiny]] → `calls` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_bisect_slice_splits_at_newline]] → `calls` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_estimate_tokens_for_slice_scales_with_range]] → `calls` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_expand_oversized_markdown_is_sliced_with_full_coverage]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_partition_keeps_slices_as_text]] → `calls` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_read_files_keys_every_slice_to_parent_path]] → `indirect_call` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_unit_path_resolves_slice_and_path]] → `calls` → [[graphify_graphify_file_slice_fileslice]]
+- [[graphify_tests_test_file_slice_test_unit_path_resolves_slice_and_path]] → `calls` → [[graphify_graphify_file_slice_unit_path]]
+- [[graphify_tests_test_file_slice_test_expand_does_not_slice_code_even_when_oversized]] → `calls` → [[graphify_graphify_file_slice_is_splittable_text]]
+- [[graphify_tests_test_file_slice_test_slice_boundaries_full_coverage_and_bounds]] → `calls` → [[graphify_graphify_file_slice_slice_boundaries]]
+- [[graphify_tests_test_file_slice_test_slice_boundaries_prefers_heading_boundary]] → `calls` → [[graphify_graphify_file_slice_slice_boundaries]]
+- [[graphify_tests_test_file_slice_test_slice_boundaries_single_huge_line_still_progresses]] → `calls` → [[graphify_graphify_file_slice_slice_boundaries]]
+- [[graphify_tests_test_file_slice_test_slice_boundaries_small_text_is_one_range]] → `calls` → [[graphify_graphify_file_slice_slice_boundaries]]
+- [[graphify_tests_test_file_slice_test_expand_does_not_slice_code_even_when_oversized]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_tests_test_file_slice_test_expand_oversized_markdown_is_sliced_with_full_coverage]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_tests_test_file_slice_test_expand_small_file_stays_whole]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_tests_test_file_slice_test_expand_unreadable_file_passes_through]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_tests_test_file_slice_test_pack_chunks_handles_slices]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_tests_test_file_slice_test_read_files_keys_every_slice_to_parent_path]] → `calls` → [[graphify_graphify_file_slice_expand_oversized_files]]
+- [[graphify_tests_test_file_slice_test_expand_oversized_markdown_is_sliced_with_full_coverage]] → `calls` → [[graphify_graphify_file_slice_read_slice_text]]
+- [[graphify_tests_test_file_slice_test_bisect_slice_returns_none_for_tiny]] → `calls` → [[graphify_graphify_file_slice_bisect_slice]]
+- [[graphify_tests_test_file_slice_test_bisect_slice_splits_at_newline]] → `calls` → [[graphify_graphify_file_slice_bisect_slice]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_bisect_slice_returns_none_for_tiny]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_bisect_slice_splits_at_newline]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_estimate_tokens_for_slice_scales_with_range]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_expand_does_not_slice_code_even_when_oversized]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_expand_oversized_markdown_is_sliced_with_full_coverage]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_expand_small_file_stays_whole]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_expand_unreadable_file_passes_through]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_pack_chunks_handles_slices]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_partition_keeps_slices_as_text]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_read_files_keys_every_slice_to_parent_path]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_slice_boundaries_full_coverage_and_bounds]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_slice_boundaries_prefers_heading_boundary]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_slice_boundaries_single_huge_line_still_progresses]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_slice_boundaries_small_text_is_one_range]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_test_unit_path_resolves_slice_and_path]]
+- [[graphify_tests_test_file_slice]] → `contains` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_bisect_slice_returns_none_for_tiny]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_bisect_slice_splits_at_newline]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_estimate_tokens_for_slice_scales_with_range]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_expand_does_not_slice_code_even_when_oversized]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_expand_oversized_markdown_is_sliced_with_full_coverage]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_expand_small_file_stays_whole]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_pack_chunks_handles_slices]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_test_read_files_keys_every_slice_to_parent_path]] → `calls` → [[graphify_tests_test_file_slice_write]]
+- [[graphify_tests_test_file_slice_write]] → `references` → [[graphify_tests_test_file_slice_py_path]]

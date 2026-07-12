@@ -1,0 +1,84 @@
+# docs\sdd\SDD-KIRL.md
+
+## Símbolos
+
+- [[docs_sdd_sdd_kirl]] — code: SDD-KIRL.md
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] — code: SDD-KIRL — K.A.O.S Documentation Runtime Layer (DRL)
+- [[docs_sdd_sdd_kirl_1_objective]] — code: 1. Objective
+- [[docs_sdd_sdd_kirl_2_architecture_pillars]] — code: 2. Architecture Pillars
+- [[docs_sdd_sdd_kirl_3_core_concepts]] — code: 3. Core Concepts
+- [[docs_sdd_sdd_kirl_3_1_feature_registry_source_of_truth]] — code: 3.1 Feature Registry (Source of Truth)
+- [[docs_sdd_sdd_kirl_3_2_commit_feature_mapping]] — code: 3.2 Commit → Feature Mapping
+- [[docs_sdd_sdd_kirl_3_3_documentation_coverage_engine]] — code: 3.3 Documentation Coverage Engine
+- [[docs_sdd_sdd_kirl_3_4_drift_engine_core_comparator]] — code: 3.4 Drift Engine (Core Comparator)
+- [[docs_sdd_sdd_kirl_3_5_drl_state_snapshot_unified_read_layer]] — code: 3.5 DRL State Snapshot (Unified Read Layer)
+- [[docs_sdd_sdd_kirl_4_data_layer]] — code: 4. Data Layer
+- [[docs_sdd_sdd_kirl_4_1_persisted_artifacts_docs_runtime]] — code: 4.1 Persisted Artifacts (`docs/runtime/`)
+- [[docs_sdd_sdd_kirl_4_2_git_integration]] — code: 4.2 Git Integration
+- [[docs_sdd_sdd_kirl_5_event_bus_integration]] — code: 5. Event Bus Integration
+- [[docs_sdd_sdd_kirl_5_1_published_events]] — code: 5.1 Published Events
+- [[docs_sdd_sdd_kirl_5_2_subscribers]] — code: 5.2 Subscribers
+- [[docs_sdd_sdd_kirl_6_code_scanner_hybrid_lightweight]] — code: 6. Code Scanner (Hybrid Lightweight)
+- [[docs_sdd_sdd_kirl_7_sdd_auto_generation_pipeline]] — code: 7. SDD Auto-Generation Pipeline
+- [[docs_sdd_sdd_kirl_8_frontend_integration_read_only_consumers]] — code: 8. Frontend Integration (Read-Only Consumers)
+- [[docs_sdd_sdd_kirl_8_1_systemstore_extension]] — code: 8.1 SystemStore Extension
+- [[docs_sdd_sdd_kirl_8_2_ctrl_k_commands]] — code: 8.2 CTRL+K Commands
+- [[docs_sdd_sdd_kirl_8_3_documentation_page_documentation]] — code: 8.3 Documentation Page (`/documentation`)
+- [[docs_sdd_sdd_kirl_9_architecture_graph_layer_graphify]] — code: 9. Architecture Graph Layer (Graphify)
+- [[docs_sdd_sdd_kirl_10_auto_documentation_engine]] — code: 10. Auto-Documentation Engine
+- [[docs_sdd_sdd_kirl_11_alert_system]] — code: 11. Alert System
+- [[docs_sdd_sdd_kirl_12_implementation_phases]] — code: 12. Implementation Phases
+- [[docs_sdd_sdd_kirl_13_configuration]] — code: 13. Configuration
+- [[docs_sdd_sdd_kirl_14_security_governance]] — code: 14. Security & Governance
+- [[docs_sdd_sdd_kirl_15_future_evolution]] — code: 15. Future Evolution
+- [[docs_sdd_sdd_kirl_resumo]] — code: Resumo
+- [[docs_sdd_sdd_kirl_objetivo]] — code: Objetivo
+- [[docs_sdd_sdd_kirl_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_sdd_kirl_dependencias]] — code: Dependencias
+- [[docs_sdd_sdd_kirl_fluxos]] — code: Fluxos
+- [[docs_sdd_sdd_kirl_integracoes]] — code: Integracoes
+- [[docs_sdd_sdd_kirl_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_sdd_kirl_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_sdd_kirl_status]] — code: Status
+- [[docs_sdd_sdd_kirl_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_sdd_kirl]] → `contains` → [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_10_auto_documentation_engine]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_11_alert_system]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_12_implementation_phases]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_13_configuration]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_14_security_governance]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_15_future_evolution]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_1_objective]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_2_architecture_pillars]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_3_core_concepts]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_4_data_layer]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_5_event_bus_integration]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_6_code_scanner_hybrid_lightweight]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_7_sdd_auto_generation_pipeline]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_8_frontend_integration_read_only_consumers]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_9_architecture_graph_layer_graphify]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_arquivos_relacionados]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_dependencias]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_fluxos]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_integracoes]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_objetivo]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_referencias_kirl]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_responsabilidades]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_resumo]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_status]]
+- [[docs_sdd_sdd_kirl_sdd_kirl_k_a_o_s_documentation_runtime_layer_drl]] → `contains` → [[docs_sdd_sdd_kirl_ultima_atualizacao]]
+- [[docs_sdd_sdd_kirl_3_core_concepts]] → `contains` → [[docs_sdd_sdd_kirl_3_1_feature_registry_source_of_truth]]
+- [[docs_sdd_sdd_kirl_3_core_concepts]] → `contains` → [[docs_sdd_sdd_kirl_3_2_commit_feature_mapping]]
+- [[docs_sdd_sdd_kirl_3_core_concepts]] → `contains` → [[docs_sdd_sdd_kirl_3_3_documentation_coverage_engine]]
+- [[docs_sdd_sdd_kirl_3_core_concepts]] → `contains` → [[docs_sdd_sdd_kirl_3_4_drift_engine_core_comparator]]
+- [[docs_sdd_sdd_kirl_3_core_concepts]] → `contains` → [[docs_sdd_sdd_kirl_3_5_drl_state_snapshot_unified_read_layer]]
+- [[docs_sdd_sdd_kirl_4_data_layer]] → `contains` → [[docs_sdd_sdd_kirl_4_1_persisted_artifacts_docs_runtime]]
+- [[docs_sdd_sdd_kirl_4_data_layer]] → `contains` → [[docs_sdd_sdd_kirl_4_2_git_integration]]
+- [[docs_sdd_sdd_kirl_5_event_bus_integration]] → `contains` → [[docs_sdd_sdd_kirl_5_1_published_events]]
+- [[docs_sdd_sdd_kirl_5_event_bus_integration]] → `contains` → [[docs_sdd_sdd_kirl_5_2_subscribers]]
+- [[docs_sdd_sdd_kirl_8_frontend_integration_read_only_consumers]] → `contains` → [[docs_sdd_sdd_kirl_8_1_systemstore_extension]]
+- [[docs_sdd_sdd_kirl_8_frontend_integration_read_only_consumers]] → `contains` → [[docs_sdd_sdd_kirl_8_2_ctrl_k_commands]]
+- [[docs_sdd_sdd_kirl_8_frontend_integration_read_only_consumers]] → `contains` → [[docs_sdd_sdd_kirl_8_3_documentation_page_documentation]]

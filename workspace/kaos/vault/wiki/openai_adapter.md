@@ -1,0 +1,87 @@
+# assistant\app\providers\inference\openai_adapter.py
+
+## Símbolos
+
+- [[assistant_app_providers_inference_openai_adapter]] — code: openai_adapter.py
+- [[assistant_app_providers_inference_openai_adapter_to_langchain]] — code: _to_langchain()
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] — code: OpenAIAdapter
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_provider_name]] — code: .provider_name()
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_invoke]] — code: .invoke()
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_stream]] — code: .stream()
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_health]] — code: .health()
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_list_models]] — code: .list_models()
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] — code: GeminiAdapter
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_provider_name]] — code: .provider_name()
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_invoke]] — code: .invoke()
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_stream]] — code: .stream()
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_health]] — code: .health()
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_list_models]] — code: .list_models()
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] — code: ClaudeAdapter
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_provider_name]] — code: .provider_name()
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_invoke]] — code: .invoke()
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_stream]] — code: .stream()
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_health]] — code: .health()
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_list_models]] — code: .list_models()
+- [[assistant_app_providers_inference_openai_adapter_rationale_1]] — code: OpenAIAdapter / GeminiAdapter / ClaudeAdapter — Cloud LLM adapters.  Each wraps
+
+## Dependências
+
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_invoke]] → `references` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_stream]] → `references` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_invoke]] → `references` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_stream]] → `references` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_invoke]] → `references` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_stream]] → `references` → [[assistant_app_domain_ports_inference_port_inferencerequest]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferenceresult]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferenceresult]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferenceresult]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferenceport]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferenceport]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `uses` → [[assistant_app_domain_ports_inference_port_inferenceport]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `uses` → [[assistant_app_llm_providers_claude_provider_claudeprovider]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_invoke]] → `calls` → [[assistant_app_llm_providers_claude_provider_claudeprovider]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_stream]] → `calls` → [[assistant_app_llm_providers_claude_provider_claudeprovider]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `uses` → [[assistant_app_llm_providers_claude_provider_claudeprovider]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `uses` → [[assistant_app_llm_providers_claude_provider_claudeprovider]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `uses` → [[assistant_app_llm_providers_gemini_provider_geminiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `uses` → [[assistant_app_llm_providers_gemini_provider_geminiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_invoke]] → `calls` → [[assistant_app_llm_providers_gemini_provider_geminiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_stream]] → `calls` → [[assistant_app_llm_providers_gemini_provider_geminiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `uses` → [[assistant_app_llm_providers_gemini_provider_geminiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `uses` → [[assistant_app_llm_providers_openai_provider_openaiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `uses` → [[assistant_app_llm_providers_openai_provider_openaiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `uses` → [[assistant_app_llm_providers_openai_provider_openaiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_invoke]] → `calls` → [[assistant_app_llm_providers_openai_provider_openaiprovider]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_stream]] → `calls` → [[assistant_app_llm_providers_openai_provider_openaiprovider]]
+- [[assistant_app_providers_inference_openai_adapter]] → `contains` → [[assistant_app_providers_inference_openai_adapter_claudeadapter]]
+- [[assistant_app_providers_inference_openai_adapter]] → `contains` → [[assistant_app_providers_inference_openai_adapter_geminiadapter]]
+- [[assistant_app_providers_inference_openai_adapter]] → `contains` → [[assistant_app_providers_inference_openai_adapter_openaiadapter]]
+- [[assistant_app_providers_inference_openai_adapter]] → `contains` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_rationale_1]] → `rationale_for` → [[assistant_app_providers_inference_openai_adapter]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_invoke]] → `calls` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_stream]] → `calls` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_invoke]] → `calls` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_stream]] → `calls` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_invoke]] → `calls` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_stream]] → `calls` → [[assistant_app_providers_inference_openai_adapter_to_langchain]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_openaiadapter_health]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_openaiadapter_invoke]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_openaiadapter_list_models]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_openaiadapter_provider_name]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_openaiadapter_stream]]
+- [[assistant_app_providers_inference_openai_adapter_openaiadapter_invoke]] → `references` → [[assistant_app_providers_inference_openai_adapter_py_inferenceresult]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter_invoke]] → `references` → [[assistant_app_providers_inference_openai_adapter_py_inferenceresult]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter_invoke]] → `references` → [[assistant_app_providers_inference_openai_adapter_py_inferenceresult]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_geminiadapter_health]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_geminiadapter_invoke]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_geminiadapter_list_models]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_geminiadapter_provider_name]]
+- [[assistant_app_providers_inference_openai_adapter_geminiadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_geminiadapter_stream]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_claudeadapter_health]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_claudeadapter_invoke]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_claudeadapter_list_models]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_claudeadapter_provider_name]]
+- [[assistant_app_providers_inference_openai_adapter_claudeadapter]] → `method` → [[assistant_app_providers_inference_openai_adapter_claudeadapter_stream]]

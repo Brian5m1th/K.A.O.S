@@ -37,6 +37,7 @@ class SearchRequest(BaseModel):
 
 def get_memory_service() -> MemoryService:
     from app.providers.memory.postgres_memory_adapter import PostgresMemoryAdapter
+
     svc = MemoryService()
     svc.registry.register("postgres", PostgresMemoryAdapter())
     return svc
@@ -75,7 +76,12 @@ async def search_memory(
     result = await mem.search(query)
     return {
         "matches": [
-            {"id": m.id, "type": m.type, "content": m.content[:200], "metadata": m.metadata}
+            {
+                "id": m.id,
+                "type": m.type,
+                "content": m.content[:200],
+                "metadata": m.metadata,
+            }
             for m in result.matches
         ],
         "total_found": result.total_found,
@@ -91,7 +97,12 @@ async def get_memory(
     result = await mem.registry.active.get(memory_id)
     if result is None:
         return {"found": False}
-    return {"found": True, "id": result.id, "type": result.type, "content": result.content}
+    return {
+        "found": True,
+        "id": result.id,
+        "type": result.type,
+        "content": result.content,
+    }
 
 
 @router.delete("/{memory_id}")

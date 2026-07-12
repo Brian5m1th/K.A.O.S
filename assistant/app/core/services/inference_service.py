@@ -7,7 +7,11 @@ OpenAI, Gemini, Claude) through the ProviderRegistry.
 
 from typing import AsyncIterator
 from app.core.provider_registry import ProviderRegistry
-from app.domain.ports.inference_port import InferencePort, InferenceRequest, InferenceResult
+from app.domain.ports.inference_port import (
+    InferencePort,
+    InferenceRequest,
+    InferenceResult,
+)
 
 
 class InferenceService:

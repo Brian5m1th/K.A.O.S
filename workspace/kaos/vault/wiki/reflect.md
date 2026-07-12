@@ -1,0 +1,173 @@
+# graphify\graphify\reflect.py
+
+## Símbolos
+
+- [[graphify_graphify_reflect]] — code: reflect.py
+- [[graphify_graphify_reflect_yaml_unescape]] — code: _yaml_unescape()
+- [[graphify_graphify_reflect_parse_memory_doc]] — code: parse_memory_doc()
+- [[graphify_graphify_reflect_load_memory_docs]] — code: load_memory_docs()
+- [[graphify_graphify_reflect_load_node_community]] — code: _load_node_community()
+- [[graphify_graphify_reflect_load_known_nodes]] — code: _load_known_nodes()
+- [[graphify_graphify_reflect_doc_community]] — code: _doc_community()
+- [[graphify_graphify_reflect_parse_dt]] — code: _parse_dt()
+- [[graphify_graphify_reflect_decay]] — code: _decay()
+- [[graphify_graphify_reflect_empty_bucket]] — code: _empty_bucket()
+- [[graphify_graphify_reflect_record_node]] — code: _record_node()
+- [[graphify_graphify_reflect_finalize_sources]] — code: _finalize_sources()
+- [[graphify_graphify_reflect_dedupe_by_question]] — code: _dedupe_by_question()
+- [[graphify_graphify_reflect_aggregate_lessons]] — code: aggregate_lessons()
+- [[graphify_graphify_reflect_render_bucket]] — code: _render_bucket()
+- [[graphify_graphify_reflect_render_lessons_md]] — code: render_lessons_md()
+- [[graphify_graphify_reflect_lessons_fresh]] — code: lessons_fresh()
+- [[graphify_graphify_reflect_reflect]] — code: reflect()
+- [[graphify_graphify_reflect_build_id_label_maps]] — code: _build_id_label_maps()
+- [[graphify_graphify_reflect_resolve_canonical_id]] — code: _resolve_canonical_id()
+- [[graphify_graphify_reflect_resolve_source_path]] — code: _resolve_source_path()
+- [[graphify_graphify_reflect_content_hash]] — code: _content_hash()
+- [[graphify_graphify_reflect_code_fingerprint]] — code: _code_fingerprint()
+- [[graphify_graphify_reflect_provenance_for]] — code: _provenance_for()
+- [[graphify_graphify_reflect_build_learning_overlay]] — code: build_learning_overlay()
+- [[graphify_graphify_reflect_write_learning_sidecar]] — code: write_learning_sidecar()
+- [[graphify_graphify_reflect_load_learning_overlay]] — code: load_learning_overlay()
+- [[graphify_graphify_reflect_is_stale]] — code: _is_stale()
+- [[graphify_graphify_reflect_rationale_1]] — code: Deterministic "work memory" reflection over graphify-out/memory/.  `graphify r
+- [[graphify_graphify_reflect_rationale_72]] — code: Reverse the double-quoted escaping that ingest._yaml_str applies.
+- [[graphify_graphify_reflect_rationale_105]] — code: Parse the frontmatter of a memory doc into a dict, or None if it has none.
+- [[graphify_graphify_reflect_rationale_134]] — code: Parse every memory doc under ``memory_dir``, sorted by date then filename.
+- [[graphify_graphify_reflect_rationale_164]] — code: Build a lookup from node id AND node label -> community label, or None if the
+- [[graphify_graphify_reflect_rationale_212]] — code: The set of node ids AND labels in the current graph, or None if unavailable.
+- [[graphify_graphify_reflect_rationale_242]] — code: The community a doc belongs to: the plurality community of its source nodes.
+- [[graphify_graphify_reflect_rationale_263]] — code: Parse an ISO date/datetime to an aware UTC datetime, or None if unparseable.
+- [[graphify_graphify_reflect_rationale_276]] — code: Time-decay weight in (0, 1]: halves every ``half_life_days``.      Undated/unp
+- [[graphify_graphify_reflect_rationale_329]] — code: Split a bucket's scored nodes into preferred / tentative / contested lists.
+- [[graphify_graphify_reflect_rationale_351]] — code: Collapse repeated questions to one entry. Docs are processed oldest-first, so
+- [[graphify_graphify_reflect_rationale_371]] — code: Aggregate parsed memory docs into a deterministic lessons structure.      ``no
+- [[graphify_graphify_reflect_rationale_490]] — code: Render the aggregate into the deterministic LESSONS.md markdown body.
+- [[graphify_graphify_reflect_rationale_531]] — code: True if ``out_path`` exists and is at least as new as every input that     feed
+- [[graphify_graphify_reflect_rationale_573]] — code: Scan ``memory_dir``, write the lessons doc to ``out_path``, return (path, agg).
+- [[graphify_graphify_reflect_rationale_624]] — code: From graph.json build:      - ``id_set``: id -> id (every node id, so an id-fo
+- [[graphify_graphify_reflect_rationale_654]] — code: Resolve a cited node (a label OR an id) to a single canonical node id.      Re
+- [[graphify_graphify_reflect_rationale_669]] — code: Locate a node's ``source_file`` on disk, returning an existing file or None.
+- [[graphify_graphify_reflect_rationale_718]] — code: SHA256 of file CONTENT only (no path mixed in), so the fingerprint is     indep
+- [[graphify_graphify_reflect_rationale_729]] — code: Content hash of the node's ``source_file``, or '' if unavailable.      Coarse
+- [[graphify_graphify_reflect_rationale_743]] — code: Most-recent-first, capped provenance entries for a node.      ``prov_map`` is
+- [[graphify_graphify_reflect_rationale_760]] — code: Project the reflect aggregate into the sidecar's ``{version, generated_at,
+- [[graphify_graphify_reflect_rationale_826]] — code: Write ``.graphify_learning.json`` next to ``graph_path`` deterministically.
+- [[graphify_graphify_reflect_rationale_841]] — code: Load the sidecar next to ``graph_path`` and return ``{node_id -> entry}``     w
+- [[graphify_graphify_reflect_rationale_869]] — code: True if the node's source file changed (or vanished) since the fingerprint
+
+## Dependências
+
+- [[graphify_graphify_reflect]] → `imports_from` → [[graphify_graphify_ingest]]
+- [[graphify_graphify_reflect]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_build_id_label_maps]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_build_learning_overlay]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_code_fingerprint]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_content_hash]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_decay]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_dedupe_by_question]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_doc_community]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_empty_bucket]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_finalize_sources]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_is_stale]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_load_known_nodes]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_load_learning_overlay]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_load_node_community]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_parse_dt]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_provenance_for]]
+- [[graphify_graphify_reflect]] → `imports_from` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_record_node]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_render_bucket]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_resolve_canonical_id]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_resolve_source_path]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_write_learning_sidecar]]
+- [[graphify_graphify_reflect]] → `contains` → [[graphify_graphify_reflect_yaml_unescape]]
+- [[graphify_graphify_reflect_rationale_1]] → `rationale_for` → [[graphify_graphify_reflect]]
+- [[graphify_graphify_reflect_parse_memory_doc]] → `calls` → [[graphify_graphify_reflect_yaml_unescape]]
+- [[graphify_graphify_reflect_rationale_72]] → `rationale_for` → [[graphify_graphify_reflect_yaml_unescape]]
+- [[graphify_graphify_reflect_load_memory_docs]] → `calls` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_graphify_reflect_parse_memory_doc]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_rationale_105]] → `rationale_for` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_build_id_label_maps]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_build_learning_overlay]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_code_fingerprint]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_dedupe_by_question]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_empty_bucket]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_finalize_sources]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_is_stale]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_load_learning_overlay]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_load_memory_docs]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_record_node]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_reflect]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_render_bucket]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_render_lessons_md]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_write_learning_sidecar]] → `references` → [[graphify_graphify_reflect_py_any]]
+- [[graphify_graphify_reflect_load_memory_docs]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_rationale_134]] → `rationale_for` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_graphify_reflect_reflect]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_graphify_reflect_build_id_label_maps]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_build_learning_overlay]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_code_fingerprint]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_content_hash]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_is_stale]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_lessons_fresh]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_load_known_nodes]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_load_learning_overlay]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_load_node_community]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_reflect]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_resolve_source_path]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_write_learning_sidecar]] → `references` → [[graphify_graphify_reflect_py_path]]
+- [[graphify_graphify_reflect_rationale_164]] → `rationale_for` → [[graphify_graphify_reflect_load_node_community]]
+- [[graphify_graphify_reflect_reflect]] → `calls` → [[graphify_graphify_reflect_load_node_community]]
+- [[graphify_graphify_reflect_rationale_212]] → `rationale_for` → [[graphify_graphify_reflect_load_known_nodes]]
+- [[graphify_graphify_reflect_reflect]] → `calls` → [[graphify_graphify_reflect_load_known_nodes]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `calls` → [[graphify_graphify_reflect_doc_community]]
+- [[graphify_graphify_reflect_rationale_242]] → `rationale_for` → [[graphify_graphify_reflect_doc_community]]
+- [[graphify_graphify_reflect_decay]] → `calls` → [[graphify_graphify_reflect_parse_dt]]
+- [[graphify_graphify_reflect_parse_dt]] → `references` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect_rationale_263]] → `rationale_for` → [[graphify_graphify_reflect_parse_dt]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `references` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect_build_learning_overlay]] → `references` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect_decay]] → `references` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect_reflect]] → `references` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect_write_learning_sidecar]] → `references` → [[graphify_graphify_reflect_py_datetime]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `calls` → [[graphify_graphify_reflect_decay]]
+- [[graphify_graphify_reflect_rationale_276]] → `rationale_for` → [[graphify_graphify_reflect_decay]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `calls` → [[graphify_graphify_reflect_empty_bucket]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `calls` → [[graphify_graphify_reflect_record_node]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `calls` → [[graphify_graphify_reflect_finalize_sources]]
+- [[graphify_graphify_reflect_rationale_329]] → `rationale_for` → [[graphify_graphify_reflect_finalize_sources]]
+- [[graphify_graphify_reflect_aggregate_lessons]] → `calls` → [[graphify_graphify_reflect_dedupe_by_question]]
+- [[graphify_graphify_reflect_rationale_351]] → `rationale_for` → [[graphify_graphify_reflect_dedupe_by_question]]
+- [[graphify_graphify_reflect_rationale_371]] → `rationale_for` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_graphify_reflect_reflect]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_graphify_reflect_render_lessons_md]] → `calls` → [[graphify_graphify_reflect_render_bucket]]
+- [[graphify_graphify_reflect_rationale_490]] → `rationale_for` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_graphify_reflect_reflect]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_graphify_reflect_rationale_531]] → `rationale_for` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_graphify_reflect_rationale_573]] → `rationale_for` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_graphify_reflect_reflect]] → `calls` → [[graphify_graphify_reflect_write_learning_sidecar]]
+- [[graphify_graphify_reflect_build_learning_overlay]] → `calls` → [[graphify_graphify_reflect_build_id_label_maps]]
+- [[graphify_graphify_reflect_rationale_624]] → `rationale_for` → [[graphify_graphify_reflect_build_id_label_maps]]
+- [[graphify_graphify_reflect_rationale_654]] → `rationale_for` → [[graphify_graphify_reflect_resolve_canonical_id]]
+- [[graphify_graphify_reflect_code_fingerprint]] → `calls` → [[graphify_graphify_reflect_resolve_source_path]]
+- [[graphify_graphify_reflect_is_stale]] → `calls` → [[graphify_graphify_reflect_resolve_source_path]]
+- [[graphify_graphify_reflect_rationale_669]] → `rationale_for` → [[graphify_graphify_reflect_resolve_source_path]]
+- [[graphify_graphify_reflect_code_fingerprint]] → `calls` → [[graphify_graphify_reflect_content_hash]]
+- [[graphify_graphify_reflect_is_stale]] → `calls` → [[graphify_graphify_reflect_content_hash]]
+- [[graphify_graphify_reflect_rationale_718]] → `rationale_for` → [[graphify_graphify_reflect_content_hash]]
+- [[graphify_graphify_reflect_rationale_729]] → `rationale_for` → [[graphify_graphify_reflect_code_fingerprint]]
+- [[graphify_graphify_reflect_rationale_743]] → `rationale_for` → [[graphify_graphify_reflect_provenance_for]]
+- [[graphify_graphify_reflect_rationale_760]] → `rationale_for` → [[graphify_graphify_reflect_build_learning_overlay]]
+- [[graphify_graphify_reflect_write_learning_sidecar]] → `calls` → [[graphify_graphify_reflect_build_learning_overlay]]
+- [[graphify_graphify_reflect_rationale_826]] → `rationale_for` → [[graphify_graphify_reflect_write_learning_sidecar]]
+- [[graphify_graphify_reflect_load_learning_overlay]] → `calls` → [[graphify_graphify_reflect_is_stale]]
+- [[graphify_graphify_reflect_rationale_841]] → `rationale_for` → [[graphify_graphify_reflect_load_learning_overlay]]
+- [[graphify_graphify_reflect_rationale_869]] → `rationale_for` → [[graphify_graphify_reflect_is_stale]]

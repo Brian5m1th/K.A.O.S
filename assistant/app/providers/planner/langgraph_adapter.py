@@ -6,7 +6,11 @@ LangGraph-based agent workflow state machines.
 """
 
 from app.domain.ports.planner_port import (
-    PlannerPort, PlanRequest, PlanResult, PlanStep, PlanStatus,
+    PlannerPort,
+    PlanRequest,
+    PlanResult,
+    PlanStep,
+    PlanStatus,
 )
 
 
@@ -25,20 +29,32 @@ class LangGraphAdapter(PlannerPort):
         # Use existing planner node if available
         try:
             from app.agent.nodes.planner import PlannerNode
+
             node = PlannerNode()
             raw_steps = await node.plan(request.intent, request.context)
             for i, raw in enumerate(raw_steps):
-                steps.append(PlanStep(
-                    id=f"{plan_id}_step_{i}",
-                    action=raw.get("action", "unknown"),
-                    inputs=raw.get("inputs", {}),
-                    status=PlanStatus.PENDING,
-                ))
+                steps.append(
+                    PlanStep(
+                        id=f"{plan_id}_step_{i}",
+                        action=raw.get("action", "unknown"),
+                        inputs=raw.get("inputs", {}),
+                        status=PlanStatus.PENDING,
+                    )
+                )
         except Exception:
             # Minimal plan stub
             steps = [
-                PlanStep(id=f"{plan_id}_step_0", action="retrieve", inputs={"query": request.intent}),
-                PlanStep(id=f"{plan_id}_step_1", action="execute", inputs={}, depends_on=[f"{plan_id}_step_0"]),
+                PlanStep(
+                    id=f"{plan_id}_step_0",
+                    action="retrieve",
+                    inputs={"query": request.intent},
+                ),
+                PlanStep(
+                    id=f"{plan_id}_step_1",
+                    action="execute",
+                    inputs={},
+                    depends_on=[f"{plan_id}_step_0"],
+                ),
             ]
 
         return PlanResult(plan_id=plan_id, steps=steps, status=PlanStatus.PENDING)
@@ -57,6 +73,7 @@ class LangGraphAdapter(PlannerPort):
     async def health(self) -> bool:
         try:
             import importlib.util
+
             return importlib.util.find_spec("langgraph") is not None
         except Exception:
             return False

@@ -228,11 +228,15 @@ class GraphBuilder:
                 edge_key = f"{src_file}->{tgt_file}"
                 if edge_key not in seen_file_edges:
                     seen_file_edges.add(edge_key)
-                    file_edges.append({
-                        "source": src_file,
-                        "target": tgt_file,
-                        "relation": GraphBuilder._infer_relation(link.get("relation", "uses")),
-                    })
+                    file_edges.append(
+                        {
+                            "source": src_file,
+                            "target": tgt_file,
+                            "relation": GraphBuilder._infer_relation(
+                                link.get("relation", "uses")
+                            ),
+                        }
+                    )
 
         # Add community cluster info from GRAPH_REPORT.md
         for node in data.get("nodes", []):

@@ -1,0 +1,134 @@
+# graphify\worked\httpx\raw\transport.py
+
+## Símbolos
+
+- [[graphify_worked_httpx_raw_transport]] — code: transport.py
+- [[graphify_worked_httpx_raw_transport_basetransport]] — code: BaseTransport
+- [[graphify_worked_httpx_raw_transport_basetransport_handle_request]] — code: .handle_request()
+- [[graphify_worked_httpx_raw_transport_basetransport_close]] — code: .close()
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport]] — code: AsyncBaseTransport
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport_handle_async_request]] — code: .handle_async_request()
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport_aclose]] — code: .aclose()
+- [[graphify_worked_httpx_raw_transport_connectionpool]] — code: ConnectionPool
+- [[graphify_worked_httpx_raw_transport_connectionpool_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_transport_connectionpool_get_connection_key]] — code: ._get_connection_key()
+- [[graphify_worked_httpx_raw_transport_connectionpool_get_connection]] — code: .get_connection()
+- [[graphify_worked_httpx_raw_transport_connectionpool_return_connection]] — code: .return_connection()
+- [[graphify_worked_httpx_raw_transport_connectionpool_close]] — code: .close()
+- [[graphify_worked_httpx_raw_transport_httptransport]] — code: HTTPTransport
+- [[graphify_worked_httpx_raw_transport_httptransport_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] — code: .handle_request()
+- [[graphify_worked_httpx_raw_transport_httptransport_send]] — code: ._send()
+- [[graphify_worked_httpx_raw_transport_httptransport_close]] — code: .close()
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] — code: AsyncHTTPTransport
+- [[graphify_worked_httpx_raw_transport_asynchttptransport_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_transport_asynchttptransport_handle_async_request]] — code: .handle_async_request()
+- [[graphify_worked_httpx_raw_transport_asynchttptransport_aclose]] — code: .aclose()
+- [[graphify_worked_httpx_raw_transport_mocktransport]] — code: MockTransport
+- [[graphify_worked_httpx_raw_transport_mocktransport_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_transport_mocktransport_handle_request]] — code: .handle_request()
+- [[graphify_worked_httpx_raw_transport_proxytransport]] — code: ProxyTransport
+- [[graphify_worked_httpx_raw_transport_proxytransport_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_transport_proxytransport_handle_request]] — code: .handle_request()
+- [[graphify_worked_httpx_raw_transport_proxytransport_close]] — code: .close()
+- [[graphify_worked_httpx_raw_transport_rationale_1]] — code: Transport layer: connection management and low-level HTTP sending. HTTPTranspor
+- [[graphify_worked_httpx_raw_transport_rationale_11]] — code: Sync transport interface.
+- [[graphify_worked_httpx_raw_transport_rationale_21]] — code: Async transport interface.
+- [[graphify_worked_httpx_raw_transport_rationale_31]] — code: Manages a pool of persistent HTTP connections.     Keys connections by (scheme,
+- [[graphify_worked_httpx_raw_transport_rationale_60]] — code: The main sync HTTP transport.     Uses a ConnectionPool for connection reuse.
+- [[graphify_worked_httpx_raw_transport_rationale_90]] — code: The async variant of HTTPTransport.
+- [[graphify_worked_httpx_raw_transport_rationale_104]] — code: A transport for testing that returns predefined responses.     Pass a handler f
+- [[graphify_worked_httpx_raw_transport_rationale_117]] — code: Routes requests through an HTTP/HTTPS proxy.     Wraps an inner transport and p
+
+## Dependências
+
+- [[graphify_worked_httpx_raw_transport]] → `imports_from` → [[graphify_worked_httpx_raw_exceptions]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_basetransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_mocktransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_proxytransport_handle_request]] → `calls` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_basetransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_mocktransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_basetransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] → `calls` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_mocktransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `uses` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport_handle_async_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport_handle_async_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_basetransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_connectionpool_get_connection]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_connectionpool_get_connection_key]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_connectionpool_return_connection]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_httptransport_send]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_mocktransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_proxytransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport_handle_async_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport_handle_async_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport_basetransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport_httptransport_send]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport_mocktransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport_proxytransport_handle_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_asyncbasetransport]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_connectionpool]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_mocktransport]]
+- [[graphify_worked_httpx_raw_transport]] → `contains` → [[graphify_worked_httpx_raw_transport_proxytransport]]
+- [[graphify_worked_httpx_raw_transport_rationale_1]] → `rationale_for` → [[graphify_worked_httpx_raw_transport]]
+- [[graphify_worked_httpx_raw_transport_basetransport]] → `method` → [[graphify_worked_httpx_raw_transport_basetransport_close]]
+- [[graphify_worked_httpx_raw_transport_basetransport]] → `method` → [[graphify_worked_httpx_raw_transport_basetransport_handle_request]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `inherits` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_transport_mocktransport]] → `inherits` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `inherits` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_transport_proxytransport_init]] → `references` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_transport_rationale_11]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport]] → `method` → [[graphify_worked_httpx_raw_transport_asyncbasetransport_aclose]]
+- [[graphify_worked_httpx_raw_transport_asyncbasetransport]] → `method` → [[graphify_worked_httpx_raw_transport_asyncbasetransport_handle_async_request]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `inherits` → [[graphify_worked_httpx_raw_transport_asyncbasetransport]]
+- [[graphify_worked_httpx_raw_transport_rationale_21]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_asyncbasetransport]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `method` → [[graphify_worked_httpx_raw_transport_connectionpool_close]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `method` → [[graphify_worked_httpx_raw_transport_connectionpool_get_connection]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `method` → [[graphify_worked_httpx_raw_transport_connectionpool_get_connection_key]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `method` → [[graphify_worked_httpx_raw_transport_connectionpool_init]]
+- [[graphify_worked_httpx_raw_transport_connectionpool]] → `method` → [[graphify_worked_httpx_raw_transport_connectionpool_return_connection]]
+- [[graphify_worked_httpx_raw_transport_httptransport_init]] → `calls` → [[graphify_worked_httpx_raw_transport_connectionpool]]
+- [[graphify_worked_httpx_raw_transport_rationale_31]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_connectionpool]]
+- [[graphify_worked_httpx_raw_transport_connectionpool_get_connection]] → `calls` → [[graphify_worked_httpx_raw_transport_connectionpool_get_connection_key]]
+- [[graphify_worked_httpx_raw_transport_connectionpool_return_connection]] → `calls` → [[graphify_worked_httpx_raw_transport_connectionpool_get_connection_key]]
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] → `calls` → [[graphify_worked_httpx_raw_transport_connectionpool_get_connection]]
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] → `calls` → [[graphify_worked_httpx_raw_transport_connectionpool_return_connection]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `method` → [[graphify_worked_httpx_raw_transport_httptransport_close]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `method` → [[graphify_worked_httpx_raw_transport_httptransport_handle_request]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `method` → [[graphify_worked_httpx_raw_transport_httptransport_init]]
+- [[graphify_worked_httpx_raw_transport_httptransport]] → `method` → [[graphify_worked_httpx_raw_transport_httptransport_send]]
+- [[graphify_worked_httpx_raw_transport_proxytransport_init]] → `calls` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_transport_rationale_60]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_transport_httptransport_handle_request]] → `calls` → [[graphify_worked_httpx_raw_transport_httptransport_send]]
+- [[graphify_worked_httpx_raw_transport_httptransport_close]] → `calls` → [[graphify_worked_httpx_raw_transport_proxytransport_close]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `method` → [[graphify_worked_httpx_raw_transport_asynchttptransport_aclose]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `method` → [[graphify_worked_httpx_raw_transport_asynchttptransport_handle_async_request]]
+- [[graphify_worked_httpx_raw_transport_asynchttptransport]] → `method` → [[graphify_worked_httpx_raw_transport_asynchttptransport_init]]
+- [[graphify_worked_httpx_raw_transport_rationale_90]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_transport_mocktransport]] → `method` → [[graphify_worked_httpx_raw_transport_mocktransport_handle_request]]
+- [[graphify_worked_httpx_raw_transport_mocktransport]] → `method` → [[graphify_worked_httpx_raw_transport_mocktransport_init]]
+- [[graphify_worked_httpx_raw_transport_rationale_104]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_mocktransport]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `method` → [[graphify_worked_httpx_raw_transport_proxytransport_close]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `method` → [[graphify_worked_httpx_raw_transport_proxytransport_handle_request]]
+- [[graphify_worked_httpx_raw_transport_proxytransport]] → `method` → [[graphify_worked_httpx_raw_transport_proxytransport_init]]
+- [[graphify_worked_httpx_raw_transport_rationale_117]] → `rationale_for` → [[graphify_worked_httpx_raw_transport_proxytransport]]

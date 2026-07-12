@@ -8,7 +8,11 @@ Best for batch/documentation tasks, not real-time chat.
 from typing import AsyncIterator
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from app.domain.ports.inference_port import InferencePort, InferenceRequest, InferenceResult
+from app.domain.ports.inference_port import (
+    InferencePort,
+    InferenceRequest,
+    InferenceResult,
+)
 
 
 class AirLLMAdapter(InferencePort):
@@ -20,6 +24,7 @@ class AirLLMAdapter(InferencePort):
 
     async def invoke(self, request: InferenceRequest) -> InferenceResult:
         from app.llm.providers.airllm_provider import AirLLMProvider
+
         provider = AirLLMProvider(model=request.model or "default")
         messages = self._to_langchain(request.messages)
         result = await provider.ainvoke(messages)
@@ -31,6 +36,7 @@ class AirLLMAdapter(InferencePort):
 
     async def stream(self, request: InferenceRequest) -> AsyncIterator[str]:
         from app.llm.providers.airllm_provider import AirLLMProvider
+
         provider = AirLLMProvider(model=request.model or "default")
         messages = self._to_langchain(request.messages)
         async for chunk in provider.astream(messages):
@@ -39,6 +45,7 @@ class AirLLMAdapter(InferencePort):
     async def health(self) -> bool:
         try:
             import importlib
+
             return importlib.util.find_spec("airllm") is not None
         except Exception:
             return False
@@ -49,7 +56,8 @@ class AirLLMAdapter(InferencePort):
     @staticmethod
     def _to_langchain(messages: list[dict]) -> list:
         return [
-            SystemMessage(content=m["content"]) if m["role"] == "system"
+            SystemMessage(content=m["content"])
+            if m["role"] == "system"
             else HumanMessage(content=m["content"])
             for m in messages
         ]

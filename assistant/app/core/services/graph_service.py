@@ -6,7 +6,13 @@ Wraps GraphPort with ProviderRegistry for runtime provider switching.
 
 from typing import Optional
 from app.core.provider_registry import ProviderRegistry
-from app.domain.ports.graph_port import GraphPort, NodeInfo, PathInfo, GraphQuery, GraphResult
+from app.domain.ports.graph_port import (
+    GraphPort,
+    NodeInfo,
+    PathInfo,
+    GraphQuery,
+    GraphResult,
+)
 
 
 class GraphService:

@@ -1,0 +1,266 @@
+# graphify\tests\test_skillgen.py
+
+## Símbolos
+
+- [[graphify_tests_test_skillgen]] — code: test_skillgen.py
+- [[graphify_tests_test_skillgen_test_audit_coverage_passes]] — code: test_audit_coverage_passes()
+- [[graphify_tests_test_skillgen_test_check_passes]] — code: test_check_passes()
+- [[graphify_tests_test_skillgen_test_render_is_idempotent]] — code: test_render_is_idempotent()
+- [[graphify_tests_test_skillgen_test_render_output_is_lf_only]] — code: test_render_output_is_lf_only()
+- [[graphify_tests_test_skillgen_test_no_version_or_timestamp_in_output]] — code: test_no_version_or_timestamp_in_output()
+- [[graphify_tests_test_skillgen_claude_artifacts]] — code: _claude_artifacts()
+- [[graphify_tests_test_skillgen_test_lean_core_has_no_reference_only_content]] — code: test_lean_core_has_no_reference_only_content()
+- [[graphify_tests_test_skillgen_test_lean_core_runs_default_pipeline_with_zero_references]] — code: test_lean_core_runs_default_pipeline_with_zero_references()
+- [[graphify_tests_test_skillgen_test_extraction_states_no_api_key_required_for_every_host]] — code: test_extraction_states_no_api_key_required_for_every_host()
+- [[graphify_tests_test_skillgen_test_references_contain_no_core_pipeline_content]] — code: test_references_contain_no_core_pipeline_content()
+- [[graphify_tests_test_skillgen_test_reference_pointers_in_core_resolve_to_real_fragments]] — code: test_reference_pointers_in_core_resolve_to_real_fragments()
+- [[graphify_tests_test_skillgen_test_query_heading_is_homed_in_core_stub_only]] — code: test_query_heading_is_homed_in_core_stub_only()
+- [[graphify_tests_test_skillgen_test_eight_references_render_for_claude]] — code: test_eight_references_render_for_claude()
+- [[graphify_tests_test_skillgen_test_headings_helper_ignores_code_fence_comments]] — code: test_headings_helper_ignores_code_fence_comments()
+- [[graphify_tests_test_skillgen_test_enum_is_full_six_value_superset_in_extraction_spec]] — code: test_enum_is_full_six_value_superset_in_extraction_spec()
+- [[graphify_tests_test_skillgen_platform_artifacts]] — code: _platform_artifacts()
+- [[graphify_tests_test_skillgen_test_check_passes_for_codex_and_windows]] — code: test_check_passes_for_codex_and_windows()
+- [[graphify_tests_test_skillgen_test_audit_coverage_passes_for_codex_and_windows]] — code: test_audit_coverage_passes_for_codex_and_windows()
+- [[graphify_tests_test_skillgen_test_descriptions_are_unified]] — code: test_descriptions_are_unified()
+- [[graphify_tests_test_skillgen_test_windows_frontmatter_name_and_shell_and_extra]] — code: test_windows_frontmatter_name_and_shell_and_extra()
+- [[graphify_tests_test_skillgen_test_codex_dispatch_is_agenttask_and_collects_in_memory]] — code: test_codex_dispatch_is_agenttask_and_collects_in_memory()
+- [[graphify_tests_test_skillgen_test_codex_and_windows_unify_enum_to_six_values]] — code: test_codex_and_windows_unify_enum_to_six_values()
+- [[graphify_tests_test_skillgen_test_codex_uses_compact_extraction_windows_uses_verbose]] — code: test_codex_uses_compact_extraction_windows_uses_verbose()
+- [[graphify_tests_test_skillgen_test_every_platform_query_has_expansion_and_fallback]] — code: test_every_platform_query_has_expansion_and_fallback()
+- [[graphify_tests_test_skillgen_test_schema_singleton_passes_across_all_platforms]] — code: test_schema_singleton_passes_across_all_platforms()
+- [[graphify_tests_test_skillgen_test_schema_singleton_catches_legacy_enums]] — code: test_schema_singleton_catches_legacy_enums()
+- [[graphify_tests_test_skillgen_test_all_progressive_hosts_check_and_audit_clean]] — code: test_all_progressive_hosts_check_and_audit_clean()
+- [[graphify_tests_test_skillgen_test_no_host_has_trigger_in_frontmatter]] — code: test_no_host_has_trigger_in_frontmatter()
+- [[graphify_tests_test_skillgen_test_kilo_renders_its_rules_tail_section]] — code: test_kilo_renders_its_rules_tail_section()
+- [[graphify_tests_test_skillgen_test_dispatch_variants_are_host_specific]] — code: test_dispatch_variants_are_host_specific()
+- [[graphify_tests_test_skillgen_test_compact_extraction_hosts_use_the_compact_spec]] — code: test_compact_extraction_hosts_use_the_compact_spec()
+- [[graphify_tests_test_skillgen_test_every_split_host_renders_eight_references]] — code: test_every_split_host_renders_eight_references()
+- [[graphify_tests_test_skillgen_test_monoliths_render_inline_single_file_no_references]] — code: test_monoliths_render_inline_single_file_no_references()
+- [[graphify_tests_test_skillgen_test_monolith_roundtrip_passes_for_aider_and_devin]] — code: test_monolith_roundtrip_passes_for_aider_and_devin()
+- [[graphify_tests_test_skillgen_test_monoliths_change_only_sanctioned_lines]] — code: test_monoliths_change_only_sanctioned_lines()
+- [[graphify_tests_test_skillgen_test_monoliths_carry_the_1392_runbook_fixes]] — code: test_monoliths_carry_the_1392_runbook_fixes()
+- [[graphify_tests_test_skillgen_test_generated_runbooks_pass_root_to_save_manifest]] — code: test_generated_runbooks_pass_root_to_save_manifest()
+- [[graphify_tests_test_skillgen_test_devin_keeps_its_multi_field_frontmatter]] — code: test_devin_keeps_its_multi_field_frontmatter()
+- [[graphify_tests_test_skillgen_test_always_on_renders_six_blocks]] — code: test_always_on_renders_six_blocks()
+- [[graphify_tests_test_skillgen_test_always_on_included_in_full_render_not_per_platform]] — code: test_always_on_included_in_full_render_not_per_platform()
+- [[graphify_tests_test_skillgen_test_always_on_roundtrip_is_byte_faithful]] — code: test_always_on_roundtrip_is_byte_faithful()
+- [[graphify_tests_test_skillgen_test_extracted_constants_equal_the_packaged_always_on_files]] — code: test_extracted_constants_equal_the_packaged_always_on_files()
+- [[graphify_tests_test_skillgen_test_always_on_files_are_guarded_by_check]] — code: test_always_on_files_are_guarded_by_check()
+- [[graphify_tests_test_skillgen_test_audit_coverage_passes_for_every_split_host]] — code: test_audit_coverage_passes_for_every_split_host()
+- [[graphify_tests_test_skillgen_test_audit_reads_each_host_against_its_own_v8_body]] — code: test_audit_reads_each_host_against_its_own_v8_body()
+- [[graphify_tests_test_skillgen_test_audit_catches_an_induced_per_host_drop]] — code: test_audit_catches_an_induced_per_host_drop()
+- [[graphify_tests_test_skillgen_test_audit_catches_a_dropped_non_allowlisted_heading]] — code: test_audit_catches_a_dropped_non_allowlisted_heading()
+- [[graphify_tests_test_skillgen_test_git_show_validators_skip_cleanly_without_origin_v8]] — code: test_git_show_validators_skip_cleanly_without_origin_v8()
+- [[graphify_tests_test_skillgen_test_audit_allowlist_documents_only_consolidations]] — code: test_audit_allowlist_documents_only_consolidations()
+- [[graphify_tests_test_skillgen_test_trae_renders_native_agents_md_integration_not_claude]] — code: test_trae_renders_native_agents_md_integration_not_claude()
+- [[graphify_tests_test_skillgen_test_trae_dispatch_carries_the_no_pretooluse_caveat]] — code: test_trae_dispatch_carries_the_no_pretooluse_caveat()
+- [[graphify_tests_test_skillgen_test_trae_hooks_reference_includes_the_pretooluse_note]] — code: test_trae_hooks_reference_includes_the_pretooluse_note()
+- [[graphify_tests_test_skillgen_test_claude_flavored_hosts_keep_their_hooks_text_unchanged]] — code: test_claude_flavored_hosts_keep_their_hooks_text_unchanged()
+- [[graphify_tests_test_skillgen_test_amp_renders_native_agents_md_integration_v8_faithfully]] — code: test_amp_renders_native_agents_md_integration_v8_faithfully()
+- [[graphify_tests_test_skillgen_test_amp_has_no_pretooluse_caveat_anywhere]] — code: test_amp_has_no_pretooluse_caveat_anywhere()
+- [[graphify_tests_test_skillgen_test_amp_audit_coverage_passes_against_its_own_v8]] — code: test_amp_audit_coverage_passes_against_its_own_v8()
+- [[graphify_tests_test_skillgen_test_agents_renders_its_own_agents_md_hooks_wording]] — code: test_agents_renders_its_own_agents_md_hooks_wording()
+- [[graphify_tests_test_skillgen_test_agents_body_matches_amp_modulo_hooks_wording]] — code: test_agents_body_matches_amp_modulo_hooks_wording()
+- [[graphify_tests_test_skillgen_test_agents_audit_baseline_is_amps_v8_body]] — code: test_agents_audit_baseline_is_amps_v8_body()
+- [[graphify_tests_test_skillgen_rationale_1]] — code: Tests for the tools/skillgen generator and the claude lean-core split.  skillg
+- [[graphify_tests_test_skillgen_rationale_26]] — code: Every v8 heading lands in the lean core or exactly one reference.
+- [[graphify_tests_test_skillgen_rationale_33]] — code: The committed artifacts and the expected/ snapshot match a fresh render.
+- [[graphify_tests_test_skillgen_rationale_45]] — code: Rendering twice yields byte-identical output (no timestamps/versions).
+- [[graphify_tests_test_skillgen_rationale_53]] — code: Generated artifacts use LF newlines and end in exactly one newline.
+- [[graphify_tests_test_skillgen_rationale_62]] — code: No generated artifact carries the package version string.
+- [[graphify_tests_test_skillgen_rationale_79]] — code: The core must not inline the execution detail of an on-demand reference.
+- [[graphify_tests_test_skillgen_rationale_104]] — code: The default code-corpus run must be fully described inside the core.
+- [[graphify_tests_test_skillgen_rationale_125]] — code: Regression for #1461: every skill body that describes Step 3 extraction must
+- [[graphify_tests_test_skillgen_rationale_153]] — code: No reference fragment may duplicate the core build pipeline.
+- [[graphify_tests_test_skillgen_rationale_169]] — code: Every references/<name>.md the core points at is actually rendered.
+- [[graphify_tests_test_skillgen_rationale_180]] — code: The query section heading is the lean-core stub; query.md re-homes the rest.
+- [[graphify_tests_test_skillgen_rationale_193]] — code: claude renders exactly the eight on-demand fragments from the design.
+- [[graphify_tests_test_skillgen_rationale_208]] — code: The fence-aware heading scanner must skip '#' lines inside code fences.
+- [[graphify_tests_test_skillgen_rationale_223]] — code: Decision A: the file_type enum is the full six-value superset.
+- [[graphify_tests_test_skillgen_rationale_243]] — code: The committed codex/windows artifacts match a fresh render and expected/.
+- [[graphify_tests_test_skillgen_rationale_252]] — code: Every v8 heading single-homes for the cli-inline split hosts too.
+- [[graphify_tests_test_skillgen_rationale_269]] — code: Every platform now carries one unified frontmatter description, byte for byte.
+- [[graphify_tests_test_skillgen_rationale_288]] — code: windows: name must be `graphify` (folder-name rule, #1635), powershell     inst
+- [[graphify_tests_test_skillgen_rationale_304]] — code: codex: spawn/wait/close_agent dispatch needing multi_agent = true.
+- [[graphify_tests_test_skillgen_rationale_320]] — code: codex (was 4-value) and windows (was 5-value) now carry the superset.
+- [[graphify_tests_test_skillgen_rationale_332]] — code: The extraction variant differs: codex compact, windows verbose.
+- [[graphify_tests_test_skillgen_rationale_340]] — code: #1325: the unified query reference ships BOTH the vocab-expansion step and
+- [[graphify_tests_test_skillgen_rationale_357]] — code: The file_type enum is the six-value superset in every rendered artifact.
+- [[graphify_tests_test_skillgen_rationale_364]] — code: The guard's line scanner flags 4- and 5-value pipe enums, not the superset.
+- [[graphify_tests_test_skillgen_rationale_392]] — code: check + audit-coverage pass for every rendered progressive host.
+- [[graphify_tests_test_skillgen_rationale_402]] — code: No split host emits a trigger: field — not part of Agent Skills spec (#1180).
+- [[graphify_tests_test_skillgen_rationale_411]] — code: kilo gets the Kilo-specific rules tail before Honesty Rules.
+- [[graphify_tests_test_skillgen_rationale_418]] — code: Each dispatch variant lands in the right host's B2 slot.
+- [[graphify_tests_test_skillgen_rationale_433]] — code: kiro, pi, claw use the compact extraction body; the rest use verbose.
+- [[graphify_tests_test_skillgen_rationale_443]] — code: All twelve split hosts render exactly the eight on-demand references.
+- [[graphify_tests_test_skillgen_rationale_466]] — code: aider and devin render one inline body, no split and no references dir.
+- [[graphify_tests_test_skillgen_rationale_477]] — code: Each monolith is diff-clean vs v8 except the file_type enum unification.
+- [[graphify_tests_test_skillgen_rationale_485]] — code: Every line that differs from pristine v8 is a sanctioned change-class.      Th
+- [[graphify_tests_test_skillgen_rationale_502]] — code: The four #1392 data-loss/correctness fixes are present in both monoliths.
+- [[graphify_tests_test_skillgen_rationale_538]] — code: #1417: every save_manifest call in a shipped runbook threads root=.      Witho
+- [[graphify_tests_test_skillgen_rationale_564]] — code: devin renders inline, so its 4+-field frontmatter is preserved verbatim.
+- [[graphify_tests_test_skillgen_rationale_577]] — code: render_always_on yields exactly the six always-on instruction files.
+- [[graphify_tests_test_skillgen_rationale_591]] — code: A full render carries the always-on files; a --platform render does not.
+- [[graphify_tests_test_skillgen_rationale_600]] — code: Each always_on/*.md reproduces its former __main__.py constant byte for byte.
+- [[graphify_tests_test_skillgen_rationale_640]] — code: The live module constants now equal the packaged files they read at load.
+- [[graphify_tests_test_skillgen_rationale_658]] — code: A hand-edit of an always_on/*.md is caught by --check (the drift guard).
+- [[graphify_tests_test_skillgen_rationale_678]] — code: Every split host's render single-homes its own v8 body's headings.
+- [[graphify_tests_test_skillgen_rationale_688]] — code: The audit baseline is the host's OWN v8 skill body, not claude's monolith.
+- [[graphify_tests_test_skillgen_rationale_698]] — code: Re-inducing the trae regression (claude-flavored hooks) fails the audit.
+- [[graphify_tests_test_skillgen_rationale_715]] — code: A core fragment that drops a real v8 heading fails the audit.      Guards that
+- [[graphify_tests_test_skillgen_rationale_737]] — code: On a shallow checkout (no origin/v8) the validators skip with exit 0.      CI
+- [[graphify_tests_test_skillgen_rationale_757]] — code: The allowlist holds only the wave-2/3 consolidations, nothing genuine.      A
+- [[graphify_tests_test_skillgen_rationale_774]] — code: trae wires `graphify trae install` -> AGENTS.md, never `graphify claude install`
+- [[graphify_tests_test_skillgen_rationale_792]] — code: trae's B2 dispatch block restores the v8 no-PreToolUse-hook caveat.
+- [[graphify_tests_test_skillgen_rationale_800]] — code: The trae hooks reference keeps the v8 PreToolUse note in full.
+- [[graphify_tests_test_skillgen_rationale_808]] — code: Hosts whose v8 shipped the claude-flavored hooks keep it (faithful to them).
+- [[graphify_tests_test_skillgen_rationale_827]] — code: amp wires `graphify amp install` -> AGENTS.md exactly as its v8 body had it.
+- [[graphify_tests_test_skillgen_rationale_857]] — code: amp's v8 had no no-PreToolUse-hooks note, so neither its core nor hooks may.
+- [[graphify_tests_test_skillgen_rationale_875]] — code: The per-host audit (the guard amp is the exact case for) passes for amp.
+- [[graphify_tests_test_skillgen_rationale_891]] — code: `agents` re-homes amp's agents-md body but with its OWN install wording.
+- [[graphify_tests_test_skillgen_rationale_915]] — code: The agents skill body is amp's body verbatim (it re-homes amp's bundle).
+- [[graphify_tests_test_skillgen_rationale_936]] — code: `agents` is a post-v8 platform, so its audit baseline is amp's v8 body.
+
+## Dependências
+
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_agents_audit_baseline_is_amps_v8_body]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_agents_body_matches_amp_modulo_hooks_wording]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_agents_renders_its_own_agents_md_hooks_wording]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_all_progressive_hosts_check_and_audit_clean]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_always_on_files_are_guarded_by_check]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_always_on_included_in_full_render_not_per_platform]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_always_on_renders_six_blocks]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_always_on_roundtrip_is_byte_faithful]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_amp_audit_coverage_passes_against_its_own_v8]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_amp_has_no_pretooluse_caveat_anywhere]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_amp_renders_native_agents_md_integration_v8_faithfully]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_allowlist_documents_only_consolidations]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_catches_a_dropped_non_allowlisted_heading]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_catches_an_induced_per_host_drop]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_coverage_passes]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_coverage_passes_for_codex_and_windows]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_coverage_passes_for_every_split_host]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_audit_reads_each_host_against_its_own_v8_body]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_check_passes]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_check_passes_for_codex_and_windows]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_claude_flavored_hosts_keep_their_hooks_text_unchanged]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_codex_and_windows_unify_enum_to_six_values]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_codex_dispatch_is_agenttask_and_collects_in_memory]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_codex_uses_compact_extraction_windows_uses_verbose]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_compact_extraction_hosts_use_the_compact_spec]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_descriptions_are_unified]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_devin_keeps_its_multi_field_frontmatter]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_dispatch_variants_are_host_specific]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_eight_references_render_for_claude]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_enum_is_full_six_value_superset_in_extraction_spec]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_every_platform_query_has_expansion_and_fallback]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_every_split_host_renders_eight_references]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_extracted_constants_equal_the_packaged_always_on_files]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_extraction_states_no_api_key_required_for_every_host]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_generated_runbooks_pass_root_to_save_manifest]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_git_show_validators_skip_cleanly_without_origin_v8]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_headings_helper_ignores_code_fence_comments]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_kilo_renders_its_rules_tail_section]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_lean_core_has_no_reference_only_content]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_lean_core_runs_default_pipeline_with_zero_references]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_monolith_roundtrip_passes_for_aider_and_devin]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_monoliths_carry_the_1392_runbook_fixes]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_monoliths_change_only_sanctioned_lines]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_monoliths_render_inline_single_file_no_references]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_no_host_has_trigger_in_frontmatter]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_no_version_or_timestamp_in_output]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_query_heading_is_homed_in_core_stub_only]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_reference_pointers_in_core_resolve_to_real_fragments]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_references_contain_no_core_pipeline_content]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_render_is_idempotent]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_render_output_is_lf_only]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_schema_singleton_catches_legacy_enums]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_schema_singleton_passes_across_all_platforms]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_trae_dispatch_carries_the_no_pretooluse_caveat]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_trae_hooks_reference_includes_the_pretooluse_note]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_trae_renders_native_agents_md_integration_not_claude]]
+- [[graphify_tests_test_skillgen]] → `contains` → [[graphify_tests_test_skillgen_test_windows_frontmatter_name_and_shell_and_extra]]
+- [[graphify_tests_test_skillgen_rationale_1]] → `rationale_for` → [[graphify_tests_test_skillgen]]
+- [[graphify_tests_test_skillgen_rationale_26]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_coverage_passes]]
+- [[graphify_tests_test_skillgen_rationale_33]] → `rationale_for` → [[graphify_tests_test_skillgen_test_check_passes]]
+- [[graphify_tests_test_skillgen_rationale_45]] → `rationale_for` → [[graphify_tests_test_skillgen_test_render_is_idempotent]]
+- [[graphify_tests_test_skillgen_rationale_53]] → `rationale_for` → [[graphify_tests_test_skillgen_test_render_output_is_lf_only]]
+- [[graphify_tests_test_skillgen_rationale_62]] → `rationale_for` → [[graphify_tests_test_skillgen_test_no_version_or_timestamp_in_output]]
+- [[graphify_tests_test_skillgen_test_eight_references_render_for_claude]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_test_enum_is_full_six_value_superset_in_extraction_spec]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_test_lean_core_has_no_reference_only_content]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_test_lean_core_runs_default_pipeline_with_zero_references]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_test_query_heading_is_homed_in_core_stub_only]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_test_reference_pointers_in_core_resolve_to_real_fragments]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_test_references_contain_no_core_pipeline_content]] → `calls` → [[graphify_tests_test_skillgen_claude_artifacts]]
+- [[graphify_tests_test_skillgen_rationale_79]] → `rationale_for` → [[graphify_tests_test_skillgen_test_lean_core_has_no_reference_only_content]]
+- [[graphify_tests_test_skillgen_rationale_104]] → `rationale_for` → [[graphify_tests_test_skillgen_test_lean_core_runs_default_pipeline_with_zero_references]]
+- [[graphify_tests_test_skillgen_rationale_125]] → `rationale_for` → [[graphify_tests_test_skillgen_test_extraction_states_no_api_key_required_for_every_host]]
+- [[graphify_tests_test_skillgen_rationale_153]] → `rationale_for` → [[graphify_tests_test_skillgen_test_references_contain_no_core_pipeline_content]]
+- [[graphify_tests_test_skillgen_rationale_169]] → `rationale_for` → [[graphify_tests_test_skillgen_test_reference_pointers_in_core_resolve_to_real_fragments]]
+- [[graphify_tests_test_skillgen_rationale_180]] → `rationale_for` → [[graphify_tests_test_skillgen_test_query_heading_is_homed_in_core_stub_only]]
+- [[graphify_tests_test_skillgen_rationale_193]] → `rationale_for` → [[graphify_tests_test_skillgen_test_eight_references_render_for_claude]]
+- [[graphify_tests_test_skillgen_rationale_208]] → `rationale_for` → [[graphify_tests_test_skillgen_test_headings_helper_ignores_code_fence_comments]]
+- [[graphify_tests_test_skillgen_rationale_223]] → `rationale_for` → [[graphify_tests_test_skillgen_test_enum_is_full_six_value_superset_in_extraction_spec]]
+- [[graphify_tests_test_skillgen_test_agents_renders_its_own_agents_md_hooks_wording]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_amp_has_no_pretooluse_caveat_anywhere]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_amp_renders_native_agents_md_integration_v8_faithfully]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_claude_flavored_hosts_keep_their_hooks_text_unchanged]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_codex_and_windows_unify_enum_to_six_values]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_codex_dispatch_is_agenttask_and_collects_in_memory]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_codex_uses_compact_extraction_windows_uses_verbose]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_compact_extraction_hosts_use_the_compact_spec]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_dispatch_variants_are_host_specific]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_every_platform_query_has_expansion_and_fallback]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_every_split_host_renders_eight_references]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_kilo_renders_its_rules_tail_section]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_no_host_has_trigger_in_frontmatter]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_trae_dispatch_carries_the_no_pretooluse_caveat]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_trae_hooks_reference_includes_the_pretooluse_note]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_trae_renders_native_agents_md_integration_not_claude]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_test_windows_frontmatter_name_and_shell_and_extra]] → `calls` → [[graphify_tests_test_skillgen_platform_artifacts]]
+- [[graphify_tests_test_skillgen_rationale_243]] → `rationale_for` → [[graphify_tests_test_skillgen_test_check_passes_for_codex_and_windows]]
+- [[graphify_tests_test_skillgen_rationale_252]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_coverage_passes_for_codex_and_windows]]
+- [[graphify_tests_test_skillgen_rationale_269]] → `rationale_for` → [[graphify_tests_test_skillgen_test_descriptions_are_unified]]
+- [[graphify_tests_test_skillgen_rationale_288]] → `rationale_for` → [[graphify_tests_test_skillgen_test_windows_frontmatter_name_and_shell_and_extra]]
+- [[graphify_tests_test_skillgen_rationale_304]] → `rationale_for` → [[graphify_tests_test_skillgen_test_codex_dispatch_is_agenttask_and_collects_in_memory]]
+- [[graphify_tests_test_skillgen_rationale_320]] → `rationale_for` → [[graphify_tests_test_skillgen_test_codex_and_windows_unify_enum_to_six_values]]
+- [[graphify_tests_test_skillgen_rationale_332]] → `rationale_for` → [[graphify_tests_test_skillgen_test_codex_uses_compact_extraction_windows_uses_verbose]]
+- [[graphify_tests_test_skillgen_rationale_340]] → `rationale_for` → [[graphify_tests_test_skillgen_test_every_platform_query_has_expansion_and_fallback]]
+- [[graphify_tests_test_skillgen_rationale_357]] → `rationale_for` → [[graphify_tests_test_skillgen_test_schema_singleton_passes_across_all_platforms]]
+- [[graphify_tests_test_skillgen_rationale_364]] → `rationale_for` → [[graphify_tests_test_skillgen_test_schema_singleton_catches_legacy_enums]]
+- [[graphify_tests_test_skillgen_rationale_392]] → `rationale_for` → [[graphify_tests_test_skillgen_test_all_progressive_hosts_check_and_audit_clean]]
+- [[graphify_tests_test_skillgen_rationale_402]] → `rationale_for` → [[graphify_tests_test_skillgen_test_no_host_has_trigger_in_frontmatter]]
+- [[graphify_tests_test_skillgen_rationale_411]] → `rationale_for` → [[graphify_tests_test_skillgen_test_kilo_renders_its_rules_tail_section]]
+- [[graphify_tests_test_skillgen_rationale_418]] → `rationale_for` → [[graphify_tests_test_skillgen_test_dispatch_variants_are_host_specific]]
+- [[graphify_tests_test_skillgen_rationale_433]] → `rationale_for` → [[graphify_tests_test_skillgen_test_compact_extraction_hosts_use_the_compact_spec]]
+- [[graphify_tests_test_skillgen_rationale_443]] → `rationale_for` → [[graphify_tests_test_skillgen_test_every_split_host_renders_eight_references]]
+- [[graphify_tests_test_skillgen_rationale_466]] → `rationale_for` → [[graphify_tests_test_skillgen_test_monoliths_render_inline_single_file_no_references]]
+- [[graphify_tests_test_skillgen_rationale_477]] → `rationale_for` → [[graphify_tests_test_skillgen_test_monolith_roundtrip_passes_for_aider_and_devin]]
+- [[graphify_tests_test_skillgen_rationale_485]] → `rationale_for` → [[graphify_tests_test_skillgen_test_monoliths_change_only_sanctioned_lines]]
+- [[graphify_tests_test_skillgen_rationale_502]] → `rationale_for` → [[graphify_tests_test_skillgen_test_monoliths_carry_the_1392_runbook_fixes]]
+- [[graphify_tests_test_skillgen_rationale_538]] → `rationale_for` → [[graphify_tests_test_skillgen_test_generated_runbooks_pass_root_to_save_manifest]]
+- [[graphify_tests_test_skillgen_rationale_564]] → `rationale_for` → [[graphify_tests_test_skillgen_test_devin_keeps_its_multi_field_frontmatter]]
+- [[graphify_tests_test_skillgen_rationale_577]] → `rationale_for` → [[graphify_tests_test_skillgen_test_always_on_renders_six_blocks]]
+- [[graphify_tests_test_skillgen_rationale_591]] → `rationale_for` → [[graphify_tests_test_skillgen_test_always_on_included_in_full_render_not_per_platform]]
+- [[graphify_tests_test_skillgen_rationale_600]] → `rationale_for` → [[graphify_tests_test_skillgen_test_always_on_roundtrip_is_byte_faithful]]
+- [[graphify_tests_test_skillgen_rationale_640]] → `rationale_for` → [[graphify_tests_test_skillgen_test_extracted_constants_equal_the_packaged_always_on_files]]
+- [[graphify_tests_test_skillgen_rationale_658]] → `rationale_for` → [[graphify_tests_test_skillgen_test_always_on_files_are_guarded_by_check]]
+- [[graphify_tests_test_skillgen_rationale_678]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_coverage_passes_for_every_split_host]]
+- [[graphify_tests_test_skillgen_rationale_688]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_reads_each_host_against_its_own_v8_body]]
+- [[graphify_tests_test_skillgen_rationale_698]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_catches_an_induced_per_host_drop]]
+- [[graphify_tests_test_skillgen_rationale_715]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_catches_a_dropped_non_allowlisted_heading]]
+- [[graphify_tests_test_skillgen_rationale_737]] → `rationale_for` → [[graphify_tests_test_skillgen_test_git_show_validators_skip_cleanly_without_origin_v8]]
+- [[graphify_tests_test_skillgen_rationale_757]] → `rationale_for` → [[graphify_tests_test_skillgen_test_audit_allowlist_documents_only_consolidations]]
+- [[graphify_tests_test_skillgen_rationale_774]] → `rationale_for` → [[graphify_tests_test_skillgen_test_trae_renders_native_agents_md_integration_not_claude]]
+- [[graphify_tests_test_skillgen_rationale_792]] → `rationale_for` → [[graphify_tests_test_skillgen_test_trae_dispatch_carries_the_no_pretooluse_caveat]]
+- [[graphify_tests_test_skillgen_rationale_800]] → `rationale_for` → [[graphify_tests_test_skillgen_test_trae_hooks_reference_includes_the_pretooluse_note]]
+- [[graphify_tests_test_skillgen_rationale_808]] → `rationale_for` → [[graphify_tests_test_skillgen_test_claude_flavored_hosts_keep_their_hooks_text_unchanged]]
+- [[graphify_tests_test_skillgen_rationale_827]] → `rationale_for` → [[graphify_tests_test_skillgen_test_amp_renders_native_agents_md_integration_v8_faithfully]]
+- [[graphify_tests_test_skillgen_rationale_857]] → `rationale_for` → [[graphify_tests_test_skillgen_test_amp_has_no_pretooluse_caveat_anywhere]]
+- [[graphify_tests_test_skillgen_rationale_875]] → `rationale_for` → [[graphify_tests_test_skillgen_test_amp_audit_coverage_passes_against_its_own_v8]]
+- [[graphify_tests_test_skillgen_rationale_891]] → `rationale_for` → [[graphify_tests_test_skillgen_test_agents_renders_its_own_agents_md_hooks_wording]]
+- [[graphify_tests_test_skillgen_rationale_915]] → `rationale_for` → [[graphify_tests_test_skillgen_test_agents_body_matches_amp_modulo_hooks_wording]]
+- [[graphify_tests_test_skillgen_rationale_936]] → `rationale_for` → [[graphify_tests_test_skillgen_test_agents_audit_baseline_is_amps_v8_body]]

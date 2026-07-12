@@ -1,0 +1,72 @@
+# assistant\tests\unit\test_wiki_pipeline.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_wiki_pipeline]] — code: test_wiki_pipeline.py
+- [[assistant_tests_unit_test_wiki_pipeline_vault]] — code: vault()
+- [[assistant_tests_unit_test_wiki_pipeline_pipeline]] — code: pipeline()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] — code: TestWikiPipeline
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_entry]] — code: .test_create_synthesis_entry()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_with_citations]] — code: .test_create_synthesis_with_citations()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_empty]] — code: .test_list_pending_drafts_empty()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_with_files]] — code: .test_list_pending_drafts_with_files()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_lint]] — code: .test_run_lint()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_pipeline_invalid_source]] — code: .test_run_pipeline_invalid_source()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_result_to_dict]] — code: .test_pipeline_result_to_dict()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_approve_all_drafts_empty]] — code: .test_approve_all_drafts_empty()
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_emits_events]] — code: .test_pipeline_emits_events()
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_1]] — code: Testes do Wiki Pipeline orquestrado.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_26]] — code: Cria uma entrada de sintese com sucesso.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_40]] — code: Cria sintese com citacoes.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_52]] — code: Lista rascunhos quando nao ha nenhum.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_59]] — code: Lista rascunhos quando existem arquivos .draft.md.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_69]] — code: Executa linting sem erros.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_74]] — code: Pipeline com fonte inexistente deve falhar graciosamente.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_81]] — code: Testa serializacao do PipelineResult.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_101]] — code: Aprova todos os rascunhos quando nao ha nenhum.
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_109]] — code: Pipeline emite eventos de inicio e fim.
+
+## Dependências
+
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `uses` → [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_result_to_dict]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `uses` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_result_to_dict]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_pipeline_invalid_source]] → `indirect_call` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_tests_unit_test_wiki_pipeline_pipeline]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `uses` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_approve_all_drafts_empty]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_entry]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_with_citations]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_empty]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_with_files]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_emits_events]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_lint]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_pipeline_invalid_source]] → `references` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline]] → `contains` → [[assistant_tests_unit_test_wiki_pipeline_pipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline]] → `contains` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline]] → `contains` → [[assistant_tests_unit_test_wiki_pipeline_vault]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_1]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline]]
+- [[assistant_tests_unit_test_wiki_pipeline_vault]] → `references` → [[assistant_tests_unit_test_wiki_pipeline_py_path]]
+- [[assistant_tests_unit_test_wiki_pipeline_pipeline]] → `references` → [[assistant_tests_unit_test_wiki_pipeline_py_path]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_entry]] → `references` → [[assistant_tests_unit_test_wiki_pipeline_py_path]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_with_citations]] → `references` → [[assistant_tests_unit_test_wiki_pipeline_py_path]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_with_files]] → `references` → [[assistant_tests_unit_test_wiki_pipeline_py_path]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_approve_all_drafts_empty]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_entry]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_with_citations]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_empty]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_with_files]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_emits_events]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_result_to_dict]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_lint]]
+- [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline]] → `method` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_pipeline_invalid_source]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_26]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_entry]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_40]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_create_synthesis_with_citations]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_52]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_empty]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_59]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_list_pending_drafts_with_files]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_69]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_lint]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_74]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_run_pipeline_invalid_source]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_81]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_result_to_dict]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_101]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_approve_all_drafts_empty]]
+- [[assistant_tests_unit_test_wiki_pipeline_rationale_109]] → `rationale_for` → [[assistant_tests_unit_test_wiki_pipeline_testwikipipeline_test_pipeline_emits_events]]

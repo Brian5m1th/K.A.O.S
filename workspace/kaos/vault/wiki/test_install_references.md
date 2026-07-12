@@ -1,0 +1,98 @@
+# graphify\tests\test_install_references.py
+
+## Símbolos
+
+- [[graphify_tests_test_install_references]] — code: test_install_references.py
+- [[graphify_tests_test_install_references_fake_bundle]] — code: fake_bundle()
+- [[graphify_tests_test_install_references_install]] — code: _install()
+- [[graphify_tests_test_install_references_test_install_stages_references_sidecar]] — code: test_install_stages_references_sidecar()
+- [[graphify_tests_test_install_references_test_single_version_stamp_covers_skill_and_references]] — code: test_single_version_stamp_covers_skill_and_references()
+- [[graphify_tests_test_install_references_test_reinstall_replaces_references_atomically]] — code: test_reinstall_replaces_references_atomically()
+- [[graphify_tests_test_install_references_test_uninstall_removes_references_then_walks_dirs]] — code: test_uninstall_removes_references_then_walks_dirs()
+- [[graphify_tests_test_install_references_test_check_skill_version_warns_on_missing_references]] — code: test_check_skill_version_warns_on_missing_references()
+- [[graphify_tests_test_install_references_test_check_skill_version_ignores_permission_error]] — code: test_check_skill_version_ignores_permission_error()
+- [[graphify_tests_test_install_references_test_hard_fail_when_bundle_dir_present_but_references_missing]] — code: test_hard_fail_when_bundle_dir_present_but_references_missing()
+- [[graphify_tests_test_install_references_first_unbuilt_progressive_host]] — code: _first_unbuilt_progressive_host()
+- [[graphify_tests_test_install_references_test_unbuilt_bundle_host_falls_back_to_monolith]] — code: test_unbuilt_bundle_host_falls_back_to_monolith()
+- [[graphify_tests_test_install_references_test_claude_install_ships_lean_core_and_references]] — code: test_claude_install_ships_lean_core_and_references()
+- [[graphify_tests_test_install_references_test_gemini_install_references_all_resolve]] — code: test_gemini_install_references_all_resolve()
+- [[graphify_tests_test_install_references_test_claude_twins_ride_the_claude_bundle]] — code: test_claude_twins_ride_the_claude_bundle()
+- [[graphify_tests_test_install_references_test_pyproject_declares_references_globs]] — code: test_pyproject_declares_references_globs()
+- [[graphify_tests_test_install_references_build_wheel_names]] — code: _build_wheel_names()
+- [[graphify_tests_test_install_references_test_built_wheel_ships_the_full_skill_payload]] — code: test_built_wheel_ships_the_full_skill_payload()
+- [[graphify_tests_test_install_references_test_monolith_install_clears_orphan_references]] — code: test_monolith_install_clears_orphan_references()
+- [[graphify_tests_test_install_references_test_amp_user_install_carries_references]] — code: test_amp_user_install_carries_references()
+- [[graphify_tests_test_install_references_rationale_1]] — code: Tests for the progressive-disclosure references/ sidecar install path.  The re
+- [[graphify_tests_test_install_references_rationale_33]] — code: Stage a fake references/ bundle in claude's slot, then restore the real one.
+- [[graphify_tests_test_install_references_rationale_78]] — code: A progressive platform install drops references/ alongside SKILL.md.
+- [[graphify_tests_test_install_references_rationale_92]] — code: One .graphify_version stamp versions SKILL.md + references/ together.
+- [[graphify_tests_test_install_references_rationale_103]] — code: Reinstall swaps references/ in place, dropping a stale fragment.
+- [[graphify_tests_test_install_references_rationale_122]] — code: Uninstall rmtrees references/ before the dir walk so the tree is cleared.
+- [[graphify_tests_test_install_references_rationale_138]] — code: If SKILL.md links references/ but the dir is gone, warn to repair.
+- [[graphify_tests_test_install_references_rationale_154]] — code: Unreadable version probes should not crash startup.
+- [[graphify_tests_test_install_references_rationale_181]] — code: A bundle dir that exists but has no references/ subdir is a malformed     packa
+- [[graphify_tests_test_install_references_rationale_218]] — code: Find a progressive host whose bundle dir has not shipped in this build.      T
+- [[graphify_tests_test_install_references_rationale_241]] — code: A progressive host whose bundle has not shipped installs the monolith.      cl
+- [[graphify_tests_test_install_references_rationale_263]] — code: claude's real bundle ships: a lean SKILL.md plus the references/ sidecar.
+- [[graphify_tests_test_install_references_rationale_299]] — code: End-to-end: every references/ pointer in gemini's installed SKILL.md resolves.
+- [[graphify_tests_test_install_references_rationale_318]] — code: antigravity and kimi reuse claude's split bundle, so they go progressive too.
+- [[graphify_tests_test_install_references_rationale_331]] — code: package-data must declare the references + always-on globs that ship the bundles
+- [[graphify_tests_test_install_references_rationale_389]] — code: Build the wheel and return the set of arcnames inside it.      Fails loudly (n
+- [[graphify_tests_test_install_references_rationale_426]] — code: The built wheel must carry every skill body, reference, and always-on block.
+- [[graphify_tests_test_install_references_rationale_475]] — code: A monolith platform install removes any orphan references/ left behind.
+- [[graphify_tests_test_install_references_rationale_488]] — code: amp is progressive: its corrected user dir also gets the references/ sidecar.
+
+## Dependências
+
+- [[graphify_tests_test_install_references]] → `imports` → [[graphify_graphify_main]]
+- [[graphify_tests_test_install_references_test_amp_user_install_carries_references]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_build_wheel_names]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_fake_bundle]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_first_unbuilt_progressive_host]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_amp_user_install_carries_references]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_built_wheel_ships_the_full_skill_payload]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_check_skill_version_ignores_permission_error]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_check_skill_version_warns_on_missing_references]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_claude_install_ships_lean_core_and_references]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_claude_twins_ride_the_claude_bundle]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_gemini_install_references_all_resolve]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_hard_fail_when_bundle_dir_present_but_references_missing]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_install_stages_references_sidecar]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_monolith_install_clears_orphan_references]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_pyproject_declares_references_globs]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_reinstall_replaces_references_atomically]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_single_version_stamp_covers_skill_and_references]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_unbuilt_bundle_host_falls_back_to_monolith]]
+- [[graphify_tests_test_install_references]] → `contains` → [[graphify_tests_test_install_references_test_uninstall_removes_references_then_walks_dirs]]
+- [[graphify_tests_test_install_references_rationale_1]] → `rationale_for` → [[graphify_tests_test_install_references]]
+- [[graphify_tests_test_install_references_rationale_33]] → `rationale_for` → [[graphify_tests_test_install_references_fake_bundle]]
+- [[graphify_tests_test_install_references_test_check_skill_version_ignores_permission_error]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_check_skill_version_warns_on_missing_references]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_claude_install_ships_lean_core_and_references]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_gemini_install_references_all_resolve]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_install_stages_references_sidecar]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_monolith_install_clears_orphan_references]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_reinstall_replaces_references_atomically]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_single_version_stamp_covers_skill_and_references]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_unbuilt_bundle_host_falls_back_to_monolith]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_test_uninstall_removes_references_then_walks_dirs]] → `calls` → [[graphify_tests_test_install_references_install]]
+- [[graphify_tests_test_install_references_rationale_78]] → `rationale_for` → [[graphify_tests_test_install_references_test_install_stages_references_sidecar]]
+- [[graphify_tests_test_install_references_rationale_92]] → `rationale_for` → [[graphify_tests_test_install_references_test_single_version_stamp_covers_skill_and_references]]
+- [[graphify_tests_test_install_references_rationale_103]] → `rationale_for` → [[graphify_tests_test_install_references_test_reinstall_replaces_references_atomically]]
+- [[graphify_tests_test_install_references_rationale_122]] → `rationale_for` → [[graphify_tests_test_install_references_test_uninstall_removes_references_then_walks_dirs]]
+- [[graphify_tests_test_install_references_rationale_138]] → `rationale_for` → [[graphify_tests_test_install_references_test_check_skill_version_warns_on_missing_references]]
+- [[graphify_tests_test_install_references_rationale_154]] → `rationale_for` → [[graphify_tests_test_install_references_test_check_skill_version_ignores_permission_error]]
+- [[graphify_tests_test_install_references_rationale_181]] → `rationale_for` → [[graphify_tests_test_install_references_test_hard_fail_when_bundle_dir_present_but_references_missing]]
+- [[graphify_tests_test_install_references_rationale_218]] → `rationale_for` → [[graphify_tests_test_install_references_first_unbuilt_progressive_host]]
+- [[graphify_tests_test_install_references_test_unbuilt_bundle_host_falls_back_to_monolith]] → `calls` → [[graphify_tests_test_install_references_first_unbuilt_progressive_host]]
+- [[graphify_tests_test_install_references_rationale_241]] → `rationale_for` → [[graphify_tests_test_install_references_test_unbuilt_bundle_host_falls_back_to_monolith]]
+- [[graphify_tests_test_install_references_rationale_263]] → `rationale_for` → [[graphify_tests_test_install_references_test_claude_install_ships_lean_core_and_references]]
+- [[graphify_tests_test_install_references_rationale_299]] → `rationale_for` → [[graphify_tests_test_install_references_test_gemini_install_references_all_resolve]]
+- [[graphify_tests_test_install_references_rationale_318]] → `rationale_for` → [[graphify_tests_test_install_references_test_claude_twins_ride_the_claude_bundle]]
+- [[graphify_tests_test_install_references_rationale_331]] → `rationale_for` → [[graphify_tests_test_install_references_test_pyproject_declares_references_globs]]
+- [[graphify_tests_test_install_references_rationale_389]] → `rationale_for` → [[graphify_tests_test_install_references_build_wheel_names]]
+- [[graphify_tests_test_install_references_test_built_wheel_ships_the_full_skill_payload]] → `calls` → [[graphify_tests_test_install_references_build_wheel_names]]
+- [[graphify_tests_test_install_references_rationale_426]] → `rationale_for` → [[graphify_tests_test_install_references_test_built_wheel_ships_the_full_skill_payload]]
+- [[graphify_tests_test_install_references_rationale_475]] → `rationale_for` → [[graphify_tests_test_install_references_test_monolith_install_clears_orphan_references]]
+- [[graphify_tests_test_install_references_rationale_488]] → `rationale_for` → [[graphify_tests_test_install_references_test_amp_user_install_carries_references]]

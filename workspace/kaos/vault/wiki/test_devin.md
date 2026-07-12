@@ -1,0 +1,138 @@
+# graphify\tests\test_devin.py
+
+## Símbolos
+
+- [[graphify_tests_test_devin]] — code: test_devin.py
+- [[graphify_tests_test_devin_devin_install_user]] — code: _devin_install_user()
+- [[graphify_tests_test_devin_skill_path_user]] — code: _skill_path_user()
+- [[graphify_tests_test_devin_skill_path_project]] — code: _skill_path_project()
+- [[graphify_tests_test_devin_rules_path]] — code: _rules_path()
+- [[graphify_tests_test_devin_test_devin_install_user_creates_skill_file]] — code: test_devin_install_user_creates_skill_file()
+- [[graphify_tests_test_devin_test_devin_skill_file_contains_frontmatter]] — code: test_devin_skill_file_contains_frontmatter()
+- [[graphify_tests_test_devin_test_devin_skill_file_references_graphify_query]] — code: test_devin_skill_file_references_graphify_query()
+- [[graphify_tests_test_devin_test_devin_install_user_does_not_write_rules]] — code: test_devin_install_user_does_not_write_rules()
+- [[graphify_tests_test_devin_test_devin_install_project_creates_skill_file]] — code: test_devin_install_project_creates_skill_file()
+- [[graphify_tests_test_devin_test_devin_install_project_creates_rules_file]] — code: test_devin_install_project_creates_rules_file()
+- [[graphify_tests_test_devin_test_devin_rules_content_recommends_graphify_query]] — code: test_devin_rules_content_recommends_graphify_query()
+- [[graphify_tests_test_devin_test_devin_rules_install_idempotent]] — code: test_devin_rules_install_idempotent()
+- [[graphify_tests_test_devin_test_devin_install_project_hints_git_add]] — code: test_devin_install_project_hints_git_add()
+- [[graphify_tests_test_devin_test_devin_uninstall_user_removes_skill_file]] — code: test_devin_uninstall_user_removes_skill_file()
+- [[graphify_tests_test_devin_test_devin_uninstall_user_noop_when_not_installed]] — code: test_devin_uninstall_user_noop_when_not_installed()
+- [[graphify_tests_test_devin_test_devin_uninstall_project_removes_skill_file]] — code: test_devin_uninstall_project_removes_skill_file()
+- [[graphify_tests_test_devin_test_devin_uninstall_project_removes_rules_file]] — code: test_devin_uninstall_project_removes_rules_file()
+- [[graphify_tests_test_devin_test_devin_uninstall_project_does_not_touch_user_scope]] — code: test_devin_uninstall_project_does_not_touch_user_scope()
+- [[graphify_tests_test_devin_test_devin_rules_uninstall_noop_when_not_installed]] — code: test_devin_rules_uninstall_noop_when_not_installed()
+- [[graphify_tests_test_devin_test_devin_skill_file_exists_in_package]] — code: test_devin_skill_file_exists_in_package()
+- [[graphify_tests_test_devin_test_devin_skill_file_uses_python_c_syntax]] — code: test_devin_skill_file_uses_python_c_syntax()
+- [[graphify_tests_test_devin_test_devin_skill_file_frontmatter_has_triggers]] — code: test_devin_skill_file_frontmatter_has_triggers()
+- [[graphify_tests_test_devin_test_devin_in_platform_config]] — code: test_devin_in_platform_config()
+- [[graphify_tests_test_devin_test_devin_platform_skill_destination_user_scope]] — code: test_devin_platform_skill_destination_user_scope()
+- [[graphify_tests_test_devin_test_devin_in_main_help_text]] — code: test_devin_in_main_help_text()
+- [[graphify_tests_test_devin_test_devin_platform_skill_destination_project_scope]] — code: test_devin_platform_skill_destination_project_scope()
+- [[graphify_tests_test_devin_rationale_1]] — code: Tests for graphify devin install / uninstall commands.
+- [[graphify_tests_test_devin_rationale_42]] — code: User-scope install copies skill to ~/.config/devin/skills/graphify/SKILL.md.
+- [[graphify_tests_test_devin_rationale_49]] — code: Installed skill file must include Devin-specific YAML frontmatter.
+- [[graphify_tests_test_devin_rationale_58]] — code: /graphify skill must mention graphify query (query-first policy).
+- [[graphify_tests_test_devin_rationale_65]] — code: User-scope install does NOT write .windsurf/rules/ — that's project-only.
+- [[graphify_tests_test_devin_rationale_75]] — code: Project-scope install copies skill to .devin/skills/graphify/SKILL.md.
+- [[graphify_tests_test_devin_rationale_89]] — code: Project-scope install writes .windsurf/rules/graphify.md.
+- [[graphify_tests_test_devin_rationale_105]] — code: The rules file installed by devin must use query-first policy.
+- [[graphify_tests_test_devin_rationale_113]] — code: Installing rules twice does not change content and prints 'no change'.
+- [[graphify_tests_test_devin_rationale_124]] — code: Project-scope install prints a git add hint covering .devin/ and .windsurf/.
+- [[graphify_tests_test_devin_rationale_142]] — code: User-scope uninstall removes the skill file.
+- [[graphify_tests_test_devin_rationale_154]] — code: User-scope uninstall prints an appropriate message when nothing is installed.
+- [[graphify_tests_test_devin_rationale_174]] — code: Project-scope uninstall removes .devin/skills/graphify/SKILL.md.
+- [[graphify_tests_test_devin_rationale_189]] — code: Project-scope uninstall removes .windsurf/rules/graphify.md.
+- [[graphify_tests_test_devin_rationale_204]] — code: Project-scope uninstall must not remove the user-scope skill file.
+- [[graphify_tests_test_devin_rationale_223]] — code: _devin_rules_uninstall does nothing if the rules file was never written.
+- [[graphify_tests_test_devin_rationale_233]] — code: skill-devin.md must be present in the installed package.
+- [[graphify_tests_test_devin_rationale_240]] — code: Devin skill must use inline python -c syntax (cross-platform, no bash heredocs).
+- [[graphify_tests_test_devin_rationale_256]] — code: Devin skill frontmatter must list triggers for model-invocable activation.
+- [[graphify_tests_test_devin_rationale_268]] — code: devin must be registered in _PLATFORM_CONFIG.
+- [[graphify_tests_test_devin_rationale_276]] — code: User-scope destination must be ~/.config/devin/skills/graphify/SKILL.md.
+- [[graphify_tests_test_devin_rationale_284]] — code: `graphify --help` must list devin in the platform list and in the per-platform s
+- [[graphify_tests_test_devin_rationale_306]] — code: Project-scope destination must be <project>/.devin/skills/graphify/SKILL.md.
+
+## Dependências
+
+- [[graphify_tests_test_devin_test_devin_platform_skill_destination_project_scope]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_tests_test_devin_test_devin_platform_skill_destination_user_scope]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_tests_test_devin_test_devin_uninstall_user_removes_skill_file]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_tests_test_devin_test_devin_rules_content_recommends_graphify_query]] → `calls` → [[graphify_graphify_install_devin_rules_install]]
+- [[graphify_tests_test_devin_test_devin_rules_install_idempotent]] → `calls` → [[graphify_graphify_install_devin_rules_install]]
+- [[graphify_tests_test_devin_test_devin_rules_uninstall_noop_when_not_installed]] → `calls` → [[graphify_graphify_install_devin_rules_uninstall]]
+- [[graphify_tests_test_devin_test_devin_in_main_help_text]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_install_project_creates_rules_file]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_install_project_creates_skill_file]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_install_project_hints_git_add]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_uninstall_project_does_not_touch_user_scope]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_uninstall_project_removes_rules_file]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_uninstall_project_removes_skill_file]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin_test_devin_uninstall_user_noop_when_not_installed]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_devin_install_user]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_rules_path]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_skill_path_project]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_in_main_help_text]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_in_platform_config]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_install_project_creates_rules_file]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_install_project_creates_skill_file]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_install_project_hints_git_add]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_install_user_creates_skill_file]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_install_user_does_not_write_rules]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_platform_skill_destination_project_scope]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_platform_skill_destination_user_scope]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_rules_content_recommends_graphify_query]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_rules_install_idempotent]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_rules_uninstall_noop_when_not_installed]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_skill_file_contains_frontmatter]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_skill_file_exists_in_package]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_skill_file_frontmatter_has_triggers]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_skill_file_references_graphify_query]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_skill_file_uses_python_c_syntax]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_uninstall_project_does_not_touch_user_scope]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_uninstall_project_removes_rules_file]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_uninstall_project_removes_skill_file]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_uninstall_user_noop_when_not_installed]]
+- [[graphify_tests_test_devin]] → `contains` → [[graphify_tests_test_devin_test_devin_uninstall_user_removes_skill_file]]
+- [[graphify_tests_test_devin_rationale_1]] → `rationale_for` → [[graphify_tests_test_devin]]
+- [[graphify_tests_test_devin_test_devin_install_user_creates_skill_file]] → `calls` → [[graphify_tests_test_devin_devin_install_user]]
+- [[graphify_tests_test_devin_test_devin_install_user_does_not_write_rules]] → `calls` → [[graphify_tests_test_devin_devin_install_user]]
+- [[graphify_tests_test_devin_test_devin_skill_file_contains_frontmatter]] → `calls` → [[graphify_tests_test_devin_devin_install_user]]
+- [[graphify_tests_test_devin_test_devin_skill_file_references_graphify_query]] → `calls` → [[graphify_tests_test_devin_devin_install_user]]
+- [[graphify_tests_test_devin_test_devin_uninstall_user_removes_skill_file]] → `calls` → [[graphify_tests_test_devin_devin_install_user]]
+- [[graphify_tests_test_devin_test_devin_install_project_creates_skill_file]] → `calls` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin_test_devin_install_user_creates_skill_file]] → `calls` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin_test_devin_skill_file_contains_frontmatter]] → `calls` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin_test_devin_skill_file_references_graphify_query]] → `calls` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin_test_devin_uninstall_project_does_not_touch_user_scope]] → `calls` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin_test_devin_uninstall_user_removes_skill_file]] → `calls` → [[graphify_tests_test_devin_skill_path_user]]
+- [[graphify_tests_test_devin_test_devin_install_project_creates_skill_file]] → `calls` → [[graphify_tests_test_devin_skill_path_project]]
+- [[graphify_tests_test_devin_test_devin_uninstall_project_removes_skill_file]] → `calls` → [[graphify_tests_test_devin_skill_path_project]]
+- [[graphify_tests_test_devin_test_devin_install_project_creates_rules_file]] → `calls` → [[graphify_tests_test_devin_rules_path]]
+- [[graphify_tests_test_devin_test_devin_install_user_does_not_write_rules]] → `calls` → [[graphify_tests_test_devin_rules_path]]
+- [[graphify_tests_test_devin_test_devin_rules_content_recommends_graphify_query]] → `calls` → [[graphify_tests_test_devin_rules_path]]
+- [[graphify_tests_test_devin_test_devin_rules_install_idempotent]] → `calls` → [[graphify_tests_test_devin_rules_path]]
+- [[graphify_tests_test_devin_test_devin_uninstall_project_removes_rules_file]] → `calls` → [[graphify_tests_test_devin_rules_path]]
+- [[graphify_tests_test_devin_rationale_42]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_install_user_creates_skill_file]]
+- [[graphify_tests_test_devin_rationale_49]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_skill_file_contains_frontmatter]]
+- [[graphify_tests_test_devin_rationale_58]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_skill_file_references_graphify_query]]
+- [[graphify_tests_test_devin_rationale_65]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_install_user_does_not_write_rules]]
+- [[graphify_tests_test_devin_rationale_75]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_install_project_creates_skill_file]]
+- [[graphify_tests_test_devin_rationale_89]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_install_project_creates_rules_file]]
+- [[graphify_tests_test_devin_rationale_105]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_rules_content_recommends_graphify_query]]
+- [[graphify_tests_test_devin_rationale_113]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_rules_install_idempotent]]
+- [[graphify_tests_test_devin_rationale_124]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_install_project_hints_git_add]]
+- [[graphify_tests_test_devin_rationale_142]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_uninstall_user_removes_skill_file]]
+- [[graphify_tests_test_devin_rationale_154]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_uninstall_user_noop_when_not_installed]]
+- [[graphify_tests_test_devin_rationale_174]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_uninstall_project_removes_skill_file]]
+- [[graphify_tests_test_devin_rationale_189]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_uninstall_project_removes_rules_file]]
+- [[graphify_tests_test_devin_rationale_204]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_uninstall_project_does_not_touch_user_scope]]
+- [[graphify_tests_test_devin_rationale_223]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_rules_uninstall_noop_when_not_installed]]
+- [[graphify_tests_test_devin_rationale_233]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_skill_file_exists_in_package]]
+- [[graphify_tests_test_devin_rationale_240]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_skill_file_uses_python_c_syntax]]
+- [[graphify_tests_test_devin_rationale_256]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_skill_file_frontmatter_has_triggers]]
+- [[graphify_tests_test_devin_rationale_268]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_in_platform_config]]
+- [[graphify_tests_test_devin_rationale_276]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_platform_skill_destination_user_scope]]
+- [[graphify_tests_test_devin_rationale_284]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_in_main_help_text]]
+- [[graphify_tests_test_devin_rationale_306]] → `rationale_for` → [[graphify_tests_test_devin_test_devin_platform_skill_destination_project_scope]]

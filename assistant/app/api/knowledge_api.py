@@ -50,5 +50,7 @@ async def query_knowledge(
 
 
 @router.get("/health")
-async def knowledge_health(knowledge: KnowledgeService = Depends(get_knowledge_service)):
+async def knowledge_health(
+    knowledge: KnowledgeService = Depends(get_knowledge_service),
+):
     return await knowledge.health()

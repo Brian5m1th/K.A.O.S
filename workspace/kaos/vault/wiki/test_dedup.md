@@ -1,0 +1,169 @@
+# graphify\tests\test_dedup.py
+
+## Símbolos
+
+- [[graphify_tests_test_dedup]] — code: test_dedup.py
+- [[graphify_tests_test_dedup_test_entropy_short_label_low]] — code: test_entropy_short_label_low()
+- [[graphify_tests_test_dedup_test_entropy_normal_label_high]] — code: test_entropy_normal_label_high()
+- [[graphify_tests_test_dedup_test_entropy_empty_string]] — code: test_entropy_empty_string()
+- [[graphify_tests_test_dedup_test_shingles_produces_trigrams]] — code: test_shingles_produces_trigrams()
+- [[graphify_tests_test_dedup_test_shingles_short_string]] — code: test_shingles_short_string()
+- [[graphify_tests_test_dedup_make_nodes]] — code: _make_nodes()
+- [[graphify_tests_test_dedup_make_edges]] — code: _make_edges()
+- [[graphify_tests_test_dedup_test_exact_duplicates_merged]] — code: test_exact_duplicates_merged()
+- [[graphify_tests_test_dedup_test_typo_merged]] — code: test_typo_merged()
+- [[graphify_tests_test_dedup_test_unrelated_not_merged]] — code: test_unrelated_not_merged()
+- [[graphify_tests_test_dedup_test_short_low_entropy_not_merged]] — code: test_short_low_entropy_not_merged()
+- [[graphify_tests_test_dedup_test_edges_rewired_after_merge]] — code: test_edges_rewired_after_merge()
+- [[graphify_tests_test_dedup_test_self_loops_dropped_after_merge]] — code: test_self_loops_dropped_after_merge()
+- [[graphify_tests_test_dedup_test_community_boost_aids_merge]] — code: test_community_boost_aids_merge()
+- [[graphify_tests_test_dedup_test_empty_inputs]] — code: test_empty_inputs()
+- [[graphify_tests_test_dedup_test_single_node_no_crash]] — code: test_single_node_no_crash()
+- [[graphify_tests_test_dedup_test_dedup_llm_flag_accepted]] — code: test_dedup_llm_flag_accepted()
+- [[graphify_tests_test_dedup_test_build_calls_dedup]] — code: test_build_calls_dedup()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_numeric_variants]] — code: test_dedup_does_not_merge_numeric_variants()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_short_insertion_variants]] — code: test_dedup_does_not_merge_short_insertion_variants()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_model_with_suffix]] — code: test_dedup_does_not_merge_model_with_suffix()
+- [[graphify_tests_test_dedup_test_dedup_still_merges_real_typos]] — code: test_dedup_still_merges_real_typos()
+- [[graphify_tests_test_dedup_test_variant_pair_helper]] — code: test_variant_pair_helper()
+- [[graphify_tests_test_dedup_test_prefix_extension_symbols_not_merged]] — code: test_prefix_extension_symbols_not_merged()
+- [[graphify_tests_test_dedup_test_pass2_winner_union_does_not_pull_in_uncompared_same_label_nodes]] — code: test_pass2_winner_union_does_not_pull_in_uncompared_same_label_nodes()
+- [[graphify_tests_test_dedup_test_prefix_guard_does_not_block_same_length_typos]] — code: test_prefix_guard_does_not_block_same_length_typos()
+- [[graphify_tests_test_dedup_test_prefix_guard_fires_for_extension_pairs]] — code: test_prefix_guard_fires_for_extension_pairs()
+- [[graphify_tests_test_dedup_test_numeric_tokens_differ_helper]] — code: test_numeric_tokens_differ_helper()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_numbered_siblings]] — code: test_dedup_does_not_merge_numbered_siblings()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_rationale_boilerplate]] — code: test_dedup_does_not_merge_crossfile_rationale_boilerplate()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_document_headings]] — code: test_dedup_does_not_merge_crossfile_document_headings()
+- [[graphify_tests_test_dedup_test_dedup_still_merges_samefile_rationale_duplicates]] — code: test_dedup_still_merges_samefile_rationale_duplicates()
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_shared_prefix_divergence]] — code: test_dedup_does_not_merge_crossfile_shared_prefix_divergence()
+- [[graphify_tests_test_dedup_test_dedup_still_merges_crossfile_true_duplicates]] — code: test_dedup_still_merges_crossfile_true_duplicates()
+- [[graphify_tests_test_dedup_test_cross_chunk_id_collision_emits_warning]] — code: test_cross_chunk_id_collision_emits_warning()
+- [[graphify_tests_test_dedup_test_same_id_same_source_file_no_warning]] — code: test_same_id_same_source_file_no_warning()
+- [[graphify_tests_test_dedup_rationale_1]] — code: Tests for graphify/dedup.py entity deduplication pipeline.
+- [[graphify_tests_test_dedup_rationale_116]] — code: deduplicate_entities accepts dedup_llm_backend without crashing when no ambiguou
+- [[graphify_tests_test_dedup_rationale_126]] — code: build() should deduplicate near-identical nodes across extractions.
+- [[graphify_tests_test_dedup_rationale_143]] — code: Chip SKU variants (ASR1603 vs ASR1605) must not be merged (#878).
+- [[graphify_tests_test_dedup_rationale_150]] — code: Short labels differing by an insertion (cranel vs cranelr) must not merge (#878)
+- [[graphify_tests_test_dedup_rationale_157]] — code: M1 vs M1 Pro must not merge (#878).
+- [[graphify_tests_test_dedup_rationale_164]] — code: Genuine same-length single-char typos should still merge (#878 non-regression).
+- [[graphify_tests_test_dedup_rationale_174]] — code: _is_variant_pair correctly identifies chip-model variant pairs (#878).
+- [[graphify_tests_test_dedup_rationale_183]] — code: Distinct symbols whose name is a strict prefix-extension of another must not
+- [[graphify_tests_test_dedup_rationale_212]] — code: Pass 2's winner selection must consider only the verified pair (#1247).      P
+- [[graphify_tests_test_dedup_rationale_242]] — code: The prefix-extension guard must not fire for same-length pairs — only strict
+- [[graphify_tests_test_dedup_rationale_257]] — code: The prefix-extension guard must fire for pairs where one is a strict prefix
+- [[graphify_tests_test_dedup_rationale_276]] — code: _numeric_tokens_differ compares digit runs as zero-padding-insensitive     mult
+- [[graphify_tests_test_dedup_rationale_288]] — code: Long labels differing only in embedded numbers (ADR/section/issue ids)     must
+- [[graphify_tests_test_dedup_rationale_301]] — code: Rationale nodes are file-anchored like code (#1205): parallel modules'     boil
+- [[graphify_tests_test_dedup_rationale_316]] — code: Document nodes are file-anchored too: near-identical headings in different
+- [[graphify_tests_test_dedup_rationale_329]] — code: The file-anchored guard only blocks cross-file pairs — near-identical     ratio
+- [[graphify_tests_test_dedup_rationale_344]] — code: Cross-file labels sharing a long prefix but diverging in a distinguishing     t
+- [[graphify_tests_test_dedup_rationale_359]] — code: The #1243 guard only drops the prefix bonus — a genuine cross-file     duplicat
+- [[graphify_tests_test_dedup_rationale_372]] — code: When two nodes share the same ID but come from different source files     (a cr
+- [[graphify_tests_test_dedup_rationale_394]] — code: When two nodes share both ID and source_file (same-file dedup),     no collisio
+
+## Dependências
+
+- [[graphify_tests_test_dedup]] → `imports_from` → [[graphify_graphify_dedup]]
+- [[graphify_tests_test_dedup_test_prefix_guard_does_not_block_same_length_typos]] → `calls` → [[graphify_graphify_dedup_norm]]
+- [[graphify_tests_test_dedup_test_prefix_guard_fires_for_extension_pairs]] → `calls` → [[graphify_graphify_dedup_norm]]
+- [[graphify_tests_test_dedup_test_entropy_empty_string]] → `calls` → [[graphify_graphify_dedup_entropy]]
+- [[graphify_tests_test_dedup_test_entropy_normal_label_high]] → `calls` → [[graphify_graphify_dedup_entropy]]
+- [[graphify_tests_test_dedup_test_entropy_short_label_low]] → `calls` → [[graphify_graphify_dedup_entropy]]
+- [[graphify_tests_test_dedup_test_shingles_produces_trigrams]] → `calls` → [[graphify_graphify_dedup_shingles]]
+- [[graphify_tests_test_dedup_test_shingles_short_string]] → `calls` → [[graphify_graphify_dedup_shingles]]
+- [[graphify_tests_test_dedup_test_dedup_still_merges_real_typos]] → `calls` → [[graphify_graphify_dedup_is_variant_pair]]
+- [[graphify_tests_test_dedup_test_variant_pair_helper]] → `calls` → [[graphify_graphify_dedup_is_variant_pair]]
+- [[graphify_tests_test_dedup_test_dedup_still_merges_real_typos]] → `calls` → [[graphify_graphify_dedup_short_label_blocked]]
+- [[graphify_tests_test_dedup_test_numeric_tokens_differ_helper]] → `calls` → [[graphify_graphify_dedup_numeric_tokens_differ]]
+- [[graphify_tests_test_dedup_test_community_boost_aids_merge]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_cross_chunk_id_collision_emits_warning]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_document_headings]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_rationale_boilerplate]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_shared_prefix_divergence]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_model_with_suffix]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_numbered_siblings]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_numeric_variants]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_short_insertion_variants]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_llm_flag_accepted]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_still_merges_crossfile_true_duplicates]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_dedup_still_merges_samefile_rationale_duplicates]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_edges_rewired_after_merge]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_empty_inputs]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_exact_duplicates_merged]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_pass2_winner_union_does_not_pull_in_uncompared_same_label_nodes]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_prefix_extension_symbols_not_merged]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_same_id_same_source_file_no_warning]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_self_loops_dropped_after_merge]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_short_low_entropy_not_merged]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_single_node_no_crash]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_typo_merged]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup_test_unrelated_not_merged]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_make_edges]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_build_calls_dedup]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_community_boost_aids_merge]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_cross_chunk_id_collision_emits_warning]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_document_headings]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_rationale_boilerplate]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_shared_prefix_divergence]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_model_with_suffix]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_numbered_siblings]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_numeric_variants]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_short_insertion_variants]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_llm_flag_accepted]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_still_merges_crossfile_true_duplicates]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_still_merges_real_typos]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_dedup_still_merges_samefile_rationale_duplicates]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_edges_rewired_after_merge]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_empty_inputs]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_entropy_empty_string]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_entropy_normal_label_high]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_entropy_short_label_low]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_exact_duplicates_merged]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_numeric_tokens_differ_helper]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_pass2_winner_union_does_not_pull_in_uncompared_same_label_nodes]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_prefix_extension_symbols_not_merged]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_prefix_guard_does_not_block_same_length_typos]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_prefix_guard_fires_for_extension_pairs]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_same_id_same_source_file_no_warning]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_self_loops_dropped_after_merge]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_shingles_produces_trigrams]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_shingles_short_string]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_short_low_entropy_not_merged]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_single_node_no_crash]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_typo_merged]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_unrelated_not_merged]]
+- [[graphify_tests_test_dedup]] → `contains` → [[graphify_tests_test_dedup_test_variant_pair_helper]]
+- [[graphify_tests_test_dedup_rationale_1]] → `rationale_for` → [[graphify_tests_test_dedup]]
+- [[graphify_tests_test_dedup_test_community_boost_aids_merge]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_model_with_suffix]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_numeric_variants]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_dedup_does_not_merge_short_insertion_variants]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_dedup_llm_flag_accepted]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_edges_rewired_after_merge]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_exact_duplicates_merged]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_self_loops_dropped_after_merge]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_short_low_entropy_not_merged]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_single_node_no_crash]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_typo_merged]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_test_unrelated_not_merged]] → `calls` → [[graphify_tests_test_dedup_make_nodes]]
+- [[graphify_tests_test_dedup_rationale_116]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_llm_flag_accepted]]
+- [[graphify_tests_test_dedup_rationale_126]] → `rationale_for` → [[graphify_tests_test_dedup_test_build_calls_dedup]]
+- [[graphify_tests_test_dedup_rationale_143]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_numeric_variants]]
+- [[graphify_tests_test_dedup_rationale_150]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_short_insertion_variants]]
+- [[graphify_tests_test_dedup_rationale_157]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_model_with_suffix]]
+- [[graphify_tests_test_dedup_rationale_164]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_still_merges_real_typos]]
+- [[graphify_tests_test_dedup_rationale_174]] → `rationale_for` → [[graphify_tests_test_dedup_test_variant_pair_helper]]
+- [[graphify_tests_test_dedup_rationale_183]] → `rationale_for` → [[graphify_tests_test_dedup_test_prefix_extension_symbols_not_merged]]
+- [[graphify_tests_test_dedup_rationale_212]] → `rationale_for` → [[graphify_tests_test_dedup_test_pass2_winner_union_does_not_pull_in_uncompared_same_label_nodes]]
+- [[graphify_tests_test_dedup_rationale_242]] → `rationale_for` → [[graphify_tests_test_dedup_test_prefix_guard_does_not_block_same_length_typos]]
+- [[graphify_tests_test_dedup_rationale_257]] → `rationale_for` → [[graphify_tests_test_dedup_test_prefix_guard_fires_for_extension_pairs]]
+- [[graphify_tests_test_dedup_rationale_276]] → `rationale_for` → [[graphify_tests_test_dedup_test_numeric_tokens_differ_helper]]
+- [[graphify_tests_test_dedup_rationale_288]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_numbered_siblings]]
+- [[graphify_tests_test_dedup_rationale_301]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_rationale_boilerplate]]
+- [[graphify_tests_test_dedup_rationale_316]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_document_headings]]
+- [[graphify_tests_test_dedup_rationale_329]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_still_merges_samefile_rationale_duplicates]]
+- [[graphify_tests_test_dedup_rationale_344]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_does_not_merge_crossfile_shared_prefix_divergence]]
+- [[graphify_tests_test_dedup_rationale_359]] → `rationale_for` → [[graphify_tests_test_dedup_test_dedup_still_merges_crossfile_true_duplicates]]
+- [[graphify_tests_test_dedup_rationale_372]] → `rationale_for` → [[graphify_tests_test_dedup_test_cross_chunk_id_collision_emits_warning]]
+- [[graphify_tests_test_dedup_rationale_394]] → `rationale_for` → [[graphify_tests_test_dedup_test_same_id_same_source_file_no_warning]]

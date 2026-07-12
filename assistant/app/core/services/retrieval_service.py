@@ -3,7 +3,11 @@ RetrievalService — Semantic search orchestrator.
 """
 
 from app.core.provider_registry import ProviderRegistry
-from app.domain.ports.retrieval_port import RetrievalPort, RetrievalQuery, RetrievalResult
+from app.domain.ports.retrieval_port import (
+    RetrievalPort,
+    RetrievalQuery,
+    RetrievalResult,
+)
 
 
 class RetrievalService:

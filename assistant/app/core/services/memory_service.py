@@ -3,7 +3,12 @@ MemoryService — Memory storage and retrieval orchestrator.
 """
 
 from app.core.provider_registry import ProviderRegistry
-from app.domain.ports.memory_port import MemoryPort, MemoryEntry, MemoryQuery, MemoryResult
+from app.domain.ports.memory_port import (
+    MemoryPort,
+    MemoryEntry,
+    MemoryQuery,
+    MemoryResult,
+)
 
 
 class MemoryService:

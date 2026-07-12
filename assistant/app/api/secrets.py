@@ -38,14 +38,14 @@ class SecretResponse(BaseModel):
 def _get_cipher() -> Fernet:
     key = settings.SECRET_KEY.encode()
     if len(key) < 32:
-        key = key.ljust(32, b'0')
+        key = key.ljust(32, b"0")
     elif len(key) > 32:
         key = key[:32]
     return Fernet(key) if len(key) == 32 else Fernet(Fernet.generate_key())
 
 
 def _secrets_path() -> Path:
-    return Path(getattr(settings, 'SECRETS_FILE', "data/secrets.enc"))
+    return Path(getattr(settings, "SECRETS_FILE", "data/secrets.enc"))
 
 
 def _load_secrets() -> dict:
@@ -88,7 +88,9 @@ async def set_secret(request: SecretRequest):
     secrets[provider] = {"key": request.key, "metadata": request.metadata or {}}
     _save_secrets(secrets)
     logger.info(f"[secrets] Saved secret for: {provider}")
-    return SecretResponse(provider=provider, saved=True, message=f"Secret for {provider} saved")
+    return SecretResponse(
+        provider=provider, saved=True, message=f"Secret for {provider} saved"
+    )
 
 
 @router.get("/status")
@@ -96,13 +98,30 @@ async def secrets_status():
     secrets = _load_secrets()
     known = ["openai", "anthropic", "gemini", "ollama", "airllm", "cohere", "groq"]
     configured = {p: p in secrets for p in known}
-    return {"configured": configured, "missing": [p for p in known if p not in secrets], "total": len(secrets)}
+    return {
+        "configured": configured,
+        "missing": [p for p in known if p not in secrets],
+        "total": len(secrets),
+    }
 
 
 @router.get("/providers")
 async def list_providers():
     secrets = _load_secrets()
-    return {"providers": [{"name": p, "configured": p in secrets} for p in ["openai", "anthropic", "gemini", "ollama", "airllm", "cohere", "groq"]]}
+    return {
+        "providers": [
+            {"name": p, "configured": p in secrets}
+            for p in [
+                "openai",
+                "anthropic",
+                "gemini",
+                "ollama",
+                "airllm",
+                "cohere",
+                "groq",
+            ]
+        ]
+    }
 
 
 @router.delete("/{provider}")

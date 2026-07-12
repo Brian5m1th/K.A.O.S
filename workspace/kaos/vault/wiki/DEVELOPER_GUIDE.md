@@ -1,0 +1,147 @@
+# docs\guides\DEVELOPER_GUIDE.md
+
+## Símbolos
+
+- [[docs_guides_developer_guide]] — code: DEVELOPER_GUIDE.md
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] — code: Guia do Desenvolvedor — K.A.O.S
+- [[docs_guides_developer_guide_estrutura_de_pastas]] — code: Estrutura de Pastas
+- [[docs_guides_developer_guide_stores_zustand]] — code: Stores (Zustand)
+- [[docs_guides_developer_guide_criar_uma_store]] — code: Criar uma Store
+- [[docs_guides_developer_guide_consumir_em_um_componente]] — code: Consumir em um Componente
+- [[docs_guides_developer_guide_stores_existentes]] — code: Stores Existentes
+- [[docs_guides_developer_guide_event_bus_typescript]] — code: Event Bus (TypeScript)
+- [[docs_guides_developer_guide_emitir_um_evento]] — code: Emitir um Evento
+- [[docs_guides_developer_guide_escutar_um_evento]] — code: Escutar um Evento
+- [[docs_guides_developer_guide_tipos_de_evento]] — code: Tipos de Evento
+- [[docs_guides_developer_guide_apis_fastapi]] — code: APIs (FastAPI)
+- [[docs_guides_developer_guide_criar_um_endpoint]] — code: Criar um Endpoint
+- [[docs_guides_developer_guide_registrar_no_app]] — code: Registrar no App
+- [[docs_guides_developer_guide_padrões_de_api]] — code: Padrões de API
+- [[docs_guides_developer_guide_event_bus_python]] — code: Event Bus (Python)
+- [[docs_guides_developer_guide_emitir_um_evento_210]] — code: Emitir um Evento
+- [[docs_guides_developer_guide_criar_um_subscriber]] — code: Criar um Subscriber
+- [[docs_guides_developer_guide_registrar]] — code: Registrar
+- [[docs_guides_developer_guide_eventos_existentes]] — code: Eventos Existentes
+- [[docs_guides_developer_guide_providers]] — code: Providers
+- [[docs_guides_developer_guide_contrato_base]] — code: Contrato Base
+- [[docs_guides_developer_guide_implementar_um_provider]] — code: Implementar um Provider
+- [[docs_guides_developer_guide_registrar_299]] — code: Registrar
+- [[docs_guides_developer_guide_workflows]] — code: Workflows
+- [[docs_guides_developer_guide_contrato_base_310]] — code: Contrato Base
+- [[docs_guides_developer_guide_criar_um_workflow]] — code: Criar um Workflow
+- [[docs_guides_developer_guide_registrar_344]] — code: Registrar
+- [[docs_guides_developer_guide_agentes_langgraph]] — code: Agentes (LangGraph)
+- [[docs_guides_developer_guide_estado_do_agente]] — code: Estado do Agente
+- [[docs_guides_developer_guide_nós_do_grafo]] — code: Nós do Grafo
+- [[docs_guides_developer_guide_ferramentas_langgraph_tools]] — code: Ferramentas (LangGraph Tools)
+- [[docs_guides_developer_guide_criar_uma_ferramenta]] — code: Criar uma Ferramenta
+- [[docs_guides_developer_guide_registrar_407]] — code: Registrar
+- [[docs_guides_developer_guide_ferramentas_existentes]] — code: Ferramentas Existentes
+- [[docs_guides_developer_guide_páginas_frontend]] — code: Páginas (Frontend)
+- [[docs_guides_developer_guide_criar_uma_página]] — code: Criar uma Página
+- [[docs_guides_developer_guide_adicionar_rota]] — code: Adicionar Rota
+- [[docs_guides_developer_guide_registrar_no_router]] — code: Registrar no Router
+- [[docs_guides_developer_guide_adicionar_na_sidebar]] — code: Adicionar na Sidebar
+- [[docs_guides_developer_guide_eventos_criação]] — code: Eventos (Criação)
+- [[docs_guides_developer_guide_backend_python]] — code: Backend (Python)
+- [[docs_guides_developer_guide_frontend_typescript]] — code: Frontend (TypeScript)
+- [[docs_guides_developer_guide_integrações]] — code: Integrações
+- [[docs_guides_developer_guide_criar_uma_integração]] — code: Criar uma Integração
+- [[docs_guides_developer_guide_integrações_existentes]] — code: Integrações Existentes
+- [[docs_guides_developer_guide_boas_práticas]] — code: Boas Práticas
+- [[docs_guides_developer_guide_python]] — code: Python
+- [[docs_guides_developer_guide_typescript]] — code: TypeScript
+- [[docs_guides_developer_guide_commits]] — code: Commits
+- [[docs_guides_developer_guide_resumo]] — code: Resumo
+- [[docs_guides_developer_guide_objetivo]] — code: Objetivo
+- [[docs_guides_developer_guide_responsabilidades]] — code: Responsabilidades
+- [[docs_guides_developer_guide_padrão_de_commits]] — code: Padrão de Commits
+- [[docs_guides_developer_guide_formato]] — code: Formato
+- [[docs_guides_developer_guide_tipos_válidos]] — code: Tipos Válidos
+- [[docs_guides_developer_guide_exemplos]] — code: Exemplos
+- [[docs_guides_developer_guide_proibido]] — code: ⛔ Proibido
+- [[docs_guides_developer_guide_stores_existentes_zustand]] — code: Stores Existentes (Zustand)
+- [[docs_guides_developer_guide_governança_de_pr]] — code: Governança de PR
+- [[docs_guides_developer_guide_checklist_de_abertura_de_pr]] — code: Checklist de Abertura de PR
+- [[docs_guides_developer_guide_documentação_obrigatória_por_tipo_de_pr]] — code: Documentação Obrigatória por Tipo de PR
+- [[docs_guides_developer_guide_dependencias]] — code: Dependencias
+- [[docs_guides_developer_guide_fluxos]] — code: Fluxos
+- [[docs_guides_developer_guide_desenvolvimento_local]] — code: Desenvolvimento Local
+- [[docs_guides_developer_guide_testes]] — code: Testes
+- [[docs_guides_developer_guide_build_desktop]] — code: Build Desktop
+- [[docs_guides_developer_guide_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_guides_developer_guide_status]] — code: Status
+- [[docs_guides_developer_guide_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_guides_developer_guide]] → `contains` → [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]]
+- [[docs_guides_developer_guide]] → `references` → [[docs_sdd_sdd_commit_governance]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_agentes_langgraph]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_apis_fastapi]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_arquivos_relacionados]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_boas_práticas]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_dependencias]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_estrutura_de_pastas]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_event_bus_python]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_event_bus_typescript]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_eventos_criação]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_ferramentas_langgraph_tools]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_fluxos]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_governança_de_pr]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_integrações]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_objetivo]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_padrão_de_commits]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_providers]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_páginas_frontend]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_responsabilidades]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_resumo]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_status]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_stores_existentes_zustand]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_stores_zustand]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_ultima_atualizacao]]
+- [[docs_guides_developer_guide_guia_do_desenvolvedor_k_a_o_s]] → `contains` → [[docs_guides_developer_guide_workflows]]
+- [[docs_guides_developer_guide_stores_zustand]] → `contains` → [[docs_guides_developer_guide_consumir_em_um_componente]]
+- [[docs_guides_developer_guide_stores_zustand]] → `contains` → [[docs_guides_developer_guide_criar_uma_store]]
+- [[docs_guides_developer_guide_stores_zustand]] → `contains` → [[docs_guides_developer_guide_stores_existentes]]
+- [[docs_guides_developer_guide_event_bus_typescript]] → `contains` → [[docs_guides_developer_guide_emitir_um_evento]]
+- [[docs_guides_developer_guide_event_bus_typescript]] → `contains` → [[docs_guides_developer_guide_escutar_um_evento]]
+- [[docs_guides_developer_guide_event_bus_typescript]] → `contains` → [[docs_guides_developer_guide_tipos_de_evento]]
+- [[docs_guides_developer_guide_apis_fastapi]] → `contains` → [[docs_guides_developer_guide_criar_um_endpoint]]
+- [[docs_guides_developer_guide_apis_fastapi]] → `contains` → [[docs_guides_developer_guide_padrões_de_api]]
+- [[docs_guides_developer_guide_apis_fastapi]] → `contains` → [[docs_guides_developer_guide_registrar_no_app]]
+- [[docs_guides_developer_guide_event_bus_python]] → `contains` → [[docs_guides_developer_guide_criar_um_subscriber]]
+- [[docs_guides_developer_guide_event_bus_python]] → `contains` → [[docs_guides_developer_guide_emitir_um_evento_210]]
+- [[docs_guides_developer_guide_event_bus_python]] → `contains` → [[docs_guides_developer_guide_eventos_existentes]]
+- [[docs_guides_developer_guide_event_bus_python]] → `contains` → [[docs_guides_developer_guide_registrar]]
+- [[docs_guides_developer_guide_providers]] → `contains` → [[docs_guides_developer_guide_contrato_base]]
+- [[docs_guides_developer_guide_providers]] → `contains` → [[docs_guides_developer_guide_implementar_um_provider]]
+- [[docs_guides_developer_guide_providers]] → `contains` → [[docs_guides_developer_guide_registrar_299]]
+- [[docs_guides_developer_guide_workflows]] → `contains` → [[docs_guides_developer_guide_contrato_base_310]]
+- [[docs_guides_developer_guide_workflows]] → `contains` → [[docs_guides_developer_guide_criar_um_workflow]]
+- [[docs_guides_developer_guide_workflows]] → `contains` → [[docs_guides_developer_guide_registrar_344]]
+- [[docs_guides_developer_guide_agentes_langgraph]] → `contains` → [[docs_guides_developer_guide_estado_do_agente]]
+- [[docs_guides_developer_guide_agentes_langgraph]] → `contains` → [[docs_guides_developer_guide_nós_do_grafo]]
+- [[docs_guides_developer_guide_ferramentas_langgraph_tools]] → `contains` → [[docs_guides_developer_guide_criar_uma_ferramenta]]
+- [[docs_guides_developer_guide_ferramentas_langgraph_tools]] → `contains` → [[docs_guides_developer_guide_ferramentas_existentes]]
+- [[docs_guides_developer_guide_ferramentas_langgraph_tools]] → `contains` → [[docs_guides_developer_guide_registrar_407]]
+- [[docs_guides_developer_guide_páginas_frontend]] → `contains` → [[docs_guides_developer_guide_adicionar_na_sidebar]]
+- [[docs_guides_developer_guide_páginas_frontend]] → `contains` → [[docs_guides_developer_guide_adicionar_rota]]
+- [[docs_guides_developer_guide_páginas_frontend]] → `contains` → [[docs_guides_developer_guide_criar_uma_página]]
+- [[docs_guides_developer_guide_páginas_frontend]] → `contains` → [[docs_guides_developer_guide_registrar_no_router]]
+- [[docs_guides_developer_guide_eventos_criação]] → `contains` → [[docs_guides_developer_guide_backend_python]]
+- [[docs_guides_developer_guide_eventos_criação]] → `contains` → [[docs_guides_developer_guide_frontend_typescript]]
+- [[docs_guides_developer_guide_integrações]] → `contains` → [[docs_guides_developer_guide_criar_uma_integração]]
+- [[docs_guides_developer_guide_integrações]] → `contains` → [[docs_guides_developer_guide_integrações_existentes]]
+- [[docs_guides_developer_guide_boas_práticas]] → `contains` → [[docs_guides_developer_guide_commits]]
+- [[docs_guides_developer_guide_boas_práticas]] → `contains` → [[docs_guides_developer_guide_python]]
+- [[docs_guides_developer_guide_boas_práticas]] → `contains` → [[docs_guides_developer_guide_typescript]]
+- [[docs_guides_developer_guide_padrão_de_commits]] → `contains` → [[docs_guides_developer_guide_exemplos]]
+- [[docs_guides_developer_guide_padrão_de_commits]] → `contains` → [[docs_guides_developer_guide_formato]]
+- [[docs_guides_developer_guide_padrão_de_commits]] → `contains` → [[docs_guides_developer_guide_proibido]]
+- [[docs_guides_developer_guide_padrão_de_commits]] → `contains` → [[docs_guides_developer_guide_tipos_válidos]]
+- [[docs_guides_developer_guide_governança_de_pr]] → `contains` → [[docs_guides_developer_guide_checklist_de_abertura_de_pr]]
+- [[docs_guides_developer_guide_governança_de_pr]] → `contains` → [[docs_guides_developer_guide_documentação_obrigatória_por_tipo_de_pr]]
+- [[docs_guides_developer_guide_fluxos]] → `contains` → [[docs_guides_developer_guide_build_desktop]]
+- [[docs_guides_developer_guide_fluxos]] → `contains` → [[docs_guides_developer_guide_desenvolvimento_local]]
+- [[docs_guides_developer_guide_fluxos]] → `contains` → [[docs_guides_developer_guide_testes]]

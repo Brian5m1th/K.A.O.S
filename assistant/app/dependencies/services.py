@@ -38,7 +38,11 @@ def init_services():
     from app.providers.retrieval.qdrant_adapter import QdrantAdapter
     from app.providers.inference.ollama_adapter import OllamaAdapter
     from app.providers.inference.airllm_adapter import AirLLMAdapter
-    from app.providers.inference.openai_adapter import OpenAIAdapter, GeminiAdapter, ClaudeAdapter
+    from app.providers.inference.openai_adapter import (
+        OpenAIAdapter,
+        GeminiAdapter,
+        ClaudeAdapter,
+    )
     from app.providers.planner.langgraph_adapter import LangGraphAdapter
     from app.providers.evidence.engine import EvidenceEngine
 

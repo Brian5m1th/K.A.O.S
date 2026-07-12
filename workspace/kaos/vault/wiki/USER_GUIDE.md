@@ -1,0 +1,96 @@
+# docs\guides\USER_GUIDE.md
+
+## Símbolos
+
+- [[docs_guides_user_guide]] — code: USER_GUIDE.md
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] — code: Guia do Usuário — K.A.O.S
+- [[docs_guides_user_guide_interface_principal]] — code: Interface Principal
+- [[docs_guides_user_guide_sidebar]] — code: Sidebar
+- [[docs_guides_user_guide_command_palette_ctrl_k]] — code: Command Palette (CTRL+K)
+- [[docs_guides_user_guide_chat]] — code: Chat
+- [[docs_guides_user_guide_funcionalidades]] — code: Funcionalidades
+- [[docs_guides_user_guide_agents]] — code: Agents
+- [[docs_guides_user_guide_configurações_de_agente]] — code: Configurações de Agente
+- [[docs_guides_user_guide_workflows]] — code: Workflows
+- [[docs_guides_user_guide_pipelines]] — code: Pipelines
+- [[docs_guides_user_guide_knowledge_vault]] — code: Knowledge Vault
+- [[docs_guides_user_guide_como_usar]] — code: Como usar
+- [[docs_guides_user_guide_estrutura_do_vault]] — code: Estrutura do Vault
+- [[docs_guides_user_guide_observability]] — code: Observability
+- [[docs_guides_user_guide_métricas_prometheus]] — code: Métricas (Prometheus)
+- [[docs_guides_user_guide_grafana]] — code: Grafana
+- [[docs_guides_user_guide_logs_loki]] — code: Logs (Loki)
+- [[docs_guides_user_guide_settings]] — code: Settings
+- [[docs_guides_user_guide_configurações_disponíveis]] — code: Configurações Disponíveis
+- [[docs_guides_user_guide_documentation_health]] — code: Documentation Health
+- [[docs_guides_user_guide_visão_geral]] — code: Visão Geral
+- [[docs_guides_user_guide_ações]] — code: Ações
+- [[docs_guides_user_guide_interpretação]] — code: Interpretação
+- [[docs_guides_user_guide_architecture_graph]] — code: Architecture Graph
+- [[docs_guides_user_guide_navegação]] — code: Navegação
+- [[docs_guides_user_guide_legendas]] — code: Legendas
+- [[docs_guides_user_guide_exportação]] — code: Exportação
+- [[docs_guides_user_guide_atalhos_de_teclado]] — code: Atalhos de Teclado
+- [[docs_guides_user_guide_exemplos_de_uso]] — code: Exemplos de Uso
+- [[docs_guides_user_guide_1_conversar_com_ia]] — code: 1. Conversar com IA
+- [[docs_guides_user_guide_2_executar_auditoria]] — code: 2. Executar Auditoria
+- [[docs_guides_user_guide_3_navegar_na_arquitetura]] — code: 3. Navegar na Arquitetura
+- [[docs_guides_user_guide_4_buscar_no_vault]] — code: 4. Buscar no Vault
+- [[docs_guides_user_guide_5_usar_command_palette]] — code: 5. Usar Command Palette
+- [[docs_guides_user_guide_resumo]] — code: Resumo
+- [[docs_guides_user_guide_objetivo]] — code: Objetivo
+- [[docs_guides_user_guide_responsabilidades]] — code: Responsabilidades
+- [[docs_guides_user_guide_dependencias]] — code: Dependencias
+- [[docs_guides_user_guide_fluxos]] — code: Fluxos
+- [[docs_guides_user_guide_integracoes]] — code: Integracoes
+- [[docs_guides_user_guide_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_guides_user_guide_referencias_kirl]] — code: Referencias KIRL
+- [[docs_guides_user_guide_status]] — code: Status
+- [[docs_guides_user_guide_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_guides_user_guide]] → `contains` → [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_agents]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_architecture_graph]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_arquivos_relacionados]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_atalhos_de_teclado]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_chat]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_dependencias]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_documentation_health]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_exemplos_de_uso]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_fluxos]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_integracoes]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_interface_principal]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_knowledge_vault]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_objetivo]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_observability]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_pipelines]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_referencias_kirl]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_responsabilidades]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_resumo]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_settings]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_status]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_ultima_atualizacao]]
+- [[docs_guides_user_guide_guia_do_usuário_k_a_o_s]] → `contains` → [[docs_guides_user_guide_workflows]]
+- [[docs_guides_user_guide_interface_principal]] → `contains` → [[docs_guides_user_guide_command_palette_ctrl_k]]
+- [[docs_guides_user_guide_interface_principal]] → `contains` → [[docs_guides_user_guide_sidebar]]
+- [[docs_guides_user_guide_chat]] → `contains` → [[docs_guides_user_guide_funcionalidades]]
+- [[docs_guides_user_guide_agents]] → `contains` → [[docs_guides_user_guide_configurações_de_agente]]
+- [[docs_guides_user_guide_knowledge_vault]] → `contains` → [[docs_guides_user_guide_como_usar]]
+- [[docs_guides_user_guide_knowledge_vault]] → `contains` → [[docs_guides_user_guide_estrutura_do_vault]]
+- [[docs_guides_user_guide_observability]] → `contains` → [[docs_guides_user_guide_grafana]]
+- [[docs_guides_user_guide_observability]] → `contains` → [[docs_guides_user_guide_logs_loki]]
+- [[docs_guides_user_guide_observability]] → `contains` → [[docs_guides_user_guide_métricas_prometheus]]
+- [[docs_guides_user_guide_settings]] → `contains` → [[docs_guides_user_guide_configurações_disponíveis]]
+- [[docs_guides_user_guide_documentation_health]] → `contains` → [[docs_guides_user_guide_ações]]
+- [[docs_guides_user_guide_documentation_health]] → `contains` → [[docs_guides_user_guide_interpretação]]
+- [[docs_guides_user_guide_documentation_health]] → `contains` → [[docs_guides_user_guide_visão_geral]]
+- [[docs_guides_user_guide_architecture_graph]] → `contains` → [[docs_guides_user_guide_exportação]]
+- [[docs_guides_user_guide_architecture_graph]] → `contains` → [[docs_guides_user_guide_legendas]]
+- [[docs_guides_user_guide_architecture_graph]] → `contains` → [[docs_guides_user_guide_navegação]]
+- [[docs_guides_user_guide_exemplos_de_uso]] → `contains` → [[docs_guides_user_guide_1_conversar_com_ia]]
+- [[docs_guides_user_guide_exemplos_de_uso]] → `contains` → [[docs_guides_user_guide_2_executar_auditoria]]
+- [[docs_guides_user_guide_exemplos_de_uso]] → `contains` → [[docs_guides_user_guide_3_navegar_na_arquitetura]]
+- [[docs_guides_user_guide_exemplos_de_uso]] → `contains` → [[docs_guides_user_guide_4_buscar_no_vault]]
+- [[docs_guides_user_guide_exemplos_de_uso]] → `contains` → [[docs_guides_user_guide_5_usar_command_palette]]

@@ -1,0 +1,165 @@
+# graphify\tests\test_codebuddy.py
+
+## Símbolos
+
+- [[graphify_tests_test_codebuddy]] — code: test_codebuddy.py
+- [[graphify_tests_test_codebuddy_codebuddy_install_user]] — code: _codebuddy_install_user()
+- [[graphify_tests_test_codebuddy_skill_path_user]] — code: _skill_path_user()
+- [[graphify_tests_test_codebuddy_skill_path_project]] — code: _skill_path_project()
+- [[graphify_tests_test_codebuddy_codebuddy_md_path]] — code: _codebuddy_md_path()
+- [[graphify_tests_test_codebuddy_settings_path]] — code: _settings_path()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_user_creates_skill_file]] — code: test_codebuddy_install_user_creates_skill_file()
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_contains_frontmatter]] — code: test_codebuddy_skill_file_contains_frontmatter()
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_references_graphify_query]] — code: test_codebuddy_skill_file_references_graphify_query()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_codebuddy_md]] — code: test_codebuddy_install_project_writes_codebuddy_md()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_hook]] — code: test_codebuddy_install_project_writes_hook()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_bash_matcher]] — code: test_codebuddy_install_hook_has_bash_matcher()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_read_glob_matcher]] — code: test_codebuddy_install_hook_has_read_glob_matcher()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_idempotent]] — code: test_codebuddy_install_idempotent()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_upgrades_stale_section]] — code: test_codebuddy_install_upgrades_stale_section()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_merges_existing_codebuddy_md]] — code: test_codebuddy_install_merges_existing_codebuddy_md()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_prints_no_change_on_second_run]] — code: test_codebuddy_install_prints_no_change_on_second_run()
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hint_git_add]] — code: test_codebuddy_install_hint_git_add()
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_section]] — code: test_codebuddy_uninstall_removes_section()
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_hook]] — code: test_codebuddy_uninstall_removes_hook()
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_not_installed]] — code: test_codebuddy_uninstall_noop_if_not_installed()
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_no_section]] — code: test_codebuddy_uninstall_noop_if_no_section()
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_preserves_other_content]] — code: test_codebuddy_uninstall_preserves_other_content()
+- [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_md]] — code: test_uninstall_all_removes_codebuddy_md()
+- [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_hook]] — code: test_uninstall_all_removes_codebuddy_hook()
+- [[graphify_tests_test_codebuddy_test_codebuddy_in_platform_config]] — code: test_codebuddy_in_platform_config()
+- [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_user_scope]] — code: test_codebuddy_platform_skill_destination_user_scope()
+- [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_project_scope]] — code: test_codebuddy_platform_skill_destination_project_scope()
+- [[graphify_tests_test_codebuddy_test_codebuddy_in_main_help_text]] — code: test_codebuddy_in_main_help_text()
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_exists_in_package]] — code: test_codebuddy_skill_file_exists_in_package()
+- [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]] — code: test_codebuddy_installation_roundtrip()
+- [[graphify_tests_test_codebuddy_rationale_1]] — code: Tests for graphify codebuddy install / uninstall commands.
+- [[graphify_tests_test_codebuddy_rationale_48]] — code: User-scope install copies skill to ~/.codebuddy/skills/graphify/SKILL.md.
+- [[graphify_tests_test_codebuddy_rationale_55]] — code: Installed skill file must include graphify YAML frontmatter.
+- [[graphify_tests_test_codebuddy_rationale_63]] — code: /graphify skill must mention graphify query (query-first policy).
+- [[graphify_tests_test_codebuddy_rationale_74]] — code: Project-scope install writes CODEBUDDY.md with graphify section.
+- [[graphify_tests_test_codebuddy_rationale_85]] — code: Project-scope install registers PreToolUse hook in .codebuddy/settings.json.
+- [[graphify_tests_test_codebuddy_rationale_96]] — code: The installed hook must include Bash matcher for code search interception.
+- [[graphify_tests_test_codebuddy_rationale_106]] — code: The installed hook must include Read|Glob matcher for file-read interception.
+- [[graphify_tests_test_codebuddy_rationale_116]] — code: Re-install does not duplicate ## graphify sections.
+- [[graphify_tests_test_codebuddy_rationale_125]] — code: Re-install replaces an old graphify section with the current template.
+- [[graphify_tests_test_codebuddy_rationale_140]] — code: Install appends to an existing CODEBUDDY.md, preserving other content.
+- [[graphify_tests_test_codebuddy_rationale_151]] — code: Second install prints '(no change)' when content is identical.
+- [[graphify_tests_test_codebuddy_rationale_161]] — code: Project-scoped install via CLI prints a git add hint.
+- [[graphify_tests_test_codebuddy_rationale_185]] — code: Uninstall removes the ## graphify section from CODEBUDDY.md.
+- [[graphify_tests_test_codebuddy_rationale_194]] — code: Uninstall removes the PreToolUse hook from .codebuddy/settings.json.
+- [[graphify_tests_test_codebuddy_rationale_206]] — code: Uninstall should not raise when CODEBUDDY.md doesn't exist.
+- [[graphify_tests_test_codebuddy_rationale_212]] — code: Uninstall should not error when CODEBUDDY.md exists but no graphify section.
+- [[graphify_tests_test_codebuddy_rationale_221]] — code: Uninstall preserves non-graphify content in CODEBUDDY.md.
+- [[graphify_tests_test_codebuddy_rationale_238]] — code: graphify uninstall must clean up CODEBUDDY.md.
+- [[graphify_tests_test_codebuddy_rationale_255]] — code: graphify uninstall must clean up .codebuddy/settings.json hooks.
+- [[graphify_tests_test_codebuddy_rationale_278]] — code: codebuddy must be registered in _PLATFORM_CONFIG.
+- [[graphify_tests_test_codebuddy_rationale_286]] — code: User-scope destination must be ~/.codebuddy/skills/graphify/SKILL.md.
+- [[graphify_tests_test_codebuddy_rationale_294]] — code: Project-scope destination must be <project>/.codebuddy/skills/graphify/SKILL.md.
+- [[graphify_tests_test_codebuddy_rationale_301]] — code: `graphify --help` must list codebuddy in the platform list and per-platform sect
+- [[graphify_tests_test_codebuddy_rationale_316]] — code: skill.md must be present in the installed package (shared with claude).
+- [[graphify_tests_test_codebuddy_rationale_323]] — code: Install then uninstall leaves no trace of graphify CODEBUDDY.md or hook.
+
+## Dependências
+
+- [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_project_scope]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_user_scope]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_bash_matcher]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_read_glob_matcher]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_idempotent]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_merges_existing_codebuddy_md]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_prints_no_change_on_second_run]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_codebuddy_md]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_hook]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_upgrades_stale_section]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_preserves_other_content]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_hook]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_section]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_no_section]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_not_installed]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_preserves_other_content]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_hook]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_section]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_in_main_help_text]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hint_git_add]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_hook]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_md]] → `calls` → [[graphify_tests_bench_extract_main]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_codebuddy_install_user]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_skill_path_project]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_skill_path_user]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_in_main_help_text]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_in_platform_config]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_hint_git_add]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_bash_matcher]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_read_glob_matcher]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_idempotent]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_merges_existing_codebuddy_md]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_prints_no_change_on_second_run]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_codebuddy_md]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_hook]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_upgrades_stale_section]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_install_user_creates_skill_file]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_project_scope]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_user_scope]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_contains_frontmatter]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_exists_in_package]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_references_graphify_query]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_no_section]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_not_installed]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_preserves_other_content]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_hook]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_section]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_hook]]
+- [[graphify_tests_test_codebuddy]] → `contains` → [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_md]]
+- [[graphify_tests_test_codebuddy_rationale_1]] → `rationale_for` → [[graphify_tests_test_codebuddy]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_user_creates_skill_file]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_install_user]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_contains_frontmatter]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_install_user]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_references_graphify_query]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_install_user]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_user_creates_skill_file]] → `calls` → [[graphify_tests_test_codebuddy_skill_path_user]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_contains_frontmatter]] → `calls` → [[graphify_tests_test_codebuddy_skill_path_user]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_references_graphify_query]] → `calls` → [[graphify_tests_test_codebuddy_skill_path_user]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_idempotent]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_merges_existing_codebuddy_md]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_codebuddy_md]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_upgrades_stale_section]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_no_section]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_preserves_other_content]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_section]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_md]] → `calls` → [[graphify_tests_test_codebuddy_codebuddy_md_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_bash_matcher]] → `calls` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_read_glob_matcher]] → `calls` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_hook]] → `calls` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]] → `calls` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_hook]] → `calls` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_hook]] → `calls` → [[graphify_tests_test_codebuddy_settings_path]]
+- [[graphify_tests_test_codebuddy_rationale_48]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_user_creates_skill_file]]
+- [[graphify_tests_test_codebuddy_rationale_55]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_contains_frontmatter]]
+- [[graphify_tests_test_codebuddy_rationale_63]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_references_graphify_query]]
+- [[graphify_tests_test_codebuddy_rationale_74]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_codebuddy_md]]
+- [[graphify_tests_test_codebuddy_rationale_85]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_project_writes_hook]]
+- [[graphify_tests_test_codebuddy_rationale_96]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_bash_matcher]]
+- [[graphify_tests_test_codebuddy_rationale_106]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_hook_has_read_glob_matcher]]
+- [[graphify_tests_test_codebuddy_rationale_116]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_idempotent]]
+- [[graphify_tests_test_codebuddy_rationale_125]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_upgrades_stale_section]]
+- [[graphify_tests_test_codebuddy_rationale_140]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_merges_existing_codebuddy_md]]
+- [[graphify_tests_test_codebuddy_rationale_151]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_prints_no_change_on_second_run]]
+- [[graphify_tests_test_codebuddy_rationale_161]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_install_hint_git_add]]
+- [[graphify_tests_test_codebuddy_rationale_185]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_section]]
+- [[graphify_tests_test_codebuddy_rationale_194]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_removes_hook]]
+- [[graphify_tests_test_codebuddy_rationale_206]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_not_installed]]
+- [[graphify_tests_test_codebuddy_rationale_212]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_noop_if_no_section]]
+- [[graphify_tests_test_codebuddy_rationale_221]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_uninstall_preserves_other_content]]
+- [[graphify_tests_test_codebuddy_rationale_238]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_md]]
+- [[graphify_tests_test_codebuddy_rationale_255]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_uninstall_all_removes_codebuddy_hook]]
+- [[graphify_tests_test_codebuddy_rationale_278]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_in_platform_config]]
+- [[graphify_tests_test_codebuddy_rationale_286]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_user_scope]]
+- [[graphify_tests_test_codebuddy_rationale_294]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_platform_skill_destination_project_scope]]
+- [[graphify_tests_test_codebuddy_rationale_301]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_in_main_help_text]]
+- [[graphify_tests_test_codebuddy_rationale_316]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_skill_file_exists_in_package]]
+- [[graphify_tests_test_codebuddy_rationale_323]] → `rationale_for` → [[graphify_tests_test_codebuddy_test_codebuddy_installation_roundtrip]]

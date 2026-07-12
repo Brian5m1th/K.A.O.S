@@ -1,0 +1,91 @@
+# docs\guides\FIRST_RUN.md
+
+## Símbolos
+
+- [[docs_guides_first_run]] — code: FIRST_RUN.md
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] — code: Guia de Primeira Execução — K.A.O.S
+- [[docs_guides_first_run_1_subir_backend]] — code: 1. Subir Backend
+- [[docs_guides_first_run_2_subir_desktop_outro_terminal]] — code: 2. Subir Desktop (outro terminal)
+- [[docs_guides_first_run_3_subir_infraestrutura_outro_terminal]] — code: 3. Subir Infraestrutura (outro terminal)
+- [[docs_guides_first_run_4_validar_apis]] — code: 4. Validar APIs
+- [[docs_guides_first_run_4_1_health_check]] — code: 4.1 Health Check
+- [[docs_guides_first_run_4_2_api_key]] — code: 4.2 API Key
+- [[docs_guides_first_run_4_3_chat_requer_api_key]] — code: 4.3 Chat (requer API Key)
+- [[docs_guides_first_run_4_4_models]] — code: 4.4 Models
+- [[docs_guides_first_run_5_validar_ollama]] — code: 5. Validar Ollama
+- [[docs_guides_first_run_6_validar_qdrant]] — code: 6. Validar Qdrant
+- [[docs_guides_first_run_7_validar_postgresql]] — code: 7. Validar PostgreSQL
+- [[docs_guides_first_run_8_validar_observabilidade]] — code: 8. Validar Observabilidade
+- [[docs_guides_first_run_8_1_métricas_prometheus]] — code: 8.1 Métricas Prometheus
+- [[docs_guides_first_run_8_2_grafana]] — code: 8.2 Grafana
+- [[docs_guides_first_run_8_3_logs]] — code: 8.3 Logs
+- [[docs_guides_first_run_9_validar_desktop]] — code: 9. Validar Desktop
+- [[docs_guides_first_run_9_1_sidebar]] — code: 9.1 Sidebar
+- [[docs_guides_first_run_9_2_documentation_health]] — code: 9.2 Documentation Health
+- [[docs_guides_first_run_9_3_architecture_graph]] — code: 9.3 Architecture Graph
+- [[docs_guides_first_run_9_4_ctrl_k_command_palette]] — code: 9.4 CTRL+K (Command Palette)
+- [[docs_guides_first_run_10_validar_kirl_documentation_runtime_layer]] — code: 10. Validar KIRL (Documentation Runtime Layer)
+- [[docs_guides_first_run_10_1_executar_auditoria]] — code: 10.1 Executar Auditoria
+- [[docs_guides_first_run_10_2_verificar_snapshot]] — code: 10.2 Verificar Snapshot
+- [[docs_guides_first_run_10_3_verificar_feature_registry]] — code: 10.3 Verificar Feature Registry
+- [[docs_guides_first_run_10_4_escanear_commits]] — code: 10.4 Escanear Commits
+- [[docs_guides_first_run_11_validar_auto_doc]] — code: 11. Validar Auto-Doc
+- [[docs_guides_first_run_checklist_final]] — code: Checklist Final
+- [[docs_guides_first_run_próximos_passos]] — code: Próximos Passos
+- [[docs_guides_first_run_resumo]] — code: Resumo
+- [[docs_guides_first_run_objetivo]] — code: Objetivo
+- [[docs_guides_first_run_responsabilidades]] — code: Responsabilidades
+- [[docs_guides_first_run_dependencias]] — code: Dependencias
+- [[docs_guides_first_run_fluxos]] — code: Fluxos
+- [[docs_guides_first_run_integracoes]] — code: Integracoes
+- [[docs_guides_first_run_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_guides_first_run_referencias_kirl]] — code: Referencias KIRL
+- [[docs_guides_first_run_status]] — code: Status
+- [[docs_guides_first_run_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_guides_first_run]] → `references` → [[docs_guides_developer_guide]]
+- [[docs_guides_first_run]] → `contains` → [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]]
+- [[docs_guides_first_run]] → `references` → [[docs_guides_kirl_guide]]
+- [[docs_guides_first_run]] → `references` → [[docs_guides_obsidian_guide]]
+- [[docs_guides_first_run]] → `references` → [[docs_guides_operations]]
+- [[docs_guides_first_run]] → `references` → [[docs_guides_user_guide]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_10_validar_kirl_documentation_runtime_layer]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_11_validar_auto_doc]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_1_subir_backend]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_2_subir_desktop_outro_terminal]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_3_subir_infraestrutura_outro_terminal]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_4_validar_apis]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_5_validar_ollama]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_6_validar_qdrant]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_7_validar_postgresql]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_8_validar_observabilidade]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_9_validar_desktop]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_arquivos_relacionados]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_checklist_final]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_dependencias]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_fluxos]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_integracoes]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_objetivo]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_próximos_passos]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_referencias_kirl]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_responsabilidades]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_resumo]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_status]]
+- [[docs_guides_first_run_guia_de_primeira_execução_k_a_o_s]] → `contains` → [[docs_guides_first_run_ultima_atualizacao]]
+- [[docs_guides_first_run_4_validar_apis]] → `contains` → [[docs_guides_first_run_4_1_health_check]]
+- [[docs_guides_first_run_4_validar_apis]] → `contains` → [[docs_guides_first_run_4_2_api_key]]
+- [[docs_guides_first_run_4_validar_apis]] → `contains` → [[docs_guides_first_run_4_3_chat_requer_api_key]]
+- [[docs_guides_first_run_4_validar_apis]] → `contains` → [[docs_guides_first_run_4_4_models]]
+- [[docs_guides_first_run_8_validar_observabilidade]] → `contains` → [[docs_guides_first_run_8_1_métricas_prometheus]]
+- [[docs_guides_first_run_8_validar_observabilidade]] → `contains` → [[docs_guides_first_run_8_2_grafana]]
+- [[docs_guides_first_run_8_validar_observabilidade]] → `contains` → [[docs_guides_first_run_8_3_logs]]
+- [[docs_guides_first_run_9_validar_desktop]] → `contains` → [[docs_guides_first_run_9_1_sidebar]]
+- [[docs_guides_first_run_9_validar_desktop]] → `contains` → [[docs_guides_first_run_9_2_documentation_health]]
+- [[docs_guides_first_run_9_validar_desktop]] → `contains` → [[docs_guides_first_run_9_3_architecture_graph]]
+- [[docs_guides_first_run_9_validar_desktop]] → `contains` → [[docs_guides_first_run_9_4_ctrl_k_command_palette]]
+- [[docs_guides_first_run_10_validar_kirl_documentation_runtime_layer]] → `contains` → [[docs_guides_first_run_10_1_executar_auditoria]]
+- [[docs_guides_first_run_10_validar_kirl_documentation_runtime_layer]] → `contains` → [[docs_guides_first_run_10_2_verificar_snapshot]]
+- [[docs_guides_first_run_10_validar_kirl_documentation_runtime_layer]] → `contains` → [[docs_guides_first_run_10_3_verificar_feature_registry]]
+- [[docs_guides_first_run_10_validar_kirl_documentation_runtime_layer]] → `contains` → [[docs_guides_first_run_10_4_escanear_commits]]

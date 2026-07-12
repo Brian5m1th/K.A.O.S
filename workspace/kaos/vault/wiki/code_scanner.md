@@ -1,0 +1,121 @@
+# assistant\app\audit\code_scanner.py
+
+## Símbolos
+
+- [[assistant_app_audit_code_scanner]] — code: code_scanner.py
+- [[assistant_app_audit_code_scanner_codesnapshot]] — code: CodeSnapshot
+- [[assistant_app_audit_code_scanner_codescanner]] — code: CodeScanner
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] — code: .scan_all()
+- [[assistant_app_audit_code_scanner_codescanner_env]] — code: ._env()
+- [[assistant_app_audit_code_scanner_codescanner_rel]] — code: ._rel()
+- [[assistant_app_audit_code_scanner_codescanner_walk]] — code: ._walk()
+- [[assistant_app_audit_code_scanner_codescanner_walk_python]] — code: ._walk_python()
+- [[assistant_app_audit_code_scanner_codescanner_walk_ts]] — code: ._walk_ts()
+- [[assistant_app_audit_code_scanner_codescanner_walk_tsx]] — code: ._walk_tsx()
+- [[assistant_app_audit_code_scanner_codescanner_desktop_src]] — code: ._desktop_src()
+- [[assistant_app_audit_code_scanner_codescanner_desktop_path]] — code: ._desktop_path()
+- [[assistant_app_audit_code_scanner_codescanner_backend_src]] — code: ._backend_src()
+- [[assistant_app_audit_code_scanner_codescanner_backend_path]] — code: ._backend_path()
+- [[assistant_app_audit_code_scanner_codescanner_scan_stores]] — code: ._scan_stores()
+- [[assistant_app_audit_code_scanner_codescanner_scan_routes]] — code: ._scan_routes()
+- [[assistant_app_audit_code_scanner_codescanner_scan_tools]] — code: ._scan_tools()
+- [[assistant_app_audit_code_scanner_codescanner_scan_events]] — code: ._scan_events()
+- [[assistant_app_audit_code_scanner_codescanner_scan_agents]] — code: ._scan_agents()
+- [[assistant_app_audit_code_scanner_codescanner_scan_workflows]] — code: ._scan_workflows()
+- [[assistant_app_audit_code_scanner_codescanner_scan_providers]] — code: ._scan_providers()
+- [[assistant_app_audit_code_scanner_codescanner_scan_components]] — code: ._scan_components()
+- [[assistant_app_audit_code_scanner_codescanner_scan_hooks]] — code: ._scan_hooks()
+- [[assistant_app_audit_code_scanner_rationale_22]] — code: Scanner de codigo fonte do K.A.O.S.     Usa EnvironmentService para resolver pa
+- [[assistant_app_audit_code_scanner_rationale_46]] — code: Escaneia todo o codebase e retorna um snapshot.
+- [[assistant_app_audit_code_scanner_rationale_69]] — code: Retorna EnvironmentInfo cacheado.
+- [[assistant_app_audit_code_scanner_rationale_74]] — code: Path relativo ao project_root.
+- [[assistant_app_audit_code_scanner_rationale_82]] — code: Walk em um diretorio buscando arquivos que contem pattern.
+- [[assistant_app_audit_code_scanner_rationale_113]] — code: Path para desktop/src, ou None se nao existir.
+- [[assistant_app_audit_code_scanner_rationale_127]] — code: Path para assistant/app (backendo Python).
+
+## Dependências
+
+- [[assistant_app_audit_code_scanner]] → `contains` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_audit_code_scanner]] → `contains` → [[assistant_app_audit_code_scanner_codesnapshot]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `references` → [[assistant_app_audit_code_scanner_codesnapshot]]
+- [[assistant_app_audit_code_scanner_codesnapshot]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_backend_path]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_backend_src]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_desktop_src]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_env]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_rel]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_agents]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_all]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_components]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_events]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_hooks]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_providers]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_routes]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_stores]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_tools]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_scan_workflows]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_walk]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_walk_python]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_walk_ts]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `method` → [[assistant_app_audit_code_scanner_codescanner_walk_tsx]]
+- [[assistant_app_audit_code_scanner_codescanner]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_audit_code_scanner_rationale_22]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_agents]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_components]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_events]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_hooks]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_providers]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_routes]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_stores]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_tools]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_all]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_workflows]]
+- [[assistant_app_audit_code_scanner_rationale_46]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner_scan_all]]
+- [[assistant_app_audit_code_scanner_codescanner_backend_src]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_env]]
+- [[assistant_app_audit_code_scanner_codescanner_desktop_src]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_env]]
+- [[assistant_app_audit_code_scanner_codescanner_env]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_app_audit_code_scanner_codescanner_rel]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_env]]
+- [[assistant_app_audit_code_scanner_rationale_69]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner_env]]
+- [[assistant_app_audit_code_scanner_codescanner_rel]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_walk]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_rel]]
+- [[assistant_app_audit_code_scanner_rationale_74]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner_rel]]
+- [[assistant_app_audit_code_scanner_codescanner_backend_path]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_backend_src]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_desktop_path]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_desktop_src]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_walk]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_walk_python]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_walk_ts]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_walk_tsx]] → `references` → [[assistant_app_audit_code_scanner_py_path]]
+- [[assistant_app_audit_code_scanner_codescanner_walk_python]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk]]
+- [[assistant_app_audit_code_scanner_codescanner_walk_ts]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk]]
+- [[assistant_app_audit_code_scanner_codescanner_walk_tsx]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk]]
+- [[assistant_app_audit_code_scanner_rationale_82]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner_walk]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_agents]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_python]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_events]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_python]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_providers]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_python]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_tools]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_python]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_workflows]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_python]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_agents]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_ts]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_events]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_ts]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_hooks]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_ts]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_stores]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_ts]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_tools]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_ts]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_components]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_tsx]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_routes]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_walk_tsx]]
+- [[assistant_app_audit_code_scanner_codescanner_desktop_path]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_src]]
+- [[assistant_app_audit_code_scanner_rationale_113]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner_desktop_src]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_agents]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_components]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_events]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_hooks]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_routes]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_stores]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_tools]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_desktop_path]]
+- [[assistant_app_audit_code_scanner_codescanner_backend_path]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_backend_src]]
+- [[assistant_app_audit_code_scanner_rationale_127]] → `rationale_for` → [[assistant_app_audit_code_scanner_codescanner_backend_src]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_agents]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_backend_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_events]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_backend_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_providers]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_backend_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_tools]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_backend_path]]
+- [[assistant_app_audit_code_scanner_codescanner_scan_workflows]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_backend_path]]

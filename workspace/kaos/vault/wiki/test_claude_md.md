@@ -1,0 +1,110 @@
+# graphify\tests\test_claude_md.py
+
+## Símbolos
+
+- [[graphify_tests_test_claude_md]] — code: test_claude_md.py
+- [[graphify_tests_test_claude_md_test_install_creates_claude_md]] — code: test_install_creates_claude_md()
+- [[graphify_tests_test_claude_md_test_install_contains_expected_rules]] — code: test_install_contains_expected_rules()
+- [[graphify_tests_test_claude_md_test_install_appends_to_existing_claude_md]] — code: test_install_appends_to_existing_claude_md()
+- [[graphify_tests_test_claude_md_test_install_is_idempotent]] — code: test_install_is_idempotent()
+- [[graphify_tests_test_claude_md_test_install_idempotent_message]] — code: test_install_idempotent_message()
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section]] — code: test_uninstall_removes_section()
+- [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content]] — code: test_uninstall_preserves_other_content()
+- [[graphify_tests_test_claude_md_test_uninstall_no_op_when_not_installed]] — code: test_uninstall_no_op_when_not_installed()
+- [[graphify_tests_test_claude_md_test_uninstall_no_op_when_no_file]] — code: test_uninstall_no_op_when_no_file()
+- [[graphify_tests_test_claude_md_test_install_creates_settings_json]] — code: test_install_creates_settings_json()
+- [[graphify_tests_test_claude_md_test_install_settings_json_idempotent]] — code: test_install_settings_json_idempotent()
+- [[graphify_tests_test_claude_md_test_uninstall_removes_settings_hook]] — code: test_uninstall_removes_settings_hook()
+- [[graphify_tests_test_claude_md_test_uninstall_removes_hook_from_settings_local_json]] — code: test_uninstall_removes_hook_from_settings_local_json()
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_dot_claude_local_md]] — code: test_uninstall_removes_section_from_dot_claude_local_md()
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_root_claude_local_md]] — code: test_uninstall_removes_section_from_root_claude_local_md()
+- [[graphify_tests_test_claude_md_test_uninstall_cleans_both_standard_and_local]] — code: test_uninstall_cleans_both_standard_and_local()
+- [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content_in_local_md]] — code: test_uninstall_preserves_other_content_in_local_md()
+- [[graphify_tests_test_claude_md_test_uninstall_tolerates_unreadable_local_md]] — code: test_uninstall_tolerates_unreadable_local_md()
+- [[graphify_tests_test_claude_md_rationale_1]] — code: Tests for graphify claude install / uninstall commands.
+- [[graphify_tests_test_claude_md_rationale_12]] — code: Creates CLAUDE.md when none exists.
+- [[graphify_tests_test_claude_md_rationale_20]] — code: Written section includes the three rules.
+- [[graphify_tests_test_claude_md_rationale_29]] — code: Appends to an existing CLAUDE.md without clobbering it.
+- [[graphify_tests_test_claude_md_rationale_39]] — code: Running install twice does not duplicate the section.
+- [[graphify_tests_test_claude_md_rationale_49]] — code: Second install prints the 'already configured' message.
+- [[graphify_tests_test_claude_md_rationale_62]] — code: Removes the graphify section after it was installed.
+- [[graphify_tests_test_claude_md_rationale_72]] — code: Uninstall keeps pre-existing content outside the graphify section.
+- [[graphify_tests_test_claude_md_rationale_85]] — code: Uninstall on a CLAUDE.md without graphify section prints a message and exits cle
+- [[graphify_tests_test_claude_md_rationale_94]] — code: Uninstall when no CLAUDE.md exists prints a message and exits cleanly.
+- [[graphify_tests_test_claude_md_rationale_105]] — code: claude_install also writes .claude/settings.json with PreToolUse hook.
+- [[graphify_tests_test_claude_md_rationale_116]] — code: Running claude_install twice does not duplicate the PreToolUse hook.
+- [[graphify_tests_test_claude_md_rationale_128]] — code: claude_uninstall removes the PreToolUse hook from settings.json.
+- [[graphify_tests_test_claude_md_rationale_144]] — code: A hook relocated to .claude/settings.local.json is removed on uninstall.
+- [[graphify_tests_test_claude_md_rationale_156]] — code: Instructions relocated to .claude/CLAUDE.local.md are removed on uninstall.
+- [[graphify_tests_test_claude_md_rationale_166]] — code: Instructions relocated to root CLAUDE.local.md are removed on uninstall.
+- [[graphify_tests_test_claude_md_rationale_176]] — code: When the section lives in both CLAUDE.md and a local variant, both are cleaned.
+- [[graphify_tests_test_claude_md_rationale_187]] — code: Uninstall keeps non-graphify content in CLAUDE.local.md.
+- [[graphify_tests_test_claude_md_rationale_200]] — code: A non-UTF-8 CLAUDE.local.md must not abort uninstall (it has no marker to strip)
+
+## Dependências
+
+- [[graphify_tests_test_claude_md]] → `imports_from` → [[graphify_graphify_main]]
+- [[graphify_tests_test_claude_md_test_install_appends_to_existing_claude_md]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_install_contains_expected_rules]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_install_creates_claude_md]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_install_creates_settings_json]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_install_idempotent_message]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_install_is_idempotent]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_install_settings_json_idempotent]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_cleans_both_standard_and_local]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content_in_local_md]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_hook_from_settings_local_json]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_dot_claude_local_md]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_root_claude_local_md]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_settings_hook]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_tolerates_unreadable_local_md]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_tests_test_claude_md_test_uninstall_cleans_both_standard_and_local]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_no_op_when_no_file]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_no_op_when_not_installed]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content_in_local_md]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_hook_from_settings_local_json]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_dot_claude_local_md]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_root_claude_local_md]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_removes_settings_hook]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md_test_uninstall_tolerates_unreadable_local_md]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_appends_to_existing_claude_md]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_contains_expected_rules]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_creates_claude_md]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_creates_settings_json]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_idempotent_message]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_is_idempotent]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_install_settings_json_idempotent]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_cleans_both_standard_and_local]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_no_op_when_no_file]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_no_op_when_not_installed]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content_in_local_md]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_removes_hook_from_settings_local_json]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_removes_section]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_dot_claude_local_md]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_root_claude_local_md]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_removes_settings_hook]]
+- [[graphify_tests_test_claude_md]] → `contains` → [[graphify_tests_test_claude_md_test_uninstall_tolerates_unreadable_local_md]]
+- [[graphify_tests_test_claude_md_rationale_1]] → `rationale_for` → [[graphify_tests_test_claude_md]]
+- [[graphify_tests_test_claude_md_rationale_12]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_creates_claude_md]]
+- [[graphify_tests_test_claude_md_rationale_20]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_contains_expected_rules]]
+- [[graphify_tests_test_claude_md_rationale_29]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_appends_to_existing_claude_md]]
+- [[graphify_tests_test_claude_md_rationale_39]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_is_idempotent]]
+- [[graphify_tests_test_claude_md_rationale_49]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_idempotent_message]]
+- [[graphify_tests_test_claude_md_rationale_62]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_removes_section]]
+- [[graphify_tests_test_claude_md_rationale_72]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content]]
+- [[graphify_tests_test_claude_md_rationale_85]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_no_op_when_not_installed]]
+- [[graphify_tests_test_claude_md_rationale_94]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_no_op_when_no_file]]
+- [[graphify_tests_test_claude_md_rationale_105]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_creates_settings_json]]
+- [[graphify_tests_test_claude_md_rationale_116]] → `rationale_for` → [[graphify_tests_test_claude_md_test_install_settings_json_idempotent]]
+- [[graphify_tests_test_claude_md_rationale_128]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_removes_settings_hook]]
+- [[graphify_tests_test_claude_md_rationale_144]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_removes_hook_from_settings_local_json]]
+- [[graphify_tests_test_claude_md_rationale_156]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_dot_claude_local_md]]
+- [[graphify_tests_test_claude_md_rationale_166]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_removes_section_from_root_claude_local_md]]
+- [[graphify_tests_test_claude_md_rationale_176]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_cleans_both_standard_and_local]]
+- [[graphify_tests_test_claude_md_rationale_187]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_preserves_other_content_in_local_md]]
+- [[graphify_tests_test_claude_md_rationale_200]] → `rationale_for` → [[graphify_tests_test_claude_md_test_uninstall_tolerates_unreadable_local_md]]

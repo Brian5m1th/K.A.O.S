@@ -1,0 +1,83 @@
+# assistant\app\obsidian\wiki_pipeline.py
+
+## Símbolos
+
+- [[assistant_app_obsidian_wiki_pipeline]] — code: wiki_pipeline.py
+- [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]] — code: PipelineStageResult
+- [[assistant_app_obsidian_wiki_pipeline_pipelineresult]] — code: PipelineResult
+- [[assistant_app_obsidian_wiki_pipeline_pipelineresult_to_dict]] — code: .to_dict()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] — code: WikiPipeline
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_init]] — code: .__init__()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_create_synthesis_entry]] — code: .create_synthesis_entry()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_lint]] — code: .run_lint()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_list_pending_drafts]] — code: .list_pending_drafts()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_approve_all_drafts]] — code: .approve_all_drafts()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] — code: .run_pipeline()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]] — code: .run_full_pipeline()
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_discover_raw_sources]] — code: ._discover_raw_sources()
+- [[assistant_app_obsidian_wiki_pipeline_rationale_1]] — code: Wiki Pipeline — Pipeline orquestrado Source -> Entities -> Concepts -> Synthesis
+- [[assistant_app_obsidian_wiki_pipeline_rationale_30]] — code: Resultado de uma etapa do pipeline.
+- [[assistant_app_obsidian_wiki_pipeline_rationale_41]] — code: Resultado completo da execucao do pipeline.
+- [[assistant_app_obsidian_wiki_pipeline_rationale_65]] — code: Pipeline orquestrado do fluxo Wiki-First.      Fluxo completo:     1. Source
+- [[assistant_app_obsidian_wiki_pipeline_rationale_92]] — code: Cria uma entrada de sintese no wiki.          Args:             title: Titulo
+- [[assistant_app_obsidian_wiki_pipeline_rationale_121]] — code: Executa linting completo no wiki.          Returns:             Relatorio com
+- [[assistant_app_obsidian_wiki_pipeline_rationale_139]] — code: Lista todos os rascunhos pendentes no wiki.          Returns:             Lis
+- [[assistant_app_obsidian_wiki_pipeline_rationale_154]] — code: Aprova todos os rascunhos pendentes.          Returns:             Numero de
+- [[assistant_app_obsidian_wiki_pipeline_rationale_180]] — code: Executa o pipeline completo para uma fonte.          Fluxo:         source ->
+- [[assistant_app_obsidian_wiki_pipeline_rationale_293]] — code: Executa o pipeline para multiplas fontes.          Se source_paths for None, b
+- [[assistant_app_obsidian_wiki_pipeline_rationale_324]] — code: Descobre arquivos fonte na pasta raw/ do vault.
+
+## Dependências
+
+- [[assistant_app_obsidian_wiki_pipeline_pipelineresult]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_app_obsidian_wiki_pipeline_pipelineresult]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_init]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_obsidian_wiki_pipeline]] → `contains` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_app_obsidian_wiki_pipeline]] → `contains` → [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]]
+- [[assistant_app_obsidian_wiki_pipeline]] → `contains` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_1]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_30]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_pipelinestageresult]]
+- [[assistant_app_obsidian_wiki_pipeline_pipelineresult]] → `method` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult_to_dict]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_41]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]] → `references` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `references` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult]]
+- [[assistant_app_obsidian_wiki_pipeline_pipelineresult_to_dict]] → `references` → [[assistant_app_obsidian_wiki_pipeline_py_any]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_pipelineresult_to_dict]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_create_synthesis_entry]] → `references` → [[assistant_app_obsidian_wiki_pipeline_py_any]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_list_pending_drafts]] → `references` → [[assistant_app_obsidian_wiki_pipeline_py_any]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_lint]] → `references` → [[assistant_app_obsidian_wiki_pipeline_py_any]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_65]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_approve_all_drafts]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_create_synthesis_entry]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_discover_raw_sources]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_init]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_list_pending_drafts]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_lint]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline]] → `method` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_init]] → `references` → [[eventbus]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_92]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_create_synthesis_entry]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_create_synthesis_entry]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_create_synthesis_entry]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_121]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_lint]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_lint]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_lint]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_139]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_list_pending_drafts]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_approve_all_drafts]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_list_pending_drafts]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_list_pending_drafts]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_154]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_approve_all_drafts]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_approve_all_drafts]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_approve_all_drafts]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_180]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_pipeline]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_293]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]] → `calls` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_discover_raw_sources]]
+- [[assistant_app_obsidian_wiki_pipeline_wikipipeline_run_full_pipeline]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_obsidian_wiki_pipeline_rationale_324]] → `rationale_for` → [[assistant_app_obsidian_wiki_pipeline_wikipipeline_discover_raw_sources]]

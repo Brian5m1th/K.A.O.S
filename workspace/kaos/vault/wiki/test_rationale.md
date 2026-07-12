@@ -1,0 +1,100 @@
+# graphify\tests\test_rationale.py
+
+## Símbolos
+
+- [[graphify_tests_test_rationale]] — code: test_rationale.py
+- [[graphify_tests_test_rationale_write_py]] — code: _write_py()
+- [[graphify_tests_test_rationale_test_module_docstring_extracted]] — code: test_module_docstring_extracted()
+- [[graphify_tests_test_rationale_test_function_docstring_extracted]] — code: test_function_docstring_extracted()
+- [[graphify_tests_test_rationale_test_class_docstring_extracted]] — code: test_class_docstring_extracted()
+- [[graphify_tests_test_rationale_test_rationale_comment_extracted]] — code: test_rationale_comment_extracted()
+- [[graphify_tests_test_rationale_test_rationale_for_edges_present]] — code: test_rationale_for_edges_present()
+- [[graphify_tests_test_rationale_test_short_docstring_ignored]] — code: test_short_docstring_ignored()
+- [[graphify_tests_test_rationale_test_rationale_confidence_is_extracted]] — code: test_rationale_confidence_is_extracted()
+- [[graphify_tests_test_rationale_test_alembic_module_docstring_suppressed]] — code: test_alembic_module_docstring_suppressed()
+- [[graphify_tests_test_rationale_test_alembic_function_docstrings_still_extracted]] — code: test_alembic_function_docstrings_still_extracted()
+- [[graphify_tests_test_rationale_test_non_migration_revision_var_not_suppressed]] — code: test_non_migration_revision_var_not_suppressed()
+- [[graphify_tests_test_rationale_test_django_migration_module_docstring_suppressed]] — code: test_django_migration_module_docstring_suppressed()
+- [[graphify_tests_test_rationale_test_generated_file_module_docstring_suppressed]] — code: test_generated_file_module_docstring_suppressed()
+- [[graphify_tests_test_rationale_test_decorated_method_node_id_is_class_qualified]] — code: test_decorated_method_node_id_is_class_qualified()
+- [[graphify_tests_test_rationale_write_ts]] — code: _write_ts()
+- [[graphify_tests_test_rationale_test_js_rationale_comment_extracted]] — code: test_js_rationale_comment_extracted()
+- [[graphify_tests_test_rationale_test_js_block_comment_rationale_extracted]] — code: test_js_block_comment_rationale_extracted()
+- [[graphify_tests_test_rationale_test_js_adr_reference_extracted]] — code: test_js_adr_reference_extracted()
+- [[graphify_tests_test_rationale_test_js_adr_reference_normalized_and_deduped]] — code: test_js_adr_reference_normalized_and_deduped()
+- [[graphify_tests_test_rationale_test_js_adr_in_string_literal_not_extracted]] — code: test_js_adr_in_string_literal_not_extracted()
+- [[graphify_tests_test_rationale_rationale_1]] — code: Tests for rationale/docstring extraction in extract.py.
+- [[graphify_tests_test_rationale_rationale_72]] — code: Trivial docstrings under 20 chars should not become rationale nodes.
+- [[graphify_tests_test_rationale_rationale_117]] — code: Function docstrings inside upgrade/downgrade should still be captured.
+- [[graphify_tests_test_rationale_rationale_139]] — code: A file with a `revision` variable but no Alembic markers keeps its docstring.
+- [[graphify_tests_test_rationale_rationale_179]] — code: Regression for #1050: @property / @staticmethod / @classmethod methods     were
+- [[graphify_tests_test_rationale_rationale_51]] — code: # NOTE: must run before compile() or linker will fail
+
+## Dependências
+
+- [[graphify_tests_test_rationale]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_rationale]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_rationale_test_alembic_function_docstrings_still_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_alembic_module_docstring_suppressed]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_class_docstring_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_decorated_method_node_id_is_class_qualified]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_django_migration_module_docstring_suppressed]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_function_docstring_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_generated_file_module_docstring_suppressed]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_module_docstring_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_non_migration_revision_var_not_suppressed]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_rationale_comment_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_rationale_confidence_is_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_rationale_for_edges_present]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_short_docstring_ignored]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_rationale_test_js_adr_in_string_literal_not_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_rationale_test_js_adr_reference_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_rationale_test_js_adr_reference_normalized_and_deduped]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_rationale_test_js_block_comment_rationale_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_rationale_test_js_rationale_comment_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_alembic_function_docstrings_still_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_alembic_module_docstring_suppressed]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_class_docstring_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_decorated_method_node_id_is_class_qualified]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_django_migration_module_docstring_suppressed]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_function_docstring_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_generated_file_module_docstring_suppressed]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_js_adr_in_string_literal_not_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_js_adr_reference_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_js_adr_reference_normalized_and_deduped]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_js_block_comment_rationale_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_js_rationale_comment_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_module_docstring_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_non_migration_revision_var_not_suppressed]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_rationale_comment_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_rationale_confidence_is_extracted]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_rationale_for_edges_present]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_test_short_docstring_ignored]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale]] → `contains` → [[graphify_tests_test_rationale_write_ts]]
+- [[graphify_tests_test_rationale_rationale_1]] → `rationale_for` → [[graphify_tests_test_rationale]]
+- [[graphify_tests_test_rationale_rationale_51]] → `rationale_for` → [[graphify_tests_test_rationale]]
+- [[graphify_tests_test_rationale_test_alembic_function_docstrings_still_extracted]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_alembic_module_docstring_suppressed]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_class_docstring_extracted]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_decorated_method_node_id_is_class_qualified]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_django_migration_module_docstring_suppressed]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_function_docstring_extracted]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_generated_file_module_docstring_suppressed]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_module_docstring_extracted]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_non_migration_revision_var_not_suppressed]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_rationale_comment_extracted]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_rationale_confidence_is_extracted]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_rationale_for_edges_present]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_test_short_docstring_ignored]] → `calls` → [[graphify_tests_test_rationale_write_py]]
+- [[graphify_tests_test_rationale_write_py]] → `references` → [[graphify_tests_test_rationale_py_path]]
+- [[graphify_tests_test_rationale_write_ts]] → `references` → [[graphify_tests_test_rationale_py_path]]
+- [[graphify_tests_test_rationale_rationale_72]] → `rationale_for` → [[graphify_tests_test_rationale_test_short_docstring_ignored]]
+- [[graphify_tests_test_rationale_rationale_117]] → `rationale_for` → [[graphify_tests_test_rationale_test_alembic_function_docstrings_still_extracted]]
+- [[graphify_tests_test_rationale_rationale_139]] → `rationale_for` → [[graphify_tests_test_rationale_test_non_migration_revision_var_not_suppressed]]
+- [[graphify_tests_test_rationale_rationale_179]] → `rationale_for` → [[graphify_tests_test_rationale_test_decorated_method_node_id_is_class_qualified]]
+- [[graphify_tests_test_rationale_test_js_adr_in_string_literal_not_extracted]] → `calls` → [[graphify_tests_test_rationale_write_ts]]
+- [[graphify_tests_test_rationale_test_js_adr_reference_extracted]] → `calls` → [[graphify_tests_test_rationale_write_ts]]
+- [[graphify_tests_test_rationale_test_js_adr_reference_normalized_and_deduped]] → `calls` → [[graphify_tests_test_rationale_write_ts]]
+- [[graphify_tests_test_rationale_test_js_block_comment_rationale_extracted]] → `calls` → [[graphify_tests_test_rationale_write_ts]]
+- [[graphify_tests_test_rationale_test_js_rationale_comment_extracted]] → `calls` → [[graphify_tests_test_rationale_write_ts]]

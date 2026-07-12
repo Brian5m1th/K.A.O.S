@@ -1,0 +1,93 @@
+# graphify\tests\test_cpp_objc_cross_file_calls.py
+
+## Símbolos
+
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] — code: test_cpp_objc_cross_file_calls.py
+- [[graphify_tests_test_cpp_objc_cross_file_calls_write]] — code: _write()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_label]] — code: _label()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]] — code: _call_edges()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_cross_file_member_call_connects_with_relative_paths]] — code: test_cpp_cross_file_member_call_connects_with_relative_paths()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_instance_member_call_resolves]] — code: test_cpp_instance_member_call_resolves()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_pointer_member_call_resolves]] — code: test_cpp_pointer_member_call_resolves()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_qualified_member_call_is_extracted]] — code: test_cpp_qualified_member_call_is_extracted()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_this_member_call_resolves_to_enclosing_class]] — code: test_cpp_this_member_call_resolves_to_enclosing_class()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_godnode_guard_ambiguous_and_unknown_receiver]] — code: test_cpp_godnode_guard_ambiguous_and_unknown_receiver()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_resolved_call_survives_build]] — code: test_cpp_resolved_call_survives_build()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_unknown_receiver_emits_no_edge]] — code: test_cpp_unknown_receiver_emits_no_edge()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_instance_message_send_resolves]] — code: test_objc_instance_message_send_resolves()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_self_message_send_resolves_to_enclosing_class]] — code: test_objc_self_message_send_resolves_to_enclosing_class()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_godnode_guard_ambiguous_selector]] — code: test_objc_godnode_guard_ambiguous_selector()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_resolved_calls_survive_build]] — code: test_objc_resolved_calls_survive_build()
+- [[graphify_tests_test_cpp_objc_cross_file_calls_rationale_1]] — code: Cross-file member-call and include resolution for C++ (#1547) and ObjC (#1556).
+- [[graphify_tests_test_cpp_objc_cross_file_calls_rationale_30]] — code: {(source_label, relation, target_label, confidence)} for the given relations.
+- [[graphify_tests_test_cpp_objc_cross_file_calls_rationale_46]] — code: The headline #1547 fix: a paired class no longer islands — Main.cpp's use of
+
+## Dependências
+
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_cross_file_member_call_connects_with_relative_paths]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_godnode_guard_ambiguous_and_unknown_receiver]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_instance_member_call_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_pointer_member_call_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_qualified_member_call_is_extracted]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_resolved_call_survives_build]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_this_member_call_resolves_to_enclosing_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_unknown_receiver_emits_no_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_godnode_guard_ambiguous_selector]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_instance_message_send_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_resolved_calls_survive_build]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_self_message_send_resolves_to_enclosing_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_label]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_cross_file_member_call_connects_with_relative_paths]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_godnode_guard_ambiguous_and_unknown_receiver]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_instance_member_call_resolves]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_pointer_member_call_resolves]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_qualified_member_call_is_extracted]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_resolved_call_survives_build]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_this_member_call_resolves_to_enclosing_class]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_unknown_receiver_emits_no_edge]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_godnode_guard_ambiguous_selector]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_instance_message_send_resolves]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_resolved_calls_survive_build]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_self_message_send_resolves_to_enclosing_class]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls]] → `contains` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_rationale_1]] → `rationale_for` → [[graphify_tests_test_cpp_objc_cross_file_calls]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_cross_file_member_call_connects_with_relative_paths]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_godnode_guard_ambiguous_and_unknown_receiver]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_instance_member_call_resolves]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_pointer_member_call_resolves]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_qualified_member_call_is_extracted]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_resolved_call_survives_build]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_this_member_call_resolves_to_enclosing_class]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_unknown_receiver_emits_no_edge]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_godnode_guard_ambiguous_selector]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_instance_message_send_resolves]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_resolved_calls_survive_build]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_self_message_send_resolves_to_enclosing_class]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_write]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_write]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_cross_file_member_call_connects_with_relative_paths]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_godnode_guard_ambiguous_and_unknown_receiver]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_instance_member_call_resolves]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_pointer_member_call_resolves]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_qualified_member_call_is_extracted]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_resolved_call_survives_build]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_this_member_call_resolves_to_enclosing_class]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_unknown_receiver_emits_no_edge]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_godnode_guard_ambiguous_selector]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_instance_message_send_resolves]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_resolved_calls_survive_build]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_self_message_send_resolves_to_enclosing_class]] → `references` → [[graphify_tests_test_cpp_objc_cross_file_calls_py_path]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_label]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_godnode_guard_ambiguous_and_unknown_receiver]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_label]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_godnode_guard_ambiguous_selector]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_label]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_rationale_30]] → `rationale_for` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_instance_member_call_resolves]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_pointer_member_call_resolves]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_qualified_member_call_is_extracted]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_this_member_call_resolves_to_enclosing_class]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_unknown_receiver_emits_no_edge]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_instance_message_send_resolves]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_test_objc_self_message_send_resolves_to_enclosing_class]] → `calls` → [[graphify_tests_test_cpp_objc_cross_file_calls_call_edges]]
+- [[graphify_tests_test_cpp_objc_cross_file_calls_rationale_46]] → `rationale_for` → [[graphify_tests_test_cpp_objc_cross_file_calls_test_cpp_cross_file_member_call_connects_with_relative_paths]]

@@ -20,6 +20,7 @@ class AirLLMProvider(BaseProvider):
             logger.info(f"[airllm] Lazy-loading model layers for: {self._model}")
             try:
                 from airllm import AutoModel
+
                 # AutoModel automatically detects and splits models (llama, qwen, etc.)
                 self._model_instance = AutoModel(self._model, **self._kwargs)
             except Exception as e:
@@ -49,7 +50,7 @@ class AirLLMProvider(BaseProvider):
         output_text = model.tokenizer.decode(output_ids[0])
         # Strip the input prompt from the output if returned
         if output_text.startswith(prompt):
-            output_text = output_text[len(prompt):]
+            output_text = output_text[len(prompt) :]
         return output_text.strip()
 
     def invoke(self, messages: list[BaseMessage]) -> BaseMessage:

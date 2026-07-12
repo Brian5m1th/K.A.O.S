@@ -1,0 +1,74 @@
+# graphify\tests\test_claude_cli_backend.py
+
+## Símbolos
+
+- [[graphify_tests_test_claude_cli_backend]] — code: test_claude_cli_backend.py
+- [[graphify_tests_test_claude_cli_backend_fake_claude]] — code: fake_claude()
+- [[graphify_tests_test_claude_cli_backend_test_returns_parsed_nodes_and_edges]] — code: test_returns_parsed_nodes_and_edges()
+- [[graphify_tests_test_claude_cli_backend_test_token_accounting_includes_cache]] — code: test_token_accounting_includes_cache()
+- [[graphify_tests_test_claude_cli_backend_test_finish_reason_length_on_max_tokens]] — code: test_finish_reason_length_on_max_tokens()
+- [[graphify_tests_test_claude_cli_backend_test_raises_when_cli_missing]] — code: test_raises_when_cli_missing()
+- [[graphify_tests_test_claude_cli_backend_test_raises_on_nonzero_exit]] — code: test_raises_on_nonzero_exit()
+- [[graphify_tests_test_claude_cli_backend_test_raises_on_garbage_envelope]] — code: test_raises_on_garbage_envelope()
+- [[graphify_tests_test_claude_cli_backend_test_extract_files_direct_dispatches_to_claude_cli]] — code: test_extract_files_direct_dispatches_to_claude_cli()
+- [[graphify_tests_test_claude_cli_backend_test_backend_registered_with_zero_cost]] — code: test_backend_registered_with_zero_cost()
+- [[graphify_tests_test_claude_cli_backend_test_no_session_persistence_flag_in_subprocess]] — code: test_no_session_persistence_flag_in_subprocess()
+- [[graphify_tests_test_claude_cli_backend_test_no_system_prompt_flag_in_subprocess]] — code: test_no_system_prompt_flag_in_subprocess()
+- [[graphify_tests_test_claude_cli_backend_test_extraction_instructions_ride_in_user_turn]] — code: test_extraction_instructions_ride_in_user_turn()
+- [[graphify_tests_test_claude_cli_backend_test_user_turn_preserves_untrusted_source_guardrails]] — code: test_user_turn_preserves_untrusted_source_guardrails()
+- [[graphify_tests_test_claude_cli_backend_test_windows_prefers_claude_cmd_over_bare_claude]] — code: test_windows_prefers_claude_cmd_over_bare_claude()
+- [[graphify_tests_test_claude_cli_backend_test_windows_falls_back_to_bare_claude_when_cmd_missing]] — code: test_windows_falls_back_to_bare_claude_when_cmd_missing()
+- [[graphify_tests_test_claude_cli_backend_test_windows_raises_when_neither_cmd_nor_bare_claude_present]] — code: test_windows_raises_when_neither_cmd_nor_bare_claude_present()
+- [[graphify_tests_test_claude_cli_backend_test_non_windows_uses_bare_claude]] — code: test_non_windows_uses_bare_claude()
+- [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_default]] — code: test_resolve_api_timeout_default()
+- [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_env_override]] — code: test_resolve_api_timeout_env_override()
+- [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_ignores_invalid]] — code: test_resolve_api_timeout_ignores_invalid()
+- [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_ignores_nonpositive]] — code: test_resolve_api_timeout_ignores_nonpositive()
+- [[graphify_tests_test_claude_cli_backend_test_claude_cli_extraction_honours_timeout]] — code: test_claude_cli_extraction_honours_timeout()
+- [[graphify_tests_test_claude_cli_backend_test_call_llm_claude_cli_branch_honours_timeout]] — code: test_call_llm_claude_cli_branch_honours_timeout()
+- [[graphify_tests_test_claude_cli_backend_test_simple_completion_resolves_cmd_shim_on_windows]] — code: test_simple_completion_resolves_cmd_shim_on_windows()
+- [[graphify_tests_test_claude_cli_backend_rationale_1]] — code: Tests for the `claude-cli` backend (#855/#856).  Mocks subprocess.run + shutil
+- [[graphify_tests_test_claude_cli_backend_rationale_129]] — code: --system-prompt must NOT be used: the CLI ignores its 'raw JSON only'     direc
+- [[graphify_tests_test_claude_cli_backend_rationale_137]] — code: The full extraction schema, an explicit imperative, and the source must     all
+- [[graphify_tests_test_claude_cli_backend_rationale_150]] — code: The <untrusted_source> guardrails from _extraction_system must survive     the
+- [[graphify_tests_test_claude_cli_backend_rationale_161]] — code: On Windows, npm installs `claude.ps1` alongside `claude.cmd`.     `CreateProces
+- [[graphify_tests_test_claude_cli_backend_rationale_189]] — code: If `claude.cmd` is somehow unavailable but `claude` resolves     (e.g. WSL-styl
+- [[graphify_tests_test_claude_cli_backend_rationale_212]] — code: If neither `claude.cmd` nor `claude` are on PATH on Windows,     raise the stan
+- [[graphify_tests_test_claude_cli_backend_rationale_221]] — code: On non-Windows platforms, behaviour is unchanged: bare `claude`     is passed t
+- [[graphify_tests_test_claude_cli_backend_rationale_271]] — code: The label/_simple_completion path must spawn the resolved claude.cmd on     Win
+
+## Dependências
+
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_fake_claude]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_backend_registered_with_zero_cost]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_call_llm_claude_cli_branch_honours_timeout]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_claude_cli_extraction_honours_timeout]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_extract_files_direct_dispatches_to_claude_cli]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_extraction_instructions_ride_in_user_turn]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_finish_reason_length_on_max_tokens]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_no_session_persistence_flag_in_subprocess]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_no_system_prompt_flag_in_subprocess]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_non_windows_uses_bare_claude]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_raises_on_garbage_envelope]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_raises_on_nonzero_exit]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_raises_when_cli_missing]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_default]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_env_override]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_ignores_invalid]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_resolve_api_timeout_ignores_nonpositive]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_returns_parsed_nodes_and_edges]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_simple_completion_resolves_cmd_shim_on_windows]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_token_accounting_includes_cache]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_user_turn_preserves_untrusted_source_guardrails]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_windows_falls_back_to_bare_claude_when_cmd_missing]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_windows_prefers_claude_cmd_over_bare_claude]]
+- [[graphify_tests_test_claude_cli_backend]] → `contains` → [[graphify_tests_test_claude_cli_backend_test_windows_raises_when_neither_cmd_nor_bare_claude_present]]
+- [[graphify_tests_test_claude_cli_backend_rationale_1]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend]]
+- [[graphify_tests_test_claude_cli_backend_rationale_129]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_no_system_prompt_flag_in_subprocess]]
+- [[graphify_tests_test_claude_cli_backend_rationale_137]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_extraction_instructions_ride_in_user_turn]]
+- [[graphify_tests_test_claude_cli_backend_rationale_150]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_user_turn_preserves_untrusted_source_guardrails]]
+- [[graphify_tests_test_claude_cli_backend_rationale_161]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_windows_prefers_claude_cmd_over_bare_claude]]
+- [[graphify_tests_test_claude_cli_backend_rationale_189]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_windows_falls_back_to_bare_claude_when_cmd_missing]]
+- [[graphify_tests_test_claude_cli_backend_rationale_212]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_windows_raises_when_neither_cmd_nor_bare_claude_present]]
+- [[graphify_tests_test_claude_cli_backend_rationale_221]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_non_windows_uses_bare_claude]]
+- [[graphify_tests_test_claude_cli_backend_rationale_271]] → `rationale_for` → [[graphify_tests_test_claude_cli_backend_test_simple_completion_resolves_cmd_shim_on_windows]]

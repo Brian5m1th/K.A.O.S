@@ -15,6 +15,7 @@ from typing import Optional
 @dataclass
 class NodeInfo:
     """Information about a code symbol or file."""
+
     id: str
     label: str
     source_file: str
@@ -27,6 +28,7 @@ class NodeInfo:
 @dataclass
 class PathInfo:
     """Path between two code symbols."""
+
     source: str
     target: str
     hops: int
@@ -37,6 +39,7 @@ class PathInfo:
 @dataclass
 class GraphQuery:
     """A query against the code graph."""
+
     text: str
     max_depth: int = 3
     context_filter: Optional[str] = None  # "call" | "import" | "contains"
@@ -46,6 +49,7 @@ class GraphQuery:
 @dataclass
 class GraphResult:
     """Result of a graph query."""
+
     nodes: list[NodeInfo] = field(default_factory=list)
     total_found: int = 0
     query_time_ms: float = 0.0

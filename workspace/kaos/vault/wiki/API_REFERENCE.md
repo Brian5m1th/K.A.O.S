@@ -1,0 +1,104 @@
+# docs\api\API_REFERENCE.md
+
+## Símbolos
+
+- [[docs_api_api_reference]] — code: API_REFERENCE.md
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] — code: Referência de APIs — K.A.O.S
+- [[docs_api_api_reference_autenticação]] — code: Autenticação
+- [[docs_api_api_reference_health]] — code: Health
+- [[docs_api_api_reference_get_health]] — code: GET /health
+- [[docs_api_api_reference_chat]] — code: Chat
+- [[docs_api_api_reference_post_api_chat_message]] — code: POST /api/chat/message
+- [[docs_api_api_reference_models]] — code: Models
+- [[docs_api_api_reference_get_v1_models]] — code: GET /v1/models
+- [[docs_api_api_reference_orchestrator]] — code: Orchestrator
+- [[docs_api_api_reference_post_api_orchestrator_execute]] — code: POST /api/orchestrator/execute
+- [[docs_api_api_reference_indexing]] — code: Indexing
+- [[docs_api_api_reference_post_indexing_full]] — code: POST /indexing/full
+- [[docs_api_api_reference_post_indexing_init_folders]] — code: POST /indexing/init-folders
+- [[docs_api_api_reference_rag]] — code: RAG
+- [[docs_api_api_reference_get_rag_context]] — code: GET /rag/context
+- [[docs_api_api_reference_setup_providers]] — code: Setup / Providers
+- [[docs_api_api_reference_post_api_setup_provider]] — code: POST /api/setup/provider
+- [[docs_api_api_reference_users]] — code: Users
+- [[docs_api_api_reference_get_api_users_me]] — code: GET /api/users/me
+- [[docs_api_api_reference_get_api_users_user_id_profiles]] — code: GET /api/users/{user_id}/profiles
+- [[docs_api_api_reference_webhooks]] — code: Webhooks
+- [[docs_api_api_reference_post_api_webhooks_n8n]] — code: POST /api/webhooks/n8n
+- [[docs_api_api_reference_audit_kirl]] — code: Audit (KIRL)
+- [[docs_api_api_reference_post_api_audit_run]] — code: POST /api/audit/run
+- [[docs_api_api_reference_get_api_audit_snapshot]] — code: GET /api/audit/snapshot
+- [[docs_api_api_reference_get_api_audit_coverage]] — code: GET /api/audit/coverage
+- [[docs_api_api_reference_post_api_audit_scan_commits]] — code: POST /api/audit/scan-commits
+- [[docs_api_api_reference_get_api_audit_commit_map]] — code: GET /api/audit/commit-map
+- [[docs_api_api_reference_post_api_audit_scan_code]] — code: POST /api/audit/scan-code
+- [[docs_api_api_reference_get_api_audit_features]] — code: GET /api/audit/features
+- [[docs_api_api_reference_get_api_audit_features_feature_id]] — code: GET /api/audit/features/{feature_id}
+- [[docs_api_api_reference_auth]] — code: Auth
+- [[docs_api_api_reference_post_api_auth_validate]] — code: POST /api/auth/validate
+- [[docs_api_api_reference_feature_flags]] — code: Feature Flags
+- [[docs_api_api_reference_get_api_feature_flags]] — code: GET /api/feature-flags
+- [[docs_api_api_reference_openai_compatible]] — code: OpenAI Compatible
+- [[docs_api_api_reference_post_v1_chat_completions]] — code: POST /v1/chat/completions
+- [[docs_api_api_reference_erros_comuns]] — code: Erros Comuns
+- [[docs_api_api_reference_resumo]] — code: Resumo
+- [[docs_api_api_reference_objetivo]] — code: Objetivo
+- [[docs_api_api_reference_responsabilidades]] — code: Responsabilidades
+- [[docs_api_api_reference_dependencias]] — code: Dependencias
+- [[docs_api_api_reference_fluxos]] — code: Fluxos
+- [[docs_api_api_reference_integracoes]] — code: Integracoes
+- [[docs_api_api_reference_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_api_api_reference_referencias_kirl]] — code: Referencias KIRL
+- [[docs_api_api_reference_status]] — code: Status
+- [[docs_api_api_reference_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_api_api_reference]] → `contains` → [[docs_api_api_reference_referência_de_apis_k_a_o_s]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_arquivos_relacionados]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_audit_kirl]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_autenticação]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_auth]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_chat]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_dependencias]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_erros_comuns]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_feature_flags]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_fluxos]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_health]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_indexing]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_integracoes]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_models]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_objetivo]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_openai_compatible]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_orchestrator]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_rag]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_referencias_kirl]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_responsabilidades]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_resumo]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_setup_providers]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_status]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_ultima_atualizacao]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_users]]
+- [[docs_api_api_reference_referência_de_apis_k_a_o_s]] → `contains` → [[docs_api_api_reference_webhooks]]
+- [[docs_api_api_reference_health]] → `contains` → [[docs_api_api_reference_get_health]]
+- [[docs_api_api_reference_chat]] → `contains` → [[docs_api_api_reference_post_api_chat_message]]
+- [[docs_api_api_reference_models]] → `contains` → [[docs_api_api_reference_get_v1_models]]
+- [[docs_api_api_reference_orchestrator]] → `contains` → [[docs_api_api_reference_post_api_orchestrator_execute]]
+- [[docs_api_api_reference_indexing]] → `contains` → [[docs_api_api_reference_post_indexing_full]]
+- [[docs_api_api_reference_indexing]] → `contains` → [[docs_api_api_reference_post_indexing_init_folders]]
+- [[docs_api_api_reference_rag]] → `contains` → [[docs_api_api_reference_get_rag_context]]
+- [[docs_api_api_reference_setup_providers]] → `contains` → [[docs_api_api_reference_post_api_setup_provider]]
+- [[docs_api_api_reference_users]] → `contains` → [[docs_api_api_reference_get_api_users_me]]
+- [[docs_api_api_reference_users]] → `contains` → [[docs_api_api_reference_get_api_users_user_id_profiles]]
+- [[docs_api_api_reference_webhooks]] → `contains` → [[docs_api_api_reference_post_api_webhooks_n8n]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_get_api_audit_commit_map]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_get_api_audit_coverage]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_get_api_audit_features]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_get_api_audit_features_feature_id]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_get_api_audit_snapshot]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_post_api_audit_run]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_post_api_audit_scan_code]]
+- [[docs_api_api_reference_audit_kirl]] → `contains` → [[docs_api_api_reference_post_api_audit_scan_commits]]
+- [[docs_api_api_reference_auth]] → `contains` → [[docs_api_api_reference_post_api_auth_validate]]
+- [[docs_api_api_reference_feature_flags]] → `contains` → [[docs_api_api_reference_get_api_feature_flags]]
+- [[docs_api_api_reference_openai_compatible]] → `contains` → [[docs_api_api_reference_post_v1_chat_completions]]

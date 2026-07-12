@@ -1,0 +1,168 @@
+# graphify\tests\test_hooks.py
+
+## Símbolos
+
+- [[graphify_tests_test_hooks]] — code: test_hooks.py
+- [[graphify_tests_test_hooks_make_git_repo]] — code: _make_git_repo()
+- [[graphify_tests_test_hooks_test_install_creates_hook]] — code: test_install_creates_hook()
+- [[graphify_tests_test_hooks_test_install_is_executable]] — code: test_install_is_executable()
+- [[graphify_tests_test_hooks_test_install_idempotent]] — code: test_install_idempotent()
+- [[graphify_tests_test_hooks_test_install_appends_to_existing_hook]] — code: test_install_appends_to_existing_hook()
+- [[graphify_tests_test_hooks_test_uninstall_removes_hook]] — code: test_uninstall_removes_hook()
+- [[graphify_tests_test_hooks_test_uninstall_no_hook]] — code: test_uninstall_no_hook()
+- [[graphify_tests_test_hooks_test_status_installed]] — code: test_status_installed()
+- [[graphify_tests_test_hooks_test_status_not_installed]] — code: test_status_not_installed()
+- [[graphify_tests_test_hooks_test_no_git_repo_raises]] — code: test_no_git_repo_raises()
+- [[graphify_tests_test_hooks_test_install_creates_post_checkout_hook]] — code: test_install_creates_post_checkout_hook()
+- [[graphify_tests_test_hooks_test_install_post_checkout_is_executable]] — code: test_install_post_checkout_is_executable()
+- [[graphify_tests_test_hooks_test_uninstall_removes_post_checkout_hook]] — code: test_uninstall_removes_post_checkout_hook()
+- [[graphify_tests_test_hooks_test_status_shows_both_hooks]] — code: test_status_shows_both_hooks()
+- [[graphify_tests_test_hooks_test_hooks_dir_resolves_relative_git_hooks_path]] — code: test_hooks_dir_resolves_relative_git_hooks_path()
+- [[graphify_tests_test_hooks_test_hooks_dir_rejects_multiline_git_output]] — code: test_hooks_dir_rejects_multiline_git_output()
+- [[graphify_tests_test_hooks_test_hooks_dir_accepts_absolute_git_hooks_path]] — code: test_hooks_dir_accepts_absolute_git_hooks_path()
+- [[graphify_tests_test_hooks_test_hook_skips_head_on_exe]] — code: test_hook_skips_head_on_exe()
+- [[graphify_tests_test_hooks_test_install_embeds_pinned_interpreter]] — code: test_install_embeds_pinned_interpreter()
+- [[graphify_tests_test_hooks_test_install_fallback_is_loud_not_silent]] — code: test_install_fallback_is_loud_not_silent()
+- [[graphify_tests_test_hooks_test_hook_check_no_additionalcontext]] — code: test_hook_check_no_additionalContext()
+- [[graphify_tests_test_hooks_test_hooks_do_not_use_nohup]] — code: test_hooks_do_not_use_nohup()
+- [[graphify_tests_test_hooks_test_hooks_use_cross_platform_detach]] — code: test_hooks_use_cross_platform_detach()
+- [[graphify_tests_test_hooks_test_hooks_limit_windows_workers_by_default]] — code: test_hooks_limit_windows_workers_by_default()
+- [[graphify_tests_test_hooks_launcher_payload]] — code: _launcher_payload()
+- [[graphify_tests_test_hooks_test_launcher_payload_is_shell_quote_safe]] — code: test_launcher_payload_is_shell_quote_safe()
+- [[graphify_tests_test_hooks_test_launcher_and_rebuild_body_are_valid_python]] — code: test_launcher_and_rebuild_body_are_valid_python()
+- [[graphify_tests_test_hooks_test_rebuild_bodies_are_shell_quote_safe]] — code: test_rebuild_bodies_are_shell_quote_safe()
+- [[graphify_tests_test_hooks_test_rebuild_bodies_read_graphify_root]] — code: test_rebuild_bodies_read_graphify_root()
+- [[graphify_tests_test_hooks_test_rebuild_bodies_with_graphify_root_are_valid_python]] — code: test_rebuild_bodies_with_graphify_root_are_valid_python()
+- [[graphify_tests_test_hooks_test_detached_launch_targets_graphify_python]] — code: test_detached_launch_targets_graphify_python()
+- [[graphify_tests_test_hooks_test_installed_hooks_contain_no_nohup]] — code: test_installed_hooks_contain_no_nohup()
+- [[graphify_tests_test_hooks_set_hookspath]] — code: _set_hookspath()
+- [[graphify_tests_test_hooks_test_windows_hookspath_rejected_no_junk_dir_on_posix]] — code: test_windows_hookspath_rejected_no_junk_dir_on_posix()
+- [[graphify_tests_test_hooks_test_posix_custom_hookspath_still_works]] — code: test_posix_custom_hookspath_still_works()
+- [[graphify_tests_test_hooks_test_default_hooks_dir_unaffected]] — code: test_default_hooks_dir_unaffected()
+- [[graphify_tests_test_hooks_test_probes_use_find_spec_not_full_import]] — code: test_probes_use_find_spec_not_full_import()
+- [[graphify_tests_test_hooks_test_shebang_read_is_null_byte_safe]] — code: test_shebang_read_is_null_byte_safe()
+- [[graphify_tests_test_hooks_test_probe_prefers_sibling_python_exe_on_windows_layouts]] — code: test_probe_prefers_sibling_python_exe_on_windows_layouts()
+- [[graphify_tests_test_hooks_test_hooks_reuse_git_dir_from_env]] — code: test_hooks_reuse_git_dir_from_env()
+- [[graphify_tests_test_hooks_rationale_1]] — code: Tests for hooks.py - git hook install/uninstall.
+- [[graphify_tests_test_hooks_rationale_159]] — code: Hook script must skip shebang extraction for .exe binaries (Windows).
+- [[graphify_tests_test_hooks_rationale_165]] — code: Hook scripts must embed sys.executable so the hook works without the     graphi
+- [[graphify_tests_test_hooks_rationale_191]] — code: The detection fallback must emit a message to stderr rather than bare exit 0.
+- [[graphify_tests_test_hooks_rationale_203]] — code: graphify hook-check must not emit additionalContext — Codex Desktop rejects it.
+- [[graphify_tests_test_hooks_rationale_239]] — code: Git for Windows' bundled shell ships no `nohup`/`setsid`, so the old     `nohup
+- [[graphify_tests_test_hooks_rationale_249]] — code: The replacement detaches via Python: start_new_session on POSIX and     DETACHE
+- [[graphify_tests_test_hooks_rationale_259]] — code: Git for Windows/MSYS hooks can expose fragile pipe handles to spawned     Proce
+- [[graphify_tests_test_hooks_rationale_267]] — code: Extract the `python -c "<payload>"` the hook hands to GRAPHIFY_PYTHON.      Th
+- [[graphify_tests_test_hooks_rationale_279]] — code: The launcher is carried inside a shell double-quoted `-c "..."` argument,     s
+- [[graphify_tests_test_hooks_rationale_289]] — code: Both the launcher and the rebuild body it re-executes must parse, so a     quot
+- [[graphify_tests_test_hooks_rationale_299]] — code: The shared rebuild bodies are embedded verbatim into the launcher, so they
+- [[graphify_tests_test_hooks_rationale_312]] — code: The rebuild must honour the persisted scan root rather than hardcoding the
+- [[graphify_tests_test_hooks_rationale_326]] — code: The .graphify_root snippet must parse so a quoting slip can't ship a hook     t
+- [[graphify_tests_test_hooks_rationale_333]] — code: The launcher must run via the resolved $GRAPHIFY_PYTHON, not a bare     `python
+- [[graphify_tests_test_hooks_rationale_341]] — code: End-to-end: the files written to .git/hooks must be nohup-free (#1161).
+- [[graphify_tests_test_hooks_rationale_364]] — code: A Windows-style core.hooksPath must raise (loud failure), not silently     crea
+- [[graphify_tests_test_hooks_rationale_377]] — code: A legitimate POSIX core.hooksPath (Husky-style) must still install.
+- [[graphify_tests_test_hooks_rationale_386]] — code: No core.hooksPath -> normal .git/hooks install, no rejection.
+- [[graphify_tests_test_hooks_rationale_395]] — code: `python -c "import graphify"` executes the FULL package import — 10s+ on a
+- [[graphify_tests_test_hooks_rationale_409]] — code: On Windows, `command -v graphify` can return the launcher path WITHOUT its
+- [[graphify_tests_test_hooks_rationale_419]] — code: pip on Windows puts Scripts/graphify(.exe) beside ..\\python.exe (or     .\\pyt
+- [[graphify_tests_test_hooks_rationale_429]] — code: git exports GIT_DIR to hooks, so the rev-parse fallback should only run     whe
+
+## Dependências
+
+- [[graphify_tests_test_hooks]] → `imports_from` → [[graphify_graphify_hooks]]
+- [[graphify_tests_test_hooks_test_detached_launch_targets_graphify_python]] → `calls` → [[graphify_graphify_hooks_detached_launch]]
+- [[graphify_tests_test_hooks_test_hooks_dir_accepts_absolute_git_hooks_path]] → `calls` → [[graphify_graphify_hooks_hooks_dir]]
+- [[graphify_tests_test_hooks_test_hooks_dir_rejects_multiline_git_output]] → `calls` → [[graphify_graphify_hooks_hooks_dir]]
+- [[graphify_tests_test_hooks_test_hooks_dir_resolves_relative_git_hooks_path]] → `calls` → [[graphify_graphify_hooks_hooks_dir]]
+- [[graphify_tests_test_hooks_test_uninstall_no_hook]] → `calls` → [[graphify_graphify_hooks_uninstall]]
+- [[graphify_tests_test_hooks_test_uninstall_removes_hook]] → `calls` → [[graphify_graphify_hooks_uninstall]]
+- [[graphify_tests_test_hooks_test_uninstall_removes_post_checkout_hook]] → `calls` → [[graphify_graphify_hooks_uninstall]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_launcher_payload]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_set_hookspath]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_default_hooks_dir_unaffected]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_detached_launch_targets_graphify_python]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hook_check_no_additionalcontext]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hook_skips_head_on_exe]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_dir_accepts_absolute_git_hooks_path]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_dir_rejects_multiline_git_output]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_dir_resolves_relative_git_hooks_path]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_do_not_use_nohup]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_limit_windows_workers_by_default]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_reuse_git_dir_from_env]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_hooks_use_cross_platform_detach]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_appends_to_existing_hook]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_creates_hook]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_creates_post_checkout_hook]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_embeds_pinned_interpreter]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_fallback_is_loud_not_silent]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_idempotent]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_is_executable]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_install_post_checkout_is_executable]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_installed_hooks_contain_no_nohup]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_launcher_and_rebuild_body_are_valid_python]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_launcher_payload_is_shell_quote_safe]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_no_git_repo_raises]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_posix_custom_hookspath_still_works]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_probe_prefers_sibling_python_exe_on_windows_layouts]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_probes_use_find_spec_not_full_import]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_rebuild_bodies_are_shell_quote_safe]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_rebuild_bodies_read_graphify_root]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_rebuild_bodies_with_graphify_root_are_valid_python]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_shebang_read_is_null_byte_safe]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_status_installed]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_status_not_installed]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_status_shows_both_hooks]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_uninstall_no_hook]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_uninstall_removes_hook]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_uninstall_removes_post_checkout_hook]]
+- [[graphify_tests_test_hooks]] → `contains` → [[graphify_tests_test_hooks_test_windows_hookspath_rejected_no_junk_dir_on_posix]]
+- [[graphify_tests_test_hooks_rationale_1]] → `rationale_for` → [[graphify_tests_test_hooks]]
+- [[graphify_tests_test_hooks_make_git_repo]] → `references` → [[graphify_tests_test_hooks_py_path]]
+- [[graphify_tests_test_hooks_test_default_hooks_dir_unaffected]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_hooks_dir_accepts_absolute_git_hooks_path]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_hooks_dir_rejects_multiline_git_output]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_hooks_dir_resolves_relative_git_hooks_path]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_appends_to_existing_hook]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_creates_hook]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_creates_post_checkout_hook]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_embeds_pinned_interpreter]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_idempotent]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_is_executable]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_install_post_checkout_is_executable]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_installed_hooks_contain_no_nohup]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_posix_custom_hookspath_still_works]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_status_installed]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_status_not_installed]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_status_shows_both_hooks]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_uninstall_no_hook]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_uninstall_removes_hook]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_uninstall_removes_post_checkout_hook]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_test_windows_hookspath_rejected_no_junk_dir_on_posix]] → `calls` → [[graphify_tests_test_hooks_make_git_repo]]
+- [[graphify_tests_test_hooks_set_hookspath]] → `references` → [[graphify_tests_test_hooks_py_path]]
+- [[graphify_tests_test_hooks_rationale_159]] → `rationale_for` → [[graphify_tests_test_hooks_test_hook_skips_head_on_exe]]
+- [[graphify_tests_test_hooks_rationale_165]] → `rationale_for` → [[graphify_tests_test_hooks_test_install_embeds_pinned_interpreter]]
+- [[graphify_tests_test_hooks_rationale_191]] → `rationale_for` → [[graphify_tests_test_hooks_test_install_fallback_is_loud_not_silent]]
+- [[graphify_tests_test_hooks_rationale_203]] → `rationale_for` → [[graphify_tests_test_hooks_test_hook_check_no_additionalcontext]]
+- [[graphify_tests_test_hooks_rationale_239]] → `rationale_for` → [[graphify_tests_test_hooks_test_hooks_do_not_use_nohup]]
+- [[graphify_tests_test_hooks_rationale_249]] → `rationale_for` → [[graphify_tests_test_hooks_test_hooks_use_cross_platform_detach]]
+- [[graphify_tests_test_hooks_rationale_259]] → `rationale_for` → [[graphify_tests_test_hooks_test_hooks_limit_windows_workers_by_default]]
+- [[graphify_tests_test_hooks_rationale_267]] → `rationale_for` → [[graphify_tests_test_hooks_launcher_payload]]
+- [[graphify_tests_test_hooks_test_launcher_and_rebuild_body_are_valid_python]] → `calls` → [[graphify_tests_test_hooks_launcher_payload]]
+- [[graphify_tests_test_hooks_test_launcher_payload_is_shell_quote_safe]] → `calls` → [[graphify_tests_test_hooks_launcher_payload]]
+- [[graphify_tests_test_hooks_rationale_279]] → `rationale_for` → [[graphify_tests_test_hooks_test_launcher_payload_is_shell_quote_safe]]
+- [[graphify_tests_test_hooks_rationale_289]] → `rationale_for` → [[graphify_tests_test_hooks_test_launcher_and_rebuild_body_are_valid_python]]
+- [[graphify_tests_test_hooks_rationale_299]] → `rationale_for` → [[graphify_tests_test_hooks_test_rebuild_bodies_are_shell_quote_safe]]
+- [[graphify_tests_test_hooks_rationale_312]] → `rationale_for` → [[graphify_tests_test_hooks_test_rebuild_bodies_read_graphify_root]]
+- [[graphify_tests_test_hooks_rationale_326]] → `rationale_for` → [[graphify_tests_test_hooks_test_rebuild_bodies_with_graphify_root_are_valid_python]]
+- [[graphify_tests_test_hooks_rationale_333]] → `rationale_for` → [[graphify_tests_test_hooks_test_detached_launch_targets_graphify_python]]
+- [[graphify_tests_test_hooks_rationale_341]] → `rationale_for` → [[graphify_tests_test_hooks_test_installed_hooks_contain_no_nohup]]
+- [[graphify_tests_test_hooks_test_posix_custom_hookspath_still_works]] → `calls` → [[graphify_tests_test_hooks_set_hookspath]]
+- [[graphify_tests_test_hooks_test_windows_hookspath_rejected_no_junk_dir_on_posix]] → `calls` → [[graphify_tests_test_hooks_set_hookspath]]
+- [[graphify_tests_test_hooks_rationale_364]] → `rationale_for` → [[graphify_tests_test_hooks_test_windows_hookspath_rejected_no_junk_dir_on_posix]]
+- [[graphify_tests_test_hooks_rationale_377]] → `rationale_for` → [[graphify_tests_test_hooks_test_posix_custom_hookspath_still_works]]
+- [[graphify_tests_test_hooks_rationale_386]] → `rationale_for` → [[graphify_tests_test_hooks_test_default_hooks_dir_unaffected]]
+- [[graphify_tests_test_hooks_rationale_395]] → `rationale_for` → [[graphify_tests_test_hooks_test_probes_use_find_spec_not_full_import]]
+- [[graphify_tests_test_hooks_rationale_409]] → `rationale_for` → [[graphify_tests_test_hooks_test_shebang_read_is_null_byte_safe]]
+- [[graphify_tests_test_hooks_rationale_419]] → `rationale_for` → [[graphify_tests_test_hooks_test_probe_prefers_sibling_python_exe_on_windows_layouts]]
+- [[graphify_tests_test_hooks_rationale_429]] → `rationale_for` → [[graphify_tests_test_hooks_test_hooks_reuse_git_dir_from_env]]

@@ -1,0 +1,80 @@
+# docs\sdd\Propagacao de Contexto de Usuario.md
+
+## Símbolos
+
+- [[docs_sdd_propagacao_de_contexto_de_usuario]] — code: Propagacao de Contexto de Usuario.md
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] — code: PropagaçÃo de Contexto de Usuário
+- [[docs_sdd_propagacao_de_contexto_de_usuario_parent]] — code: Parent
+- [[docs_sdd_propagacao_de_contexto_de_usuario_children]] — code: Children
+- [[docs_sdd_propagacao_de_contexto_de_usuario_related]] — code: Related
+- [[docs_sdd_propagacao_de_contexto_de_usuario_tags]] — code: Tags
+- [[docs_sdd_propagacao_de_contexto_de_usuario_conteudo]] — code: Conteudo
+- [[docs_sdd_propagacao_de_contexto_de_usuario_objetivo]] — code: Objetivo
+- [[docs_sdd_propagacao_de_contexto_de_usuario_problema_resolvido]] — code: Problema Resolvido ✅
+- [[docs_sdd_propagacao_de_contexto_de_usuario_objetivos_funcionais]] — code: Objetivos Funcionais
+- [[docs_sdd_propagacao_de_contexto_de_usuario_of01_identificação_do_usuário]] — code: OF01 — Identificação do Usuário
+- [[docs_sdd_propagacao_de_contexto_de_usuario_of02_memória_isolada]] — code: OF02 — Memória Isolada
+- [[docs_sdd_propagacao_de_contexto_de_usuario_of03_histórico_individual]] — code: OF03 — Histórico Individual
+- [[docs_sdd_propagacao_de_contexto_de_usuario_of04_compatibilidade]] — code: OF04 — Compatibilidade
+- [[docs_sdd_propagacao_de_contexto_de_usuario_arquitetura_proposta]] — code: Arquitetura Proposta
+- [[docs_sdd_propagacao_de_contexto_de_usuario_fluxo_de_dados]] — code: Fluxo de Dados
+- [[docs_sdd_propagacao_de_contexto_de_usuario_modelo_de_contexto]] — code: Modelo de Contexto
+- [[docs_sdd_propagacao_de_contexto_de_usuario_alterações_no_agentstate]] — code: Alterações no AgentState
+- [[docs_sdd_propagacao_de_contexto_de_usuario_estrutura_de_memória]] — code: Estrutura de Memória
+- [[docs_sdd_propagacao_de_contexto_de_usuario_opção_inicial_obsidian]] — code: Opção Inicial (Obsidian)
+- [[docs_sdd_propagacao_de_contexto_de_usuario_estrutura_futura_postgresql]] — code: Estrutura Futura (PostgreSQL)
+- [[docs_sdd_propagacao_de_contexto_de_usuario_memoryservice]] — code: MemoryService
+- [[docs_sdd_propagacao_de_contexto_de_usuario_saveconversation_tool]] — code: SaveConversation Tool
+- [[docs_sdd_propagacao_de_contexto_de_usuario_auditoria]] — code: Auditoria
+- [[docs_sdd_propagacao_de_contexto_de_usuario_compatibilidade_com_postgresql]] — code: Compatibilidade com PostgreSQL
+- [[docs_sdd_propagacao_de_contexto_de_usuario_critérios_de_aceite_todos_atendidos]] — code: Critérios de Aceite ✅ Todos Atendidos
+- [[docs_sdd_propagacao_de_contexto_de_usuario_benefícios]] — code: Benefícios
+- [[docs_sdd_propagacao_de_contexto_de_usuario_próxima_evolução]] — code: Próxima Evolução
+- [[docs_sdd_propagacao_de_contexto_de_usuario_resumo]] — code: Resumo
+- [[docs_sdd_propagacao_de_contexto_de_usuario_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_propagacao_de_contexto_de_usuario_dependencias]] — code: Dependencias
+- [[docs_sdd_propagacao_de_contexto_de_usuario_fluxos]] — code: Fluxos
+- [[docs_sdd_propagacao_de_contexto_de_usuario_integracoes]] — code: Integracoes
+- [[docs_sdd_propagacao_de_contexto_de_usuario_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_propagacao_de_contexto_de_usuario_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_propagacao_de_contexto_de_usuario_status]] — code: Status
+- [[docs_sdd_propagacao_de_contexto_de_usuario_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_propagacao_de_contexto_de_usuario]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_alterações_no_agentstate]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_arquitetura_proposta]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_arquivos_relacionados]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_auditoria]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_benefícios]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_children]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_compatibilidade_com_postgresql]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_conteudo]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_critérios_de_aceite_todos_atendidos]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_dependencias]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_estrutura_de_memória]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_fluxo_de_dados]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_fluxos]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_integracoes]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_memoryservice]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_modelo_de_contexto]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_objetivo]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_objetivos_funcionais]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_parent]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_problema_resolvido]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_próxima_evolução]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_referencias_kirl]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_related]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_responsabilidades]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_resumo]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_saveconversation_tool]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_status]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_tags]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_propagação_de_contexto_de_usuário]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_ultima_atualizacao]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_objetivos_funcionais]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_of01_identificação_do_usuário]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_objetivos_funcionais]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_of02_memória_isolada]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_objetivos_funcionais]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_of03_histórico_individual]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_objetivos_funcionais]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_of04_compatibilidade]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_estrutura_de_memória]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_estrutura_futura_postgresql]]
+- [[docs_sdd_propagacao_de_contexto_de_usuario_estrutura_de_memória]] → `contains` → [[docs_sdd_propagacao_de_contexto_de_usuario_opção_inicial_obsidian]]

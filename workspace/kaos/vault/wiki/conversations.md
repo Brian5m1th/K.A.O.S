@@ -1,0 +1,93 @@
+# assistant\app\api\conversations.py
+
+## Símbolos
+
+- [[assistant_app_api_conversations]] — code: conversations.py
+- [[assistant_app_api_conversations_sessionsummaryresponse]] — code: SessionSummaryResponse
+- [[assistant_app_api_conversations_conversationslistresponse]] — code: ConversationsListResponse
+- [[assistant_app_api_conversations_turnresponse]] — code: TurnResponse
+- [[assistant_app_api_conversations_sessiondetailresponse]] — code: SessionDetailResponse
+- [[assistant_app_api_conversations_summarizeresponse]] — code: SummarizeResponse
+- [[assistant_app_api_conversations_summary_to_response]] — code: _summary_to_response()
+- [[assistant_app_api_conversations_turn_to_response]] — code: _turn_to_response()
+- [[assistant_app_api_conversations_list_sessions]] — code: list_sessions()
+- [[assistant_app_api_conversations_get_session]] — code: get_session()
+- [[assistant_app_api_conversations_delete_session]] — code: delete_session()
+- [[assistant_app_api_conversations_summarize_session]] — code: summarize_session()
+- [[assistant_app_api_conversations_rationale_1]] — code: Conversations API — Session History endpoints.  RF-D02: GET /api/conversations
+- [[assistant_app_api_conversations_rationale_112]] — code: RF-D02: Lista sessões paginadas por user_id.
+- [[assistant_app_api_conversations_rationale_134]] — code: RF-D03: Retorna todos os turnos de uma sessão.
+- [[assistant_app_api_conversations_rationale_158]] — code: Deleta todos os turnos de uma sessão.
+- [[assistant_app_api_conversations_rationale_185]] — code: RF-D04: Gera resumo da sessão e salva como nota no Obsidian.      O resumo é s
+
+## Dependências
+
+- [[assistant_app_api_conversations]] → `imports_from` → [[assistant_app_database]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_conversationslistresponse]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_delete_session]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_get_session]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_list_sessions]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_sessiondetailresponse]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_sessionsummaryresponse]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_summarize_session]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_summarizeresponse]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_summary_to_response]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_turn_to_response]]
+- [[assistant_app_api_conversations]] → `contains` → [[assistant_app_api_conversations_turnresponse]]
+- [[assistant_app_api_conversations]] → `imports_from` → [[fastapi]]
+- [[assistant_app_api_conversations_rationale_1]] → `rationale_for` → [[assistant_app_api_conversations]]
+- [[assistant_app_api_conversations_sessionsummaryresponse]] → `inherits` → [[assistant_app_api_conversations_py_basemodel]]
+- [[assistant_app_api_conversations_sessionsummaryresponse]] → `uses` → [[assistant_app_domain_chat_message]]
+- [[assistant_app_api_conversations_sessionsummaryresponse]] → `uses` → [[assistant_app_memory_summarizer_conversationsummarizer]]
+- [[assistant_app_api_conversations_sessionsummaryresponse]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_api_conversations_sessionsummaryresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_sessionsummaryresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_sessionsummary]]
+- [[assistant_app_api_conversations_summary_to_response]] → `references` → [[assistant_app_api_conversations_sessionsummaryresponse]]
+- [[assistant_app_api_conversations_conversationslistresponse]] → `inherits` → [[assistant_app_api_conversations_py_basemodel]]
+- [[assistant_app_api_conversations_sessiondetailresponse]] → `inherits` → [[assistant_app_api_conversations_py_basemodel]]
+- [[assistant_app_api_conversations_summarizeresponse]] → `inherits` → [[assistant_app_api_conversations_py_basemodel]]
+- [[assistant_app_api_conversations_turnresponse]] → `inherits` → [[assistant_app_api_conversations_py_basemodel]]
+- [[assistant_app_api_conversations_conversationslistresponse]] → `uses` → [[assistant_app_domain_chat_message]]
+- [[assistant_app_api_conversations_conversationslistresponse]] → `uses` → [[assistant_app_memory_summarizer_conversationsummarizer]]
+- [[assistant_app_api_conversations_conversationslistresponse]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_api_conversations_conversationslistresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_conversationslistresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_sessionsummary]]
+- [[assistant_app_api_conversations_list_sessions]] → `calls` → [[assistant_app_api_conversations_conversationslistresponse]]
+- [[assistant_app_api_conversations_turn_to_response]] → `references` → [[assistant_app_api_conversations_turnresponse]]
+- [[assistant_app_api_conversations_turnresponse]] → `uses` → [[assistant_app_domain_chat_message]]
+- [[assistant_app_api_conversations_turnresponse]] → `uses` → [[assistant_app_memory_summarizer_conversationsummarizer]]
+- [[assistant_app_api_conversations_turnresponse]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_api_conversations_turnresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_turnresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_sessionsummary]]
+- [[assistant_app_api_conversations_get_session]] → `calls` → [[assistant_app_api_conversations_sessiondetailresponse]]
+- [[assistant_app_api_conversations_sessiondetailresponse]] → `uses` → [[assistant_app_domain_chat_message]]
+- [[assistant_app_api_conversations_sessiondetailresponse]] → `uses` → [[assistant_app_memory_summarizer_conversationsummarizer]]
+- [[assistant_app_api_conversations_sessiondetailresponse]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_api_conversations_sessiondetailresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_sessiondetailresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_sessionsummary]]
+- [[assistant_app_api_conversations_summarize_session]] → `calls` → [[assistant_app_api_conversations_summarizeresponse]]
+- [[assistant_app_api_conversations_summarizeresponse]] → `uses` → [[assistant_app_domain_chat_message]]
+- [[assistant_app_api_conversations_summarizeresponse]] → `uses` → [[assistant_app_memory_summarizer_conversationsummarizer]]
+- [[assistant_app_api_conversations_summarizeresponse]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_api_conversations_summarizeresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_summarizeresponse]] → `uses` → [[assistant_app_repositories_conversation_repository_sessionsummary]]
+- [[assistant_app_api_conversations_list_sessions]] → `calls` → [[assistant_app_api_conversations_summary_to_response]]
+- [[assistant_app_api_conversations_summary_to_response]] → `references` → [[assistant_app_repositories_conversation_repository_sessionsummary]]
+- [[assistant_app_api_conversations_get_session]] → `calls` → [[assistant_app_api_conversations_turn_to_response]]
+- [[assistant_app_api_conversations_turn_to_response]] → `references` → [[assistant_app_models_conversation_conversation]]
+- [[assistant_app_api_conversations_list_sessions]] → `references` → [[assistant_app_api_conversations_py_asyncsession]]
+- [[assistant_app_api_conversations_list_sessions]] → `calls` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_rationale_112]] → `rationale_for` → [[assistant_app_api_conversations_list_sessions]]
+- [[assistant_app_api_conversations_delete_session]] → `references` → [[assistant_app_api_conversations_py_asyncsession]]
+- [[assistant_app_api_conversations_get_session]] → `references` → [[assistant_app_api_conversations_py_asyncsession]]
+- [[assistant_app_api_conversations_summarize_session]] → `references` → [[assistant_app_api_conversations_py_asyncsession]]
+- [[assistant_app_api_conversations_get_session]] → `calls` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_rationale_134]] → `rationale_for` → [[assistant_app_api_conversations_get_session]]
+- [[assistant_app_api_conversations_delete_session]] → `calls` → [[assistant_app_repositories_conversation_repository_conversationrepository]]
+- [[assistant_app_api_conversations_rationale_158]] → `rationale_for` → [[assistant_app_api_conversations_delete_session]]
+- [[assistant_app_api_conversations_rationale_185]] → `rationale_for` → [[assistant_app_api_conversations_summarize_session]]
+- [[assistant_app_api_conversations_summarize_session]] → `calls` → [[assistant_app_domain_chat_message]]
+- [[assistant_app_api_conversations_summarize_session]] → `calls` → [[assistant_app_memory_summarizer_conversationsummarizer_generate]]
+- [[assistant_app_api_conversations_summarize_session]] → `calls` → [[assistant_app_memory_summarizer_conversationsummarizer_generate_title]]
+- [[assistant_app_api_conversations_summarize_session]] → `calls` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_app_api_conversations_summarize_session]] → `calls` → [[assistant_app_repositories_conversation_repository_conversationrepository]]

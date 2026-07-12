@@ -1,0 +1,474 @@
+# graphify\graphify\install.py
+
+## Símbolos
+
+- [[graphify_graphify_install]] — code: install.py
+- [[graphify_graphify_install_always_on]] — code: _always_on()
+- [[graphify_graphify_install_refresh_all_version_stamps]] — code: _refresh_all_version_stamps()
+- [[graphify_graphify_install_platform_skill_destination]] — code: _platform_skill_destination()
+- [[graphify_graphify_install_packaged_skill_refs_dir]] — code: _packaged_skill_refs_dir()
+- [[graphify_graphify_install_install_skill_references]] — code: _install_skill_references()
+- [[graphify_graphify_install_copy_skill_file]] — code: _copy_skill_file()
+- [[graphify_graphify_install_remove_skill_file]] — code: _remove_skill_file()
+- [[graphify_graphify_install_project_scope_root]] — code: _project_scope_root()
+- [[graphify_graphify_install_remove_claude_skill_registration]] — code: _remove_claude_skill_registration()
+- [[graphify_graphify_install_print_project_git_add_hint]] — code: _print_project_git_add_hint()
+- [[graphify_graphify_install_claude_pretooluse_hooks]] — code: _claude_pretooluse_hooks()
+- [[graphify_graphify_install_skill_registration]] — code: _skill_registration()
+- [[graphify_graphify_install_canonical_platform]] — code: _canonical_platform()
+- [[graphify_graphify_install_replace_or_append_section]] — code: _replace_or_append_section()
+- [[graphify_graphify_install_print_banner]] — code: _print_banner()
+- [[graphify_graphify_install_install]] — code: install()
+- [[graphify_graphify_install_print_install_usage]] — code: _print_install_usage()
+- [[graphify_graphify_install_gemini_hook]] — code: _gemini_hook()
+- [[graphify_graphify_install_gemini_install]] — code: gemini_install()
+- [[graphify_graphify_install_install_gemini_hook]] — code: _install_gemini_hook()
+- [[graphify_graphify_install_uninstall_gemini_hook]] — code: _uninstall_gemini_hook()
+- [[graphify_graphify_install_gemini_uninstall]] — code: gemini_uninstall()
+- [[graphify_graphify_install_vscode_install]] — code: vscode_install()
+- [[graphify_graphify_install_vscode_uninstall]] — code: vscode_uninstall()
+- [[graphify_graphify_install_kiro_install]] — code: _kiro_install()
+- [[graphify_graphify_install_kiro_uninstall]] — code: _kiro_uninstall()
+- [[graphify_graphify_install_antigravity_finalize]] — code: _antigravity_finalize()
+- [[graphify_graphify_install_antigravity_install]] — code: _antigravity_install()
+- [[graphify_graphify_install_antigravity_uninstall]] — code: _antigravity_uninstall()
+- [[graphify_graphify_install_cursor_install]] — code: _cursor_install()
+- [[graphify_graphify_install_cursor_uninstall]] — code: _cursor_uninstall()
+- [[graphify_graphify_install_devin_rules_install]] — code: _devin_rules_install()
+- [[graphify_graphify_install_devin_rules_uninstall]] — code: _devin_rules_uninstall()
+- [[graphify_graphify_install_strip_json_comments]] — code: _strip_json_comments()
+- [[graphify_graphify_install_load_json_like]] — code: _load_json_like()
+- [[graphify_graphify_install_kilo_config_path]] — code: _kilo_config_path()
+- [[graphify_graphify_install_kilo_config_write_path]] — code: _kilo_config_write_path()
+- [[graphify_graphify_install_install_kilo_plugin]] — code: _install_kilo_plugin()
+- [[graphify_graphify_install_uninstall_kilo_plugin]] — code: _uninstall_kilo_plugin()
+- [[graphify_graphify_install_install_opencode_plugin]] — code: _install_opencode_plugin()
+- [[graphify_graphify_install_uninstall_opencode_plugin]] — code: _uninstall_opencode_plugin()
+- [[graphify_graphify_install_resolve_graphify_exe]] — code: _resolve_graphify_exe()
+- [[graphify_graphify_install_install_codex_hook]] — code: _install_codex_hook()
+- [[graphify_graphify_install_uninstall_codex_hook]] — code: _uninstall_codex_hook()
+- [[graphify_graphify_install_agents_install]] — code: _agents_install()
+- [[graphify_graphify_install_amp_legacy_cleanup]] — code: _amp_legacy_cleanup()
+- [[graphify_graphify_install_amp_install]] — code: _amp_install()
+- [[graphify_graphify_install_amp_uninstall]] — code: _amp_uninstall()
+- [[graphify_graphify_install_agents_platform_install]] — code: _agents_platform_install()
+- [[graphify_graphify_install_agents_platform_uninstall]] — code: _agents_platform_uninstall()
+- [[graphify_graphify_install_project_install]] — code: _project_install()
+- [[graphify_graphify_install_project_uninstall]] — code: _project_uninstall()
+- [[graphify_graphify_install_project_uninstall_all]] — code: _project_uninstall_all()
+- [[graphify_graphify_install_agents_uninstall]] — code: _agents_uninstall()
+- [[graphify_graphify_install_kilo_uninstall_global]] — code: _kilo_uninstall_global()
+- [[graphify_graphify_install_kilo_install]] — code: _kilo_install()
+- [[graphify_graphify_install_kilo_uninstall]] — code: _kilo_uninstall()
+- [[graphify_graphify_install_claude_install]] — code: claude_install()
+- [[graphify_graphify_install_install_claude_hook]] — code: _install_claude_hook()
+- [[graphify_graphify_install_uninstall_claude_hook]] — code: _uninstall_claude_hook()
+- [[graphify_graphify_install_strip_graphify_hook]] — code: _strip_graphify_hook()
+- [[graphify_graphify_install_uninstall_all]] — code: uninstall_all()
+- [[graphify_graphify_install_claude_uninstall]] — code: claude_uninstall()
+- [[graphify_graphify_install_strip_graphify_md_section]] — code: _strip_graphify_md_section()
+- [[graphify_graphify_install_codebuddy_install]] — code: codebuddy_install()
+- [[graphify_graphify_install_install_codebuddy_hook]] — code: _install_codebuddy_hook()
+- [[graphify_graphify_install_uninstall_codebuddy_hook]] — code: _uninstall_codebuddy_hook()
+- [[graphify_graphify_install_codebuddy_uninstall]] — code: codebuddy_uninstall()
+- [[graphify_graphify_install_dispatch_install_cli]] — code: dispatch_install_cli()
+- [[graphify_graphify_install_rationale_1]] — code: graphify install/uninstall subsystem.  The per-platform skill/hook installers
+- [[graphify_graphify_install_rationale_35]] — code: Read a packaged always-on instruction block from graphify/always_on/.      The
+- [[graphify_graphify_install_rationale_57]] — code: After a successful install, update .graphify_version in all other known skill di
+- [[graphify_graphify_install_rationale_68]] — code: Return the skill destination for a platform and scope.
+- [[graphify_graphify_install_rationale_122]] — code: Return the packaged references source dir for a progressive platform, else None.
+- [[graphify_graphify_install_rationale_154]] — code: Atomically install a packaged references/ sidecar next to SKILL.md.      Stage
+- [[graphify_graphify_install_rationale_175]] — code: Copy a packaged skill file and write its version stamp.      For progressive p
+- [[graphify_graphify_install_rationale_232]] — code: Remove a platform skill file and its version stamp without touching other scopes
+- [[graphify_graphify_install_rationale_254]] — code: Return the top-level project artifact for a project-scoped skill path.
+- [[graphify_graphify_install_rationale_261]] — code: Remove the project-scoped Claude skill registration file/section.
+- [[graphify_graphify_install_rationale_289]] — code: graphify's Claude/Codebuddy PreToolUse hooks, resolved at install time.      T
+- [[graphify_graphify_install_rationale_461]] — code: Resolve a CLI platform alias to its real _PLATFORM_CONFIG key.
+- [[graphify_graphify_install_rationale_464]] — code: Idempotently update or append a graphify-owned section in shared files.      I
+- [[graphify_graphify_install_rationale_512]] — code: Amber brain banner on graphify install. TTY-only, never raises.
+- [[graphify_graphify_install_rationale_632]] — code: Gemini CLI BeforeTool hook, resolved to a shell-agnostic `graphify` call.
+- [[graphify_graphify_install_rationale_641]] — code: Copy skill file, write GEMINI.md section, and install BeforeTool hook.
+- [[graphify_graphify_install_rationale_703]] — code: Remove the graphify section from GEMINI.md, uninstall hook, and remove skill fil
+- [[graphify_graphify_install_rationale_727]] — code: Install graphify skill for VS Code Copilot Chat + write .github/copilot-instruct
+- [[graphify_graphify_install_rationale_779]] — code: Remove graphify VS Code Copilot Chat skill and .github/copilot-instructions.md s
+- [[graphify_graphify_install_rationale_830]] — code: Write graphify skill + steering file for Kiro IDE/CLI.
+- [[graphify_graphify_install_rationale_856]] — code: Remove graphify skill + steering file for Kiro.
+- [[graphify_graphify_install_rationale_872]] — code: Write Antigravity's always-on layer next to an installed skill.      Injects t
+- [[graphify_graphify_install_rationale_915]] — code: Install graphify for Google Antigravity (global skill + .agents/rules + .agents/
+- [[graphify_graphify_install_rationale_935]] — code: Remove graphify Antigravity rules, workflow, and skill files.
+- [[graphify_graphify_install_rationale_995]] — code: Write .cursor/rules/graphify.mdc with alwaysApply: true.
+- [[graphify_graphify_install_rationale_1010]] — code: Remove .cursor/rules/graphify.mdc.
+- [[graphify_graphify_install_rationale_1032]] — code: Write .windsurf/rules/graphify.md for always-on Devin context.
+- [[graphify_graphify_install_rationale_1042]] — code: Remove .windsurf/rules/graphify.md.
+- [[graphify_graphify_install_rationale_1080]] — code: Remove JSONC-style comments while leaving string content intact.
+- [[graphify_graphify_install_rationale_1154]] — code: Write automated Kilo edits to kilo.json so existing JSONC stays untouched.
+- [[graphify_graphify_install_rationale_1158]] — code: Write graphify.js plugin and register it without rewriting user JSONC.
+- [[graphify_graphify_install_rationale_1182]] — code: Remove graphify.js plugin and deregister it without rewriting user JSONC.
+- [[graphify_graphify_install_rationale_1243]] — code: Write graphify.js plugin and register it in opencode.json.
+- [[graphify_graphify_install_rationale_1267]] — code: Remove graphify.js plugin and deregister from opencode.json.
+- [[graphify_graphify_install_rationale_1289]] — code: Return the absolute path to the graphify executable.      Falls back to bare '
+- [[graphify_graphify_install_rationale_1307]] — code: Add graphify PreToolUse hook to .codex/hooks.json.
+- [[graphify_graphify_install_rationale_1337]] — code: Remove graphify PreToolUse hook from .codex/hooks.json.
+- [[graphify_graphify_install_rationale_1351]] — code: Write the graphify section to the local AGENTS.md for always-on platforms.
+- [[graphify_graphify_install_rationale_1387]] — code: Best-effort removal of the pre-fix ~/.amp/skills/graphify install dir.      Ol
+- [[graphify_graphify_install_rationale_1399]] — code: User-scope Amp install: skill into ~/.config/agents/skills + AGENTS.md.
+- [[graphify_graphify_install_rationale_1404]] — code: User-scope Amp uninstall: remove the skill and the AGENTS.md section.
+- [[graphify_graphify_install_rationale_1410]] — code: `graphify agents install`: skill into ~/.agents/skills + AGENTS.md.      The a
+- [[graphify_graphify_install_rationale_1422]] — code: `graphify agents uninstall`: remove the skill and the AGENTS.md section.
+- [[graphify_graphify_install_rationale_1428]] — code: Install platform skill/config files in the current project.
+- [[graphify_graphify_install_rationale_1471]] — code: Remove project-scoped platform skill/config files only.
+- [[graphify_graphify_install_rationale_1505]] — code: Remove project-scoped install files without touching user-scope installs.
+- [[graphify_graphify_install_rationale_1514]] — code: Remove the graphify section from the local AGENTS.md.
+- [[graphify_graphify_install_rationale_1581]] — code: Install native Kilo skill + command globally and always-on project wiring locall
+- [[graphify_graphify_install_rationale_1585]] — code: Remove Kilo always-on project wiring and global skill/command files.
+- [[graphify_graphify_install_rationale_1590]] — code: Write the graphify section to the local CLAUDE.md.
+- [[graphify_graphify_install_rationale_1615]] — code: Add graphify PreToolUse hook to .claude/settings.json.
+- [[graphify_graphify_install_rationale_1635]] — code: Remove the graphify PreToolUse hook from .claude/settings.json and its     loca
+- [[graphify_graphify_install_rationale_1645]] — code: Drop graphify PreToolUse hooks from a single Claude settings file, if present.
+- [[graphify_graphify_install_rationale_1660]] — code: Remove graphify from every platform detected in the current project.
+- [[graphify_graphify_install_rationale_1703]] — code: Remove the graphify skill tree (SKILL.md + references/) and the graphify     se
+- [[graphify_graphify_install_rationale_1736]] — code: Strip the ## graphify section from one CLAUDE.md-style file.      Returns True
+- [[graphify_graphify_install_rationale_1764]] — code: Install the graphify skill and CODEBUDDY.md section for CodeBuddy.
+- [[graphify_graphify_install_rationale_1789]] — code: Add graphify PreToolUse hook to .codebuddy/settings.json.
+- [[graphify_graphify_install_rationale_1809]] — code: Remove graphify PreToolUse hook from .codebuddy/settings.json.
+- [[graphify_graphify_install_rationale_1825]] — code: Remove the graphify skill tree (SKILL.md + references/) and the CODEBUDDY.md sec
+- [[graphify_graphify_install_rationale_1885]] — code: Handle `graphify <install-command>` dispatch (install/uninstall + every     per
+
+## Dependências
+
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_agents_platform_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_agents_platform_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_amp_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_amp_legacy_cleanup]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_amp_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_antigravity_finalize]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_antigravity_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_antigravity_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_canonical_platform]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_claude_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_claude_pretooluse_hooks]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_cursor_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_cursor_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_devin_rules_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_devin_rules_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_dispatch_install_cli]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_gemini_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_gemini_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_gemini_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_claude_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_codebuddy_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_codex_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_gemini_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_kilo_plugin]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_opencode_plugin]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_install_skill_references]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kilo_config_path]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kilo_config_write_path]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kilo_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kilo_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kilo_uninstall_global]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kiro_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_kiro_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_load_json_like]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_packaged_skill_refs_dir]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_print_banner]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_print_install_usage]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_print_project_git_add_hint]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_project_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_project_scope_root]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_project_uninstall]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_project_uninstall_all]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_refresh_all_version_stamps]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_remove_claude_skill_registration]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_resolve_graphify_exe]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_skill_registration]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_strip_graphify_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_strip_graphify_md_section]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_strip_json_comments]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_all]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_claude_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_codebuddy_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_codex_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_gemini_hook]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_kilo_plugin]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_uninstall_opencode_plugin]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_vscode_install]]
+- [[graphify_graphify_install]] → `contains` → [[graphify_graphify_install_vscode_uninstall]]
+- [[graphify_graphify_install]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_install_rationale_1]] → `rationale_for` → [[graphify_graphify_install]]
+- [[graphify_graphify_install_agents_install]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_always_on]] → `calls` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_antigravity_finalize]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_claude_install]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_codebuddy_install]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_gemini_install]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_kiro_install]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_rationale_35]] → `rationale_for` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_vscode_install]] → `calls` → [[graphify_graphify_install_always_on]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_refresh_all_version_stamps]]
+- [[graphify_graphify_install_rationale_57]] → `rationale_for` → [[graphify_graphify_install_refresh_all_version_stamps]]
+- [[graphify_graphify_install_refresh_all_version_stamps]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_antigravity_install]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_antigravity_uninstall]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_copy_skill_file]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_kiro_uninstall]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_platform_skill_destination]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_rationale_68]] → `rationale_for` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_remove_skill_file]] → `calls` → [[graphify_graphify_install_platform_skill_destination]]
+- [[graphify_graphify_install_agents_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_agents_platform_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_agents_platform_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_agents_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_amp_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_amp_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_antigravity_finalize]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_antigravity_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_antigravity_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_claude_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_claude_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_codebuddy_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_codebuddy_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_copy_skill_file]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_cursor_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_cursor_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_devin_rules_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_devin_rules_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_gemini_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_gemini_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_claude_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_codebuddy_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_codex_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_gemini_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_kilo_plugin]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_opencode_plugin]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_install_skill_references]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_kilo_config_path]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_kilo_config_write_path]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_kilo_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_kilo_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_kiro_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_kiro_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_load_json_like]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_packaged_skill_refs_dir]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_print_project_git_add_hint]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_project_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_project_scope_root]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_project_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_project_uninstall_all]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_remove_claude_skill_registration]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_remove_skill_file]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_resolve_graphify_exe]] → `calls` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_strip_graphify_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_strip_graphify_md_section]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_all]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_claude_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_codebuddy_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_codex_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_gemini_hook]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_kilo_plugin]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_uninstall_opencode_plugin]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_vscode_install]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_vscode_uninstall]] → `references` → [[graphify_graphify_install_py_path]]
+- [[graphify_graphify_install_copy_skill_file]] → `calls` → [[graphify_graphify_install_packaged_skill_refs_dir]]
+- [[graphify_graphify_install_rationale_122]] → `rationale_for` → [[graphify_graphify_install_packaged_skill_refs_dir]]
+- [[graphify_graphify_install_copy_skill_file]] → `calls` → [[graphify_graphify_install_install_skill_references]]
+- [[graphify_graphify_install_rationale_154]] → `rationale_for` → [[graphify_graphify_install_install_skill_references]]
+- [[graphify_graphify_install_vscode_install]] → `calls` → [[graphify_graphify_install_install_skill_references]]
+- [[graphify_graphify_install_agents_platform_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_amp_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_codebuddy_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_gemini_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_kiro_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_rationale_175]] → `rationale_for` → [[graphify_graphify_install_copy_skill_file]]
+- [[graphify_graphify_install_agents_platform_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_amp_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_claude_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_codebuddy_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_gemini_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_kiro_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_rationale_232]] → `rationale_for` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_remove_skill_file]]
+- [[graphify_graphify_install_gemini_install]] → `calls` → [[graphify_graphify_install_project_scope_root]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_project_scope_root]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_project_scope_root]]
+- [[graphify_graphify_install_rationale_254]] → `rationale_for` → [[graphify_graphify_install_project_scope_root]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_remove_claude_skill_registration]]
+- [[graphify_graphify_install_rationale_261]] → `rationale_for` → [[graphify_graphify_install_remove_claude_skill_registration]]
+- [[graphify_graphify_install_gemini_install]] → `calls` → [[graphify_graphify_install_print_project_git_add_hint]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_print_project_git_add_hint]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_print_project_git_add_hint]]
+- [[graphify_graphify_install_claude_pretooluse_hooks]] → `calls` → [[graphify_graphify_install_resolve_graphify_exe]]
+- [[graphify_graphify_install_install_claude_hook]] → `calls` → [[graphify_graphify_install_claude_pretooluse_hooks]]
+- [[graphify_graphify_install_install_codebuddy_hook]] → `calls` → [[graphify_graphify_install_claude_pretooluse_hooks]]
+- [[graphify_graphify_install_rationale_289]] → `rationale_for` → [[graphify_graphify_install_claude_pretooluse_hooks]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_skill_registration]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_canonical_platform]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_canonical_platform]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_canonical_platform]]
+- [[graphify_graphify_install_rationale_461]] → `rationale_for` → [[graphify_graphify_install_canonical_platform]]
+- [[graphify_graphify_install_agents_install]] → `calls` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install_claude_install]] → `calls` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install_codebuddy_install]] → `calls` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install_gemini_install]] → `calls` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install_rationale_464]] → `rationale_for` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install_vscode_install]] → `calls` → [[graphify_graphify_install_replace_or_append_section]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_print_banner]]
+- [[graphify_graphify_install_rationale_512]] → `rationale_for` → [[graphify_graphify_install_print_banner]]
+- [[graphify_graphify_install_antigravity_install]] → `calls` → [[graphify_graphify_install_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_install]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_cursor_install]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_gemini_install]]
+- [[graphify_graphify_install_install]] → `calls` → [[graphify_graphify_install_install_opencode_plugin]]
+- [[graphify_graphify_install_kilo_install]] → `calls` → [[graphify_graphify_install_install]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_print_install_usage]]
+- [[graphify_graphify_install_gemini_hook]] → `calls` → [[graphify_graphify_install_resolve_graphify_exe]]
+- [[graphify_graphify_install_install_gemini_hook]] → `calls` → [[graphify_graphify_install_gemini_hook]]
+- [[graphify_graphify_install_rationale_632]] → `rationale_for` → [[graphify_graphify_install_gemini_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_gemini_install]]
+- [[graphify_graphify_install_gemini_install]] → `calls` → [[graphify_graphify_install_install_gemini_hook]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_gemini_install]]
+- [[graphify_graphify_install_rationale_641]] → `rationale_for` → [[graphify_graphify_install_gemini_install]]
+- [[graphify_graphify_install_gemini_uninstall]] → `calls` → [[graphify_graphify_install_uninstall_gemini_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_gemini_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_gemini_uninstall]]
+- [[graphify_graphify_install_rationale_703]] → `rationale_for` → [[graphify_graphify_install_gemini_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_gemini_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_vscode_install]]
+- [[graphify_graphify_install_rationale_727]] → `rationale_for` → [[graphify_graphify_install_vscode_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_vscode_uninstall]]
+- [[graphify_graphify_install_rationale_779]] → `rationale_for` → [[graphify_graphify_install_vscode_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_vscode_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_kiro_install]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_kiro_install]]
+- [[graphify_graphify_install_rationale_830]] → `rationale_for` → [[graphify_graphify_install_kiro_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_kiro_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_kiro_uninstall]]
+- [[graphify_graphify_install_rationale_856]] → `rationale_for` → [[graphify_graphify_install_kiro_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_kiro_uninstall]]
+- [[graphify_graphify_install_antigravity_install]] → `calls` → [[graphify_graphify_install_antigravity_finalize]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_antigravity_finalize]]
+- [[graphify_graphify_install_rationale_872]] → `rationale_for` → [[graphify_graphify_install_antigravity_finalize]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_antigravity_install]]
+- [[graphify_graphify_install_rationale_915]] → `rationale_for` → [[graphify_graphify_install_antigravity_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_antigravity_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_antigravity_uninstall]]
+- [[graphify_graphify_install_rationale_935]] → `rationale_for` → [[graphify_graphify_install_antigravity_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_antigravity_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_cursor_install]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_cursor_install]]
+- [[graphify_graphify_install_rationale_995]] → `rationale_for` → [[graphify_graphify_install_cursor_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_cursor_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_cursor_uninstall]]
+- [[graphify_graphify_install_rationale_1010]] → `rationale_for` → [[graphify_graphify_install_cursor_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_cursor_uninstall]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_devin_rules_install]]
+- [[graphify_graphify_install_rationale_1032]] → `rationale_for` → [[graphify_graphify_install_devin_rules_install]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_devin_rules_uninstall]]
+- [[graphify_graphify_install_rationale_1042]] → `rationale_for` → [[graphify_graphify_install_devin_rules_uninstall]]
+- [[graphify_graphify_install_load_json_like]] → `calls` → [[graphify_graphify_install_strip_json_comments]]
+- [[graphify_graphify_install_rationale_1080]] → `rationale_for` → [[graphify_graphify_install_strip_json_comments]]
+- [[graphify_graphify_install_install_kilo_plugin]] → `calls` → [[graphify_graphify_install_load_json_like]]
+- [[graphify_graphify_install_uninstall_kilo_plugin]] → `calls` → [[graphify_graphify_install_load_json_like]]
+- [[graphify_graphify_install_install_kilo_plugin]] → `calls` → [[graphify_graphify_install_kilo_config_path]]
+- [[graphify_graphify_install_uninstall_kilo_plugin]] → `calls` → [[graphify_graphify_install_kilo_config_path]]
+- [[graphify_graphify_install_install_kilo_plugin]] → `calls` → [[graphify_graphify_install_kilo_config_write_path]]
+- [[graphify_graphify_install_rationale_1154]] → `rationale_for` → [[graphify_graphify_install_kilo_config_write_path]]
+- [[graphify_graphify_install_uninstall_kilo_plugin]] → `calls` → [[graphify_graphify_install_kilo_config_write_path]]
+- [[graphify_graphify_install_agents_install]] → `calls` → [[graphify_graphify_install_install_kilo_plugin]]
+- [[graphify_graphify_install_rationale_1158]] → `rationale_for` → [[graphify_graphify_install_install_kilo_plugin]]
+- [[graphify_graphify_install_agents_uninstall]] → `calls` → [[graphify_graphify_install_uninstall_kilo_plugin]]
+- [[graphify_graphify_install_rationale_1182]] → `rationale_for` → [[graphify_graphify_install_uninstall_kilo_plugin]]
+- [[graphify_graphify_install_agents_install]] → `calls` → [[graphify_graphify_install_install_opencode_plugin]]
+- [[graphify_graphify_install_rationale_1243]] → `rationale_for` → [[graphify_graphify_install_install_opencode_plugin]]
+- [[graphify_graphify_install_agents_uninstall]] → `calls` → [[graphify_graphify_install_uninstall_opencode_plugin]]
+- [[graphify_graphify_install_rationale_1267]] → `rationale_for` → [[graphify_graphify_install_uninstall_opencode_plugin]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_uninstall_opencode_plugin]]
+- [[graphify_graphify_install_install_codex_hook]] → `calls` → [[graphify_graphify_install_resolve_graphify_exe]]
+- [[graphify_graphify_install_rationale_1289]] → `rationale_for` → [[graphify_graphify_install_resolve_graphify_exe]]
+- [[graphify_graphify_install_agents_install]] → `calls` → [[graphify_graphify_install_install_codex_hook]]
+- [[graphify_graphify_install_rationale_1307]] → `rationale_for` → [[graphify_graphify_install_install_codex_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_uninstall_codex_hook]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_uninstall_codex_hook]]
+- [[graphify_graphify_install_rationale_1337]] → `rationale_for` → [[graphify_graphify_install_uninstall_codex_hook]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_uninstall_codex_hook]]
+- [[graphify_graphify_install_agents_platform_install]] → `calls` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install_amp_install]] → `calls` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install_kilo_install]] → `calls` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install_rationale_1351]] → `rationale_for` → [[graphify_graphify_install_agents_install]]
+- [[graphify_graphify_install_amp_install]] → `calls` → [[graphify_graphify_install_amp_legacy_cleanup]]
+- [[graphify_graphify_install_rationale_1387]] → `rationale_for` → [[graphify_graphify_install_amp_legacy_cleanup]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_amp_install]]
+- [[graphify_graphify_install_rationale_1399]] → `rationale_for` → [[graphify_graphify_install_amp_install]]
+- [[graphify_graphify_install_amp_uninstall]] → `calls` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_amp_uninstall]]
+- [[graphify_graphify_install_rationale_1404]] → `rationale_for` → [[graphify_graphify_install_amp_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_agents_platform_install]]
+- [[graphify_graphify_install_rationale_1410]] → `rationale_for` → [[graphify_graphify_install_agents_platform_install]]
+- [[graphify_graphify_install_agents_platform_uninstall]] → `calls` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_agents_platform_uninstall]]
+- [[graphify_graphify_install_rationale_1422]] → `rationale_for` → [[graphify_graphify_install_agents_platform_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_project_install]]
+- [[graphify_graphify_install_project_install]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_graphify_install_rationale_1428]] → `rationale_for` → [[graphify_graphify_install_project_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_project_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_graphify_install_project_uninstall]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_graphify_install_project_uninstall_all]] → `calls` → [[graphify_graphify_install_project_uninstall]]
+- [[graphify_graphify_install_rationale_1471]] → `rationale_for` → [[graphify_graphify_install_project_uninstall]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_project_uninstall_all]]
+- [[graphify_graphify_install_rationale_1505]] → `rationale_for` → [[graphify_graphify_install_project_uninstall_all]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_kilo_uninstall]] → `calls` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_rationale_1514]] → `rationale_for` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_agents_uninstall]]
+- [[graphify_graphify_install_kilo_uninstall]] → `calls` → [[graphify_graphify_install_kilo_uninstall_global]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_kilo_install]]
+- [[graphify_graphify_install_rationale_1581]] → `rationale_for` → [[graphify_graphify_install_kilo_install]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_kilo_uninstall]]
+- [[graphify_graphify_install_rationale_1585]] → `rationale_for` → [[graphify_graphify_install_kilo_uninstall]]
+- [[graphify_graphify_install_claude_install]] → `calls` → [[graphify_graphify_install_install_claude_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_claude_install]]
+- [[graphify_graphify_install_rationale_1590]] → `rationale_for` → [[graphify_graphify_install_claude_install]]
+- [[graphify_graphify_install_rationale_1615]] → `rationale_for` → [[graphify_graphify_install_install_claude_hook]]
+- [[graphify_graphify_install_claude_uninstall]] → `calls` → [[graphify_graphify_install_uninstall_claude_hook]]
+- [[graphify_graphify_install_rationale_1635]] → `rationale_for` → [[graphify_graphify_install_uninstall_claude_hook]]
+- [[graphify_graphify_install_uninstall_claude_hook]] → `calls` → [[graphify_graphify_install_strip_graphify_hook]]
+- [[graphify_graphify_install_rationale_1645]] → `rationale_for` → [[graphify_graphify_install_strip_graphify_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_uninstall_all]]
+- [[graphify_graphify_install_rationale_1660]] → `rationale_for` → [[graphify_graphify_install_uninstall_all]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_graphify_install_uninstall_all]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_graphify_install_claude_uninstall]] → `calls` → [[graphify_graphify_install_strip_graphify_md_section]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_graphify_install_rationale_1703]] → `rationale_for` → [[graphify_graphify_install_claude_uninstall]]
+- [[graphify_graphify_install_rationale_1736]] → `rationale_for` → [[graphify_graphify_install_strip_graphify_md_section]]
+- [[graphify_graphify_install_codebuddy_install]] → `calls` → [[graphify_graphify_install_install_codebuddy_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_graphify_install_rationale_1764]] → `rationale_for` → [[graphify_graphify_install_codebuddy_install]]
+- [[graphify_graphify_install_rationale_1789]] → `rationale_for` → [[graphify_graphify_install_install_codebuddy_hook]]
+- [[graphify_graphify_install_codebuddy_uninstall]] → `calls` → [[graphify_graphify_install_uninstall_codebuddy_hook]]
+- [[graphify_graphify_install_rationale_1809]] → `rationale_for` → [[graphify_graphify_install_uninstall_codebuddy_hook]]
+- [[graphify_graphify_install_dispatch_install_cli]] → `calls` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_graphify_install_rationale_1825]] → `rationale_for` → [[graphify_graphify_install_codebuddy_uninstall]]
+- [[graphify_graphify_install_rationale_1885]] → `rationale_for` → [[graphify_graphify_install_dispatch_install_cli]]

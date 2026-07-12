@@ -51,6 +51,7 @@ class KnowledgeService:
         if "retrieval" in include_sources and self._retrieval:
             try:
                 from app.domain.ports.retrieval_port import RetrievalQuery
+
                 results["retrieval"] = await self._retrieval.search(
                     RetrievalQuery(text=text, max_results=5)
                 )
@@ -61,6 +62,7 @@ class KnowledgeService:
         if "memory" in include_sources and self._memory:
             try:
                 from app.domain.ports.memory_port import MemoryQuery
+
                 results["memory"] = await self._memory.search(
                     MemoryQuery(text=text, max_results=3)
                 )

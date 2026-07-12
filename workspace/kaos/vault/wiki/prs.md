@@ -1,0 +1,182 @@
+# graphify\graphify\prs.py
+
+## Símbolos
+
+- [[graphify_graphify_prs]] — code: prs.py
+- [[graphify_graphify_prs_c]] — code: _c()
+- [[graphify_graphify_prs_green]] — code: green()
+- [[graphify_graphify_prs_red]] — code: red()
+- [[graphify_graphify_prs_yellow]] — code: yellow()
+- [[graphify_graphify_prs_cyan]] — code: cyan()
+- [[graphify_graphify_prs_bold]] — code: bold()
+- [[graphify_graphify_prs_dim]] — code: dim()
+- [[graphify_graphify_prs_magenta]] — code: magenta()
+- [[graphify_graphify_prs_pad]] — code: _pad()
+- [[graphify_graphify_prs_prinfo]] — code: PRInfo
+- [[graphify_graphify_prs_prinfo_status]] — code: .status()
+- [[graphify_graphify_prs_prinfo_days_old]] — code: .days_old()
+- [[graphify_graphify_prs_prinfo_blast_radius]] — code: .blast_radius()
+- [[graphify_graphify_prs_classify]] — code: _classify()
+- [[graphify_graphify_prs_status_color]] — code: _status_color()
+- [[graphify_graphify_prs_ci_icon]] — code: _ci_icon()
+- [[graphify_graphify_prs_gh]] — code: _gh()
+- [[graphify_graphify_prs_detect_default_branch]] — code: _detect_default_branch()
+- [[graphify_graphify_prs_parse_ci]] — code: _parse_ci()
+- [[graphify_graphify_prs_fetch_prs]] — code: fetch_prs()
+- [[graphify_graphify_prs_fetch_pr_files]] — code: fetch_pr_files()
+- [[graphify_graphify_prs_path_match]] — code: _path_match()
+- [[graphify_graphify_prs_compute_pr_impact]] — code: compute_pr_impact()
+- [[graphify_graphify_prs_format_prs_text]] — code: format_prs_text()
+- [[graphify_graphify_prs_fetch_worktrees]] — code: fetch_worktrees()
+- [[graphify_graphify_prs_load_graph_json]] — code: _load_graph_json()
+- [[graphify_graphify_prs_build_community_labels]] — code: build_community_labels()
+- [[graphify_graphify_prs_attach_graph_impact]] — code: attach_graph_impact()
+- [[graphify_graphify_prs_truncate]] — code: _truncate()
+- [[graphify_graphify_prs_render_dashboard]] — code: render_dashboard()
+- [[graphify_graphify_prs_render_worktrees]] — code: render_worktrees()
+- [[graphify_graphify_prs_render_conflicts]] — code: render_conflicts()
+- [[graphify_graphify_prs_render_pr_detail]] — code: render_pr_detail()
+- [[graphify_graphify_prs_resolve_triage_backend]] — code: _resolve_triage_backend()
+- [[graphify_graphify_prs_triage_with_opus]] — code: triage_with_opus()
+- [[graphify_graphify_prs_cmd_prs]] — code: cmd_prs()
+- [[graphify_graphify_prs_rationale_1]] — code: graphify prs — graph-aware PR dashboard.  Fast terminal overview of open PRs w
+- [[graphify_graphify_prs_rationale_56]] — code: Pad an ANSI-colored string to visible width (strips escape codes for length calc
+- [[graphify_graphify_prs_rationale_155]] — code: Auto-detect the repo's default branch via gh, then git, then fall back to 'main'
+- [[graphify_graphify_prs_rationale_243]] — code: True if graph_src and pr_file refer to the same file (path-boundary safe).
+- [[graphify_graphify_prs_rationale_250]] — code: Return (communities_touched, nodes_affected) for a set of changed files.
+- [[graphify_graphify_prs_rationale_283]] — code: Plain-text PR summary for MCP output (no ANSI).
+- [[graphify_graphify_prs_rationale_299]] — code: Returns {branch: worktree_path}.
+- [[graphify_graphify_prs_rationale_336]] — code: Return {community_id: [top_labels]} extracted from graph node data.
+- [[graphify_graphify_prs_rationale_351]] — code: Fetch PR file lists concurrently, compute graph impact, return community labels.
+- [[graphify_graphify_prs_rationale_560]] — code: Return (backend, model) using GRAPHIFY_TRIAGE_BACKEND or first available key.
+
+## Dependências
+
+- [[graphify_graphify_prs_resolve_triage_backend]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_prs_triage_with_opus]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_prs_resolve_triage_backend]] → `calls` → [[graphify_graphify_llm_default_model_for_backend]]
+- [[graphify_graphify_prs]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_attach_graph_impact]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_ci_icon]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_classify]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_cmd_prs]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_cyan]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_fetch_pr_files]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_fetch_prs]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_format_prs_text]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_gh]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_green]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_load_graph_json]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_magenta]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_pad]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_path_match]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_red]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_render_conflicts]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_render_dashboard]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_render_pr_detail]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_render_worktrees]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_resolve_triage_backend]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_status_color]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_triage_with_opus]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_truncate]]
+- [[graphify_graphify_prs]] → `contains` → [[graphify_graphify_prs_yellow]]
+- [[graphify_graphify_prs_rationale_1]] → `rationale_for` → [[graphify_graphify_prs]]
+- [[graphify_graphify_prs_bold]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_cyan]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_dim]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_green]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_magenta]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_red]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_yellow]] → `calls` → [[graphify_graphify_prs_c]]
+- [[graphify_graphify_prs_ci_icon]] → `calls` → [[graphify_graphify_prs_green]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_green]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_green]]
+- [[graphify_graphify_prs_status_color]] → `calls` → [[graphify_graphify_prs_green]]
+- [[graphify_graphify_prs_ci_icon]] → `calls` → [[graphify_graphify_prs_red]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_red]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_red]]
+- [[graphify_graphify_prs_status_color]] → `calls` → [[graphify_graphify_prs_red]]
+- [[graphify_graphify_prs_triage_with_opus]] → `calls` → [[graphify_graphify_prs_red]]
+- [[graphify_graphify_prs_ci_icon]] → `calls` → [[graphify_graphify_prs_yellow]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_yellow]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_yellow]]
+- [[graphify_graphify_prs_status_color]] → `calls` → [[graphify_graphify_prs_yellow]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_cyan]]
+- [[graphify_graphify_prs_render_pr_detail]] → `calls` → [[graphify_graphify_prs_cyan]]
+- [[graphify_graphify_prs_render_worktrees]] → `calls` → [[graphify_graphify_prs_cyan]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs_render_pr_detail]] → `calls` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs_render_worktrees]] → `calls` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs_status_color]] → `calls` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs_triage_with_opus]] → `calls` → [[graphify_graphify_prs_bold]]
+- [[graphify_graphify_prs_ci_icon]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_render_pr_detail]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_render_worktrees]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_status_color]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_triage_with_opus]] → `calls` → [[graphify_graphify_prs_dim]]
+- [[graphify_graphify_prs_rationale_56]] → `rationale_for` → [[graphify_graphify_prs_pad]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_pad]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_pad]]
+- [[graphify_graphify_prs_attach_graph_impact]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_fetch_prs]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_prinfo]] → `method` → [[graphify_graphify_prs_prinfo_blast_radius]]
+- [[graphify_graphify_prs_prinfo]] → `method` → [[graphify_graphify_prs_prinfo_days_old]]
+- [[graphify_graphify_prs_prinfo]] → `method` → [[graphify_graphify_prs_prinfo_status]]
+- [[graphify_graphify_prs_render_conflicts]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_render_dashboard]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_render_pr_detail]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_render_worktrees]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_triage_with_opus]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_graphify_prs_prinfo_status]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_status_color]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_status_color]]
+- [[graphify_graphify_prs_render_pr_detail]] → `calls` → [[graphify_graphify_prs_status_color]]
+- [[graphify_graphify_prs_render_worktrees]] → `calls` → [[graphify_graphify_prs_status_color]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_ci_icon]]
+- [[graphify_graphify_prs_render_pr_detail]] → `calls` → [[graphify_graphify_prs_ci_icon]]
+- [[graphify_graphify_prs_detect_default_branch]] → `calls` → [[graphify_graphify_prs_gh]]
+- [[graphify_graphify_prs_fetch_prs]] → `calls` → [[graphify_graphify_prs_gh]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_graphify_prs_fetch_prs]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_graphify_prs_rationale_155]] → `rationale_for` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_graphify_prs_fetch_prs]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_fetch_prs]]
+- [[graphify_graphify_prs_attach_graph_impact]] → `indirect_call` → [[graphify_graphify_prs_fetch_pr_files]]
+- [[graphify_graphify_prs_attach_graph_impact]] → `calls` → [[graphify_graphify_prs_path_match]]
+- [[graphify_graphify_prs_compute_pr_impact]] → `calls` → [[graphify_graphify_prs_path_match]]
+- [[graphify_graphify_prs_rationale_243]] → `rationale_for` → [[graphify_graphify_prs_path_match]]
+- [[graphify_graphify_prs_rationale_250]] → `rationale_for` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_graphify_prs_rationale_283]] → `rationale_for` → [[graphify_graphify_prs_format_prs_text]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_graphify_prs_rationale_299]] → `rationale_for` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_graphify_prs_attach_graph_impact]] → `calls` → [[graphify_graphify_prs_load_graph_json]]
+- [[graphify_graphify_prs_load_graph_json]] → `references` → [[graphify_graphify_prs_py_path]]
+- [[graphify_graphify_prs_load_graph_json]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_prs_attach_graph_impact]] → `references` → [[graphify_graphify_prs_py_path]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_py_path]]
+- [[graphify_graphify_prs_attach_graph_impact]] → `calls` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_graphify_prs_rationale_336]] → `rationale_for` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_attach_graph_impact]]
+- [[graphify_graphify_prs_rationale_351]] → `rationale_for` → [[graphify_graphify_prs_attach_graph_impact]]
+- [[graphify_graphify_prs_render_conflicts]] → `calls` → [[graphify_graphify_prs_truncate]]
+- [[graphify_graphify_prs_render_dashboard]] → `calls` → [[graphify_graphify_prs_truncate]]
+- [[graphify_graphify_prs_render_worktrees]] → `calls` → [[graphify_graphify_prs_truncate]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_render_dashboard]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_render_worktrees]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_render_conflicts]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_render_pr_detail]]
+- [[graphify_graphify_prs_rationale_560]] → `rationale_for` → [[graphify_graphify_prs_resolve_triage_backend]]
+- [[graphify_graphify_prs_triage_with_opus]] → `calls` → [[graphify_graphify_prs_resolve_triage_backend]]
+- [[graphify_graphify_prs_cmd_prs]] → `calls` → [[graphify_graphify_prs_triage_with_opus]]

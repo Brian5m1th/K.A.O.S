@@ -1,0 +1,79 @@
+# graphify\tests\test_hypergraph.py
+
+## Símbolos
+
+- [[graphify_tests_test_hypergraph]] — code: test_hypergraph.py
+- [[graphify_tests_test_hypergraph_test_build_from_json_stores_hyperedges]] — code: test_build_from_json_stores_hyperedges()
+- [[graphify_tests_test_hypergraph_test_build_from_json_relativizes_hyperedge_source_file]] — code: test_build_from_json_relativizes_hyperedge_source_file()
+- [[graphify_tests_test_hypergraph_test_build_from_json_no_hyperedges]] — code: test_build_from_json_no_hyperedges()
+- [[graphify_tests_test_hypergraph_test_build_from_json_missing_hyperedges_key]] — code: test_build_from_json_missing_hyperedges_key()
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_adds_new]] — code: test_attach_hyperedges_adds_new()
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_deduplicates]] — code: test_attach_hyperedges_deduplicates()
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_multiple_different_ids]] — code: test_attach_hyperedges_multiple_different_ids()
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_skips_entry_without_id]] — code: test_attach_hyperedges_skips_entry_without_id()
+- [[graphify_tests_test_hypergraph_test_to_json_includes_hyperedges]] — code: test_to_json_includes_hyperedges()
+- [[graphify_tests_test_hypergraph_test_to_json_hyperedges_empty_when_none]] — code: test_to_json_hyperedges_empty_when_none()
+- [[graphify_tests_test_hypergraph_test_hyperedges_roundtrip_via_json_file]] — code: test_hyperedges_roundtrip_via_json_file()
+- [[graphify_tests_test_hypergraph_make_report]] — code: _make_report()
+- [[graphify_tests_test_hypergraph_test_report_includes_hyperedges_section]] — code: test_report_includes_hyperedges_section()
+- [[graphify_tests_test_hypergraph_test_report_includes_hyperedge_node_list]] — code: test_report_includes_hyperedge_node_list()
+- [[graphify_tests_test_hypergraph_test_report_skips_hyperedges_section_when_empty]] — code: test_report_skips_hyperedges_section_when_empty()
+- [[graphify_tests_test_hypergraph_test_report_skips_hyperedges_section_when_key_missing]] — code: test_report_skips_hyperedges_section_when_key_missing()
+- [[graphify_tests_test_hypergraph_alias_extraction]] — code: _alias_extraction()
+- [[graphify_tests_test_hypergraph_test_build_normalizes_member_aliases_to_nodes]] — code: test_build_normalizes_member_aliases_to_nodes()
+- [[graphify_tests_test_hypergraph_test_build_dedups_alias_members_preserving_order]] — code: test_build_dedups_alias_members_preserving_order()
+- [[graphify_tests_test_hypergraph_test_build_canonical_nodes_wins_over_alias]] — code: test_build_canonical_nodes_wins_over_alias()
+- [[graphify_tests_test_hypergraph_test_build_rekeys_alias_keyed_hyperedge_members]] — code: test_build_rekeys_alias_keyed_hyperedge_members()
+- [[graphify_tests_test_hypergraph_test_build_warns_once_per_aliased_hyperedge]] — code: test_build_warns_once_per_aliased_hyperedge()
+- [[graphify_tests_test_hypergraph_rationale_1]] — code: Tests for hyperedge support in graphify.
+- [[graphify_tests_test_hypergraph_rationale_66]] — code: build_from_json(root=...) must relativize hyperedge source_file like it     alr
+- [[graphify_tests_test_hypergraph_rationale_173]] — code: Write graph.json then reload it - hyperedges must survive.
+- [[graphify_tests_test_hypergraph_rationale_243]] — code: Three hyperedges, one per member-key spelling: nodes / members / node_ids.
+- [[graphify_tests_test_hypergraph_rationale_302]] — code: Alias normalization must run BEFORE the semantic id-remap loop so a     `member
+
+## Dependências
+
+- [[graphify_tests_test_hypergraph]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_hypergraph]] → `imports_from` → [[graphify_graphify_export]]
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_adds_new]] → `calls` → [[graphify_graphify_export_attach_hyperedges]]
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_deduplicates]] → `calls` → [[graphify_graphify_export_attach_hyperedges]]
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_multiple_different_ids]] → `calls` → [[graphify_graphify_export_attach_hyperedges]]
+- [[graphify_tests_test_hypergraph_test_attach_hyperedges_skips_entry_without_id]] → `calls` → [[graphify_graphify_export_attach_hyperedges]]
+- [[graphify_tests_test_hypergraph_test_hyperedges_roundtrip_via_json_file]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_hypergraph_test_to_json_hyperedges_empty_when_none]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_hypergraph_test_to_json_includes_hyperedges]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_hypergraph]] → `imports_from` → [[graphify_graphify_report]]
+- [[graphify_tests_test_hypergraph_make_report]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_alias_extraction]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_make_report]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_attach_hyperedges_adds_new]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_attach_hyperedges_deduplicates]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_attach_hyperedges_multiple_different_ids]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_attach_hyperedges_skips_entry_without_id]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_canonical_nodes_wins_over_alias]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_dedups_alias_members_preserving_order]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_from_json_missing_hyperedges_key]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_from_json_no_hyperedges]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_from_json_relativizes_hyperedge_source_file]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_from_json_stores_hyperedges]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_normalizes_member_aliases_to_nodes]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_rekeys_alias_keyed_hyperedge_members]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_build_warns_once_per_aliased_hyperedge]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_hyperedges_roundtrip_via_json_file]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_report_includes_hyperedge_node_list]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_report_includes_hyperedges_section]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_report_skips_hyperedges_section_when_empty]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_report_skips_hyperedges_section_when_key_missing]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_to_json_hyperedges_empty_when_none]]
+- [[graphify_tests_test_hypergraph]] → `contains` → [[graphify_tests_test_hypergraph_test_to_json_includes_hyperedges]]
+- [[graphify_tests_test_hypergraph_rationale_1]] → `rationale_for` → [[graphify_tests_test_hypergraph]]
+- [[graphify_tests_test_hypergraph_rationale_66]] → `rationale_for` → [[graphify_tests_test_hypergraph_test_build_from_json_relativizes_hyperedge_source_file]]
+- [[graphify_tests_test_hypergraph_rationale_173]] → `rationale_for` → [[graphify_tests_test_hypergraph_test_hyperedges_roundtrip_via_json_file]]
+- [[graphify_tests_test_hypergraph_test_report_includes_hyperedge_node_list]] → `calls` → [[graphify_tests_test_hypergraph_make_report]]
+- [[graphify_tests_test_hypergraph_test_report_includes_hyperedges_section]] → `calls` → [[graphify_tests_test_hypergraph_make_report]]
+- [[graphify_tests_test_hypergraph_test_report_skips_hyperedges_section_when_empty]] → `calls` → [[graphify_tests_test_hypergraph_make_report]]
+- [[graphify_tests_test_hypergraph_test_report_skips_hyperedges_section_when_key_missing]] → `calls` → [[graphify_tests_test_hypergraph_make_report]]
+- [[graphify_tests_test_hypergraph_rationale_243]] → `rationale_for` → [[graphify_tests_test_hypergraph_alias_extraction]]
+- [[graphify_tests_test_hypergraph_test_build_normalizes_member_aliases_to_nodes]] → `calls` → [[graphify_tests_test_hypergraph_alias_extraction]]
+- [[graphify_tests_test_hypergraph_test_build_warns_once_per_aliased_hyperedge]] → `calls` → [[graphify_tests_test_hypergraph_alias_extraction]]
+- [[graphify_tests_test_hypergraph_rationale_302]] → `rationale_for` → [[graphify_tests_test_hypergraph_test_build_rekeys_alias_keyed_hyperedge_members]]

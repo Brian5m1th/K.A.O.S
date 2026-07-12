@@ -1,0 +1,77 @@
+# graphify\graphify\diagnostics.py
+
+## Símbolos
+
+- [[graphify_graphify_diagnostics]] — code: diagnostics.py
+- [[graphify_graphify_diagnostics_safe_text]] — code: _safe_text()
+- [[graphify_graphify_diagnostics_edge_list]] — code: _edge_list()
+- [[graphify_graphify_diagnostics_node_ids]] — code: _node_ids()
+- [[graphify_graphify_diagnostics_canonical_edge]] — code: _canonical_edge()
+- [[graphify_graphify_diagnostics_exact_signature]] — code: _exact_signature()
+- [[graphify_graphify_diagnostics_count_extra]] — code: _count_extra()
+- [[graphify_graphify_diagnostics_variant_group_count]] — code: _variant_group_count()
+- [[graphify_graphify_diagnostics_tuple_arity_from_annotation]] — code: _tuple_arity_from_annotation()
+- [[graphify_graphify_diagnostics_scan_producer_suppression_sites]] — code: scan_producer_suppression_sites()
+- [[graphify_graphify_diagnostics_diagnose_extraction]] — code: diagnose_extraction()
+- [[graphify_graphify_diagnostics_read_json_file]] — code: _read_json_file()
+- [[graphify_graphify_diagnostics_diagnose_file]] — code: diagnose_file()
+- [[graphify_graphify_diagnostics_format_diagnostic_json]] — code: format_diagnostic_json()
+- [[graphify_graphify_diagnostics_format_diagnostic_report]] — code: format_diagnostic_report()
+- [[graphify_graphify_diagnostics_rationale_1]] — code: Read-only diagnostics for MultiDiGraph readiness.
+- [[graphify_graphify_diagnostics_rationale_123]] — code: Find likely `seen_*` producer-suppression sets in an extractor file.
+- [[graphify_graphify_diagnostics_rationale_164]] — code: Summarize same-endpoint edge-collapse risk for one JSON graph/extraction dict.
+- [[graphify_graphify_diagnostics_rationale_272]] — code: Read a JSON graph after applying Graphify's graph-load size cap.
+- [[graphify_graphify_diagnostics_rationale_297]] — code: Diagnose a graph/extraction JSON file without mutating it.      When `directed
+
+## Dependências
+
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_build_build_from_json]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_canonical_edge]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_count_extra]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_edge_list]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_exact_signature]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_format_diagnostic_json]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_format_diagnostic_report]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_node_ids]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_read_json_file]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_safe_text]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_scan_producer_suppression_sites]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_tuple_arity_from_annotation]]
+- [[graphify_graphify_diagnostics]] → `contains` → [[graphify_graphify_diagnostics_variant_group_count]]
+- [[graphify_graphify_diagnostics_rationale_1]] → `rationale_for` → [[graphify_graphify_diagnostics]]
+- [[graphify_graphify_diagnostics_canonical_edge]] → `calls` → [[graphify_graphify_diagnostics_safe_text]]
+- [[graphify_graphify_diagnostics_safe_text]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_canonical_edge]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_count_extra]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_diagnose_file]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_edge_list]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_exact_signature]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_format_diagnostic_json]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_format_diagnostic_report]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_node_ids]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_read_json_file]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_scan_producer_suppression_sites]] → `references` → [[graphify_graphify_diagnostics_py_any]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_edge_list]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_node_ids]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_canonical_edge]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_exact_signature]]
+- [[graphify_graphify_diagnostics_count_extra]] → `references` → [[graphify_graphify_diagnostics_py_counter]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_count_extra]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_py_counter]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_variant_group_count]]
+- [[graphify_graphify_diagnostics_scan_producer_suppression_sites]] → `calls` → [[graphify_graphify_diagnostics_tuple_arity_from_annotation]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `calls` → [[graphify_graphify_diagnostics_scan_producer_suppression_sites]]
+- [[graphify_graphify_diagnostics_rationale_123]] → `rationale_for` → [[graphify_graphify_diagnostics_scan_producer_suppression_sites]]
+- [[graphify_graphify_diagnostics_scan_producer_suppression_sites]] → `references` → [[graphify_graphify_diagnostics_py_path]]
+- [[graphify_graphify_diagnostics_diagnose_extraction]] → `references` → [[graphify_graphify_diagnostics_py_path]]
+- [[graphify_graphify_diagnostics_diagnose_file]] → `references` → [[graphify_graphify_diagnostics_py_path]]
+- [[graphify_graphify_diagnostics_read_json_file]] → `references` → [[graphify_graphify_diagnostics_py_path]]
+- [[graphify_graphify_diagnostics_diagnose_file]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_graphify_diagnostics_rationale_164]] → `rationale_for` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_graphify_diagnostics_diagnose_file]] → `calls` → [[graphify_graphify_diagnostics_read_json_file]]
+- [[graphify_graphify_diagnostics_rationale_272]] → `rationale_for` → [[graphify_graphify_diagnostics_read_json_file]]
+- [[graphify_graphify_diagnostics_read_json_file]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_diagnostics_rationale_297]] → `rationale_for` → [[graphify_graphify_diagnostics_diagnose_file]]

@@ -1,0 +1,214 @@
+# graphify\tests\test_multilang.py
+
+## Símbolos
+
+- [[graphify_tests_test_multilang]] — code: test_multilang.py
+- [[graphify_tests_test_multilang_labels]] — code: _labels()
+- [[graphify_tests_test_multilang_call_pairs]] — code: _call_pairs()
+- [[graphify_tests_test_multilang_confidences]] — code: _confidences()
+- [[graphify_tests_test_multilang_edges_with_relation]] — code: _edges_with_relation()
+- [[graphify_tests_test_multilang_normalize_symbol_label]] — code: _normalize_symbol_label()
+- [[graphify_tests_test_multilang_edge_labels]] — code: _edge_labels()
+- [[graphify_tests_test_multilang_test_ts_finds_class]] — code: test_ts_finds_class()
+- [[graphify_tests_test_multilang_test_ts_finds_methods]] — code: test_ts_finds_methods()
+- [[graphify_tests_test_multilang_test_ts_finds_function]] — code: test_ts_finds_function()
+- [[graphify_tests_test_multilang_test_ts_emits_calls]] — code: test_ts_emits_calls()
+- [[graphify_tests_test_multilang_test_ts_calls_are_extracted]] — code: test_ts_calls_are_extracted()
+- [[graphify_tests_test_multilang_test_ts_import_edges_have_import_context]] — code: test_ts_import_edges_have_import_context()
+- [[graphify_tests_test_multilang_test_ts_call_edges_have_call_context]] — code: test_ts_call_edges_have_call_context()
+- [[graphify_tests_test_multilang_test_ts_no_dangling_edges]] — code: test_ts_no_dangling_edges()
+- [[graphify_tests_test_multilang_test_go_finds_struct]] — code: test_go_finds_struct()
+- [[graphify_tests_test_multilang_test_go_finds_methods]] — code: test_go_finds_methods()
+- [[graphify_tests_test_multilang_test_go_finds_constructor]] — code: test_go_finds_constructor()
+- [[graphify_tests_test_multilang_test_go_emits_calls]] — code: test_go_emits_calls()
+- [[graphify_tests_test_multilang_test_go_has_extracted_calls]] — code: test_go_has_extracted_calls()
+- [[graphify_tests_test_multilang_test_go_import_edges_have_import_context]] — code: test_go_import_edges_have_import_context()
+- [[graphify_tests_test_multilang_test_go_call_edges_have_call_context]] — code: test_go_call_edges_have_call_context()
+- [[graphify_tests_test_multilang_test_go_no_dangling_edges]] — code: test_go_no_dangling_edges()
+- [[graphify_tests_test_multilang_test_go_embeds_struct_field]] — code: test_go_embeds_struct_field()
+- [[graphify_tests_test_multilang_test_go_interface_embedding_emits_embeds]] — code: test_go_interface_embedding_emits_embeds()
+- [[graphify_tests_test_multilang_test_go_struct_named_field_emits_field_context]] — code: test_go_struct_named_field_emits_field_context()
+- [[graphify_tests_test_multilang_test_go_method_parameter_return_contexts]] — code: test_go_method_parameter_return_contexts()
+- [[graphify_tests_test_multilang_test_go_method_declaration_emits_refs_only_when_name_present]] — code: test_go_method_declaration_emits_refs_only_when_name_present()
+- [[graphify_tests_test_multilang_test_rust_finds_struct]] — code: test_rust_finds_struct()
+- [[graphify_tests_test_multilang_test_rust_finds_impl_methods]] — code: test_rust_finds_impl_methods()
+- [[graphify_tests_test_multilang_test_rust_finds_function]] — code: test_rust_finds_function()
+- [[graphify_tests_test_multilang_test_rust_emits_calls]] — code: test_rust_emits_calls()
+- [[graphify_tests_test_multilang_test_rust_calls_are_extracted]] — code: test_rust_calls_are_extracted()
+- [[graphify_tests_test_multilang_test_rust_import_edges_have_import_context]] — code: test_rust_import_edges_have_import_context()
+- [[graphify_tests_test_multilang_test_rust_call_edges_have_call_context]] — code: test_rust_call_edges_have_call_context()
+- [[graphify_tests_test_multilang_test_rust_no_dangling_edges]] — code: test_rust_no_dangling_edges()
+- [[graphify_tests_test_multilang_test_rust_trait_impl_emits_implements]] — code: test_rust_trait_impl_emits_implements()
+- [[graphify_tests_test_multilang_test_rust_supertrait_emits_inherits]] — code: test_rust_supertrait_emits_inherits()
+- [[graphify_tests_test_multilang_test_rust_enum_variant_references]] — code: test_rust_enum_variant_references()
+- [[graphify_tests_test_multilang_test_rust_struct_field_emits_field_context]] — code: test_rust_struct_field_emits_field_context()
+- [[graphify_tests_test_multilang_test_rust_tuple_struct_field_references]] — code: test_rust_tuple_struct_field_references()
+- [[graphify_tests_test_multilang_test_rust_method_parameter_return_and_generic_contexts]] — code: test_rust_method_parameter_return_and_generic_contexts()
+- [[graphify_tests_test_multilang_test_rust_no_cross_crate_spurious_edges]] — code: test_rust_no_cross_crate_spurious_edges()
+- [[graphify_tests_test_multilang_test_extract_dispatches_all_languages]] — code: test_extract_dispatches_all_languages()
+- [[graphify_tests_test_multilang_test_cache_hit_returns_same_result]] — code: test_cache_hit_returns_same_result()
+- [[graphify_tests_test_multilang_test_cache_miss_after_file_change]] — code: test_cache_miss_after_file_change()
+- [[graphify_tests_test_multilang_extract_sql_or_skip]] — code: _extract_sql_or_skip()
+- [[graphify_tests_test_multilang_test_sql_finds_tables]] — code: test_sql_finds_tables()
+- [[graphify_tests_test_multilang_test_sql_finds_view]] — code: test_sql_finds_view()
+- [[graphify_tests_test_multilang_test_sql_finds_function]] — code: test_sql_finds_function()
+- [[graphify_tests_test_multilang_test_sql_emits_foreign_key_edge]] — code: test_sql_emits_foreign_key_edge()
+- [[graphify_tests_test_multilang_test_sql_emits_reads_from_edge]] — code: test_sql_emits_reads_from_edge()
+- [[graphify_tests_test_multilang_test_sql_no_dangling_edges]] — code: test_sql_no_dangling_edges()
+- [[graphify_tests_test_multilang_test_sql_alter_table_fk_edge]] — code: test_sql_alter_table_fk_edge()
+- [[graphify_tests_test_multilang_test_sql_schema_qualified_names]] — code: test_sql_schema_qualified_names()
+- [[graphify_tests_test_multilang_test_sql_schema_qualified_alter_fk]] — code: test_sql_schema_qualified_alter_fk()
+- [[graphify_tests_test_multilang_rationale_1]] — code: Tests for multi-language AST extraction: JS/TS, Go, Rust, SQL.
+- [[graphify_tests_test_multilang_rationale_168]] — code: Regression: review feedback flagged a hypothetical UnboundLocalError in     ext
+- [[graphify_tests_test_multilang_rationale_350]] — code: Enum variant payload types must emit `references` edges.      Tuple variants (
+- [[graphify_tests_test_multilang_rationale_369]] — code: Tuple struct fields (`struct Wrapper(A, B);`) nest their positional types     u
+- [[graphify_tests_test_multilang_rationale_389]] — code: Scoped calls (Type::method) and blocklisted names must not produce     INFERRED
+- [[graphify_tests_test_multilang_rationale_491]] — code: ALTER TABLE ... FOREIGN KEY ... REFERENCES produces a references edge.
+- [[graphify_tests_test_multilang_rationale_501]] — code: Schema-qualified table names (Schema.Table) are preserved.
+- [[graphify_tests_test_multilang_rationale_508]] — code: ALTER TABLE with schema-qualified names produces correct edges.
+
+## Dependências
+
+- [[graphify_tests_test_multilang]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_multilang_test_ts_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_calls_are_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_emits_calls]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_finds_class]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_finds_function]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_ts_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_multilang_test_cache_hit_returns_same_result]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_multilang_test_cache_miss_after_file_change]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_multilang_test_extract_dispatches_all_languages]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_multilang_test_rust_no_cross_crate_spurious_edges]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_multilang_test_go_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_embeds_struct_field]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_emits_calls]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_finds_constructor]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_finds_methods]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_finds_struct]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_has_extracted_calls]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_interface_embedding_emits_embeds]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_method_declaration_emits_refs_only_when_name_present]] → `indirect_call` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_method_parameter_return_contexts]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_go_struct_named_field_emits_field_context]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_multilang_test_rust_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_calls_are_extracted]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_emits_calls]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_enum_variant_references]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_finds_function]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_finds_impl_methods]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_finds_struct]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_method_parameter_return_and_generic_contexts]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_struct_field_emits_field_context]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_supertrait_emits_inherits]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_trait_impl_emits_implements]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_test_rust_tuple_struct_field_references]] → `calls` → [[graphify_graphify_extractors_rust_extract_rust]]
+- [[graphify_tests_test_multilang_extract_sql_or_skip]] → `calls` → [[graphify_graphify_extractors_sql_extract_sql]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_call_pairs]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_confidences]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_normalize_symbol_label]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_cache_hit_returns_same_result]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_cache_miss_after_file_change]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_extract_dispatches_all_languages]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_call_edges_have_call_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_embeds_struct_field]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_emits_calls]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_finds_constructor]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_finds_methods]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_finds_struct]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_has_extracted_calls]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_import_edges_have_import_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_interface_embedding_emits_embeds]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_method_declaration_emits_refs_only_when_name_present]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_method_parameter_return_contexts]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_no_dangling_edges]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_go_struct_named_field_emits_field_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_call_edges_have_call_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_calls_are_extracted]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_emits_calls]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_enum_variant_references]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_finds_function]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_finds_impl_methods]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_finds_struct]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_import_edges_have_import_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_method_parameter_return_and_generic_contexts]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_no_cross_crate_spurious_edges]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_no_dangling_edges]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_struct_field_emits_field_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_supertrait_emits_inherits]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_trait_impl_emits_implements]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_rust_tuple_struct_field_references]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_alter_table_fk_edge]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_emits_foreign_key_edge]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_emits_reads_from_edge]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_finds_function]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_finds_tables]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_finds_view]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_no_dangling_edges]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_schema_qualified_alter_fk]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_sql_schema_qualified_names]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_call_edges_have_call_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_calls_are_extracted]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_emits_calls]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_finds_class]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_finds_function]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_finds_methods]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_import_edges_have_import_context]]
+- [[graphify_tests_test_multilang]] → `contains` → [[graphify_tests_test_multilang_test_ts_no_dangling_edges]]
+- [[graphify_tests_test_multilang_rationale_1]] → `rationale_for` → [[graphify_tests_test_multilang]]
+- [[graphify_tests_test_multilang_test_go_finds_constructor]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_go_finds_methods]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_go_finds_struct]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_rust_finds_function]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_rust_finds_impl_methods]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_rust_finds_struct]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_ts_finds_class]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_ts_finds_function]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_ts_finds_methods]] → `calls` → [[graphify_tests_test_multilang_labels]]
+- [[graphify_tests_test_multilang_test_go_emits_calls]] → `calls` → [[graphify_tests_test_multilang_call_pairs]]
+- [[graphify_tests_test_multilang_test_rust_emits_calls]] → `calls` → [[graphify_tests_test_multilang_call_pairs]]
+- [[graphify_tests_test_multilang_test_ts_emits_calls]] → `calls` → [[graphify_tests_test_multilang_call_pairs]]
+- [[graphify_tests_test_multilang_test_go_has_extracted_calls]] → `calls` → [[graphify_tests_test_multilang_confidences]]
+- [[graphify_tests_test_multilang_test_go_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang_test_go_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang_test_rust_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang_test_rust_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang_test_ts_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang_test_ts_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_multilang_edges_with_relation]]
+- [[graphify_tests_test_multilang_edge_labels]] → `calls` → [[graphify_tests_test_multilang_normalize_symbol_label]]
+- [[graphify_tests_test_multilang_test_go_embeds_struct_field]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_go_interface_embedding_emits_embeds]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_go_method_parameter_return_contexts]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_go_struct_named_field_emits_field_context]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_rust_enum_variant_references]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_rust_method_parameter_return_and_generic_contexts]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_rust_struct_field_emits_field_context]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_rust_supertrait_emits_inherits]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_rust_trait_impl_emits_implements]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_test_rust_tuple_struct_field_references]] → `calls` → [[graphify_tests_test_multilang_edge_labels]]
+- [[graphify_tests_test_multilang_rationale_168]] → `rationale_for` → [[graphify_tests_test_multilang_test_go_method_declaration_emits_refs_only_when_name_present]]
+- [[graphify_tests_test_multilang_rationale_350]] → `rationale_for` → [[graphify_tests_test_multilang_test_rust_enum_variant_references]]
+- [[graphify_tests_test_multilang_rationale_369]] → `rationale_for` → [[graphify_tests_test_multilang_test_rust_tuple_struct_field_references]]
+- [[graphify_tests_test_multilang_rationale_389]] → `rationale_for` → [[graphify_tests_test_multilang_test_rust_no_cross_crate_spurious_edges]]
+- [[graphify_tests_test_multilang_test_sql_alter_table_fk_edge]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_emits_foreign_key_edge]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_emits_reads_from_edge]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_finds_function]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_finds_tables]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_finds_view]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_no_dangling_edges]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_schema_qualified_alter_fk]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_test_sql_schema_qualified_names]] → `calls` → [[graphify_tests_test_multilang_extract_sql_or_skip]]
+- [[graphify_tests_test_multilang_rationale_491]] → `rationale_for` → [[graphify_tests_test_multilang_test_sql_alter_table_fk_edge]]
+- [[graphify_tests_test_multilang_rationale_501]] → `rationale_for` → [[graphify_tests_test_multilang_test_sql_schema_qualified_names]]
+- [[graphify_tests_test_multilang_rationale_508]] → `rationale_for` → [[graphify_tests_test_multilang_test_sql_schema_qualified_alter_fk]]

@@ -1,0 +1,227 @@
+# graphify\graphify\detect.py
+
+## Símbolos
+
+- [[graphify_graphify_detect]] — code: detect.py
+- [[graphify_graphify_detect_filetype]] — code: FileType
+- [[graphify_graphify_detect_file_within_size_cap]] — code: _file_within_size_cap()
+- [[graphify_graphify_detect_zip_within_caps]] — code: _zip_within_caps()
+- [[graphify_graphify_detect_generic_keyword_hit]] — code: _generic_keyword_hit()
+- [[graphify_graphify_detect_is_sensitive]] — code: _is_sensitive()
+- [[graphify_graphify_detect_looks_like_paper]] — code: _looks_like_paper()
+- [[graphify_graphify_detect_split_env_s]] — code: _split_env_s()
+- [[graphify_graphify_detect_env_command_args]] — code: _env_command_args()
+- [[graphify_graphify_detect_shebang_interpreter]] — code: _shebang_interpreter()
+- [[graphify_graphify_detect_shebang_file_type]] — code: _shebang_file_type()
+- [[graphify_graphify_detect_classify_file]] — code: classify_file()
+- [[graphify_graphify_detect_extract_pdf_text]] — code: extract_pdf_text()
+- [[graphify_graphify_detect_docx_to_markdown]] — code: docx_to_markdown()
+- [[graphify_graphify_detect_xlsx_to_markdown]] — code: xlsx_to_markdown()
+- [[graphify_graphify_detect_xlsx_extract_structure]] — code: xlsx_extract_structure()
+- [[graphify_graphify_detect_convert_office_file]] — code: convert_office_file()
+- [[graphify_graphify_detect_count_words]] — code: count_words()
+- [[graphify_graphify_detect_is_noise_dir]] — code: _is_noise_dir()
+- [[graphify_graphify_detect_parse_gitignore_line]] — code: _parse_gitignore_line()
+- [[graphify_graphify_detect_find_vcs_root]] — code: _find_vcs_root()
+- [[graphify_graphify_detect_load_graphifyignore]] — code: _load_graphifyignore()
+- [[graphify_graphify_detect_is_ignored]] — code: _is_ignored()
+- [[graphify_graphify_detect_load_graphifyinclude]] — code: _load_graphifyinclude()
+- [[graphify_graphify_detect_is_included]] — code: _is_included()
+- [[graphify_graphify_detect_could_contain_included_path]] — code: _could_contain_included_path()
+- [[graphify_graphify_detect_auto_follow_symlinks]] — code: _auto_follow_symlinks()
+- [[graphify_graphify_detect_resolves_under_root]] — code: _resolves_under_root()
+- [[graphify_graphify_detect_detect]] — code: detect()
+- [[graphify_graphify_detect_os_path]] — code: _os_path()
+- [[graphify_graphify_detect_md5_file]] — code: _md5_file()
+- [[graphify_graphify_detect_stat_and_hash]] — code: _stat_and_hash()
+- [[graphify_graphify_detect_to_relative_for_storage]] — code: _to_relative_for_storage()
+- [[graphify_graphify_detect_to_absolute_from_storage]] — code: _to_absolute_from_storage()
+- [[graphify_graphify_detect_load_manifest]] — code: load_manifest()
+- [[graphify_graphify_detect_save_manifest]] — code: save_manifest()
+- [[graphify_graphify_detect_detect_incremental]] — code: detect_incremental()
+- [[graphify_graphify_detect_rationale_52]] — code: True if *path* exists and its on-disk size is within *cap*.
+- [[graphify_graphify_detect_rationale_60]] — code: Reject a zip-based office file that is a likely zip/XML bomb.      Two layers,
+- [[graphify_graphify_detect_rationale_144]] — code: True if a generic secret keyword appears load-bearing in the filename.      Se
+- [[graphify_graphify_detect_rationale_186]] — code: Return True if this file likely contains secrets and should be skipped.
+- [[graphify_graphify_detect_rationale_212]] — code: Heuristic: does this text file read like an academic paper?
+- [[graphify_graphify_detect_rationale_234]] — code: Re-tokenize an `env -S`/`--split-string` packed command, prepending the     ope
+- [[graphify_graphify_detect_rationale_241]] — code: Strip leading env(1) options and var assignments, return the trailing     comma
+- [[graphify_graphify_detect_rationale_364]] — code: Return the interpreter name from a shebang line.      Handles forms that a nai
+- [[graphify_graphify_detect_rationale_399]] — code: Peek at the first line of an extensionless file for a shebang.
+- [[graphify_graphify_detect_rationale_444]] — code: Extract plain text from a PDF file using pypdf.
+- [[graphify_graphify_detect_rationale_461]] — code: Convert a .docx file to markdown text using python-docx.
+- [[graphify_graphify_detect_rationale_503]] — code: Convert an .xlsx file to markdown text using openpyxl.
+- [[graphify_graphify_detect_rationale_535]] — code: Extract structural nodes (sheets, named tables, column headers) from an .xlsx fi
+- [[graphify_graphify_detect_rationale_625]] — code: Convert a .docx or .xlsx to a markdown sidecar in out_dir.      Returns the pa
+- [[graphify_graphify_detect_rationale_726]] — code: Return True if this directory name looks like a venv, cache, or dep dir.
+- [[graphify_graphify_detect_rationale_757]] — code: Parse one raw line from a .graphifyignore file per gitignore spec.      - Stri
+- [[graphify_graphify_detect_rationale_781]] — code: Walk upward from start; return the first directory containing a VCS marker.
+- [[graphify_graphify_detect_rationale_794]] — code: Read .graphifyignore files and return (anchor_dir, pattern) pairs.      Patter
+- [[graphify_graphify_detect_rationale_845]] — code: Return True if the path should be ignored per .graphifyignore patterns.      U
+- [[graphify_graphify_detect_rationale_933]] — code: Read .graphifyinclude allowlist patterns from root and ancestors.      Include
+- [[graphify_graphify_detect_rationale_963]] — code: Return True if path matches any .graphifyinclude allowlist pattern.
+- [[graphify_graphify_detect_rationale_1012]] — code: Return True if a directory may contain files matched by .graphifyinclude.
+- [[graphify_graphify_detect_rationale_1044]] — code: Return whether ``root`` has any direct symlinked child.      Kept for callers
+- [[graphify_graphify_detect_rationale_1060]] — code: True when ``path`` resolves to a target inside ``root``.
+- [[graphify_graphify_detect_rationale_1277]] — code: r"""Return an OS path string safe for open()/stat() on Windows long paths.
+- [[graphify_graphify_detect_rationale_1305]] — code: MD5 of file contents streamed in 64KB chunks — for change detection only.
+- [[graphify_graphify_detect_rationale_1318]] — code: Stat + MD5 a single file; returns None on OSError (e.g. deleted mid-run).
+- [[graphify_graphify_detect_rationale_1327]] — code: Return ``key`` as a forward-slash relative path from ``root``.      Keys outsi
+- [[graphify_graphify_detect_rationale_1357]] — code: Inverse of :func:`_to_relative_for_storage`.      Re-anchor a stored key again
+- [[graphify_graphify_detect_rationale_1376]] — code: Load the manifest from a previous run. Returns {} on any error.      When ``ro
+- [[graphify_graphify_detect_rationale_1400]] — code: Save current file mtimes + content hashes for change detection.      kind="ast
+- [[graphify_graphify_detect_rationale_1483]] — code: Like detect(), but returns only new or modified files since the last run.
+
+## Dependências
+
+- [[graphify_graphify_detect]] → `imports_from` → [[graphify_graphify_google_workspace]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_auto_follow_symlinks]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_convert_office_file]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_could_contain_included_path]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_count_words]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_detect]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_detect_incremental]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_docx_to_markdown]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_env_command_args]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_extract_pdf_text]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_file_within_size_cap]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_filetype]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_find_vcs_root]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_generic_keyword_hit]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_is_included]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_is_noise_dir]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_load_graphifyinclude]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_looks_like_paper]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_md5_file]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_parse_gitignore_line]]
+- [[graphify_graphify_detect]] → `imports_from` → [[graphify_graphify_detect_py_enum]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_resolves_under_root]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_shebang_file_type]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_split_env_s]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_stat_and_hash]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_to_absolute_from_storage]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_to_relative_for_storage]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_xlsx_extract_structure]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_xlsx_to_markdown]]
+- [[graphify_graphify_detect]] → `contains` → [[graphify_graphify_detect_zip_within_caps]]
+- [[graphify_graphify_detect]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_detect_classify_file]] → `references` → [[graphify_graphify_detect_filetype]]
+- [[graphify_graphify_detect_filetype]] → `inherits` → [[graphify_graphify_detect_py_enum]]
+- [[graphify_graphify_detect_filetype]] → `inherits` → [[graphify_graphify_detect_py_str]]
+- [[graphify_graphify_detect_shebang_file_type]] → `references` → [[graphify_graphify_detect_filetype]]
+- [[graphify_graphify_detect_extract_pdf_text]] → `calls` → [[graphify_graphify_detect_file_within_size_cap]]
+- [[graphify_graphify_detect_file_within_size_cap]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_rationale_52]] → `rationale_for` → [[graphify_graphify_detect_file_within_size_cap]]
+- [[graphify_graphify_detect_zip_within_caps]] → `calls` → [[graphify_graphify_detect_file_within_size_cap]]
+- [[graphify_graphify_detect_auto_follow_symlinks]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_classify_file]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_convert_office_file]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_could_contain_included_path]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_count_words]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_detect]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_detect_incremental]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_docx_to_markdown]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_extract_pdf_text]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_find_vcs_root]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_is_ignored]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_is_included]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_is_sensitive]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_load_graphifyignore]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_load_graphifyinclude]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_load_manifest]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_looks_like_paper]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_md5_file]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_os_path]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_resolves_under_root]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_save_manifest]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_shebang_file_type]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_shebang_interpreter]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_stat_and_hash]] → `calls` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_to_absolute_from_storage]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_to_relative_for_storage]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_xlsx_extract_structure]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_xlsx_to_markdown]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_zip_within_caps]] → `references` → [[graphify_graphify_detect_py_path]]
+- [[graphify_graphify_detect_docx_to_markdown]] → `calls` → [[graphify_graphify_detect_zip_within_caps]]
+- [[graphify_graphify_detect_rationale_60]] → `rationale_for` → [[graphify_graphify_detect_zip_within_caps]]
+- [[graphify_graphify_detect_xlsx_to_markdown]] → `calls` → [[graphify_graphify_detect_zip_within_caps]]
+- [[graphify_graphify_detect_is_sensitive]] → `calls` → [[graphify_graphify_detect_generic_keyword_hit]]
+- [[graphify_graphify_detect_rationale_144]] → `rationale_for` → [[graphify_graphify_detect_generic_keyword_hit]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_graphify_detect_is_sensitive]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_graphify_detect_rationale_186]] → `rationale_for` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_graphify_detect_classify_file]] → `calls` → [[graphify_graphify_detect_looks_like_paper]]
+- [[graphify_graphify_detect_rationale_212]] → `rationale_for` → [[graphify_graphify_detect_looks_like_paper]]
+- [[graphify_graphify_detect_env_command_args]] → `calls` → [[graphify_graphify_detect_split_env_s]]
+- [[graphify_graphify_detect_rationale_234]] → `rationale_for` → [[graphify_graphify_detect_split_env_s]]
+- [[graphify_graphify_detect_rationale_241]] → `rationale_for` → [[graphify_graphify_detect_env_command_args]]
+- [[graphify_graphify_detect_shebang_interpreter]] → `calls` → [[graphify_graphify_detect_env_command_args]]
+- [[graphify_graphify_detect_rationale_364]] → `rationale_for` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_graphify_detect_shebang_file_type]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_graphify_detect_classify_file]] → `calls` → [[graphify_graphify_detect_shebang_file_type]]
+- [[graphify_graphify_detect_rationale_399]] → `rationale_for` → [[graphify_graphify_detect_shebang_file_type]]
+- [[graphify_graphify_detect_classify_file]] → `calls` → [[graphify_graphify_manifest_ingest_is_package_manifest_path]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_graphify_detect_count_words]] → `calls` → [[graphify_graphify_detect_extract_pdf_text]]
+- [[graphify_graphify_detect_rationale_444]] → `rationale_for` → [[graphify_graphify_detect_extract_pdf_text]]
+- [[graphify_graphify_detect_convert_office_file]] → `calls` → [[graphify_graphify_detect_docx_to_markdown]]
+- [[graphify_graphify_detect_count_words]] → `calls` → [[graphify_graphify_detect_docx_to_markdown]]
+- [[graphify_graphify_detect_rationale_461]] → `rationale_for` → [[graphify_graphify_detect_docx_to_markdown]]
+- [[graphify_graphify_detect_convert_office_file]] → `calls` → [[graphify_graphify_detect_xlsx_to_markdown]]
+- [[graphify_graphify_detect_count_words]] → `calls` → [[graphify_graphify_detect_xlsx_to_markdown]]
+- [[graphify_graphify_detect_detect]] → `indirect_call` → [[graphify_graphify_detect_xlsx_to_markdown]]
+- [[graphify_graphify_detect_rationale_503]] → `rationale_for` → [[graphify_graphify_detect_xlsx_to_markdown]]
+- [[graphify_graphify_detect_rationale_535]] → `rationale_for` → [[graphify_graphify_detect_xlsx_extract_structure]]
+- [[graphify_graphify_detect_convert_office_file]] → `calls` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_convert_office_file]]
+- [[graphify_graphify_detect_rationale_625]] → `rationale_for` → [[graphify_graphify_detect_convert_office_file]]
+- [[graphify_graphify_detect_count_words]] → `calls` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_is_noise_dir]]
+- [[graphify_graphify_detect_rationale_726]] → `rationale_for` → [[graphify_graphify_detect_is_noise_dir]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_parse_gitignore_line]]
+- [[graphify_graphify_detect_load_graphifyignore]] → `calls` → [[graphify_graphify_detect_parse_gitignore_line]]
+- [[graphify_graphify_detect_load_graphifyinclude]] → `calls` → [[graphify_graphify_detect_parse_gitignore_line]]
+- [[graphify_graphify_detect_rationale_757]] → `rationale_for` → [[graphify_graphify_detect_parse_gitignore_line]]
+- [[graphify_graphify_detect_load_graphifyignore]] → `calls` → [[graphify_graphify_detect_find_vcs_root]]
+- [[graphify_graphify_detect_load_graphifyinclude]] → `calls` → [[graphify_graphify_detect_find_vcs_root]]
+- [[graphify_graphify_detect_rationale_781]] → `rationale_for` → [[graphify_graphify_detect_find_vcs_root]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_graphify_detect_rationale_794]] → `rationale_for` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_graphify_detect_rationale_845]] → `rationale_for` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_load_graphifyinclude]]
+- [[graphify_graphify_detect_rationale_933]] → `rationale_for` → [[graphify_graphify_detect_load_graphifyinclude]]
+- [[graphify_graphify_detect_rationale_963]] → `rationale_for` → [[graphify_graphify_detect_is_included]]
+- [[graphify_graphify_detect_rationale_1012]] → `rationale_for` → [[graphify_graphify_detect_could_contain_included_path]]
+- [[graphify_graphify_detect_rationale_1044]] → `rationale_for` → [[graphify_graphify_detect_auto_follow_symlinks]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_detect_resolves_under_root]]
+- [[graphify_graphify_detect_rationale_1060]] → `rationale_for` → [[graphify_graphify_detect_resolves_under_root]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_google_workspace_convert_google_workspace_file]]
+- [[graphify_graphify_detect_detect]] → `calls` → [[graphify_graphify_google_workspace_google_workspace_enabled]]
+- [[graphify_graphify_detect_detect_incremental]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_graphify_detect_detect_incremental]] → `calls` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect_md5_file]] → `calls` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect_rationale_1277]] → `rationale_for` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect_stat_and_hash]] → `calls` → [[graphify_graphify_detect_os_path]]
+- [[graphify_graphify_detect_detect_incremental]] → `calls` → [[graphify_graphify_detect_md5_file]]
+- [[graphify_graphify_detect_rationale_1305]] → `rationale_for` → [[graphify_graphify_detect_md5_file]]
+- [[graphify_graphify_detect_stat_and_hash]] → `calls` → [[graphify_graphify_detect_md5_file]]
+- [[graphify_graphify_detect_rationale_1318]] → `rationale_for` → [[graphify_graphify_detect_stat_and_hash]]
+- [[graphify_graphify_detect_save_manifest]] → `indirect_call` → [[graphify_graphify_detect_stat_and_hash]]
+- [[graphify_graphify_detect_rationale_1327]] → `rationale_for` → [[graphify_graphify_detect_to_relative_for_storage]]
+- [[graphify_graphify_detect_save_manifest]] → `calls` → [[graphify_graphify_detect_to_relative_for_storage]]
+- [[graphify_graphify_detect_load_manifest]] → `calls` → [[graphify_graphify_detect_to_absolute_from_storage]]
+- [[graphify_graphify_detect_rationale_1357]] → `rationale_for` → [[graphify_graphify_detect_to_absolute_from_storage]]
+- [[graphify_graphify_detect_detect_incremental]] → `calls` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_graphify_detect_rationale_1376]] → `rationale_for` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_graphify_detect_save_manifest]] → `calls` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_graphify_detect_rationale_1400]] → `rationale_for` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_graphify_detect_rationale_1483]] → `rationale_for` → [[graphify_graphify_detect_detect_incremental]]

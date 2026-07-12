@@ -15,6 +15,7 @@ from datetime import datetime
 @dataclass
 class MemoryEntry:
     """A single memory record."""
+
     id: Optional[str] = None
     user_id: str = ""
     type: str = ""  # episodic | semantic | procedural | preference
@@ -27,6 +28,7 @@ class MemoryEntry:
 @dataclass
 class MemoryQuery:
     """Search parameters for memory retrieval."""
+
     text: str
     user_id: Optional[str] = None
     type_filter: Optional[list[str]] = None  # ["episodic", "semantic"]
@@ -37,6 +39,7 @@ class MemoryQuery:
 @dataclass
 class MemoryResult:
     """Search result wrapper."""
+
     matches: list[MemoryEntry] = field(default_factory=list)
     total_found: int = 0
     query_time_ms: float = 0.0
@@ -54,8 +57,7 @@ class MemoryPort(ABC):
 
     @property
     @abstractmethod
-    def provider_name(self) -> str:
-        ...
+    def provider_name(self) -> str: ...
 
     @abstractmethod
     async def store(self, entry: MemoryEntry) -> str:
@@ -78,5 +80,4 @@ class MemoryPort(ABC):
         ...
 
     @abstractmethod
-    async def health(self) -> bool:
-        ...
+    async def health(self) -> bool: ...

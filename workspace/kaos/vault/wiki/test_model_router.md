@@ -1,0 +1,192 @@
+# assistant\tests\unit\test_model_router.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_model_router]] — code: test_model_router.py
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] — code: TestProviderHealthCache
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_default_is_unknown]] — code: .test_default_is_unknown()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_mark_healthy]] — code: .test_mark_healthy()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_mark_unhealthy]] — code: .test_mark_unhealthy()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_ttl_expiry]] — code: .test_ttl_expiry()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_entries_count]] — code: .test_entries_count()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_clear]] — code: .test_clear()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_healthy]] — code: .test_refresh_healthy()
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_unhealthy]] — code: .test_refresh_unhealthy()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] — code: TestCircuitBreaker
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_initial_state_closed]] — code: .test_initial_state_closed()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_opens_after_threshold]] — code: .test_opens_after_threshold()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_success_resets]] — code: .test_success_resets()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_half_open_transition]] — code: .test_half_open_transition()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_recovery]] — code: .test_recovery()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_to_dict]] — code: .test_to_dict()
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_reset]] — code: .test_reset()
+- [[assistant_tests_unit_test_model_router_testproviderselector]] — code: TestProviderSelector
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_nonexistent]] — code: .test_select_nonexistent()
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_with_circuit_open]] — code: .test_select_with_circuit_open()
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_healthy]] — code: .test_select_healthy()
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_unhealthy_in_cache]] — code: .test_select_unhealthy_in_cache()
+- [[assistant_tests_unit_test_model_router_testmodelselection]] — code: TestModelSelection
+- [[assistant_tests_unit_test_model_router_testmodelselection_test_create]] — code: .test_create()
+- [[assistant_tests_unit_test_model_router_testmodelselection_test_empty_candidates]] — code: .test_empty_candidates()
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] — code: TestResolvedPolicy
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy_test_create]] — code: .test_create()
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] — code: TestModelRouter
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_user_profile_override]] — code: .test_select_model_user_profile_override()
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_capability_policy]] — code: .test_select_model_capability_policy()
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_fallback_to_list_by_capability]] — code: .test_select_model_fallback_to_list_by_capability()
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_last_resort]] — code: .test_select_model_last_resort()
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_no_model_found]] — code: .test_select_model_no_model_found()
+
+## Dependências
+
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy_test_create]] → `calls` → [[assistant_app_models_capability_policy_resolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testmodelselection_test_create]] → `calls` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testmodelselection_test_empty_candidates]] → `calls` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_models_model_router_modelselection]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_capability_policy]] → `calls` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_fallback_to_list_by_capability]] → `calls` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_last_resort]] → `calls` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_no_model_found]] → `calls` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_user_profile_override]] → `calls` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_models_model_router_modelrouter]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitstate]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitstate]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitstate]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitstate]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitstate]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitstate]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_half_open_transition]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_initial_state_closed]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_opens_after_threshold]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_recovery]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_reset]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_success_resets]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_to_dict]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_with_circuit_open]] → `calls` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_orchestrator_circuit_breaker_circuitbreaker]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_orchestrator_health_cache_healthstatus]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_orchestrator_health_cache_healthstatus]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_orchestrator_health_cache_healthstatus]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_orchestrator_health_cache_healthstatus]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_orchestrator_health_cache_healthstatus]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_orchestrator_health_cache_healthstatus]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_capability_policy]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_fallback_to_list_by_capability]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_last_resort]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_no_model_found]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_user_profile_override]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_clear]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_default_is_unknown]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_entries_count]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_mark_healthy]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_mark_unhealthy]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_healthy]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_unhealthy]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_ttl_expiry]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_healthy]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_nonexistent]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_unhealthy_in_cache]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_with_circuit_open]] → `calls` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_orchestrator_health_cache_providerhealthcache]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_healthy]] → `calls` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_nonexistent]] → `calls` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_unhealthy_in_cache]] → `calls` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_with_circuit_open]] → `calls` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_orchestrator_provider_selector_providerselector]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_capability_policy]] → `calls` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_repositories_capability_policy_repository_capabilitypolicyrecord]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_capability_policy]] → `calls` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_fallback_to_list_by_capability]] → `calls` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_last_resort]] → `calls` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_user_profile_override]] → `calls` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_repositories_model_repository_modelrecord]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testproviderselector_test_select_healthy]] → `calls` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_repositories_provider_config_repository_providerconfigrecord]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `uses` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `uses` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_user_profile_override]] → `calls` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `uses` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `uses` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `uses` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `uses` → [[assistant_app_repositories_user_model_profile_repository_usermodelprofilerecord]]
+- [[assistant_tests_unit_test_model_router]] → `contains` → [[assistant_tests_unit_test_model_router_testcircuitbreaker]]
+- [[assistant_tests_unit_test_model_router]] → `contains` → [[assistant_tests_unit_test_model_router_testmodelrouter]]
+- [[assistant_tests_unit_test_model_router]] → `contains` → [[assistant_tests_unit_test_model_router_testmodelselection]]
+- [[assistant_tests_unit_test_model_router]] → `contains` → [[assistant_tests_unit_test_model_router_testproviderhealthcache]]
+- [[assistant_tests_unit_test_model_router]] → `contains` → [[assistant_tests_unit_test_model_router_testproviderselector]]
+- [[assistant_tests_unit_test_model_router]] → `contains` → [[assistant_tests_unit_test_model_router_testresolvedpolicy]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_clear]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_default_is_unknown]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_entries_count]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_mark_healthy]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_mark_unhealthy]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_healthy]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_unhealthy]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache]] → `method` → [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_ttl_expiry]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_healthy]] → `indirect_call` → [[graphify_tools_skillgen_gen_check]]
+- [[assistant_tests_unit_test_model_router_testproviderhealthcache_test_refresh_unhealthy]] → `indirect_call` → [[graphify_tools_skillgen_gen_check]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_half_open_transition]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_initial_state_closed]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_opens_after_threshold]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_recovery]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_reset]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_success_resets]]
+- [[assistant_tests_unit_test_model_router_testcircuitbreaker]] → `method` → [[assistant_tests_unit_test_model_router_testcircuitbreaker_test_to_dict]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `method` → [[assistant_tests_unit_test_model_router_testproviderselector_test_select_healthy]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `method` → [[assistant_tests_unit_test_model_router_testproviderselector_test_select_nonexistent]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `method` → [[assistant_tests_unit_test_model_router_testproviderselector_test_select_unhealthy_in_cache]]
+- [[assistant_tests_unit_test_model_router_testproviderselector]] → `method` → [[assistant_tests_unit_test_model_router_testproviderselector_test_select_with_circuit_open]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `method` → [[assistant_tests_unit_test_model_router_testmodelselection_test_create]]
+- [[assistant_tests_unit_test_model_router_testmodelselection]] → `method` → [[assistant_tests_unit_test_model_router_testmodelselection_test_empty_candidates]]
+- [[assistant_tests_unit_test_model_router_testresolvedpolicy]] → `method` → [[assistant_tests_unit_test_model_router_testresolvedpolicy_test_create]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `method` → [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_capability_policy]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `method` → [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_fallback_to_list_by_capability]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `method` → [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_last_resort]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `method` → [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_no_model_found]]
+- [[assistant_tests_unit_test_model_router_testmodelrouter]] → `method` → [[assistant_tests_unit_test_model_router_testmodelrouter_test_select_model_user_profile_override]]

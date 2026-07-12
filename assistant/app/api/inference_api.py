@@ -31,7 +31,11 @@ class InvokeRequest(BaseModel):
 def get_inference_service() -> InferenceService:
     from app.providers.inference.ollama_adapter import OllamaAdapter
     from app.providers.inference.airllm_adapter import AirLLMAdapter
-    from app.providers.inference.openai_adapter import OpenAIAdapter, GeminiAdapter, ClaudeAdapter
+    from app.providers.inference.openai_adapter import (
+        OpenAIAdapter,
+        GeminiAdapter,
+        ClaudeAdapter,
+    )
 
     svc = InferenceService()
     svc.registry.register("ollama", OllamaAdapter())

@@ -1,0 +1,115 @@
+# docs\guides\INSTALLATION.md
+
+## Símbolos
+
+- [[docs_guides_installation]] — code: INSTALLATION.md
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] — code: Guia de Instalação — K.A.O.S
+- [[docs_guides_installation_requisitos_mínimos]] — code: Requisitos Mínimos
+- [[docs_guides_installation_verificação_inicial]] — code: Verificação Inicial
+- [[docs_guides_installation_1_clonar_o_repositório]] — code: 1. Clonar o Repositório
+- [[docs_guides_installation_2_backend_python_fastapi]] — code: 2. Backend (Python / FastAPI)
+- [[docs_guides_installation_2_1_instalar_python_3_13]] — code: 2.1 Instalar Python 3.13
+- [[docs_guides_installation_2_2_instalar_uv_package_manager]] — code: 2.2 Instalar UV (Package Manager)
+- [[docs_guides_installation_2_3_configurar_ambiente]] — code: 2.3 Configurar Ambiente
+- [[docs_guides_installation_2_4_configurar_variáveis_de_ambiente]] — code: 2.4 Configurar Variáveis de Ambiente
+- [[docs_guides_installation_2_5_executar_backend]] — code: 2.5 Executar Backend
+- [[docs_guides_installation_3_desktop_tauri_react_typescript]] — code: 3. Desktop (Tauri + React + TypeScript)
+- [[docs_guides_installation_3_1_instalar_rust]] — code: 3.1 Instalar Rust
+- [[docs_guides_installation_3_2_instalar_dependências]] — code: 3.2 Instalar Dependências
+- [[docs_guides_installation_3_3_executar_em_modo_desenvolvimento]] — code: 3.3 Executar em Modo Desenvolvimento
+- [[docs_guides_installation_3_4_build_de_produção]] — code: 3.4 Build de Produção
+- [[docs_guides_installation_4_infraestrutura_docker]] — code: 4. Infraestrutura (Docker)
+- [[docs_guides_installation_4_1_subir_serviços]] — code: 4.1 Subir Serviços
+- [[docs_guides_installation_4_2_serviços_disponíveis]] — code: 4.2 Serviços Disponíveis
+- [[docs_guides_installation_4_3_verificar_status]] — code: 4.3 Verificar Status
+- [[docs_guides_installation_4_4_logs]] — code: 4.4 Logs
+- [[docs_guides_installation_4_5_parar_serviços]] — code: 4.5 Parar Serviços
+- [[docs_guides_installation_5_ollama]] — code: 5. Ollama
+- [[docs_guides_installation_5_1_instalar_ollama]] — code: 5.1 Instalar Ollama
+- [[docs_guides_installation_5_2_baixar_modelos]] — code: 5.2 Baixar Modelos
+- [[docs_guides_installation_5_3_verificar_funcionamento]] — code: 5.3 Verificar Funcionamento
+- [[docs_guides_installation_6_postgresql]] — code: 6. PostgreSQL
+- [[docs_guides_installation_6_1_via_docker_recomendado]] — code: 6.1 Via Docker (Recomendado)
+- [[docs_guides_installation_6_2_migrations]] — code: 6.2 Migrations
+- [[docs_guides_installation_7_qdrant]] — code: 7. Qdrant
+- [[docs_guides_installation_7_1_via_docker_recomendado]] — code: 7.1 Via Docker (Recomendado)
+- [[docs_guides_installation_7_2_verificar]] — code: 7.2 Verificar
+- [[docs_guides_installation_8_n8n_opcional]] — code: 8. n8n (Opcional)
+- [[docs_guides_installation_8_1_acessar]] — code: 8.1 Acessar
+- [[docs_guides_installation_8_2_configurar_webhook]] — code: 8.2 Configurar Webhook
+- [[docs_guides_installation_9_observabilidade]] — code: 9. Observabilidade
+- [[docs_guides_installation_9_1_prometheus]] — code: 9.1 Prometheus
+- [[docs_guides_installation_9_2_grafana]] — code: 9.2 Grafana
+- [[docs_guides_installation_9_3_loki]] — code: 9.3 Loki
+- [[docs_guides_installation_10_github_actions_ci_cd]] — code: 10. GitHub Actions (CI/CD)
+- [[docs_guides_installation_11_verificação_pós_instalação]] — code: 11. Verificação Pós-Instalação
+- [[docs_guides_installation_checklist]] — code: Checklist
+- [[docs_guides_installation_troubleshooting_comum]] — code: Troubleshooting Comum
+- [[docs_guides_installation_próximos_passos]] — code: Próximos Passos
+- [[docs_guides_installation_resumo]] — code: Resumo
+- [[docs_guides_installation_objetivo]] — code: Objetivo
+- [[docs_guides_installation_responsabilidades]] — code: Responsabilidades
+- [[docs_guides_installation_dependencias]] — code: Dependencias
+- [[docs_guides_installation_fluxos]] — code: Fluxos
+- [[docs_guides_installation_integracoes]] — code: Integracoes
+- [[docs_guides_installation_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_guides_installation_referencias_kirl]] — code: Referencias KIRL
+- [[docs_guides_installation_status]] — code: Status
+- [[docs_guides_installation_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_guides_installation]] → `references` → [[docs_guides_first_run]]
+- [[docs_guides_installation]] → `contains` → [[docs_guides_installation_guia_de_instalação_k_a_o_s]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_10_github_actions_ci_cd]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_11_verificação_pós_instalação]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_1_clonar_o_repositório]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_2_backend_python_fastapi]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_3_desktop_tauri_react_typescript]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_4_infraestrutura_docker]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_5_ollama]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_6_postgresql]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_7_qdrant]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_8_n8n_opcional]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_9_observabilidade]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_arquivos_relacionados]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_dependencias]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_fluxos]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_integracoes]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_objetivo]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_próximos_passos]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_referencias_kirl]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_requisitos_mínimos]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_responsabilidades]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_resumo]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_status]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_troubleshooting_comum]]
+- [[docs_guides_installation_guia_de_instalação_k_a_o_s]] → `contains` → [[docs_guides_installation_ultima_atualizacao]]
+- [[docs_guides_installation_requisitos_mínimos]] → `contains` → [[docs_guides_installation_verificação_inicial]]
+- [[docs_guides_installation_2_backend_python_fastapi]] → `contains` → [[docs_guides_installation_2_1_instalar_python_3_13]]
+- [[docs_guides_installation_2_backend_python_fastapi]] → `contains` → [[docs_guides_installation_2_2_instalar_uv_package_manager]]
+- [[docs_guides_installation_2_backend_python_fastapi]] → `contains` → [[docs_guides_installation_2_3_configurar_ambiente]]
+- [[docs_guides_installation_2_backend_python_fastapi]] → `contains` → [[docs_guides_installation_2_4_configurar_variáveis_de_ambiente]]
+- [[docs_guides_installation_2_backend_python_fastapi]] → `contains` → [[docs_guides_installation_2_5_executar_backend]]
+- [[docs_guides_installation_3_desktop_tauri_react_typescript]] → `contains` → [[docs_guides_installation_3_1_instalar_rust]]
+- [[docs_guides_installation_3_desktop_tauri_react_typescript]] → `contains` → [[docs_guides_installation_3_2_instalar_dependências]]
+- [[docs_guides_installation_3_desktop_tauri_react_typescript]] → `contains` → [[docs_guides_installation_3_3_executar_em_modo_desenvolvimento]]
+- [[docs_guides_installation_3_desktop_tauri_react_typescript]] → `contains` → [[docs_guides_installation_3_4_build_de_produção]]
+- [[docs_guides_installation_4_infraestrutura_docker]] → `contains` → [[docs_guides_installation_4_1_subir_serviços]]
+- [[docs_guides_installation_4_infraestrutura_docker]] → `contains` → [[docs_guides_installation_4_2_serviços_disponíveis]]
+- [[docs_guides_installation_4_infraestrutura_docker]] → `contains` → [[docs_guides_installation_4_3_verificar_status]]
+- [[docs_guides_installation_4_infraestrutura_docker]] → `contains` → [[docs_guides_installation_4_4_logs]]
+- [[docs_guides_installation_4_infraestrutura_docker]] → `contains` → [[docs_guides_installation_4_5_parar_serviços]]
+- [[docs_guides_installation_5_ollama]] → `contains` → [[docs_guides_installation_5_1_instalar_ollama]]
+- [[docs_guides_installation_5_ollama]] → `contains` → [[docs_guides_installation_5_2_baixar_modelos]]
+- [[docs_guides_installation_5_ollama]] → `contains` → [[docs_guides_installation_5_3_verificar_funcionamento]]
+- [[docs_guides_installation_6_postgresql]] → `contains` → [[docs_guides_installation_6_1_via_docker_recomendado]]
+- [[docs_guides_installation_6_postgresql]] → `contains` → [[docs_guides_installation_6_2_migrations]]
+- [[docs_guides_installation_7_qdrant]] → `contains` → [[docs_guides_installation_7_1_via_docker_recomendado]]
+- [[docs_guides_installation_7_qdrant]] → `contains` → [[docs_guides_installation_7_2_verificar]]
+- [[docs_guides_installation_8_n8n_opcional]] → `contains` → [[docs_guides_installation_8_1_acessar]]
+- [[docs_guides_installation_8_n8n_opcional]] → `contains` → [[docs_guides_installation_8_2_configurar_webhook]]
+- [[docs_guides_installation_9_observabilidade]] → `contains` → [[docs_guides_installation_9_1_prometheus]]
+- [[docs_guides_installation_9_observabilidade]] → `contains` → [[docs_guides_installation_9_2_grafana]]
+- [[docs_guides_installation_9_observabilidade]] → `contains` → [[docs_guides_installation_9_3_loki]]
+- [[docs_guides_installation_11_verificação_pós_instalação]] → `contains` → [[docs_guides_installation_checklist]]

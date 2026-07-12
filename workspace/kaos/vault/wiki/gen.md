@@ -1,0 +1,245 @@
+# graphify\tools\skillgen\gen.py
+
+## Símbolos
+
+- [[graphify_tools_skillgen_gen]] — code: gen.py
+- [[graphify_tools_skillgen_gen_v8_baseline_ref]] — code: _v8_baseline_ref()
+- [[graphify_tools_skillgen_gen_audit_allowlist]] — code: _audit_allowlist()
+- [[graphify_tools_skillgen_gen_platform]] — code: Platform
+- [[graphify_tools_skillgen_gen_platform_reference_sources]] — code: .reference_sources()
+- [[graphify_tools_skillgen_gen_platform_hooks_target]] — code: .hooks_target()
+- [[graphify_tools_skillgen_gen_load_platforms]] — code: load_platforms()
+- [[graphify_tools_skillgen_gen_read_fragment]] — code: _read_fragment()
+- [[graphify_tools_skillgen_gen_normalise]] — code: _normalise()
+- [[graphify_tools_skillgen_gen_renderedartifact]] — code: RenderedArtifact
+- [[graphify_tools_skillgen_gen_render_frontmatter]] — code: _render_frontmatter()
+- [[graphify_tools_skillgen_gen_render_core]] — code: _render_core()
+- [[graphify_tools_skillgen_gen_render_agents_md_hooks]] — code: _render_agents_md_hooks()
+- [[graphify_tools_skillgen_gen_render]] — code: render()
+- [[graphify_tools_skillgen_gen_render_always_on]] — code: render_always_on()
+- [[graphify_tools_skillgen_gen_render_all]] — code: render_all()
+- [[graphify_tools_skillgen_gen_write_artifacts]] — code: write_artifacts()
+- [[graphify_tools_skillgen_gen_expected_path]] — code: _expected_path()
+- [[graphify_tools_skillgen_gen_bless]] — code: bless()
+- [[graphify_tools_skillgen_gen_check]] — code: check()
+- [[graphify_tools_skillgen_gen_headings]] — code: headings()
+- [[graphify_tools_skillgen_gen_git_show]] — code: _git_show()
+- [[graphify_tools_skillgen_gen_v8_available]] — code: _v8_available()
+- [[graphify_tools_skillgen_gen_audit_coverage]] — code: audit_coverage()
+- [[graphify_tools_skillgen_gen_enum_lines]] — code: _enum_lines()
+- [[graphify_tools_skillgen_gen_legacy_enum_lines]] — code: legacy_enum_lines()
+- [[graphify_tools_skillgen_gen_schema_singleton]] — code: schema_singleton()
+- [[graphify_tools_skillgen_gen_is_enum_line]] — code: _is_enum_line()
+- [[graphify_tools_skillgen_gen_is_frontmatter_description_line]] — code: _is_frontmatter_description_line()
+- [[graphify_tools_skillgen_gen_is_chunk_cleanup_line]] — code: _is_chunk_cleanup_line()
+- [[graphify_tools_skillgen_gen_is_trigger_line]] — code: _is_trigger_line()
+- [[graphify_tools_skillgen_gen_is_directed_fix_line]] — code: _is_directed_fix_line()
+- [[graphify_tools_skillgen_gen_is_content_scope_fix_line]] — code: _is_content_scope_fix_line()
+- [[graphify_tools_skillgen_gen_is_cache_unlink_fix_line]] — code: _is_cache_unlink_fix_line()
+- [[graphify_tools_skillgen_gen_is_zero_node_guard_fix_line]] — code: _is_zero_node_guard_fix_line()
+- [[graphify_tools_skillgen_gen_is_manifest_root_fix_line]] — code: _is_manifest_root_fix_line()
+- [[graphify_tools_skillgen_gen_is_no_api_key_fix_line]] — code: _is_no_api_key_fix_line()
+- [[graphify_tools_skillgen_gen_is_shebang_allowlist_fix_line]] — code: _is_shebang_allowlist_fix_line()
+- [[graphify_tools_skillgen_gen_is_obsidian_usage_comment_line]] — code: _is_obsidian_usage_comment_line()
+- [[graphify_tools_skillgen_gen_is_uv_from_interpreter_fix_line]] — code: _is_uv_from_interpreter_fix_line()
+- [[graphify_tools_skillgen_gen_is_sanctioned_monolith_diff]] — code: _is_sanctioned_monolith_diff()
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] — code: monolith_roundtrip()
+- [[graphify_tools_skillgen_gen_always_on_constants]] — code: _always_on_constants()
+- [[graphify_tools_skillgen_gen_always_on_roundtrip]] — code: always_on_roundtrip()
+- [[graphify_tools_skillgen_gen_parse_args]] — code: _parse_args()
+- [[graphify_tools_skillgen_gen_main]] — code: main()
+- [[graphify_tools_skillgen_gen_rationale_1]] — code: skillgen: render graphify's committed skill artifacts from edited fragments.
+- [[graphify_tools_skillgen_gen_rationale_61]] — code: The git ref for a split host's own pre-split skill body.
+- [[graphify_tools_skillgen_gen_rationale_260]] — code: The full set of v8 headings the audit may skip for this host.
+- [[graphify_tools_skillgen_gen_rationale_266]] — code: One render unit parsed from platforms.toml.
+- [[graphify_tools_skillgen_gen_rationale_288]] — code: Resolve the rendered-name -> source-fragment map for this split platform.
+- [[graphify_tools_skillgen_gen_rationale_297]] — code: The prose file name the lean-core hooks pointer names for this host.
+- [[graphify_tools_skillgen_gen_rationale_302]] — code: Parse platforms.toml into Platform records, keyed by platform name.
+- [[graphify_tools_skillgen_gen_rationale_328]] — code: Read a fragment file under fragments/, normalised to LF newlines.
+- [[graphify_tools_skillgen_gen_rationale_334]] — code: Force LF newlines and exactly one trailing newline.
+- [[graphify_tools_skillgen_gen_rationale_341]] — code: A single generated file: its repo-relative path and exact bytes.
+- [[graphify_tools_skillgen_gen_rationale_348]] — code: Render the YAML frontmatter from the platform's name and description.      Onl
+- [[graphify_tools_skillgen_gen_rationale_361]] — code: Fill the shared core template's per-platform slots for this platform.
+- [[graphify_tools_skillgen_gen_rationale_394]] — code: Fill the agents-md hooks template's per-host slots for this platform.      The
+- [[graphify_tools_skillgen_gen_rationale_424]] — code: Render every committed artifact for one platform.      A split platform yields
+- [[graphify_tools_skillgen_gen_rationale_459]] — code: Render the six always-on instruction blocks to graphify/always_on/*.md.      T
+- [[graphify_tools_skillgen_gen_rationale_476]] — code: Render the selected platforms (or all), flattened into one artifact list.
+- [[graphify_tools_skillgen_gen_rationale_494]] — code: Write artifacts to disk under REPO_ROOT. Returns the paths written.
+- [[graphify_tools_skillgen_gen_rationale_505]] — code: Map a repo-relative artifact path to its expected/ snapshot path.      The art
+- [[graphify_tools_skillgen_gen_rationale_515]] — code: Write the current render into expected/ as the blessed snapshot.
+- [[graphify_tools_skillgen_gen_rationale_526]] — code: Byte-diff the render against both committed artifacts and expected/.      Retu
+- [[graphify_tools_skillgen_gen_rationale_549]] — code: Return the ATX markdown headings in source order, ignoring code fences.      A
+- [[graphify_tools_skillgen_gen_rationale_579]] — code: Read a blob from git, normalised to LF.
+- [[graphify_tools_skillgen_gen_rationale_593]] — code: Whether origin/v8 is fetchable in this checkout.      The git-show validators
+- [[graphify_tools_skillgen_gen_rationale_611]] — code: Assert every heading of THIS host's v8 body single-homes in its render.      T
+- [[graphify_tools_skillgen_gen_rationale_662]] — code: Return every line in a rendered artifact that carries the file_type enum.
+- [[graphify_tools_skillgen_gen_rationale_680]] — code: Return lines carrying a legacy (sub-superset) file_type enum.      A line coun
+- [[graphify_tools_skillgen_gen_rationale_696]] — code: Assert the file_type enum block is byte-identical across every platform.
+- [[graphify_tools_skillgen_gen_rationale_714]] — code: Whether a line carries the file_type enum (its v8 or unified form).      The u
+- [[graphify_tools_skillgen_gen_rationale_731]] — code: Whether a line is a YAML frontmatter description field.      The unified descr
+- [[graphify_tools_skillgen_gen_rationale_741]] — code: Whether a line is the Step 9 chunk-file cleanup ``rm -f`` command.      The ba
+- [[graphify_tools_skillgen_gen_rationale_760]] — code: Whether a line is the non-spec ``trigger:`` frontmatter field (#1180).      Th
+- [[graphify_tools_skillgen_gen_rationale_769]] — code: Whether a line is part of the ``--directed`` propagation fix (#1392).      The
+- [[graphify_tools_skillgen_gen_rationale_785]] — code: Whether a line is part of the content-only semantic scope fix (#1392).      Fl
+- [[graphify_tools_skillgen_gen_rationale_800]] — code: Whether a line is part of the stale-cache unlink fix (#1392).      The cache f
+- [[graphify_tools_skillgen_gen_rationale_814]] — code: Whether a line is part of the zero-node / shrink-guard ordering fix (#1392).
+- [[graphify_tools_skillgen_gen_rationale_840]] — code: Whether a line is part of the manifest-portability fix (#1417).      The monol
+- [[graphify_tools_skillgen_gen_rationale_855]] — code: Whether a line is part of the "no API key required" clarity (#1461).      The
+- [[graphify_tools_skillgen_gen_rationale_868]] — code: Whether a line is part of the Homebrew ``python@`` shebang allowlist fix (#1586)
+- [[graphify_tools_skillgen_gen_rationale_881]] — code: Whether a line is part of the ``/graphify`` usage-comment fix (#1681).      Th
+- [[graphify_tools_skillgen_gen_rationale_892]] — code: Whether a line is part of the uv interpreter-detection fix (#1735).      Step
+- [[graphify_tools_skillgen_gen_rationale_926]] — code: Whether a single added/removed monolith line is an allowed change.
+- [[graphify_tools_skillgen_gen_rationale_931]] — code: Assert a monolith renders diff-clean vs its v8 blob modulo allowed changes.
+- [[graphify_tools_skillgen_gen_rationale_973]] — code: Parse the always-on string constants out of a __main__.py blob.      Reads the
+- [[graphify_tools_skillgen_gen_rationale_998]] — code: Assert each always_on/*.md reproduces its former constant byte for byte.
+
+## Dependências
+
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_always_on_constants]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_always_on_roundtrip]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_audit_allowlist]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_audit_coverage]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_bless]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_check]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_enum_lines]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_expected_path]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_git_show]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_headings]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_cache_unlink_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_chunk_cleanup_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_content_scope_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_directed_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_enum_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_frontmatter_description_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_manifest_root_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_no_api_key_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_obsidian_usage_comment_line]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_is_sanctioned_monolith_diff]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_shebang_allowlist_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_is_trigger_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_uv_from_interpreter_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `indirect_call` → [[graphify_tools_skillgen_gen_is_zero_node_guard_fix_line]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_legacy_enum_lines]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_load_platforms]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_main]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_monolith_roundtrip]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_normalise]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_parse_args]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_read_fragment]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_render]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_render_agents_md_hooks]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_render_all]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_render_always_on]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_render_core]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_render_frontmatter]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_schema_singleton]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_v8_available]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_v8_baseline_ref]]
+- [[graphify_tools_skillgen_gen]] → `contains` → [[graphify_tools_skillgen_gen_write_artifacts]]
+- [[graphify_tools_skillgen_gen_rationale_1]] → `rationale_for` → [[graphify_tools_skillgen_gen]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `calls` → [[graphify_tools_skillgen_gen_v8_baseline_ref]]
+- [[graphify_tools_skillgen_gen_rationale_61]] → `rationale_for` → [[graphify_tools_skillgen_gen_v8_baseline_ref]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `calls` → [[graphify_tools_skillgen_gen_audit_allowlist]]
+- [[graphify_tools_skillgen_gen_rationale_260]] → `rationale_for` → [[graphify_tools_skillgen_gen_audit_allowlist]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_load_platforms]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_platform]] → `method` → [[graphify_tools_skillgen_gen_platform_hooks_target]]
+- [[graphify_tools_skillgen_gen_platform]] → `method` → [[graphify_tools_skillgen_gen_platform_reference_sources]]
+- [[graphify_tools_skillgen_gen_rationale_266]] → `rationale_for` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_render]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_render_agents_md_hooks]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_render_all]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_render_core]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_render_frontmatter]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_schema_singleton]] → `references` → [[graphify_tools_skillgen_gen_platform]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `calls` → [[graphify_tools_skillgen_gen_platform_reference_sources]]
+- [[graphify_tools_skillgen_gen_rationale_288]] → `rationale_for` → [[graphify_tools_skillgen_gen_platform_reference_sources]]
+- [[graphify_tools_skillgen_gen_render]] → `calls` → [[graphify_tools_skillgen_gen_platform_reference_sources]]
+- [[graphify_tools_skillgen_gen_rationale_297]] → `rationale_for` → [[graphify_tools_skillgen_gen_platform_hooks_target]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_load_platforms]]
+- [[graphify_tools_skillgen_gen_rationale_302]] → `rationale_for` → [[graphify_tools_skillgen_gen_load_platforms]]
+- [[graphify_tools_skillgen_gen_rationale_328]] → `rationale_for` → [[graphify_tools_skillgen_gen_read_fragment]]
+- [[graphify_tools_skillgen_gen_read_fragment]] → `calls` → [[graphify_tools_skillgen_gen_normalise]]
+- [[graphify_tools_skillgen_gen_render]] → `calls` → [[graphify_tools_skillgen_gen_read_fragment]]
+- [[graphify_tools_skillgen_gen_render_agents_md_hooks]] → `calls` → [[graphify_tools_skillgen_gen_read_fragment]]
+- [[graphify_tools_skillgen_gen_render_always_on]] → `calls` → [[graphify_tools_skillgen_gen_read_fragment]]
+- [[graphify_tools_skillgen_gen_render_core]] → `calls` → [[graphify_tools_skillgen_gen_read_fragment]]
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_normalise]]
+- [[graphify_tools_skillgen_gen_rationale_334]] → `rationale_for` → [[graphify_tools_skillgen_gen_normalise]]
+- [[graphify_tools_skillgen_gen_render_agents_md_hooks]] → `calls` → [[graphify_tools_skillgen_gen_normalise]]
+- [[graphify_tools_skillgen_gen_render_core]] → `calls` → [[graphify_tools_skillgen_gen_normalise]]
+- [[graphify_tools_skillgen_gen_bless]] → `references` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_check]] → `references` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_rationale_341]] → `rationale_for` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_render]] → `references` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_render_all]] → `references` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_render_always_on]] → `references` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_write_artifacts]] → `references` → [[graphify_tools_skillgen_gen_renderedartifact]]
+- [[graphify_tools_skillgen_gen_rationale_348]] → `rationale_for` → [[graphify_tools_skillgen_gen_render_frontmatter]]
+- [[graphify_tools_skillgen_gen_render_core]] → `calls` → [[graphify_tools_skillgen_gen_render_frontmatter]]
+- [[graphify_tools_skillgen_gen_rationale_361]] → `rationale_for` → [[graphify_tools_skillgen_gen_render_core]]
+- [[graphify_tools_skillgen_gen_render]] → `calls` → [[graphify_tools_skillgen_gen_render_core]]
+- [[graphify_tools_skillgen_gen_rationale_394]] → `rationale_for` → [[graphify_tools_skillgen_gen_render_agents_md_hooks]]
+- [[graphify_tools_skillgen_gen_render]] → `calls` → [[graphify_tools_skillgen_gen_render_agents_md_hooks]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `calls` → [[graphify_tools_skillgen_gen_render]]
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_render]]
+- [[graphify_tools_skillgen_gen_rationale_424]] → `rationale_for` → [[graphify_tools_skillgen_gen_render]]
+- [[graphify_tools_skillgen_gen_render_all]] → `calls` → [[graphify_tools_skillgen_gen_render]]
+- [[graphify_tools_skillgen_gen_schema_singleton]] → `calls` → [[graphify_tools_skillgen_gen_render]]
+- [[graphify_tools_skillgen_gen_always_on_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_render_always_on]]
+- [[graphify_tools_skillgen_gen_rationale_459]] → `rationale_for` → [[graphify_tools_skillgen_gen_render_always_on]]
+- [[graphify_tools_skillgen_gen_render_all]] → `calls` → [[graphify_tools_skillgen_gen_render_always_on]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_render_all]]
+- [[graphify_tools_skillgen_gen_rationale_476]] → `rationale_for` → [[graphify_tools_skillgen_gen_render_all]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_write_artifacts]]
+- [[graphify_tools_skillgen_gen_rationale_494]] → `rationale_for` → [[graphify_tools_skillgen_gen_write_artifacts]]
+- [[graphify_tools_skillgen_gen_bless]] → `calls` → [[graphify_tools_skillgen_gen_expected_path]]
+- [[graphify_tools_skillgen_gen_check]] → `calls` → [[graphify_tools_skillgen_gen_expected_path]]
+- [[graphify_tools_skillgen_gen_expected_path]] → `references` → [[graphify_tools_skillgen_gen_py_path]]
+- [[graphify_tools_skillgen_gen_rationale_505]] → `rationale_for` → [[graphify_tools_skillgen_gen_expected_path]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_bless]]
+- [[graphify_tools_skillgen_gen_rationale_515]] → `rationale_for` → [[graphify_tools_skillgen_gen_bless]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_check]]
+- [[graphify_tools_skillgen_gen_rationale_526]] → `rationale_for` → [[graphify_tools_skillgen_gen_check]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `calls` → [[graphify_tools_skillgen_gen_headings]]
+- [[graphify_tools_skillgen_gen_rationale_549]] → `rationale_for` → [[graphify_tools_skillgen_gen_headings]]
+- [[graphify_tools_skillgen_gen_always_on_constants]] → `calls` → [[graphify_tools_skillgen_gen_git_show]]
+- [[graphify_tools_skillgen_gen_audit_coverage]] → `calls` → [[graphify_tools_skillgen_gen_git_show]]
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_git_show]]
+- [[graphify_tools_skillgen_gen_rationale_579]] → `rationale_for` → [[graphify_tools_skillgen_gen_git_show]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_v8_available]]
+- [[graphify_tools_skillgen_gen_rationale_593]] → `rationale_for` → [[graphify_tools_skillgen_gen_v8_available]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_audit_coverage]]
+- [[graphify_tools_skillgen_gen_rationale_611]] → `rationale_for` → [[graphify_tools_skillgen_gen_audit_coverage]]
+- [[graphify_tools_skillgen_gen_rationale_662]] → `rationale_for` → [[graphify_tools_skillgen_gen_enum_lines]]
+- [[graphify_tools_skillgen_gen_rationale_680]] → `rationale_for` → [[graphify_tools_skillgen_gen_legacy_enum_lines]]
+- [[graphify_tools_skillgen_gen_schema_singleton]] → `calls` → [[graphify_tools_skillgen_gen_legacy_enum_lines]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_schema_singleton]]
+- [[graphify_tools_skillgen_gen_rationale_696]] → `rationale_for` → [[graphify_tools_skillgen_gen_schema_singleton]]
+- [[graphify_tools_skillgen_gen_rationale_714]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_enum_line]]
+- [[graphify_tools_skillgen_gen_rationale_731]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_frontmatter_description_line]]
+- [[graphify_tools_skillgen_gen_rationale_741]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_chunk_cleanup_line]]
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_is_trigger_line]]
+- [[graphify_tools_skillgen_gen_rationale_760]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_trigger_line]]
+- [[graphify_tools_skillgen_gen_rationale_769]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_directed_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_785]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_content_scope_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_800]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_cache_unlink_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_814]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_zero_node_guard_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_840]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_manifest_root_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_855]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_no_api_key_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_868]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_shebang_allowlist_fix_line]]
+- [[graphify_tools_skillgen_gen_rationale_881]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_obsidian_usage_comment_line]]
+- [[graphify_tools_skillgen_gen_rationale_892]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_uv_from_interpreter_fix_line]]
+- [[graphify_tools_skillgen_gen_monolith_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_is_sanctioned_monolith_diff]]
+- [[graphify_tools_skillgen_gen_rationale_926]] → `rationale_for` → [[graphify_tools_skillgen_gen_is_sanctioned_monolith_diff]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_monolith_roundtrip]]
+- [[graphify_tools_skillgen_gen_rationale_931]] → `rationale_for` → [[graphify_tools_skillgen_gen_monolith_roundtrip]]
+- [[graphify_tools_skillgen_gen_always_on_roundtrip]] → `calls` → [[graphify_tools_skillgen_gen_always_on_constants]]
+- [[graphify_tools_skillgen_gen_rationale_973]] → `rationale_for` → [[graphify_tools_skillgen_gen_always_on_constants]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_always_on_roundtrip]]
+- [[graphify_tools_skillgen_gen_rationale_998]] → `rationale_for` → [[graphify_tools_skillgen_gen_always_on_roundtrip]]
+- [[graphify_tools_skillgen_gen_main]] → `calls` → [[graphify_tools_skillgen_gen_parse_args]]
+- [[graphify_tools_skillgen_gen_parse_args]] → `references` → [[namespace]]

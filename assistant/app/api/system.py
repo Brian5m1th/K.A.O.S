@@ -69,6 +69,7 @@ async def system_readiness():
     vector_ready = False
     try:
         import httpx
+
         async with httpx.AsyncClient(timeout=3) as c:
             r = await c.post(
                 f"http://{q_host}:{q_port}/collections/kaos/points/count",
@@ -86,9 +87,11 @@ async def system_readiness():
     return {
         "ready": all_ready,
         "degraded": degraded,
-        "message": "All core services operational" if all_ready
-                   else "Degraded: vector index unavailable" if degraded
-                   else "Core services unavailable",
+        "message": "All core services operational"
+        if all_ready
+        else "Degraded: vector index unavailable"
+        if degraded
+        else "Core services unavailable",
         "services": {
             "postgres": postgres_ok,
             "qdrant": qdrant_ok,
@@ -213,48 +216,72 @@ async def system_dashboard():
     )
 
     # Build response — propagate None for unavailable data instead of fabricating zeros
-    services = services_status if not isinstance(services_status, Exception) else {
-        "backend": True,
-        "postgres": None,
-        "qdrant": None,
-        "ollama": None,
-        "n8n": None,
-        "grafana": None,
-        "prometheus": None,
-        "error": str(services_status),
-    }
+    services = (
+        services_status
+        if not isinstance(services_status, Exception)
+        else {
+            "backend": True,
+            "postgres": None,
+            "qdrant": None,
+            "ollama": None,
+            "n8n": None,
+            "grafana": None,
+            "prometheus": None,
+            "error": str(services_status),
+        }
+    )
 
-    runtime = runtime_info if not isinstance(runtime_info, Exception) else {
-        "activeModel": None,
-        "latency": None,
-        "cpu": None,
-        "ram": {"used": None, "total": None},
-        "vram": {"used": None, "total": None},
-        "error": str(runtime_info),
-    }
+    runtime = (
+        runtime_info
+        if not isinstance(runtime_info, Exception)
+        else {
+            "activeModel": None,
+            "latency": None,
+            "cpu": None,
+            "ram": {"used": None, "total": None},
+            "vram": {"used": None, "total": None},
+            "error": str(runtime_info),
+        }
+    )
 
-    metrics = metrics_data if not isinstance(metrics_data, Exception) else {
-        "vectorCount": None,
-        "tokenRate": None,
-        "error": str(metrics_data),
-    }
+    metrics = (
+        metrics_data
+        if not isinstance(metrics_data, Exception)
+        else {
+            "vectorCount": None,
+            "tokenRate": None,
+            "error": str(metrics_data),
+        }
+    )
 
-    costs = costs_data if not isinstance(costs_data, Exception) else {
-        "total_usd": None,
-        "total_tokens": None,
-        "error": str(costs_data),
-    }
+    costs = (
+        costs_data
+        if not isinstance(costs_data, Exception)
+        else {
+            "total_usd": None,
+            "total_tokens": None,
+            "error": str(costs_data),
+        }
+    )
 
-    dlq = dlq_data if not isinstance(dlq_data, Exception) else {
-        "failed": None,
-        "count": None,
-        "error": str(dlq_data),
-    }
+    dlq = (
+        dlq_data
+        if not isinstance(dlq_data, Exception)
+        else {
+            "failed": None,
+            "count": None,
+            "error": str(dlq_data),
+        }
+    )
 
-    alerts = alerts_data if not isinstance(alerts_data, Exception) else {
-        "notifications": None,
-        "error": str(alerts_data),
-    }
+    alerts = (
+        alerts_data
+        if not isinstance(alerts_data, Exception)
+        else {
+            "notifications": None,
+            "error": str(alerts_data),
+        }
+    )
 
     return {
         "services": services,

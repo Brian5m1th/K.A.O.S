@@ -1,0 +1,10 @@
+# graphify\tools\skillgen\expected\graphify__skills__opencode__references__extraction-spec.md
+
+## Símbolos
+
+- [[graphify_tools_skillgen_expected_graphify_skills_opencode_references_extraction_spec]] — code: graphify__skills__opencode__references__extraction-spec.md
+- [[graphify_tools_skillgen_expected_graphify_skills_opencode_references_extraction_spec_graphify_reference_extraction_subagent_prompt]] — code: graphify reference: extraction subagent prompt
+
+## Dependências
+
+- [[graphify_tools_skillgen_expected_graphify_skills_opencode_references_extraction_spec]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_opencode_references_extraction_spec_graphify_reference_extraction_subagent_prompt]]

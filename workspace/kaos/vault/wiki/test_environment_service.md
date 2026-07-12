@@ -1,0 +1,139 @@
+# assistant\tests\unit\test_environment_service.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_environment_service]] — code: test_environment_service.py
+- [[assistant_tests_unit_test_environment_service_reset_service]] — code: reset_service()
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] — code: TestEnvironmentType
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_docker_values]] — code: .test_docker_values()
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_local_values]] — code: .test_local_values()
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_ci_values]] — code: .test_ci_values()
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_unknown_values]] — code: .test_unknown_values()
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] — code: TestEnvironmentInfo
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_full_init]] — code: .test_full_init()
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_all_paths_resolved]] — code: .test_all_paths_resolved()
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_to_dict_serialization]] — code: .test_to_dict_serialization()
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_repr]] — code: .test_repr()
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] — code: TestEnvironmentServiceDetect
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_singleton]] — code: .test_singleton()
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_returns_environment_info]] — code: .test_returns_environment_info()
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_workspace]] — code: .test_has_workspace()
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_environment_type]] — code: .test_has_environment_type()
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_kirl_paths_populated]] — code: .test_kirl_paths_populated()
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] — code: TestContainerDetection
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_not_container_by_default]] — code: .test_not_container_by_default()
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_detects_kubernetes]] — code: .test_detects_kubernetes()
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_docker_dot_env_file]] — code: .test_docker_dot_env_file()
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] — code: TestWorkspaceResolution
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_falls_back_to_something]] — code: .test_falls_back_to_something()
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_env_var_nonexistent_fallback]] — code: .test_env_var_nonexistent_fallback()
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] — code: TestRuntimePathResolverWrapper
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_project_root_property]] — code: .test_project_root_property()
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_delegates_to_environment_service]] — code: .test_delegates_to_environment_service()
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_import_and_init]] — code: .test_import_and_init()
+- [[assistant_tests_unit_test_environment_service_rationale_1]] — code: Testes unitarios do EnvironmentService.  Valida: - Singleton (detect() retorn
+- [[assistant_tests_unit_test_environment_service_rationale_27]] — code: Reseta o singleton do EnvironmentService antes de cada teste.
+- [[assistant_tests_unit_test_environment_service_rationale_51]] — code: EnvironmentInfo aceita todos os campos obrigatorios.
+- [[assistant_tests_unit_test_environment_service_rationale_72]] — code: Todos os paths sao preenchidos.
+- [[assistant_tests_unit_test_environment_service_rationale_91]] — code: to_dict() retorna dict com todas as chaves esperadas.
+- [[assistant_tests_unit_test_environment_service_rationale_132]] — code: detect() sempre retorna a mesma instancia.
+- [[assistant_tests_unit_test_environment_service_rationale_138]] — code: detect() retorna EnvironmentInfo.
+- [[assistant_tests_unit_test_environment_service_rationale_143]] — code: workspace nunca e None apos detect().
+- [[assistant_tests_unit_test_environment_service_rationale_149]] — code: env_type e um EnvironmentType valido.
+- [[assistant_tests_unit_test_environment_service_rationale_154]] — code: Paths KIRL sao populados.
+- [[assistant_tests_unit_test_environment_service_rationale_163]] — code: Sem env vars, nao e container.
+- [[assistant_tests_unit_test_environment_service_rationale_171]] — code: KUBERNETES_SERVICE_HOST indica container.
+- [[assistant_tests_unit_test_environment_service_rationale_178]] — code: /.dockerenv existente = container (teste direto do metodo interno).
+- [[assistant_tests_unit_test_environment_service_rationale_197]] — code: Sempre encontra um workspace (CWD ou git root).
+- [[assistant_tests_unit_test_environment_service_rationale_206]] — code: Se KAOS_WORKSPACE nao existe, faz fallback.
+- [[assistant_tests_unit_test_environment_service_rationale_215]] — code: Testa se RuntimePathResolver ainda funciona delegando no EnvironmentService.
+
+## Dependências
+
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `uses` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `uses` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `uses` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_environment_type]] → `indirect_call` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `uses` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `uses` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] → `uses` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_all_paths_resolved]] → `calls` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_full_init]] → `calls` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_repr]] → `calls` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_to_dict_serialization]] → `calls` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_returns_environment_info]] → `indirect_call` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_detects_kubernetes]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_not_container_by_default]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_environment_type]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_workspace]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_kirl_paths_populated]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_returns_environment_info]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_singleton]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_delegates_to_environment_service]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_env_var_nonexistent_fallback]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_falls_back_to_something]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_import_and_init]] → `indirect_call` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_delegates_to_environment_service]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_project_root_property]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_reset_service]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_testcontainerdetection]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_testenvironmenttype]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]]
+- [[assistant_tests_unit_test_environment_service]] → `contains` → [[assistant_tests_unit_test_environment_service_testworkspaceresolution]]
+- [[assistant_tests_unit_test_environment_service_rationale_1]] → `rationale_for` → [[assistant_tests_unit_test_environment_service]]
+- [[assistant_tests_unit_test_environment_service_rationale_27]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_reset_service]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_ci_values]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_docker_values]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_local_values]]
+- [[assistant_tests_unit_test_environment_service_testenvironmenttype]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmenttype_test_unknown_values]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_all_paths_resolved]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_full_init]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_repr]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentinfo]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_to_dict_serialization]]
+- [[assistant_tests_unit_test_environment_service_rationale_51]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_full_init]]
+- [[assistant_tests_unit_test_environment_service_rationale_72]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_all_paths_resolved]]
+- [[assistant_tests_unit_test_environment_service_rationale_91]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentinfo_test_to_dict_serialization]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_environment_type]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_workspace]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_kirl_paths_populated]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_returns_environment_info]]
+- [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect]] → `method` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_singleton]]
+- [[assistant_tests_unit_test_environment_service_rationale_132]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_singleton]]
+- [[assistant_tests_unit_test_environment_service_rationale_138]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_returns_environment_info]]
+- [[assistant_tests_unit_test_environment_service_rationale_143]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_workspace]]
+- [[assistant_tests_unit_test_environment_service_rationale_149]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_has_environment_type]]
+- [[assistant_tests_unit_test_environment_service_rationale_154]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testenvironmentservicedetect_test_kirl_paths_populated]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `method` → [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_detects_kubernetes]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `method` → [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_docker_dot_env_file]]
+- [[assistant_tests_unit_test_environment_service_testcontainerdetection]] → `method` → [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_not_container_by_default]]
+- [[assistant_tests_unit_test_environment_service_rationale_163]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_not_container_by_default]]
+- [[assistant_tests_unit_test_environment_service_rationale_171]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_detects_kubernetes]]
+- [[assistant_tests_unit_test_environment_service_rationale_178]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testcontainerdetection_test_docker_dot_env_file]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] → `method` → [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_env_var_nonexistent_fallback]]
+- [[assistant_tests_unit_test_environment_service_testworkspaceresolution]] → `method` → [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_falls_back_to_something]]
+- [[assistant_tests_unit_test_environment_service_rationale_197]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_falls_back_to_something]]
+- [[assistant_tests_unit_test_environment_service_rationale_206]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testworkspaceresolution_test_env_var_nonexistent_fallback]]
+- [[assistant_tests_unit_test_environment_service_rationale_215]] → `rationale_for` → [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `method` → [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_delegates_to_environment_service]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `method` → [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_import_and_init]]
+- [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper]] → `method` → [[assistant_tests_unit_test_environment_service_testruntimepathresolverwrapper_test_project_root_property]]

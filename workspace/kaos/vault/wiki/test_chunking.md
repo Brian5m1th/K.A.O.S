@@ -1,0 +1,125 @@
+# graphify\tests\test_chunking.py
+
+## Símbolos
+
+- [[graphify_tests_test_chunking]] — code: test_chunking.py
+- [[graphify_tests_test_chunking_no_tokenizer]] — code: no_tokenizer()
+- [[graphify_tests_test_chunking_test_pack_chunks_packs_small_files_together]] — code: test_pack_chunks_packs_small_files_together()
+- [[graphify_tests_test_chunking_test_pack_chunks_starts_new_chunk_when_budget_would_overflow]] — code: test_pack_chunks_starts_new_chunk_when_budget_would_overflow()
+- [[graphify_tests_test_chunking_test_pack_chunks_groups_by_directory]] — code: test_pack_chunks_groups_by_directory()
+- [[graphify_tests_test_chunking_test_pack_chunks_oversized_file_gets_its_own_chunk]] — code: test_pack_chunks_oversized_file_gets_its_own_chunk()
+- [[graphify_tests_test_chunking_test_pack_chunks_rejects_non_positive_budget]] — code: test_pack_chunks_rejects_non_positive_budget()
+- [[graphify_tests_test_chunking_test_estimate_file_tokens_uses_tiktoken_when_available]] — code: test_estimate_file_tokens_uses_tiktoken_when_available()
+- [[graphify_tests_test_chunking_test_estimate_file_tokens_falls_back_to_chars_when_no_tokenizer]] — code: test_estimate_file_tokens_falls_back_to_chars_when_no_tokenizer()
+- [[graphify_tests_test_chunking_stub_chunk_result]] — code: _stub_chunk_result()
+- [[graphify_tests_test_chunking_test_corpus_parallel_runs_chunks_concurrently]] — code: test_corpus_parallel_runs_chunks_concurrently()
+- [[graphify_tests_test_chunking_test_corpus_parallel_sequential_when_max_concurrency_is_one]] — code: test_corpus_parallel_sequential_when_max_concurrency_is_one()
+- [[graphify_tests_test_chunking_test_corpus_parallel_merge_order_is_submission_order_not_completion]] — code: test_corpus_parallel_merge_order_is_submission_order_not_completion()
+- [[graphify_tests_test_chunking_test_corpus_parallel_continues_after_chunk_failure]] — code: test_corpus_parallel_continues_after_chunk_failure()
+- [[graphify_tests_test_chunking_test_corpus_parallel_legacy_mode_when_token_budget_is_none]] — code: test_corpus_parallel_legacy_mode_when_token_budget_is_none()
+- [[graphify_tests_test_chunking_test_corpus_parallel_token_budget_default_packs_files]] — code: test_corpus_parallel_token_budget_default_packs_files()
+- [[graphify_tests_test_chunking_stub_with_finish]] — code: _stub_with_finish()
+- [[graphify_tests_test_chunking_test_adaptive_retry_returns_directly_when_not_truncated]] — code: test_adaptive_retry_returns_directly_when_not_truncated()
+- [[graphify_tests_test_chunking_test_adaptive_retry_splits_when_finish_reason_length]] — code: test_adaptive_retry_splits_when_finish_reason_length()
+- [[graphify_tests_test_chunking_test_adaptive_retry_recurses_for_persistent_truncation]] — code: test_adaptive_retry_recurses_for_persistent_truncation()
+- [[graphify_tests_test_chunking_test_adaptive_retry_caps_at_max_depth]] — code: test_adaptive_retry_caps_at_max_depth()
+- [[graphify_tests_test_chunking_test_adaptive_retry_single_file_truncation_does_not_recurse]] — code: test_adaptive_retry_single_file_truncation_does_not_recurse()
+- [[graphify_tests_test_chunking_test_corpus_parallel_uses_adaptive_retry]] — code: test_corpus_parallel_uses_adaptive_retry()
+- [[graphify_tests_test_chunking_test_estimate_file_tokens_handles_tiktoken_special_token]] — code: test_estimate_file_tokens_handles_tiktoken_special_token()
+- [[graphify_tests_test_chunking_test_pack_chunks_with_special_token_doc_does_not_crash]] — code: test_pack_chunks_with_special_token_doc_does_not_crash()
+- [[graphify_tests_test_chunking_rationale_1]] — code: Tests for token-aware chunking and parallel chunk execution in graphify.llm.
+- [[graphify_tests_test_chunking_rationale_11]] — code: Force the chars/4 fallback so packing math is deterministic regardless     of w
+- [[graphify_tests_test_chunking_rationale_23]] — code: Many small files should land in a single chunk, not one chunk per file.
+- [[graphify_tests_test_chunking_rationale_38]] — code: When the next file would push the chunk past the budget, start a new chunk.
+- [[graphify_tests_test_chunking_rationale_59]] — code: Files in the same directory should land in the same chunk when they fit.
+- [[graphify_tests_test_chunking_rationale_87]] — code: A file larger than the budget can't be split — it goes alone in a chunk.
+- [[graphify_tests_test_chunking_rationale_111]] — code: When tiktoken is installed, the estimator should call into it for     accurate
+- [[graphify_tests_test_chunking_rationale_130]] — code: Without tiktoken installed, the estimator falls back to chars/4.
+- [[graphify_tests_test_chunking_rationale_145]] — code: Build a deterministic fake extraction result for a chunk.
+- [[graphify_tests_test_chunking_rationale_156]] — code: With max_concurrency > 1, total wall time should be ~max(chunk times),     not
+- [[graphify_tests_test_chunking_rationale_183]] — code: max_concurrency=1 should run sequentially (no thread pool).
+- [[graphify_tests_test_chunking_rationale_207]] — code: #1632: merged node/edge order must be deterministic (submission order),     not
+- [[graphify_tests_test_chunking_rationale_254]] — code: A single chunk raising should be logged but not abort the run.     Other chunks
+- [[graphify_tests_test_chunking_rationale_283]] — code: token_budget=None should fall back to legacy fixed-count chunking.
+- [[graphify_tests_test_chunking_rationale_307]] — code: With the default token_budget, many tiny files pack into one chunk.
+- [[graphify_tests_test_chunking_rationale_332]] — code: Build a stub extraction result with a controllable finish_reason.
+- [[graphify_tests_test_chunking_rationale_344]] — code: No retry when finish_reason='stop' — single call, result passes through.
+- [[graphify_tests_test_chunking_rationale_367]] — code: finish_reason='length' triggers split-in-half. Both halves succeed     on the s
+- [[graphify_tests_test_chunking_rationale_393]] — code: When even the half-chunk truncates, split again. With 8 files and a     truncat
+- [[graphify_tests_test_chunking_rationale_420]] — code: If everything truncates, retries stop at max_depth — partial result     kept wi
+- [[graphify_tests_test_chunking_rationale_446]] — code: A single file that truncates can't be split further — surface a     warning and
+- [[graphify_tests_test_chunking_rationale_469]] — code: End-to-end: extract_corpus_parallel routes through adaptive retry,     so a chu
+- [[graphify_tests_test_chunking_rationale_507]] — code: A doc containing a literal tiktoken special token (e.g. <|endoftext|>)     must
+- [[graphify_tests_test_chunking_rationale_522]] — code: End to end: packing a corpus that includes a special-token doc must not     rai
+
+## Dependências
+
+- [[graphify_tests_test_chunking_test_corpus_parallel_legacy_mode_when_token_budget_is_none]] → `indirect_call` → [[assistant_app_llm_metrics_providermetrics_record]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_sequential_when_max_concurrency_is_one]] → `indirect_call` → [[assistant_app_llm_metrics_providermetrics_record]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_token_budget_default_packs_files]] → `indirect_call` → [[assistant_app_llm_metrics_providermetrics_record]]
+- [[graphify_tests_test_chunking_test_pack_chunks_groups_by_directory]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_tests_test_chunking_test_pack_chunks_oversized_file_gets_its_own_chunk]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_tests_test_chunking_test_pack_chunks_packs_small_files_together]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_tests_test_chunking_test_pack_chunks_rejects_non_positive_budget]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_tests_test_chunking_test_pack_chunks_starts_new_chunk_when_budget_would_overflow]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_tests_test_chunking_test_pack_chunks_with_special_token_doc_does_not_crash]] → `calls` → [[graphify_graphify_llm_pack_chunks_by_tokens]]
+- [[graphify_tests_test_chunking_test_adaptive_retry_caps_at_max_depth]] → `calls` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_tests_test_chunking_test_adaptive_retry_recurses_for_persistent_truncation]] → `calls` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_tests_test_chunking_test_adaptive_retry_returns_directly_when_not_truncated]] → `calls` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_tests_test_chunking_test_adaptive_retry_single_file_truncation_does_not_recurse]] → `calls` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_tests_test_chunking_test_adaptive_retry_splits_when_finish_reason_length]] → `calls` → [[graphify_graphify_llm_extract_with_adaptive_retry]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_continues_after_chunk_failure]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_legacy_mode_when_token_budget_is_none]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_merge_order_is_submission_order_not_completion]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_runs_chunks_concurrently]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_sequential_when_max_concurrency_is_one]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_token_budget_default_packs_files]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking_test_corpus_parallel_uses_adaptive_retry]] → `calls` → [[graphify_graphify_llm_extract_corpus_parallel]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_no_tokenizer]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_stub_chunk_result]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_stub_with_finish]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_adaptive_retry_caps_at_max_depth]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_adaptive_retry_recurses_for_persistent_truncation]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_adaptive_retry_returns_directly_when_not_truncated]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_adaptive_retry_single_file_truncation_does_not_recurse]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_adaptive_retry_splits_when_finish_reason_length]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_continues_after_chunk_failure]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_legacy_mode_when_token_budget_is_none]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_merge_order_is_submission_order_not_completion]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_runs_chunks_concurrently]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_sequential_when_max_concurrency_is_one]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_token_budget_default_packs_files]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_corpus_parallel_uses_adaptive_retry]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_estimate_file_tokens_falls_back_to_chars_when_no_tokenizer]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_estimate_file_tokens_handles_tiktoken_special_token]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_estimate_file_tokens_uses_tiktoken_when_available]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_pack_chunks_groups_by_directory]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_pack_chunks_oversized_file_gets_its_own_chunk]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_pack_chunks_packs_small_files_together]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_pack_chunks_rejects_non_positive_budget]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_pack_chunks_starts_new_chunk_when_budget_would_overflow]]
+- [[graphify_tests_test_chunking]] → `contains` → [[graphify_tests_test_chunking_test_pack_chunks_with_special_token_doc_does_not_crash]]
+- [[graphify_tests_test_chunking_rationale_1]] → `rationale_for` → [[graphify_tests_test_chunking]]
+- [[graphify_tests_test_chunking_rationale_11]] → `rationale_for` → [[graphify_tests_test_chunking_no_tokenizer]]
+- [[graphify_tests_test_chunking_rationale_23]] → `rationale_for` → [[graphify_tests_test_chunking_test_pack_chunks_packs_small_files_together]]
+- [[graphify_tests_test_chunking_rationale_38]] → `rationale_for` → [[graphify_tests_test_chunking_test_pack_chunks_starts_new_chunk_when_budget_would_overflow]]
+- [[graphify_tests_test_chunking_rationale_59]] → `rationale_for` → [[graphify_tests_test_chunking_test_pack_chunks_groups_by_directory]]
+- [[graphify_tests_test_chunking_rationale_87]] → `rationale_for` → [[graphify_tests_test_chunking_test_pack_chunks_oversized_file_gets_its_own_chunk]]
+- [[graphify_tests_test_chunking_rationale_111]] → `rationale_for` → [[graphify_tests_test_chunking_test_estimate_file_tokens_uses_tiktoken_when_available]]
+- [[graphify_tests_test_chunking_rationale_130]] → `rationale_for` → [[graphify_tests_test_chunking_test_estimate_file_tokens_falls_back_to_chars_when_no_tokenizer]]
+- [[graphify_tests_test_chunking_rationale_145]] → `rationale_for` → [[graphify_tests_test_chunking_stub_chunk_result]]
+- [[graphify_tests_test_chunking_rationale_156]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_runs_chunks_concurrently]]
+- [[graphify_tests_test_chunking_rationale_183]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_sequential_when_max_concurrency_is_one]]
+- [[graphify_tests_test_chunking_rationale_207]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_merge_order_is_submission_order_not_completion]]
+- [[graphify_tests_test_chunking_rationale_254]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_continues_after_chunk_failure]]
+- [[graphify_tests_test_chunking_rationale_283]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_legacy_mode_when_token_budget_is_none]]
+- [[graphify_tests_test_chunking_rationale_307]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_token_budget_default_packs_files]]
+- [[graphify_tests_test_chunking_rationale_332]] → `rationale_for` → [[graphify_tests_test_chunking_stub_with_finish]]
+- [[graphify_tests_test_chunking_rationale_344]] → `rationale_for` → [[graphify_tests_test_chunking_test_adaptive_retry_returns_directly_when_not_truncated]]
+- [[graphify_tests_test_chunking_rationale_367]] → `rationale_for` → [[graphify_tests_test_chunking_test_adaptive_retry_splits_when_finish_reason_length]]
+- [[graphify_tests_test_chunking_rationale_393]] → `rationale_for` → [[graphify_tests_test_chunking_test_adaptive_retry_recurses_for_persistent_truncation]]
+- [[graphify_tests_test_chunking_rationale_420]] → `rationale_for` → [[graphify_tests_test_chunking_test_adaptive_retry_caps_at_max_depth]]
+- [[graphify_tests_test_chunking_rationale_446]] → `rationale_for` → [[graphify_tests_test_chunking_test_adaptive_retry_single_file_truncation_does_not_recurse]]
+- [[graphify_tests_test_chunking_rationale_469]] → `rationale_for` → [[graphify_tests_test_chunking_test_corpus_parallel_uses_adaptive_retry]]
+- [[graphify_tests_test_chunking_rationale_507]] → `rationale_for` → [[graphify_tests_test_chunking_test_estimate_file_tokens_handles_tiktoken_special_token]]
+- [[graphify_tests_test_chunking_rationale_522]] → `rationale_for` → [[graphify_tests_test_chunking_test_pack_chunks_with_special_token_doc_does_not_crash]]

@@ -1,0 +1,156 @@
+# graphify\worked\httpx\raw\client.py
+
+## Símbolos
+
+- [[graphify_worked_httpx_raw_client]] — code: client.py
+- [[graphify_worked_httpx_raw_client_timeout]] — code: Timeout
+- [[graphify_worked_httpx_raw_client_timeout_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_client_limits]] — code: Limits
+- [[graphify_worked_httpx_raw_client_limits_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_client_baseclient]] — code: BaseClient
+- [[graphify_worked_httpx_raw_client_baseclient_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_client_baseclient_build_request]] — code: ._build_request()
+- [[graphify_worked_httpx_raw_client_baseclient_merge_cookies]] — code: ._merge_cookies()
+- [[graphify_worked_httpx_raw_client_client]] — code: Client
+- [[graphify_worked_httpx_raw_client_client_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_client_client_request]] — code: .request()
+- [[graphify_worked_httpx_raw_client_client_get]] — code: .get()
+- [[graphify_worked_httpx_raw_client_client_post]] — code: .post()
+- [[graphify_worked_httpx_raw_client_client_put]] — code: .put()
+- [[graphify_worked_httpx_raw_client_client_patch]] — code: .patch()
+- [[graphify_worked_httpx_raw_client_client_delete]] — code: .delete()
+- [[graphify_worked_httpx_raw_client_client_head]] — code: .head()
+- [[graphify_worked_httpx_raw_client_client_send]] — code: .send()
+- [[graphify_worked_httpx_raw_client_client_close]] — code: .close()
+- [[graphify_worked_httpx_raw_client_client_enter]] — code: .__enter__()
+- [[graphify_worked_httpx_raw_client_client_exit]] — code: .__exit__()
+- [[graphify_worked_httpx_raw_client_asyncclient]] — code: AsyncClient
+- [[graphify_worked_httpx_raw_client_asyncclient_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_client_asyncclient_request]] — code: .request()
+- [[graphify_worked_httpx_raw_client_asyncclient_get]] — code: .get()
+- [[graphify_worked_httpx_raw_client_asyncclient_post]] — code: .post()
+- [[graphify_worked_httpx_raw_client_asyncclient_put]] — code: .put()
+- [[graphify_worked_httpx_raw_client_asyncclient_patch]] — code: .patch()
+- [[graphify_worked_httpx_raw_client_asyncclient_delete]] — code: .delete()
+- [[graphify_worked_httpx_raw_client_asyncclient_send]] — code: .send()
+- [[graphify_worked_httpx_raw_client_asyncclient_aclose]] — code: .aclose()
+- [[graphify_worked_httpx_raw_client_asyncclient_aenter]] — code: .__aenter__()
+- [[graphify_worked_httpx_raw_client_asyncclient_aexit]] — code: .__aexit__()
+- [[graphify_worked_httpx_raw_client_rationale_1]] — code: The main Client and AsyncClient classes. BaseClient holds all shared logic. Cli
+- [[graphify_worked_httpx_raw_client_rationale_32]] — code: Shared implementation for Client and AsyncClient.     Handles auth, redirects,
+- [[graphify_worked_httpx_raw_client_rationale_71]] — code: Synchronous HTTP client.
+- [[graphify_worked_httpx_raw_client_rationale_124]] — code: Asynchronous HTTP client.
+
+## Dependências
+
+- [[graphify_worked_httpx_raw_client]] → `imports_from` → [[graphify_worked_httpx_raw_exceptions]]
+- [[graphify_worked_httpx_raw_client]] → `contains` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[graphify_worked_httpx_raw_client]] → `contains` → [[graphify_worked_httpx_raw_client_baseclient]]
+- [[graphify_worked_httpx_raw_client]] → `contains` → [[graphify_worked_httpx_raw_client_client]]
+- [[graphify_worked_httpx_raw_client]] → `contains` → [[graphify_worked_httpx_raw_client_limits]]
+- [[graphify_worked_httpx_raw_client]] → `contains` → [[graphify_worked_httpx_raw_client_timeout]]
+- [[graphify_worked_httpx_raw_client]] → `imports_from` → [[graphify_worked_httpx_raw_transport]]
+- [[graphify_worked_httpx_raw_client_rationale_1]] → `rationale_for` → [[graphify_worked_httpx_raw_client]]
+- [[graphify_worked_httpx_raw_client_timeout]] → `method` → [[graphify_worked_httpx_raw_client_timeout_init]]
+- [[graphify_worked_httpx_raw_client_timeout]] → `uses` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_client_timeout]] → `uses` → [[graphify_worked_httpx_raw_exceptions_toomanyredirects]]
+- [[graphify_worked_httpx_raw_client_timeout]] → `uses` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_client_timeout]] → `uses` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_client_timeout]] → `uses` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_client_limits]] → `method` → [[graphify_worked_httpx_raw_client_limits_init]]
+- [[graphify_worked_httpx_raw_client_limits]] → `uses` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_client_limits]] → `uses` → [[graphify_worked_httpx_raw_exceptions_toomanyredirects]]
+- [[graphify_worked_httpx_raw_client_limits]] → `uses` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_client_limits]] → `uses` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_client_limits]] → `uses` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `inherits` → [[graphify_worked_httpx_raw_client_baseclient]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `method` → [[graphify_worked_httpx_raw_client_baseclient_build_request]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `method` → [[graphify_worked_httpx_raw_client_baseclient_init]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `method` → [[graphify_worked_httpx_raw_client_baseclient_merge_cookies]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `uses` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `uses` → [[graphify_worked_httpx_raw_exceptions_toomanyredirects]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `uses` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `uses` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_client_baseclient]] → `uses` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_client_client]] → `inherits` → [[graphify_worked_httpx_raw_client_baseclient]]
+- [[graphify_worked_httpx_raw_client_rationale_32]] → `rationale_for` → [[graphify_worked_httpx_raw_client_baseclient]]
+- [[graphify_worked_httpx_raw_client_baseclient_init]] → `calls` → [[graphify_worked_httpx_raw_models_cookies]]
+- [[graphify_worked_httpx_raw_client_asyncclient_request]] → `calls` → [[graphify_worked_httpx_raw_client_baseclient_build_request]]
+- [[graphify_worked_httpx_raw_client_baseclient_build_request]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_get]]
+- [[graphify_worked_httpx_raw_client_baseclient_build_request]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_client_baseclient_build_request]] → `calls` → [[graphify_worked_httpx_raw_utils_build_url_with_params]]
+- [[graphify_worked_httpx_raw_client_client_request]] → `calls` → [[graphify_worked_httpx_raw_client_baseclient_build_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_request]] → `calls` → [[graphify_worked_httpx_raw_client_baseclient_merge_cookies]]
+- [[graphify_worked_httpx_raw_client_baseclient_merge_cookies]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_request]] → `calls` → [[graphify_worked_httpx_raw_client_baseclient_merge_cookies]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_close]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_delete]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_enter]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_exit]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_get]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_head]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_init]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_patch]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_post]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_put]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_request]]
+- [[graphify_worked_httpx_raw_client_client]] → `method` → [[graphify_worked_httpx_raw_client_client_send]]
+- [[graphify_worked_httpx_raw_client_client]] → `uses` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_client_client]] → `uses` → [[graphify_worked_httpx_raw_exceptions_toomanyredirects]]
+- [[graphify_worked_httpx_raw_client_client]] → `uses` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_client_client]] → `uses` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_client_client]] → `uses` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_client_rationale_71]] → `rationale_for` → [[graphify_worked_httpx_raw_client_client]]
+- [[graphify_worked_httpx_raw_client_client_init]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_init]]
+- [[graphify_worked_httpx_raw_client_client_init]] → `references` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_client_client_init]] → `calls` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_client_client_request]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_get]]
+- [[graphify_worked_httpx_raw_client_client_request]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_send]]
+- [[graphify_worked_httpx_raw_client_client_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_get]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_client_get]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_post]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_client_post]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_put]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_client_put]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_patch]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_client_patch]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_delete]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_client_delete]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_head]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_client_head]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_send]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_client_client_send]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_client_exit]] → `calls` → [[graphify_worked_httpx_raw_client_client_close]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_aclose]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_aenter]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_aexit]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_delete]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_get]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_init]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_patch]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_post]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_put]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `method` → [[graphify_worked_httpx_raw_client_asyncclient_send]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `uses` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `uses` → [[graphify_worked_httpx_raw_exceptions_toomanyredirects]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `uses` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `uses` → [[graphify_worked_httpx_raw_transport_basetransport]]
+- [[graphify_worked_httpx_raw_client_asyncclient]] → `uses` → [[graphify_worked_httpx_raw_transport_httptransport]]
+- [[graphify_worked_httpx_raw_client_rationale_124]] → `rationale_for` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[graphify_worked_httpx_raw_client_asyncclient_init]] → `calls` → [[graphify_worked_httpx_raw_transport_asynchttptransport]]
+- [[graphify_worked_httpx_raw_client_asyncclient_delete]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_get]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_patch]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_post]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_put]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_request]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_get]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_post]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_put]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_patch]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_delete]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_send]] → `references` → [[graphify_worked_httpx_raw_models_request]]
+- [[graphify_worked_httpx_raw_client_asyncclient_send]] → `references` → [[graphify_worked_httpx_raw_models_response]]
+- [[graphify_worked_httpx_raw_client_asyncclient_aexit]] → `calls` → [[graphify_worked_httpx_raw_client_asyncclient_aclose]]

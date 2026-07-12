@@ -1,0 +1,74 @@
+# graphify\worked\mixed-corpus\raw\analyze.py
+
+## Símbolos
+
+- [[graphify_worked_mixed_corpus_raw_analyze]] — code: analyze.py
+- [[graphify_worked_mixed_corpus_raw_analyze_node_community_map]] — code: _node_community_map()
+- [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]] — code: _is_file_node()
+- [[graphify_worked_mixed_corpus_raw_analyze_god_nodes]] — code: god_nodes()
+- [[graphify_worked_mixed_corpus_raw_analyze_surprising_connections]] — code: surprising_connections()
+- [[graphify_worked_mixed_corpus_raw_analyze_is_concept_node]] — code: _is_concept_node()
+- [[graphify_worked_mixed_corpus_raw_analyze_file_category]] — code: _file_category()
+- [[graphify_worked_mixed_corpus_raw_analyze_top_level_dir]] — code: _top_level_dir()
+- [[graphify_worked_mixed_corpus_raw_analyze_surprise_score]] — code: _surprise_score()
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]] — code: _cross_file_surprises()
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]] — code: _cross_community_surprises()
+- [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]] — code: suggest_questions()
+- [[graphify_worked_mixed_corpus_raw_analyze_graph_diff]] — code: graph_diff()
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_1]] — code: Graph analysis: god nodes (most connected), surprising connections (cross-commun
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_7]] — code: Invert communities dict: node_id -> community_id.
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_12]] — code: Return True if this node is a file-level hub node (e.g. 'client', 'models')
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_36]] — code: Return the top_n most-connected real entities - the core abstractions.      Fi
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_62]] — code: Find connections that are genuinely surprising - not obvious from file structure
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_90]] — code: Return True if this node is a manually-injected semantic concept node     rathe
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_126]] — code: Return the first path component - used to detect cross-repo edges.
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_139]] — code: Score how surprising a cross-file edge is. Returns (score, reasons).
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_182]] — code: Cross-file edges between real code/doc entities, ranked by a composite     surp
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_244]] — code: For single-source corpora: find edges that bridge different communities.     Th
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_327]] — code: Generate questions the graph is uniquely positioned to answer.     Based on: AM
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_439]] — code: Compare two graph snapshots and return what changed.      Returns:         {
+
+## Dependências
+
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_file_category]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_god_nodes]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_graph_diff]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_is_concept_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_node_community_map]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_surprise_score]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_surprising_connections]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `contains` → [[graphify_worked_mixed_corpus_raw_analyze_top_level_dir]]
+- [[graphify_worked_mixed_corpus_raw_analyze]] → `imports` → [[graphify_worked_mixed_corpus_raw_cluster_cohesion_score]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_1]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_node_community_map]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_node_community_map]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_7]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_node_community_map]]
+- [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_node_community_map]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_god_nodes]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_12]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_file_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_god_nodes]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_concept_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_36]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_god_nodes]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_62]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_surprising_connections]]
+- [[graphify_worked_mixed_corpus_raw_analyze_surprising_connections]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze_surprising_connections]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_concept_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_90]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_is_concept_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_is_concept_node]]
+- [[graphify_worked_mixed_corpus_raw_analyze_surprise_score]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_file_category]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_126]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_top_level_dir]]
+- [[graphify_worked_mixed_corpus_raw_analyze_surprise_score]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_top_level_dir]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_surprise_score]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_139]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_surprise_score]]
+- [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]] → `calls` → [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_182]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_cross_file_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_244]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_cross_community_surprises]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_327]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]]
+- [[graphify_worked_mixed_corpus_raw_analyze_suggest_questions]] → `calls` → [[graphify_worked_mixed_corpus_raw_cluster_cohesion_score]]
+- [[graphify_worked_mixed_corpus_raw_analyze_rationale_439]] → `rationale_for` → [[graphify_worked_mixed_corpus_raw_analyze_graph_diff]]

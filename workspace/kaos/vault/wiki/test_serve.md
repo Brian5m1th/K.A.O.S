@@ -1,0 +1,383 @@
+# graphify\tests\test_serve.py
+
+## Símbolos
+
+- [[graphify_tests_test_serve]] — code: test_serve.py
+- [[graphify_tests_test_serve_make_graph]] — code: _make_graph()
+- [[graphify_tests_test_serve_test_communities_from_graph_basic]] — code: test_communities_from_graph_basic()
+- [[graphify_tests_test_serve_test_communities_from_graph_no_community_attr]] — code: test_communities_from_graph_no_community_attr()
+- [[graphify_tests_test_serve_test_communities_from_graph_isolated]] — code: test_communities_from_graph_isolated()
+- [[graphify_tests_test_serve_test_score_nodes_exact_label_match]] — code: test_score_nodes_exact_label_match()
+- [[graphify_tests_test_serve_test_score_nodes_no_match]] — code: test_score_nodes_no_match()
+- [[graphify_tests_test_serve_test_score_nodes_source_file_partial]] — code: test_score_nodes_source_file_partial()
+- [[graphify_tests_test_serve_test_score_nodes_ignores_trailing_punctuation]] — code: test_score_nodes_ignores_trailing_punctuation()
+- [[graphify_tests_test_serve_test_score_nodes_multiword_exact_label_outranks_superset]] — code: test_score_nodes_multiword_exact_label_outranks_superset()
+- [[graphify_tests_test_serve_test_score_nodes_coverage_lone_generic_exact_hit_loses_to_multi_term_match]] — code: test_score_nodes_coverage_lone_generic_exact_hit_loses_to_multi_term_match()
+- [[graphify_tests_test_serve_test_score_nodes_coverage_full_coverage_query_is_unchanged]] — code: test_score_nodes_coverage_full_coverage_query_is_unchanged()
+- [[graphify_tests_test_serve_test_find_node_ignores_trailing_punctuation]] — code: test_find_node_ignores_trailing_punctuation()
+- [[graphify_tests_test_serve_test_find_node_matches_full_punctuated_unicode_label]] — code: test_find_node_matches_full_punctuated_unicode_label()
+- [[graphify_tests_test_serve_test_find_node_matches_punctuated_file_label_exactly]] — code: test_find_node_matches_punctuated_file_label_exactly()
+- [[graphify_tests_test_serve_test_find_node_resolves_when_label_and_norm_label_diverge]] — code: test_find_node_resolves_when_label_and_norm_label_diverge()
+- [[graphify_tests_test_serve_force_full_scan]] — code: _force_full_scan()
+- [[graphify_tests_test_serve_make_big_graph]] — code: _make_big_graph()
+- [[graphify_tests_test_serve_test_trigrams_basic]] — code: test_trigrams_basic()
+- [[graphify_tests_test_serve_test_node_search_text_includes_all_matched_fields]] — code: test_node_search_text_includes_all_matched_fields()
+- [[graphify_tests_test_serve_test_trigram_candidates_fast_path_fires_for_rare_term]] — code: test_trigram_candidates_fast_path_fires_for_rare_term()
+- [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_common_term]] — code: test_trigram_candidates_falls_back_on_common_term()
+- [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_short_token]] — code: test_trigram_candidates_falls_back_on_short_token()
+- [[graphify_tests_test_serve_test_score_nodes_prefilter_is_identical_to_full_scan]] — code: test_score_nodes_prefilter_is_identical_to_full_scan()
+- [[graphify_tests_test_serve_test_find_node_prefilter_is_identical_to_full_scan]] — code: test_find_node_prefilter_is_identical_to_full_scan()
+- [[graphify_tests_test_serve_test_find_node_label_tokens_branch_covered_by_index]] — code: test_find_node_label_tokens_branch_covered_by_index()
+- [[graphify_tests_test_serve_test_find_node_source_file_path_prefers_file_level_node]] — code: test_find_node_source_file_path_prefers_file_level_node()
+- [[graphify_tests_test_serve_test_trigram_index_cached_and_rebuilt_per_graph]] — code: test_trigram_index_cached_and_rebuilt_per_graph()
+- [[graphify_tests_test_serve_test_query_terms_strips_search_punctuation]] — code: test_query_terms_strips_search_punctuation()
+- [[graphify_tests_test_serve_test_query_terms_drops_question_stopwords]] — code: test_query_terms_drops_question_stopwords()
+- [[graphify_tests_test_serve_test_query_terms_all_stopwords_falls_back_to_unfiltered]] — code: test_query_terms_all_stopwords_falls_back_to_unfiltered()
+- [[graphify_tests_test_serve_test_query_terms_filters_only_short_english_terms]] — code: test_query_terms_filters_only_short_english_terms()
+- [[graphify_tests_test_serve_test_query_graph_text_keeps_short_non_english_terms]] — code: test_query_graph_text_keeps_short_non_english_terms()
+- [[graphify_tests_test_serve_test_infer_context_filters_for_calls_question]] — code: test_infer_context_filters_for_calls_question()
+- [[graphify_tests_test_serve_test_resolve_context_filters_explicit_overrides_heuristic]] — code: test_resolve_context_filters_explicit_overrides_heuristic()
+- [[graphify_tests_test_serve_test_bfs_depth_1]] — code: test_bfs_depth_1()
+- [[graphify_tests_test_serve_test_bfs_depth_2]] — code: test_bfs_depth_2()
+- [[graphify_tests_test_serve_test_bfs_disconnected]] — code: test_bfs_disconnected()
+- [[graphify_tests_test_serve_test_bfs_returns_edges]] — code: test_bfs_returns_edges()
+- [[graphify_tests_test_serve_test_filter_graph_by_context_limits_traversal]] — code: test_filter_graph_by_context_limits_traversal()
+- [[graphify_tests_test_serve_test_dfs_depth_1]] — code: test_dfs_depth_1()
+- [[graphify_tests_test_serve_test_dfs_full_chain]] — code: test_dfs_full_chain()
+- [[graphify_tests_test_serve_test_subgraph_to_text_contains_labels]] — code: test_subgraph_to_text_contains_labels()
+- [[graphify_tests_test_serve_test_subgraph_to_text_truncates]] — code: test_subgraph_to_text_truncates()
+- [[graphify_tests_test_serve_test_subgraph_to_text_edge_included]] — code: test_subgraph_to_text_edge_included()
+- [[graphify_tests_test_serve_test_subgraph_to_text_includes_edge_context]] — code: test_subgraph_to_text_includes_edge_context()
+- [[graphify_tests_test_serve_test_subgraph_to_text_annotates_node_with_learning_status]] — code: test_subgraph_to_text_annotates_node_with_learning_status()
+- [[graphify_tests_test_serve_test_subgraph_to_text_marks_stale_status]] — code: test_subgraph_to_text_marks_stale_status()
+- [[graphify_tests_test_serve_test_subgraph_to_text_learning_suffix_counts_against_budget]] — code: test_subgraph_to_text_learning_suffix_counts_against_budget()
+- [[graphify_tests_test_serve_test_subgraph_to_text_no_overlay_is_unchanged]] — code: test_subgraph_to_text_no_overlay_is_unchanged()
+- [[graphify_tests_test_serve_test_query_graph_text_explicit_context_filter_changes_traversal]] — code: test_query_graph_text_explicit_context_filter_changes_traversal()
+- [[graphify_tests_test_serve_test_query_graph_text_heuristic_context_filter_changes_traversal]] — code: test_query_graph_text_heuristic_context_filter_changes_traversal()
+- [[graphify_tests_test_serve_test_load_graph_roundtrip]] — code: test_load_graph_roundtrip()
+- [[graphify_tests_test_serve_test_load_graph_missing_file]] — code: test_load_graph_missing_file()
+- [[graphify_tests_test_serve_test_load_graph_rejects_oversized_file]] — code: test_load_graph_rejects_oversized_file()
+- [[graphify_tests_test_serve_test_load_graph_accepts_under_cap]] — code: test_load_graph_accepts_under_cap()
+- [[graphify_tests_test_serve_write_graph]] — code: _write_graph()
+- [[graphify_tests_test_serve_test_maybe_reload_detects_graph_change]] — code: test_maybe_reload_detects_graph_change()
+- [[graphify_tests_test_serve_test_load_graph_cache_key_changes_with_content]] — code: test_load_graph_cache_key_changes_with_content()
+- [[graphify_tests_test_serve_make_noisy_graph]] — code: _make_noisy_graph()
+- [[graphify_tests_test_serve_test_idf_downweights_common_terms]] — code: test_idf_downweights_common_terms()
+- [[graphify_tests_test_serve_test_idf_cached_on_graph]] — code: test_idf_cached_on_graph()
+- [[graphify_tests_test_serve_test_idf_new_graph_starts_fresh]] — code: test_idf_new_graph_starts_fresh()
+- [[graphify_tests_test_serve_test_idf_rare_term_gets_high_weight]] — code: test_idf_rare_term_gets_high_weight()
+- [[graphify_tests_test_serve_test_idf_common_term_gets_low_weight]] — code: test_idf_common_term_gets_low_weight()
+- [[graphify_tests_test_serve_test_pick_seeds_dominant_identifier_gives_one_seed]] — code: test_pick_seeds_dominant_identifier_gives_one_seed()
+- [[graphify_tests_test_serve_test_pick_seeds_close_scores_keeps_multiple]] — code: test_pick_seeds_close_scores_keeps_multiple()
+- [[graphify_tests_test_serve_test_pick_seeds_empty]] — code: test_pick_seeds_empty()
+- [[graphify_tests_test_serve_test_pick_seeds_single]] — code: test_pick_seeds_single()
+- [[graphify_tests_test_serve_test_pick_seeds_respects_max_k]] — code: test_pick_seeds_respects_max_k()
+- [[graphify_tests_test_serve_test_pick_seeds_without_diversity_args_is_unchanged]] — code: test_pick_seeds_without_diversity_args_is_unchanged()
+- [[graphify_tests_test_serve_test_pick_seeds_diversity_recovers_starved_term]] — code: test_pick_seeds_diversity_recovers_starved_term()
+- [[graphify_tests_test_serve_test_subgraph_to_text_truncation_hint_is_actionable]] — code: test_subgraph_to_text_truncation_hint_is_actionable()
+- [[graphify_tests_test_serve_test_query_seeds_from_identifier_not_noise]] — code: test_query_seeds_from_identifier_not_noise()
+- [[graphify_tests_test_serve_test_query_graph_text_parameter_type_context_filter_changes_traversal]] — code: test_query_graph_text_parameter_type_context_filter_changes_traversal()
+- [[graphify_tests_test_serve_test_query_graph_text_context_filter_aliases_resolve]] — code: test_query_graph_text_context_filter_aliases_resolve()
+- [[graphify_tests_test_serve_test_query_terms_chinese_segments_with_cached_jieba]] — code: test_query_terms_chinese_segments_with_cached_jieba()
+- [[graphify_tests_test_serve_test_query_terms_chinese_mixed]] — code: test_query_terms_chinese_mixed()
+- [[graphify_tests_test_serve_test_query_terms_non_chinese_scripts_are_not_segmented]] — code: test_query_terms_non_chinese_scripts_are_not_segmented()
+- [[graphify_tests_test_serve_test_query_terms_chinese_no_jieba_fallback]] — code: test_query_terms_chinese_no_jieba_fallback()
+- [[graphify_tests_test_serve_test_score_nodes_chinese_substring_match]] — code: test_score_nodes_chinese_substring_match()
+- [[graphify_tests_test_serve_test_query_text_chinese_finds_routing_nodes]] — code: test_query_text_chinese_finds_routing_nodes()
+- [[graphify_tests_test_serve_test_community_header_shows_real_name]] — code: test_community_header_shows_real_name()
+- [[graphify_tests_test_serve_test_community_header_skips_placeholder_name]] — code: test_community_header_skips_placeholder_name()
+- [[graphify_tests_test_serve_test_community_header_falls_back_when_no_name]] — code: test_community_header_falls_back_when_no_name()
+- [[graphify_tests_test_serve_test_community_header_sanitizes_name]] — code: test_community_header_sanitizes_name()
+- [[graphify_tests_test_serve_rationale_1]] — code: Tests for serve.py - MCP graph query helpers (no mcp package required).
+- [[graphify_tests_test_serve_rationale_98]] — code: A multi-word query equal to a whole label must resolve uniquely.      Regressi
+- [[graphify_tests_test_serve_rationale_129]] — code: A lone generic-word exact match must not bury a multi-term match.      Reprodu
+- [[graphify_tests_test_serve_rationale_173]] — code: Coverage scaling must not touch full-coverage queries (coverage == 1).      A
+- [[graphify_tests_test_serve_rationale_228]] — code: Disable the prefilter so a call exercises the original full-node scan.
+- [[graphify_tests_test_serve_rationale_233]] — code: A graph large enough that the selectivity guard lets the fast-path fire for
+- [[graphify_tests_test_serve_rationale_484]] — code: An annotated node gets a `learning=<status>` suffix inside its NODE     bracket
+- [[graphify_tests_test_serve_rationale_504]] — code: The learning= suffix is part of the NODE line BEFORE the budget cut, so it
+- [[graphify_tests_test_serve_rationale_523]] — code: With no overlay on the graph, NODE lines carry no learning= suffix.
+- [[graphify_tests_test_serve_rationale_592]] — code: Write a minimal graph.json with the given node IDs.
+- [[graphify_tests_test_serve_rationale_601]] — code: serve() picks up a new graph.json written after startup (#874).
+- [[graphify_tests_test_serve_rationale_623]] — code: mtime_ns + size uniquely identifies a graph version (#874).
+- [[graphify_tests_test_serve_rationale_646]] — code: 20 error-handler nodes + 1 rare identifier: FooBarService.
+- [[graphify_tests_test_serve_rationale_659]] — code: error' matches 20 nodes, 'foobarservice' matches 1 — IDF should make     FooBar
+- [[graphify_tests_test_serve_rationale_670]] — code: IDF results are stored in G.graph so repeated queries don't recompute.
+- [[graphify_tests_test_serve_rationale_678]] — code: Two separate graph instances must not share an IDF cache.
+- [[graphify_tests_test_serve_rationale_686]] — code: A term matching only 1 of N nodes should get IDF > 1.
+- [[graphify_tests_test_serve_rationale_695]] — code: A term matching most nodes should get IDF < 1.
+- [[graphify_tests_test_serve_rationale_708]] — code: FooBarService at 1000 vs error nodes at 1.0 → only 1 seed chosen.
+- [[graphify_tests_test_serve_rationale_715]] — code: When all scores are within 20% of the top, keep up to 3 seeds.
+- [[graphify_tests_test_serve_rationale_730]] — code: Never return more than max_k seeds even when all scores are close.
+- [[graphify_tests_test_serve_rationale_737]] — code: G/terms are optional and default to None: existing callers see identical     be
+- [[graphify_tests_test_serve_rationale_744]] — code: Reproduces #1445: a vague natural-language query where one term's     incidenta
+- [[graphify_tests_test_serve_rationale_775]] — code: Truncation message must tell Claude what to do, not just say truncated.
+- [[graphify_tests_test_serve_rationale_785]] — code: FooBarService error handling' should expand from FooBarService,     not from er
+- [[graphify_tests_test_serve_rationale_831]] — code: Chinese text should use the cached jieba module and keep the original term.
+- [[graphify_tests_test_serve_rationale_845]] — code: Mixed Chinese and English text should be handled correctly.
+- [[graphify_tests_test_serve_rationale_854]] — code: Japanese kana and Hangul are kept as terms but not segmented as Chinese.
+- [[graphify_tests_test_serve_rationale_862]] — code: When jieba is not installed, fallback to character bigrams.
+- [[graphify_tests_test_serve_rationale_875]] — code: Searching for '路由' should match a node with label containing '路由'.
+- [[graphify_tests_test_serve_rationale_886]] — code: Full pipeline: '页面路由' should find nodes with '路由' in label.
+
+## Dependências
+
+- [[graphify_tests_test_serve]] → `imports_from` → [[graphify_graphify_serve]]
+- [[graphify_tests_test_serve_test_load_graph_accepts_under_cap]] → `calls` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_tests_test_serve_test_load_graph_missing_file]] → `calls` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_tests_test_serve_test_load_graph_rejects_oversized_file]] → `calls` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_tests_test_serve_test_load_graph_roundtrip]] → `calls` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_tests_test_serve_test_maybe_reload_detects_graph_change]] → `calls` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_tests_test_serve_test_communities_from_graph_basic]] → `calls` → [[graphify_graphify_serve_communities_from_graph]]
+- [[graphify_tests_test_serve_test_communities_from_graph_isolated]] → `calls` → [[graphify_graphify_serve_communities_from_graph]]
+- [[graphify_tests_test_serve_test_communities_from_graph_no_community_attr]] → `calls` → [[graphify_graphify_serve_communities_from_graph]]
+- [[graphify_tests_test_serve_test_query_terms_all_stopwords_falls_back_to_unfiltered]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_query_terms_chinese_mixed]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_query_terms_chinese_segments_with_cached_jieba]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_query_terms_drops_question_stopwords]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_query_terms_filters_only_short_english_terms]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_query_terms_strips_search_punctuation]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_score_nodes_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_tests_test_serve_test_idf_common_term_gets_low_weight]] → `calls` → [[graphify_graphify_serve_compute_idf]]
+- [[graphify_tests_test_serve_test_idf_rare_term_gets_high_weight]] → `calls` → [[graphify_graphify_serve_compute_idf]]
+- [[graphify_tests_test_serve_test_score_nodes_coverage_full_coverage_query_is_unchanged]] → `calls` → [[graphify_graphify_serve_compute_idf]]
+- [[graphify_tests_test_serve_test_trigrams_basic]] → `calls` → [[graphify_graphify_serve_trigrams]]
+- [[graphify_tests_test_serve_test_node_search_text_includes_all_matched_fields]] → `calls` → [[graphify_graphify_serve_node_search_text]]
+- [[graphify_tests_test_serve_test_trigram_index_cached_and_rebuilt_per_graph]] → `calls` → [[graphify_graphify_serve_get_trigram_index]]
+- [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_common_term]] → `calls` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_short_token]] → `calls` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_tests_test_serve_test_trigram_candidates_fast_path_fires_for_rare_term]] → `calls` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_tests_test_serve_test_idf_cached_on_graph]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_idf_downweights_common_terms]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_idf_new_graph_starts_fresh]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_pick_seeds_diversity_recovers_starved_term]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_chinese_substring_match]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_coverage_full_coverage_query_is_unchanged]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_coverage_lone_generic_exact_hit_loses_to_multi_term_match]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_exact_label_match]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_ignores_trailing_punctuation]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_multiword_exact_label_outranks_superset]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_no_match]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_score_nodes_source_file_partial]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_tests_test_serve_test_pick_seeds_close_scores_keeps_multiple]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_pick_seeds_diversity_recovers_starved_term]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_pick_seeds_dominant_identifier_gives_one_seed]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_pick_seeds_empty]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_pick_seeds_respects_max_k]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_pick_seeds_single]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_pick_seeds_without_diversity_args_is_unchanged]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_tests_test_serve_test_query_graph_text_context_filter_aliases_resolve]] → `calls` → [[graphify_graphify_serve_normalize_context_filters]]
+- [[graphify_tests_test_serve_test_infer_context_filters_for_calls_question]] → `calls` → [[graphify_graphify_serve_infer_context_filters]]
+- [[graphify_tests_test_serve_test_resolve_context_filters_explicit_overrides_heuristic]] → `calls` → [[graphify_graphify_serve_resolve_context_filters]]
+- [[graphify_tests_test_serve_test_filter_graph_by_context_limits_traversal]] → `calls` → [[graphify_graphify_serve_filter_graph_by_context]]
+- [[graphify_tests_test_serve_test_bfs_depth_1]] → `calls` → [[graphify_graphify_serve_bfs]]
+- [[graphify_tests_test_serve_test_bfs_depth_2]] → `calls` → [[graphify_graphify_serve_bfs]]
+- [[graphify_tests_test_serve_test_bfs_disconnected]] → `calls` → [[graphify_graphify_serve_bfs]]
+- [[graphify_tests_test_serve_test_bfs_returns_edges]] → `calls` → [[graphify_graphify_serve_bfs]]
+- [[graphify_tests_test_serve_test_filter_graph_by_context_limits_traversal]] → `calls` → [[graphify_graphify_serve_bfs]]
+- [[graphify_tests_test_serve_test_dfs_depth_1]] → `calls` → [[graphify_graphify_serve_dfs]]
+- [[graphify_tests_test_serve_test_dfs_full_chain]] → `calls` → [[graphify_graphify_serve_dfs]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_annotates_node_with_learning_status]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_contains_labels]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_edge_included]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_includes_edge_context]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_learning_suffix_counts_against_budget]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_marks_stale_status]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_no_overlay_is_unchanged]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_truncates]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_truncation_hint_is_actionable]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_tests_test_serve_test_query_graph_text_explicit_context_filter_changes_traversal]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_tests_test_serve_test_query_graph_text_heuristic_context_filter_changes_traversal]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_tests_test_serve_test_query_graph_text_keeps_short_non_english_terms]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_tests_test_serve_test_query_graph_text_parameter_type_context_filter_changes_traversal]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_tests_test_serve_test_query_seeds_from_identifier_not_noise]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_tests_test_serve_test_query_text_chinese_finds_routing_nodes]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_tests_test_serve_test_find_node_ignores_trailing_punctuation]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_find_node_label_tokens_branch_covered_by_index]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_find_node_matches_full_punctuated_unicode_label]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_find_node_matches_punctuated_file_label_exactly]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_find_node_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_find_node_resolves_when_label_and_norm_label_diverge]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_find_node_source_file_path_prefers_file_level_node]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_tests_test_serve_test_community_header_falls_back_when_no_name]] → `calls` → [[graphify_graphify_serve_community_header]]
+- [[graphify_tests_test_serve_test_community_header_sanitizes_name]] → `calls` → [[graphify_graphify_serve_community_header]]
+- [[graphify_tests_test_serve_test_community_header_shows_real_name]] → `calls` → [[graphify_graphify_serve_community_header]]
+- [[graphify_tests_test_serve_test_community_header_skips_placeholder_name]] → `calls` → [[graphify_graphify_serve_community_header]]
+- [[graphify_tests_test_serve_make_big_graph]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_make_graph]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_make_noisy_graph]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_communities_from_graph_no_community_attr]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_find_node_matches_full_punctuated_unicode_label]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_find_node_matches_punctuated_file_label_exactly]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_find_node_resolves_when_label_and_norm_label_diverge]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_idf_common_term_gets_low_weight]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_query_graph_text_keeps_short_non_english_terms]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_query_graph_text_parameter_type_context_filter_changes_traversal]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_query_text_chinese_finds_routing_nodes]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_chinese_substring_match]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_coverage_lone_generic_exact_hit_loses_to_multi_term_match]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_multiword_exact_label_outranks_superset]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_force_full_scan]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_make_noisy_graph]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_bfs_depth_1]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_bfs_depth_2]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_bfs_disconnected]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_bfs_returns_edges]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_communities_from_graph_basic]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_communities_from_graph_isolated]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_communities_from_graph_no_community_attr]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_community_header_falls_back_when_no_name]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_community_header_sanitizes_name]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_community_header_shows_real_name]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_community_header_skips_placeholder_name]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_dfs_depth_1]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_dfs_full_chain]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_filter_graph_by_context_limits_traversal]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_ignores_trailing_punctuation]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_label_tokens_branch_covered_by_index]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_matches_full_punctuated_unicode_label]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_matches_punctuated_file_label_exactly]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_prefilter_is_identical_to_full_scan]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_resolves_when_label_and_norm_label_diverge]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_find_node_source_file_path_prefers_file_level_node]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_idf_cached_on_graph]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_idf_common_term_gets_low_weight]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_idf_downweights_common_terms]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_idf_new_graph_starts_fresh]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_idf_rare_term_gets_high_weight]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_infer_context_filters_for_calls_question]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_load_graph_accepts_under_cap]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_load_graph_cache_key_changes_with_content]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_load_graph_missing_file]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_load_graph_rejects_oversized_file]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_load_graph_roundtrip]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_maybe_reload_detects_graph_change]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_node_search_text_includes_all_matched_fields]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_close_scores_keeps_multiple]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_diversity_recovers_starved_term]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_dominant_identifier_gives_one_seed]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_empty]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_respects_max_k]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_single]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_pick_seeds_without_diversity_args_is_unchanged]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_graph_text_context_filter_aliases_resolve]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_graph_text_explicit_context_filter_changes_traversal]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_graph_text_heuristic_context_filter_changes_traversal]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_graph_text_keeps_short_non_english_terms]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_graph_text_parameter_type_context_filter_changes_traversal]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_seeds_from_identifier_not_noise]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_all_stopwords_falls_back_to_unfiltered]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_chinese_mixed]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_chinese_no_jieba_fallback]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_chinese_segments_with_cached_jieba]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_drops_question_stopwords]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_filters_only_short_english_terms]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_non_chinese_scripts_are_not_segmented]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_terms_strips_search_punctuation]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_query_text_chinese_finds_routing_nodes]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_resolve_context_filters_explicit_overrides_heuristic]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_chinese_substring_match]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_coverage_full_coverage_query_is_unchanged]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_coverage_lone_generic_exact_hit_loses_to_multi_term_match]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_exact_label_match]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_ignores_trailing_punctuation]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_multiword_exact_label_outranks_superset]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_no_match]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_prefilter_is_identical_to_full_scan]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_score_nodes_source_file_partial]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_annotates_node_with_learning_status]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_contains_labels]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_edge_included]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_includes_edge_context]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_learning_suffix_counts_against_budget]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_marks_stale_status]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_no_overlay_is_unchanged]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_truncates]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_subgraph_to_text_truncation_hint_is_actionable]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_common_term]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_short_token]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_trigram_candidates_fast_path_fires_for_rare_term]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_trigram_index_cached_and_rebuilt_per_graph]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_test_trigrams_basic]]
+- [[graphify_tests_test_serve]] → `contains` → [[graphify_tests_test_serve_write_graph]]
+- [[graphify_tests_test_serve_rationale_1]] → `rationale_for` → [[graphify_tests_test_serve]]
+- [[graphify_tests_test_serve_test_bfs_depth_1]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_bfs_depth_2]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_bfs_disconnected]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_bfs_returns_edges]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_communities_from_graph_basic]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_communities_from_graph_isolated]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_dfs_depth_1]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_dfs_full_chain]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_filter_graph_by_context_limits_traversal]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_find_node_ignores_trailing_punctuation]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_idf_cached_on_graph]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_idf_new_graph_starts_fresh]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_idf_rare_term_gets_high_weight]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_load_graph_accepts_under_cap]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_load_graph_rejects_oversized_file]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_load_graph_roundtrip]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_query_graph_text_explicit_context_filter_changes_traversal]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_query_graph_text_heuristic_context_filter_changes_traversal]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_coverage_full_coverage_query_is_unchanged]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_exact_label_match]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_ignores_trailing_punctuation]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_no_match]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_source_file_partial]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_annotates_node_with_learning_status]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_contains_labels]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_edge_included]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_includes_edge_context]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_learning_suffix_counts_against_budget]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_marks_stale_status]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_no_overlay_is_unchanged]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_truncates]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_test_subgraph_to_text_truncation_hint_is_actionable]] → `calls` → [[graphify_tests_test_serve_make_graph]]
+- [[graphify_tests_test_serve_rationale_98]] → `rationale_for` → [[graphify_tests_test_serve_test_score_nodes_multiword_exact_label_outranks_superset]]
+- [[graphify_tests_test_serve_rationale_129]] → `rationale_for` → [[graphify_tests_test_serve_test_score_nodes_coverage_lone_generic_exact_hit_loses_to_multi_term_match]]
+- [[graphify_tests_test_serve_rationale_173]] → `rationale_for` → [[graphify_tests_test_serve_test_score_nodes_coverage_full_coverage_query_is_unchanged]]
+- [[graphify_tests_test_serve_rationale_228]] → `rationale_for` → [[graphify_tests_test_serve_force_full_scan]]
+- [[graphify_tests_test_serve_test_find_node_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_tests_test_serve_force_full_scan]]
+- [[graphify_tests_test_serve_test_score_nodes_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_tests_test_serve_force_full_scan]]
+- [[graphify_tests_test_serve_rationale_233]] → `rationale_for` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_find_node_label_tokens_branch_covered_by_index]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_find_node_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_find_node_source_file_path_prefers_file_level_node]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_node_search_text_includes_all_matched_fields]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_score_nodes_prefilter_is_identical_to_full_scan]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_common_term]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_trigram_candidates_falls_back_on_short_token]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_trigram_candidates_fast_path_fires_for_rare_term]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_test_trigram_index_cached_and_rebuilt_per_graph]] → `calls` → [[graphify_tests_test_serve_make_big_graph]]
+- [[graphify_tests_test_serve_rationale_484]] → `rationale_for` → [[graphify_tests_test_serve_test_subgraph_to_text_annotates_node_with_learning_status]]
+- [[graphify_tests_test_serve_rationale_504]] → `rationale_for` → [[graphify_tests_test_serve_test_subgraph_to_text_learning_suffix_counts_against_budget]]
+- [[graphify_tests_test_serve_rationale_523]] → `rationale_for` → [[graphify_tests_test_serve_test_subgraph_to_text_no_overlay_is_unchanged]]
+- [[graphify_tests_test_serve_rationale_592]] → `rationale_for` → [[graphify_tests_test_serve_write_graph]]
+- [[graphify_tests_test_serve_test_load_graph_cache_key_changes_with_content]] → `calls` → [[graphify_tests_test_serve_write_graph]]
+- [[graphify_tests_test_serve_test_maybe_reload_detects_graph_change]] → `calls` → [[graphify_tests_test_serve_write_graph]]
+- [[graphify_tests_test_serve_rationale_601]] → `rationale_for` → [[graphify_tests_test_serve_test_maybe_reload_detects_graph_change]]
+- [[graphify_tests_test_serve_rationale_623]] → `rationale_for` → [[graphify_tests_test_serve_test_load_graph_cache_key_changes_with_content]]
+- [[graphify_tests_test_serve_rationale_646]] → `rationale_for` → [[graphify_tests_test_serve_make_noisy_graph]]
+- [[graphify_tests_test_serve_test_idf_downweights_common_terms]] → `calls` → [[graphify_tests_test_serve_make_noisy_graph]]
+- [[graphify_tests_test_serve_test_query_seeds_from_identifier_not_noise]] → `calls` → [[graphify_tests_test_serve_make_noisy_graph]]
+- [[graphify_tests_test_serve_rationale_659]] → `rationale_for` → [[graphify_tests_test_serve_test_idf_downweights_common_terms]]
+- [[graphify_tests_test_serve_rationale_670]] → `rationale_for` → [[graphify_tests_test_serve_test_idf_cached_on_graph]]
+- [[graphify_tests_test_serve_rationale_678]] → `rationale_for` → [[graphify_tests_test_serve_test_idf_new_graph_starts_fresh]]
+- [[graphify_tests_test_serve_rationale_686]] → `rationale_for` → [[graphify_tests_test_serve_test_idf_rare_term_gets_high_weight]]
+- [[graphify_tests_test_serve_rationale_695]] → `rationale_for` → [[graphify_tests_test_serve_test_idf_common_term_gets_low_weight]]
+- [[graphify_tests_test_serve_rationale_708]] → `rationale_for` → [[graphify_tests_test_serve_test_pick_seeds_dominant_identifier_gives_one_seed]]
+- [[graphify_tests_test_serve_rationale_715]] → `rationale_for` → [[graphify_tests_test_serve_test_pick_seeds_close_scores_keeps_multiple]]
+- [[graphify_tests_test_serve_rationale_730]] → `rationale_for` → [[graphify_tests_test_serve_test_pick_seeds_respects_max_k]]
+- [[graphify_tests_test_serve_rationale_737]] → `rationale_for` → [[graphify_tests_test_serve_test_pick_seeds_without_diversity_args_is_unchanged]]
+- [[graphify_tests_test_serve_rationale_744]] → `rationale_for` → [[graphify_tests_test_serve_test_pick_seeds_diversity_recovers_starved_term]]
+- [[graphify_tests_test_serve_rationale_775]] → `rationale_for` → [[graphify_tests_test_serve_test_subgraph_to_text_truncation_hint_is_actionable]]
+- [[graphify_tests_test_serve_rationale_785]] → `rationale_for` → [[graphify_tests_test_serve_test_query_seeds_from_identifier_not_noise]]
+- [[graphify_tests_test_serve_rationale_831]] → `rationale_for` → [[graphify_tests_test_serve_test_query_terms_chinese_segments_with_cached_jieba]]
+- [[graphify_tests_test_serve_rationale_845]] → `rationale_for` → [[graphify_tests_test_serve_test_query_terms_chinese_mixed]]
+- [[graphify_tests_test_serve_rationale_854]] → `rationale_for` → [[graphify_tests_test_serve_test_query_terms_non_chinese_scripts_are_not_segmented]]
+- [[graphify_tests_test_serve_rationale_862]] → `rationale_for` → [[graphify_tests_test_serve_test_query_terms_chinese_no_jieba_fallback]]
+- [[graphify_tests_test_serve_rationale_875]] → `rationale_for` → [[graphify_tests_test_serve_test_score_nodes_chinese_substring_match]]
+- [[graphify_tests_test_serve_rationale_886]] → `rationale_for` → [[graphify_tests_test_serve_test_query_text_chinese_finds_routing_nodes]]

@@ -15,6 +15,7 @@ from typing import Optional
 @dataclass
 class RetrievalQuery:
     """Semantic search query."""
+
     text: str
     collection: str = "kaos"
     max_results: int = 10
@@ -25,6 +26,7 @@ class RetrievalQuery:
 @dataclass
 class RetrievalResult:
     """Retrieved document chunk with score."""
+
     score: float
     payload: dict = field(default_factory=dict)
     chunk_id: Optional[str] = None
@@ -43,8 +45,7 @@ class RetrievalPort(ABC):
 
     @property
     @abstractmethod
-    def provider_name(self) -> str:
-        ...
+    def provider_name(self) -> str: ...
 
     @abstractmethod
     async def search(self, query: RetrievalQuery) -> list[RetrievalResult]:
@@ -62,5 +63,4 @@ class RetrievalPort(ABC):
         ...
 
     @abstractmethod
-    async def health(self) -> bool:
-        ...
+    async def health(self) -> bool: ...

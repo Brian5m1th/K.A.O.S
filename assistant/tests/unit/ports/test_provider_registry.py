@@ -11,14 +11,17 @@ from app.core.provider_registry import ProviderRegistry, Provider
 
 # ── Test Provider Implementations ───────────────────────────────────────
 
+
 class FakeGraphProvider(Provider):
     """Mock graph provider for testing."""
+
     def __init__(self, name="fake"):
         self._name = name
         self.calls = []
 
     @property
-    def name(self): return self._name
+    def name(self):
+        return self._name
 
     async def explain(self, concept: str):
         self.calls.append(("explain", concept))
@@ -38,11 +41,13 @@ class FakeGraphProvider(Provider):
 
 class FailingGraphProvider(FakeGraphProvider):
     """Provider that always fails health checks."""
+
     async def health(self):
         return False
 
 
 # ── Tests ───────────────────────────────────────────────────────────────
+
 
 class TestProviderRegistry:
     """Tests for the generic ProviderRegistry."""
@@ -137,11 +142,13 @@ class TestGraphifyAdapter:
 
     def test_adapter_has_correct_name(self):
         from app.providers.graph.graphify_adapter import GraphifyAdapter
+
         adapter = GraphifyAdapter()
         assert adapter.provider_name == "graphify"
 
     def test_networkx_fallback_has_correct_name(self):
         from app.providers.graph.networkx_fallback import NetworkXFallback
+
         fallback = NetworkXFallback()
         assert fallback.provider_name == "networkx-fallback"
 
@@ -169,6 +176,7 @@ class TestEvidenceEngine:
 
     def test_engine_has_correct_name(self):
         from app.providers.evidence.engine import EvidenceEngine
+
         engine = EvidenceEngine()
         assert engine.provider_name == "evidence-engine"
 

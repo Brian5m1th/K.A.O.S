@@ -8,7 +8,11 @@ import httpx
 
 from loguru import logger
 from app.config.settings import settings
-from app.domain.ports.retrieval_port import RetrievalPort, RetrievalQuery, RetrievalResult
+from app.domain.ports.retrieval_port import (
+    RetrievalPort,
+    RetrievalQuery,
+    RetrievalResult,
+)
 
 
 class QdrantAdapter(RetrievalPort):
@@ -42,13 +46,15 @@ class QdrantAdapter(RetrievalPort):
                 score_threshold=query.score_threshold,
             )
             for hit in hits:
-                results.append(RetrievalResult(
-                    score=hit.score,
-                    payload=hit.payload or {},
-                    chunk_id=str(hit.id),
-                    source_file=hit.payload.get("source", ""),
-                    text=hit.payload.get("text", ""),
-                ))
+                results.append(
+                    RetrievalResult(
+                        score=hit.score,
+                        payload=hit.payload or {},
+                        chunk_id=str(hit.id),
+                        source_file=hit.payload.get("source", ""),
+                        text=hit.payload.get("text", ""),
+                    )
+                )
         except Exception as e:
             logger.warning(f"[retrieval:qdrant] Vector search failed: {e}")
 
@@ -56,7 +62,9 @@ class QdrantAdapter(RetrievalPort):
 
     async def index(self, documents: list[dict]) -> int:
         """Index documents in Qdrant (stub — uses existing RAG pipeline)."""
-        logger.info(f"[retrieval:qdrant] Index request for {len(documents)} docs (delegated to RAG pipeline)")
+        logger.info(
+            f"[retrieval:qdrant] Index request for {len(documents)} docs (delegated to RAG pipeline)"
+        )
         return 0  # Delegated to existing VaultIndexer
 
     async def count(self, collection: str = "kaos") -> int:

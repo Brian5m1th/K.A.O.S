@@ -1,0 +1,186 @@
+# graphify\graphify\watch.py
+
+## Símbolos
+
+- [[graphify_graphify_watch]] — code: watch.py
+- [[graphify_graphify_watch_queue_pending]] — code: _queue_pending()
+- [[graphify_graphify_watch_drain_pending]] — code: _drain_pending()
+- [[graphify_graphify_watch_merge_changed_paths]] — code: _merge_changed_paths()
+- [[graphify_graphify_watch_rebuild_lock]] — code: _rebuild_lock()
+- [[graphify_graphify_watch_apply_resource_limits]] — code: _apply_resource_limits()
+- [[graphify_graphify_watch_git_head]] — code: _git_head()
+- [[graphify_graphify_watch_report_root_label]] — code: _report_root_label()
+- [[graphify_graphify_watch_is_relative_to]] — code: _is_relative_to()
+- [[graphify_graphify_watch_changed_path_candidates]] — code: _changed_path_candidates()
+- [[graphify_graphify_watch_relativize_source_files]] — code: _relativize_source_files()
+- [[graphify_graphify_watch_rebase_relative_source_files]] — code: _rebase_relative_source_files()
+- [[graphify_graphify_watch_storedsourcepaths]] — code: _StoredSourcePaths
+- [[graphify_graphify_watch_storedsourcepaths_init]] — code: .__init__()
+- [[graphify_graphify_watch_storedsourcepaths_normalize]] — code: .normalize()
+- [[graphify_graphify_watch_storedsourcepaths_absolute_identity]] — code: .absolute_identity()
+- [[graphify_graphify_watch_storedsourcepaths_identity]] — code: .identity()
+- [[graphify_graphify_watch_storedsourcepaths_in_watch_root]] — code: .in_watch_root()
+- [[graphify_graphify_watch_storedsourcepaths_is_evicted]] — code: .is_evicted()
+- [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]] — code: .rebase_preserved()
+- [[graphify_graphify_watch_reconcile_existing_graph]] — code: _reconcile_existing_graph()
+- [[graphify_graphify_watch_node_community_map]] — code: _node_community_map()
+- [[graphify_graphify_watch_canonical_graph_for_compare]] — code: _canonical_graph_for_compare()
+- [[graphify_graphify_watch_canonical_topology_for_compare]] — code: _canonical_topology_for_compare()
+- [[graphify_graphify_watch_topology_from_graph]] — code: _topology_from_graph()
+- [[graphify_graphify_watch_check_shrink]] — code: _check_shrink()
+- [[graphify_graphify_watch_report_for_compare]] — code: _report_for_compare()
+- [[graphify_graphify_watch_json_text]] — code: _json_text()
+- [[graphify_graphify_watch_stabilize_rebuild_cwd]] — code: _stabilize_rebuild_cwd()
+- [[graphify_graphify_watch_rebuild_code]] — code: _rebuild_code()
+- [[graphify_graphify_watch_check_update]] — code: check_update()
+- [[graphify_graphify_watch_notify_only]] — code: _notify_only()
+- [[graphify_graphify_watch_has_non_code]] — code: _has_non_code()
+- [[graphify_graphify_watch_watch]] — code: watch()
+- [[graphify_graphify_watch_rationale_19]] — code: Append ``changed_paths`` to ``out_dir/.pending_changes`` (one per line).
+- [[graphify_graphify_watch_rationale_41]] — code: Read + unlink ``out_dir/.pending_changes`` and return deduplicated paths.
+- [[graphify_graphify_watch_rationale_73]] — code: Concatenate path lists, preserving order and dropping duplicates.      Used to
+- [[graphify_graphify_watch_rationale_95]] — code: Per-repo advisory lock around a rebuild.      Yields True if acquired, False i
+- [[graphify_graphify_watch_rationale_154]] — code: Best-effort nice + memory cap. Called from inline hook scripts.      GRAPHIFY_
+- [[graphify_graphify_watch_rationale_182]] — code: Return current git HEAD commit hash, or None outside a repo.
+- [[graphify_graphify_watch_rationale_219]] — code: Return plausible absolute locations for a hook-provided changed path.      Git
+- [[graphify_graphify_watch_rationale_262]] — code: Rebase cache-root-relative source paths onto the project root.
+- [[graphify_graphify_watch_rationale_277]] — code: Resolve source_file values across current and legacy graph roots.
+- [[graphify_graphify_watch_rationale_382]] — code: Merge fresh extraction with preserved graph entries and evict stale sources.
+- [[graphify_graphify_watch_rationale_605]] — code: Return True (ok to proceed) or False (shrink refused).      When False, cleans
+- [[graphify_graphify_watch_rationale_663]] — code: Ensure relative rebuild paths have a usable CWD before queue/lock setup.
+- [[graphify_graphify_watch_rationale_703]] — code: Re-run AST extraction + build + optional cluster + report for code files. No LLM
+- [[graphify_graphify_watch_rationale_1114]] — code: Check for pending semantic update flag and notify the user if set.      Cron-s
+- [[graphify_graphify_watch_rationale_1129]] — code: Write a flag file and print a notification (fallback for non-code-only corpora).
+- [[graphify_graphify_watch_rationale_1144]] — code: Watch watch_path for new or modified files and auto-update the graph.      For
+
+## Dependências
+
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_analyze_god_nodes]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_analyze_surprising_connections]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_analyze_suggest_questions]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_build_build_from_json]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_callflow_html_write_callflow_html]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_cluster_label_communities_by_hub]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_cluster_cluster]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_cluster_score_all]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_cluster_remap_communities_to_previous]]
+- [[graphify_graphify_watch]] → `imports_from` → [[graphify_graphify_detect]]
+- [[graphify_graphify_watch_watch]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_graphify_watch]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_apply_resource_limits]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_canonical_graph_for_compare]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_canonical_topology_for_compare]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_changed_path_candidates]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_check_update]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_drain_pending]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_git_head]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_has_non_code]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_is_relative_to]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_json_text]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_merge_changed_paths]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_node_community_map]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_notify_only]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_queue_pending]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_rebase_relative_source_files]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_reconcile_existing_graph]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_relativize_source_files]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_report_for_compare]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_report_root_label]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_stabilize_rebuild_cwd]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_storedsourcepaths]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_topology_from_graph]]
+- [[graphify_graphify_watch]] → `contains` → [[graphify_graphify_watch_watch]]
+- [[graphify_graphify_watch_queue_pending]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_rationale_19]] → `rationale_for` → [[graphify_graphify_watch_queue_pending]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_queue_pending]]
+- [[graphify_graphify_watch_changed_path_candidates]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_check_update]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_drain_pending]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_has_non_code]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_is_relative_to]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_merge_changed_paths]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_notify_only]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_rebase_relative_source_files]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_rebuild_code]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_rebuild_lock]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_relativize_source_files]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_report_root_label]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_stabilize_rebuild_cwd]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_storedsourcepaths_absolute_identity]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_storedsourcepaths_identity]] → `calls` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_storedsourcepaths_in_watch_root]] → `calls` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_storedsourcepaths_init]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]] → `calls` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_watch]] → `references` → [[graphify_graphify_watch_py_path]]
+- [[graphify_graphify_watch_rationale_41]] → `rationale_for` → [[graphify_graphify_watch_drain_pending]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_drain_pending]]
+- [[graphify_graphify_watch_rationale_73]] → `rationale_for` → [[graphify_graphify_watch_merge_changed_paths]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_merge_changed_paths]]
+- [[graphify_graphify_watch_rationale_95]] → `rationale_for` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_graphify_watch_rationale_154]] → `rationale_for` → [[graphify_graphify_watch_apply_resource_limits]]
+- [[graphify_graphify_watch_rationale_182]] → `rationale_for` → [[graphify_graphify_watch_git_head]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_git_head]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_report_root_label]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_is_relative_to]]
+- [[graphify_graphify_watch_relativize_source_files]] → `calls` → [[graphify_graphify_watch_is_relative_to]]
+- [[graphify_graphify_watch_storedsourcepaths_in_watch_root]] → `calls` → [[graphify_graphify_watch_is_relative_to]]
+- [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]] → `calls` → [[graphify_graphify_watch_is_relative_to]]
+- [[graphify_graphify_watch_rationale_219]] → `rationale_for` → [[graphify_graphify_watch_changed_path_candidates]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_changed_path_candidates]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_relativize_source_files]]
+- [[graphify_graphify_watch_rationale_262]] → `rationale_for` → [[graphify_graphify_watch_rebase_relative_source_files]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_rebase_relative_source_files]]
+- [[graphify_graphify_watch_rationale_277]] → `rationale_for` → [[graphify_graphify_watch_storedsourcepaths]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_absolute_identity]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_identity]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_in_watch_root]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_init]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_is_evicted]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_normalize]]
+- [[graphify_graphify_watch_storedsourcepaths]] → `method` → [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_normalize]]
+- [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_normalize]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_absolute_identity]]
+- [[graphify_graphify_watch_storedsourcepaths_identity]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_absolute_identity]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_identity]]
+- [[graphify_graphify_watch_storedsourcepaths_in_watch_root]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_identity]]
+- [[graphify_graphify_watch_storedsourcepaths_is_evicted]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_identity]]
+- [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_identity]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_in_watch_root]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_is_evicted]]
+- [[graphify_graphify_watch_reconcile_existing_graph]] → `calls` → [[graphify_graphify_watch_storedsourcepaths_rebase_preserved]]
+- [[graphify_graphify_watch_rationale_382]] → `rationale_for` → [[graphify_graphify_watch_reconcile_existing_graph]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_reconcile_existing_graph]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_node_community_map]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_canonical_graph_for_compare]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_canonical_topology_for_compare]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_topology_from_graph]]
+- [[graphify_graphify_watch_rationale_605]] → `rationale_for` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_report_for_compare]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_json_text]]
+- [[graphify_graphify_watch_rationale_663]] → `rationale_for` → [[graphify_graphify_watch_stabilize_rebuild_cwd]]
+- [[graphify_graphify_watch_rebuild_code]] → `calls` → [[graphify_graphify_watch_stabilize_rebuild_cwd]]
+- [[graphify_graphify_watch_rationale_703]] → `rationale_for` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_graphify_watch_watch]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_graphify_watch_rationale_1114]] → `rationale_for` → [[graphify_graphify_watch_check_update]]
+- [[graphify_graphify_watch_rationale_1129]] → `rationale_for` → [[graphify_graphify_watch_notify_only]]
+- [[graphify_graphify_watch_watch]] → `calls` → [[graphify_graphify_watch_notify_only]]
+- [[graphify_graphify_watch_watch]] → `calls` → [[graphify_graphify_watch_has_non_code]]
+- [[graphify_graphify_watch_rationale_1144]] → `rationale_for` → [[graphify_graphify_watch_watch]]

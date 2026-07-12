@@ -313,6 +313,7 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     # ── Initialize K.A.O.S Capability Services (Phase 5) ──────────────
     try:
         from app.dependencies.services import init_services
+
         init_services()
         logger.info("[services] K.A.O.S capability services initialized")
     except Exception as exc:

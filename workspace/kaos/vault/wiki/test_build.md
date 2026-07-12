@@ -1,0 +1,192 @@
+# graphify\tests\test_build.py
+
+## Símbolos
+
+- [[graphify_tests_test_build]] — code: test_build.py
+- [[graphify_tests_test_build_test_dedupe_edges_collapses_exact_parallels]] — code: test_dedupe_edges_collapses_exact_parallels()
+- [[graphify_tests_test_build_test_dedupe_edges_is_idempotent]] — code: test_dedupe_edges_is_idempotent()
+- [[graphify_tests_test_build_test_dedupe_nodes_collapses_by_id_last_wins]] — code: test_dedupe_nodes_collapses_by_id_last_wins()
+- [[graphify_tests_test_build_load_extraction]] — code: load_extraction()
+- [[graphify_tests_test_build_test_build_from_json_node_count]] — code: test_build_from_json_node_count()
+- [[graphify_tests_test_build_test_build_from_json_edge_count]] — code: test_build_from_json_edge_count()
+- [[graphify_tests_test_build_test_nodes_have_label]] — code: test_nodes_have_label()
+- [[graphify_tests_test_build_test_edges_have_confidence]] — code: test_edges_have_confidence()
+- [[graphify_tests_test_build_test_ambiguous_edge_preserved]] — code: test_ambiguous_edge_preserved()
+- [[graphify_tests_test_build_test_legacy_node_source_canonicalized]] — code: test_legacy_node_source_canonicalized()
+- [[graphify_tests_test_build_test_legacy_edge_from_to_canonicalized]] — code: test_legacy_edge_from_to_canonicalized()
+- [[graphify_tests_test_build_test_source_file_backslash_normalized]] — code: test_source_file_backslash_normalized()
+- [[graphify_tests_test_build_test_edge_missing_source_file_backfilled_from_node]] — code: test_edge_missing_source_file_backfilled_from_node()
+- [[graphify_tests_test_build_test_build_merges_multiple_extractions]] — code: test_build_merges_multiple_extractions()
+- [[graphify_tests_test_build_test_none_file_type_defaults_to_concept]] — code: test_none_file_type_defaults_to_concept()
+- [[graphify_tests_test_build_test_missing_file_type_defaults_to_concept]] — code: test_missing_file_type_defaults_to_concept()
+- [[graphify_tests_test_build_test_real_invalid_file_type_coerced_to_concept]] — code: test_real_invalid_file_type_coerced_to_concept()
+- [[graphify_tests_test_build_test_file_type_synonym_mapping]] — code: test_file_type_synonym_mapping()
+- [[graphify_tests_test_build_test_ghost_merge_unique_located_node_still_merges]] — code: test_ghost_merge_unique_located_node_still_merges()
+- [[graphify_tests_test_build_test_ghost_merge_skipped_on_basename_collision]] — code: test_ghost_merge_skipped_on_basename_collision()
+- [[graphify_tests_test_build_test_ghost_merge_non_ast_different_files_both_survive]] — code: test_ghost_merge_non_ast_different_files_both_survive()
+- [[graphify_tests_test_build_test_ghost_merge_non_ast_same_file_still_merges]] — code: test_ghost_merge_non_ast_same_file_still_merges()
+- [[graphify_tests_test_build_test_build_merge_preserves_call_edge_direction]] — code: test_build_merge_preserves_call_edge_direction()
+- [[graphify_tests_test_build_test_build_from_json_preserves_first_direction_on_bidirectional_pair]] — code: test_build_from_json_preserves_first_direction_on_bidirectional_pair()
+- [[graphify_tests_test_build_test_edge_data_simple_graph]] — code: test_edge_data_simple_graph()
+- [[graphify_tests_test_build_test_edge_datas_simple_graph_returns_singleton_list]] — code: test_edge_datas_simple_graph_returns_singleton_list()
+- [[graphify_tests_test_build_test_edge_data_multigraph_with_parallel_edges]] — code: test_edge_data_multigraph_with_parallel_edges()
+- [[graphify_tests_test_build_test_edge_datas_multigraph_returns_all_parallel_edges]] — code: test_edge_datas_multigraph_returns_all_parallel_edges()
+- [[graphify_tests_test_build_test_edge_data_multidigraph]] — code: test_edge_data_multidigraph()
+- [[graphify_tests_test_build_test_edge_data_node_link_multigraph_roundtrip]] — code: test_edge_data_node_link_multigraph_roundtrip()
+- [[graphify_tests_test_build_test_build_from_json_relativizes_absolute_source_file]] — code: test_build_from_json_relativizes_absolute_source_file()
+- [[graphify_tests_test_build_test_build_relativizes_absolute_source_file]] — code: test_build_relativizes_absolute_source_file()
+- [[graphify_tests_test_build_test_build_from_json_ambiguous_old_stem_alias_stays_dangling]] — code: test_build_from_json_ambiguous_old_stem_alias_stays_dangling()
+- [[graphify_tests_test_build_test_build_from_json_ambiguous_alias_detected_despite_header_impl_salting]] — code: test_build_from_json_ambiguous_alias_detected_despite_header_impl_salting()
+- [[graphify_tests_test_build_test_build_from_json_unambiguous_old_stem_alias_still_resolves]] — code: test_build_from_json_unambiguous_old_stem_alias_still_resolves()
+- [[graphify_tests_test_build_test_build_from_json_relative_source_file_unchanged]] — code: test_build_from_json_relative_source_file_unchanged()
+- [[graphify_tests_test_build_test_build_merge_prune_absolute_paths_match_relative_nodes]] — code: test_build_merge_prune_absolute_paths_match_relative_nodes()
+- [[graphify_tests_test_build_test_build_merge_prune_windows_backslash_paths]] — code: test_build_merge_prune_windows_backslash_paths()
+- [[graphify_tests_test_build_test_build_merge_replaces_changed_file_stale_edges]] — code: test_build_merge_replaces_changed_file_stale_edges()
+- [[graphify_tests_test_build_test_build_merge_root_collapses_convention_drift]] — code: test_build_merge_root_collapses_convention_drift()
+- [[graphify_tests_test_build_test_build_merge_rejects_oversized_existing_graph]] — code: test_build_merge_rejects_oversized_existing_graph()
+- [[graphify_tests_test_build_test_build_from_json_skips_non_hashable_node_id]] — code: test_build_from_json_skips_non_hashable_node_id()
+- [[graphify_tests_test_build_test_build_from_json_skips_edge_with_non_hashable_endpoint]] — code: test_build_from_json_skips_edge_with_non_hashable_endpoint()
+- [[graphify_tests_test_build_test_graph_has_legacy_ids_detects_old_scheme]] — code: test_graph_has_legacy_ids_detects_old_scheme()
+- [[graphify_tests_test_build_test_semantic_rekey_relative_vs_absolute_source_file]] — code: test_semantic_rekey_relative_vs_absolute_source_file()
+- [[graphify_tests_test_build_test_cross_language_imports_references_are_dropped]] — code: test_cross_language_imports_references_are_dropped()
+- [[graphify_tests_test_build_test_cross_family_reference_to_unknown_ext_is_kept]] — code: test_cross_family_reference_to_unknown_ext_is_kept()
+- [[graphify_tests_test_build_rationale_76]] — code: Legacy 'source' key on nodes is renamed to 'source_file' before graph build.
+- [[graphify_tests_test_build_rationale_86]] — code: Legacy 'from'/'to' keys on edges are accepted alongside 'source'/'target'.
+- [[graphify_tests_test_build_rationale_97]] — code: Windows backslash paths and POSIX paths for the same file must produce one node.
+- [[graphify_tests_test_build_rationale_112]] — code: #1279: a semantic/LLM edge lacking source_file must inherit it from its     sou
+- [[graphify_tests_test_build_rationale_141]] — code: Legacy nodes with file_type=None (e.g. preserved from older graph.json     by `
+- [[graphify_tests_test_build_rationale_161]] — code: Nodes missing file_type entirely should also be canonicalized to 'concept'.
+- [[graphify_tests_test_build_rationale_178]] — code: Unknown file_type values are coerced through the synonym mapper, falling     ba
+- [[graphify_tests_test_build_rationale_193]] — code: Known invalid file_type values map to their canonical equivalents.
+- [[graphify_tests_test_build_rationale_211]] — code: #1145 ghost-merge: a semantic ghost collapses into the single AST node     shar
+- [[graphify_tests_test_build_rationale_232]] — code: #1257: when two files with the same basename both define a symbol with the
+- [[graphify_tests_test_build_rationale_261]] — code: #1753: two NON-AST (semantic) nodes sharing (basename, label) but from     DIFF
+- [[graphify_tests_test_build_rationale_279]] — code: A genuine duplicate — two non-AST nodes with the SAME source_file and     label
+- [[graphify_tests_test_build_rationale_296]] — code: Regression for #760.      When the callee is defined before the caller in sour
+- [[graphify_tests_test_build_rationale_363]] — code: Regression for #1061.      When an extraction emits two `calls` edges between
+- [[graphify_tests_test_build_rationale_477]] — code: A node_link JSON with multigraph: true must load as MultiGraph and the     help
+- [[graphify_tests_test_build_rationale_506]] — code: Semantic subagents emit absolute source_file paths; build_from_json must     re
+- [[graphify_tests_test_build_rationale_529]] — code: build() passes root through to build_from_json (#932).
+- [[graphify_tests_test_build_rationale_544]] — code: The #1504 old-stem alias (e.g. "ping.h" -> bare "ping") is meant to let a     s
+- [[graphify_tests_test_build_rationale_581]] — code: A same-directory .h/.cpp pair collides on their shared pre-extension id     and
+- [[graphify_tests_test_build_rationale_615]] — code: Companion to the ambiguous case above: when exactly one real file claims     an
+- [[graphify_tests_test_build_rationale_637]] — code: Already-relative source_file paths must not be modified.
+- [[graphify_tests_test_build_rationale_648]] — code: #1007: manifest stores absolute paths, graph nodes store relative paths.     pr
+- [[graphify_tests_test_build_rationale_679]] — code: #1007: prune_sources with Windows-style backslash absolute paths must still matc
+- [[graphify_tests_test_build_rationale_701]] — code: Re-extracting a CHANGED file must REPLACE its prior nodes/edges, not     accumu
+- [[graphify_tests_test_build_rationale_753]] — code: Skill contract: the extraction subagent must emit source_file as the     verbat
+- [[graphify_tests_test_build_rationale_803]] — code: #F4: build_merge must refuse to read an existing graph.json that     exceeds th
+- [[graphify_tests_test_build_rationale_854]] — code: The read-only-consumer nudge (query/serve) flags a pre-#1504 graph and     leav
+- [[graphify_tests_test_build_rationale_872]] — code: Re-key contract: a relative source_file is migrated; an absolute one is left
+- [[graphify_tests_test_build_rationale_883]] — code: #1749: an `imports`/`references` edge must not bind across a language     famil
+- [[graphify_tests_test_build_rationale_911]] — code: The #1749 guard only drops when BOTH endpoints are known code languages,     so
+
+## Dependências
+
+- [[graphify_tests_test_build]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_build_test_build_from_json_preserves_first_direction_on_bidirectional_pair]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_tests_test_build_test_edge_data_multidigraph]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_tests_test_build_test_edge_data_multigraph_with_parallel_edges]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_tests_test_build_test_edge_data_node_link_multigraph_roundtrip]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_tests_test_build_test_edge_data_simple_graph]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_tests_test_build_test_edge_missing_source_file_backfilled_from_node]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_tests_test_build_test_edge_data_multidigraph]] → `calls` → [[graphify_graphify_build_edge_datas]]
+- [[graphify_tests_test_build_test_edge_data_node_link_multigraph_roundtrip]] → `calls` → [[graphify_graphify_build_edge_datas]]
+- [[graphify_tests_test_build_test_edge_datas_multigraph_returns_all_parallel_edges]] → `calls` → [[graphify_graphify_build_edge_datas]]
+- [[graphify_tests_test_build_test_edge_datas_simple_graph_returns_singleton_list]] → `calls` → [[graphify_graphify_build_edge_datas]]
+- [[graphify_tests_test_build_test_dedupe_nodes_collapses_by_id_last_wins]] → `calls` → [[graphify_graphify_build_dedupe_nodes]]
+- [[graphify_tests_test_build_test_dedupe_edges_collapses_exact_parallels]] → `calls` → [[graphify_graphify_build_dedupe_edges]]
+- [[graphify_tests_test_build_test_dedupe_edges_is_idempotent]] → `calls` → [[graphify_graphify_build_dedupe_edges]]
+- [[graphify_tests_test_build_test_semantic_rekey_relative_vs_absolute_source_file]] → `calls` → [[graphify_graphify_build_semantic_id_remap]]
+- [[graphify_tests_test_build_test_graph_has_legacy_ids_detects_old_scheme]] → `calls` → [[graphify_graphify_build_graph_has_legacy_ids]]
+- [[graphify_tests_test_build_test_build_merge_preserves_call_edge_direction]] → `calls` → [[graphify_graphify_build_build_merge]]
+- [[graphify_tests_test_build_test_build_merge_prune_absolute_paths_match_relative_nodes]] → `calls` → [[graphify_graphify_build_build_merge]]
+- [[graphify_tests_test_build_test_build_merge_prune_windows_backslash_paths]] → `calls` → [[graphify_graphify_build_build_merge]]
+- [[graphify_tests_test_build_test_build_merge_rejects_oversized_existing_graph]] → `calls` → [[graphify_graphify_build_build_merge]]
+- [[graphify_tests_test_build_test_build_merge_replaces_changed_file_stale_edges]] → `calls` → [[graphify_graphify_build_build_merge]]
+- [[graphify_tests_test_build_test_build_merge_root_collapses_convention_drift]] → `calls` → [[graphify_graphify_build_build_merge]]
+- [[graphify_tests_test_build_test_build_from_json_preserves_first_direction_on_bidirectional_pair]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_build_test_build_merge_preserves_call_edge_direction]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_build_test_build_merge_preserves_call_edge_direction]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_load_extraction]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_ambiguous_edge_preserved]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_ambiguous_alias_detected_despite_header_impl_salting]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_ambiguous_old_stem_alias_stays_dangling]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_edge_count]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_node_count]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_preserves_first_direction_on_bidirectional_pair]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_relative_source_file_unchanged]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_relativizes_absolute_source_file]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_skips_edge_with_non_hashable_endpoint]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_skips_non_hashable_node_id]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_from_json_unambiguous_old_stem_alias_still_resolves]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merge_preserves_call_edge_direction]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merge_prune_absolute_paths_match_relative_nodes]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merge_prune_windows_backslash_paths]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merge_rejects_oversized_existing_graph]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merge_replaces_changed_file_stale_edges]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merge_root_collapses_convention_drift]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_merges_multiple_extractions]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_build_relativizes_absolute_source_file]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_cross_family_reference_to_unknown_ext_is_kept]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_cross_language_imports_references_are_dropped]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_dedupe_edges_collapses_exact_parallels]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_dedupe_edges_is_idempotent]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_dedupe_nodes_collapses_by_id_last_wins]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_data_multidigraph]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_data_multigraph_with_parallel_edges]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_data_node_link_multigraph_roundtrip]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_data_simple_graph]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_datas_multigraph_returns_all_parallel_edges]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_datas_simple_graph_returns_singleton_list]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edge_missing_source_file_backfilled_from_node]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_edges_have_confidence]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_file_type_synonym_mapping]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_ghost_merge_non_ast_different_files_both_survive]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_ghost_merge_non_ast_same_file_still_merges]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_ghost_merge_skipped_on_basename_collision]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_ghost_merge_unique_located_node_still_merges]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_graph_has_legacy_ids_detects_old_scheme]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_legacy_edge_from_to_canonicalized]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_legacy_node_source_canonicalized]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_missing_file_type_defaults_to_concept]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_nodes_have_label]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_none_file_type_defaults_to_concept]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_real_invalid_file_type_coerced_to_concept]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_semantic_rekey_relative_vs_absolute_source_file]]
+- [[graphify_tests_test_build]] → `contains` → [[graphify_tests_test_build_test_source_file_backslash_normalized]]
+- [[graphify_tests_test_build_test_ambiguous_edge_preserved]] → `calls` → [[graphify_tests_test_build_load_extraction]]
+- [[graphify_tests_test_build_test_build_from_json_edge_count]] → `calls` → [[graphify_tests_test_build_load_extraction]]
+- [[graphify_tests_test_build_test_build_from_json_node_count]] → `calls` → [[graphify_tests_test_build_load_extraction]]
+- [[graphify_tests_test_build_test_edges_have_confidence]] → `calls` → [[graphify_tests_test_build_load_extraction]]
+- [[graphify_tests_test_build_test_nodes_have_label]] → `calls` → [[graphify_tests_test_build_load_extraction]]
+- [[graphify_tests_test_build_rationale_76]] → `rationale_for` → [[graphify_tests_test_build_test_legacy_node_source_canonicalized]]
+- [[graphify_tests_test_build_rationale_86]] → `rationale_for` → [[graphify_tests_test_build_test_legacy_edge_from_to_canonicalized]]
+- [[graphify_tests_test_build_rationale_97]] → `rationale_for` → [[graphify_tests_test_build_test_source_file_backslash_normalized]]
+- [[graphify_tests_test_build_rationale_112]] → `rationale_for` → [[graphify_tests_test_build_test_edge_missing_source_file_backfilled_from_node]]
+- [[graphify_tests_test_build_rationale_141]] → `rationale_for` → [[graphify_tests_test_build_test_none_file_type_defaults_to_concept]]
+- [[graphify_tests_test_build_rationale_161]] → `rationale_for` → [[graphify_tests_test_build_test_missing_file_type_defaults_to_concept]]
+- [[graphify_tests_test_build_rationale_178]] → `rationale_for` → [[graphify_tests_test_build_test_real_invalid_file_type_coerced_to_concept]]
+- [[graphify_tests_test_build_rationale_193]] → `rationale_for` → [[graphify_tests_test_build_test_file_type_synonym_mapping]]
+- [[graphify_tests_test_build_rationale_211]] → `rationale_for` → [[graphify_tests_test_build_test_ghost_merge_unique_located_node_still_merges]]
+- [[graphify_tests_test_build_rationale_232]] → `rationale_for` → [[graphify_tests_test_build_test_ghost_merge_skipped_on_basename_collision]]
+- [[graphify_tests_test_build_rationale_261]] → `rationale_for` → [[graphify_tests_test_build_test_ghost_merge_non_ast_different_files_both_survive]]
+- [[graphify_tests_test_build_rationale_279]] → `rationale_for` → [[graphify_tests_test_build_test_ghost_merge_non_ast_same_file_still_merges]]
+- [[graphify_tests_test_build_rationale_296]] → `rationale_for` → [[graphify_tests_test_build_test_build_merge_preserves_call_edge_direction]]
+- [[graphify_tests_test_build_rationale_363]] → `rationale_for` → [[graphify_tests_test_build_test_build_from_json_preserves_first_direction_on_bidirectional_pair]]
+- [[graphify_tests_test_build_rationale_477]] → `rationale_for` → [[graphify_tests_test_build_test_edge_data_node_link_multigraph_roundtrip]]
+- [[graphify_tests_test_build_rationale_506]] → `rationale_for` → [[graphify_tests_test_build_test_build_from_json_relativizes_absolute_source_file]]
+- [[graphify_tests_test_build_rationale_529]] → `rationale_for` → [[graphify_tests_test_build_test_build_relativizes_absolute_source_file]]
+- [[graphify_tests_test_build_rationale_544]] → `rationale_for` → [[graphify_tests_test_build_test_build_from_json_ambiguous_old_stem_alias_stays_dangling]]
+- [[graphify_tests_test_build_rationale_581]] → `rationale_for` → [[graphify_tests_test_build_test_build_from_json_ambiguous_alias_detected_despite_header_impl_salting]]
+- [[graphify_tests_test_build_rationale_615]] → `rationale_for` → [[graphify_tests_test_build_test_build_from_json_unambiguous_old_stem_alias_still_resolves]]
+- [[graphify_tests_test_build_rationale_637]] → `rationale_for` → [[graphify_tests_test_build_test_build_from_json_relative_source_file_unchanged]]
+- [[graphify_tests_test_build_rationale_648]] → `rationale_for` → [[graphify_tests_test_build_test_build_merge_prune_absolute_paths_match_relative_nodes]]
+- [[graphify_tests_test_build_rationale_679]] → `rationale_for` → [[graphify_tests_test_build_test_build_merge_prune_windows_backslash_paths]]
+- [[graphify_tests_test_build_rationale_701]] → `rationale_for` → [[graphify_tests_test_build_test_build_merge_replaces_changed_file_stale_edges]]
+- [[graphify_tests_test_build_rationale_753]] → `rationale_for` → [[graphify_tests_test_build_test_build_merge_root_collapses_convention_drift]]
+- [[graphify_tests_test_build_rationale_803]] → `rationale_for` → [[graphify_tests_test_build_test_build_merge_rejects_oversized_existing_graph]]
+- [[graphify_tests_test_build_rationale_854]] → `rationale_for` → [[graphify_tests_test_build_test_graph_has_legacy_ids_detects_old_scheme]]
+- [[graphify_tests_test_build_rationale_872]] → `rationale_for` → [[graphify_tests_test_build_test_semantic_rekey_relative_vs_absolute_source_file]]
+- [[graphify_tests_test_build_rationale_883]] → `rationale_for` → [[graphify_tests_test_build_test_cross_language_imports_references_are_dropped]]
+- [[graphify_tests_test_build_rationale_911]] → `rationale_for` → [[graphify_tests_test_build_test_cross_family_reference_to_unknown_ext_is_kept]]

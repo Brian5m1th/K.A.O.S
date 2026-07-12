@@ -1,0 +1,166 @@
+# assistant\app\core\environment_service.py
+
+## Símbolos
+
+- [[assistant_app_core_environment_service]] — code: environment_service.py
+- [[assistant_app_core_environment_service_environmenttype]] — code: EnvironmentType
+- [[assistant_app_core_environment_service_environmentinfo]] — code: EnvironmentInfo
+- [[assistant_app_core_environment_service_environmentinfo_project_root]] — code: .project_root()
+- [[assistant_app_core_environment_service_environmentinfo_desktop_src_exists]] — code: .desktop_src_exists()
+- [[assistant_app_core_environment_service_environmentinfo_backend_src_exists]] — code: .backend_src_exists()
+- [[assistant_app_core_environment_service_environmentinfo_kirl_dir]] — code: .kirl_dir()
+- [[assistant_app_core_environment_service_environmentinfo_registry_dir]] — code: .registry_dir()
+- [[assistant_app_core_environment_service_environmentinfo_audit_dir]] — code: .audit_dir()
+- [[assistant_app_core_environment_service_environmentinfo_snapshot_path]] — code: .snapshot_path()
+- [[assistant_app_core_environment_service_environmentinfo_auto_dir]] — code: .auto_dir()
+- [[assistant_app_core_environment_service_environmentinfo_architecture_dir]] — code: .architecture_dir()
+- [[assistant_app_core_environment_service_environmentinfo_architecture_history_dir]] — code: .architecture_history_dir()
+- [[assistant_app_core_environment_service_environmentinfo_issues_path]] — code: .issues_path()
+- [[assistant_app_core_environment_service_environmentinfo_suggestions_path]] — code: .suggestions_path()
+- [[assistant_app_core_environment_service_environmentinfo_analysis_path]] — code: .analysis_path()
+- [[assistant_app_core_environment_service_environmentinfo_knowledge_graph_path]] — code: .knowledge_graph_path()
+- [[assistant_app_core_environment_service_environmentinfo_graph_path]] — code: .graph_path()
+- [[assistant_app_core_environment_service_environmentinfo_features_index_path]] — code: .features_index_path()
+- [[assistant_app_core_environment_service_environmentinfo_commit_map_path]] — code: .commit_map_path()
+- [[assistant_app_core_environment_service_environmentinfo_to_dict]] — code: .to_dict()
+- [[assistant_app_core_environment_service_environmentservice]] — code: EnvironmentService
+- [[assistant_app_core_environment_service_environmentservice_detect]] — code: .detect()
+- [[assistant_app_core_environment_service_environmentservice_invalidate_cache]] — code: .invalidate_cache()
+- [[assistant_app_core_environment_service_environmentservice_detect_environment_type]] — code: ._detect_environment_type()
+- [[assistant_app_core_environment_service_environmentservice_resolve_workspace]] — code: ._resolve_workspace()
+- [[assistant_app_core_environment_service_environmentservice_resolve_docs]] — code: ._resolve_docs()
+- [[assistant_app_core_environment_service_environmentservice_resolve_vault]] — code: ._resolve_vault()
+- [[assistant_app_core_environment_service_environmentservice_resolve_config]] — code: ._resolve_config()
+- [[assistant_app_core_environment_service_environmentservice_resolve_backend_src]] — code: ._resolve_backend_src()
+- [[assistant_app_core_environment_service_environmentservice_resolve_desktop_src]] — code: ._resolve_desktop_src()
+- [[assistant_app_core_environment_service_environmentservice_resolve_runtime_dir]] — code: ._resolve_runtime_dir()
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root]] — code: ._detect_git_root()
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cli]] — code: ._detect_git_root_from_cli()
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cwd]] — code: ._detect_git_root_from_cwd()
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_workspace]] — code: ._detect_git_root_from_workspace()
+- [[assistant_app_core_environment_service_environmentservice_log_diagnostic]] — code: ._log_diagnostic()
+- [[assistant_app_core_environment_service_rationale_1]] — code: K.A.O.S Environment Service ============================= Servico central e un
+- [[assistant_app_core_environment_service_rationale_44]] — code: Snapshot completo do ambiente. Congelado apos criacao.
+- [[assistant_app_core_environment_service_rationale_63]] — code: Raiz do projeto = pai do workspace.
+- [[assistant_app_core_environment_service_rationale_156]] — code: Servico unico de resolucao de ambiente.     Use ``EnvironmentService.detect()``
+- [[assistant_app_core_environment_service_rationale_167]] — code: Detecta e retorna o ambiente atual.         Cacheado apos a primeira chamada.
+- [[assistant_app_core_environment_service_rationale_228]] — code: Invalida o cache (util em testes).
+- [[assistant_app_core_environment_service_rationale_236]] — code: Detecta onde estamos rodando.
+- [[assistant_app_core_environment_service_rationale_256]] — code: Resolve o diretorio workspace.         Estrategias em ordem de precedencia:
+- [[assistant_app_core_environment_service_rationale_312]] — code: Resolve o diretorio de documentacao (docs).         Estrategias:           1.
+- [[assistant_app_core_environment_service_rationale_362]] — code: Resolve o diretorio do vault (observian).         Estrategias:           1. Va
+- [[assistant_app_core_environment_service_rationale_408]] — code: Resolve o diretorio de configuracao.
+- [[assistant_app_core_environment_service_rationale_424]] — code: Resolve o diretorio do codigo fonte do backend (assistant/app).         Dentro
+- [[assistant_app_core_environment_service_rationale_446]] — code: Resolve o diretorio do codigo fonte do frontend (desktop/src).         Pode nao
+- [[assistant_app_core_environment_service_rationale_467]] — code: Resolve o diretorio runtime do KIRL.         Prioriza docs/runtime/ (canonico),
+- [[assistant_app_core_environment_service_rationale_487]] — code: Detecta a raiz do repositorio git.
+- [[assistant_app_core_environment_service_rationale_525]] — code: Sobe de workspace/ ate encontrar .git.
+- [[assistant_app_core_environment_service_rationale_537]] — code: Log completo de diagnostico — sempre chamado apos detect().
+
+## Dependências
+
+- [[assistant_app_core_environment_service]] → `contains` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_app_core_environment_service]] → `contains` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_environment_service]] → `contains` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service]] → `imports_from` → [[assistant_app_core_environment_service_py_enum]]
+- [[assistant_app_core_environment_service_rationale_1]] → `rationale_for` → [[assistant_app_core_environment_service]]
+- [[assistant_app_core_environment_service_environmentservice_detect_environment_type]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_backend_src]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_config]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_desktop_src]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_docs]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_vault]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_workspace]] → `references` → [[assistant_app_core_environment_service_environmenttype]]
+- [[assistant_app_core_environment_service_environmenttype]] → `inherits` → [[assistant_app_core_environment_service_py_enum]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_analysis_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_architecture_dir]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_architecture_history_dir]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_audit_dir]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_auto_dir]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_backend_src_exists]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_commit_map_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_desktop_src_exists]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_features_index_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_graph_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_issues_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_kirl_dir]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_knowledge_graph_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_project_root]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_registry_dir]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_snapshot_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_suggestions_path]]
+- [[assistant_app_core_environment_service_environmentinfo]] → `method` → [[assistant_app_core_environment_service_environmentinfo_to_dict]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `references` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_app_core_environment_service_environmentservice_log_diagnostic]] → `references` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_app_core_environment_service_rationale_44]] → `rationale_for` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_app_core_environment_service_environmentinfo_project_root]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_rationale_63]] → `rationale_for` → [[assistant_app_core_environment_service_environmentinfo_project_root]]
+- [[assistant_app_core_environment_service_environmentinfo_analysis_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_architecture_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_architecture_history_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_audit_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_auto_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_commit_map_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_features_index_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_graph_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_issues_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_kirl_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_knowledge_graph_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_registry_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_snapshot_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentinfo_suggestions_path]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_detect_environment_type]] → `calls` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cli]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cwd]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_workspace]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_backend_src]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_config]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_desktop_src]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_docs]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_runtime_dir]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_vault]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_workspace]] → `references` → [[assistant_app_core_environment_service_py_path]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_detect_environment_type]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_detect_git_root]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cli]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cwd]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_workspace]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_invalidate_cache]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_log_diagnostic]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_backend_src]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_config]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_desktop_src]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_docs]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_runtime_dir]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_vault]]
+- [[assistant_app_core_environment_service_environmentservice]] → `method` → [[assistant_app_core_environment_service_environmentservice_resolve_workspace]]
+- [[assistant_app_core_environment_service_rationale_156]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect_environment_type]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect_git_root]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_log_diagnostic]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_backend_src]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_config]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_desktop_src]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_docs]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_runtime_dir]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_vault]]
+- [[assistant_app_core_environment_service_environmentservice_detect]] → `calls` → [[assistant_app_core_environment_service_environmentservice_resolve_workspace]]
+- [[assistant_app_core_environment_service_rationale_167]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_app_core_environment_service_rationale_228]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_invalidate_cache]]
+- [[assistant_app_core_environment_service_rationale_236]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_detect_environment_type]]
+- [[assistant_app_core_environment_service_environmentservice_resolve_workspace]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cwd]]
+- [[assistant_app_core_environment_service_rationale_256]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_workspace]]
+- [[assistant_app_core_environment_service_rationale_312]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_docs]]
+- [[assistant_app_core_environment_service_rationale_362]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_vault]]
+- [[assistant_app_core_environment_service_rationale_408]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_config]]
+- [[assistant_app_core_environment_service_rationale_424]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_backend_src]]
+- [[assistant_app_core_environment_service_rationale_446]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_desktop_src]]
+- [[assistant_app_core_environment_service_rationale_467]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_resolve_runtime_dir]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cli]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_workspace]]
+- [[assistant_app_core_environment_service_rationale_487]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_detect_git_root]]
+- [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cwd]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_cli]]
+- [[assistant_app_core_environment_service_rationale_525]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_detect_git_root_from_workspace]]
+- [[assistant_app_core_environment_service_rationale_537]] → `rationale_for` → [[assistant_app_core_environment_service_environmentservice_log_diagnostic]]

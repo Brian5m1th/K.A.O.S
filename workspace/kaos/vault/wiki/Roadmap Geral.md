@@ -1,0 +1,98 @@
+# docs\sdd\Roadmap Geral.md
+
+## Símbolos
+
+- [[docs_sdd_roadmap_geral]] — code: Roadmap Geral.md
+- [[docs_sdd_roadmap_geral_roadmap_geral]] — code: Roadmap Geral
+- [[docs_sdd_roadmap_geral_parent]] — code: Parent
+- [[docs_sdd_roadmap_geral_children]] — code: Children
+- [[docs_sdd_roadmap_geral_related]] — code: Related
+- [[docs_sdd_roadmap_geral_tags]] — code: Tags
+- [[docs_sdd_roadmap_geral_conteudo]] — code: Conteudo
+- [[docs_sdd_roadmap_geral_objetivo]] — code: Objetivo
+- [[docs_sdd_roadmap_geral_arquitetura_alvo]] — code: Arquitetura Alvo
+- [[docs_sdd_roadmap_geral_fase_1_fundacao]] — code: Fase 1 — Fundacao ✅
+- [[docs_sdd_roadmap_geral_entregaveis]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_2_ia_local]] — code: Fase 2 — IA Local ✅
+- [[docs_sdd_roadmap_geral_entregaveis_75]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status_81]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_3_integracao_com_obsidian]] — code: Fase 3 — Integracao com Obsidian ✅
+- [[docs_sdd_roadmap_geral_entregaveis_88]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status_93]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_4_busca_semantica_rag]] — code: Fase 4 — Busca Semantica (RAG) ✅
+- [[docs_sdd_roadmap_geral_entregaveis_100]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status_107]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_5_atualizacao_automatica]] — code: Fase 5 — Atualizacao Automatica ✅
+- [[docs_sdd_roadmap_geral_entregaveis_114]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status_119]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_6_agentes_langgraph]] — code: Fase 6 — Agentes (LangGraph) ✅
+- [[docs_sdd_roadmap_geral_entregaveis_126]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status_132]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_7_memoria_de_longo_prazo]] — code: Fase 7 — Memoria de Longo Prazo ✅
+- [[docs_sdd_roadmap_geral_entregaveis_139]] — code: Entregaveis
+- [[docs_sdd_roadmap_geral_status_145]] — code: Status
+- [[docs_sdd_roadmap_geral_fase_8_performance_rag_roteamento_inteligente_em_andamento]] — code: Fase 8 — Performance, RAG & Roteamento Inteligente 🟡 Em Andamento
+- [[docs_sdd_roadmap_geral_entregaveis_concluídos]] — code: Entregaveis Concluídos
+- [[docs_sdd_roadmap_geral_próximos_entregáveis_fase_8_cont]] — code: Próximos Entregáveis (Fase 8 cont.)
+- [[docs_sdd_roadmap_geral_fase_9_integrações_externas]] — code: Fase 9 — Integrações Externas ⬜
+- [[docs_sdd_roadmap_geral_tecnologias]] — code: Tecnologias
+- [[docs_sdd_roadmap_geral_próximos_passos]] — code: Próximos Passos
+- [[docs_sdd_roadmap_geral_resumo]] — code: Resumo
+- [[docs_sdd_roadmap_geral_objetivo_191]] — code: Objetivo
+- [[docs_sdd_roadmap_geral_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_roadmap_geral_dependencias]] — code: Dependencias
+- [[docs_sdd_roadmap_geral_fluxos]] — code: Fluxos
+- [[docs_sdd_roadmap_geral_integracoes]] — code: Integracoes
+- [[docs_sdd_roadmap_geral_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_roadmap_geral_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_roadmap_geral_status_212]] — code: Status
+- [[docs_sdd_roadmap_geral_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_roadmap_geral]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_arquitetura_alvo]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_arquivos_relacionados]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_children]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_conteudo]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_dependencias]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_1_fundacao]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_2_ia_local]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_3_integracao_com_obsidian]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_4_busca_semantica_rag]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_5_atualizacao_automatica]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_6_agentes_langgraph]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_7_memoria_de_longo_prazo]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_8_performance_rag_roteamento_inteligente_em_andamento]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fase_9_integrações_externas]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_fluxos]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_integracoes]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_objetivo]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_objetivo_191]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_parent]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_referencias_kirl]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_related]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_responsabilidades]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_resumo]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_status_212]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_tags]]
+- [[docs_sdd_roadmap_geral_roadmap_geral]] → `contains` → [[docs_sdd_roadmap_geral_ultima_atualizacao]]
+- [[docs_sdd_roadmap_geral_fase_1_fundacao]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis]]
+- [[docs_sdd_roadmap_geral_fase_1_fundacao]] → `contains` → [[docs_sdd_roadmap_geral_status]]
+- [[docs_sdd_roadmap_geral_fase_2_ia_local]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_75]]
+- [[docs_sdd_roadmap_geral_fase_2_ia_local]] → `contains` → [[docs_sdd_roadmap_geral_status_81]]
+- [[docs_sdd_roadmap_geral_fase_3_integracao_com_obsidian]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_88]]
+- [[docs_sdd_roadmap_geral_fase_3_integracao_com_obsidian]] → `contains` → [[docs_sdd_roadmap_geral_status_93]]
+- [[docs_sdd_roadmap_geral_fase_4_busca_semantica_rag]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_100]]
+- [[docs_sdd_roadmap_geral_fase_4_busca_semantica_rag]] → `contains` → [[docs_sdd_roadmap_geral_status_107]]
+- [[docs_sdd_roadmap_geral_fase_5_atualizacao_automatica]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_114]]
+- [[docs_sdd_roadmap_geral_fase_5_atualizacao_automatica]] → `contains` → [[docs_sdd_roadmap_geral_status_119]]
+- [[docs_sdd_roadmap_geral_fase_6_agentes_langgraph]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_126]]
+- [[docs_sdd_roadmap_geral_fase_6_agentes_langgraph]] → `contains` → [[docs_sdd_roadmap_geral_status_132]]
+- [[docs_sdd_roadmap_geral_fase_7_memoria_de_longo_prazo]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_139]]
+- [[docs_sdd_roadmap_geral_fase_7_memoria_de_longo_prazo]] → `contains` → [[docs_sdd_roadmap_geral_status_145]]
+- [[docs_sdd_roadmap_geral_fase_8_performance_rag_roteamento_inteligente_em_andamento]] → `contains` → [[docs_sdd_roadmap_geral_entregaveis_concluídos]]
+- [[docs_sdd_roadmap_geral_fase_8_performance_rag_roteamento_inteligente_em_andamento]] → `contains` → [[docs_sdd_roadmap_geral_próximos_entregáveis_fase_8_cont]]
+- [[docs_sdd_roadmap_geral_fase_9_integrações_externas]] → `contains` → [[docs_sdd_roadmap_geral_próximos_passos]]
+- [[docs_sdd_roadmap_geral_fase_9_integrações_externas]] → `contains` → [[docs_sdd_roadmap_geral_tecnologias]]

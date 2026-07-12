@@ -94,11 +94,13 @@ class KnowledgeGraphBuilder:
                 edge_key = f"{src_file}|{tgt_file}"
                 if edge_key not in seen_file_edges:
                     seen_file_edges.add(edge_key)
-                    file_edges.append({
-                        "source": src_file,
-                        "target": tgt_file,
-                        "relation": cls._map_relation(link.get("relation", "uses")),
-                    })
+                    file_edges.append(
+                        {
+                            "source": src_file,
+                            "target": tgt_file,
+                            "relation": cls._map_relation(link.get("relation", "uses")),
+                        }
+                    )
 
         return {"files": file_nodes, "edges": file_edges}
 
@@ -112,10 +114,17 @@ class KnowledgeGraphBuilder:
     @staticmethod
     def _map_relation(relation: str) -> str:
         mapping = {
-            "contains": "uses", "imports": "uses", "imports_from": "uses",
-            "calls": "uses", "inherits": "uses", "implements": "implements",
-            "documents": "documents", "depends_on": "depends_on",
-            "emits": "emits", "owns": "owns", "re_exports": "uses",
+            "contains": "uses",
+            "imports": "uses",
+            "imports_from": "uses",
+            "calls": "uses",
+            "inherits": "uses",
+            "implements": "implements",
+            "documents": "documents",
+            "depends_on": "depends_on",
+            "emits": "emits",
+            "owns": "owns",
+            "re_exports": "uses",
         }
         return mapping.get(relation, "uses")
 
@@ -197,11 +206,13 @@ class KnowledgeGraphBuilder:
 
             for edge in graphify_data.get("edges", []):
                 if edge["source"] in seen_ids and edge["target"] in seen_ids:
-                    kg.edges.append({
-                        "source": edge["source"],
-                        "target": edge["target"],
-                        "relation": edge["relation"],
-                    })
+                    kg.edges.append(
+                        {
+                            "source": edge["source"],
+                            "target": edge["target"],
+                            "relation": edge["relation"],
+                        }
+                    )
 
         KnowledgeGraphBuilder._persist(kg)
         logger.info(

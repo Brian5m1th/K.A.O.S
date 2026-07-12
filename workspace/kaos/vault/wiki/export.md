@@ -1,0 +1,88 @@
+# graphify\graphify\export.py
+
+## Símbolos
+
+- [[graphify_graphify_export]] — code: export.py
+- [[graphify_graphify_export_backup_if_protected]] — code: backup_if_protected()
+- [[graphify_graphify_export_obsidian_tag]] — code: _obsidian_tag()
+- [[graphify_graphify_export_strip_diacritics]] — code: _strip_diacritics()
+- [[graphify_graphify_export_yaml_str]] — code: _yaml_str()
+- [[graphify_graphify_export_attach_hyperedges]] — code: attach_hyperedges()
+- [[graphify_graphify_export_git_head]] — code: _git_head()
+- [[graphify_graphify_export_to_json]] — code: to_json()
+- [[graphify_graphify_export_prune_dangling_edges]] — code: prune_dangling_edges()
+- [[graphify_graphify_export_cypher_escape]] — code: _cypher_escape()
+- [[graphify_graphify_export_cypher_label]] — code: _cypher_label()
+- [[graphify_graphify_export_to_cypher]] — code: to_cypher()
+- [[graphify_graphify_export_cap_filename]] — code: _cap_filename()
+- [[graphify_graphify_export_dedup_node_filenames]] — code: _dedup_node_filenames()
+- [[graphify_graphify_export_to_obsidian]] — code: to_obsidian()
+- [[graphify_graphify_export_to_canvas]] — code: to_canvas()
+- [[graphify_graphify_export_to_graphml]] — code: to_graphml()
+- [[graphify_graphify_export_to_svg]] — code: to_svg()
+- [[graphify_graphify_export_rationale_36]] — code: Snapshot graph artifacts to a dated subfolder before an overwrite.      Trigge
+- [[graphify_graphify_export_rationale_100]] — code: Sanitize a community name for use as an Obsidian tag.      Obsidian tags only
+- [[graphify_graphify_export_rationale_117]] — code: Escape a value for safe embedding in a YAML double-quoted scalar (F-009).
+- [[graphify_graphify_export_rationale_163]] — code: Store hyperedges in the graph's metadata dict.
+- [[graphify_graphify_export_rationale_174]] — code: Return the current git HEAD commit hash, or None if not in a git repo.
+- [[graphify_graphify_export_rationale_275]] — code: Remove edges whose source or target node is not in the node set.      Returns
+- [[graphify_graphify_export_rationale_290]] — code: Escape a string for safe embedding in a Cypher single-quoted literal.      Han
+- [[graphify_graphify_export_rationale_322]] — code: Sanitise a value used in identifier position (node label / rel type).      Cyp
+- [[graphify_graphify_export_rationale_366]] — code: Cap a filename stem to ``limit`` UTF-8 bytes so it stays under the 255-byte
+- [[graphify_graphify_export_rationale_383]] — code: Map each node_id to a unique note filename, appending a numeric suffix on     c
+- [[graphify_graphify_export_rationale_411]] — code: Export graph as an Obsidian vault - one .md file per node with [[wikilinks]],
+- [[graphify_graphify_export_rationale_720]] — code: Export graph as an Obsidian Canvas file - communities as groups, nodes as cards.
+- [[graphify_graphify_export_rationale_896]] — code: Export graph as GraphML - opens in Gephi, yEd, and any GraphML-compatible tool.
+- [[graphify_graphify_export_rationale_933]] — code: Export graph as an SVG file using matplotlib + spring layout.      Lightweight
+
+## Dependências
+
+- [[graphify_graphify_export]] → `imports_from` → [[graphify_graphify_analyze]]
+- [[graphify_graphify_export]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_graphify_export_to_obsidian]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_attach_hyperedges]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_cap_filename]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_cypher_escape]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_cypher_label]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_dedup_node_filenames]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_git_head]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_obsidian_tag]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_prune_dangling_edges]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_strip_diacritics]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_to_cypher]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_to_graphml]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_to_json]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_to_svg]]
+- [[graphify_graphify_export]] → `contains` → [[graphify_graphify_export_yaml_str]]
+- [[graphify_graphify_export]] → `imports_from` → [[graphify_security]]
+- [[graphify_graphify_export]] → `imports` → [[graphify_graphify_exporters_html]]
+- [[graphify_graphify_export_backup_if_protected]] → `references` → [[graphify_graphify_export_py_path]]
+- [[graphify_graphify_export_rationale_36]] → `rationale_for` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_graphify_export_to_canvas]] → `calls` → [[graphify_graphify_export_py_path]]
+- [[graphify_graphify_export_to_json]] → `calls` → [[graphify_graphify_export_py_path]]
+- [[graphify_graphify_export_to_obsidian]] → `calls` → [[graphify_graphify_export_py_path]]
+- [[graphify_graphify_export_rationale_100]] → `rationale_for` → [[graphify_graphify_export_obsidian_tag]]
+- [[graphify_graphify_export_to_obsidian]] → `calls` → [[graphify_graphify_export_obsidian_tag]]
+- [[graphify_graphify_export_to_json]] → `calls` → [[graphify_graphify_export_strip_diacritics]]
+- [[graphify_graphify_export_rationale_117]] → `rationale_for` → [[graphify_graphify_export_yaml_str]]
+- [[graphify_graphify_export_to_obsidian]] → `calls` → [[graphify_graphify_export_yaml_str]]
+- [[graphify_graphify_export_rationale_163]] → `rationale_for` → [[graphify_graphify_export_attach_hyperedges]]
+- [[graphify_graphify_export_rationale_174]] → `rationale_for` → [[graphify_graphify_export_git_head]]
+- [[graphify_graphify_export_to_json]] → `calls` → [[graphify_graphify_export_git_head]]
+- [[graphify_graphify_export_to_json]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_export_rationale_275]] → `rationale_for` → [[graphify_graphify_export_prune_dangling_edges]]
+- [[graphify_graphify_export_rationale_290]] → `rationale_for` → [[graphify_graphify_export_cypher_escape]]
+- [[graphify_graphify_export_to_cypher]] → `calls` → [[graphify_graphify_export_cypher_escape]]
+- [[graphify_graphify_export_rationale_322]] → `rationale_for` → [[graphify_graphify_export_cypher_label]]
+- [[graphify_graphify_export_to_cypher]] → `calls` → [[graphify_graphify_export_cypher_label]]
+- [[graphify_graphify_export_rationale_366]] → `rationale_for` → [[graphify_graphify_export_cap_filename]]
+- [[graphify_graphify_export_rationale_383]] → `rationale_for` → [[graphify_graphify_export_dedup_node_filenames]]
+- [[graphify_graphify_export_to_canvas]] → `calls` → [[graphify_graphify_export_dedup_node_filenames]]
+- [[graphify_graphify_export_to_obsidian]] → `calls` → [[graphify_graphify_export_dedup_node_filenames]]
+- [[graphify_graphify_export_rationale_411]] → `rationale_for` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_graphify_export_rationale_720]] → `rationale_for` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_graphify_export_rationale_896]] → `rationale_for` → [[graphify_graphify_export_to_graphml]]
+- [[graphify_graphify_export_rationale_933]] → `rationale_for` → [[graphify_graphify_export_to_svg]]

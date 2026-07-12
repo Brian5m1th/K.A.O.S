@@ -1,0 +1,163 @@
+# graphify\tests\test_cli_export.py
+
+## Símbolos
+
+- [[graphify_tests_test_cli_export]] — code: test_cli_export.py
+- [[graphify_tests_test_cli_export_run]] — code: _run()
+- [[graphify_tests_test_cli_export_make_graph]] — code: _make_graph()
+- [[graphify_tests_test_cli_export_test_export_html_creates_file]] — code: test_export_html_creates_file()
+- [[graphify_tests_test_cli_export_test_export_html_no_viz_removes_file]] — code: test_export_html_no_viz_removes_file()
+- [[graphify_tests_test_cli_export_test_export_html_error_without_graph]] — code: test_export_html_error_without_graph()
+- [[graphify_tests_test_cli_export_test_export_obsidian_creates_vault]] — code: test_export_obsidian_creates_vault()
+- [[graphify_tests_test_cli_export_test_export_obsidian_custom_dir]] — code: test_export_obsidian_custom_dir()
+- [[graphify_tests_test_cli_export_test_export_wiki_creates_articles]] — code: test_export_wiki_creates_articles()
+- [[graphify_tests_test_cli_export_test_export_wiki_accepts_edges_only_graph_json]] — code: test_export_wiki_accepts_edges_only_graph_json()
+- [[graphify_tests_test_cli_export_test_export_graphml_creates_file]] — code: test_export_graphml_creates_file()
+- [[graphify_tests_test_cli_export_test_export_neo4j_creates_cypher]] — code: test_export_neo4j_creates_cypher()
+- [[graphify_tests_test_cli_export_test_export_falkordb_creates_cypher]] — code: test_export_falkordb_creates_cypher()
+- [[graphify_tests_test_cli_export_test_query_returns_output]] — code: test_query_returns_output()
+- [[graphify_tests_test_cli_export_test_query_dfs_flag]] — code: test_query_dfs_flag()
+- [[graphify_tests_test_cli_export_test_query_budget_flag]] — code: test_query_budget_flag()
+- [[graphify_tests_test_cli_export_test_query_missing_graph_fails]] — code: test_query_missing_graph_fails()
+- [[graphify_tests_test_cli_export_test_query_uses_graphify_out_env]] — code: test_query_uses_graphify_out_env()
+- [[graphify_tests_test_cli_export_test_extract_writes_to_graphify_out_env]] — code: test_extract_writes_to_graphify_out_env()
+- [[graphify_tests_test_cli_export_test_path_runs_without_error]] — code: test_path_runs_without_error()
+- [[graphify_tests_test_cli_export_test_path_missing_graph_fails]] — code: test_path_missing_graph_fails()
+- [[graphify_tests_test_cli_export_test_path_uses_graphify_out_env]] — code: test_path_uses_graphify_out_env()
+- [[graphify_tests_test_cli_export_test_explain_runs_without_error]] — code: test_explain_runs_without_error()
+- [[graphify_tests_test_cli_export_test_explain_missing_graph_fails]] — code: test_explain_missing_graph_fails()
+- [[graphify_tests_test_cli_export_test_explain_uses_graphify_out_env]] — code: test_explain_uses_graphify_out_env()
+- [[graphify_tests_test_cli_export_test_export_unknown_format_fails]] — code: test_export_unknown_format_fails()
+- [[graphify_tests_test_cli_export_test_update_no_cluster_writes_raw_graph]] — code: test_update_no_cluster_writes_raw_graph()
+- [[graphify_tests_test_cli_export_test_cluster_only_creates_output_dir_when_missing]] — code: test_cluster_only_creates_output_dir_when_missing()
+- [[graphify_tests_test_cli_export_test_cluster_only_graph_in_graphify_out_writes_beside_it]] — code: test_cluster_only_graph_in_graphify_out_writes_beside_it()
+- [[graphify_tests_test_cli_export_test_extract_out_does_not_pollute_corpus]] — code: test_extract_out_does_not_pollute_corpus()
+- [[graphify_tests_test_cli_export_test_cluster_only_persists_analysis_sidecar]] — code: test_cluster_only_persists_analysis_sidecar()
+- [[graphify_tests_test_cli_export_test_cluster_only_remaps_labels_to_previous_cids]] — code: test_cluster_only_remaps_labels_to_previous_cids()
+- [[graphify_tests_test_cli_export_test_export_html_falls_back_to_node_community_attribute]] — code: test_export_html_falls_back_to_node_community_attribute()
+- [[graphify_tests_test_cli_export_test_export_html_fallback_recovers_multiple_communities]] — code: test_export_html_fallback_recovers_multiple_communities()
+- [[graphify_tests_test_cli_export_test_export_html_no_community_data_at_all_still_succeeds]] — code: test_export_html_no_community_data_at_all_still_succeeds()
+- [[graphify_tests_test_cli_export_test_graph_json_node_ids_are_portable_across_checkout_paths]] — code: test_graph_json_node_ids_are_portable_across_checkout_paths()
+- [[graphify_tests_test_cli_export_rationale_1]] — code: Integration tests for graphify export subcommands and CLI commands.  Each test
+- [[graphify_tests_test_cli_export_rationale_30]] — code: Build a minimal graph.json + analysis/labels files in tmp_path/graphify-out/.
+- [[graphify_tests_test_cli_export_rationale_210]] — code: #1423: `graphify extract` honours GRAPHIFY_OUT for where it WRITES, not only
+- [[graphify_tests_test_cli_export_rationale_304]] — code: cluster-only must not crash with FileNotFoundError when graphify-out/ is absent
+- [[graphify_tests_test_cli_export_rationale_325]] — code: #1747 Case 2: `cluster-only --graph <elsewhere>/graphify-out/graph.json`     mu
+- [[graphify_tests_test_cli_export_rationale_344]] — code: #1747 Case 1: `extract <corpus> --out <elsewhere>` must not leave a stray     g
+- [[graphify_tests_test_cli_export_rationale_363]] — code: cluster-only must refresh .graphify_analysis.json alongside graph.json.      D
+- [[graphify_tests_test_cli_export_rationale_393]] — code: cluster-only must invoke remap_communities_to_previous so the existing     .gra
+- [[graphify_tests_test_cli_export_rationale_453]] — code: When .graphify_analysis.json is absent, export html should reconstruct     comm
+- [[graphify_tests_test_cli_export_rationale_474]] — code: Stronger assertion: the reconstructed `communities` dict should have the     SA
+- [[graphify_tests_test_cli_export_rationale_503]] — code: If a graph.json was somehow written without any per-node `community`     attrib
+- [[graphify_tests_test_cli_export_rationale_526]] — code: #1789: the committed graph.json's node ids must be relative to the scan     roo
+
+## Dependências
+
+- [[graphify_tests_test_cli_export_make_graph]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_cluster_only_creates_output_dir_when_missing]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_cluster_only_graph_in_graphify_out_writes_beside_it]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_cluster_only_persists_analysis_sidecar]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_cluster_only_remaps_labels_to_previous_cids]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_explain_missing_graph_fails]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_explain_runs_without_error]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_explain_uses_graphify_out_env]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_falkordb_creates_cypher]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_graphml_creates_file]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_html_creates_file]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_html_error_without_graph]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_html_fallback_recovers_multiple_communities]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_html_falls_back_to_node_community_attribute]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_html_no_community_data_at_all_still_succeeds]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_html_no_viz_removes_file]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_neo4j_creates_cypher]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_obsidian_creates_vault]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_obsidian_custom_dir]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_unknown_format_fails]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_wiki_accepts_edges_only_graph_json]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_export_wiki_creates_articles]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_extract_out_does_not_pollute_corpus]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_extract_writes_to_graphify_out_env]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_graph_json_node_ids_are_portable_across_checkout_paths]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_path_missing_graph_fails]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_path_runs_without_error]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_path_uses_graphify_out_env]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_query_budget_flag]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_query_dfs_flag]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_query_missing_graph_fails]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_query_returns_output]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_query_uses_graphify_out_env]]
+- [[graphify_tests_test_cli_export]] → `contains` → [[graphify_tests_test_cli_export_test_update_no_cluster_writes_raw_graph]]
+- [[graphify_tests_test_cli_export_rationale_1]] → `rationale_for` → [[graphify_tests_test_cli_export]]
+- [[graphify_tests_test_cli_export_run]] → `references` → [[graphify_tests_test_cli_export_py_completedprocess]]
+- [[graphify_tests_test_cli_export_run]] → `references` → [[graphify_tests_test_cli_export_py_path]]
+- [[graphify_tests_test_cli_export_test_cluster_only_creates_output_dir_when_missing]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_cluster_only_graph_in_graphify_out_writes_beside_it]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_cluster_only_persists_analysis_sidecar]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_cluster_only_remaps_labels_to_previous_cids]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_explain_missing_graph_fails]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_explain_runs_without_error]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_explain_uses_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_falkordb_creates_cypher]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_graphml_creates_file]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_html_creates_file]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_html_error_without_graph]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_html_fallback_recovers_multiple_communities]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_html_falls_back_to_node_community_attribute]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_html_no_community_data_at_all_still_succeeds]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_html_no_viz_removes_file]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_neo4j_creates_cypher]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_obsidian_creates_vault]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_obsidian_custom_dir]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_unknown_format_fails]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_wiki_accepts_edges_only_graph_json]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_export_wiki_creates_articles]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_extract_out_does_not_pollute_corpus]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_extract_writes_to_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_path_missing_graph_fails]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_path_runs_without_error]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_path_uses_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_query_budget_flag]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_query_dfs_flag]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_query_missing_graph_fails]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_query_returns_output]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_query_uses_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_test_update_no_cluster_writes_raw_graph]] → `calls` → [[graphify_tests_test_cli_export_run]]
+- [[graphify_tests_test_cli_export_make_graph]] → `references` → [[graphify_tests_test_cli_export_py_path]]
+- [[graphify_tests_test_cli_export_rationale_30]] → `rationale_for` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_cluster_only_creates_output_dir_when_missing]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_cluster_only_graph_in_graphify_out_writes_beside_it]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_cluster_only_persists_analysis_sidecar]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_cluster_only_remaps_labels_to_previous_cids]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_explain_runs_without_error]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_explain_uses_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_falkordb_creates_cypher]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_graphml_creates_file]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_html_creates_file]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_html_fallback_recovers_multiple_communities]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_html_falls_back_to_node_community_attribute]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_html_no_community_data_at_all_still_succeeds]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_html_no_viz_removes_file]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_neo4j_creates_cypher]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_obsidian_creates_vault]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_obsidian_custom_dir]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_wiki_accepts_edges_only_graph_json]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_export_wiki_creates_articles]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_path_runs_without_error]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_path_uses_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_query_budget_flag]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_query_dfs_flag]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_query_returns_output]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_test_query_uses_graphify_out_env]] → `calls` → [[graphify_tests_test_cli_export_make_graph]]
+- [[graphify_tests_test_cli_export_rationale_210]] → `rationale_for` → [[graphify_tests_test_cli_export_test_extract_writes_to_graphify_out_env]]
+- [[graphify_tests_test_cli_export_rationale_304]] → `rationale_for` → [[graphify_tests_test_cli_export_test_cluster_only_creates_output_dir_when_missing]]
+- [[graphify_tests_test_cli_export_rationale_325]] → `rationale_for` → [[graphify_tests_test_cli_export_test_cluster_only_graph_in_graphify_out_writes_beside_it]]
+- [[graphify_tests_test_cli_export_rationale_344]] → `rationale_for` → [[graphify_tests_test_cli_export_test_extract_out_does_not_pollute_corpus]]
+- [[graphify_tests_test_cli_export_rationale_363]] → `rationale_for` → [[graphify_tests_test_cli_export_test_cluster_only_persists_analysis_sidecar]]
+- [[graphify_tests_test_cli_export_rationale_393]] → `rationale_for` → [[graphify_tests_test_cli_export_test_cluster_only_remaps_labels_to_previous_cids]]
+- [[graphify_tests_test_cli_export_rationale_453]] → `rationale_for` → [[graphify_tests_test_cli_export_test_export_html_falls_back_to_node_community_attribute]]
+- [[graphify_tests_test_cli_export_rationale_474]] → `rationale_for` → [[graphify_tests_test_cli_export_test_export_html_fallback_recovers_multiple_communities]]
+- [[graphify_tests_test_cli_export_rationale_503]] → `rationale_for` → [[graphify_tests_test_cli_export_test_export_html_no_community_data_at_all_still_succeeds]]
+- [[graphify_tests_test_cli_export_rationale_526]] → `rationale_for` → [[graphify_tests_test_cli_export_test_graph_json_node_ids_are_portable_across_checkout_paths]]
+- [[graphify_tests_test_cli_export_test_graph_json_node_ids_are_portable_across_checkout_paths]] → `calls` → [[graphify_tests_test_indirect_dispatch_build]]

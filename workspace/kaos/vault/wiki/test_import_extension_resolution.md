@@ -1,0 +1,240 @@
+# graphify\tests\test_import_extension_resolution.py
+
+## Símbolos
+
+- [[graphify_tests_test_import_extension_resolution]] — code: test_import_extension_resolution.py
+- [[graphify_tests_test_import_extension_resolution_write]] — code: _write()
+- [[graphify_tests_test_import_extension_resolution_import_targets]] — code: _import_targets()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_returns_existing_path_unchanged]] — code: test_resolve_returns_existing_path_unchanged()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_ts]] — code: test_resolve_bare_path_to_ts()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_tsx]] — code: test_resolve_bare_path_to_tsx()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_svelte]] — code: test_resolve_bare_path_to_svelte()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_prefers_ts_over_svelte_when_both_exist]] — code: test_resolve_prefers_ts_over_svelte_when_both_exist()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_file_wins_over_sibling_directory]] — code: test_resolve_file_wins_over_sibling_directory()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_to_index_ts]] — code: test_resolve_directory_to_index_ts()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_prefers_index_ts_over_index_js]] — code: test_resolve_directory_prefers_index_ts_over_index_js()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_ts_for_rune_files]] — code: test_resolve_svelte_to_svelte_ts_for_rune_files()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_js_for_javascript_rune_files]] — code: test_resolve_svelte_to_svelte_js_for_javascript_rune_files()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_prefers_svelte_ts_over_svelte_js]] — code: test_resolve_svelte_prefers_svelte_ts_over_svelte_js()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_real_svelte_file_wins_over_svelte_ts_sibling]] — code: test_resolve_real_svelte_file_wins_over_svelte_ts_sibling()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_js_to_ts_when_real_file_is_ts]] — code: test_resolve_js_to_ts_when_real_file_is_ts()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_jsx_to_tsx_when_real_file_is_tsx]] — code: test_resolve_jsx_to_tsx_when_real_file_is_tsx()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_returns_unchanged_when_nothing_matches]] — code: test_resolve_returns_unchanged_when_nothing_matches()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_real_js_stays_js_when_ts_does_not_exist]] — code: test_resolve_real_js_stays_js_when_ts_does_not_exist()
+- [[graphify_tests_test_import_extension_resolution_test_bare_path_import_resolves_in_ts_file]] — code: test_bare_path_import_resolves_in_ts_file()
+- [[graphify_tests_test_import_extension_resolution_test_directory_import_resolves_to_index_ts]] — code: test_directory_import_resolves_to_index_ts()
+- [[graphify_tests_test_import_extension_resolution_test_dot_svelte_import_resolves_to_dot_svelte_ts]] — code: test_dot_svelte_import_resolves_to_dot_svelte_ts()
+- [[graphify_tests_test_import_extension_resolution_test_explicit_ts_import_still_works]] — code: test_explicit_ts_import_still_works()
+- [[graphify_tests_test_import_extension_resolution_test_explicit_svelte_import_still_works]] — code: test_explicit_svelte_import_still_works()
+- [[graphify_tests_test_import_extension_resolution_test_external_module_unchanged]] — code: test_external_module_unchanged()
+- [[graphify_tests_test_import_extension_resolution_test_alias_import_with_bare_path_resolves]] — code: test_alias_import_with_bare_path_resolves()
+- [[graphify_tests_test_import_extension_resolution_test_type_only_import_with_bare_path_resolves]] — code: test_type_only_import_with_bare_path_resolves()
+- [[graphify_tests_test_import_extension_resolution_test_named_imports_emit_symbol_edges_after_resolution]] — code: test_named_imports_emit_symbol_edges_after_resolution()
+- [[graphify_tests_test_import_extension_resolution_test_alias_directory_import_resolves_to_index_ts]] — code: test_alias_directory_import_resolves_to_index_ts()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_match_partial_directory_name]] — code: test_resolve_does_not_match_partial_directory_name()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_without_index_returns_unchanged]] — code: test_resolve_directory_without_index_returns_unchanged()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_handles_subpath_into_directory_with_index]] — code: test_resolve_handles_subpath_into_directory_with_index()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_treat_dotfile_as_extension]] — code: test_resolve_does_not_treat_dotfile_as_extension()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_helper_file]] — code: test_resolve_multi_dot_helper_file()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_with_explicit_extension_still_works]] — code: test_resolve_multi_dot_with_explicit_extension_still_works()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_ambient_d_ts_via_bare_path]] — code: test_resolve_ambient_d_ts_via_bare_path()
+- [[graphify_tests_test_import_extension_resolution_test_end_to_end_multi_dot_import_resolves]] — code: test_end_to_end_multi_dot_import_resolves()
+- [[graphify_tests_test_import_extension_resolution_test_resolve_chain_alias_and_extension_compose]] — code: test_resolve_chain_alias_and_extension_compose()
+- [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_bare_path_resolves]] — code: test_ts_dynamic_import_bare_path_resolves()
+- [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_alias_with_bare_path_resolves]] — code: test_ts_dynamic_import_alias_with_bare_path_resolves()
+- [[graphify_tests_test_import_extension_resolution_test_dynamic_import_bare_path_resolves]] — code: test_dynamic_import_bare_path_resolves()
+- [[graphify_tests_test_import_extension_resolution_rationale_1]] — code: Tests for #716 — TypeScript bare-path imports, Svelte 5 rune file imports (`fro
+- [[graphify_tests_test_import_extension_resolution_rationale_59]] — code: Vite resolver order: .ts wins over .svelte for ambiguous bare paths.
+- [[graphify_tests_test_import_extension_resolution_rationale_67]] — code: Real-world repro: a project has both `auth.ts` (file) and `auth/`     (director
+- [[graphify_tests_test_import_extension_resolution_rationale_94]] — code: Svelte 5: `from './foo.svelte'` may actually point at `foo.svelte.ts`     (a ru
+- [[graphify_tests_test_import_extension_resolution_rationale_107]] — code: JS variant of the rune file pattern: a `.svelte.js` file (used in     JavaScrip
+- [[graphify_tests_test_import_extension_resolution_rationale_122]] — code: When both `.svelte.ts` and `.svelte.js` exist (hybrid project mid-     migratio
+- [[graphify_tests_test_import_extension_resolution_rationale_141]] — code: If `foo.svelte` IS a real markup file, importing `./foo.svelte`     must resolv
+- [[graphify_tests_test_import_extension_resolution_rationale_152]] — code: TS ESM convention: imports written as .js but the actual file is .ts.
+- [[graphify_tests_test_import_extension_resolution_rationale_165]] — code: External / truly missing paths fall back to the input — preserves     pre-#716
+- [[graphify_tests_test_import_extension_resolution_rationale_172]] — code: If `.js` exists and `.ts` does not, keep the `.js` rewrite from     triggering
+- [[graphify_tests_test_import_extension_resolution_rationale_182]] — code: The #716 reproducer: TS file imports a sibling without an extension.
+- [[graphify_tests_test_import_extension_resolution_rationale_196]] — code: `from './queue'` must resolve to `./queue/index.ts`.
+- [[graphify_tests_test_import_extension_resolution_rationale_213]] — code: Svelte 5 rune file: import written as .svelte, real file is .svelte.ts.
+- [[graphify_tests_test_import_extension_resolution_rationale_230]] — code: The most common case — import with explicit .ts extension — must     continue t
+- [[graphify_tests_test_import_extension_resolution_rationale_244]] — code: Real .svelte file imports must still resolve when the .svelte file     exists (
+- [[graphify_tests_test_import_extension_resolution_rationale_259]] — code: Bare module specifiers (no leading dot, no alias match) must still     fall thr
+- [[graphify_tests_test_import_extension_resolution_rationale_277]] — code: `$lib/foo` (alias + bare path) — both layers must work together.
+- [[graphify_tests_test_import_extension_resolution_rationale_299]] — code: `import type { X } from './foo'` — type-only imports must go through     the sa
+- [[graphify_tests_test_import_extension_resolution_rationale_315]] — code: `import { foo, bar } from './module'` should emit per-symbol `imports`     edge
+- [[graphify_tests_test_import_extension_resolution_rationale_335]] — code: `from '$lib/queue'` where queue/ is a directory under src/lib/.
+- [[graphify_tests_test_import_extension_resolution_rationale_353]] — code: Regression guard: `from './foo'` where './foo' doesn't exist but     './foo-ext
+- [[graphify_tests_test_import_extension_resolution_rationale_367]] — code: A directory with no index file should fall through to the     \"return as-is\"
+- [[graphify_tests_test_import_extension_resolution_rationale_378]] — code: `./foo/sub` where ./foo/sub/index.ts exists — nested subpath.     Common patter
+- [[graphify_tests_test_import_extension_resolution_rationale_387]] — code: Edge case: `.eslintrc` and similar dotfiles. Path('.eslintrc').suffix     retur
+- [[graphify_tests_test_import_extension_resolution_rationale_397]] — code: Common patterns: foo.shared.ts, foo.config.ts, foo.compile.ts,     foo.integrat
+- [[graphify_tests_test_import_extension_resolution_rationale_411]] — code: Sanity: `from './foo.shared.ts'` (explicit) still wins over implicit.
+- [[graphify_tests_test_import_extension_resolution_rationale_417]] — code: Ambient TS declaration files (foo.d.ts) — bare import `./foo.d`     should reso
+- [[graphify_tests_test_import_extension_resolution_rationale_425]] — code: End-to-end sanity for the multi-dot pattern via the import handler.
+- [[graphify_tests_test_import_extension_resolution_rationale_439]] — code: Alias → bare path → .svelte.ts. Two layers of resolution must     compose corre
+- [[graphify_tests_test_import_extension_resolution_rationale_462]] — code: Real-world repro: a TS file uses `await import('./foo')` (no extension)     to
+- [[graphify_tests_test_import_extension_resolution_rationale_486]] — code: The other branch of the dynamic-import handler — alias resolution —     also ne
+- [[graphify_tests_test_import_extension_resolution_rationale_511]] — code: The regex pass for `import('...')` in .svelte files must also use     the new r
+
+## Dependências
+
+- [[graphify_tests_test_import_extension_resolution]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_import_extension_resolution_test_alias_directory_import_resolves_to_index_ts]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_alias_import_with_bare_path_resolves]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_bare_path_import_resolves_in_ts_file]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_directory_import_resolves_to_index_ts]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_dot_svelte_import_resolves_to_dot_svelte_ts]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_end_to_end_multi_dot_import_resolves]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_explicit_svelte_import_still_works]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_explicit_ts_import_still_works]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_external_module_unchanged]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_named_imports_emit_symbol_edges_after_resolution]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_chain_alias_and_extension_compose]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_alias_with_bare_path_resolves]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_bare_path_resolves]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_type_only_import_with_bare_path_resolves]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_import_extension_resolution_test_dynamic_import_bare_path_resolves]] → `calls` → [[graphify_graphify_extract_extract_svelte]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_ambient_d_ts_via_bare_path]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_svelte]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_ts]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_tsx]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_prefers_index_ts_over_index_js]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_to_index_ts]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_without_index_returns_unchanged]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_match_partial_directory_name]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_treat_dotfile_as_extension]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_file_wins_over_sibling_directory]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_handles_subpath_into_directory_with_index]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_js_to_ts_when_real_file_is_ts]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_jsx_to_tsx_when_real_file_is_tsx]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_helper_file]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_with_explicit_extension_still_works]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_prefers_ts_over_svelte_when_both_exist]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_real_js_stays_js_when_ts_does_not_exist]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_real_svelte_file_wins_over_svelte_ts_sibling]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_returns_existing_path_unchanged]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_returns_unchanged_when_nothing_matches]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_prefers_svelte_ts_over_svelte_js]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_js_for_javascript_rune_files]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_ts_for_rune_files]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_alias_directory_import_resolves_to_index_ts]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_alias_import_with_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_bare_path_import_resolves_in_ts_file]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_directory_import_resolves_to_index_ts]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_dot_svelte_import_resolves_to_dot_svelte_ts]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_dynamic_import_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_end_to_end_multi_dot_import_resolves]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_explicit_svelte_import_still_works]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_explicit_ts_import_still_works]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_external_module_unchanged]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_named_imports_emit_symbol_edges_after_resolution]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_ambient_d_ts_via_bare_path]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_svelte]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_ts]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_tsx]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_chain_alias_and_extension_compose]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_directory_prefers_index_ts_over_index_js]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_directory_to_index_ts]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_directory_without_index_returns_unchanged]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_match_partial_directory_name]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_treat_dotfile_as_extension]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_file_wins_over_sibling_directory]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_handles_subpath_into_directory_with_index]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_js_to_ts_when_real_file_is_ts]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_jsx_to_tsx_when_real_file_is_tsx]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_helper_file]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_with_explicit_extension_still_works]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_prefers_ts_over_svelte_when_both_exist]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_real_js_stays_js_when_ts_does_not_exist]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_real_svelte_file_wins_over_svelte_ts_sibling]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_returns_existing_path_unchanged]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_returns_unchanged_when_nothing_matches]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_prefers_svelte_ts_over_svelte_js]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_js_for_javascript_rune_files]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_ts_for_rune_files]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_alias_with_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_test_type_only_import_with_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution]] → `contains` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_rationale_1]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution]]
+- [[graphify_tests_test_import_extension_resolution_test_alias_directory_import_resolves_to_index_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_alias_import_with_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_bare_path_import_resolves_in_ts_file]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_directory_import_resolves_to_index_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_dot_svelte_import_resolves_to_dot_svelte_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_dynamic_import_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_end_to_end_multi_dot_import_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_explicit_svelte_import_still_works]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_explicit_ts_import_still_works]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_external_module_unchanged]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_named_imports_emit_symbol_edges_after_resolution]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_ambient_d_ts_via_bare_path]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_svelte]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_bare_path_to_tsx]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_chain_alias_and_extension_compose]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_prefers_index_ts_over_index_js]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_to_index_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_directory_without_index_returns_unchanged]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_match_partial_directory_name]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_treat_dotfile_as_extension]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_file_wins_over_sibling_directory]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_handles_subpath_into_directory_with_index]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_js_to_ts_when_real_file_is_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_jsx_to_tsx_when_real_file_is_tsx]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_helper_file]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_with_explicit_extension_still_works]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_prefers_ts_over_svelte_when_both_exist]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_real_js_stays_js_when_ts_does_not_exist]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_real_svelte_file_wins_over_svelte_ts_sibling]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_returns_existing_path_unchanged]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_prefers_svelte_ts_over_svelte_js]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_js_for_javascript_rune_files]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_ts_for_rune_files]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_alias_with_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_test_type_only_import_with_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_write]]
+- [[graphify_tests_test_import_extension_resolution_write]] → `references` → [[graphify_tests_test_import_extension_resolution_py_path]]
+- [[graphify_tests_test_import_extension_resolution_test_alias_directory_import_resolves_to_index_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_alias_import_with_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_bare_path_import_resolves_in_ts_file]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_directory_import_resolves_to_index_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_dot_svelte_import_resolves_to_dot_svelte_ts]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_end_to_end_multi_dot_import_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_explicit_svelte_import_still_works]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_explicit_ts_import_still_works]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_external_module_unchanged]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_resolve_chain_alias_and_extension_compose]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_test_type_only_import_with_bare_path_resolves]] → `calls` → [[graphify_tests_test_import_extension_resolution_import_targets]]
+- [[graphify_tests_test_import_extension_resolution_rationale_59]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_prefers_ts_over_svelte_when_both_exist]]
+- [[graphify_tests_test_import_extension_resolution_rationale_67]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_file_wins_over_sibling_directory]]
+- [[graphify_tests_test_import_extension_resolution_rationale_94]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_ts_for_rune_files]]
+- [[graphify_tests_test_import_extension_resolution_rationale_107]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_to_svelte_js_for_javascript_rune_files]]
+- [[graphify_tests_test_import_extension_resolution_rationale_122]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_svelte_prefers_svelte_ts_over_svelte_js]]
+- [[graphify_tests_test_import_extension_resolution_rationale_141]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_real_svelte_file_wins_over_svelte_ts_sibling]]
+- [[graphify_tests_test_import_extension_resolution_rationale_152]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_js_to_ts_when_real_file_is_ts]]
+- [[graphify_tests_test_import_extension_resolution_rationale_165]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_returns_unchanged_when_nothing_matches]]
+- [[graphify_tests_test_import_extension_resolution_rationale_172]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_real_js_stays_js_when_ts_does_not_exist]]
+- [[graphify_tests_test_import_extension_resolution_rationale_182]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_bare_path_import_resolves_in_ts_file]]
+- [[graphify_tests_test_import_extension_resolution_rationale_196]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_directory_import_resolves_to_index_ts]]
+- [[graphify_tests_test_import_extension_resolution_rationale_213]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_dot_svelte_import_resolves_to_dot_svelte_ts]]
+- [[graphify_tests_test_import_extension_resolution_rationale_230]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_explicit_ts_import_still_works]]
+- [[graphify_tests_test_import_extension_resolution_rationale_244]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_explicit_svelte_import_still_works]]
+- [[graphify_tests_test_import_extension_resolution_rationale_259]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_external_module_unchanged]]
+- [[graphify_tests_test_import_extension_resolution_rationale_277]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_alias_import_with_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution_rationale_299]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_type_only_import_with_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution_rationale_315]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_named_imports_emit_symbol_edges_after_resolution]]
+- [[graphify_tests_test_import_extension_resolution_rationale_335]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_alias_directory_import_resolves_to_index_ts]]
+- [[graphify_tests_test_import_extension_resolution_rationale_353]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_match_partial_directory_name]]
+- [[graphify_tests_test_import_extension_resolution_rationale_367]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_directory_without_index_returns_unchanged]]
+- [[graphify_tests_test_import_extension_resolution_rationale_378]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_handles_subpath_into_directory_with_index]]
+- [[graphify_tests_test_import_extension_resolution_rationale_387]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_does_not_treat_dotfile_as_extension]]
+- [[graphify_tests_test_import_extension_resolution_rationale_397]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_helper_file]]
+- [[graphify_tests_test_import_extension_resolution_rationale_411]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_multi_dot_with_explicit_extension_still_works]]
+- [[graphify_tests_test_import_extension_resolution_rationale_417]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_ambient_d_ts_via_bare_path]]
+- [[graphify_tests_test_import_extension_resolution_rationale_425]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_end_to_end_multi_dot_import_resolves]]
+- [[graphify_tests_test_import_extension_resolution_rationale_439]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_resolve_chain_alias_and_extension_compose]]
+- [[graphify_tests_test_import_extension_resolution_rationale_462]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution_rationale_486]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_ts_dynamic_import_alias_with_bare_path_resolves]]
+- [[graphify_tests_test_import_extension_resolution_rationale_511]] → `rationale_for` → [[graphify_tests_test_import_extension_resolution_test_dynamic_import_bare_path_resolves]]

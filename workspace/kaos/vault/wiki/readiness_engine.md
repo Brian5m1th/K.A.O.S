@@ -1,0 +1,103 @@
+# assistant\app\audit\readiness_engine.py
+
+## Símbolos
+
+- [[assistant_app_audit_readiness_engine]] — code: readiness_engine.py
+- [[assistant_app_audit_readiness_engine_checkdefinition]] — code: CheckDefinition
+- [[assistant_app_audit_readiness_engine_checkresult]] — code: CheckResult
+- [[assistant_app_audit_readiness_engine_readinessreport]] — code: ReadinessReport
+- [[assistant_app_audit_readiness_engine_json_path]] — code: _json_path()
+- [[assistant_app_audit_readiness_engine_sha256]] — code: _sha256()
+- [[assistant_app_audit_readiness_engine_read_json]] — code: _read_json()
+- [[assistant_app_audit_readiness_engine_api_get]] — code: _api_get()
+- [[assistant_app_audit_readiness_engine_validate_graph_json]] — code: validate_graph_json()
+- [[assistant_app_audit_readiness_engine_validate_knowledge_graph_json]] — code: validate_knowledge_graph_json()
+- [[assistant_app_audit_readiness_engine_validate_docs_source]] — code: validate_docs_source()
+- [[assistant_app_audit_readiness_engine_validate_snapshot_json]] — code: validate_snapshot_json()
+- [[assistant_app_audit_readiness_engine_validate_features_index]] — code: validate_features_index()
+- [[assistant_app_audit_readiness_engine_validate_commit_map]] — code: validate_commit_map()
+- [[assistant_app_audit_readiness_engine_validate_graph_api]] — code: validate_graph_api()
+- [[assistant_app_audit_readiness_engine_validate_heatmap_api]] — code: validate_heatmap_api()
+- [[assistant_app_audit_readiness_engine_validate_graph_summary]] — code: validate_graph_summary()
+- [[assistant_app_audit_readiness_engine_validate_arch_page]] — code: validate_arch_page()
+- [[assistant_app_audit_readiness_engine_validate_reactflow]] — code: validate_reactflow()
+- [[assistant_app_audit_readiness_engine_validate_heatmap_data]] — code: validate_heatmap_data()
+- [[assistant_app_audit_readiness_engine_compute_fingerprint]] — code: compute_fingerprint()
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] — code: run_readiness_check()
+- [[assistant_app_audit_readiness_engine_rationale_1]] — code: F2 Readiness Engine — Graph Runtime & Audit Foundation.  12 checks organizados
+- [[assistant_app_audit_readiness_engine_rationale_557]] — code: Compute input_fingerprint from features + graph state.
+
+## Dependências
+
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_api_get]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_checkdefinition]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_compute_fingerprint]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_readinessreport]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_run_readiness_check]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_sha256]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_arch_page]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_commit_map]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_docs_source]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_features_index]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_graph_api]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_graph_json]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_graph_summary]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_heatmap_api]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_heatmap_data]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_knowledge_graph_json]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_reactflow]]
+- [[assistant_app_audit_readiness_engine]] → `contains` → [[assistant_app_audit_readiness_engine_validate_snapshot_json]]
+- [[assistant_app_audit_readiness_engine_rationale_1]] → `rationale_for` → [[assistant_app_audit_readiness_engine]]
+- [[assistant_app_audit_readiness_engine_validate_arch_page]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_commit_map]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_docs_source]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_features_index]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_graph_api]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_graph_json]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_graph_summary]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_heatmap_api]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_heatmap_data]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_knowledge_graph_json]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_reactflow]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_validate_snapshot_json]] → `references` → [[assistant_app_audit_readiness_engine_checkresult]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `references` → [[assistant_app_audit_readiness_engine_readinessreport]]
+- [[assistant_app_audit_readiness_engine_compute_fingerprint]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_json_path]] → `references` → [[assistant_app_audit_readiness_engine_py_path]]
+- [[assistant_app_audit_readiness_engine_json_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve]]
+- [[assistant_app_audit_readiness_engine_validate_commit_map]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_validate_features_index]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_validate_graph_json]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_validate_graph_summary]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_validate_knowledge_graph_json]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_validate_snapshot_json]] → `calls` → [[assistant_app_audit_readiness_engine_json_path]]
+- [[assistant_app_audit_readiness_engine_read_json]] → `references` → [[assistant_app_audit_readiness_engine_py_path]]
+- [[assistant_app_audit_readiness_engine_validate_arch_page]] → `calls` → [[assistant_app_audit_readiness_engine_py_path]]
+- [[assistant_app_audit_readiness_engine_validate_reactflow]] → `calls` → [[assistant_app_audit_readiness_engine_py_path]]
+- [[assistant_app_audit_readiness_engine_compute_fingerprint]] → `calls` → [[assistant_app_audit_readiness_engine_sha256]]
+- [[assistant_app_audit_readiness_engine_compute_fingerprint]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_commit_map]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_features_index]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_graph_json]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_graph_summary]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_knowledge_graph_json]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_snapshot_json]] → `calls` → [[assistant_app_audit_readiness_engine_read_json]]
+- [[assistant_app_audit_readiness_engine_validate_graph_api]] → `calls` → [[assistant_app_audit_readiness_engine_api_get]]
+- [[assistant_app_audit_readiness_engine_validate_heatmap_api]] → `calls` → [[assistant_app_audit_readiness_engine_api_get]]
+- [[assistant_app_audit_readiness_engine_validate_heatmap_data]] → `calls` → [[assistant_app_audit_readiness_engine_api_get]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_graph_json]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_knowledge_graph_json]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_docs_source]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_snapshot_json]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_features_index]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_commit_map]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_graph_api]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_heatmap_api]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_graph_summary]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_arch_page]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_reactflow]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_validate_heatmap_data]]
+- [[assistant_app_audit_readiness_engine_rationale_557]] → `rationale_for` → [[assistant_app_audit_readiness_engine_compute_fingerprint]]
+- [[assistant_app_audit_readiness_engine_run_readiness_check]] → `calls` → [[assistant_app_audit_readiness_engine_compute_fingerprint]]

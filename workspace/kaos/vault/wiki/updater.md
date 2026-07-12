@@ -1,0 +1,75 @@
+# desktop\src-tauri\src\updater.rs
+
+## Símbolos
+
+- [[desktop_src_tauri_src_updater]] — code: updater.rs
+- [[desktop_src_tauri_src_updater_updateresult]] — code: UpdateResult
+- [[desktop_src_tauri_src_updater_progresspayload]] — code: ProgressPayload
+- [[desktop_src_tauri_src_updater_updaterstate]] — code: UpdaterState
+- [[desktop_src_tauri_src_updater_get_app_version]] — code: get_app_version()
+- [[desktop_src_tauri_src_updater_check_for_update]] — code: check_for_update()
+- [[desktop_src_tauri_src_updater_download_and_install]] — code: download_and_install()
+- [[desktop_src_tauri_src_updater_install_update]] — code: install_update()
+- [[desktop_src_tauri_src_updater_ensure_docker_services]] — code: ensure_docker_services()
+- [[desktop_src_tauri_src_updater_dockerversion]] — code: DockerVersion
+- [[desktop_src_tauri_src_updater_dockerengine]] — code: DockerEngine
+- [[desktop_src_tauri_src_updater_backendhealth]] — code: BackendHealth
+- [[desktop_src_tauri_src_updater_bootstrapstate]] — code: BootstrapState
+- [[desktop_src_tauri_src_updater_check_docker]] — code: check_docker()
+- [[desktop_src_tauri_src_updater_check_docker_engine]] — code: check_docker_engine()
+- [[desktop_src_tauri_src_updater_check_backend_health]] — code: check_backend_health()
+- [[desktop_src_tauri_src_updater_get_bootstrap_state]] — code: get_bootstrap_state()
+
+## Dependências
+
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_backendhealth]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_bootstrapstate]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_check_backend_health]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_check_docker]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_check_docker_engine]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_check_for_update]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_dockerengine]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_dockerversion]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_download_and_install]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_ensure_docker_services]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_get_app_version]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_get_bootstrap_state]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_install_update]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_progresspayload]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_updateresult]]
+- [[desktop_src_tauri_src_updater]] → `contains` → [[desktop_src_tauri_src_updater_updaterstate]]
+- [[desktop_src_tauri_src_updater]] → `imports_from` → [[mutex]]
+- [[desktop_src_tauri_src_updater_check_for_update]] → `references` → [[desktop_src_tauri_src_updater_updateresult]]
+- [[desktop_src_tauri_src_updater_updateresult]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_updateresult]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_backendhealth]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_check_backend_health]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_dockerengine]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_dockerversion]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_get_bootstrap_state]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_progresspayload]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_updaterstate]] → `references` → [[option]]
+- [[desktop_src_tauri_src_updater_backendhealth]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_bootstrapstate]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_check_backend_health]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_check_for_update]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_dockerengine]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_dockerversion]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_download_and_install]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_ensure_docker_services]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_get_app_version]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_get_bootstrap_state]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_install_update]] → `references` → [[desktop_src_tauri_src_updater_rs_string]]
+- [[desktop_src_tauri_src_updater_updaterstate]] → `references` → [[desktop_src_tauri_src_updater_rs_vec]]
+- [[desktop_src_tauri_src_updater_updaterstate]] → `references` → [[mutex]]
+- [[desktop_src_tauri_src_updater_updaterstate]] → `references` → [[update]]
+- [[desktop_src_tauri_src_updater_bootstrapstate]] → `references` → [[desktop_src_tauri_src_updater_rs_vec]]
+- [[desktop_src_tauri_src_updater_get_app_version]] → `references` → [[apphandle]]
+- [[desktop_src_tauri_src_updater_check_for_update]] → `references` → [[apphandle]]
+- [[desktop_src_tauri_src_updater_download_and_install]] → `references` → [[apphandle]]
+- [[desktop_src_tauri_src_updater_install_update]] → `references` → [[apphandle]]
+- [[desktop_src_tauri_src_updater_check_docker]] → `references` → [[desktop_src_tauri_src_updater_dockerversion]]
+- [[desktop_src_tauri_src_updater_check_docker_engine]] → `references` → [[desktop_src_tauri_src_updater_dockerengine]]
+- [[desktop_src_tauri_src_updater_check_backend_health]] → `references` → [[desktop_src_tauri_src_updater_backendhealth]]
+- [[desktop_src_tauri_src_updater_bootstrapstate]] → `references` → [[value]]
+- [[desktop_src_tauri_src_updater_get_bootstrap_state]] → `references` → [[desktop_src_tauri_src_updater_bootstrapstate]]

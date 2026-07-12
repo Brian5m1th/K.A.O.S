@@ -7,7 +7,11 @@ Provides local LLM inference via Ollama.
 from typing import AsyncIterator
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from app.domain.ports.inference_port import InferencePort, InferenceRequest, InferenceResult
+from app.domain.ports.inference_port import (
+    InferencePort,
+    InferenceRequest,
+    InferenceResult,
+)
 from app.config.settings import settings
 
 
@@ -20,6 +24,7 @@ class OllamaAdapter(InferencePort):
 
     async def invoke(self, request: InferenceRequest) -> InferenceResult:
         from app.llm.providers.ollama_provider import OllamaProvider
+
         provider = OllamaProvider(
             model=request.model or settings.OLLAMA_MODEL,
             base_url=settings.OLLAMA_BASE_URL,
@@ -34,6 +39,7 @@ class OllamaAdapter(InferencePort):
 
     async def stream(self, request: InferenceRequest) -> AsyncIterator[str]:
         from app.llm.providers.ollama_provider import OllamaProvider
+
         provider = OllamaProvider(
             model=request.model or settings.OLLAMA_MODEL,
             base_url=settings.OLLAMA_BASE_URL,
@@ -44,6 +50,7 @@ class OllamaAdapter(InferencePort):
 
     async def health(self) -> bool:
         import httpx
+
         try:
             ollama_url = settings.OLLAMA_BASE_URL.rstrip("/")
             async with httpx.AsyncClient(timeout=3) as c:
@@ -54,6 +61,7 @@ class OllamaAdapter(InferencePort):
 
     async def list_models(self) -> list[str]:
         import httpx
+
         try:
             ollama_url = settings.OLLAMA_BASE_URL.rstrip("/")
             async with httpx.AsyncClient(timeout=3) as c:

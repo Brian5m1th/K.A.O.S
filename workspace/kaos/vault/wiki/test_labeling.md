@@ -1,0 +1,114 @@
+# graphify\tests\test_labeling.py
+
+## Símbolos
+
+- [[graphify_tests_test_labeling]] — code: test_labeling.py
+- [[graphify_tests_test_labeling_graph]] — code: _graph()
+- [[graphify_tests_test_labeling_test_label_communities_happy_path]] — code: test_label_communities_happy_path()
+- [[graphify_tests_test_labeling_test_label_communities_passes_model_override]] — code: test_label_communities_passes_model_override()
+- [[graphify_tests_test_labeling_test_label_cli_passes_model_override]] — code: test_label_cli_passes_model_override()
+- [[graphify_tests_test_labeling_test_label_cli_missing_only_preserves_existing_labels]] — code: test_label_cli_missing_only_preserves_existing_labels()
+- [[graphify_tests_test_labeling_test_label_communities_partial_reply_fills_placeholder]] — code: test_label_communities_partial_reply_fills_placeholder()
+- [[graphify_tests_test_labeling_test_label_communities_strips_code_fences]] — code: test_label_communities_strips_code_fences()
+- [[graphify_tests_test_labeling_test_label_communities_malformed_raises]] — code: test_label_communities_malformed_raises()
+- [[graphify_tests_test_labeling_test_generate_community_labels_degrades_on_error]] — code: test_generate_community_labels_degrades_on_error()
+- [[graphify_tests_test_labeling_test_generate_community_labels_no_backend]] — code: test_generate_community_labels_no_backend()
+- [[graphify_tests_test_labeling_test_generate_community_labels_success]] — code: test_generate_community_labels_success()
+- [[graphify_tests_test_labeling_test_gods_as_dicts_do_not_crash]] — code: test_gods_as_dicts_do_not_crash()
+- [[graphify_tests_test_labeling_test_empty_communities_returns_placeholders]] — code: test_empty_communities_returns_placeholders()
+- [[graphify_tests_test_labeling_wide_graph]] — code: _wide_graph()
+- [[graphify_tests_test_labeling_test_label_communities_batches_when_over_batch_size]] — code: test_label_communities_batches_when_over_batch_size()
+- [[graphify_tests_test_labeling_test_label_communities_partial_batch_failure_keeps_successful_batches]] — code: test_label_communities_partial_batch_failure_keeps_successful_batches()
+- [[graphify_tests_test_labeling_test_label_communities_all_batches_fail_raises]] — code: test_label_communities_all_batches_fail_raises()
+- [[graphify_tests_test_labeling_test_label_communities_max_communities_caps_total]] — code: test_label_communities_max_communities_caps_total()
+- [[graphify_tests_test_labeling_many_communities]] — code: _many_communities()
+- [[graphify_tests_test_labeling_test_label_communities_parallel_matches_sequential]] — code: test_label_communities_parallel_matches_sequential()
+- [[graphify_tests_test_labeling_test_label_communities_batch_size_controls_batch_count]] — code: test_label_communities_batch_size_controls_batch_count()
+- [[graphify_tests_test_labeling_peak_tracker]] — code: _peak_tracker()
+- [[graphify_tests_test_labeling_test_label_communities_runs_batches_concurrently]] — code: test_label_communities_runs_batches_concurrently()
+- [[graphify_tests_test_labeling_test_label_communities_forces_serial_for_ollama]] — code: test_label_communities_forces_serial_for_ollama()
+- [[graphify_tests_test_labeling_test_label_communities_salvages_truncated_reply]] — code: test_label_communities_salvages_truncated_reply()
+- [[graphify_tests_test_labeling_test_label_communities_accumulates_token_usage]] — code: test_label_communities_accumulates_token_usage()
+- [[graphify_tests_test_labeling_test_label_communities_counts_tokens_for_failed_batch]] — code: test_label_communities_counts_tokens_for_failed_batch()
+- [[graphify_tests_test_labeling_rationale_1]] — code: Tests for LLM-backed community labeling (issue #1097).  Backend calls are mock
+- [[graphify_tests_test_labeling_rationale_219]] — code: god_nodes() returns list[dict] with an 'id' key, not bare ids.
+- [[graphify_tests_test_labeling_rationale_354]] — code: Concurrency must not change the result: same cid->name map either way.
+- [[graphify_tests_test_labeling_rationale_406]] — code: ollama/claude-cli must stay serial regardless of --max-concurrency.
+
+## Dependências
+
+- [[graphify_tests_test_labeling]] → `imports_from` → [[graphify_graphify_llm]]
+- [[graphify_tests_test_labeling_test_empty_communities_returns_placeholders]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_gods_as_dicts_do_not_crash]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_accumulates_token_usage]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_all_batches_fail_raises]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_batch_size_controls_batch_count]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_batches_when_over_batch_size]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_counts_tokens_for_failed_batch]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_forces_serial_for_ollama]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_happy_path]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_malformed_raises]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_max_communities_caps_total]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_parallel_matches_sequential]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_partial_batch_failure_keeps_successful_batches]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_partial_reply_fills_placeholder]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_passes_model_override]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_runs_batches_concurrently]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_salvages_truncated_reply]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_strips_code_fences]] → `calls` → [[graphify_graphify_llm_label_communities]]
+- [[graphify_tests_test_labeling_test_generate_community_labels_degrades_on_error]] → `calls` → [[graphify_graphify_llm_generate_community_labels]]
+- [[graphify_tests_test_labeling_test_generate_community_labels_no_backend]] → `calls` → [[graphify_graphify_llm_generate_community_labels]]
+- [[graphify_tests_test_labeling_test_generate_community_labels_success]] → `calls` → [[graphify_graphify_llm_generate_community_labels]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_many_communities]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_peak_tracker]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_empty_communities_returns_placeholders]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_generate_community_labels_degrades_on_error]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_generate_community_labels_no_backend]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_generate_community_labels_success]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_gods_as_dicts_do_not_crash]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_cli_missing_only_preserves_existing_labels]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_cli_passes_model_override]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_accumulates_token_usage]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_all_batches_fail_raises]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_batch_size_controls_batch_count]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_batches_when_over_batch_size]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_counts_tokens_for_failed_batch]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_forces_serial_for_ollama]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_happy_path]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_malformed_raises]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_max_communities_caps_total]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_parallel_matches_sequential]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_partial_batch_failure_keeps_successful_batches]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_partial_reply_fills_placeholder]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_passes_model_override]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_runs_batches_concurrently]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_salvages_truncated_reply]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_test_label_communities_strips_code_fences]]
+- [[graphify_tests_test_labeling]] → `contains` → [[graphify_tests_test_labeling_wide_graph]]
+- [[graphify_tests_test_labeling_rationale_1]] → `rationale_for` → [[graphify_tests_test_labeling]]
+- [[graphify_tests_test_labeling_test_generate_community_labels_degrades_on_error]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_generate_community_labels_no_backend]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_generate_community_labels_success]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_gods_as_dicts_do_not_crash]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_counts_tokens_for_failed_batch]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_happy_path]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_malformed_raises]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_partial_reply_fills_placeholder]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_passes_model_override]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_salvages_truncated_reply]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_strips_code_fences]] → `calls` → [[graphify_tests_test_labeling_graph]]
+- [[graphify_tests_test_labeling_rationale_219]] → `rationale_for` → [[graphify_tests_test_labeling_test_gods_as_dicts_do_not_crash]]
+- [[graphify_tests_test_labeling_test_label_communities_all_batches_fail_raises]] → `calls` → [[graphify_tests_test_labeling_wide_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_batches_when_over_batch_size]] → `calls` → [[graphify_tests_test_labeling_wide_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_max_communities_caps_total]] → `calls` → [[graphify_tests_test_labeling_wide_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_partial_batch_failure_keeps_successful_batches]] → `calls` → [[graphify_tests_test_labeling_wide_graph]]
+- [[graphify_tests_test_labeling_test_label_communities_accumulates_token_usage]] → `calls` → [[graphify_tests_test_labeling_many_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_batch_size_controls_batch_count]] → `calls` → [[graphify_tests_test_labeling_many_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_forces_serial_for_ollama]] → `calls` → [[graphify_tests_test_labeling_many_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_parallel_matches_sequential]] → `calls` → [[graphify_tests_test_labeling_many_communities]]
+- [[graphify_tests_test_labeling_test_label_communities_runs_batches_concurrently]] → `calls` → [[graphify_tests_test_labeling_many_communities]]
+- [[graphify_tests_test_labeling_rationale_354]] → `rationale_for` → [[graphify_tests_test_labeling_test_label_communities_parallel_matches_sequential]]
+- [[graphify_tests_test_labeling_test_label_communities_forces_serial_for_ollama]] → `calls` → [[graphify_tests_test_labeling_peak_tracker]]
+- [[graphify_tests_test_labeling_test_label_communities_runs_batches_concurrently]] → `calls` → [[graphify_tests_test_labeling_peak_tracker]]
+- [[graphify_tests_test_labeling_rationale_406]] → `rationale_for` → [[graphify_tests_test_labeling_test_label_communities_forces_serial_for_ollama]]

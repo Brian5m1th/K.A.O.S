@@ -1,0 +1,96 @@
+# graphify\tests\test_global_graph.py
+
+## Símbolos
+
+- [[graphify_tests_test_global_graph]] — code: test_global_graph.py
+- [[graphify_tests_test_global_graph_make_graph]] — code: _make_graph()
+- [[graphify_tests_test_global_graph_graph_to_json]] — code: _graph_to_json()
+- [[graphify_tests_test_global_graph_test_prefix_graph_preserves_label]] — code: test_prefix_graph_preserves_label()
+- [[graphify_tests_test_global_graph_test_prefix_graph_sets_repo_and_local_id]] — code: test_prefix_graph_sets_repo_and_local_id()
+- [[graphify_tests_test_global_graph_test_prefix_graph_rewrites_edges]] — code: test_prefix_graph_rewrites_edges()
+- [[graphify_tests_test_global_graph_test_prune_repo_removes_correct_nodes]] — code: test_prune_repo_removes_correct_nodes()
+- [[graphify_tests_test_global_graph_test_prune_repo_returns_zero_if_not_present]] — code: test_prune_repo_returns_zero_if_not_present()
+- [[graphify_tests_test_global_graph_test_global_add_creates_global_graph]] — code: test_global_add_creates_global_graph()
+- [[graphify_tests_test_global_graph_test_global_add_skip_on_unchanged_hash]] — code: test_global_add_skip_on_unchanged_hash()
+- [[graphify_tests_test_global_graph_test_global_add_two_repos_no_collision]] — code: test_global_add_two_repos_no_collision()
+- [[graphify_tests_test_global_graph_test_global_remove]] — code: test_global_remove()
+- [[graphify_tests_test_global_graph_test_global_remove_unknown_tag_raises]] — code: test_global_remove_unknown_tag_raises()
+- [[graphify_tests_test_global_graph_test_global_add_collision_warning]] — code: test_global_add_collision_warning()
+- [[graphify_tests_test_global_graph_test_dedup_raises_on_cross_repo_nodes]] — code: test_dedup_raises_on_cross_repo_nodes()
+- [[graphify_tests_test_global_graph_test_dedup_ok_with_single_repo]] — code: test_dedup_ok_with_single_repo()
+- [[graphify_tests_test_global_graph_test_dedup_ok_with_no_repo_attr]] — code: test_dedup_ok_with_no_repo_attr()
+- [[graphify_tests_test_global_graph_test_merge_graphs_prefixes_ids]] — code: test_merge_graphs_prefixes_ids()
+- [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]] — code: test_global_add_rewires_edges_to_deduplicated_externals()
+- [[graphify_tests_test_global_graph_test_global_add_rejects_oversized_source_graph]] — code: test_global_add_rejects_oversized_source_graph()
+- [[graphify_tests_test_global_graph_rationale_1]] — code: Tests for the global graph infrastructure (graphify/global_graph.py), prefix/pr
+- [[graphify_tests_test_global_graph_rationale_15]] — code: Build a simple nx.Graph from node dicts.
+- [[graphify_tests_test_global_graph_rationale_241]] — code: merge-graphs should prefix node IDs with repo name to avoid silent collision.
+- [[graphify_tests_test_global_graph_rationale_283]] — code: Edges incident to an external node that gets deduplicated against an     alread
+- [[graphify_tests_test_global_graph_rationale_324]] — code: #F4: global_add must refuse to read a source graph.json that     exceeds the si
+
+## Dependências
+
+- [[graphify_tests_test_global_graph_test_merge_graphs_prefixes_ids]] → `calls` → [[graphify_graphify_build_prefix_graph_for_global]]
+- [[graphify_tests_test_global_graph_test_prefix_graph_preserves_label]] → `calls` → [[graphify_graphify_build_prefix_graph_for_global]]
+- [[graphify_tests_test_global_graph_test_prefix_graph_rewrites_edges]] → `calls` → [[graphify_graphify_build_prefix_graph_for_global]]
+- [[graphify_tests_test_global_graph_test_prefix_graph_sets_repo_and_local_id]] → `calls` → [[graphify_graphify_build_prefix_graph_for_global]]
+- [[graphify_tests_test_global_graph_test_prune_repo_removes_correct_nodes]] → `calls` → [[graphify_graphify_build_prune_repo_from_graph]]
+- [[graphify_tests_test_global_graph_test_prune_repo_returns_zero_if_not_present]] → `calls` → [[graphify_graphify_build_prune_repo_from_graph]]
+- [[graphify_tests_test_global_graph_test_dedup_ok_with_no_repo_attr]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_global_graph_test_dedup_ok_with_single_repo]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_global_graph_test_dedup_raises_on_cross_repo_nodes]] → `calls` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]] → `calls` → [[graphify_graphify_global_graph_load_global_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_two_repos_no_collision]] → `calls` → [[graphify_graphify_global_graph_load_global_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_collision_warning]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_add_creates_global_graph]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_add_rejects_oversized_source_graph]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_add_skip_on_unchanged_hash]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_add_two_repos_no_collision]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_remove]] → `calls` → [[graphify_graphify_global_graph_global_add]]
+- [[graphify_tests_test_global_graph_test_global_remove]] → `calls` → [[graphify_graphify_global_graph_global_remove]]
+- [[graphify_tests_test_global_graph_test_global_remove_unknown_tag_raises]] → `calls` → [[graphify_graphify_global_graph_global_remove]]
+- [[graphify_tests_test_global_graph_test_global_remove]] → `calls` → [[graphify_graphify_global_graph_global_list]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_dedup_ok_with_no_repo_attr]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_dedup_ok_with_single_repo]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_dedup_raises_on_cross_repo_nodes]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_add_collision_warning]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_add_creates_global_graph]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_add_rejects_oversized_source_graph]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_add_skip_on_unchanged_hash]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_add_two_repos_no_collision]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_remove]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_global_remove_unknown_tag_raises]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_merge_graphs_prefixes_ids]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_prefix_graph_preserves_label]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_prefix_graph_rewrites_edges]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_prefix_graph_sets_repo_and_local_id]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_prune_repo_removes_correct_nodes]]
+- [[graphify_tests_test_global_graph]] → `contains` → [[graphify_tests_test_global_graph_test_prune_repo_returns_zero_if_not_present]]
+- [[graphify_tests_test_global_graph_rationale_1]] → `rationale_for` → [[graphify_tests_test_global_graph]]
+- [[graphify_tests_test_global_graph_rationale_15]] → `rationale_for` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_collision_warning]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_creates_global_graph]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_rejects_oversized_source_graph]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_skip_on_unchanged_hash]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_two_repos_no_collision]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_remove]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_merge_graphs_prefixes_ids]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_prefix_graph_preserves_label]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_prefix_graph_rewrites_edges]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_prefix_graph_sets_repo_and_local_id]] → `calls` → [[graphify_tests_test_global_graph_make_graph]]
+- [[graphify_tests_test_global_graph_test_global_add_collision_warning]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_global_add_creates_global_graph]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_global_add_rejects_oversized_source_graph]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_global_add_skip_on_unchanged_hash]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_global_add_two_repos_no_collision]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_global_remove]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_test_merge_graphs_prefixes_ids]] → `calls` → [[graphify_tests_test_global_graph_graph_to_json]]
+- [[graphify_tests_test_global_graph_rationale_241]] → `rationale_for` → [[graphify_tests_test_global_graph_test_merge_graphs_prefixes_ids]]
+- [[graphify_tests_test_global_graph_rationale_283]] → `rationale_for` → [[graphify_tests_test_global_graph_test_global_add_rewires_edges_to_deduplicated_externals]]
+- [[graphify_tests_test_global_graph_rationale_324]] → `rationale_for` → [[graphify_tests_test_global_graph_test_global_add_rejects_oversized_source_graph]]

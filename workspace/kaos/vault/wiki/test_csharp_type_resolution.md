@@ -1,0 +1,229 @@
+# graphify\tests\test_csharp_type_resolution.py
+
+## Símbolos
+
+- [[graphify_tests_test_csharp_type_resolution]] — code: test_csharp_type_resolution.py
+- [[graphify_tests_test_csharp_type_resolution_write]] — code: _write()
+- [[graphify_tests_test_csharp_type_resolution_node_by_id]] — code: _node_by_id()
+- [[graphify_tests_test_csharp_type_resolution_targets]] — code: _targets()
+- [[graphify_tests_test_csharp_type_resolution_defs]] — code: _defs()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_declaration_nodes_carry_enclosing_namespace]] — code: test_csharp_declaration_nodes_carry_enclosing_namespace()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_file_inherits_resolves_to_real_def]] — code: test_csharp_cross_file_inherits_resolves_to_real_def()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_collision_disambiguated_by_using]] — code: test_csharp_collision_disambiguated_by_using()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_using_and_global_namespace]] — code: test_csharp_global_using_and_global_namespace()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]] — code: test_csharp_cross_namespace_enum_reference_resolves_to_real_def()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]] — code: test_csharp_cross_namespace_struct_and_record_references_resolve()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_ambiguous_using_does_not_resolve]] — code: test_csharp_ambiguous_using_does_not_resolve()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_alias_resolves_to_aliased_type]] — code: test_csharp_using_alias_resolves_to_aliased_type()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_nodes_canonical_and_discriminated]] — code: test_csharp_namespace_nodes_canonical_and_discriminated()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_carry_using_kind]] — code: test_csharp_import_edges_carry_using_kind()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_resolve_internal_namespace_and_alias]] — code: test_csharp_import_edges_resolve_internal_namespace_and_alias()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_base_ref_is_flagged]] — code: test_csharp_qualified_base_ref_is_flagged()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_no_collision_flag]] — code: test_csharp_one_file_same_name_no_collision_flag()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_parameter_emits_no_reference]] — code: test_csharp_type_parameter_emits_no_reference()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_carries_metadata]] — code: test_csharp_nested_type_carries_metadata()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_ref_not_misbound]] — code: test_csharp_cross_namespace_ref_not_misbound()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_file_cross_namespace_ref_not_misbound]] — code: test_csharp_same_file_cross_namespace_ref_not_misbound()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_inherits_does_not_bind_namespace_node]] — code: test_csharp_inherits_does_not_bind_namespace_node()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_unknown_qualifier_dangles]] — code: test_csharp_qualified_ref_unknown_qualifier_dangles()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_known_namespace_resolves]] — code: test_csharp_qualified_ref_known_namespace_resolves()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_generic_resolves_to_real_def]] — code: test_csharp_qualified_generic_resolves_to_real_def()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_alias_namespace_resolves]] — code: test_csharp_qualified_alias_namespace_resolves()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_out_of_scope_alias_falls_through_to_namespace]] — code: test_csharp_qualified_out_of_scope_alias_falls_through_to_namespace()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_in_scope_alias_shadows_namespace]] — code: test_csharp_qualified_in_scope_alias_shadows_namespace()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_binds_own_namespace]] — code: test_csharp_one_file_same_name_binds_own_namespace()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_not_importable_via_using]] — code: test_csharp_nested_type_not_importable_via_using()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_generic_alias_resolves_to_base_type]] — code: test_csharp_generic_alias_resolves_to_base_type()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_never_targets_a_file_label]] — code: test_csharp_type_ref_never_targets_a_file_label()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_edges_carry_ref_token]] — code: test_csharp_type_ref_edges_carry_ref_token()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_matching_file_stem_resolves_via_token]] — code: test_csharp_alias_matching_file_stem_resolves_via_token()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_name_diff_namespace_have_distinct_ids]] — code: test_csharp_same_name_diff_namespace_have_distinct_ids()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_scope_id_unchanged]] — code: test_csharp_global_scope_id_unchanged()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespaced_id_carries_namespace_segment]] — code: test_csharp_namespaced_id_carries_namespace_segment()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_two_namespaces_each_resolve_own_type]] — code: test_csharp_two_namespaces_each_resolve_own_type()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_file_level_using_applies_across_blocks]] — code: test_csharp_file_level_using_applies_across_blocks()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_scoped_using_isolated_to_sibling_block]] — code: test_csharp_namespace_scoped_using_isolated_to_sibling_block()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_flows_into_nested_block]] — code: test_csharp_using_flows_into_nested_block()
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_using_scoped_to_its_block]] — code: test_csharp_alias_using_scoped_to_its_block()
+
+## Dependências
+
+- [[graphify_tests_test_csharp_type_resolution]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_matching_file_stem_resolves_via_token]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_using_scoped_to_its_block]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_ambiguous_using_does_not_resolve]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_collision_disambiguated_by_using]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_file_inherits_resolves_to_real_def]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_ref_not_misbound]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_declaration_nodes_carry_enclosing_namespace]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_file_level_using_applies_across_blocks]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_generic_alias_resolves_to_base_type]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_scope_id_unchanged]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_using_and_global_namespace]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_carry_using_kind]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_resolve_internal_namespace_and_alias]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_inherits_does_not_bind_namespace_node]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_nodes_canonical_and_discriminated]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_scoped_using_isolated_to_sibling_block]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespaced_id_carries_namespace_segment]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_carries_metadata]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_not_importable_via_using]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_binds_own_namespace]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_no_collision_flag]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_alias_namespace_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_base_ref_is_flagged]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_generic_resolves_to_real_def]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_in_scope_alias_shadows_namespace]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_out_of_scope_alias_falls_through_to_namespace]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_known_namespace_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_unknown_qualifier_dangles]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_file_cross_namespace_ref_not_misbound]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_name_diff_namespace_have_distinct_ids]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_two_namespaces_each_resolve_own_type]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_parameter_emits_no_reference]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_edges_carry_ref_token]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_never_targets_a_file_label]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_alias_resolves_to_aliased_type]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_flows_into_nested_block]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_scope_id_unchanged]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_defs]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_node_by_id]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_matching_file_stem_resolves_via_token]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_using_scoped_to_its_block]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_ambiguous_using_does_not_resolve]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_collision_disambiguated_by_using]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_file_inherits_resolves_to_real_def]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_ref_not_misbound]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_declaration_nodes_carry_enclosing_namespace]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_file_level_using_applies_across_blocks]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_generic_alias_resolves_to_base_type]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_global_scope_id_unchanged]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_global_using_and_global_namespace]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_carry_using_kind]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_resolve_internal_namespace_and_alias]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_inherits_does_not_bind_namespace_node]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_nodes_canonical_and_discriminated]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_scoped_using_isolated_to_sibling_block]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_namespaced_id_carries_namespace_segment]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_carries_metadata]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_not_importable_via_using]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_binds_own_namespace]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_no_collision_flag]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_alias_namespace_resolves]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_base_ref_is_flagged]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_generic_resolves_to_real_def]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_in_scope_alias_shadows_namespace]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_out_of_scope_alias_falls_through_to_namespace]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_known_namespace_resolves]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_unknown_qualifier_dangles]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_same_file_cross_namespace_ref_not_misbound]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_same_name_diff_namespace_have_distinct_ids]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_two_namespaces_each_resolve_own_type]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_type_parameter_emits_no_reference]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_edges_carry_ref_token]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_never_targets_a_file_label]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_using_alias_resolves_to_aliased_type]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_test_csharp_using_flows_into_nested_block]]
+- [[graphify_tests_test_csharp_type_resolution]] → `contains` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_matching_file_stem_resolves_via_token]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_using_scoped_to_its_block]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_ambiguous_using_does_not_resolve]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_collision_disambiguated_by_using]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_file_inherits_resolves_to_real_def]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_ref_not_misbound]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_declaration_nodes_carry_enclosing_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_file_level_using_applies_across_blocks]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_generic_alias_resolves_to_base_type]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_scope_id_unchanged]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_using_and_global_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_carry_using_kind]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_resolve_internal_namespace_and_alias]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_inherits_does_not_bind_namespace_node]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_nodes_canonical_and_discriminated]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_scoped_using_isolated_to_sibling_block]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespaced_id_carries_namespace_segment]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_carries_metadata]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_not_importable_via_using]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_binds_own_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_no_collision_flag]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_alias_namespace_resolves]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_base_ref_is_flagged]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_generic_resolves_to_real_def]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_in_scope_alias_shadows_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_out_of_scope_alias_falls_through_to_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_known_namespace_resolves]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_unknown_qualifier_dangles]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_file_cross_namespace_ref_not_misbound]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_name_diff_namespace_have_distinct_ids]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_two_namespaces_each_resolve_own_type]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_parameter_emits_no_reference]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_edges_carry_ref_token]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_never_targets_a_file_label]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_alias_resolves_to_aliased_type]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_flows_into_nested_block]] → `calls` → [[graphify_tests_test_csharp_type_resolution_write]]
+- [[graphify_tests_test_csharp_type_resolution_write]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_matching_file_stem_resolves_via_token]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_using_scoped_to_its_block]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_ambiguous_using_does_not_resolve]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_collision_disambiguated_by_using]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_file_inherits_resolves_to_real_def]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_ref_not_misbound]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_declaration_nodes_carry_enclosing_namespace]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_file_level_using_applies_across_blocks]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_generic_alias_resolves_to_base_type]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_scope_id_unchanged]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_using_and_global_namespace]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_carry_using_kind]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_import_edges_resolve_internal_namespace_and_alias]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_inherits_does_not_bind_namespace_node]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_nodes_canonical_and_discriminated]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespace_scoped_using_isolated_to_sibling_block]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_namespaced_id_carries_namespace_segment]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_carries_metadata]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_not_importable_via_using]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_binds_own_namespace]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_one_file_same_name_no_collision_flag]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_alias_namespace_resolves]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_base_ref_is_flagged]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_generic_resolves_to_real_def]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_in_scope_alias_shadows_namespace]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_out_of_scope_alias_falls_through_to_namespace]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_known_namespace_resolves]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_unknown_qualifier_dangles]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_file_cross_namespace_ref_not_misbound]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_name_diff_namespace_have_distinct_ids]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_two_namespaces_each_resolve_own_type]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_parameter_emits_no_reference]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_edges_carry_ref_token]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_never_targets_a_file_label]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_alias_resolves_to_aliased_type]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_flows_into_nested_block]] → `references` → [[graphify_tests_test_csharp_type_resolution_py_path]]
+- [[graphify_tests_test_csharp_type_resolution_targets]] → `calls` → [[graphify_tests_test_csharp_type_resolution_node_by_id]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_type_ref_never_targets_a_file_label]] → `calls` → [[graphify_tests_test_csharp_type_resolution_node_by_id]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_alias_matching_file_stem_resolves_via_token]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_ambiguous_using_does_not_resolve]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_collision_disambiguated_by_using]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_file_inherits_resolves_to_real_def]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_ref_not_misbound]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_file_level_using_applies_across_blocks]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_generic_alias_resolves_to_base_type]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_global_using_and_global_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_nested_type_not_importable_via_using]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_qualified_ref_unknown_qualifier_dangles]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_same_file_cross_namespace_ref_not_misbound]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_alias_resolves_to_aliased_type]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_using_flows_into_nested_block]] → `calls` → [[graphify_tests_test_csharp_type_resolution_targets]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_enum_reference_resolves_to_real_def]] → `calls` → [[graphify_tests_test_csharp_type_resolution_defs]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_cross_namespace_struct_and_record_references_resolve]] → `calls` → [[graphify_tests_test_csharp_type_resolution_defs]]
+- [[graphify_tests_test_csharp_type_resolution_test_csharp_declaration_nodes_carry_enclosing_namespace]] → `calls` → [[graphify_tests_test_csharp_type_resolution_defs]]

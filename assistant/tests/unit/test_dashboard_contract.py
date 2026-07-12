@@ -19,17 +19,25 @@ class TestDashboardContract:
 
         # Mock all sub-resolvers to return minimal valid data
         with (
-            patch("app.api.system._get_services_status", new_callable=AsyncMock) as mock_svc,
-            patch("app.api.system._get_runtime_info", new_callable=AsyncMock) as mock_rt,
+            patch(
+                "app.api.system._get_services_status", new_callable=AsyncMock
+            ) as mock_svc,
+            patch(
+                "app.api.system._get_runtime_info", new_callable=AsyncMock
+            ) as mock_rt,
             patch("app.api.system._get_metrics_data", new_callable=AsyncMock) as mock_m,
             patch("app.api.system._get_costs_data", new_callable=AsyncMock) as mock_c,
             patch("app.api.system._get_dlq_data", new_callable=AsyncMock) as mock_d,
             patch("app.api.system._get_alerts_data", new_callable=AsyncMock) as mock_a,
         ):
             mock_svc.return_value = {"backend": True, "postgres": True, "qdrant": True}
-            mock_rt.return_value = {"activeModel": "qwen3", "latency": 42.0, "cpu": 10.0,
-                                     "ram": {"used": 2.0, "total": 16.0},
-                                     "vram": {"used": None, "total": None}}
+            mock_rt.return_value = {
+                "activeModel": "qwen3",
+                "latency": 42.0,
+                "cpu": 10.0,
+                "ram": {"used": 2.0, "total": 16.0},
+                "vram": {"used": None, "total": None},
+            }
             mock_m.return_value = {"vectorCount": 100, "tokenRate": 25.0}
             mock_c.return_value = {"total_usd": 1.50, "total_tokens": 5000}
             mock_d.return_value = {"failed": [], "count": 0}
@@ -51,9 +59,18 @@ class TestDashboardContract:
         from app.api.system import system_dashboard
 
         with (
-            patch("app.api.system._get_services_status", side_effect=RuntimeError("DB down")),
-            patch("app.api.system._get_runtime_info", side_effect=RuntimeError("CPU error")),
-            patch("app.api.system._get_metrics_data", side_effect=RuntimeError("Qdrant down")),
+            patch(
+                "app.api.system._get_services_status",
+                side_effect=RuntimeError("DB down"),
+            ),
+            patch(
+                "app.api.system._get_runtime_info",
+                side_effect=RuntimeError("CPU error"),
+            ),
+            patch(
+                "app.api.system._get_metrics_data",
+                side_effect=RuntimeError("Qdrant down"),
+            ),
             patch("app.api.system._get_costs_data", new_callable=AsyncMock) as mock_c,
             patch("app.api.system._get_dlq_data", new_callable=AsyncMock) as mock_d,
             patch("app.api.system._get_alerts_data", new_callable=AsyncMock) as mock_a,
@@ -79,17 +96,33 @@ class TestDashboardContract:
         from app.api.system import system_dashboard
 
         with (
-            patch("app.api.system._get_services_status", new_callable=AsyncMock) as mock_svc,
-            patch("app.api.system._get_runtime_info", new_callable=AsyncMock) as mock_rt,
+            patch(
+                "app.api.system._get_services_status", new_callable=AsyncMock
+            ) as mock_svc,
+            patch(
+                "app.api.system._get_runtime_info", new_callable=AsyncMock
+            ) as mock_rt,
             patch("app.api.system._get_metrics_data", new_callable=AsyncMock) as mock_m,
             patch("app.api.system._get_costs_data", new_callable=AsyncMock) as mock_c,
             patch("app.api.system._get_dlq_data", new_callable=AsyncMock) as mock_d,
             patch("app.api.system._get_alerts_data", new_callable=AsyncMock) as mock_a,
         ):
-            mock_svc.return_value = {"backend": True, "postgres": True, "qdrant": True,
-                                      "ollama": True, "n8n": False, "grafana": False, "prometheus": False}
-            mock_rt.return_value = {"activeModel": "test", "latency": 0, "cpu": 0,
-                                     "ram": {"used": 0, "total": 0}, "vram": {"used": None, "total": None}}
+            mock_svc.return_value = {
+                "backend": True,
+                "postgres": True,
+                "qdrant": True,
+                "ollama": True,
+                "n8n": False,
+                "grafana": False,
+                "prometheus": False,
+            }
+            mock_rt.return_value = {
+                "activeModel": "test",
+                "latency": 0,
+                "cpu": 0,
+                "ram": {"used": 0, "total": 0},
+                "vram": {"used": None, "total": None},
+            }
             mock_m.return_value = {"vectorCount": 0, "tokenRate": 0}
             mock_c.return_value = {"total_usd": 0, "total_tokens": 0}
             mock_d.return_value = {"failed": [], "count": 0}
@@ -98,7 +131,15 @@ class TestDashboardContract:
             result = await system_dashboard()
 
         svc = result["services"]
-        expected_keys = ["backend", "postgres", "qdrant", "ollama", "n8n", "grafana", "prometheus"]
+        expected_keys = [
+            "backend",
+            "postgres",
+            "qdrant",
+            "ollama",
+            "n8n",
+            "grafana",
+            "prometheus",
+        ]
         for key in expected_keys:
             assert key in svc, f"Missing key '{key}' in services"
 
@@ -108,8 +149,12 @@ class TestDashboardContract:
         from app.api.system import system_dashboard
 
         with (
-            patch("app.api.system._get_services_status", new_callable=AsyncMock) as mock_svc,
-            patch("app.api.system._get_runtime_info", new_callable=AsyncMock) as mock_rt,
+            patch(
+                "app.api.system._get_services_status", new_callable=AsyncMock
+            ) as mock_svc,
+            patch(
+                "app.api.system._get_runtime_info", new_callable=AsyncMock
+            ) as mock_rt,
             patch("app.api.system._get_metrics_data", new_callable=AsyncMock) as mock_m,
             patch("app.api.system._get_costs_data", new_callable=AsyncMock) as mock_c,
             patch("app.api.system._get_dlq_data", new_callable=AsyncMock) as mock_d,
@@ -118,7 +163,9 @@ class TestDashboardContract:
             mock_svc.return_value = {"backend": True}
             # Simulate CPU Mode: VRAM is null
             mock_rt.return_value = {
-                "activeModel": "test", "latency": 0, "cpu": 5,
+                "activeModel": "test",
+                "latency": 0,
+                "cpu": 5,
                 "ram": {"used": 1.0, "total": 8.0},
                 "vram": {"used": None, "total": None},
             }

@@ -1,0 +1,158 @@
+# assistant\app\core\runtime_path_resolver.py
+
+## Símbolos
+
+- [[assistant_app_core_runtime_path_resolver]] — code: runtime_path_resolver.py
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] — code: RuntimePathResolver
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]] — code: ._get_env()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]] — code: .project_root()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_backend_root]] — code: .backend_root()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_frontend_root]] — code: .frontend_root()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_workspace_path]] — code: .get_workspace_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_vault_path]] — code: .get_vault_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_opencode_path]] — code: .get_opencode_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_logs_path]] — code: .get_logs_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]] — code: .get_config_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_data_path]] — code: .get_data_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updates_temp_dir]] — code: .get_updates_temp_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updater_log_path]] — code: .get_updater_log_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_docs_root]] — code: .docs_root()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve]] — code: .resolve()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve_kirl_dir]] — code: .resolve_kirl_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_registry_dir]] — code: .registry_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_audit_dir]] — code: .audit_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_snapshot_path]] — code: .snapshot_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_auto_dir]] — code: .auto_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_dir]] — code: .architecture_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_history_dir]] — code: .architecture_history_dir()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_issues_path]] — code: .issues_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_suggestions_path]] — code: .suggestions_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_analysis_path]] — code: .analysis_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_knowledge_graph_path]] — code: .knowledge_graph_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_graph_path]] — code: .graph_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_features_index_path]] — code: .features_index_path()
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_commit_map_path]] — code: .commit_map_path()
+- [[assistant_app_core_runtime_path_resolver_rationale_1]] — code: Runtime Path Resolver for K.A.O.S. ===================================== Respo
+- [[assistant_app_core_runtime_path_resolver_rationale_19]] — code: Wrapper de compatibilidade — delega para EnvironmentService.
+- [[assistant_app_core_runtime_path_resolver_rationale_25]] — code: Retorna o EnvironmentInfo cacheado.
+- [[assistant_app_core_runtime_path_resolver_rationale_32]] — code: Return the absolute path to the project root directory.
+- [[assistant_app_core_runtime_path_resolver_rationale_37]] — code: Return the absolute path to the backend directory.
+- [[assistant_app_core_runtime_path_resolver_rationale_43]] — code: Return the absolute path to the desktop directory.
+- [[assistant_app_core_runtime_path_resolver_rationale_51]] — code: Return the absolute path to the workspace directory.
+- [[assistant_app_core_runtime_path_resolver_rationale_56]] — code: Return the absolute path to the Obsidian vault directory.
+- [[assistant_app_core_runtime_path_resolver_rationale_61]] — code: Return the absolute path to the .opencode configuration folder.
+- [[assistant_app_core_runtime_path_resolver_rationale_66]] — code: Return the absolute path to the logs directory, creating it if it doesn't exist.
+- [[assistant_app_core_runtime_path_resolver_rationale_73]] — code: Return the absolute path to the config directory, creating it if it doesn't exis
+- [[assistant_app_core_runtime_path_resolver_rationale_78]] — code: Return the absolute path to the data directory (for configs, db, etc.).
+- [[assistant_app_core_runtime_path_resolver_rationale_85]] — code: Return the absolute path to the temporary directory for auto-updates.
+- [[assistant_app_core_runtime_path_resolver_rationale_92]] — code: Return the absolute path to the updater log file.
+- [[assistant_app_core_runtime_path_resolver_rationale_98]] — code: Return the absolute path to the docs directory.
+- [[assistant_app_core_runtime_path_resolver_rationale_103]] — code: Compatibilidade KIRL — delegado para resolve_kirl_dir().
+- [[assistant_app_core_runtime_path_resolver_rationale_108]] — code: Return the active runtime directory for KIRL.
+
+## Dependências
+
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `uses` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]] → `references` → [[assistant_app_core_environment_service_environmentinfo]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_app_core_runtime_path_resolver]] → `contains` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_app_core_runtime_path_resolver_rationale_1]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver]]
+- [[assistant_app_core_runtime_path_resolver_rationale_19]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_analysis_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_history_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_audit_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_auto_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_backend_root]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_commit_map_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_docs_root]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_features_index_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_frontend_root]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_data_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_logs_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_opencode_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updater_log_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updates_temp_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_vault_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_workspace_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_graph_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_issues_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_knowledge_graph_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_registry_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve_kirl_dir]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_snapshot_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver]] → `method` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_suggestions_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_25]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_analysis_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_history_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_audit_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_auto_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_backend_root]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_commit_map_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_docs_root]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_features_index_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_frontend_root]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_data_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_logs_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_opencode_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_vault_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_workspace_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_graph_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_issues_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_knowledge_graph_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_registry_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve_kirl_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_snapshot_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_suggestions_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_env]]
+- [[assistant_app_core_runtime_path_resolver_rationale_32]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_analysis_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_architecture_history_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_audit_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_auto_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_backend_root]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_commit_map_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_docs_root]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_features_index_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_frontend_root]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_data_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_logs_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_opencode_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updater_log_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updates_temp_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_vault_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_workspace_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_graph_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_issues_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_knowledge_graph_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_registry_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve_kirl_dir]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_snapshot_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_suggestions_path]] → `references` → [[assistant_app_core_runtime_path_resolver_py_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_37]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_backend_root]]
+- [[assistant_app_core_runtime_path_resolver_rationale_43]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_frontend_root]]
+- [[assistant_app_core_runtime_path_resolver_rationale_51]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_workspace_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_56]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_vault_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_61]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_opencode_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_66]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_logs_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updater_log_path]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_logs_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_73]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updates_temp_dir]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_78]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_data_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_85]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updates_temp_dir]]
+- [[assistant_app_core_runtime_path_resolver_rationale_92]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_updater_log_path]]
+- [[assistant_app_core_runtime_path_resolver_rationale_98]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_docs_root]]
+- [[assistant_app_core_runtime_path_resolver_rationale_103]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve]]
+- [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve_kirl_dir]]
+- [[assistant_app_core_runtime_path_resolver_rationale_108]] → `rationale_for` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_resolve_kirl_dir]]

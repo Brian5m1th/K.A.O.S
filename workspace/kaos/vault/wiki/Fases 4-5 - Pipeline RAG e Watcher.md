@@ -1,0 +1,71 @@
+# docs\sdd\Fases 4-5 - Pipeline RAG e Watcher.md
+
+## Símbolos
+
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] — code: Fases 4-5 - Pipeline RAG e Watcher.md
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] — code: Fases 4-5 - Pipeline RAG e Watcher
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_parent]] — code: Parent
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_children]] — code: Children
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_related]] — code: Related
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tags]] — code: Tags
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_conteudo]] — code: Conteudo
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_source_antigravity_ai]] — code: Source: Antigravity AI
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] — code: SDD — Fases 4 e 5: RAG Pipeline + Atualização Automática
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_objetivo]] — code: Objetivo
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_critério_de_sucesso]] — code: Critério de Sucesso
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_status_atual_concluído_fases_4_5_otimizações]] — code: Status Atual: ✅ CONCLUÍDO (Fases 4-5 + Otimizações)
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tarefas_fase_4_rag]] — code: Tarefas — Fase 4 (RAG) ✅
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tarefas_fase_5_atualização_automática]] — code: Tarefas — Fase 5 (Atualização Automática) ✅
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tarefas_otimizações_fase_8]] — code: Tarefas — Otimizações (Fase 8) ✅
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_1_estrutura_de_módulos]] — code: 1. Estrutura de Módulos
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_6_file_watcher_obsidian_watcher_vault_watcher_py]] — code: 6. File Watcher (`obsidian/watcher/vault_watcher.py`)
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_integração_no_main_py]] — code: Integração no `main.py`
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_7_endpoint_de_indexação_manual_api]] — code: 7. Endpoint de Indexação Manual (`api/`)
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_dependências_desta_fase]] — code: Dependências Desta Fase
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_desbloqueia]] — code: Desbloqueia
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_resumo]] — code: Resumo
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_dependencias]] — code: Dependencias
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fluxos]] — code: Fluxos
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_integracoes]] — code: Integracoes
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_gerador_de_embeddings]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_indexador_do_vault]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_monitoramento_do_vault_watcher]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_obsidian_watcher]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_recuperador_semantico]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]] → `references` → [[docs_sdd_roadmap_geral]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_children]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_conteudo]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_parent]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_related]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_source_antigravity_ai]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fases_4_5_pipeline_rag_e_watcher]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tags]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_1_estrutura_de_módulos]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_6_file_watcher_obsidian_watcher_vault_watcher_py]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_7_endpoint_de_indexação_manual_api]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_arquivos_relacionados]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_critério_de_sucesso]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_dependencias]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_dependências_desta_fase]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_desbloqueia]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_fluxos]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_integracoes]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_objetivo]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_referencias_kirl]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_responsabilidades]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_resumo]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_status_atual_concluído_fases_4_5_otimizações]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tarefas_fase_4_rag]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tarefas_fase_5_atualização_automática]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_tarefas_otimizações_fase_8]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_sdd_fases_4_e_5_rag_pipeline_atualização_automática]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_ultima_atualizacao]]
+- [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_6_file_watcher_obsidian_watcher_vault_watcher_py]] → `contains` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher_integração_no_main_py]]

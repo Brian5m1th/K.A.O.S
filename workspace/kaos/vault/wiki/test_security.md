@@ -1,0 +1,185 @@
+# graphify\tests\test_security.py
+
+## Símbolos
+
+- [[graphify_tests_test_security]] — code: test_security.py
+- [[graphify_tests_test_security_test_validate_url_accepts_http]] — code: test_validate_url_accepts_http()
+- [[graphify_tests_test_security_test_validate_url_accepts_https]] — code: test_validate_url_accepts_https()
+- [[graphify_tests_test_security_test_validate_url_rejects_file]] — code: test_validate_url_rejects_file()
+- [[graphify_tests_test_security_test_validate_url_rejects_ftp]] — code: test_validate_url_rejects_ftp()
+- [[graphify_tests_test_security_test_validate_url_rejects_data]] — code: test_validate_url_rejects_data()
+- [[graphify_tests_test_security_test_validate_url_rejects_empty_scheme]] — code: test_validate_url_rejects_empty_scheme()
+- [[graphify_tests_test_security_make_mock_response]] — code: _make_mock_response()
+- [[graphify_tests_test_security_test_safe_fetch_rejects_file_url]] — code: test_safe_fetch_rejects_file_url()
+- [[graphify_tests_test_security_test_safe_fetch_rejects_ftp_url]] — code: test_safe_fetch_rejects_ftp_url()
+- [[graphify_tests_test_security_test_safe_fetch_returns_bytes]] — code: test_safe_fetch_returns_bytes()
+- [[graphify_tests_test_security_test_safe_fetch_raises_on_non_2xx]] — code: test_safe_fetch_raises_on_non_2xx()
+- [[graphify_tests_test_security_test_safe_fetch_raises_on_size_exceeded]] — code: test_safe_fetch_raises_on_size_exceeded()
+- [[graphify_tests_test_security_test_safe_fetch_text_decodes_utf8]] — code: test_safe_fetch_text_decodes_utf8()
+- [[graphify_tests_test_security_test_safe_fetch_text_replaces_bad_bytes]] — code: test_safe_fetch_text_replaces_bad_bytes()
+- [[graphify_tests_test_security_test_validate_graph_path_allows_inside_base]] — code: test_validate_graph_path_allows_inside_base()
+- [[graphify_tests_test_security_test_validate_graph_path_blocks_traversal]] — code: test_validate_graph_path_blocks_traversal()
+- [[graphify_tests_test_security_test_validate_graph_path_requires_base_exists]] — code: test_validate_graph_path_requires_base_exists()
+- [[graphify_tests_test_security_test_validate_graph_path_raises_if_file_missing]] — code: test_validate_graph_path_raises_if_file_missing()
+- [[graphify_tests_test_security_test_validate_graph_path_default_base_discovers_output_dir]] — code: test_validate_graph_path_default_base_discovers_output_dir()
+- [[graphify_tests_test_security_test_validate_graph_path_default_base_honours_graphify_out_override]] — code: test_validate_graph_path_default_base_honours_graphify_out_override()
+- [[graphify_tests_test_security_test_sanitize_label_passthrough_html_chars]] — code: test_sanitize_label_passthrough_html_chars()
+- [[graphify_tests_test_security_test_sanitize_label_strips_control_chars]] — code: test_sanitize_label_strips_control_chars()
+- [[graphify_tests_test_security_test_sanitize_label_caps_at_256]] — code: test_sanitize_label_caps_at_256()
+- [[graphify_tests_test_security_test_sanitize_label_safe_passthrough]] — code: test_sanitize_label_safe_passthrough()
+- [[graphify_tests_test_security_test_sanitize_label_none_returns_empty]] — code: test_sanitize_label_none_returns_empty()
+- [[graphify_tests_test_security_test_graph_size_cap_default_is_512_mib]] — code: test_graph_size_cap_default_is_512_mib()
+- [[graphify_tests_test_security_test_max_graph_bytes_default_when_unset]] — code: test_max_graph_bytes_default_when_unset()
+- [[graphify_tests_test_security_test_max_graph_bytes_default_when_blank]] — code: test_max_graph_bytes_default_when_blank()
+- [[graphify_tests_test_security_test_max_graph_bytes_plain_integer]] — code: test_max_graph_bytes_plain_integer()
+- [[graphify_tests_test_security_test_max_graph_bytes_mb_suffix_is_binary]] — code: test_max_graph_bytes_mb_suffix_is_binary()
+- [[graphify_tests_test_security_test_max_graph_bytes_gb_suffix_is_binary]] — code: test_max_graph_bytes_gb_suffix_is_binary()
+- [[graphify_tests_test_security_test_max_graph_bytes_suffix_is_case_insensitive]] — code: test_max_graph_bytes_suffix_is_case_insensitive()
+- [[graphify_tests_test_security_test_max_graph_bytes_tolerates_space_before_suffix]] — code: test_max_graph_bytes_tolerates_space_before_suffix()
+- [[graphify_tests_test_security_test_max_graph_bytes_unparseable_falls_back]] — code: test_max_graph_bytes_unparseable_falls_back()
+- [[graphify_tests_test_security_test_max_graph_bytes_nonpositive_falls_back]] — code: test_max_graph_bytes_nonpositive_falls_back()
+- [[graphify_tests_test_security_test_graph_size_cap_under_limit_returns_none]] — code: test_graph_size_cap_under_limit_returns_none()
+- [[graphify_tests_test_security_test_graph_size_cap_over_limit_raises]] — code: test_graph_size_cap_over_limit_raises()
+- [[graphify_tests_test_security_test_graph_size_cap_error_message_includes_size_and_cap]] — code: test_graph_size_cap_error_message_includes_size_and_cap()
+- [[graphify_tests_test_security_test_graph_size_cap_at_boundary_passes]] — code: test_graph_size_cap_at_boundary_passes()
+- [[graphify_tests_test_security_test_graph_size_cap_missing_file_silently_returns]] — code: test_graph_size_cap_missing_file_silently_returns()
+- [[graphify_tests_test_security_test_graph_size_cap_unreadable_directory_silently_returns]] — code: test_graph_size_cap_unreadable_directory_silently_returns()
+- [[graphify_tests_test_security_test_sanitize_metadata_string_strips_control_chars]] — code: test_sanitize_metadata_string_strips_control_chars()
+- [[graphify_tests_test_security_test_sanitize_metadata_string_escapes_html]] — code: test_sanitize_metadata_string_escapes_html()
+- [[graphify_tests_test_security_test_sanitize_metadata_string_escapes_quotes]] — code: test_sanitize_metadata_string_escapes_quotes()
+- [[graphify_tests_test_security_test_sanitize_metadata_string_caps_length]] — code: test_sanitize_metadata_string_caps_length()
+- [[graphify_tests_test_security_test_sanitize_metadata_string_coerces_non_string]] — code: test_sanitize_metadata_string_coerces_non_string()
+- [[graphify_tests_test_security_test_sanitize_metadata_value_preserves_simple_types]] — code: test_sanitize_metadata_value_preserves_simple_types()
+- [[graphify_tests_test_security_test_sanitize_metadata_value_recurses_into_dict]] — code: test_sanitize_metadata_value_recurses_into_dict()
+- [[graphify_tests_test_security_test_sanitize_metadata_value_recurses_into_list]] — code: test_sanitize_metadata_value_recurses_into_list()
+- [[graphify_tests_test_security_test_sanitize_metadata_value_caps_list_length]] — code: test_sanitize_metadata_value_caps_list_length()
+- [[graphify_tests_test_security_test_sanitize_metadata_value_converts_tuple_to_list]] — code: test_sanitize_metadata_value_converts_tuple_to_list()
+- [[graphify_tests_test_security_test_sanitize_metadata_none_returns_empty_dict]] — code: test_sanitize_metadata_none_returns_empty_dict()
+- [[graphify_tests_test_security_test_sanitize_metadata_drops_empty_key]] — code: test_sanitize_metadata_drops_empty_key()
+- [[graphify_tests_test_security_test_sanitize_metadata_sanitizes_keys]] — code: test_sanitize_metadata_sanitizes_keys()
+- [[graphify_tests_test_security_test_sanitize_metadata_recursive_nested]] — code: test_sanitize_metadata_recursive_nested()
+- [[graphify_tests_test_security_test_sanitize_metadata_bool_not_coerced_to_int]] — code: test_sanitize_metadata_bool_not_coerced_to_int()
+- [[graphify_tests_test_security_rationale_1]] — code: Tests for graphify/security.py - URL validation, safe fetch, path guards, label
+- [[graphify_tests_test_security_rationale_176]] — code: With base omitted, the output dir is discovered by walking the path's     paren
+- [[graphify_tests_test_security_rationale_185]] — code: The base=None discovery must honour GRAPHIFY_OUT, not the hardcoded     'graphi
+
+## Dependências
+
+- [[graphify_tests_test_security_test_max_graph_bytes_default_when_blank]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_default_when_unset]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_gb_suffix_is_binary]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_mb_suffix_is_binary]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_nonpositive_falls_back]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_plain_integer]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_suffix_is_case_insensitive]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_tolerates_space_before_suffix]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_max_graph_bytes_unparseable_falls_back]] → `calls` → [[graphify_graphify_security_max_graph_file_bytes]]
+- [[graphify_tests_test_security_test_validate_url_accepts_http]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_tests_test_security_test_validate_url_accepts_https]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_tests_test_security_test_validate_url_rejects_data]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_tests_test_security_test_validate_url_rejects_empty_scheme]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_tests_test_security_test_validate_url_rejects_file]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_tests_test_security_test_validate_url_rejects_ftp]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_tests_test_security_test_safe_fetch_raises_on_non_2xx]] → `calls` → [[graphify_graphify_security_safe_fetch]]
+- [[graphify_tests_test_security_test_safe_fetch_raises_on_size_exceeded]] → `calls` → [[graphify_graphify_security_safe_fetch]]
+- [[graphify_tests_test_security_test_safe_fetch_rejects_file_url]] → `calls` → [[graphify_graphify_security_safe_fetch]]
+- [[graphify_tests_test_security_test_safe_fetch_rejects_ftp_url]] → `calls` → [[graphify_graphify_security_safe_fetch]]
+- [[graphify_tests_test_security_test_safe_fetch_returns_bytes]] → `calls` → [[graphify_graphify_security_safe_fetch]]
+- [[graphify_tests_test_security_test_safe_fetch_text_decodes_utf8]] → `calls` → [[graphify_graphify_security_safe_fetch_text]]
+- [[graphify_tests_test_security_test_safe_fetch_text_replaces_bad_bytes]] → `calls` → [[graphify_graphify_security_safe_fetch_text]]
+- [[graphify_tests_test_security_test_validate_graph_path_allows_inside_base]] → `calls` → [[graphify_graphify_security_validate_graph_path]]
+- [[graphify_tests_test_security_test_validate_graph_path_blocks_traversal]] → `calls` → [[graphify_graphify_security_validate_graph_path]]
+- [[graphify_tests_test_security_test_validate_graph_path_default_base_discovers_output_dir]] → `calls` → [[graphify_graphify_security_validate_graph_path]]
+- [[graphify_tests_test_security_test_validate_graph_path_default_base_honours_graphify_out_override]] → `calls` → [[graphify_graphify_security_validate_graph_path]]
+- [[graphify_tests_test_security_test_validate_graph_path_raises_if_file_missing]] → `calls` → [[graphify_graphify_security_validate_graph_path]]
+- [[graphify_tests_test_security_test_validate_graph_path_requires_base_exists]] → `calls` → [[graphify_graphify_security_validate_graph_path]]
+- [[graphify_tests_test_security_test_graph_size_cap_at_boundary_passes]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_tests_test_security_test_graph_size_cap_error_message_includes_size_and_cap]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_tests_test_security_test_graph_size_cap_missing_file_silently_returns]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_tests_test_security_test_graph_size_cap_over_limit_raises]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_tests_test_security_test_graph_size_cap_under_limit_returns_none]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_tests_test_security_test_graph_size_cap_unreadable_directory_silently_returns]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_tests_test_security_test_sanitize_label_caps_at_256]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_tests_test_security_test_sanitize_label_none_returns_empty]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_tests_test_security_test_sanitize_label_passthrough_html_chars]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_tests_test_security_test_sanitize_label_safe_passthrough]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_tests_test_security_test_sanitize_label_strips_control_chars]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_tests_test_security_test_sanitize_metadata_string_caps_length]] → `calls` → [[graphify_graphify_security_sanitize_metadata_string]]
+- [[graphify_tests_test_security_test_sanitize_metadata_string_coerces_non_string]] → `calls` → [[graphify_graphify_security_sanitize_metadata_string]]
+- [[graphify_tests_test_security_test_sanitize_metadata_string_escapes_html]] → `calls` → [[graphify_graphify_security_sanitize_metadata_string]]
+- [[graphify_tests_test_security_test_sanitize_metadata_string_escapes_quotes]] → `calls` → [[graphify_graphify_security_sanitize_metadata_string]]
+- [[graphify_tests_test_security_test_sanitize_metadata_string_strips_control_chars]] → `calls` → [[graphify_graphify_security_sanitize_metadata_string]]
+- [[graphify_tests_test_security_test_sanitize_metadata_value_caps_list_length]] → `calls` → [[graphify_graphify_security_sanitize_metadata_value]]
+- [[graphify_tests_test_security_test_sanitize_metadata_value_converts_tuple_to_list]] → `calls` → [[graphify_graphify_security_sanitize_metadata_value]]
+- [[graphify_tests_test_security_test_sanitize_metadata_value_preserves_simple_types]] → `calls` → [[graphify_graphify_security_sanitize_metadata_value]]
+- [[graphify_tests_test_security_test_sanitize_metadata_value_recurses_into_dict]] → `calls` → [[graphify_graphify_security_sanitize_metadata_value]]
+- [[graphify_tests_test_security_test_sanitize_metadata_value_recurses_into_list]] → `calls` → [[graphify_graphify_security_sanitize_metadata_value]]
+- [[graphify_tests_test_security_test_sanitize_metadata_bool_not_coerced_to_int]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_tests_test_security_test_sanitize_metadata_drops_empty_key]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_tests_test_security_test_sanitize_metadata_none_returns_empty_dict]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_tests_test_security_test_sanitize_metadata_recursive_nested]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_tests_test_security_test_sanitize_metadata_sanitizes_keys]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_tests_test_security]] → `imports_from` → [[graphify_security]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_make_mock_response]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_at_boundary_passes]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_default_is_512_mib]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_error_message_includes_size_and_cap]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_missing_file_silently_returns]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_over_limit_raises]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_under_limit_returns_none]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_graph_size_cap_unreadable_directory_silently_returns]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_default_when_blank]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_default_when_unset]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_gb_suffix_is_binary]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_mb_suffix_is_binary]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_nonpositive_falls_back]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_plain_integer]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_suffix_is_case_insensitive]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_tolerates_space_before_suffix]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_max_graph_bytes_unparseable_falls_back]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_raises_on_non_2xx]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_raises_on_size_exceeded]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_rejects_file_url]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_rejects_ftp_url]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_returns_bytes]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_text_decodes_utf8]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_safe_fetch_text_replaces_bad_bytes]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_label_caps_at_256]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_label_none_returns_empty]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_label_passthrough_html_chars]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_label_safe_passthrough]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_label_strips_control_chars]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_bool_not_coerced_to_int]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_drops_empty_key]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_none_returns_empty_dict]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_recursive_nested]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_sanitizes_keys]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_string_caps_length]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_string_coerces_non_string]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_string_escapes_html]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_string_escapes_quotes]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_string_strips_control_chars]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_value_caps_list_length]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_value_converts_tuple_to_list]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_value_preserves_simple_types]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_value_recurses_into_dict]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_sanitize_metadata_value_recurses_into_list]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_graph_path_allows_inside_base]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_graph_path_blocks_traversal]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_graph_path_default_base_discovers_output_dir]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_graph_path_default_base_honours_graphify_out_override]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_graph_path_raises_if_file_missing]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_graph_path_requires_base_exists]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_url_accepts_http]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_url_accepts_https]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_url_rejects_data]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_url_rejects_empty_scheme]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_url_rejects_file]]
+- [[graphify_tests_test_security]] → `contains` → [[graphify_tests_test_security_test_validate_url_rejects_ftp]]
+- [[graphify_tests_test_security_rationale_1]] → `rationale_for` → [[graphify_tests_test_security]]
+- [[graphify_tests_test_security_test_safe_fetch_raises_on_non_2xx]] → `calls` → [[graphify_tests_test_security_make_mock_response]]
+- [[graphify_tests_test_security_test_safe_fetch_returns_bytes]] → `calls` → [[graphify_tests_test_security_make_mock_response]]
+- [[graphify_tests_test_security_test_safe_fetch_text_decodes_utf8]] → `calls` → [[graphify_tests_test_security_make_mock_response]]
+- [[graphify_tests_test_security_test_safe_fetch_text_replaces_bad_bytes]] → `calls` → [[graphify_tests_test_security_make_mock_response]]
+- [[graphify_tests_test_security_rationale_176]] → `rationale_for` → [[graphify_tests_test_security_test_validate_graph_path_default_base_discovers_output_dir]]
+- [[graphify_tests_test_security_rationale_185]] → `rationale_for` → [[graphify_tests_test_security_test_validate_graph_path_default_base_honours_graphify_out_override]]

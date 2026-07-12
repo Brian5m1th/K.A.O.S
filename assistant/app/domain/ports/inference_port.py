@@ -18,6 +18,7 @@ from typing import Optional, AsyncIterator
 @dataclass
 class InferenceRequest:
     """Unified inference request."""
+
     messages: list[dict]  # [{"role": "user", "content": "..."}]
     provider: str = "ollama"  # Provider key in registry
     model: Optional[str] = None  # Override default model
@@ -29,6 +30,7 @@ class InferenceRequest:
 @dataclass
 class InferenceResult:
     """Unified inference result."""
+
     content: str
     provider: str = ""
     model: str = ""
@@ -51,8 +53,7 @@ class InferencePort(ABC):
 
     @property
     @abstractmethod
-    def provider_name(self) -> str:
-        ...
+    def provider_name(self) -> str: ...
 
     @abstractmethod
     async def invoke(self, request: InferenceRequest) -> InferenceResult:

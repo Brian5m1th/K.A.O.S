@@ -1,0 +1,413 @@
+# graphify\graphify\callflow_html.py
+
+## Símbolos
+
+- [[graphify_graphify_callflow_html]] — code: callflow_html.py
+- [[graphify_graphify_callflow_html_read_json]] — code: read_json()
+- [[graphify_graphify_callflow_html_first_present]] — code: first_present()
+- [[graphify_graphify_callflow_html_first_list]] — code: first_list()
+- [[graphify_graphify_callflow_html_to_float]] — code: to_float()
+- [[graphify_graphify_callflow_html_endpoint_id]] — code: endpoint_id()
+- [[graphify_graphify_callflow_html_normalize_node]] — code: normalize_node()
+- [[graphify_graphify_callflow_html_normalize_edge]] — code: normalize_edge()
+- [[graphify_graphify_callflow_html_node_link_payload]] — code: _node_link_payload()
+- [[graphify_graphify_callflow_html_load_graph]] — code: load_graph()
+- [[graphify_graphify_callflow_html_load_labels]] — code: load_labels()
+- [[graphify_graphify_callflow_html_load_sections]] — code: load_sections()
+- [[graphify_graphify_callflow_html_load_report]] — code: load_report()
+- [[graphify_graphify_callflow_html_safe_mermaid_text]] — code: safe_mermaid_text()
+- [[graphify_graphify_callflow_html_html_comment_text]] — code: html_comment_text()
+- [[graphify_graphify_callflow_html_stable_ascii_id]] — code: stable_ascii_id()
+- [[graphify_graphify_callflow_html_node_mermaid_id]] — code: node_mermaid_id()
+- [[graphify_graphify_callflow_html_mermaid_section_id]] — code: mermaid_section_id()
+- [[graphify_graphify_callflow_html_safe_file_path]] — code: safe_file_path()
+- [[graphify_graphify_callflow_html_safe_filename]] — code: safe_filename()
+- [[graphify_graphify_callflow_html_infer_project_name]] — code: infer_project_name()
+- [[graphify_graphify_callflow_html_resolve_graphify_paths]] — code: resolve_graphify_paths()
+- [[graphify_graphify_callflow_html_is_zh]] — code: is_zh()
+- [[graphify_graphify_callflow_html_pick_text]] — code: pick_text()
+- [[graphify_graphify_callflow_html_detect_lang]] — code: detect_lang()
+- [[graphify_graphify_callflow_html_truncate_text]] — code: truncate_text()
+- [[graphify_graphify_callflow_html_humanize_label]] — code: humanize_label()
+- [[graphify_graphify_callflow_html_node_kind]] — code: node_kind()
+- [[graphify_graphify_callflow_html_relation_label]] — code: relation_label()
+- [[graphify_graphify_callflow_html_preferred_edges]] — code: preferred_edges()
+- [[graphify_graphify_callflow_html_edge_score]] — code: edge_score()
+- [[graphify_graphify_callflow_html_mermaid_init]] — code: mermaid_init()
+- [[graphify_graphify_callflow_html_mermaid_class_defs]] — code: mermaid_class_defs()
+- [[graphify_graphify_callflow_html_build_community_index]] — code: build_community_index()
+- [[graphify_graphify_callflow_html_html_anchor_id]] — code: html_anchor_id()
+- [[graphify_graphify_callflow_html_normalize_communities]] — code: normalize_communities()
+- [[graphify_graphify_callflow_html_normalize_sections]] — code: normalize_sections()
+- [[graphify_graphify_callflow_html_label_for_community]] — code: label_for_community()
+- [[graphify_graphify_callflow_html_community_text]] — code: _community_text()
+- [[graphify_graphify_callflow_html_keyword_score]] — code: _keyword_score()
+- [[graphify_graphify_callflow_html_rank_grouped_sections]] — code: _rank_grouped_sections()
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] — code: derive_sections_from_communities()
+- [[graphify_graphify_callflow_html_build_section_node_map]] — code: build_section_node_map()
+- [[graphify_graphify_callflow_html_node_in_section]] — code: node_in_section()
+- [[graphify_graphify_callflow_html_classify_edges]] — code: classify_edges()
+- [[graphify_graphify_callflow_html_should_include_edge]] — code: should_include_edge()
+- [[graphify_graphify_callflow_html_node_degree_scores]] — code: node_degree_scores()
+- [[graphify_graphify_callflow_html_node_importance]] — code: node_importance()
+- [[graphify_graphify_callflow_html_select_diagram_nodes]] — code: select_diagram_nodes()
+- [[graphify_graphify_callflow_html_node_label]] — code: node_label()
+- [[graphify_graphify_callflow_html_group_nodes_by_file]] — code: group_nodes_by_file()
+- [[graphify_graphify_callflow_html_section_edge_summary]] — code: section_edge_summary()
+- [[graphify_graphify_callflow_html_generate_overview_graph]] — code: generate_overview_graph()
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] — code: generate_section_flowchart()
+- [[graphify_graphify_callflow_html_generate_nav]] — code: generate_nav()
+- [[graphify_graphify_callflow_html_node_display_name]] — code: node_display_name()
+- [[graphify_graphify_callflow_html_format_node_refs]] — code: format_node_refs()
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] — code: generate_call_table_rows()
+- [[graphify_graphify_callflow_html_suggest_tag]] — code: _suggest_tag()
+- [[graphify_graphify_callflow_html_describe_node]] — code: _describe_node()
+- [[graphify_graphify_callflow_html_generate_header]] — code: generate_header()
+- [[graphify_graphify_callflow_html_derive_flow_chain]] — code: derive_flow_chain()
+- [[graphify_graphify_callflow_html_generate_overview_cards]] — code: generate_overview_cards()
+- [[graphify_graphify_callflow_html_section_keywords]] — code: section_keywords()
+- [[graphify_graphify_callflow_html_generate_section_intro]] — code: generate_section_intro()
+- [[graphify_graphify_callflow_html_generate_section_cards]] — code: generate_section_cards()
+- [[graphify_graphify_callflow_html_callflowoptions]] — code: CallflowOptions
+- [[graphify_graphify_callflow_html_callflowoptions_init]] — code: .__init__()
+- [[graphify_graphify_callflow_html_report_highlights]] — code: _report_highlights()
+- [[graphify_graphify_callflow_html_write_callflow_html]] — code: write_callflow_html()
+- [[graphify_graphify_callflow_html_main]] — code: main()
+- [[graphify_graphify_callflow_html_rationale_95]] — code: Read JSON with a useful error message.
+- [[graphify_graphify_callflow_html_rationale_108]] — code: Return the first non-empty value for any candidate key.
+- [[graphify_graphify_callflow_html_rationale_116]] — code: Return the first list from a set of possible schema locations.
+- [[graphify_graphify_callflow_html_rationale_124]] — code: Convert graph numeric fields that may be serialized as strings.
+- [[graphify_graphify_callflow_html_rationale_132]] — code: Normalize edge endpoints that may be strings or node-like objects.
+- [[graphify_graphify_callflow_html_rationale_139]] — code: Normalize a graphify node across common graph.json schema variants.
+- [[graphify_graphify_callflow_html_rationale_202]] — code: Normalize graphify edges while preserving original fields.
+- [[graphify_graphify_callflow_html_rationale_223]] — code: Read current graphify graph.json via NetworkX's node-link parser.
+- [[graphify_graphify_callflow_html_rationale_256]] — code: Load graph.json. Returns normalized (nodes, edges, hyperedges, metadata).
+- [[graphify_graphify_callflow_html_rationale_299]] — code: Load community labels from .graphify_labels.json, tolerating wrapper keys.
+- [[graphify_graphify_callflow_html_rationale_316]] — code: Load section definitions from JSON file.
+- [[graphify_graphify_callflow_html_rationale_326]] — code: Load GRAPH_REPORT.md if it exists.
+- [[graphify_graphify_callflow_html_rationale_337]] — code: Sanitize text for use inside a Mermaid node label.      Replaces characters th
+- [[graphify_graphify_callflow_html_rationale_359]] — code: Keep generated HTML comments well-formed.
+- [[graphify_graphify_callflow_html_rationale_364]] — code: Build a Mermaid-safe ASCII identifier with a hash suffix to avoid collisions.
+- [[graphify_graphify_callflow_html_rationale_377]] — code: Generate a safe Mermaid node ID from a graph node.      Mermaid IDs must match
+- [[graphify_graphify_callflow_html_rationale_385]] — code: Convert a section ID (like 'cli-entry') to a safe Mermaid ID (like 'CLI_ENTRY').
+- [[graphify_graphify_callflow_html_rationale_390]] — code: Return a short, safe display path.
+- [[graphify_graphify_callflow_html_rationale_399]] — code: Create a conservative filename stem from a project name.
+- [[graphify_graphify_callflow_html_rationale_405]] — code: Infer a display project name when graph metadata does not include one.
+- [[graphify_graphify_callflow_html_rationale_415]] — code: Resolve project root, graphify output dir, and optional files.
+- [[graphify_graphify_callflow_html_rationale_442]] — code: Return true when localized strings should be Chinese.
+- [[graphify_graphify_callflow_html_rationale_447]] — code: Small localization helper for generated copy.
+- [[graphify_graphify_callflow_html_rationale_452]] — code: Resolve auto language from labels and node names.
+- [[graphify_graphify_callflow_html_rationale_464]] — code: Truncate without splitting Mermaid syntax.
+- [[graphify_graphify_callflow_html_rationale_472]] — code: Convert graph labels into short labels people can scan in a diagram.
+- [[graphify_graphify_callflow_html_rationale_488]] — code: Classify a graph node for Mermaid styling and table tags.
+- [[graphify_graphify_callflow_html_rationale_526]] — code: Map graph edge relation names to short diagram labels.
+- [[graphify_graphify_callflow_html_rationale_557]] — code: Filter to edges that make a readable call-flow diagram.
+- [[graphify_graphify_callflow_html_rationale_573]] — code: Rank edges by confidence and usefulness for diagrams.
+- [[graphify_graphify_callflow_html_rationale_590]] — code: Return a Mermaid init directive that scales diagrams using Mermaid config.
+- [[graphify_graphify_callflow_html_rationale_619]] — code: Shared Mermaid-native styles for readable diagrams.
+- [[graphify_graphify_callflow_html_rationale_638]] — code: Map community_id (str) -> list of nodes.
+- [[graphify_graphify_callflow_html_rationale_647]] — code: Generate a stable, unique HTML anchor ID.
+- [[graphify_graphify_callflow_html_rationale_667]] — code: Normalize section community lists from JSON or simple strings.
+- [[graphify_graphify_callflow_html_rationale_678]] — code: Ensure sections have safe unique IDs and an overview section first.
+- [[graphify_graphify_callflow_html_rationale_702]] — code: Choose a readable section name for a community.
+- [[graphify_graphify_callflow_html_rationale_817]] — code: Return selected grouped sections and overflow communities.
+- [[graphify_graphify_callflow_html_rationale_832]] — code: Derive architecture-oriented sections when no sections JSON is supplied.
+- [[graphify_graphify_callflow_html_rationale_887]] — code: Map section_id -> list of nodes belonging to its communities.
+- [[graphify_graphify_callflow_html_rationale_902]] — code: Check if a node belongs to a section.
+- [[graphify_graphify_callflow_html_rationale_911]] — code: Classify edges as intra-section or inter-section.      Returns:         {
+- [[graphify_graphify_callflow_html_rationale_947]] — code: Decide whether to auto-include an edge in Mermaid output.
+- [[graphify_graphify_callflow_html_rationale_964]] — code: Score nodes by useful edge participation.
+- [[graphify_graphify_callflow_html_rationale_974]] — code: Use graphify centrality fields when available.
+- [[graphify_graphify_callflow_html_rationale_982]] — code: Select a compact, connected subset of nodes for readable diagrams.
+- [[graphify_graphify_callflow_html_rationale_1041]] — code: Build a readable Mermaid node label.
+- [[graphify_graphify_callflow_html_rationale_1050]] — code: Group selected nodes by source file for Mermaid subgraphs.
+- [[graphify_graphify_callflow_html_rationale_1059]] — code: Aggregate inter-section edge counts and relation names.
+- [[graphify_graphify_callflow_html_rationale_1078]] — code: Generate a readable section-level architecture overview.
+- [[graphify_graphify_callflow_html_rationale_1114]] — code: Generate a compact, human-readable call-flow chart for a section.
+- [[graphify_graphify_callflow_html_rationale_1176]] — code: Generate the sticky navigation bar.
+- [[graphify_graphify_callflow_html_rationale_1184]] — code: Readable node label for tables and summaries.
+- [[graphify_graphify_callflow_html_rationale_1192]] — code: Render node references as readable labels instead of internal IDs.
+- [[graphify_graphify_callflow_html_rationale_1210]] — code: Generate call table row scaffolding for a section's nodes.
+- [[graphify_graphify_callflow_html_rationale_1261]] — code: Heuristic tag suggestion based on label name and file type.
+- [[graphify_graphify_callflow_html_rationale_1296]] — code: Generate a compact human-readable description for a graph node.
+- [[graphify_graphify_callflow_html_rationale_1331]] — code: Generate the HTML header, title, subtitle, and nav.
+- [[graphify_graphify_callflow_html_rationale_1358]] — code: Derive a readable section flow from inter-section edges.
+- [[graphify_graphify_callflow_html_rationale_1392]] — code: Generate generic overview cards.
+- [[graphify_graphify_callflow_html_rationale_1423]] — code: Pick representative words from labels and file names.
+- [[graphify_graphify_callflow_html_rationale_1441]] — code: Generate the section introductory paragraph.
+- [[graphify_graphify_callflow_html_rationale_1465]] — code: Generate key file and design-note cards for a section.
+- [[graphify_graphify_callflow_html_rationale_1512]] — code: Options for call-flow architecture HTML generation.
+- [[graphify_graphify_callflow_html_rationale_1545]] — code: Extract a compact highlights card from GRAPH_REPORT.md.
+- [[graphify_graphify_callflow_html_rationale_1595]] — code: Generate call-flow architecture HTML from graphify output files.
+
+## Dependências
+
+- [[graphify_graphify_callflow_html_select_diagram_nodes]] → `calls` → [[assistant_app_providers_graph_networkx_fallback_networkxfallback_add_node]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_build_community_index]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_build_section_node_map]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_callflowoptions]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_classify_edges]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_community_text]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_derive_flow_chain]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_derive_sections_from_communities]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_describe_node]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_detect_lang]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_edge_score]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_endpoint_id]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_first_list]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_first_present]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_format_node_refs]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_call_table_rows]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_header]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_nav]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_overview_cards]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_overview_graph]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_section_cards]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_section_flowchart]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_generate_section_intro]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_group_nodes_by_file]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_html_anchor_id]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_html_comment_text]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_humanize_label]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_infer_project_name]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_is_zh]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_keyword_score]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_label_for_community]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_load_graph]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_load_labels]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_load_report]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_load_sections]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_main]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_mermaid_class_defs]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_mermaid_init]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_mermaid_section_id]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_degree_scores]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_display_name]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_importance]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_in_section]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_kind]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_label]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_link_payload]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_node_mermaid_id]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_normalize_communities]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_normalize_edge]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_normalize_node]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_normalize_sections]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_preferred_edges]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_rank_grouped_sections]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_read_json]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_relation_label]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_report_highlights]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_resolve_graphify_paths]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_safe_filename]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_safe_mermaid_text]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_section_edge_summary]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_section_keywords]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_select_diagram_nodes]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_should_include_edge]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_stable_ascii_id]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_suggest_tag]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_to_float]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_truncate_text]]
+- [[graphify_graphify_callflow_html]] → `contains` → [[graphify_graphify_callflow_html_write_callflow_html]]
+- [[graphify_graphify_callflow_html]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_callflow_html]] → `imports_from` → [[graphify_graphify_exporters_html]]
+- [[graphify_graphify_callflow_html_load_graph]] → `calls` → [[graphify_graphify_callflow_html_read_json]]
+- [[graphify_graphify_callflow_html_load_labels]] → `calls` → [[graphify_graphify_callflow_html_read_json]]
+- [[graphify_graphify_callflow_html_load_sections]] → `calls` → [[graphify_graphify_callflow_html_read_json]]
+- [[graphify_graphify_callflow_html_rationale_95]] → `rationale_for` → [[graphify_graphify_callflow_html_read_json]]
+- [[graphify_graphify_callflow_html_read_json]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_callflowoptions_init]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_humanize_label]] → `calls` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_infer_project_name]] → `calls` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_load_graph]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_load_labels]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_load_report]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_load_sections]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_node_label]] → `calls` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_normalize_node]] → `calls` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_resolve_graphify_paths]] → `calls` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `references` → [[graphify_graphify_callflow_html_py_path]]
+- [[graphify_graphify_callflow_html_endpoint_id]] → `calls` → [[graphify_graphify_callflow_html_first_present]]
+- [[graphify_graphify_callflow_html_load_labels]] → `calls` → [[graphify_graphify_callflow_html_first_present]]
+- [[graphify_graphify_callflow_html_normalize_edge]] → `calls` → [[graphify_graphify_callflow_html_first_present]]
+- [[graphify_graphify_callflow_html_normalize_node]] → `calls` → [[graphify_graphify_callflow_html_first_present]]
+- [[graphify_graphify_callflow_html_rationale_108]] → `rationale_for` → [[graphify_graphify_callflow_html_first_present]]
+- [[graphify_graphify_callflow_html_load_graph]] → `calls` → [[graphify_graphify_callflow_html_first_list]]
+- [[graphify_graphify_callflow_html_rationale_116]] → `rationale_for` → [[graphify_graphify_callflow_html_first_list]]
+- [[graphify_graphify_callflow_html_edge_score]] → `calls` → [[graphify_graphify_callflow_html_to_float]]
+- [[graphify_graphify_callflow_html_node_importance]] → `calls` → [[graphify_graphify_callflow_html_to_float]]
+- [[graphify_graphify_callflow_html_normalize_edge]] → `calls` → [[graphify_graphify_callflow_html_to_float]]
+- [[graphify_graphify_callflow_html_rationale_124]] → `rationale_for` → [[graphify_graphify_callflow_html_to_float]]
+- [[graphify_graphify_callflow_html_should_include_edge]] → `calls` → [[graphify_graphify_callflow_html_to_float]]
+- [[graphify_graphify_callflow_html_normalize_edge]] → `calls` → [[graphify_graphify_callflow_html_endpoint_id]]
+- [[graphify_graphify_callflow_html_rationale_132]] → `rationale_for` → [[graphify_graphify_callflow_html_endpoint_id]]
+- [[graphify_graphify_callflow_html_load_graph]] → `calls` → [[graphify_graphify_callflow_html_normalize_node]]
+- [[graphify_graphify_callflow_html_rationale_139]] → `rationale_for` → [[graphify_graphify_callflow_html_normalize_node]]
+- [[graphify_graphify_callflow_html_load_graph]] → `calls` → [[graphify_graphify_callflow_html_normalize_edge]]
+- [[graphify_graphify_callflow_html_rationale_202]] → `rationale_for` → [[graphify_graphify_callflow_html_normalize_edge]]
+- [[graphify_graphify_callflow_html_load_graph]] → `calls` → [[graphify_graphify_callflow_html_node_link_payload]]
+- [[graphify_graphify_callflow_html_rationale_223]] → `rationale_for` → [[graphify_graphify_callflow_html_node_link_payload]]
+- [[graphify_graphify_callflow_html_load_graph]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_callflow_html_rationale_256]] → `rationale_for` → [[graphify_graphify_callflow_html_load_graph]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_load_graph]]
+- [[graphify_graphify_callflow_html_rationale_299]] → `rationale_for` → [[graphify_graphify_callflow_html_load_labels]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_load_labels]]
+- [[graphify_graphify_callflow_html_rationale_316]] → `rationale_for` → [[graphify_graphify_callflow_html_load_sections]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_load_sections]]
+- [[graphify_graphify_callflow_html_rationale_326]] → `rationale_for` → [[graphify_graphify_callflow_html_load_report]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_load_report]]
+- [[graphify_graphify_callflow_html_generate_overview_graph]] → `calls` → [[graphify_graphify_callflow_html_safe_mermaid_text]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_safe_mermaid_text]]
+- [[graphify_graphify_callflow_html_node_label]] → `calls` → [[graphify_graphify_callflow_html_safe_mermaid_text]]
+- [[graphify_graphify_callflow_html_rationale_337]] → `rationale_for` → [[graphify_graphify_callflow_html_safe_mermaid_text]]
+- [[graphify_graphify_callflow_html_relation_label]] → `calls` → [[graphify_graphify_callflow_html_safe_mermaid_text]]
+- [[graphify_graphify_callflow_html_rationale_359]] → `rationale_for` → [[graphify_graphify_callflow_html_html_comment_text]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_html_comment_text]]
+- [[graphify_graphify_callflow_html_mermaid_section_id]] → `calls` → [[graphify_graphify_callflow_html_stable_ascii_id]]
+- [[graphify_graphify_callflow_html_node_mermaid_id]] → `calls` → [[graphify_graphify_callflow_html_stable_ascii_id]]
+- [[graphify_graphify_callflow_html_rationale_364]] → `rationale_for` → [[graphify_graphify_callflow_html_stable_ascii_id]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_node_mermaid_id]]
+- [[graphify_graphify_callflow_html_rationale_377]] → `rationale_for` → [[graphify_graphify_callflow_html_node_mermaid_id]]
+- [[graphify_graphify_callflow_html_generate_overview_graph]] → `calls` → [[graphify_graphify_callflow_html_mermaid_section_id]]
+- [[graphify_graphify_callflow_html_rationale_385]] → `rationale_for` → [[graphify_graphify_callflow_html_mermaid_section_id]]
+- [[graphify_graphify_callflow_html_format_node_refs]] → `calls` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] → `calls` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_generate_section_cards]] → `calls` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_generate_section_intro]] → `calls` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_group_nodes_by_file]] → `calls` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_node_label]] → `calls` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_rationale_390]] → `rationale_for` → [[graphify_graphify_callflow_html_safe_file_path]]
+- [[graphify_graphify_callflow_html_rationale_399]] → `rationale_for` → [[graphify_graphify_callflow_html_safe_filename]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_safe_filename]]
+- [[graphify_graphify_callflow_html_rationale_405]] → `rationale_for` → [[graphify_graphify_callflow_html_infer_project_name]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_infer_project_name]]
+- [[graphify_graphify_callflow_html_rationale_415]] → `rationale_for` → [[graphify_graphify_callflow_html_resolve_graphify_paths]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_resolve_graphify_paths]]
+- [[graphify_graphify_callflow_html_generate_section_intro]] → `calls` → [[graphify_graphify_callflow_html_is_zh]]
+- [[graphify_graphify_callflow_html_pick_text]] → `calls` → [[graphify_graphify_callflow_html_is_zh]]
+- [[graphify_graphify_callflow_html_rationale_442]] → `rationale_for` → [[graphify_graphify_callflow_html_is_zh]]
+- [[graphify_graphify_callflow_html_relation_label]] → `calls` → [[graphify_graphify_callflow_html_is_zh]]
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_describe_node]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_format_node_refs]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_generate_overview_cards]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_generate_section_cards]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_label_for_community]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_normalize_sections]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_rationale_447]] → `rationale_for` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_report_highlights]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_suggest_tag]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_pick_text]]
+- [[graphify_graphify_callflow_html_rationale_452]] → `rationale_for` → [[graphify_graphify_callflow_html_detect_lang]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_detect_lang]]
+- [[graphify_graphify_callflow_html_humanize_label]] → `calls` → [[graphify_graphify_callflow_html_truncate_text]]
+- [[graphify_graphify_callflow_html_rationale_464]] → `rationale_for` → [[graphify_graphify_callflow_html_truncate_text]]
+- [[graphify_graphify_callflow_html_node_display_name]] → `calls` → [[graphify_graphify_callflow_html_humanize_label]]
+- [[graphify_graphify_callflow_html_node_label]] → `calls` → [[graphify_graphify_callflow_html_humanize_label]]
+- [[graphify_graphify_callflow_html_rationale_472]] → `rationale_for` → [[graphify_graphify_callflow_html_humanize_label]]
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] → `calls` → [[graphify_graphify_callflow_html_node_kind]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_node_kind]]
+- [[graphify_graphify_callflow_html_rationale_488]] → `rationale_for` → [[graphify_graphify_callflow_html_node_kind]]
+- [[graphify_graphify_callflow_html_generate_overview_graph]] → `calls` → [[graphify_graphify_callflow_html_relation_label]]
+- [[graphify_graphify_callflow_html_generate_section_cards]] → `calls` → [[graphify_graphify_callflow_html_relation_label]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_relation_label]]
+- [[graphify_graphify_callflow_html_rationale_526]] → `rationale_for` → [[graphify_graphify_callflow_html_relation_label]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_preferred_edges]]
+- [[graphify_graphify_callflow_html_preferred_edges]] → `calls` → [[graphify_graphify_callflow_html_should_include_edge]]
+- [[graphify_graphify_callflow_html_rationale_557]] → `rationale_for` → [[graphify_graphify_callflow_html_preferred_edges]]
+- [[graphify_graphify_callflow_html_select_diagram_nodes]] → `calls` → [[graphify_graphify_callflow_html_preferred_edges]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `indirect_call` → [[graphify_graphify_callflow_html_edge_score]]
+- [[graphify_graphify_callflow_html_node_degree_scores]] → `calls` → [[graphify_graphify_callflow_html_edge_score]]
+- [[graphify_graphify_callflow_html_rationale_573]] → `rationale_for` → [[graphify_graphify_callflow_html_edge_score]]
+- [[graphify_graphify_callflow_html_select_diagram_nodes]] → `indirect_call` → [[graphify_graphify_callflow_html_edge_score]]
+- [[graphify_graphify_callflow_html_generate_overview_graph]] → `calls` → [[graphify_graphify_callflow_html_mermaid_init]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_mermaid_init]]
+- [[graphify_graphify_callflow_html_rationale_590]] → `rationale_for` → [[graphify_graphify_callflow_html_mermaid_init]]
+- [[graphify_graphify_callflow_html_generate_overview_graph]] → `calls` → [[graphify_graphify_callflow_html_mermaid_class_defs]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_mermaid_class_defs]]
+- [[graphify_graphify_callflow_html_rationale_619]] → `rationale_for` → [[graphify_graphify_callflow_html_mermaid_class_defs]]
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] → `calls` → [[graphify_graphify_callflow_html_build_community_index]]
+- [[graphify_graphify_callflow_html_rationale_638]] → `rationale_for` → [[graphify_graphify_callflow_html_build_community_index]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_build_community_index]]
+- [[graphify_graphify_callflow_html_normalize_sections]] → `calls` → [[graphify_graphify_callflow_html_html_anchor_id]]
+- [[graphify_graphify_callflow_html_rationale_647]] → `rationale_for` → [[graphify_graphify_callflow_html_html_anchor_id]]
+- [[graphify_graphify_callflow_html_normalize_sections]] → `calls` → [[graphify_graphify_callflow_html_normalize_communities]]
+- [[graphify_graphify_callflow_html_rationale_667]] → `rationale_for` → [[graphify_graphify_callflow_html_normalize_communities]]
+- [[graphify_graphify_callflow_html_rationale_678]] → `rationale_for` → [[graphify_graphify_callflow_html_normalize_sections]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_normalize_sections]]
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] → `calls` → [[graphify_graphify_callflow_html_label_for_community]]
+- [[graphify_graphify_callflow_html_label_for_community]] → `calls` → [[graphify_graphify_callflow_html_section_keywords]]
+- [[graphify_graphify_callflow_html_rationale_702]] → `rationale_for` → [[graphify_graphify_callflow_html_label_for_community]]
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] → `calls` → [[graphify_graphify_callflow_html_community_text]]
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] → `calls` → [[graphify_graphify_callflow_html_keyword_score]]
+- [[graphify_graphify_callflow_html_derive_sections_from_communities]] → `calls` → [[graphify_graphify_callflow_html_rank_grouped_sections]]
+- [[graphify_graphify_callflow_html_rationale_817]] → `rationale_for` → [[graphify_graphify_callflow_html_rank_grouped_sections]]
+- [[graphify_graphify_callflow_html_rationale_832]] → `rationale_for` → [[graphify_graphify_callflow_html_derive_sections_from_communities]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_derive_sections_from_communities]]
+- [[graphify_graphify_callflow_html_rationale_887]] → `rationale_for` → [[graphify_graphify_callflow_html_build_section_node_map]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_build_section_node_map]]
+- [[graphify_graphify_callflow_html_rationale_902]] → `rationale_for` → [[graphify_graphify_callflow_html_node_in_section]]
+- [[graphify_graphify_callflow_html_rationale_911]] → `rationale_for` → [[graphify_graphify_callflow_html_classify_edges]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_classify_edges]]
+- [[graphify_graphify_callflow_html_generate_section_cards]] → `calls` → [[graphify_graphify_callflow_html_should_include_edge]]
+- [[graphify_graphify_callflow_html_rationale_947]] → `rationale_for` → [[graphify_graphify_callflow_html_should_include_edge]]
+- [[graphify_graphify_callflow_html_section_edge_summary]] → `calls` → [[graphify_graphify_callflow_html_should_include_edge]]
+- [[graphify_graphify_callflow_html_node_degree_scores]] → `references` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_rationale_964]] → `rationale_for` → [[graphify_graphify_callflow_html_node_degree_scores]]
+- [[graphify_graphify_callflow_html_select_diagram_nodes]] → `calls` → [[graphify_graphify_callflow_html_node_degree_scores]]
+- [[graphify_graphify_callflow_html_derive_flow_chain]] → `calls` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_generate_section_cards]] → `calls` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_generate_section_intro]] → `calls` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_section_edge_summary]] → `calls` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_section_keywords]] → `calls` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_select_diagram_nodes]] → `calls` → [[graphify_graphify_callflow_html_py_counter]]
+- [[graphify_graphify_callflow_html_rationale_974]] → `rationale_for` → [[graphify_graphify_callflow_html_node_importance]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_select_diagram_nodes]]
+- [[graphify_graphify_callflow_html_rationale_982]] → `rationale_for` → [[graphify_graphify_callflow_html_select_diagram_nodes]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_node_label]]
+- [[graphify_graphify_callflow_html_rationale_1041]] → `rationale_for` → [[graphify_graphify_callflow_html_node_label]]
+- [[graphify_graphify_callflow_html_generate_section_flowchart]] → `calls` → [[graphify_graphify_callflow_html_group_nodes_by_file]]
+- [[graphify_graphify_callflow_html_rationale_1050]] → `rationale_for` → [[graphify_graphify_callflow_html_group_nodes_by_file]]
+- [[graphify_graphify_callflow_html_derive_flow_chain]] → `calls` → [[graphify_graphify_callflow_html_section_edge_summary]]
+- [[graphify_graphify_callflow_html_generate_overview_graph]] → `calls` → [[graphify_graphify_callflow_html_section_edge_summary]]
+- [[graphify_graphify_callflow_html_rationale_1059]] → `rationale_for` → [[graphify_graphify_callflow_html_section_edge_summary]]
+- [[graphify_graphify_callflow_html_rationale_1078]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_overview_graph]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_overview_graph]]
+- [[graphify_graphify_callflow_html_rationale_1114]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_section_flowchart]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_section_flowchart]]
+- [[graphify_graphify_callflow_html_generate_header]] → `calls` → [[graphify_graphify_callflow_html_generate_nav]]
+- [[graphify_graphify_callflow_html_rationale_1176]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_nav]]
+- [[graphify_graphify_callflow_html_format_node_refs]] → `calls` → [[graphify_graphify_callflow_html_node_display_name]]
+- [[graphify_graphify_callflow_html_rationale_1184]] → `rationale_for` → [[graphify_graphify_callflow_html_node_display_name]]
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] → `calls` → [[graphify_graphify_callflow_html_format_node_refs]]
+- [[graphify_graphify_callflow_html_rationale_1192]] → `rationale_for` → [[graphify_graphify_callflow_html_format_node_refs]]
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] → `calls` → [[graphify_graphify_callflow_html_describe_node]]
+- [[graphify_graphify_callflow_html_generate_call_table_rows]] → `calls` → [[graphify_graphify_callflow_html_suggest_tag]]
+- [[graphify_graphify_callflow_html_rationale_1210]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_call_table_rows]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_call_table_rows]]
+- [[graphify_graphify_callflow_html_rationale_1261]] → `rationale_for` → [[graphify_graphify_callflow_html_suggest_tag]]
+- [[graphify_graphify_callflow_html_rationale_1296]] → `rationale_for` → [[graphify_graphify_callflow_html_describe_node]]
+- [[graphify_graphify_callflow_html_rationale_1331]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_header]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_header]]
+- [[graphify_graphify_callflow_html_generate_overview_cards]] → `calls` → [[graphify_graphify_callflow_html_derive_flow_chain]]
+- [[graphify_graphify_callflow_html_rationale_1358]] → `rationale_for` → [[graphify_graphify_callflow_html_derive_flow_chain]]
+- [[graphify_graphify_callflow_html_rationale_1392]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_overview_cards]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_overview_cards]]
+- [[graphify_graphify_callflow_html_generate_section_intro]] → `calls` → [[graphify_graphify_callflow_html_section_keywords]]
+- [[graphify_graphify_callflow_html_rationale_1423]] → `rationale_for` → [[graphify_graphify_callflow_html_section_keywords]]
+- [[graphify_graphify_callflow_html_rationale_1441]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_section_intro]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_section_intro]]
+- [[graphify_graphify_callflow_html_rationale_1465]] → `rationale_for` → [[graphify_graphify_callflow_html_generate_section_cards]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_generate_section_cards]]
+- [[graphify_graphify_callflow_html_callflowoptions]] → `method` → [[graphify_graphify_callflow_html_callflowoptions_init]]
+- [[graphify_graphify_callflow_html_rationale_1512]] → `rationale_for` → [[graphify_graphify_callflow_html_callflowoptions]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_callflowoptions]]
+- [[graphify_graphify_callflow_html_rationale_1545]] → `rationale_for` → [[graphify_graphify_callflow_html_report_highlights]]
+- [[graphify_graphify_callflow_html_write_callflow_html]] → `calls` → [[graphify_graphify_callflow_html_report_highlights]]
+- [[graphify_graphify_callflow_html_main]] → `calls` → [[graphify_graphify_callflow_html_write_callflow_html]]
+- [[graphify_graphify_callflow_html_rationale_1595]] → `rationale_for` → [[graphify_graphify_callflow_html_write_callflow_html]]

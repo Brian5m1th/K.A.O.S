@@ -1,0 +1,72 @@
+# graphify\tests\test_java_member_calls.py
+
+## Símbolos
+
+- [[graphify_tests_test_java_member_calls]] — code: test_java_member_calls.py
+- [[graphify_tests_test_java_member_calls_calls]] — code: _calls()
+- [[graphify_tests_test_java_member_calls_find]] — code: _find()
+- [[graphify_tests_test_java_member_calls_test_explicit_type_receiver_resolves_to_owned_method]] — code: test_explicit_type_receiver_resolves_to_owned_method()
+- [[graphify_tests_test_java_member_calls_test_field_receiver_resolves_to_declared_type]] — code: test_field_receiver_resolves_to_declared_type()
+- [[graphify_tests_test_java_member_calls_test_this_field_receiver_resolves_to_declared_type]] — code: test_this_field_receiver_resolves_to_declared_type()
+- [[graphify_tests_test_java_member_calls_test_this_field_uses_field_type_when_parameter_shadows_name]] — code: test_this_field_uses_field_type_when_parameter_shadows_name()
+- [[graphify_tests_test_java_member_calls_test_parameter_and_local_receivers_resolve_per_method]] — code: test_parameter_and_local_receivers_resolve_per_method()
+- [[graphify_tests_test_java_member_calls_test_nested_receiver_bindings_do_not_escape_their_scope]] — code: test_nested_receiver_bindings_do_not_escape_their_scope()
+- [[graphify_tests_test_java_member_calls_test_lambda_shadowing_does_not_reuse_enclosing_receiver_type]] — code: test_lambda_shadowing_does_not_reuse_enclosing_receiver_type()
+- [[graphify_tests_test_java_member_calls_test_overloaded_callers_keep_body_scoped_receiver_types]] — code: test_overloaded_callers_keep_body_scoped_receiver_types()
+- [[graphify_tests_test_java_member_calls_test_ambiguous_receiver_type_emits_no_edge]] — code: test_ambiguous_receiver_type_emits_no_edge()
+- [[graphify_tests_test_java_member_calls_test_inherited_field_and_chained_receiver_are_deferred]] — code: test_inherited_field_and_chained_receiver_are_deferred()
+- [[graphify_tests_test_java_member_calls_test_unqualified_call_still_resolves]] — code: test_unqualified_call_still_resolves()
+- [[graphify_tests_test_java_member_calls_rationale_1]] — code: Java receiver-typed member-call resolution.  Java ``method_invocation`` nodes
+
+## Dependências
+
+- [[graphify_tests_test_java_member_calls]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_java_member_calls_calls]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_ambiguous_receiver_type_emits_no_edge]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_explicit_type_receiver_resolves_to_owned_method]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_field_receiver_resolves_to_declared_type]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_inherited_field_and_chained_receiver_are_deferred]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_lambda_shadowing_does_not_reuse_enclosing_receiver_type]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_nested_receiver_bindings_do_not_escape_their_scope]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_overloaded_callers_keep_body_scoped_receiver_types]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_parameter_and_local_receivers_resolve_per_method]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_this_field_receiver_resolves_to_declared_type]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_this_field_uses_field_type_when_parameter_shadows_name]]
+- [[graphify_tests_test_java_member_calls]] → `contains` → [[graphify_tests_test_java_member_calls_test_unqualified_call_still_resolves]]
+- [[graphify_tests_test_java_member_calls_rationale_1]] → `rationale_for` → [[graphify_tests_test_java_member_calls]]
+- [[graphify_tests_test_java_member_calls_calls]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_ambiguous_receiver_type_emits_no_edge]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_explicit_type_receiver_resolves_to_owned_method]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_field_receiver_resolves_to_declared_type]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_inherited_field_and_chained_receiver_are_deferred]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_lambda_shadowing_does_not_reuse_enclosing_receiver_type]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_nested_receiver_bindings_do_not_escape_their_scope]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_overloaded_callers_keep_body_scoped_receiver_types]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_parameter_and_local_receivers_resolve_per_method]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_this_field_receiver_resolves_to_declared_type]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_this_field_uses_field_type_when_parameter_shadows_name]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_unqualified_call_still_resolves]] → `calls` → [[graphify_tests_test_java_member_calls_calls]]
+- [[graphify_tests_test_java_member_calls_test_ambiguous_receiver_type_emits_no_edge]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_explicit_type_receiver_resolves_to_owned_method]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_field_receiver_resolves_to_declared_type]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_inherited_field_and_chained_receiver_are_deferred]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_lambda_shadowing_does_not_reuse_enclosing_receiver_type]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_nested_receiver_bindings_do_not_escape_their_scope]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_overloaded_callers_keep_body_scoped_receiver_types]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_parameter_and_local_receivers_resolve_per_method]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_this_field_receiver_resolves_to_declared_type]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_this_field_uses_field_type_when_parameter_shadows_name]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_unqualified_call_still_resolves]] → `references` → [[graphify_tests_test_java_member_calls_py_path]]
+- [[graphify_tests_test_java_member_calls_test_ambiguous_receiver_type_emits_no_edge]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_explicit_type_receiver_resolves_to_owned_method]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_field_receiver_resolves_to_declared_type]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_inherited_field_and_chained_receiver_are_deferred]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_lambda_shadowing_does_not_reuse_enclosing_receiver_type]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_nested_receiver_bindings_do_not_escape_their_scope]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_overloaded_callers_keep_body_scoped_receiver_types]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_parameter_and_local_receivers_resolve_per_method]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_this_field_receiver_resolves_to_declared_type]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_this_field_uses_field_type_when_parameter_shadows_name]] → `calls` → [[graphify_tests_test_java_member_calls_find]]
+- [[graphify_tests_test_java_member_calls_test_unqualified_call_still_resolves]] → `calls` → [[graphify_tests_test_java_member_calls_find]]

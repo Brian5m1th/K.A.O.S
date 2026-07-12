@@ -30,6 +30,7 @@ class ExecuteRequest(BaseModel):
 
 def get_planner_service() -> PlannerService:
     from app.providers.planner.langgraph_adapter import LangGraphAdapter
+
     svc = PlannerService()
     svc.registry.register("langgraph", LangGraphAdapter())
     return svc
@@ -42,6 +43,7 @@ async def create_plan(
 ):
     """Generate an execution plan from an intent."""
     from app.domain.ports.planner_port import PlanRequest as DomainPlanRequest
+
     request = DomainPlanRequest(
         intent=body.intent,
         context=body.context,
@@ -52,8 +54,7 @@ async def create_plan(
     return {
         "plan_id": result.plan_id,
         "steps": [
-            {"id": s.id, "action": s.action, "status": s.status}
-            for s in result.steps
+            {"id": s.id, "action": s.action, "status": s.status} for s in result.steps
         ],
         "status": result.status,
     }

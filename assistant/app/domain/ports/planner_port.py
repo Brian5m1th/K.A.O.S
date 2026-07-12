@@ -24,6 +24,7 @@ class PlanStatus(str, Enum):
 @dataclass
 class PlanStep:
     """A single step in an execution plan."""
+
     id: str
     action: str  # tool name or workflow node
     inputs: dict = field(default_factory=dict)
@@ -36,6 +37,7 @@ class PlanStep:
 @dataclass
 class PlanRequest:
     """Request to generate an execution plan."""
+
     intent: str
     context: dict = field(default_factory=dict)
     user_id: Optional[str] = None
@@ -45,6 +47,7 @@ class PlanRequest:
 @dataclass
 class PlanResult:
     """Generated execution plan."""
+
     plan_id: str
     steps: list[PlanStep] = field(default_factory=list)
     status: PlanStatus = PlanStatus.PENDING
@@ -63,8 +66,7 @@ class PlannerPort(ABC):
 
     @property
     @abstractmethod
-    def provider_name(self) -> str:
-        ...
+    def provider_name(self) -> str: ...
 
     @abstractmethod
     async def plan(self, request: PlanRequest) -> PlanResult:
@@ -82,5 +84,4 @@ class PlannerPort(ABC):
         ...
 
     @abstractmethod
-    async def health(self) -> bool:
-        ...
+    async def health(self) -> bool: ...

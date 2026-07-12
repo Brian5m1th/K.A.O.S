@@ -1,0 +1,161 @@
+# graphify\tests\test_dotnet.py
+
+## Símbolos
+
+- [[graphify_tests_test_dotnet]] — code: test_dotnet.py
+- [[graphify_tests_test_dotnet_labels]] — code: _labels()
+- [[graphify_tests_test_dotnet_relations]] — code: _relations()
+- [[graphify_tests_test_dotnet_view_model_edges]] — code: _view_model_edges()
+- [[graphify_tests_test_dotnet_test_sln_extracts_projects]] — code: test_sln_extracts_projects()
+- [[graphify_tests_test_dotnet_test_sln_contains_edges]] — code: test_sln_contains_edges()
+- [[graphify_tests_test_dotnet_test_sln_project_dependency]] — code: test_sln_project_dependency()
+- [[graphify_tests_test_dotnet_test_slnx_extracts_projects]] — code: test_slnx_extracts_projects()
+- [[graphify_tests_test_dotnet_test_slnx_contains_edges]] — code: test_slnx_contains_edges()
+- [[graphify_tests_test_dotnet_test_slnx_project_dependency]] — code: test_slnx_project_dependency()
+- [[graphify_tests_test_dotnet_test_slnx_invalid_xml]] — code: test_slnx_invalid_xml()
+- [[graphify_tests_test_dotnet_test_slnx_missing_file]] — code: test_slnx_missing_file()
+- [[graphify_tests_test_dotnet_test_csproj_packages]] — code: test_csproj_packages()
+- [[graphify_tests_test_dotnet_test_csproj_project_references]] — code: test_csproj_project_references()
+- [[graphify_tests_test_dotnet_test_csproj_target_framework]] — code: test_csproj_target_framework()
+- [[graphify_tests_test_dotnet_test_csproj_sdk]] — code: test_csproj_sdk()
+- [[graphify_tests_test_dotnet_test_csproj_invalid_xml]] — code: test_csproj_invalid_xml()
+- [[graphify_tests_test_dotnet_test_xaml_class_resolves_to_codebehind_partial_class]] — code: test_xaml_class_resolves_to_codebehind_partial_class()
+- [[graphify_tests_test_dotnet_test_xaml_named_controls_and_bindings]] — code: test_xaml_named_controls_and_bindings()
+- [[graphify_tests_test_dotnet_test_xaml_extracts_binding_paths_commands_and_converters]] — code: test_xaml_extracts_binding_paths_commands_and_converters()
+- [[graphify_tests_test_dotnet_test_xaml_element_datacontext_links_real_viewmodel_class]] — code: test_xaml_element_datacontext_links_real_viewmodel_class()
+- [[graphify_tests_test_dotnet_test_xaml_design_instance_datacontext_links_real_viewmodel_class]] — code: test_xaml_design_instance_datacontext_links_real_viewmodel_class()
+- [[graphify_tests_test_dotnet_test_xaml_infers_viewmodel_by_name_only_without_datacontext]] — code: test_xaml_infers_viewmodel_by_name_only_without_datacontext()
+- [[graphify_tests_test_dotnet_test_xaml_prism_autowire_infers_viewmodel_from_filename]] — code: test_xaml_prism_autowire_infers_viewmodel_from_filename()
+- [[graphify_tests_test_dotnet_test_xaml_prism_autowire_false_does_not_infer_from_filename]] — code: test_xaml_prism_autowire_false_does_not_infer_from_filename()
+- [[graphify_tests_test_dotnet_test_xaml_links_communitytoolkit_generated_members_and_event_to_command]] — code: test_xaml_links_communitytoolkit_generated_members_and_event_to_command()
+- [[graphify_tests_test_dotnet_test_extract_preserves_xaml_viewmodel_edge_after_id_remap]] — code: test_extract_preserves_xaml_viewmodel_edge_after_id_remap()
+- [[graphify_tests_test_dotnet_test_extract_xaml_viewmodel_resolution_stays_inside_cache_root]] — code: test_extract_xaml_viewmodel_resolution_stays_inside_cache_root()
+- [[graphify_tests_test_dotnet_test_xaml_viewmodel_resolution_respects_graphifyignore]] — code: test_xaml_viewmodel_resolution_respects_graphifyignore()
+- [[graphify_tests_test_dotnet_test_xaml_ambiguous_viewmodel_names_emit_no_edge]] — code: test_xaml_ambiguous_viewmodel_names_emit_no_edge()
+- [[graphify_tests_test_dotnet_test_xaml_events_resolve_to_codebehind_methods]] — code: test_xaml_events_resolve_to_codebehind_methods()
+- [[graphify_tests_test_dotnet_event_targets]] — code: _event_targets()
+- [[graphify_tests_test_dotnet_test_xaml_event_match_requires_handler_signature]] — code: test_xaml_event_match_requires_handler_signature()
+- [[graphify_tests_test_dotnet_test_xaml_non_event_attribute_value_does_not_fabricate_event]] — code: test_xaml_non_event_attribute_value_does_not_fabricate_event()
+- [[graphify_tests_test_dotnet_test_xaml_viewmodel_with_non_utf8_codebehind_does_not_crash]] — code: test_xaml_viewmodel_with_non_utf8_codebehind_does_not_crash()
+- [[graphify_tests_test_dotnet_test_razor_using_and_inject]] — code: test_razor_using_and_inject()
+- [[graphify_tests_test_dotnet_test_razor_components]] — code: test_razor_components()
+- [[graphify_tests_test_dotnet_test_razor_page_route]] — code: test_razor_page_route()
+- [[graphify_tests_test_dotnet_test_razor_inherits]] — code: test_razor_inherits()
+- [[graphify_tests_test_dotnet_test_razor_code_methods]] — code: test_razor_code_methods()
+- [[graphify_tests_test_dotnet_test_razor_missing_file]] — code: test_razor_missing_file()
+- [[graphify_tests_test_dotnet_test_dispatch_table]] — code: test_dispatch_table()
+- [[graphify_tests_test_dotnet_test_code_extensions]] — code: test_code_extensions()
+- [[graphify_tests_test_dotnet_rationale_1]] — code: Tests for .NET project file extraction (.sln, .csproj, .xaml, .razor).
+- [[graphify_tests_test_dotnet_rationale_356]] — code: A property value that matches an ordinary method's name must not become an
+- [[graphify_tests_test_dotnet_rationale_381]] — code: Content=/Tag= holding a string that equals a real handler's name must not     c
+- [[graphify_tests_test_dotnet_rationale_412]] — code: A ViewModel .cs with invalid UTF-8 bytes must not abort extract_xaml: the     C
+
+## Dependências
+
+- [[graphify_tests_test_dotnet]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_dotnet_test_slnx_contains_edges]] → `calls` → [[graphify_graphify_extract_extract_slnx]]
+- [[graphify_tests_test_dotnet_test_slnx_extracts_projects]] → `calls` → [[graphify_graphify_extract_extract_slnx]]
+- [[graphify_tests_test_dotnet_test_slnx_invalid_xml]] → `calls` → [[graphify_graphify_extract_extract_slnx]]
+- [[graphify_tests_test_dotnet_test_slnx_missing_file]] → `calls` → [[graphify_graphify_extract_extract_slnx]]
+- [[graphify_tests_test_dotnet_test_slnx_project_dependency]] → `calls` → [[graphify_graphify_extract_extract_slnx]]
+- [[graphify_tests_test_dotnet_test_csproj_invalid_xml]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_dotnet_test_csproj_packages]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_dotnet_test_csproj_project_references]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_dotnet_test_csproj_sdk]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_dotnet_test_csproj_target_framework]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_dotnet_test_xaml_ambiguous_viewmodel_names_emit_no_edge]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_class_resolves_to_codebehind_partial_class]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_design_instance_datacontext_links_real_viewmodel_class]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_element_datacontext_links_real_viewmodel_class]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_event_match_requires_handler_signature]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_events_resolve_to_codebehind_methods]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_extracts_binding_paths_commands_and_converters]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_infers_viewmodel_by_name_only_without_datacontext]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_links_communitytoolkit_generated_members_and_event_to_command]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_named_controls_and_bindings]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_non_event_attribute_value_does_not_fabricate_event]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_prism_autowire_false_does_not_infer_from_filename]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_prism_autowire_infers_viewmodel_from_filename]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_viewmodel_resolution_respects_graphifyignore]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_xaml_viewmodel_with_non_utf8_codebehind_does_not_crash]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_dotnet_test_dispatch_table]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_dotnet_test_extract_preserves_xaml_viewmodel_edge_after_id_remap]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_dotnet_test_extract_xaml_viewmodel_resolution_stays_inside_cache_root]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_dotnet_test_razor_code_methods]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_dotnet_test_razor_components]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_dotnet_test_razor_inherits]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_dotnet_test_razor_missing_file]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_dotnet_test_razor_page_route]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_dotnet_test_razor_using_and_inject]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_dotnet_test_sln_contains_edges]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_dotnet_test_sln_extracts_projects]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_dotnet_test_sln_project_dependency]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_event_targets]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_relations]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_code_extensions]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_csproj_invalid_xml]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_csproj_packages]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_csproj_project_references]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_csproj_sdk]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_csproj_target_framework]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_dispatch_table]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_extract_preserves_xaml_viewmodel_edge_after_id_remap]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_extract_xaml_viewmodel_resolution_stays_inside_cache_root]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_razor_code_methods]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_razor_components]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_razor_inherits]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_razor_missing_file]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_razor_page_route]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_razor_using_and_inject]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_sln_contains_edges]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_sln_extracts_projects]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_sln_project_dependency]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_slnx_contains_edges]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_slnx_extracts_projects]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_slnx_invalid_xml]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_slnx_missing_file]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_slnx_project_dependency]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_ambiguous_viewmodel_names_emit_no_edge]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_class_resolves_to_codebehind_partial_class]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_design_instance_datacontext_links_real_viewmodel_class]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_element_datacontext_links_real_viewmodel_class]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_event_match_requires_handler_signature]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_events_resolve_to_codebehind_methods]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_extracts_binding_paths_commands_and_converters]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_infers_viewmodel_by_name_only_without_datacontext]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_links_communitytoolkit_generated_members_and_event_to_command]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_named_controls_and_bindings]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_non_event_attribute_value_does_not_fabricate_event]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_prism_autowire_false_does_not_infer_from_filename]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_prism_autowire_infers_viewmodel_from_filename]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_viewmodel_resolution_respects_graphifyignore]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_test_xaml_viewmodel_with_non_utf8_codebehind_does_not_crash]]
+- [[graphify_tests_test_dotnet]] → `contains` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_rationale_1]] → `rationale_for` → [[graphify_tests_test_dotnet]]
+- [[graphify_tests_test_dotnet_test_csproj_packages]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_csproj_sdk]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_csproj_target_framework]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_razor_code_methods]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_razor_page_route]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_sln_extracts_projects]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_slnx_extracts_projects]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_xaml_named_controls_and_bindings]] → `calls` → [[graphify_tests_test_dotnet_labels]]
+- [[graphify_tests_test_dotnet_test_razor_inherits]] → `calls` → [[graphify_tests_test_dotnet_relations]]
+- [[graphify_tests_test_dotnet_test_sln_project_dependency]] → `calls` → [[graphify_tests_test_dotnet_relations]]
+- [[graphify_tests_test_dotnet_test_slnx_project_dependency]] → `calls` → [[graphify_tests_test_dotnet_relations]]
+- [[graphify_tests_test_dotnet_test_extract_preserves_xaml_viewmodel_edge_after_id_remap]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_extract_xaml_viewmodel_resolution_stays_inside_cache_root]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_ambiguous_viewmodel_names_emit_no_edge]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_design_instance_datacontext_links_real_viewmodel_class]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_element_datacontext_links_real_viewmodel_class]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_infers_viewmodel_by_name_only_without_datacontext]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_prism_autowire_false_does_not_infer_from_filename]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_prism_autowire_infers_viewmodel_from_filename]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_viewmodel_resolution_respects_graphifyignore]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_viewmodel_with_non_utf8_codebehind_does_not_crash]] → `calls` → [[graphify_tests_test_dotnet_view_model_edges]]
+- [[graphify_tests_test_dotnet_test_xaml_event_match_requires_handler_signature]] → `calls` → [[graphify_tests_test_dotnet_event_targets]]
+- [[graphify_tests_test_dotnet_test_xaml_non_event_attribute_value_does_not_fabricate_event]] → `calls` → [[graphify_tests_test_dotnet_event_targets]]
+- [[graphify_tests_test_dotnet_rationale_356]] → `rationale_for` → [[graphify_tests_test_dotnet_test_xaml_event_match_requires_handler_signature]]
+- [[graphify_tests_test_dotnet_rationale_381]] → `rationale_for` → [[graphify_tests_test_dotnet_test_xaml_non_event_attribute_value_does_not_fabricate_event]]
+- [[graphify_tests_test_dotnet_rationale_412]] → `rationale_for` → [[graphify_tests_test_dotnet_test_xaml_viewmodel_with_non_utf8_codebehind_does_not_crash]]

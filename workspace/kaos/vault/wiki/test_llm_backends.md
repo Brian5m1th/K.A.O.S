@@ -1,0 +1,224 @@
+# graphify\tests\test_llm_backends.py
+
+## Símbolos
+
+- [[graphify_tests_test_llm_backends]] — code: test_llm_backends.py
+- [[graphify_tests_test_llm_backends_clear_backend_env]] — code: _clear_backend_env()
+- [[graphify_tests_test_llm_backends_test_gemini_accepts_gemini_api_key]] — code: test_gemini_accepts_gemini_api_key()
+- [[graphify_tests_test_llm_backends_test_gemini_accepts_google_api_key]] — code: test_gemini_accepts_google_api_key()
+- [[graphify_tests_test_llm_backends_test_backend_detection_prefers_gemini]] — code: test_backend_detection_prefers_gemini()
+- [[graphify_tests_test_llm_backends_test_openai_backend_detected]] — code: test_openai_backend_detected()
+- [[graphify_tests_test_llm_backends_test_extract_files_direct_routes_gemini_through_openai_compat]] — code: test_extract_files_direct_routes_gemini_through_openai_compat()
+- [[graphify_tests_test_llm_backends_test_openai_compat_backends_resolve_full_output_cap]] — code: test_openai_compat_backends_resolve_full_output_cap()
+- [[graphify_tests_test_llm_backends_test_gemini_model_can_be_overridden_by_env]] — code: test_gemini_model_can_be_overridden_by_env()
+- [[graphify_tests_test_llm_backends_test_missing_gemini_key_names_both_supported_env_vars]] — code: test_missing_gemini_key_names_both_supported_env_vars()
+- [[graphify_tests_test_llm_backends_test_extract_files_direct_accepts_str_paths]] — code: test_extract_files_direct_accepts_str_paths()
+- [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_accepts_str_and_mixed_paths]] — code: test_extract_corpus_parallel_accepts_str_and_mixed_paths()
+- [[graphify_tests_test_llm_backends_test_corpus_parallel_oversized_markdown_does_not_crash_on_fileslice]] — code: test_corpus_parallel_oversized_markdown_does_not_crash_on_fileslice()
+- [[graphify_tests_test_llm_backends_test_str_path_entry_points_handle_edge_cases]] — code: test_str_path_entry_points_handle_edge_cases()
+- [[graphify_tests_test_llm_backends_ok]] — code: _ok()
+- [[graphify_tests_test_llm_backends_test_looks_like_context_exceeded_matches_common_messages]] — code: test_looks_like_context_exceeded_matches_common_messages()
+- [[graphify_tests_test_llm_backends_test_looks_like_context_exceeded_ignores_unrelated_errors]] — code: test_looks_like_context_exceeded_ignores_unrelated_errors()
+- [[graphify_tests_test_llm_backends_test_adaptive_retry_splits_on_context_exceeded]] — code: test_adaptive_retry_splits_on_context_exceeded()
+- [[graphify_tests_test_llm_backends_test_adaptive_retry_gives_up_on_single_file_overflow]] — code: test_adaptive_retry_gives_up_on_single_file_overflow()
+- [[graphify_tests_test_llm_backends_test_adaptive_retry_re_raises_unrelated_errors]] — code: test_adaptive_retry_re_raises_unrelated_errors()
+- [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_empty_string]] — code: test_response_is_hollow_flags_empty_string()
+- [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_none_content]] — code: test_response_is_hollow_flags_none_content()
+- [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_whitespace_only]] — code: test_response_is_hollow_flags_whitespace_only()
+- [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_parsed_but_no_nodes_or_edges]] — code: test_response_is_hollow_flags_parsed_but_no_nodes_or_edges()
+- [[graphify_tests_test_llm_backends_test_response_is_hollow_accepts_real_extraction]] — code: test_response_is_hollow_accepts_real_extraction()
+- [[graphify_tests_test_llm_backends_fake_openai_response]] — code: _fake_openai_response()
+- [[graphify_tests_test_llm_backends_install_fake_openai]] — code: _install_fake_openai()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_empty_content_as_length]] — code: test_call_openai_compat_relabels_empty_content_as_length()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_none_content_as_length]] — code: test_call_openai_compat_relabels_none_content_as_length()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_unparseable_json_as_length]] — code: test_call_openai_compat_relabels_unparseable_json_as_length()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_preserves_real_finish_reason]] — code: test_call_openai_compat_preserves_real_finish_reason()
+- [[graphify_tests_test_llm_backends_install_capturing_openai]] — code: _install_capturing_openai()
+- [[graphify_tests_test_llm_backends_test_ollama_extra_body_sets_num_ctx_and_keep_alive]] — code: test_ollama_extra_body_sets_num_ctx_and_keep_alive()
+- [[graphify_tests_test_llm_backends_test_ollama_num_ctx_scales_with_small_token_budget]] — code: test_ollama_num_ctx_scales_with_small_token_budget()
+- [[graphify_tests_test_llm_backends_test_ollama_num_ctx_env_override]] — code: test_ollama_num_ctx_env_override()
+- [[graphify_tests_test_llm_backends_test_non_ollama_backend_gets_no_num_ctx_extra_body]] — code: test_non_ollama_backend_gets_no_num_ctx_extra_body()
+- [[graphify_tests_test_llm_backends_test_openai_compat_forces_non_streaming_response]] — code: test_openai_compat_forces_non_streaming_response()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_uses_explicit_extra_body]] — code: test_call_openai_compat_uses_explicit_extra_body()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_extra_body_wins_over_moonshot_default]] — code: test_call_openai_compat_extra_body_wins_over_moonshot_default()
+- [[graphify_tests_test_llm_backends_test_deepseek_thinking_on_by_default]] — code: test_deepseek_thinking_on_by_default()
+- [[graphify_tests_test_llm_backends_test_deepseek_thinking_disabled_via_env]] — code: test_deepseek_thinking_disabled_via_env()
+- [[graphify_tests_test_llm_backends_test_explicit_extra_body_wins_over_thinking_env]] — code: test_explicit_extra_body_wins_over_thinking_env()
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_explicit_extra_body_skips_ollama_auto_derive]] — code: test_call_openai_compat_explicit_extra_body_skips_ollama_auto_derive()
+- [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_ollama_runs_serially]] — code: test_extract_corpus_parallel_ollama_runs_serially()
+- [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_ollama_parallel_env_restores_concurrency]] — code: test_extract_corpus_parallel_ollama_parallel_env_restores_concurrency()
+- [[graphify_tests_test_llm_backends_test_adaptive_retry_bisects_on_hollow_ollama_response]] — code: test_adaptive_retry_bisects_on_hollow_ollama_response()
+- [[graphify_tests_test_llm_backends_install_fake_azure_openai]] — code: _install_fake_azure_openai()
+- [[graphify_tests_test_llm_backends_test_call_azure_uses_correct_client_params_and_max_completion_tokens]] — code: test_call_azure_uses_correct_client_params_and_max_completion_tokens()
+- [[graphify_tests_test_llm_backends_test_detect_backend_returns_azure_when_both_vars_set]] — code: test_detect_backend_returns_azure_when_both_vars_set()
+- [[graphify_tests_test_llm_backends_test_detect_backend_azure_requires_endpoint_not_just_key]] — code: test_detect_backend_azure_requires_endpoint_not_just_key()
+- [[graphify_tests_test_llm_backends_test_estimate_cost_azure_no_keyerror]] — code: test_estimate_cost_azure_no_keyerror()
+- [[graphify_tests_test_llm_backends_test_model_requires_default_temperature_true_for_reasoning_models]] — code: test_model_requires_default_temperature_true_for_reasoning_models()
+- [[graphify_tests_test_llm_backends_test_model_requires_default_temperature_false_for_normal_models]] — code: test_model_requires_default_temperature_false_for_normal_models()
+- [[graphify_tests_test_llm_backends_test_resolve_temperature_default_for_normal_model]] — code: test_resolve_temperature_default_for_normal_model()
+- [[graphify_tests_test_llm_backends_test_resolve_temperature_omitted_for_reasoning_model]] — code: test_resolve_temperature_omitted_for_reasoning_model()
+- [[graphify_tests_test_llm_backends_test_resolve_temperature_env_var_numeric_overrides]] — code: test_resolve_temperature_env_var_numeric_overrides()
+- [[graphify_tests_test_llm_backends_test_resolve_temperature_env_var_none_omits]] — code: test_resolve_temperature_env_var_none_omits()
+- [[graphify_tests_test_llm_backends_test_resolve_temperature_env_var_invalid_falls_back]] — code: test_resolve_temperature_env_var_invalid_falls_back()
+- [[graphify_tests_test_llm_backends_test_openai_compat_omits_temperature_for_o3_model]] — code: test_openai_compat_omits_temperature_for_o3_model()
+- [[graphify_tests_test_llm_backends_test_openai_compat_sends_temperature_for_normal_model]] — code: test_openai_compat_sends_temperature_for_normal_model()
+- [[graphify_tests_test_llm_backends_test_openai_compat_env_var_temperature_applied]] — code: test_openai_compat_env_var_temperature_applied()
+- [[graphify_tests_test_llm_backends_test_native_extraction_prompt_requests_hyperedges]] — code: test_native_extraction_prompt_requests_hyperedges()
+- [[graphify_tests_test_llm_backends_test_native_extraction_prompt_matches_skill_spec_on_hyperedges]] — code: test_native_extraction_prompt_matches_skill_spec_on_hyperedges()
+- [[graphify_tests_test_llm_backends_backend_base_url]] — code: _backend_base_url()
+- [[graphify_tests_test_llm_backends_test_base_url_env_overrides]] — code: test_base_url_env_overrides()
+- [[graphify_tests_test_llm_backends_test_base_url_defaults_without_env]] — code: test_base_url_defaults_without_env()
+- [[graphify_tests_test_llm_backends_make_cli_envelope]] — code: _make_cli_envelope()
+- [[graphify_tests_test_llm_backends_test_call_claude_cli_passes_errors_replace_to_subprocess]] — code: test_call_claude_cli_passes_errors_replace_to_subprocess()
+- [[graphify_tests_test_llm_backends_test_call_claude_cli_tolerates_non_utf8_in_stderr]] — code: test_call_claude_cli_tolerates_non_utf8_in_stderr()
+- [[graphify_tests_test_llm_backends_test_resolve_max_retries_default_and_env]] — code: test_resolve_max_retries_default_and_env()
+- [[graphify_tests_test_llm_backends_test_openai_compat_client_built_with_retries]] — code: test_openai_compat_client_built_with_retries()
+- [[graphify_tests_test_llm_backends_test_call_llm_claude_client_built_with_timeout_and_retries]] — code: test_call_llm_claude_client_built_with_timeout_and_retries()
+- [[graphify_tests_test_llm_backends_test_call_llm_openai_compat_client_built_with_timeout_and_retries]] — code: test_call_llm_openai_compat_client_built_with_timeout_and_retries()
+- [[graphify_tests_test_llm_backends_rationale_1]] — code: Tests for direct semantic-extraction backend selection.
+- [[graphify_tests_test_llm_backends_rationale_333]] — code: Build a minimal stand-in for an `openai` SDK ChatCompletion response.
+- [[graphify_tests_test_llm_backends_rationale_357]] — code: Inject a stub `openai` module so `_call_openai_compat` can run without     the
+- [[graphify_tests_test_llm_backends_rationale_442]] — code: Like _install_fake_openai but records kwargs passed to create().
+- [[graphify_tests_test_llm_backends_rationale_741]] — code: Inject a stub openai module with AzureOpenAI so _call_azure and     _azure_clie
+- [[graphify_tests_test_llm_backends_rationale_909]] — code: The native-backend prompt must request hyperedges, like the skill's     extract
+- [[graphify_tests_test_llm_backends_rationale_924]] — code: Both extraction paths share the same hyperedge contract (the '3 or more     nod
+- [[graphify_tests_test_llm_backends_rationale_993]] — code: Return a minimal claude -p --output-format json envelope.
+- [[graphify_tests_test_llm_backends_rationale_998]] — code: subprocess.run must be called with errors='replace' so non-UTF-8 output     byt
+- [[graphify_tests_test_llm_backends_rationale_1019]] — code: When errors='replace' is set, non-UTF-8 bytes in stderr produce replacement
+- [[graphify_tests_test_llm_backends_rationale_1036]] — code: Default retry count is generous (so 429s are absorbed, #1523); env overrides.
+- [[graphify_tests_test_llm_backends_rationale_1048]] — code: The OpenAI-compatible client (kimi/openai/gemini/deepseek/ollama) is built with
+- [[graphify_tests_test_llm_backends_rationale_1081]] — code: The secondary dispatch path (_call_llm, used by the dedup tiebreaker)     must
+- [[graphify_tests_test_llm_backends_rationale_1112]] — code: Same #1442 fix for the OpenAI-compatible branch of _call_llm.
+
+## Dependências
+
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_backend_base_url]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_install_fake_azure_openai]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_install_fake_openai]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_make_cli_envelope]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_ok]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_adaptive_retry_bisects_on_hollow_ollama_response]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_adaptive_retry_gives_up_on_single_file_overflow]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_adaptive_retry_re_raises_unrelated_errors]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_adaptive_retry_splits_on_context_exceeded]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_backend_detection_prefers_gemini]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_base_url_defaults_without_env]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_base_url_env_overrides]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_azure_uses_correct_client_params_and_max_completion_tokens]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_claude_cli_passes_errors_replace_to_subprocess]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_claude_cli_tolerates_non_utf8_in_stderr]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_llm_claude_client_built_with_timeout_and_retries]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_llm_openai_compat_client_built_with_timeout_and_retries]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_explicit_extra_body_skips_ollama_auto_derive]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_extra_body_wins_over_moonshot_default]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_preserves_real_finish_reason]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_empty_content_as_length]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_none_content_as_length]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_unparseable_json_as_length]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_call_openai_compat_uses_explicit_extra_body]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_corpus_parallel_oversized_markdown_does_not_crash_on_fileslice]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_deepseek_thinking_disabled_via_env]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_deepseek_thinking_on_by_default]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_detect_backend_azure_requires_endpoint_not_just_key]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_detect_backend_returns_azure_when_both_vars_set]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_estimate_cost_azure_no_keyerror]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_explicit_extra_body_wins_over_thinking_env]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_accepts_str_and_mixed_paths]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_ollama_parallel_env_restores_concurrency]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_ollama_runs_serially]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_extract_files_direct_accepts_str_paths]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_extract_files_direct_routes_gemini_through_openai_compat]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_gemini_accepts_gemini_api_key]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_gemini_accepts_google_api_key]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_gemini_model_can_be_overridden_by_env]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_looks_like_context_exceeded_ignores_unrelated_errors]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_looks_like_context_exceeded_matches_common_messages]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_missing_gemini_key_names_both_supported_env_vars]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_model_requires_default_temperature_false_for_normal_models]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_model_requires_default_temperature_true_for_reasoning_models]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_native_extraction_prompt_matches_skill_spec_on_hyperedges]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_native_extraction_prompt_requests_hyperedges]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_non_ollama_backend_gets_no_num_ctx_extra_body]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_ollama_extra_body_sets_num_ctx_and_keep_alive]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_ollama_num_ctx_env_override]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_ollama_num_ctx_scales_with_small_token_budget]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_backend_detected]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_compat_backends_resolve_full_output_cap]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_compat_client_built_with_retries]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_compat_env_var_temperature_applied]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_compat_forces_non_streaming_response]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_compat_omits_temperature_for_o3_model]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_openai_compat_sends_temperature_for_normal_model]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_resolve_max_retries_default_and_env]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_resolve_temperature_default_for_normal_model]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_resolve_temperature_env_var_invalid_falls_back]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_resolve_temperature_env_var_none_omits]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_resolve_temperature_env_var_numeric_overrides]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_resolve_temperature_omitted_for_reasoning_model]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_response_is_hollow_accepts_real_extraction]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_empty_string]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_none_content]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_parsed_but_no_nodes_or_edges]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_response_is_hollow_flags_whitespace_only]]
+- [[graphify_tests_test_llm_backends]] → `contains` → [[graphify_tests_test_llm_backends_test_str_path_entry_points_handle_edge_cases]]
+- [[graphify_tests_test_llm_backends_rationale_1]] → `rationale_for` → [[graphify_tests_test_llm_backends]]
+- [[graphify_tests_test_llm_backends_test_backend_detection_prefers_gemini]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_corpus_parallel_oversized_markdown_does_not_crash_on_fileslice]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_detect_backend_azure_requires_endpoint_not_just_key]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_detect_backend_returns_azure_when_both_vars_set]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_accepts_str_and_mixed_paths]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_extract_files_direct_accepts_str_paths]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_extract_files_direct_routes_gemini_through_openai_compat]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_gemini_accepts_gemini_api_key]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_gemini_accepts_google_api_key]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_gemini_model_can_be_overridden_by_env]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_missing_gemini_key_names_both_supported_env_vars]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_openai_backend_detected]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_backends_resolve_full_output_cap]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_env_var_temperature_applied]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_omits_temperature_for_o3_model]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_sends_temperature_for_normal_model]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_str_path_entry_points_handle_edge_cases]] → `calls` → [[graphify_tests_test_llm_backends_clear_backend_env]]
+- [[graphify_tests_test_llm_backends_test_extract_corpus_parallel_ollama_parallel_env_restores_concurrency]] → `calls` → [[graphify_tests_test_llm_backends_ok]]
+- [[graphify_tests_test_llm_backends_rationale_333]] → `rationale_for` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends_test_call_azure_uses_correct_client_params_and_max_completion_tokens]] → `calls` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_preserves_real_finish_reason]] → `calls` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_empty_content_as_length]] → `calls` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_none_content_as_length]] → `calls` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_unparseable_json_as_length]] → `calls` → [[graphify_tests_test_llm_backends_fake_openai_response]]
+- [[graphify_tests_test_llm_backends_rationale_357]] → `rationale_for` → [[graphify_tests_test_llm_backends_install_fake_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_preserves_real_finish_reason]] → `calls` → [[graphify_tests_test_llm_backends_install_fake_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_empty_content_as_length]] → `calls` → [[graphify_tests_test_llm_backends_install_fake_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_none_content_as_length]] → `calls` → [[graphify_tests_test_llm_backends_install_fake_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_relabels_unparseable_json_as_length]] → `calls` → [[graphify_tests_test_llm_backends_install_fake_openai]]
+- [[graphify_tests_test_llm_backends_rationale_442]] → `rationale_for` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_explicit_extra_body_skips_ollama_auto_derive]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_extra_body_wins_over_moonshot_default]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_call_openai_compat_uses_explicit_extra_body]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_deepseek_thinking_disabled_via_env]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_deepseek_thinking_on_by_default]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_explicit_extra_body_wins_over_thinking_env]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_non_ollama_backend_gets_no_num_ctx_extra_body]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_ollama_extra_body_sets_num_ctx_and_keep_alive]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_ollama_num_ctx_env_override]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_ollama_num_ctx_scales_with_small_token_budget]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_env_var_temperature_applied]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_forces_non_streaming_response]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_omits_temperature_for_o3_model]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_test_openai_compat_sends_temperature_for_normal_model]] → `calls` → [[graphify_tests_test_llm_backends_install_capturing_openai]]
+- [[graphify_tests_test_llm_backends_rationale_741]] → `rationale_for` → [[graphify_tests_test_llm_backends_install_fake_azure_openai]]
+- [[graphify_tests_test_llm_backends_test_call_azure_uses_correct_client_params_and_max_completion_tokens]] → `calls` → [[graphify_tests_test_llm_backends_install_fake_azure_openai]]
+- [[graphify_tests_test_llm_backends_rationale_909]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_native_extraction_prompt_requests_hyperedges]]
+- [[graphify_tests_test_llm_backends_rationale_924]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_native_extraction_prompt_matches_skill_spec_on_hyperedges]]
+- [[graphify_tests_test_llm_backends_test_base_url_env_overrides]] → `calls` → [[graphify_tests_test_llm_backends_backend_base_url]]
+- [[graphify_tests_test_llm_backends_rationale_993]] → `rationale_for` → [[graphify_tests_test_llm_backends_make_cli_envelope]]
+- [[graphify_tests_test_llm_backends_test_call_claude_cli_passes_errors_replace_to_subprocess]] → `calls` → [[graphify_tests_test_llm_backends_make_cli_envelope]]
+- [[graphify_tests_test_llm_backends_rationale_998]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_call_claude_cli_passes_errors_replace_to_subprocess]]
+- [[graphify_tests_test_llm_backends_rationale_1019]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_call_claude_cli_tolerates_non_utf8_in_stderr]]
+- [[graphify_tests_test_llm_backends_rationale_1036]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_resolve_max_retries_default_and_env]]
+- [[graphify_tests_test_llm_backends_rationale_1048]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_openai_compat_client_built_with_retries]]
+- [[graphify_tests_test_llm_backends_rationale_1081]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_call_llm_claude_client_built_with_timeout_and_retries]]
+- [[graphify_tests_test_llm_backends_rationale_1112]] → `rationale_for` → [[graphify_tests_test_llm_backends_test_call_llm_openai_compat_client_built_with_timeout_and_retries]]

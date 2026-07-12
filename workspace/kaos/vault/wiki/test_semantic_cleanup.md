@@ -1,0 +1,106 @@
+# graphify\tests\test_semantic_cleanup.py
+
+## Símbolos
+
+- [[graphify_tests_test_semantic_cleanup]] — code: test_semantic_cleanup.py
+- [[graphify_tests_test_semantic_cleanup_valid_fragment]] — code: _valid_fragment()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_valid]] — code: test_validate_semantic_fragment_accepts_valid()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_non_object]] — code: test_validate_semantic_fragment_rejects_non_object()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_oversize_payload]] — code: test_validate_semantic_fragment_rejects_oversize_payload()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_too_many_nodes]] — code: test_validate_semantic_fragment_rejects_too_many_nodes()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_too_many_edges]] — code: test_validate_semantic_fragment_rejects_too_many_edges()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_path_separator_in_id]] — code: test_validate_semantic_fragment_rejects_path_separator_in_id()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_invalid_file_type]] — code: test_validate_semantic_fragment_rejects_invalid_file_type()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_rationale_file_type]] — code: test_validate_semantic_fragment_accepts_rationale_file_type()
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_concept_file_type]] — code: test_validate_semantic_fragment_accepts_concept_file_type()
+- [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_accepts_valid]] — code: test_load_validated_semantic_fragment_accepts_valid()
+- [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_rejects_oversize_before_parse]] — code: test_load_validated_semantic_fragment_rejects_oversize_before_parse()
+- [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_rejects_invalid_json]] — code: test_load_validated_semantic_fragment_rejects_invalid_json()
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_rejects_bad_id]] — code: test_validate_hyperedge_rejects_bad_id()
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_rejects_bad_node_ref]] — code: test_validate_hyperedge_rejects_bad_node_ref()
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_requires_list]] — code: test_validate_hyperedge_requires_list()
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_caps_count]] — code: test_validate_hyperedge_caps_count()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_drops_rationale_filetype_node]] — code: test_sanitize_drops_rationale_filetype_node()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_converts_sentence_rationale_node_to_attribute]] — code: test_sanitize_converts_sentence_rationale_node_to_attribute()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_converts_allowed_filetype_sentence_via_rationale_for_edge]] — code: test_sanitize_converts_allowed_filetype_sentence_via_rationale_for_edge()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_keeps_short_concept_named_node_with_punctuation]] — code: test_sanitize_keeps_short_concept_named_node_with_punctuation()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_filters_hyperedges_after_node_removal]] — code: test_sanitize_filters_hyperedges_after_node_removal()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_drops_hyperedge_with_only_unknown_refs]] — code: test_sanitize_drops_hyperedge_with_only_unknown_refs()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_boundary_sentence_threshold]] — code: test_sanitize_boundary_sentence_threshold()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_rationale_only_propagates_through_rationale_for_edges]] — code: test_sanitize_rationale_only_propagates_through_rationale_for_edges()
+- [[graphify_tests_test_semantic_cleanup_test_sanitize_keeps_members_keyed_hyperedge]] — code: test_sanitize_keeps_members_keyed_hyperedge()
+- [[graphify_tests_test_semantic_cleanup_test_validate_accepts_node_ids_keyed_hyperedge]] — code: test_validate_accepts_node_ids_keyed_hyperedge()
+- [[graphify_tests_test_semantic_cleanup_rationale_1]] — code: Tests for graphify.semantic_cleanup.validate_semantic_fragment (#825).
+- [[graphify_tests_test_semantic_cleanup_rationale_62]] — code: LLM output with file_type='rationale' must pass validation so the cleanup     p
+- [[graphify_tests_test_semantic_cleanup_rationale_73]] — code: LLM output with file_type='concept' must pass validation for the same reason.
+- [[graphify_tests_test_semantic_cleanup_rationale_91]] — code: Oversize files are rejected by stat() — payload is never parsed.
+- [[graphify_tests_test_semantic_cleanup_rationale_102]] — code: Invalid JSON returns an error instead of raising.
+- [[graphify_tests_test_semantic_cleanup_rationale_156]] — code: A node with file_type='rationale' is removed wholesale.
+- [[graphify_tests_test_semantic_cleanup_rationale_172]] — code: Sentence-like rationale node connected via `rationale_for` → attribute on target
+- [[graphify_tests_test_semantic_cleanup_rationale_193]] — code: F3: a node with file_type='document' (allowed) that is BOTH sentence-like     A
+- [[graphify_tests_test_semantic_cleanup_rationale_218]] — code: A short named node with a period (e.g. abbreviation) is NOT sentence-like.
+- [[graphify_tests_test_semantic_cleanup_rationale_234]] — code: F4: hyperedges referencing removed nodes are repaired or dropped.
+- [[graphify_tests_test_semantic_cleanup_rationale_269]] — code: A hyperedge referencing only nodes not present in the fragment is dropped.
+- [[graphify_tests_test_semantic_cleanup_rationale_280]] — code: Boundary: a label with exactly 8 words + colon is sentence-like;     a 7-word l
+- [[graphify_tests_test_semantic_cleanup_rationale_315]] — code: A rationale node connected to ONE target via `rationale_for` and to ANOTHER
+- [[graphify_tests_test_semantic_cleanup_rationale_348]] — code: #1561: a `members`-keyed hyperedge with >=2 surviving members must be     KEPT
+- [[graphify_tests_test_semantic_cleanup_rationale_369]] — code: #1561: an alias-keyed hyperedge must not be rejected for a missing     `nodes`
+
+## Dependências
+
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_accepts_valid]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_rejects_invalid_json]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_rejects_oversize_before_parse]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_boundary_sentence_threshold]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_converts_allowed_filetype_sentence_via_rationale_for_edge]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_converts_sentence_rationale_node_to_attribute]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_drops_hyperedge_with_only_unknown_refs]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_drops_rationale_filetype_node]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_filters_hyperedges_after_node_removal]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_keeps_members_keyed_hyperedge]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_keeps_short_concept_named_node_with_punctuation]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_sanitize_rationale_only_propagates_through_rationale_for_edges]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_accepts_node_ids_keyed_hyperedge]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_caps_count]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_rejects_bad_id]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_rejects_bad_node_ref]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_requires_list]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_concept_file_type]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_rationale_file_type]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_valid]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_invalid_file_type]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_non_object]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_oversize_payload]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_path_separator_in_id]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_too_many_edges]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_too_many_nodes]]
+- [[graphify_tests_test_semantic_cleanup]] → `contains` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_rationale_1]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup]]
+- [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_accepts_valid]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_accepts_node_ids_keyed_hyperedge]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_caps_count]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_rejects_bad_id]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_rejects_bad_node_ref]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_hyperedge_requires_list]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_concept_file_type]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_rationale_file_type]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_valid]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_invalid_file_type]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_oversize_payload]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_path_separator_in_id]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_too_many_edges]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_rejects_too_many_nodes]] → `calls` → [[graphify_tests_test_semantic_cleanup_valid_fragment]]
+- [[graphify_tests_test_semantic_cleanup_rationale_62]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_rationale_file_type]]
+- [[graphify_tests_test_semantic_cleanup_rationale_73]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_validate_semantic_fragment_accepts_concept_file_type]]
+- [[graphify_tests_test_semantic_cleanup_rationale_91]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_rejects_oversize_before_parse]]
+- [[graphify_tests_test_semantic_cleanup_rationale_102]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_load_validated_semantic_fragment_rejects_invalid_json]]
+- [[graphify_tests_test_semantic_cleanup_rationale_156]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_drops_rationale_filetype_node]]
+- [[graphify_tests_test_semantic_cleanup_rationale_172]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_converts_sentence_rationale_node_to_attribute]]
+- [[graphify_tests_test_semantic_cleanup_rationale_193]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_converts_allowed_filetype_sentence_via_rationale_for_edge]]
+- [[graphify_tests_test_semantic_cleanup_rationale_218]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_keeps_short_concept_named_node_with_punctuation]]
+- [[graphify_tests_test_semantic_cleanup_rationale_234]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_filters_hyperedges_after_node_removal]]
+- [[graphify_tests_test_semantic_cleanup_rationale_269]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_drops_hyperedge_with_only_unknown_refs]]
+- [[graphify_tests_test_semantic_cleanup_rationale_280]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_boundary_sentence_threshold]]
+- [[graphify_tests_test_semantic_cleanup_rationale_315]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_rationale_only_propagates_through_rationale_for_edges]]
+- [[graphify_tests_test_semantic_cleanup_rationale_348]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_sanitize_keeps_members_keyed_hyperedge]]
+- [[graphify_tests_test_semantic_cleanup_rationale_369]] → `rationale_for` → [[graphify_tests_test_semantic_cleanup_test_validate_accepts_node_ids_keyed_hyperedge]]

@@ -9,7 +9,12 @@ from typing import Optional
 from dataclasses import asdict
 
 from loguru import logger
-from app.domain.ports.memory_port import MemoryPort, MemoryEntry, MemoryQuery, MemoryResult
+from app.domain.ports.memory_port import (
+    MemoryPort,
+    MemoryEntry,
+    MemoryQuery,
+    MemoryResult,
+)
 
 
 class PostgresMemoryAdapter(MemoryPort):
@@ -31,10 +36,13 @@ class PostgresMemoryAdapter(MemoryPort):
         # Try PostgreSQL first
         try:
             from app.memory.postgres_repository import PostgresMemoryRepository
+
             repo = PostgresMemoryRepository()
             await repo.save(asdict(entry))
         except Exception as e:
-            logger.warning(f"[memory:postgres] PostgreSQL unavailable, using in-memory fallback: {e}")
+            logger.warning(
+                f"[memory:postgres] PostgreSQL unavailable, using in-memory fallback: {e}"
+            )
             self._store[entry_id] = entry
 
         return entry_id
@@ -48,7 +56,7 @@ class PostgresMemoryAdapter(MemoryPort):
                 matches.append(entry)
 
         return MemoryResult(
-            matches=matches[:query.max_results],
+            matches=matches[: query.max_results],
             total_found=len(matches),
         )
 

@@ -1,0 +1,192 @@
+# graphify\tests\test_prs.py
+
+## Símbolos
+
+- [[graphify_tests_test_prs]] — code: test_prs.py
+- [[graphify_tests_test_prs_make_pr]] — code: make_pr()
+- [[graphify_tests_test_prs_testclassify]] — code: TestClassify
+- [[graphify_tests_test_prs_testclassify_test_ready]] — code: .test_ready()
+- [[graphify_tests_test_prs_testclassify_test_ci_fail]] — code: .test_ci_fail()
+- [[graphify_tests_test_prs_testclassify_test_changes_req]] — code: .test_changes_req()
+- [[graphify_tests_test_prs_testclassify_test_draft]] — code: .test_draft()
+- [[graphify_tests_test_prs_testclassify_test_stale]] — code: .test_stale()
+- [[graphify_tests_test_prs_testclassify_test_draft_not_marked_stale]] — code: .test_draft_not_marked_stale()
+- [[graphify_tests_test_prs_testclassify_test_pending]] — code: .test_pending()
+- [[graphify_tests_test_prs_testclassify_test_wrong_base]] — code: .test_wrong_base()
+- [[graphify_tests_test_prs_testparseci]] — code: TestParseCi
+- [[graphify_tests_test_prs_testparseci_test_empty_rollup_returns_none]] — code: .test_empty_rollup_returns_none()
+- [[graphify_tests_test_prs_testparseci_test_failure_conclusion]] — code: .test_failure_conclusion()
+- [[graphify_tests_test_prs_testparseci_test_cancelled_is_failure]] — code: .test_cancelled_is_failure()
+- [[graphify_tests_test_prs_testparseci_test_timed_out_is_failure]] — code: .test_timed_out_is_failure()
+- [[graphify_tests_test_prs_testparseci_test_in_progress_is_pending]] — code: .test_in_progress_is_pending()
+- [[graphify_tests_test_prs_testparseci_test_success]] — code: .test_success()
+- [[graphify_tests_test_prs_testparseci_test_mixed_success_and_failure_is_failure]] — code: .test_mixed_success_and_failure_is_failure()
+- [[graphify_tests_test_prs_testpathmatch]] — code: TestPathMatch
+- [[graphify_tests_test_prs_testpathmatch_test_exact_match]] — code: .test_exact_match()
+- [[graphify_tests_test_prs_testpathmatch_test_graph_path_longer_with_boundary]] — code: .test_graph_path_longer_with_boundary()
+- [[graphify_tests_test_prs_testpathmatch_test_no_false_positive_on_partial_filename]] — code: .test_no_false_positive_on_partial_filename()
+- [[graphify_tests_test_prs_testpathmatch_test_both_directions_work]] — code: .test_both_directions_work()
+- [[graphify_tests_test_prs_testcomputeprimpact]] — code: TestComputePrImpact
+- [[graphify_tests_test_prs_testcomputeprimpact_make_graph]] — code: ._make_graph()
+- [[graphify_tests_test_prs_testcomputeprimpact_test_matching_files_returns_correct_communities_and_count]] — code: .test_matching_files_returns_correct_communities_and_count()
+- [[graphify_tests_test_prs_testcomputeprimpact_test_matching_both_files]] — code: .test_matching_both_files()
+- [[graphify_tests_test_prs_testcomputeprimpact_test_empty_files_returns_empty]] — code: .test_empty_files_returns_empty()
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_matching_files_returns_empty]] — code: .test_no_matching_files_returns_empty()
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_when_basename_matches_multiple_paths]] — code: .test_no_double_counting_when_basename_matches_multiple_paths()
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_same_graph_file_matched_by_two_pr_files]] — code: .test_no_double_counting_same_graph_file_matched_by_two_pr_files()
+- [[graphify_tests_test_prs_testfetchworktrees]] — code: TestFetchWorktrees
+- [[graphify_tests_test_prs_testfetchworktrees_test_normal_case_maps_branch_to_path]] — code: .test_normal_case_maps_branch_to_path()
+- [[graphify_tests_test_prs_testfetchworktrees_test_detached_head_does_not_leak_into_next_record]] — code: .test_detached_head_does_not_leak_into_next_record()
+- [[graphify_tests_test_prs_testfetchworktrees_test_empty_output_returns_empty_dict]] — code: .test_empty_output_returns_empty_dict()
+- [[graphify_tests_test_prs_testfetchworktrees_test_nonzero_returncode_returns_empty_dict]] — code: .test_nonzero_returncode_returns_empty_dict()
+- [[graphify_tests_test_prs_testfetchworktrees_test_subprocess_failure_returns_empty_dict]] — code: .test_subprocess_failure_returns_empty_dict()
+- [[graphify_tests_test_prs_testformatprstext]] — code: TestFormatPrsText
+- [[graphify_tests_test_prs_testformatprstext_test_contains_pr_metadata_and_count_header]] — code: .test_contains_pr_metadata_and_count_header()
+- [[graphify_tests_test_prs_testformatprstext_test_empty_pr_list]] — code: .test_empty_pr_list()
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] — code: TestDetectDefaultBranch
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_main]] — code: .test_gh_returns_main()
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_falls_back_to_git_symbolic_ref]] — code: .test_falls_back_to_git_symbolic_ref()
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_both_fail_returns_main]] — code: .test_both_fail_returns_main()
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_empty_dict_falls_back]] — code: .test_gh_returns_empty_dict_falls_back()
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_git_timeout_returns_main]] — code: .test_git_timeout_returns_main()
+- [[graphify_tests_test_prs_testbuildcommunitylabels]] — code: TestBuildCommunityLabels
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_basic_grouping]] — code: .test_basic_grouping()
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_top_n_capped]] — code: .test_top_n_capped()
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_no_community_field_skipped]] — code: .test_no_community_field_skipped()
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_empty_nodes]] — code: .test_empty_nodes()
+- [[graphify_tests_test_prs_rationale_1]] — code: Tests for graphify/prs.py.
+- [[graphify_tests_test_prs_rationale_38]] — code: Build a minimal PRInfo with sensible defaults.
+- [[graphify_tests_test_prs_rationale_155]] — code: 3 nodes across 2 communities, 2 distinct source files.
+- [[graphify_tests_test_prs_rationale_234]] — code: A detached HEAD (no branch line) must not associate its path with the         n
+- [[graphify_tests_test_prs_rationale_360]] — code: gh returns data but with no defaultBranchRef — should still fall back.
+
+## Dependências
+
+- [[graphify_tests_test_prs_make_pr]] → `calls` → [[timedelta]]
+- [[graphify_tests_test_prs_testclassify_test_draft_not_marked_stale]] → `calls` → [[timedelta]]
+- [[graphify_tests_test_prs_testclassify_test_stale]] → `calls` → [[timedelta]]
+- [[graphify_tests_test_prs]] → `imports_from` → [[graphify_graphify_prs]]
+- [[graphify_tests_test_prs_make_pr]] → `references` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testclassify]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testfetchworktrees]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testformatprstext]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testparseci]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testpathmatch]] → `uses` → [[graphify_graphify_prs_prinfo]]
+- [[graphify_tests_test_prs_testclassify_test_changes_req]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_ci_fail]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_draft]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_draft_not_marked_stale]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_pending]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_ready]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_stale]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testclassify_test_wrong_base]] → `calls` → [[graphify_graphify_prs_classify]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_both_fail_returns_main]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_falls_back_to_git_symbolic_ref]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_empty_dict_falls_back]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_main]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch_test_git_timeout_returns_main]] → `calls` → [[graphify_graphify_prs_detect_default_branch]]
+- [[graphify_tests_test_prs_testparseci_test_cancelled_is_failure]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testparseci_test_empty_rollup_returns_none]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testparseci_test_failure_conclusion]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testparseci_test_in_progress_is_pending]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testparseci_test_mixed_success_and_failure_is_failure]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testparseci_test_success]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testparseci_test_timed_out_is_failure]] → `calls` → [[graphify_graphify_prs_parse_ci]]
+- [[graphify_tests_test_prs_testpathmatch_test_both_directions_work]] → `calls` → [[graphify_graphify_prs_path_match]]
+- [[graphify_tests_test_prs_testpathmatch_test_exact_match]] → `calls` → [[graphify_graphify_prs_path_match]]
+- [[graphify_tests_test_prs_testpathmatch_test_graph_path_longer_with_boundary]] → `calls` → [[graphify_graphify_prs_path_match]]
+- [[graphify_tests_test_prs_testpathmatch_test_no_false_positive_on_partial_filename]] → `calls` → [[graphify_graphify_prs_path_match]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_empty_files_returns_empty]] → `calls` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_matching_both_files]] → `calls` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_matching_files_returns_correct_communities_and_count]] → `calls` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_same_graph_file_matched_by_two_pr_files]] → `calls` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_when_basename_matches_multiple_paths]] → `calls` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_matching_files_returns_empty]] → `calls` → [[graphify_graphify_prs_compute_pr_impact]]
+- [[graphify_tests_test_prs_testformatprstext_test_contains_pr_metadata_and_count_header]] → `calls` → [[graphify_graphify_prs_format_prs_text]]
+- [[graphify_tests_test_prs_testformatprstext_test_empty_pr_list]] → `calls` → [[graphify_graphify_prs_format_prs_text]]
+- [[graphify_tests_test_prs_testfetchworktrees_test_detached_head_does_not_leak_into_next_record]] → `calls` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_tests_test_prs_testfetchworktrees_test_empty_output_returns_empty_dict]] → `calls` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_tests_test_prs_testfetchworktrees_test_nonzero_returncode_returns_empty_dict]] → `calls` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_tests_test_prs_testfetchworktrees_test_normal_case_maps_branch_to_path]] → `calls` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_tests_test_prs_testfetchworktrees_test_subprocess_failure_returns_empty_dict]] → `calls` → [[graphify_graphify_prs_fetch_worktrees]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_basic_grouping]] → `calls` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_empty_nodes]] → `calls` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_no_community_field_skipped]] → `calls` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels_test_top_n_capped]] → `calls` → [[graphify_graphify_prs_build_community_labels]]
+- [[graphify_tests_test_prs_testcomputeprimpact_make_graph]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_same_graph_file_matched_by_two_pr_files]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_when_basename_matches_multiple_paths]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs]] → `imports_from` → [[graphify_tests_test_prs_py_datetime]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testbuildcommunitylabels]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testclassify]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testcomputeprimpact]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testdetectdefaultbranch]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testfetchworktrees]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testformatprstext]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testparseci]]
+- [[graphify_tests_test_prs]] → `contains` → [[graphify_tests_test_prs_testpathmatch]]
+- [[graphify_tests_test_prs_rationale_1]] → `rationale_for` → [[graphify_tests_test_prs]]
+- [[graphify_tests_test_prs_make_pr]] → `references` → [[graphify_tests_test_prs_py_datetime]]
+- [[graphify_tests_test_prs_rationale_38]] → `rationale_for` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_changes_req]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_ci_fail]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_draft]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_draft_not_marked_stale]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_pending]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_ready]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_stale]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify_test_wrong_base]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testformatprstext_test_contains_pr_metadata_and_count_header]] → `calls` → [[graphify_tests_test_prs_make_pr]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_changes_req]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_ci_fail]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_draft]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_draft_not_marked_stale]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_pending]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_ready]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_stale]]
+- [[graphify_tests_test_prs_testclassify]] → `method` → [[graphify_tests_test_prs_testclassify_test_wrong_base]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_cancelled_is_failure]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_empty_rollup_returns_none]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_failure_conclusion]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_in_progress_is_pending]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_mixed_success_and_failure_is_failure]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_success]]
+- [[graphify_tests_test_prs_testparseci]] → `method` → [[graphify_tests_test_prs_testparseci_test_timed_out_is_failure]]
+- [[graphify_tests_test_prs_testpathmatch]] → `method` → [[graphify_tests_test_prs_testpathmatch_test_both_directions_work]]
+- [[graphify_tests_test_prs_testpathmatch]] → `method` → [[graphify_tests_test_prs_testpathmatch_test_exact_match]]
+- [[graphify_tests_test_prs_testpathmatch]] → `method` → [[graphify_tests_test_prs_testpathmatch_test_graph_path_longer_with_boundary]]
+- [[graphify_tests_test_prs_testpathmatch]] → `method` → [[graphify_tests_test_prs_testpathmatch_test_no_false_positive_on_partial_filename]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_make_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_test_empty_files_returns_empty]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_test_matching_both_files]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_test_matching_files_returns_correct_communities_and_count]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_same_graph_file_matched_by_two_pr_files]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_test_no_double_counting_when_basename_matches_multiple_paths]]
+- [[graphify_tests_test_prs_testcomputeprimpact]] → `method` → [[graphify_tests_test_prs_testcomputeprimpact_test_no_matching_files_returns_empty]]
+- [[graphify_tests_test_prs_rationale_155]] → `rationale_for` → [[graphify_tests_test_prs_testcomputeprimpact_make_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_empty_files_returns_empty]] → `calls` → [[graphify_tests_test_prs_testcomputeprimpact_make_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_matching_both_files]] → `calls` → [[graphify_tests_test_prs_testcomputeprimpact_make_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_matching_files_returns_correct_communities_and_count]] → `calls` → [[graphify_tests_test_prs_testcomputeprimpact_make_graph]]
+- [[graphify_tests_test_prs_testcomputeprimpact_test_no_matching_files_returns_empty]] → `calls` → [[graphify_tests_test_prs_testcomputeprimpact_make_graph]]
+- [[graphify_tests_test_prs_testfetchworktrees]] → `method` → [[graphify_tests_test_prs_testfetchworktrees_test_detached_head_does_not_leak_into_next_record]]
+- [[graphify_tests_test_prs_testfetchworktrees]] → `method` → [[graphify_tests_test_prs_testfetchworktrees_test_empty_output_returns_empty_dict]]
+- [[graphify_tests_test_prs_testfetchworktrees]] → `method` → [[graphify_tests_test_prs_testfetchworktrees_test_nonzero_returncode_returns_empty_dict]]
+- [[graphify_tests_test_prs_testfetchworktrees]] → `method` → [[graphify_tests_test_prs_testfetchworktrees_test_normal_case_maps_branch_to_path]]
+- [[graphify_tests_test_prs_testfetchworktrees]] → `method` → [[graphify_tests_test_prs_testfetchworktrees_test_subprocess_failure_returns_empty_dict]]
+- [[graphify_tests_test_prs_rationale_234]] → `rationale_for` → [[graphify_tests_test_prs_testfetchworktrees_test_detached_head_does_not_leak_into_next_record]]
+- [[graphify_tests_test_prs_testformatprstext]] → `method` → [[graphify_tests_test_prs_testformatprstext_test_contains_pr_metadata_and_count_header]]
+- [[graphify_tests_test_prs_testformatprstext]] → `method` → [[graphify_tests_test_prs_testformatprstext_test_empty_pr_list]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] → `method` → [[graphify_tests_test_prs_testdetectdefaultbranch_test_both_fail_returns_main]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] → `method` → [[graphify_tests_test_prs_testdetectdefaultbranch_test_falls_back_to_git_symbolic_ref]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] → `method` → [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_empty_dict_falls_back]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] → `method` → [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_main]]
+- [[graphify_tests_test_prs_testdetectdefaultbranch]] → `method` → [[graphify_tests_test_prs_testdetectdefaultbranch_test_git_timeout_returns_main]]
+- [[graphify_tests_test_prs_rationale_360]] → `rationale_for` → [[graphify_tests_test_prs_testdetectdefaultbranch_test_gh_returns_empty_dict_falls_back]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels]] → `method` → [[graphify_tests_test_prs_testbuildcommunitylabels_test_basic_grouping]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels]] → `method` → [[graphify_tests_test_prs_testbuildcommunitylabels_test_empty_nodes]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels]] → `method` → [[graphify_tests_test_prs_testbuildcommunitylabels_test_no_community_field_skipped]]
+- [[graphify_tests_test_prs_testbuildcommunitylabels]] → `method` → [[graphify_tests_test_prs_testbuildcommunitylabels_test_top_n_capped]]

@@ -11,7 +11,13 @@ from pathlib import Path
 from typing import Optional
 
 from loguru import logger
-from app.domain.ports.graph_port import GraphPort, NodeInfo, PathInfo, GraphQuery, GraphResult
+from app.domain.ports.graph_port import (
+    GraphPort,
+    NodeInfo,
+    PathInfo,
+    GraphQuery,
+    GraphResult,
+)
 
 
 class GraphifyAdapter(GraphPort):
@@ -54,7 +60,9 @@ class GraphifyAdapter(GraphPort):
         try:
             proc = subprocess.run(
                 ["graphify", "explain", concept],
-                capture_output=True, text=True, timeout=10,
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
             if proc.returncode == 0:
                 return self._parse_explain_cli(proc.stdout)
@@ -95,7 +103,8 @@ class GraphifyAdapter(GraphPort):
         node_id = node.get("id", "")
         # Count connections
         degree = sum(
-            1 for link in data.get("links", [])
+            1
+            for link in data.get("links", [])
             if link.get("source") == node_id or link.get("target") == node_id
         )
         return NodeInfo(
@@ -112,14 +121,21 @@ class GraphifyAdapter(GraphPort):
         try:
             proc = subprocess.run(
                 ["graphify", "path", source, target],
-                capture_output=True, text=True, timeout=10,
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
             if proc.returncode == 0:
                 return self._parse_path_cli(proc.stdout)
         except (FileNotFoundError, subprocess.TimeoutExpired):
             pass
 
-        return PathInfo(source=source, target=target, hops=-1, description="Graphify CLI unavailable")
+        return PathInfo(
+            source=source,
+            target=target,
+            hops=-1,
+            description="Graphify CLI unavailable",
+        )
 
     def _parse_path_cli(self, output: str) -> PathInfo:
         """Parse 'graphify path' CLI output."""
@@ -170,7 +186,7 @@ class GraphifyAdapter(GraphPort):
                                     expanded.add(src_id)
 
         return GraphResult(
-            nodes=matches[:query.max_results],
+            nodes=matches[: query.max_results],
             total_found=len(matches),
         )
 

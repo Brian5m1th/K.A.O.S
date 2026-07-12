@@ -93,9 +93,7 @@ class ProviderRegistry(Generic[T]):
         """Return the currently active provider."""
         if self._active_key is None:
             if not self._providers:
-                raise RuntimeError(
-                    f"[registry:{self._name}] No providers registered"
-                )
+                raise RuntimeError(f"[registry:{self._name}] No providers registered")
             # Auto-activate first available
             self._active_key = next(iter(self._providers))
         return self._providers[self._active_key]

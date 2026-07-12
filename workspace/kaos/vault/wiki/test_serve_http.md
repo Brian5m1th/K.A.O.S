@@ -1,0 +1,108 @@
+# graphify\tests\test_serve_http.py
+
+## Símbolos
+
+- [[graphify_tests_test_serve_http]] — code: test_serve_http.py
+- [[graphify_tests_test_serve_http_graph_file]] — code: _graph_file()
+- [[graphify_tests_test_serve_http_client]] — code: _client()
+- [[graphify_tests_test_serve_http_test_app_builds_and_initialize_succeeds]] — code: test_app_builds_and_initialize_succeeds()
+- [[graphify_tests_test_serve_http_test_unknown_path_is_404]] — code: test_unknown_path_is_404()
+- [[graphify_tests_test_serve_http_test_api_key_missing_is_401]] — code: test_api_key_missing_is_401()
+- [[graphify_tests_test_serve_http_test_api_key_wrong_is_401]] — code: test_api_key_wrong_is_401()
+- [[graphify_tests_test_serve_http_test_api_key_bearer_ok]] — code: test_api_key_bearer_ok()
+- [[graphify_tests_test_serve_http_test_api_key_x_api_key_header_ok]] — code: test_api_key_x_api_key_header_ok()
+- [[graphify_tests_test_serve_http_test_blank_api_key_means_no_auth]] — code: test_blank_api_key_means_no_auth()
+- [[graphify_tests_test_serve_http_test_api_key_bearer_scheme_case_insensitive]] — code: test_api_key_bearer_scheme_case_insensitive()
+- [[graphify_tests_test_serve_http_test_custom_mount_path]] — code: test_custom_mount_path()
+- [[graphify_tests_test_serve_http_test_tools_list_over_http]] — code: test_tools_list_over_http()
+- [[graphify_tests_test_serve_http_project_with_graph]] — code: _project_with_graph()
+- [[graphify_tests_test_serve_http_init_session]] — code: _init_session()
+- [[graphify_tests_test_serve_http_call_tool]] — code: _call_tool()
+- [[graphify_tests_test_serve_http_test_project_path_is_optional_on_every_tool]] — code: test_project_path_is_optional_on_every_tool()
+- [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]] — code: test_project_path_routes_to_that_projects_graph()
+- [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]] — code: test_bad_project_path_errors_without_killing_server()
+- [[graphify_tests_test_serve_http_test_stateless_mode_initialize]] — code: test_stateless_mode_initialize()
+- [[graphify_tests_test_serve_http_test_stateless_with_timeout_does_not_raise]] — code: test_stateless_with_timeout_does_not_raise()
+- [[graphify_tests_test_serve_http_test_session_timeout_zero_disables]] — code: test_session_timeout_zero_disables()
+- [[graphify_tests_test_serve_http_test_cli_defaults_to_stdio]] — code: test_cli_defaults_to_stdio()
+- [[graphify_tests_test_serve_http_test_cli_http_passes_flags]] — code: test_cli_http_passes_flags()
+- [[graphify_tests_test_serve_http_test_cli_api_key_from_env]] — code: test_cli_api_key_from_env()
+- [[graphify_tests_test_serve_http_rationale_1]] — code: Tests for the Streamable HTTP transport on the MCP server (issue #1143).  Thes
+- [[graphify_tests_test_serve_http_rationale_150]] — code: A full initialize -> tools/list round trip works over the HTTP transport.
+- [[graphify_tests_test_serve_http_rationale_174]] — code: Create ``<proj>/graphify-out/graph.json`` and return the project dir.
+- [[graphify_tests_test_serve_http_rationale_204]] — code: Multi-project support is additive: every tool gains an optional     project_pat
+- [[graphify_tests_test_serve_http_rationale_218]] — code: One running server answers against the default graph when project_path is     o
+- [[graphify_tests_test_serve_http_rationale_231]] — code: A missing project graph is a tool error, not a process exit — the server     ke
+
+## Dependências
+
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_call_tool]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_init_session]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_project_with_graph]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_api_key_bearer_ok]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_api_key_bearer_scheme_case_insensitive]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_api_key_missing_is_401]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_api_key_wrong_is_401]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_api_key_x_api_key_header_ok]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_app_builds_and_initialize_succeeds]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_blank_api_key_means_no_auth]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_cli_api_key_from_env]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_cli_defaults_to_stdio]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_cli_http_passes_flags]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_custom_mount_path]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_project_path_is_optional_on_every_tool]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_session_timeout_zero_disables]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_stateless_mode_initialize]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_stateless_with_timeout_does_not_raise]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_tools_list_over_http]]
+- [[graphify_tests_test_serve_http]] → `contains` → [[graphify_tests_test_serve_http_test_unknown_path_is_404]]
+- [[graphify_tests_test_serve_http_rationale_1]] → `rationale_for` → [[graphify_tests_test_serve_http]]
+- [[graphify_tests_test_serve_http_graph_file]] → `references` → [[graphify_tests_test_serve_http_py_path]]
+- [[graphify_tests_test_serve_http_test_api_key_bearer_ok]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_api_key_bearer_scheme_case_insensitive]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_api_key_missing_is_401]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_api_key_wrong_is_401]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_api_key_x_api_key_header_ok]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_app_builds_and_initialize_succeeds]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_blank_api_key_means_no_auth]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_custom_mount_path]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_project_path_is_optional_on_every_tool]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_session_timeout_zero_disables]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_stateless_mode_initialize]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_stateless_with_timeout_does_not_raise]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_tools_list_over_http]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_test_unknown_path_is_404]] → `calls` → [[graphify_tests_test_serve_http_graph_file]]
+- [[graphify_tests_test_serve_http_client]] → `references` → [[graphify_tests_test_serve_http_py_testclient]]
+- [[graphify_tests_test_serve_http_test_api_key_bearer_ok]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_api_key_bearer_scheme_case_insensitive]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_api_key_missing_is_401]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_api_key_wrong_is_401]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_api_key_x_api_key_header_ok]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_app_builds_and_initialize_succeeds]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_blank_api_key_means_no_auth]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_custom_mount_path]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_project_path_is_optional_on_every_tool]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_session_timeout_zero_disables]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_stateless_mode_initialize]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_stateless_with_timeout_does_not_raise]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_tools_list_over_http]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_test_unknown_path_is_404]] → `calls` → [[graphify_tests_test_serve_http_client]]
+- [[graphify_tests_test_serve_http_rationale_150]] → `rationale_for` → [[graphify_tests_test_serve_http_test_tools_list_over_http]]
+- [[graphify_tests_test_serve_http_rationale_174]] → `rationale_for` → [[graphify_tests_test_serve_http_project_with_graph]]
+- [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]] → `calls` → [[graphify_tests_test_serve_http_project_with_graph]]
+- [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]] → `calls` → [[graphify_tests_test_serve_http_init_session]]
+- [[graphify_tests_test_serve_http_test_project_path_is_optional_on_every_tool]] → `calls` → [[graphify_tests_test_serve_http_init_session]]
+- [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]] → `calls` → [[graphify_tests_test_serve_http_init_session]]
+- [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]] → `calls` → [[graphify_tests_test_serve_http_call_tool]]
+- [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]] → `calls` → [[graphify_tests_test_serve_http_call_tool]]
+- [[graphify_tests_test_serve_http_rationale_204]] → `rationale_for` → [[graphify_tests_test_serve_http_test_project_path_is_optional_on_every_tool]]
+- [[graphify_tests_test_serve_http_rationale_218]] → `rationale_for` → [[graphify_tests_test_serve_http_test_project_path_routes_to_that_projects_graph]]
+- [[graphify_tests_test_serve_http_rationale_231]] → `rationale_for` → [[graphify_tests_test_serve_http_test_bad_project_path_errors_without_killing_server]]

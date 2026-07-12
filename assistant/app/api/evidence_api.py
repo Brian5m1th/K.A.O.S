@@ -17,6 +17,7 @@ router = APIRouter(prefix="/api/evidence", tags=["Evidence"])
 
 def get_evidence_service() -> EvidenceService:
     from app.providers.evidence.engine import EvidenceEngine
+
     svc = EvidenceService()
     svc.registry.register("engine", EvidenceEngine())
     return svc
@@ -75,8 +76,7 @@ async def evidence_history(
         "metric": name,
         "days": days,
         "data_points": [
-            {"date": m.source, "value": m.value, "level": m.level}
-            for m in history
+            {"date": m.source, "value": m.value, "level": m.level} for m in history
         ],
     }
 

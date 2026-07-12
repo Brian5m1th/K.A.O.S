@@ -1,0 +1,622 @@
+# graphify\tests\test_detect.py
+
+## Símbolos
+
+- [[graphify_tests_test_detect]] — code: test_detect.py
+- [[graphify_tests_test_detect_test_classify_python]] — code: test_classify_python()
+- [[graphify_tests_test_detect_test_classify_typescript]] — code: test_classify_typescript()
+- [[graphify_tests_test_detect_test_classify_powershell_module]] — code: test_classify_powershell_module()
+- [[graphify_tests_test_detect_test_classify_powershell_manifest]] — code: test_classify_powershell_manifest()
+- [[graphify_tests_test_detect_test_classify_markdown]] — code: test_classify_markdown()
+- [[graphify_tests_test_detect_test_classify_pdf]] — code: test_classify_pdf()
+- [[graphify_tests_test_detect_test_classify_pdf_in_xcassets_skipped]] — code: test_classify_pdf_in_xcassets_skipped()
+- [[graphify_tests_test_detect_test_classify_pdf_in_xcassets_root_skipped]] — code: test_classify_pdf_in_xcassets_root_skipped()
+- [[graphify_tests_test_detect_test_classify_unknown_returns_none]] — code: test_classify_unknown_returns_none()
+- [[graphify_tests_test_detect_test_classify_image]] — code: test_classify_image()
+- [[graphify_tests_test_detect_test_count_words_sample_md]] — code: test_count_words_sample_md()
+- [[graphify_tests_test_detect_test_detect_finds_fixtures]] — code: test_detect_finds_fixtures()
+- [[graphify_tests_test_detect_test_detect_warns_small_corpus]] — code: test_detect_warns_small_corpus()
+- [[graphify_tests_test_detect_test_detect_skips_noise_dot_dirs]] — code: test_detect_skips_noise_dot_dirs()
+- [[graphify_tests_test_detect_test_classify_md_paper_by_signals]] — code: test_classify_md_paper_by_signals()
+- [[graphify_tests_test_detect_test_classify_md_doc_without_signals]] — code: test_classify_md_doc_without_signals()
+- [[graphify_tests_test_detect_test_classify_attention_paper]] — code: test_classify_attention_paper()
+- [[graphify_tests_test_detect_test_graphifyignore_excludes_file]] — code: test_graphifyignore_excludes_file()
+- [[graphify_tests_test_detect_test_graphifyignore_missing_is_fine]] — code: test_graphifyignore_missing_is_fine()
+- [[graphify_tests_test_detect_test_graphifyignore_comments_ignored]] — code: test_graphifyignore_comments_ignored()
+- [[graphify_tests_test_detect_test_detect_follows_symlinked_directory]] — code: test_detect_follows_symlinked_directory()
+- [[graphify_tests_test_detect_test_detect_follows_symlinked_file]] — code: test_detect_follows_symlinked_file()
+- [[graphify_tests_test_detect_test_graphifyignore_hermetic_without_vcs]] — code: test_graphifyignore_hermetic_without_vcs()
+- [[graphify_tests_test_detect_test_graphifyignore_discovered_from_parent_in_vcs]] — code: test_graphifyignore_discovered_from_parent_in_vcs()
+- [[graphify_tests_test_detect_test_graphifyignore_stops_at_git_boundary]] — code: test_graphifyignore_stops_at_git_boundary()
+- [[graphify_tests_test_detect_test_graphifyignore_at_git_root_is_included]] — code: test_graphifyignore_at_git_root_is_included()
+- [[graphify_tests_test_detect_test_detect_handles_circular_symlinks]] — code: test_detect_handles_circular_symlinks()
+- [[graphify_tests_test_detect_test_detect_default_does_not_auto_follow_direct_symlink_child]] — code: test_detect_default_does_not_auto_follow_direct_symlink_child()
+- [[graphify_tests_test_detect_test_detect_default_does_not_follow_when_no_symlinks]] — code: test_detect_default_does_not_follow_when_no_symlinks()
+- [[graphify_tests_test_detect_test_detect_explicit_false_overrides_auto_detect]] — code: test_detect_explicit_false_overrides_auto_detect()
+- [[graphify_tests_test_detect_test_detect_skips_out_of_root_symlinked_directory_even_when_following]] — code: test_detect_skips_out_of_root_symlinked_directory_even_when_following()
+- [[graphify_tests_test_detect_test_detect_skips_out_of_root_symlinked_file_by_default]] — code: test_detect_skips_out_of_root_symlinked_file_by_default()
+- [[graphify_tests_test_detect_test_detect_incremental_propagates_follow_symlinks]] — code: test_detect_incremental_propagates_follow_symlinks()
+- [[graphify_tests_test_detect_test_detect_incremental_survives_dict_valued_mtime]] — code: test_detect_incremental_survives_dict_valued_mtime()
+- [[graphify_tests_test_detect_test_classify_video_extensions]] — code: test_classify_video_extensions()
+- [[graphify_tests_test_detect_test_classify_google_workspace_shortcuts]] — code: test_classify_google_workspace_shortcuts()
+- [[graphify_tests_test_detect_test_detect_skips_google_workspace_shortcuts_by_default]] — code: test_detect_skips_google_workspace_shortcuts_by_default()
+- [[graphify_tests_test_detect_test_detect_converts_google_workspace_shortcuts_when_enabled]] — code: test_detect_converts_google_workspace_shortcuts_when_enabled()
+- [[graphify_tests_test_detect_test_detect_includes_video_key]] — code: test_detect_includes_video_key()
+- [[graphify_tests_test_detect_test_detect_finds_video_files]] — code: test_detect_finds_video_files()
+- [[graphify_tests_test_detect_test_detect_video_not_in_words]] — code: test_detect_video_not_in_words()
+- [[graphify_tests_test_detect_test_detect_skips_coverage_dir]] — code: test_detect_skips_coverage_dir()
+- [[graphify_tests_test_detect_test_detect_skips_visual_tests_dir]] — code: test_detect_skips_visual_tests_dir()
+- [[graphify_tests_test_detect_test_detect_skips_snapshots_dir]] — code: test_detect_skips_snapshots_dir()
+- [[graphify_tests_test_detect_test_detect_keeps_snapshots_code_namespace]] — code: test_detect_keeps_snapshots_code_namespace()
+- [[graphify_tests_test_detect_test_detect_skips_storybook_static_dir]] — code: test_detect_skips_storybook_static_dir()
+- [[graphify_tests_test_detect_test_detect_allows_github_dir]] — code: test_detect_allows_github_dir()
+- [[graphify_tests_test_detect_test_detect_skips_next_cache]] — code: test_detect_skips_next_cache()
+- [[graphify_tests_test_detect_test_detect_skips_graphify_own_cache]] — code: test_detect_skips_graphify_own_cache()
+- [[graphify_tests_test_detect_test_negation_cannot_rescue_file_under_excluded_dir]] — code: test_negation_cannot_rescue_file_under_excluded_dir()
+- [[graphify_tests_test_detect_test_negation_works_when_no_ancestor_excluded]] — code: test_negation_works_when_no_ancestor_excluded()
+- [[graphify_tests_test_detect_test_negation_ancestor_itself_reincluded]] — code: test_negation_ancestor_itself_reincluded()
+- [[graphify_tests_test_detect_test_negation_does_not_disable_directory_pruning]] — code: test_negation_does_not_disable_directory_pruning()
+- [[graphify_tests_test_detect_test_anchored_dir_not_matched_at_depth]] — code: test_anchored_dir_not_matched_at_depth()
+- [[graphify_tests_test_detect_test_anchored_dir_matches_at_root]] — code: test_anchored_dir_matches_at_root()
+- [[graphify_tests_test_detect_test_anchored_file_not_matched_at_depth]] — code: test_anchored_file_not_matched_at_depth()
+- [[graphify_tests_test_detect_test_unanchored_dir_still_matches_at_depth]] — code: test_unanchored_dir_still_matches_at_depth()
+- [[graphify_tests_test_detect_test_anchored_multi_segment_pattern]] — code: test_anchored_multi_segment_pattern()
+- [[graphify_tests_test_detect_test_is_ignored_cache_matches_uncached_results]] — code: test_is_ignored_cache_matches_uncached_results()
+- [[graphify_tests_test_detect_test_is_ignored_cache_evaluates_each_dir_once]] — code: test_is_ignored_cache_evaluates_each_dir_once()
+- [[graphify_tests_test_detect_test_sensitive_flags_api_token_txt]] — code: test_sensitive_flags_api_token_txt()
+- [[graphify_tests_test_detect_test_sensitive_flags_oauth_token_json]] — code: test_sensitive_flags_oauth_token_json()
+- [[graphify_tests_test_detect_test_sensitive_flags_underscore_secret]] — code: test_sensitive_flags_underscore_secret()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_tokenizer_py]] — code: test_sensitive_does_not_flag_tokenizer_py()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_tokenize_py]] — code: test_sensitive_does_not_flag_tokenize_py()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_passwords_py]] — code: test_sensitive_does_not_flag_passwords_py()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_ruby_code_modules]] — code: test_sensitive_does_not_flag_ruby_code_modules()
+- [[graphify_tests_test_detect_test_sensitive_still_flags_data_secret_stores]] — code: test_sensitive_still_flags_data_secret_stores()
+- [[graphify_tests_test_detect_test_sensitive_flags_ssh_dir]] — code: test_sensitive_flags_ssh_dir()
+- [[graphify_tests_test_detect_test_sensitive_flags_secrets_dir]] — code: test_sensitive_flags_secrets_dir()
+- [[graphify_tests_test_detect_test_sensitive_flags_token_txt]] — code: test_sensitive_flags_token_txt()
+- [[graphify_tests_test_detect_test_sensitive_flags_credentials_json]] — code: test_sensitive_flags_credentials_json()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_root_file_named_credentials]] — code: test_sensitive_does_not_flag_root_file_named_credentials()
+- [[graphify_tests_test_detect_test_sensitive_secret_handler_txt]] — code: test_sensitive_secret_handler_txt()
+- [[graphify_tests_test_detect_test_sensitive_token_config_yaml]] — code: test_sensitive_token_config_yaml()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_token_economics_note]] — code: test_sensitive_does_not_flag_token_economics_note()
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_password_policy_discussion]] — code: test_sensitive_does_not_flag_password_policy_discussion()
+- [[graphify_tests_test_detect_test_sensitive_flags_keyword_at_end_of_long_name]] — code: test_sensitive_flags_keyword_at_end_of_long_name()
+- [[graphify_tests_test_detect_test_sensitive_flags_my_private_key_txt]] — code: test_sensitive_flags_my_private_key_txt()
+- [[graphify_tests_test_detect_test_sensitive_flags_dotfile_token]] — code: test_sensitive_flags_dotfile_token()
+- [[graphify_tests_test_detect_test_sensitive_flags_plural_tokens_txt]] — code: test_sensitive_flags_plural_tokens_txt()
+- [[graphify_tests_test_detect_test_save_manifest_skips_semantic_hash_for_files_without_cache]] — code: test_save_manifest_skips_semantic_hash_for_files_without_cache()
+- [[graphify_tests_test_detect_test_save_manifest_without_filter_unchanged_for_code]] — code: test_save_manifest_without_filter_unchanged_for_code()
+- [[graphify_tests_test_detect_test_gitignore_fallback_when_no_graphifyignore]] — code: test_gitignore_fallback_when_no_graphifyignore()
+- [[graphify_tests_test_detect_test_graphifyignore_and_gitignore_are_merged]] — code: test_graphifyignore_and_gitignore_are_merged()
+- [[graphify_tests_test_detect_test_graphifyignore_negation_overrides_gitignore]] — code: test_graphifyignore_negation_overrides_gitignore()
+- [[graphify_tests_test_detect_test_detect_skips_worktrees_dir]] — code: test_detect_skips_worktrees_dir()
+- [[graphify_tests_test_detect_test_detect_skips_nested_worktrees_dir]] — code: test_detect_skips_nested_worktrees_dir()
+- [[graphify_tests_test_detect_test_detect_extra_excludes_pattern]] — code: test_detect_extra_excludes_pattern()
+- [[graphify_tests_test_detect_test_shebang_interpreter_plain]] — code: test_shebang_interpreter_plain()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_single_arg]] — code: test_shebang_interpreter_env_single_arg()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s]] — code: test_shebang_interpreter_env_dash_s()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_with_flags]] — code: test_shebang_interpreter_env_with_flags()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_with_assignment]] — code: test_shebang_interpreter_env_with_assignment()
+- [[graphify_tests_test_detect_test_shebang_interpreter_no_shebang]] — code: test_shebang_interpreter_no_shebang()
+- [[graphify_tests_test_detect_test_shebang_interpreter_quoted_path]] — code: test_shebang_interpreter_quoted_path()
+- [[graphify_tests_test_detect_test_shebang_file_type_classifies_via_interpreter]] — code: test_shebang_file_type_classifies_via_interpreter()
+- [[graphify_tests_test_detect_test_shebang_interpreter_unreadable_returns_none]] — code: test_shebang_interpreter_unreadable_returns_none()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_unset_with_operand]] — code: test_shebang_interpreter_env_unset_with_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_chdir_with_operand]] — code: test_shebang_interpreter_env_chdir_with_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_path_with_operand]] — code: test_shebang_interpreter_env_path_with_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_after_flag]] — code: test_shebang_interpreter_env_dash_s_after_flag()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_clumped_u_operand]] — code: test_shebang_interpreter_env_clumped_u_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_missing_operand_returns_none]] — code: test_shebang_interpreter_env_missing_operand_returns_none()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_equals]] — code: test_shebang_interpreter_env_gnu_split_string_equals()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_separate]] — code: test_shebang_interpreter_env_gnu_split_string_separate()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_argv0_operand]] — code: test_shebang_interpreter_env_gnu_argv0_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_dash_s]] — code: test_shebang_interpreter_env_compact_dash_s()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_v_then_s]] — code: test_shebang_interpreter_env_compact_v_then_s()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_separate_operand]] — code: test_shebang_interpreter_env_long_unset_separate_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_equals]] — code: test_shebang_interpreter_env_long_unset_equals()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_separate_operand]] — code: test_shebang_interpreter_env_long_chdir_separate_operand()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_equals]] — code: test_shebang_interpreter_env_long_chdir_equals()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_signal_flags]] — code: test_shebang_interpreter_env_signal_flags()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_unknown_option_returns_none]] — code: test_shebang_interpreter_env_unknown_option_returns_none()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_assignment_before_interpreter]] — code: test_shebang_interpreter_env_dash_s_assignment_before_interpreter()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_flag_before_interpreter]] — code: test_shebang_interpreter_env_dash_s_flag_before_interpreter()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_assignment_before_interpreter]] — code: test_shebang_interpreter_env_long_split_assignment_before_interpreter()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_flag_before_interpreter]] — code: test_shebang_interpreter_env_long_split_flag_before_interpreter()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_nested_split_string_rejected]] — code: test_shebang_interpreter_env_nested_split_string_rejected()
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_vs_assignment_before_interpreter]] — code: test_shebang_interpreter_env_vs_assignment_before_interpreter()
+- [[graphify_tests_test_detect_test_save_manifest_relativizes_keys_when_root_given]] — code: test_save_manifest_relativizes_keys_when_root_given()
+- [[graphify_tests_test_detect_test_save_manifest_without_root_keeps_absolute_keys]] — code: test_save_manifest_without_root_keeps_absolute_keys()
+- [[graphify_tests_test_detect_test_load_manifest_absolutizes_relative_keys]] — code: test_load_manifest_absolutizes_relative_keys()
+- [[graphify_tests_test_detect_test_load_manifest_passes_through_legacy_absolute_keys]] — code: test_load_manifest_passes_through_legacy_absolute_keys()
+- [[graphify_tests_test_detect_test_save_manifest_out_of_root_keeps_absolute]] — code: test_save_manifest_out_of_root_keeps_absolute()
+- [[graphify_tests_test_detect_test_detect_incremental_portable_across_paths]] — code: test_detect_incremental_portable_across_paths()
+- [[graphify_tests_test_detect_test_save_manifest_in_root_symlink_roundtrips]] — code: test_save_manifest_in_root_symlink_roundtrips()
+- [[graphify_tests_test_detect_test_convert_office_file_hash_stable_across_nfc_nfd]] — code: test_convert_office_file_hash_stable_across_nfc_nfd()
+- [[graphify_tests_test_detect_test_convert_office_file_does_not_rewrite_existing_sidecar]] — code: test_convert_office_file_does_not_rewrite_existing_sidecar()
+- [[graphify_tests_test_detect_test_detect_records_unclassified_extensionless_files]] — code: test_detect_records_unclassified_extensionless_files()
+- [[graphify_tests_test_detect_test_detect_unclassified_empty_when_all_supported]] — code: test_detect_unclassified_empty_when_all_supported()
+- [[graphify_tests_test_detect_test_detect_reports_walk_errors_key]] — code: test_detect_reports_walk_errors_key()
+- [[graphify_tests_test_detect_test_detect_surfaces_unreadable_dir_instead_of_silent_skip]] — code: test_detect_surfaces_unreadable_dir_instead_of_silent_skip()
+- [[graphify_tests_test_detect_rationale_62]] — code: Noise dot dirs (.next, .nuxt, .graphify cache, …) are skipped (#873).     Non-n
+- [[graphify_tests_test_detect_rationale_75]] — code: A .md file with enough paper signals should classify as PAPER.
+- [[graphify_tests_test_detect_rationale_86]] — code: A plain .md file without paper signals should stay DOCUMENT.
+- [[graphify_tests_test_detect_rationale_93]] — code: The real attention paper file should be classified as PAPER.
+- [[graphify_tests_test_detect_rationale_101]] — code: Files matching .graphifyignore patterns are excluded from detect().
+- [[graphify_tests_test_detect_rationale_118]] — code: No .graphifyignore is not an error.
+- [[graphify_tests_test_detect_rationale_125]] — code: Comment lines in .graphifyignore are not treated as patterns.
+- [[graphify_tests_test_detect_rationale_159]] — code: Without a VCS root, parent .graphifyignore does NOT apply (hermetic).
+- [[graphify_tests_test_detect_rationale_177]] — code: Inside a VCS repo, parent .graphifyignore applies to subdirectory scans.
+- [[graphify_tests_test_detect_rationale_195]] — code: Upward search stops at the git repo root (.git directory).
+- [[graphify_tests_test_detect_rationale_211]] — code: A .graphifyignore at the git repo root is included when scanning a subdir.
+- [[graphify_tests_test_detect_rationale_241]] — code: Symlink directory following is explicit opt-in.
+- [[graphify_tests_test_detect_rationale_253]] — code: Ordinary scans still walk normal directories by default.
+- [[graphify_tests_test_detect_rationale_265]] — code: An explicit follow_symlinks=False skips symlinked directories.
+- [[graphify_tests_test_detect_rationale_305]] — code: detect_incremental must forward follow_symlinks so symlinked sub-trees     appe
+- [[graphify_tests_test_detect_rationale_336]] — code: A schema-drifted manifest whose entry stores mtime as a nested dict     (instea
+- [[graphify_tests_test_detect_rationale_373]] — code: Video and audio file extensions should classify as VIDEO.
+- [[graphify_tests_test_detect_rationale_418]] — code: detect() result always includes a 'video' key even with no video files.
+- [[graphify_tests_test_detect_rationale_425]] — code: detect() correctly counts video files and does not add them to word count.
+- [[graphify_tests_test_detect_rationale_436]] — code: Video files do not contribute to total_words.
+- [[graphify_tests_test_detect_rationale_444]] — code: coverage/ and lcov-report/ are noise dirs — HTML reports inside must be excluded
+- [[graphify_tests_test_detect_rationale_458]] — code: visual-tests/ bundles and snapshots are noise — must be excluded (#869).
+- [[graphify_tests_test_detect_rationale_471]] — code: __snapshots__/ and real jest/vitest snapshots/ dirs are artefacts — excluded.
+- [[graphify_tests_test_detect_rationale_487]] — code: #1666: a bare snapshots/ dir with no .snap files is a legit code namespace
+- [[graphify_tests_test_detect_rationale_501]] — code: storybook-static/ is a build artefact — must be excluded.
+- [[graphify_tests_test_detect_rationale_516]] — code: Files inside .github/ (workflows etc.) are now indexed (#873).
+- [[graphify_tests_test_detect_rationale_527]] — code: .next/ (Next.js build cache) must be excluded even after dot-dir fix (#873).
+- [[graphify_tests_test_detect_rationale_541]] — code: .graphify/ (extraction cache) must never be re-indexed as source (#873).
+- [[graphify_tests_test_detect_rationale_555]] — code: A ! re-include cannot un-ignore a file whose parent dir is excluded (#882).
+- [[graphify_tests_test_detect_rationale_570]] — code: A ! re-include must still un-ignore a file when no ancestor is excluded (#882).
+- [[graphify_tests_test_detect_rationale_584]] — code: If the ancestor dir itself is re-included, its children should not be blocked (#
+- [[graphify_tests_test_detect_rationale_597]] — code: A single `!` re-include must not switch off pruning of *unrelated* ignored dirs.
+- [[graphify_tests_test_detect_rationale_644]] — code: /inbox/ must not match src/inbox/ — only inbox/ at the anchor root.
+- [[graphify_tests_test_detect_rationale_661]] — code: /inbox/ must still match inbox/ at the anchor root (positive case).
+- [[graphify_tests_test_detect_rationale_678]] — code: /build must not match src/build.
+- [[graphify_tests_test_detect_rationale_690]] — code: inbox/ (no leading /) must still match src/inbox/ anywhere in the tree.
+- [[graphify_tests_test_detect_rationale_704]] — code: /src/inbox/ must match src/inbox/ but not x/src/inbox/.
+- [[graphify_tests_test_detect_rationale_725]] — code: A shared _cache must not change _is_ignored results, including negation.
+- [[graphify_tests_test_detect_rationale_770]] — code: Siblings under the same subtree must share the cached parent result (#1235).
+- [[graphify_tests_test_detect_rationale_918]] — code: Files in failed chunks have no semantic cache entry; save_manifest must     lea
+- [[graphify_tests_test_detect_rationale_953]] — code: Code files must be stamped in the manifest regardless of semantic cache.
+- [[graphify_tests_test_detect_rationale_969]] — code: When no .graphifyignore exists, .gitignore patterns are honored (#945).
+- [[graphify_tests_test_detect_rationale_986]] — code: When both exist, their patterns are MERGED — a file excluded only by     .gitig
+- [[graphify_tests_test_detect_rationale_1005]] — code: .graphifyignore is evaluated after .gitignore, so a `!` negation in it can
+- [[graphify_tests_test_detect_rationale_1022]] — code: Files inside .worktrees/ are never indexed (#947).
+- [[graphify_tests_test_detect_rationale_1035]] — code: Files inside .claude/worktrees/ (nested placement) are never indexed (#1023).
+- [[graphify_tests_test_detect_rationale_1048]] — code: extra_excludes patterns exclude matching files from detect() (#947).
+- [[graphify_tests_test_detect_rationale_1067]] — code: Plain shebang returns the interpreter basename.
+- [[graphify_tests_test_detect_rationale_1075]] — code: `#!/usr/bin/env python3` returns the interpreter, not 'env'.
+- [[graphify_tests_test_detect_rationale_1083]] — code: `#!/usr/bin/env -S python3 -u` (-S split-args form) recovers the interpreter.
+- [[graphify_tests_test_detect_rationale_1091]] — code: `#!/usr/bin/env -i bash` skips env flags and resolves to the interpreter.
+- [[graphify_tests_test_detect_rationale_1099]] — code: `#!/usr/bin/env DEBUG=1 python3` skips var=value assignments.
+- [[graphify_tests_test_detect_rationale_1107]] — code: File without shebang returns None.
+- [[graphify_tests_test_detect_rationale_1115]] — code: Quoted interpreter path with spaces parses correctly via shlex.
+- [[graphify_tests_test_detect_rationale_1125]] — code: Classify file type via interpreter, including env -S form.
+- [[graphify_tests_test_detect_rationale_1133]] — code: Unreadable / nonexistent files return None, never raise.
+- [[graphify_tests_test_detect_rationale_1140]] — code: `env -u VAR python3` skips both -u and its required operand.
+- [[graphify_tests_test_detect_rationale_1149]] — code: `env -C /tmp python3` skips both -C and its workdir operand.
+- [[graphify_tests_test_detect_rationale_1158]] — code: `env -P /bin python3` skips both -P and its utilpath operand.
+- [[graphify_tests_test_detect_rationale_1167]] — code: `env -i -S "python3 -u"` handles -S after another env flag.
+- [[graphify_tests_test_detect_rationale_1176]] — code: Clumped `-uPYTHONPATH` form (no space between flag and operand) is one arg.
+- [[graphify_tests_test_detect_rationale_1185]] — code: `env -u` with no operand → not a valid command, return None.
+- [[graphify_tests_test_detect_rationale_1193]] — code: GNU `--split-string='python3 -u'` (with `=` operand) → python3.
+- [[graphify_tests_test_detect_rationale_1202]] — code: GNU `--split-string "python3 -u"` (separate operand) → python3.
+- [[graphify_tests_test_detect_rationale_1211]] — code: GNU `-a alias python3` skips both -a and its argv0 operand.
+- [[graphify_tests_test_detect_rationale_1220]] — code: Compact `-Spython3 -u` form (no space between -S and packed string).
+- [[graphify_tests_test_detect_rationale_1229]] — code: Compact `-vSpython3` (-v plus compact -S).
+- [[graphify_tests_test_detect_rationale_1238]] — code: GNU `--unset PYTHONPATH python3` (separate operand).
+- [[graphify_tests_test_detect_rationale_1247]] — code: GNU `--unset=PYTHONPATH python3` (`=` operand form).
+- [[graphify_tests_test_detect_rationale_1256]] — code: GNU `--chdir /tmp python3` (separate operand).
+- [[graphify_tests_test_detect_rationale_1265]] — code: GNU `--chdir=/tmp python3` (`=` operand form).
+- [[graphify_tests_test_detect_rationale_1274]] — code: GNU signal-handling flags skip transparently.
+- [[graphify_tests_test_detect_rationale_1283]] — code: Unknown hyphen-prefixed env option → return None rather than guessing.
+- [[graphify_tests_test_detect_rationale_1293]] — code: `-S` payload may carry NAME=value assignments before the interpreter.
+- [[graphify_tests_test_detect_rationale_1305]] — code: `-S` payload may carry env flags (e.g. -i) before the interpreter.
+- [[graphify_tests_test_detect_rationale_1314]] — code: `--split-string=` payload may carry assignments before the interpreter.
+- [[graphify_tests_test_detect_rationale_1326]] — code: `--split-string=` payload may carry env flags before the interpreter.
+- [[graphify_tests_test_detect_rationale_1335]] — code: A `-S` payload that itself starts with `-S` is rejected (allow_split=False
+- [[graphify_tests_test_detect_rationale_1347]] — code: `-vS` packed payload also re-parses for leading assignments.
+- [[graphify_tests_test_detect_rationale_1362]] — code: ``save_manifest(root=...)`` writes forward-slash relative keys.
+- [[graphify_tests_test_detect_rationale_1390]] — code: Back-compat: callers that don't pass ``root`` still get the legacy     absolute
+- [[graphify_tests_test_detect_rationale_1408]] — code: ``load_manifest(root=...)`` re-anchors stored relative keys so the     in-memor
+- [[graphify_tests_test_detect_rationale_1426]] — code: Legacy absolute-keyed manifests still load correctly when ``root``     is suppl
+- [[graphify_tests_test_detect_rationale_1441]] — code: Files outside ``root`` (e.g. symlinked external corpora) are stored     absolut
+- [[graphify_tests_test_detect_rationale_1462]] — code: End-to-end: a manifest written at one root must be readable from a     differen
+- [[graphify_tests_test_detect_rationale_1501]] — code: In-root symlinks must store under the symlink's own name, not the     resolved
+- [[graphify_tests_test_detect_rationale_1535]] — code: The sidecar name must be identical whether the source path arrives in     NFC o
+- [[graphify_tests_test_detect_rationale_1563]] — code: A second conversion of an unchanged source must not rewrite the sidecar,     so
+- [[graphify_tests_test_detect_rationale_1603]] — code: detect() always surfaces a walk_errors list so callers can tell whether     enu
+- [[graphify_tests_test_detect_rationale_1614]] — code: os.walk silently skips a subtree whose scandir raises (permissions, or a     di
+
+## Dependências
+
+- [[graphify_tests_test_detect_test_save_manifest_skips_semantic_hash_for_files_without_cache]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_detect]] → `imports_from` → [[graphify_graphify_detect]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_password_policy_discussion]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_passwords_py]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_root_file_named_credentials]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_ruby_code_modules]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_token_economics_note]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_tokenize_py]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_does_not_flag_tokenizer_py]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_api_token_txt]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_credentials_json]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_dotfile_token]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_keyword_at_end_of_long_name]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_my_private_key_txt]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_oauth_token_json]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_plural_tokens_txt]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_secrets_dir]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_ssh_dir]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_token_txt]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_flags_underscore_secret]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_secret_handler_txt]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_still_flags_data_secret_stores]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_sensitive_token_config_yaml]] → `calls` → [[graphify_graphify_detect_is_sensitive]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_chdir_with_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_clumped_u_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_dash_s]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_v_then_s]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_after_flag]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_assignment_before_interpreter]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_flag_before_interpreter]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_argv0_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_equals]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_separate]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_equals]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_separate_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_assignment_before_interpreter]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_flag_before_interpreter]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_equals]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_separate_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_missing_operand_returns_none]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_nested_split_string_rejected]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_path_with_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_signal_flags]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_single_arg]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_unknown_option_returns_none]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_unset_with_operand]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_vs_assignment_before_interpreter]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_with_assignment]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_with_flags]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_no_shebang]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_plain]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_quoted_path]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_unreadable_returns_none]] → `calls` → [[graphify_graphify_detect_shebang_interpreter]]
+- [[graphify_tests_test_detect_test_classify_attention_paper]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_google_workspace_shortcuts]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_image]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_markdown]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_md_doc_without_signals]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_md_paper_by_signals]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_pdf]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_pdf_in_xcassets_root_skipped]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_pdf_in_xcassets_skipped]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_powershell_manifest]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_powershell_module]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_python]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_typescript]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_unknown_returns_none]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_classify_video_extensions]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_file_type_classifies_via_interpreter]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_chdir_with_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_clumped_u_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_dash_s]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_v_then_s]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_after_flag]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_assignment_before_interpreter]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_flag_before_interpreter]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_argv0_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_equals]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_separate]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_equals]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_separate_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_assignment_before_interpreter]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_flag_before_interpreter]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_equals]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_separate_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_path_with_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_signal_flags]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_unset_with_operand]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_shebang_interpreter_env_vs_assignment_before_interpreter]] → `calls` → [[graphify_graphify_detect_classify_file]]
+- [[graphify_tests_test_detect_test_count_words_sample_md]] → `calls` → [[graphify_graphify_detect_count_words]]
+- [[graphify_tests_test_detect_test_anchored_dir_matches_at_root]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_anchored_dir_not_matched_at_depth]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_anchored_file_not_matched_at_depth]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_anchored_multi_segment_pattern]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_is_ignored_cache_matches_uncached_results]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_negation_ancestor_itself_reincluded]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_negation_cannot_rescue_file_under_excluded_dir]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_negation_works_when_no_ancestor_excluded]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_unanchored_dir_still_matches_at_depth]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_detect_test_anchored_dir_matches_at_root]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_anchored_dir_not_matched_at_depth]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_anchored_file_not_matched_at_depth]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_anchored_multi_segment_pattern]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_is_ignored_cache_evaluates_each_dir_once]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_is_ignored_cache_matches_uncached_results]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_negation_ancestor_itself_reincluded]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_negation_cannot_rescue_file_under_excluded_dir]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_negation_works_when_no_ancestor_excluded]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_unanchored_dir_still_matches_at_depth]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_detect_test_detect_allows_github_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_converts_google_workspace_shortcuts_when_enabled]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_default_does_not_auto_follow_direct_symlink_child]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_default_does_not_follow_when_no_symlinks]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_explicit_false_overrides_auto_detect]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_extra_excludes_pattern]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_finds_fixtures]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_finds_video_files]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_follows_symlinked_directory]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_follows_symlinked_file]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_handles_circular_symlinks]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_includes_video_key]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_keeps_snapshots_code_namespace]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_records_unclassified_extensionless_files]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_reports_walk_errors_key]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_coverage_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_google_workspace_shortcuts_by_default]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_graphify_own_cache]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_nested_worktrees_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_next_cache]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_noise_dot_dirs]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_out_of_root_symlinked_directory_even_when_following]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_out_of_root_symlinked_file_by_default]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_snapshots_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_storybook_static_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_visual_tests_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_skips_worktrees_dir]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_surfaces_unreadable_dir_instead_of_silent_skip]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_unclassified_empty_when_all_supported]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_video_not_in_words]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_detect_warns_small_corpus]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_gitignore_fallback_when_no_graphifyignore]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_and_gitignore_are_merged]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_at_git_root_is_included]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_comments_ignored]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_discovered_from_parent_in_vcs]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_excludes_file]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_hermetic_without_vcs]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_missing_is_fine]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_negation_overrides_gitignore]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_graphifyignore_stops_at_git_boundary]] → `calls` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_detect_test_load_manifest_absolutizes_relative_keys]] → `calls` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_tests_test_detect_test_load_manifest_passes_through_legacy_absolute_keys]] → `calls` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_in_root_symlink_roundtrips]] → `calls` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_relativizes_keys_when_root_given]] → `calls` → [[graphify_graphify_detect_load_manifest]]
+- [[graphify_tests_test_detect_test_detect_incremental_portable_across_paths]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_detect_incremental_propagates_follow_symlinks]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_in_root_symlink_roundtrips]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_out_of_root_keeps_absolute]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_relativizes_keys_when_root_given]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_skips_semantic_hash_for_files_without_cache]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_without_filter_unchanged_for_code]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_save_manifest_without_root_keeps_absolute_keys]] → `calls` → [[graphify_graphify_detect_save_manifest]]
+- [[graphify_tests_test_detect_test_detect_incremental_portable_across_paths]] → `calls` → [[graphify_graphify_detect_detect_incremental]]
+- [[graphify_tests_test_detect_test_detect_incremental_propagates_follow_symlinks]] → `calls` → [[graphify_graphify_detect_detect_incremental]]
+- [[graphify_tests_test_detect_test_detect_incremental_survives_dict_valued_mtime]] → `calls` → [[graphify_graphify_detect_detect_incremental]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_anchored_dir_matches_at_root]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_anchored_dir_not_matched_at_depth]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_anchored_file_not_matched_at_depth]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_anchored_multi_segment_pattern]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_attention_paper]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_google_workspace_shortcuts]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_image]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_markdown]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_md_doc_without_signals]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_md_paper_by_signals]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_pdf]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_pdf_in_xcassets_root_skipped]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_pdf_in_xcassets_skipped]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_powershell_manifest]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_powershell_module]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_python]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_typescript]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_unknown_returns_none]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_classify_video_extensions]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_convert_office_file_does_not_rewrite_existing_sidecar]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_convert_office_file_hash_stable_across_nfc_nfd]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_count_words_sample_md]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_allows_github_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_converts_google_workspace_shortcuts_when_enabled]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_default_does_not_auto_follow_direct_symlink_child]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_default_does_not_follow_when_no_symlinks]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_explicit_false_overrides_auto_detect]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_extra_excludes_pattern]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_finds_fixtures]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_finds_video_files]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_follows_symlinked_directory]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_follows_symlinked_file]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_handles_circular_symlinks]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_includes_video_key]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_incremental_portable_across_paths]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_incremental_propagates_follow_symlinks]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_incremental_survives_dict_valued_mtime]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_keeps_snapshots_code_namespace]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_records_unclassified_extensionless_files]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_reports_walk_errors_key]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_coverage_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_google_workspace_shortcuts_by_default]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_graphify_own_cache]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_nested_worktrees_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_next_cache]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_noise_dot_dirs]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_out_of_root_symlinked_directory_even_when_following]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_out_of_root_symlinked_file_by_default]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_snapshots_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_storybook_static_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_visual_tests_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_skips_worktrees_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_surfaces_unreadable_dir_instead_of_silent_skip]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_unclassified_empty_when_all_supported]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_video_not_in_words]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_detect_warns_small_corpus]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_gitignore_fallback_when_no_graphifyignore]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_and_gitignore_are_merged]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_at_git_root_is_included]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_comments_ignored]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_discovered_from_parent_in_vcs]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_excludes_file]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_hermetic_without_vcs]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_missing_is_fine]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_negation_overrides_gitignore]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_graphifyignore_stops_at_git_boundary]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_is_ignored_cache_evaluates_each_dir_once]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_is_ignored_cache_matches_uncached_results]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_load_manifest_absolutizes_relative_keys]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_load_manifest_passes_through_legacy_absolute_keys]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_negation_ancestor_itself_reincluded]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_negation_cannot_rescue_file_under_excluded_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_negation_does_not_disable_directory_pruning]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_negation_works_when_no_ancestor_excluded]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_save_manifest_in_root_symlink_roundtrips]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_save_manifest_out_of_root_keeps_absolute]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_save_manifest_relativizes_keys_when_root_given]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_save_manifest_skips_semantic_hash_for_files_without_cache]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_save_manifest_without_filter_unchanged_for_code]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_save_manifest_without_root_keeps_absolute_keys]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_password_policy_discussion]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_passwords_py]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_root_file_named_credentials]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_ruby_code_modules]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_token_economics_note]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_tokenize_py]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_does_not_flag_tokenizer_py]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_api_token_txt]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_credentials_json]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_dotfile_token]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_keyword_at_end_of_long_name]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_my_private_key_txt]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_oauth_token_json]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_plural_tokens_txt]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_secrets_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_ssh_dir]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_token_txt]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_flags_underscore_secret]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_secret_handler_txt]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_still_flags_data_secret_stores]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_sensitive_token_config_yaml]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_file_type_classifies_via_interpreter]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_chdir_with_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_clumped_u_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_dash_s]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_v_then_s]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_after_flag]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_assignment_before_interpreter]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_flag_before_interpreter]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_argv0_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_equals]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_separate]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_equals]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_separate_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_assignment_before_interpreter]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_flag_before_interpreter]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_equals]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_separate_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_missing_operand_returns_none]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_nested_split_string_rejected]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_path_with_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_signal_flags]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_single_arg]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_unknown_option_returns_none]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_unset_with_operand]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_vs_assignment_before_interpreter]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_with_assignment]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_env_with_flags]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_no_shebang]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_plain]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_quoted_path]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_shebang_interpreter_unreadable_returns_none]]
+- [[graphify_tests_test_detect]] → `contains` → [[graphify_tests_test_detect_test_unanchored_dir_still_matches_at_depth]]
+- [[graphify_tests_test_detect_rationale_62]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_noise_dot_dirs]]
+- [[graphify_tests_test_detect_rationale_75]] → `rationale_for` → [[graphify_tests_test_detect_test_classify_md_paper_by_signals]]
+- [[graphify_tests_test_detect_rationale_86]] → `rationale_for` → [[graphify_tests_test_detect_test_classify_md_doc_without_signals]]
+- [[graphify_tests_test_detect_rationale_93]] → `rationale_for` → [[graphify_tests_test_detect_test_classify_attention_paper]]
+- [[graphify_tests_test_detect_rationale_101]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_excludes_file]]
+- [[graphify_tests_test_detect_rationale_118]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_missing_is_fine]]
+- [[graphify_tests_test_detect_rationale_125]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_comments_ignored]]
+- [[graphify_tests_test_detect_rationale_159]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_hermetic_without_vcs]]
+- [[graphify_tests_test_detect_rationale_177]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_discovered_from_parent_in_vcs]]
+- [[graphify_tests_test_detect_rationale_195]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_stops_at_git_boundary]]
+- [[graphify_tests_test_detect_rationale_211]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_at_git_root_is_included]]
+- [[graphify_tests_test_detect_rationale_241]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_default_does_not_auto_follow_direct_symlink_child]]
+- [[graphify_tests_test_detect_rationale_253]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_default_does_not_follow_when_no_symlinks]]
+- [[graphify_tests_test_detect_rationale_265]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_explicit_false_overrides_auto_detect]]
+- [[graphify_tests_test_detect_rationale_305]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_incremental_propagates_follow_symlinks]]
+- [[graphify_tests_test_detect_rationale_336]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_incremental_survives_dict_valued_mtime]]
+- [[graphify_tests_test_detect_rationale_373]] → `rationale_for` → [[graphify_tests_test_detect_test_classify_video_extensions]]
+- [[graphify_tests_test_detect_rationale_418]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_includes_video_key]]
+- [[graphify_tests_test_detect_rationale_425]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_finds_video_files]]
+- [[graphify_tests_test_detect_rationale_436]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_video_not_in_words]]
+- [[graphify_tests_test_detect_rationale_444]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_coverage_dir]]
+- [[graphify_tests_test_detect_rationale_458]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_visual_tests_dir]]
+- [[graphify_tests_test_detect_rationale_471]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_snapshots_dir]]
+- [[graphify_tests_test_detect_rationale_487]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_keeps_snapshots_code_namespace]]
+- [[graphify_tests_test_detect_rationale_501]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_storybook_static_dir]]
+- [[graphify_tests_test_detect_rationale_516]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_allows_github_dir]]
+- [[graphify_tests_test_detect_rationale_527]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_next_cache]]
+- [[graphify_tests_test_detect_rationale_541]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_graphify_own_cache]]
+- [[graphify_tests_test_detect_rationale_555]] → `rationale_for` → [[graphify_tests_test_detect_test_negation_cannot_rescue_file_under_excluded_dir]]
+- [[graphify_tests_test_detect_rationale_570]] → `rationale_for` → [[graphify_tests_test_detect_test_negation_works_when_no_ancestor_excluded]]
+- [[graphify_tests_test_detect_rationale_584]] → `rationale_for` → [[graphify_tests_test_detect_test_negation_ancestor_itself_reincluded]]
+- [[graphify_tests_test_detect_rationale_597]] → `rationale_for` → [[graphify_tests_test_detect_test_negation_does_not_disable_directory_pruning]]
+- [[graphify_tests_test_detect_rationale_644]] → `rationale_for` → [[graphify_tests_test_detect_test_anchored_dir_not_matched_at_depth]]
+- [[graphify_tests_test_detect_rationale_661]] → `rationale_for` → [[graphify_tests_test_detect_test_anchored_dir_matches_at_root]]
+- [[graphify_tests_test_detect_rationale_678]] → `rationale_for` → [[graphify_tests_test_detect_test_anchored_file_not_matched_at_depth]]
+- [[graphify_tests_test_detect_rationale_690]] → `rationale_for` → [[graphify_tests_test_detect_test_unanchored_dir_still_matches_at_depth]]
+- [[graphify_tests_test_detect_rationale_704]] → `rationale_for` → [[graphify_tests_test_detect_test_anchored_multi_segment_pattern]]
+- [[graphify_tests_test_detect_rationale_725]] → `rationale_for` → [[graphify_tests_test_detect_test_is_ignored_cache_matches_uncached_results]]
+- [[graphify_tests_test_detect_rationale_770]] → `rationale_for` → [[graphify_tests_test_detect_test_is_ignored_cache_evaluates_each_dir_once]]
+- [[graphify_tests_test_detect_rationale_918]] → `rationale_for` → [[graphify_tests_test_detect_test_save_manifest_skips_semantic_hash_for_files_without_cache]]
+- [[graphify_tests_test_detect_rationale_953]] → `rationale_for` → [[graphify_tests_test_detect_test_save_manifest_without_filter_unchanged_for_code]]
+- [[graphify_tests_test_detect_rationale_969]] → `rationale_for` → [[graphify_tests_test_detect_test_gitignore_fallback_when_no_graphifyignore]]
+- [[graphify_tests_test_detect_rationale_986]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_and_gitignore_are_merged]]
+- [[graphify_tests_test_detect_rationale_1005]] → `rationale_for` → [[graphify_tests_test_detect_test_graphifyignore_negation_overrides_gitignore]]
+- [[graphify_tests_test_detect_rationale_1022]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_worktrees_dir]]
+- [[graphify_tests_test_detect_rationale_1035]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_skips_nested_worktrees_dir]]
+- [[graphify_tests_test_detect_rationale_1048]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_extra_excludes_pattern]]
+- [[graphify_tests_test_detect_rationale_1067]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_plain]]
+- [[graphify_tests_test_detect_rationale_1075]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_single_arg]]
+- [[graphify_tests_test_detect_rationale_1083]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s]]
+- [[graphify_tests_test_detect_rationale_1091]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_with_flags]]
+- [[graphify_tests_test_detect_rationale_1099]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_with_assignment]]
+- [[graphify_tests_test_detect_rationale_1107]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_no_shebang]]
+- [[graphify_tests_test_detect_rationale_1115]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_quoted_path]]
+- [[graphify_tests_test_detect_rationale_1125]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_file_type_classifies_via_interpreter]]
+- [[graphify_tests_test_detect_rationale_1133]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_unreadable_returns_none]]
+- [[graphify_tests_test_detect_rationale_1140]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_unset_with_operand]]
+- [[graphify_tests_test_detect_rationale_1149]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_chdir_with_operand]]
+- [[graphify_tests_test_detect_rationale_1158]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_path_with_operand]]
+- [[graphify_tests_test_detect_rationale_1167]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_after_flag]]
+- [[graphify_tests_test_detect_rationale_1176]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_clumped_u_operand]]
+- [[graphify_tests_test_detect_rationale_1185]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_missing_operand_returns_none]]
+- [[graphify_tests_test_detect_rationale_1193]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_equals]]
+- [[graphify_tests_test_detect_rationale_1202]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_split_string_separate]]
+- [[graphify_tests_test_detect_rationale_1211]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_gnu_argv0_operand]]
+- [[graphify_tests_test_detect_rationale_1220]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_dash_s]]
+- [[graphify_tests_test_detect_rationale_1229]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_compact_v_then_s]]
+- [[graphify_tests_test_detect_rationale_1238]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_separate_operand]]
+- [[graphify_tests_test_detect_rationale_1247]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_unset_equals]]
+- [[graphify_tests_test_detect_rationale_1256]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_separate_operand]]
+- [[graphify_tests_test_detect_rationale_1265]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_chdir_equals]]
+- [[graphify_tests_test_detect_rationale_1274]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_signal_flags]]
+- [[graphify_tests_test_detect_rationale_1283]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_unknown_option_returns_none]]
+- [[graphify_tests_test_detect_rationale_1293]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_assignment_before_interpreter]]
+- [[graphify_tests_test_detect_rationale_1305]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_dash_s_flag_before_interpreter]]
+- [[graphify_tests_test_detect_rationale_1314]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_assignment_before_interpreter]]
+- [[graphify_tests_test_detect_rationale_1326]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_long_split_flag_before_interpreter]]
+- [[graphify_tests_test_detect_rationale_1335]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_nested_split_string_rejected]]
+- [[graphify_tests_test_detect_rationale_1347]] → `rationale_for` → [[graphify_tests_test_detect_test_shebang_interpreter_env_vs_assignment_before_interpreter]]
+- [[graphify_tests_test_detect_rationale_1362]] → `rationale_for` → [[graphify_tests_test_detect_test_save_manifest_relativizes_keys_when_root_given]]
+- [[graphify_tests_test_detect_rationale_1390]] → `rationale_for` → [[graphify_tests_test_detect_test_save_manifest_without_root_keeps_absolute_keys]]
+- [[graphify_tests_test_detect_rationale_1408]] → `rationale_for` → [[graphify_tests_test_detect_test_load_manifest_absolutizes_relative_keys]]
+- [[graphify_tests_test_detect_rationale_1426]] → `rationale_for` → [[graphify_tests_test_detect_test_load_manifest_passes_through_legacy_absolute_keys]]
+- [[graphify_tests_test_detect_rationale_1441]] → `rationale_for` → [[graphify_tests_test_detect_test_save_manifest_out_of_root_keeps_absolute]]
+- [[graphify_tests_test_detect_rationale_1462]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_incremental_portable_across_paths]]
+- [[graphify_tests_test_detect_rationale_1501]] → `rationale_for` → [[graphify_tests_test_detect_test_save_manifest_in_root_symlink_roundtrips]]
+- [[graphify_tests_test_detect_rationale_1535]] → `rationale_for` → [[graphify_tests_test_detect_test_convert_office_file_hash_stable_across_nfc_nfd]]
+- [[graphify_tests_test_detect_rationale_1563]] → `rationale_for` → [[graphify_tests_test_detect_test_convert_office_file_does_not_rewrite_existing_sidecar]]
+- [[graphify_tests_test_detect_rationale_1603]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_reports_walk_errors_key]]
+- [[graphify_tests_test_detect_rationale_1614]] → `rationale_for` → [[graphify_tests_test_detect_test_detect_surfaces_unreadable_dir_instead_of_silent_skip]]

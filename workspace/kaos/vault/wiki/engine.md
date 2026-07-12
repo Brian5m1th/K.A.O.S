@@ -1,0 +1,392 @@
+# graphify\graphify\extractors\engine.py
+
+## Símbolos
+
+- [[graphify_graphify_extractors_engine]] — code: engine.py
+- [[graphify_graphify_extractors_engine_csharp_namespace_id]] — code: _csharp_namespace_id()
+- [[graphify_graphify_extractors_engine_source_location]] — code: _source_location()
+- [[graphify_graphify_extractors_engine_semantic_reference_edge]] — code: _semantic_reference_edge()
+- [[graphify_graphify_extractors_engine_python_collect_type_refs]] — code: _python_collect_type_refs()
+- [[graphify_graphify_extractors_engine_csharp_pre_scan_interfaces]] — code: _csharp_pre_scan_interfaces()
+- [[graphify_graphify_extractors_engine_csharp_classify_base]] — code: _csharp_classify_base()
+- [[graphify_graphify_extractors_engine_csharp_type_parameters_in_scope]] — code: _csharp_type_parameters_in_scope()
+- [[graphify_graphify_extractors_engine_csharp_collect_type_refs]] — code: _csharp_collect_type_refs()
+- [[graphify_graphify_extractors_engine_csharp_attribute_names]] — code: _csharp_attribute_names()
+- [[graphify_graphify_extractors_engine_java_type_parameters_in_scope]] — code: _java_type_parameters_in_scope()
+- [[graphify_graphify_extractors_engine_java_collect_type_refs]] — code: _java_collect_type_refs()
+- [[graphify_graphify_extractors_engine_java_receiver_type_name]] — code: _java_receiver_type_name()
+- [[graphify_graphify_extractors_engine_java_declarator_names]] — code: _java_declarator_names()
+- [[graphify_graphify_extractors_engine_java_lambda_parameters]] — code: _java_lambda_parameters()
+- [[graphify_graphify_extractors_engine_java_method_receiver_types]] — code: _java_method_receiver_types()
+- [[graphify_graphify_extractors_engine_java_annotation_names]] — code: _java_annotation_names()
+- [[graphify_graphify_extractors_engine_php_name_text]] — code: _php_name_text()
+- [[graphify_graphify_extractors_engine_php_collect_type_refs]] — code: _php_collect_type_refs()
+- [[graphify_graphify_extractors_engine_php_method_return_type_node]] — code: _php_method_return_type_node()
+- [[graphify_graphify_extractors_engine_kotlin_user_type_name]] — code: _kotlin_user_type_name()
+- [[graphify_graphify_extractors_engine_kotlin_collect_type_refs]] — code: _kotlin_collect_type_refs()
+- [[graphify_graphify_extractors_engine_kotlin_property_type_node]] — code: _kotlin_property_type_node()
+- [[graphify_graphify_extractors_engine_kotlin_function_return_type_node]] — code: _kotlin_function_return_type_node()
+- [[graphify_graphify_extractors_engine_swift_declaration_keyword]] — code: _swift_declaration_keyword()
+- [[graphify_graphify_extractors_engine_swift_pre_scan]] — code: _swift_pre_scan()
+- [[graphify_graphify_extractors_engine_swift_classify_base]] — code: _swift_classify_base()
+- [[graphify_graphify_extractors_engine_swift_user_type_name]] — code: _swift_user_type_name()
+- [[graphify_graphify_extractors_engine_swift_collect_type_refs]] — code: _swift_collect_type_refs()
+- [[graphify_graphify_extractors_engine_swift_property_type_node]] — code: _swift_property_type_node()
+- [[graphify_graphify_extractors_engine_swift_property_name]] — code: _swift_property_name()
+- [[graphify_graphify_extractors_engine_swift_constructor_type]] — code: _swift_constructor_type()
+- [[graphify_graphify_extractors_engine_swift_receiver_name]] — code: _swift_receiver_name()
+- [[graphify_graphify_extractors_engine_c_collect_type_refs]] — code: _c_collect_type_refs()
+- [[graphify_graphify_extractors_engine_cpp_collect_type_refs]] — code: _cpp_collect_type_refs()
+- [[graphify_graphify_extractors_engine_scala_collect_type_refs]] — code: _scala_collect_type_refs()
+- [[graphify_graphify_extractors_engine_python_collect_param_refs]] — code: _python_collect_param_refs()
+- [[graphify_graphify_extractors_engine_python_param_names]] — code: _python_param_names()
+- [[graphify_graphify_extractors_engine_python_collect_assignment_targets]] — code: _python_collect_assignment_targets()
+- [[graphify_graphify_extractors_engine_python_local_bound_names]] — code: _python_local_bound_names()
+- [[graphify_graphify_extractors_engine_python_module_bound_names]] — code: _python_module_bound_names()
+- [[graphify_graphify_extractors_engine_js_collect_pattern_idents]] — code: _js_collect_pattern_idents()
+- [[graphify_graphify_extractors_engine_js_local_bound_names]] — code: _js_local_bound_names()
+- [[graphify_graphify_extractors_engine_js_module_bound_names]] — code: _js_module_bound_names()
+- [[graphify_graphify_extractors_engine_js_dispatch_value_idents]] — code: _js_dispatch_value_idents()
+- [[graphify_graphify_extractors_engine_find_body]] — code: _find_body()
+- [[graphify_graphify_extractors_engine_dynamic_import_js]] — code: _dynamic_import_js()
+- [[graphify_graphify_extractors_engine_get_cpp_func_name]] — code: _get_cpp_func_name()
+- [[graphify_graphify_extractors_engine_cpp_declarator_name]] — code: _cpp_declarator_name()
+- [[graphify_graphify_extractors_engine_cpp_local_var_types]] — code: _cpp_local_var_types()
+- [[graphify_graphify_extractors_engine_swift_local_var_types]] — code: _swift_local_var_types()
+- [[graphify_graphify_extractors_engine_csharp_member_type_table]] — code: _csharp_member_type_table()
+- [[graphify_graphify_extractors_engine_ts_receiver_type_table]] — code: _ts_receiver_type_table()
+- [[graphify_graphify_extractors_engine_find_require_call]] — code: _find_require_call()
+- [[graphify_graphify_extractors_engine_require_imports_js]] — code: _require_imports_js()
+- [[graphify_graphify_extractors_engine_js_member_assignment_target]] — code: _js_member_assignment_target()
+- [[graphify_graphify_extractors_engine_js_extra_walk]] — code: _js_extra_walk()
+- [[graphify_graphify_extractors_engine_ts_extra_walk]] — code: _ts_extra_walk()
+- [[graphify_graphify_extractors_engine_csharp_namespace_name]] — code: _csharp_namespace_name()
+- [[graphify_graphify_extractors_engine_csharp_extra_walk]] — code: _csharp_extra_walk()
+- [[graphify_graphify_extractors_engine_swift_extra_walk]] — code: _swift_extra_walk()
+- [[graphify_graphify_extractors_engine_java_extra_walk]] — code: _java_extra_walk()
+- [[graphify_graphify_extractors_engine_kotlin_extra_walk]] — code: _kotlin_extra_walk()
+- [[graphify_graphify_extractors_engine_read_csharp_type_name]] — code: _read_csharp_type_name()
+- [[graphify_graphify_extractors_engine_ruby_new_class_name]] — code: _ruby_new_class_name()
+- [[graphify_graphify_extractors_engine_ruby_local_class_bindings]] — code: _ruby_local_class_bindings()
+- [[graphify_graphify_extractors_engine_ruby_const_last_name]] — code: _ruby_const_last_name()
+- [[graphify_graphify_extractors_engine_ruby_extra_walk]] — code: _ruby_extra_walk()
+- [[graphify_graphify_extractors_engine_extract_generic]] — code: _extract_generic()
+- [[graphify_graphify_extractors_engine_ts_decorator_name]] — code: _ts_decorator_name()
+- [[graphify_graphify_extractors_engine_ts_method_name]] — code: _ts_method_name()
+- [[graphify_graphify_extractors_engine_ts_descendant_decorators]] — code: _ts_descendant_decorators()
+- [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]] — code: _ts_emit_decorator_edges()
+- [[graphify_graphify_extractors_engine_rationale_1]] — code: engine — moved verbatim from graphify/extract.py.
+- [[graphify_graphify_extractors_engine_rationale_68]] — code: Walk a Python type annotation; append (name, role) where role is 'type' or 'gene
+- [[graphify_graphify_extractors_engine_rationale_117]] — code: Return names declared as `interface` in this C# compilation unit.
+- [[graphify_graphify_extractors_engine_rationale_132]] — code: `implements` if the base name is an interface (declared or by I-prefix conventio
+- [[graphify_graphify_extractors_engine_rationale_148]] — code: Return C# type-parameter names visible from ``node``.
+- [[graphify_graphify_extractors_engine_rationale_180]] — code: Walk a C# type expression; append (name, role, qualified, qualifier) tuples.
+- [[graphify_graphify_extractors_engine_rationale_228]] — code: Collect attribute names from a C# method/declaration's attribute_list children.
+- [[graphify_graphify_extractors_engine_rationale_259]] — code: Return Java type-parameter names visible from ``node``.
+- [[graphify_graphify_extractors_engine_rationale_339]] — code: Walk a Java type expression; append (name, role) tuples.
+- [[graphify_graphify_extractors_engine_rationale_386]] — code: Return the concrete declared type usable for Java receiver resolution.
+- [[graphify_graphify_extractors_engine_rationale_463]] — code: Build the receiver type table visible to one Java method.      Current-class f
+- [[graphify_graphify_extractors_engine_rationale_537]] — code: Collect annotation names from a Java declaration's `modifiers` child.
+- [[graphify_graphify_extractors_engine_rationale_562]] — code: Return the unqualified name text from a PHP `name`/`qualified_name` node.
+- [[graphify_graphify_extractors_engine_rationale_568]] — code: Walk a PHP type expression; append (name, role) tuples.
+- [[graphify_graphify_extractors_engine_rationale_598]] — code: Return the named_type/primitive_type node sitting after formal_parameters.
+- [[graphify_graphify_extractors_engine_rationale_611]] — code: Return the head identifier text from a Kotlin user_type node (without generics).
+- [[graphify_graphify_extractors_engine_rationale_629]] — code: Walk a Kotlin type expression; append (name, role) tuples.
+- [[graphify_graphify_extractors_engine_rationale_676]] — code: Find the user_type node within a Kotlin property_declaration.
+- [[graphify_graphify_extractors_engine_rationale_687]] — code: Find the return-type node of a Kotlin function_declaration (the type after `: `
+- [[graphify_graphify_extractors_engine_rationale_703]] — code: Return the leading kind token for a Swift class_declaration: class/struct/enum/e
+- [[graphify_graphify_extractors_engine_rationale_710]] — code: Pre-scan a Swift compilation unit and return (protocol_names, class_like_names).
+- [[graphify_graphify_extractors_engine_rationale_740]] — code: Classify a Swift inheritance_specifier entry as `inherits` or `implements`.
+- [[graphify_graphify_extractors_engine_rationale_752]] — code: Return the head type_identifier text from a Swift user_type node (without generi
+- [[graphify_graphify_extractors_engine_rationale_762]] — code: Walk a Swift type expression; append (name, role) tuples (role 'type' or 'generi
+- [[graphify_graphify_extractors_engine_rationale_801]] — code: Return the type_annotation child of a Swift property_declaration, if any.
+- [[graphify_graphify_extractors_engine_rationale_808]] — code: Return the bound name of a Swift property (``let x``/``var x = ...``).
+- [[graphify_graphify_extractors_engine_rationale_819]] — code: If a Swift call expression is a constructor (``Foo()``), return the type name.
+- [[graphify_graphify_extractors_engine_rationale_832]] — code: Return the depth-1 receiver name of a Swift member call (``recv.method()``).
+- [[graphify_graphify_extractors_engine_rationale_860]] — code: Walk a C type expression; append (name, role) tuples for user-defined types.
+- [[graphify_graphify_extractors_engine_rationale_878]] — code: Walk a C++ type expression; append (name, role) tuples.     Resolves qualified_
+- [[graphify_graphify_extractors_engine_rationale_914]] — code: Walk a Scala type expression; append (name, role) tuples.     Handles type_iden
+- [[graphify_graphify_extractors_engine_rationale_948]] — code: Collect type refs from each typed parameter under a `parameters` node.
+- [[graphify_graphify_extractors_engine_rationale_959]] — code: Plain parameter identifiers declared on a Python `parameters` node.      Cover
+- [[graphify_graphify_extractors_engine_rationale_989]] — code: Identifiers bound as `pattern` targets under a Python AST subtree.      Recurs
+- [[graphify_graphify_extractors_engine_rationale_1004]] — code: Names bound LOCALLY inside a Python function: parameters plus assignment,     `
+- [[graphify_graphify_extractors_engine_rationale_1048]] — code: Names rebound by assignment at MODULE scope (top-level `x = ...`, `for`, walrus)
+- [[graphify_graphify_extractors_engine_rationale_1086]] — code: Collect binding identifier names from a JS/TS pattern (a parameter, or a     de
+- [[graphify_graphify_extractors_engine_rationale_1111]] — code: Names bound locally inside a JS/TS function: parameters plus `const`/`let`/
+- [[graphify_graphify_extractors_engine_rationale_1137]] — code: Module-scope names rebound to NON-function data (`const X = {...}`, `let y = 5`)
+- [[graphify_graphify_extractors_engine_rationale_1161]] — code: Yield identifier value-nodes of a JS/TS object/array literal that are     funct
+- [[graphify_graphify_extractors_engine_rationale_1178]] — code: Find the body node using config.body_field, falling back to child types.
+- [[graphify_graphify_extractors_engine_rationale_1189]] — code: Detect dynamic import() calls in JS/TS and emit imports_from edges.      Handl
+- [[graphify_graphify_extractors_engine_rationale_1254]] — code: Recursively unwrap declarator to find the innermost identifier (C++).
+- [[graphify_graphify_extractors_engine_rationale_1278]] — code: Return the bare variable name from a C++ declaration declarator, unwrapping
+- [[graphify_graphify_extractors_engine_rationale_1298]] — code: Collect ``var -> ClassName`` from local variable declarations in a C++     func
+- [[graphify_graphify_extractors_engine_rationale_1337]] — code: Collect ``var -> Type`` from local ``let``/``var`` bindings in a Swift     func
+- [[graphify_graphify_extractors_engine_rationale_1375]] — code: Collect ``name -> TypeName`` for C# receiver typing (#1609): class fields,
+- [[graphify_graphify_extractors_engine_rationale_1444]] — code: Add TS/JS receiver bindings to ``table`` (name -> TypeName), for member-call
+- [[graphify_graphify_extractors_engine_rationale_1492]] — code: Return the call_expression node if `value_node` is a `require(...)` call     or
+- [[graphify_graphify_extractors_engine_rationale_1506]] — code: Detect CommonJS require imports inside lexical_declaration / variable_declaratio
+- [[graphify_graphify_extractors_engine_rationale_1590]] — code: Classify the symbol an `assignment_expression` LHS defines when its RHS     is
+- [[graphify_graphify_extractors_engine_rationale_1639]] — code: Handle lexical_declaration (arrow functions, CJS requires, module-level const li
+- [[graphify_graphify_extractors_engine_rationale_1769]] — code: Emit a container node for a TS `namespace`/`module` declaration.      `namespa
+- [[graphify_graphify_extractors_engine_rationale_1825]] — code: Handle namespace declarations for C#. Returns True if handled.
+- [[graphify_graphify_extractors_engine_rationale_1868]] — code: Handle enum_entry for Swift. Returns True if handled.
+- [[graphify_graphify_extractors_engine_rationale_1904]] — code: Handle enum_constant for Java. Returns True if handled.
+- [[graphify_graphify_extractors_engine_rationale_1928]] — code: Handle enum_entry for Kotlin. Returns True if handled (#1700 Kotlin half).
+- [[graphify_graphify_extractors_engine_rationale_1951]] — code: Resolve a C# type name, whether it was qualified, and its qualifier prefix.
+- [[graphify_graphify_extractors_engine_rationale_1975]] — code: Return ``ClassName`` if ``node`` is a ``ClassName.new(...)`` call, else None.
+- [[graphify_graphify_extractors_engine_rationale_1992]] — code: Map ``local_var -> ClassName`` for ``var = ClassName.new`` within one Ruby
+- [[graphify_graphify_extractors_engine_rationale_2027]] — code: Last constant of a ``constant`` or ``scope_resolution`` (``A::B::C`` -> ``C``).
+- [[graphify_graphify_extractors_engine_rationale_2044]] — code: Ruby: a constant assignment whose RHS is ``Struct.new(...)``,     ``Class.new(S
+- [[graphify_graphify_extractors_engine_rationale_2115]] — code: Generic AST extractor driven by LanguageConfig.      ``source_override`` parse
+- [[graphify_graphify_extractors_engine_rationale_4407]] — code: Return the head symbol of a TS `decorator` node.      `@Injectable` -> the ide
+- [[graphify_graphify_extractors_engine_rationale_4429]] — code: Name of a `method_definition`, matching the id the function-types branch     bu
+- [[graphify_graphify_extractors_engine_rationale_4435]] — code: Collect `decorator` nodes under `node` (e.g. parameter decorators inside a
+- [[graphify_graphify_extractors_engine_rationale_4457]] — code: Emit `references` edges (context="decorator") from a class and its members
+
+## Dependências
+
+- [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]] → `calls` → [[assistant_app_core_automation_sdk_automationservice_emit]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[assistant_app_providers_graph_networkx_fallback_networkxfallback_add_node]]
+- [[graphify_graphify_extractors_engine_ruby_extra_walk]] → `calls` → [[assistant_app_providers_graph_networkx_fallback_networkxfallback_add_node]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_java_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_js_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_kotlin_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_require_imports_js]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_ruby_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_swift_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_ts_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_engine_require_imports_js]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_engine_c_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_cpp_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_cpp_declarator_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_cpp_local_var_types]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_csharp_attribute_names]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_csharp_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_csharp_member_type_table]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_csharp_namespace_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_csharp_pre_scan_interfaces]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_csharp_type_parameters_in_scope]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_dynamic_import_js]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_get_cpp_func_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_annotation_names]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_declarator_names]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_lambda_parameters]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_method_receiver_types]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_receiver_type_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_java_type_parameters_in_scope]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_js_collect_pattern_idents]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_js_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_js_member_assignment_target]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_kotlin_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_kotlin_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_kotlin_user_type_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_php_name_text]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_python_collect_assignment_targets]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_python_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_python_param_names]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_read_csharp_type_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_require_imports_js]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ruby_const_last_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ruby_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ruby_new_class_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_scala_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_constructor_type]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_local_var_types]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_pre_scan]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_property_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_receiver_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_swift_user_type_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ts_decorator_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ts_extra_walk]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ts_method_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine_ts_receiver_type_table]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_c_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_cpp_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_cpp_declarator_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_cpp_local_var_types]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_attribute_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_classify_base]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_member_type_table]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_namespace_id]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_namespace_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_pre_scan_interfaces]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_csharp_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_dynamic_import_js]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_extract_generic]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_find_body]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_find_require_call]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_get_cpp_func_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_annotation_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_declarator_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_lambda_parameters]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_method_receiver_types]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_receiver_type_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_java_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_js_collect_pattern_idents]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_js_dispatch_value_idents]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_js_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_js_local_bound_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_js_member_assignment_target]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_js_module_bound_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_kotlin_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_kotlin_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_kotlin_function_return_type_node]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_kotlin_property_type_node]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_kotlin_user_type_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_php_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_php_method_return_type_node]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_php_name_text]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_python_collect_assignment_targets]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_python_collect_param_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_python_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_python_local_bound_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_python_module_bound_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_python_param_names]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_read_csharp_type_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_require_imports_js]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ruby_const_last_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ruby_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ruby_local_class_bindings]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ruby_new_class_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_scala_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_semantic_reference_edge]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_source_location]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_classify_base]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_collect_type_refs]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_constructor_type]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_declaration_keyword]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_local_var_types]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_pre_scan]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_property_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_property_type_node]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_receiver_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_swift_user_type_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ts_decorator_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ts_descendant_decorators]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ts_extra_walk]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ts_method_name]]
+- [[graphify_graphify_extractors_engine]] → `contains` → [[graphify_graphify_extractors_engine_ts_receiver_type_table]]
+- [[graphify_graphify_extractors_engine]] → `imports_from` → [[graphify_security]]
+- [[graphify_graphify_extractors_engine_rationale_1]] → `rationale_for` → [[graphify_graphify_extractors_engine]]
+- [[graphify_graphify_extractors_engine_csharp_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_csharp_namespace_id]]
+- [[graphify_graphify_extractors_engine_semantic_reference_edge]] → `calls` → [[graphify_graphify_extractors_engine_source_location]]
+- [[graphify_graphify_extractors_engine_python_collect_param_refs]] → `calls` → [[graphify_graphify_extractors_engine_python_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_68]] → `rationale_for` → [[graphify_graphify_extractors_engine_python_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_csharp_pre_scan_interfaces]]
+- [[graphify_graphify_extractors_engine_rationale_117]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_pre_scan_interfaces]]
+- [[graphify_graphify_extractors_engine_rationale_132]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_classify_base]]
+- [[graphify_graphify_extractors_engine_csharp_attribute_names]] → `calls` → [[graphify_graphify_extractors_engine_csharp_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine_csharp_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_engine_csharp_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine_rationale_148]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine_rationale_180]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_228]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_attribute_names]]
+- [[graphify_graphify_extractors_engine_java_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_engine_java_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine_java_receiver_type_name]] → `calls` → [[graphify_graphify_extractors_engine_java_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine_rationale_259]] → `rationale_for` → [[graphify_graphify_extractors_engine_java_type_parameters_in_scope]]
+- [[graphify_graphify_extractors_engine_rationale_339]] → `rationale_for` → [[graphify_graphify_extractors_engine_java_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_java_lambda_parameters]] → `calls` → [[graphify_graphify_extractors_engine_java_receiver_type_name]]
+- [[graphify_graphify_extractors_engine_java_method_receiver_types]] → `calls` → [[graphify_graphify_extractors_engine_java_receiver_type_name]]
+- [[graphify_graphify_extractors_engine_rationale_386]] → `rationale_for` → [[graphify_graphify_extractors_engine_java_receiver_type_name]]
+- [[graphify_graphify_extractors_engine_java_method_receiver_types]] → `calls` → [[graphify_graphify_extractors_engine_java_declarator_names]]
+- [[graphify_graphify_extractors_engine_java_method_receiver_types]] → `calls` → [[graphify_graphify_extractors_engine_java_lambda_parameters]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_java_method_receiver_types]]
+- [[graphify_graphify_extractors_engine_rationale_463]] → `rationale_for` → [[graphify_graphify_extractors_engine_java_method_receiver_types]]
+- [[graphify_graphify_extractors_engine_rationale_537]] → `rationale_for` → [[graphify_graphify_extractors_engine_java_annotation_names]]
+- [[graphify_graphify_extractors_engine_php_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_engine_php_name_text]]
+- [[graphify_graphify_extractors_engine_rationale_562]] → `rationale_for` → [[graphify_graphify_extractors_engine_php_name_text]]
+- [[graphify_graphify_extractors_engine_rationale_568]] → `rationale_for` → [[graphify_graphify_extractors_engine_php_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_598]] → `rationale_for` → [[graphify_graphify_extractors_engine_php_method_return_type_node]]
+- [[graphify_graphify_extractors_engine_rationale_611]] → `rationale_for` → [[graphify_graphify_extractors_engine_kotlin_user_type_name]]
+- [[graphify_graphify_extractors_engine_rationale_629]] → `rationale_for` → [[graphify_graphify_extractors_engine_kotlin_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_676]] → `rationale_for` → [[graphify_graphify_extractors_engine_kotlin_property_type_node]]
+- [[graphify_graphify_extractors_engine_rationale_687]] → `rationale_for` → [[graphify_graphify_extractors_engine_kotlin_function_return_type_node]]
+- [[graphify_graphify_extractors_engine_rationale_703]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_declaration_keyword]]
+- [[graphify_graphify_extractors_engine_swift_pre_scan]] → `calls` → [[graphify_graphify_extractors_engine_swift_declaration_keyword]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_swift_pre_scan]]
+- [[graphify_graphify_extractors_engine_rationale_710]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_pre_scan]]
+- [[graphify_graphify_extractors_engine_rationale_740]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_classify_base]]
+- [[graphify_graphify_extractors_engine_rationale_752]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_user_type_name]]
+- [[graphify_graphify_extractors_engine_rationale_762]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_swift_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_swift_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_801]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_property_type_node]]
+- [[graphify_graphify_extractors_engine_rationale_808]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_property_name]]
+- [[graphify_graphify_extractors_engine_swift_local_var_types]] → `calls` → [[graphify_graphify_extractors_engine_swift_property_name]]
+- [[graphify_graphify_extractors_engine_rationale_819]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_constructor_type]]
+- [[graphify_graphify_extractors_engine_swift_local_var_types]] → `calls` → [[graphify_graphify_extractors_engine_swift_constructor_type]]
+- [[graphify_graphify_extractors_engine_rationale_832]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_receiver_name]]
+- [[graphify_graphify_extractors_engine_rationale_860]] → `rationale_for` → [[graphify_graphify_extractors_engine_c_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_878]] → `rationale_for` → [[graphify_graphify_extractors_engine_cpp_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_914]] → `rationale_for` → [[graphify_graphify_extractors_engine_scala_collect_type_refs]]
+- [[graphify_graphify_extractors_engine_rationale_948]] → `rationale_for` → [[graphify_graphify_extractors_engine_python_collect_param_refs]]
+- [[graphify_graphify_extractors_engine_python_local_bound_names]] → `calls` → [[graphify_graphify_extractors_engine_python_param_names]]
+- [[graphify_graphify_extractors_engine_rationale_959]] → `rationale_for` → [[graphify_graphify_extractors_engine_python_param_names]]
+- [[graphify_graphify_extractors_engine_rationale_989]] → `rationale_for` → [[graphify_graphify_extractors_engine_python_collect_assignment_targets]]
+- [[graphify_graphify_extractors_engine_rationale_1004]] → `rationale_for` → [[graphify_graphify_extractors_engine_python_local_bound_names]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_python_module_bound_names]]
+- [[graphify_graphify_extractors_engine_rationale_1048]] → `rationale_for` → [[graphify_graphify_extractors_engine_python_module_bound_names]]
+- [[graphify_graphify_extractors_engine_js_local_bound_names]] → `calls` → [[graphify_graphify_extractors_engine_js_collect_pattern_idents]]
+- [[graphify_graphify_extractors_engine_rationale_1086]] → `rationale_for` → [[graphify_graphify_extractors_engine_js_collect_pattern_idents]]
+- [[graphify_graphify_extractors_engine_js_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_js_local_bound_names]]
+- [[graphify_graphify_extractors_engine_rationale_1111]] → `rationale_for` → [[graphify_graphify_extractors_engine_js_local_bound_names]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_js_module_bound_names]]
+- [[graphify_graphify_extractors_engine_rationale_1137]] → `rationale_for` → [[graphify_graphify_extractors_engine_js_module_bound_names]]
+- [[graphify_graphify_extractors_engine_rationale_1161]] → `rationale_for` → [[graphify_graphify_extractors_engine_js_dispatch_value_idents]]
+- [[graphify_graphify_extractors_engine_find_body]] → `references` → [[graphify_graphify_extractors_models_languageconfig]]
+- [[graphify_graphify_extractors_engine_rationale_1178]] → `rationale_for` → [[graphify_graphify_extractors_engine_find_body]]
+- [[graphify_graphify_extractors_engine_dynamic_import_js]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_import_target]]
+- [[graphify_graphify_extractors_engine_rationale_1189]] → `rationale_for` → [[graphify_graphify_extractors_engine_dynamic_import_js]]
+- [[graphify_graphify_extractors_engine_rationale_1254]] → `rationale_for` → [[graphify_graphify_extractors_engine_get_cpp_func_name]]
+- [[graphify_graphify_extractors_engine_cpp_local_var_types]] → `calls` → [[graphify_graphify_extractors_engine_cpp_declarator_name]]
+- [[graphify_graphify_extractors_engine_rationale_1278]] → `rationale_for` → [[graphify_graphify_extractors_engine_cpp_declarator_name]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_cpp_local_var_types]]
+- [[graphify_graphify_extractors_engine_rationale_1298]] → `rationale_for` → [[graphify_graphify_extractors_engine_cpp_local_var_types]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_swift_local_var_types]]
+- [[graphify_graphify_extractors_engine_rationale_1337]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_local_var_types]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_csharp_member_type_table]]
+- [[graphify_graphify_extractors_engine_rationale_1375]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_member_type_table]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_ts_receiver_type_table]]
+- [[graphify_graphify_extractors_engine_rationale_1444]] → `rationale_for` → [[graphify_graphify_extractors_engine_ts_receiver_type_table]]
+- [[graphify_graphify_extractors_engine_rationale_1492]] → `rationale_for` → [[graphify_graphify_extractors_engine_find_require_call]]
+- [[graphify_graphify_extractors_engine_require_imports_js]] → `calls` → [[graphify_graphify_extractors_engine_find_require_call]]
+- [[graphify_graphify_extractors_engine_js_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_require_imports_js]]
+- [[graphify_graphify_extractors_engine_rationale_1506]] → `rationale_for` → [[graphify_graphify_extractors_engine_require_imports_js]]
+- [[graphify_graphify_extractors_engine_require_imports_js]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_import_target]]
+- [[graphify_graphify_extractors_engine_js_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_js_member_assignment_target]]
+- [[graphify_graphify_extractors_engine_rationale_1590]] → `rationale_for` → [[graphify_graphify_extractors_engine_js_member_assignment_target]]
+- [[graphify_graphify_extractors_engine_rationale_1639]] → `rationale_for` → [[graphify_graphify_extractors_engine_js_extra_walk]]
+- [[graphify_graphify_extractors_engine_rationale_1769]] → `rationale_for` → [[graphify_graphify_extractors_engine_ts_extra_walk]]
+- [[graphify_graphify_extractors_engine_csharp_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_csharp_namespace_name]]
+- [[graphify_graphify_extractors_engine_rationale_1825]] → `rationale_for` → [[graphify_graphify_extractors_engine_csharp_extra_walk]]
+- [[graphify_graphify_extractors_engine_rationale_1868]] → `rationale_for` → [[graphify_graphify_extractors_engine_swift_extra_walk]]
+- [[graphify_graphify_extractors_engine_rationale_1904]] → `rationale_for` → [[graphify_graphify_extractors_engine_java_extra_walk]]
+- [[graphify_graphify_extractors_engine_rationale_1928]] → `rationale_for` → [[graphify_graphify_extractors_engine_kotlin_extra_walk]]
+- [[graphify_graphify_extractors_engine_rationale_1951]] → `rationale_for` → [[graphify_graphify_extractors_engine_read_csharp_type_name]]
+- [[graphify_graphify_extractors_engine_rationale_1975]] → `rationale_for` → [[graphify_graphify_extractors_engine_ruby_new_class_name]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `calls` → [[graphify_graphify_extractors_engine_ruby_local_class_bindings]]
+- [[graphify_graphify_extractors_engine_rationale_1992]] → `rationale_for` → [[graphify_graphify_extractors_engine_ruby_local_class_bindings]]
+- [[graphify_graphify_extractors_engine_rationale_2027]] → `rationale_for` → [[graphify_graphify_extractors_engine_ruby_const_last_name]]
+- [[graphify_graphify_extractors_engine_ruby_extra_walk]] → `calls` → [[graphify_graphify_extractors_engine_ruby_const_last_name]]
+- [[graphify_graphify_extractors_engine_rationale_2044]] → `rationale_for` → [[graphify_graphify_extractors_engine_ruby_extra_walk]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `references` → [[graphify_graphify_extractors_engine_py_path]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `references` → [[graphify_graphify_extractors_models_languageconfig]]
+- [[graphify_graphify_extractors_engine_extract_generic]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[graphify_graphify_extractors_engine_rationale_2115]] → `rationale_for` → [[graphify_graphify_extractors_engine_extract_generic]]
+- [[graphify_graphify_extractors_engine_rationale_4407]] → `rationale_for` → [[graphify_graphify_extractors_engine_ts_decorator_name]]
+- [[graphify_graphify_extractors_engine_rationale_4429]] → `rationale_for` → [[graphify_graphify_extractors_engine_ts_method_name]]
+- [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]] → `calls` → [[graphify_graphify_extractors_engine_ts_method_name]]
+- [[graphify_graphify_extractors_engine_rationale_4435]] → `rationale_for` → [[graphify_graphify_extractors_engine_ts_descendant_decorators]]
+- [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]] → `calls` → [[graphify_graphify_extractors_engine_ts_descendant_decorators]]
+- [[graphify_graphify_extractors_engine_rationale_4457]] → `rationale_for` → [[graphify_graphify_extractors_engine_ts_emit_decorator_edges]]

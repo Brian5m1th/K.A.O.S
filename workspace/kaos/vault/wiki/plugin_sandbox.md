@@ -1,0 +1,92 @@
+# assistant\app\core\plugin_sandbox.py
+
+## Símbolos
+
+- [[assistant_app_core_plugin_sandbox]] — code: plugin_sandbox.py
+- [[assistant_app_core_plugin_sandbox_pluginmanifest]] — code: PluginManifest
+- [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]] — code: .from_dict()
+- [[assistant_app_core_plugin_sandbox_pluginmanifest_validate]] — code: .validate()
+- [[assistant_app_core_plugin_sandbox_pluginexecutionresult]] — code: PluginExecutionResult
+- [[assistant_app_core_plugin_sandbox_wasmplugin]] — code: WasmPlugin
+- [[assistant_app_core_plugin_sandbox_wasmplugin_init]] — code: .__init__()
+- [[assistant_app_core_plugin_sandbox_wasmplugin_is_loaded]] — code: .is_loaded()
+- [[assistant_app_core_plugin_sandbox_wasmplugin_load]] — code: .load()
+- [[assistant_app_core_plugin_sandbox_wasmplugin_execute_function]] — code: .execute_function()
+- [[assistant_app_core_plugin_sandbox_wasmplugin_unload]] — code: .unload()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] — code: PluginSandbox
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_init]] — code: .__init__()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_loaded_plugins]] — code: .loaded_plugins()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]] — code: .load_plugin_from_bytes()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_file]] — code: .load_plugin_from_file()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_execute]] — code: .execute()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_unload_plugin]] — code: .unload_plugin()
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_clear]] — code: .clear()
+- [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]] — code: validate_wasm_bytes()
+- [[assistant_app_core_plugin_sandbox_rationale_1]] — code: Plugin Sandbox — Isolamento de plugins via WebAssembly (Wasm).  Permite carreg
+- [[assistant_app_core_plugin_sandbox_rationale_39]] — code: Manifesto do plugin — declaracao de metadados e permissoes.
+- [[assistant_app_core_plugin_sandbox_rationale_64]] — code: Valida o manifesto. Retorna lista de erros (vazia = valido).
+- [[assistant_app_core_plugin_sandbox_rationale_82]] — code: Resultado da execucao de uma funcao no sandbox.
+- [[assistant_app_core_plugin_sandbox_rationale_96]] — code: Representa um plugin carregado em memoria, pronto para execucao.
+- [[assistant_app_core_plugin_sandbox_rationale_118]] — code: Compila e instancia o modulo Wasm no sandbox.
+- [[assistant_app_core_plugin_sandbox_rationale_153]] — code: Executa uma funcao exportada do modulo Wasm.          Args:             funct
+- [[assistant_app_core_plugin_sandbox_rationale_200]] — code: Libera recursos do plugin.
+- [[assistant_app_core_plugin_sandbox_rationale_215]] — code: Engine de sandbox para plugins Wasm.      Responsabilidades:     - Carregar e
+- [[assistant_app_core_plugin_sandbox_rationale_234]] — code: Carrega um plugin a partir de bytes Wasm e manifesto.          Args:
+- [[assistant_app_core_plugin_sandbox_rationale_270]] — code: Carrega um plugin a partir de arquivo .wasm em disco.
+- [[assistant_app_core_plugin_sandbox_rationale_280]] — code: Executa uma funcao em um plugin carregado.
+- [[assistant_app_core_plugin_sandbox_rationale_290]] — code: Descarrega um plugin e libera recursos.
+- [[assistant_app_core_plugin_sandbox_rationale_298]] — code: Descarrega todos os plugins.
+- [[assistant_app_core_plugin_sandbox_rationale_310]] — code: Valida rapidamente se o conteudo parece um modulo Wasm valido.      Modulos Wa
+
+## Dependências
+
+- [[assistant_app_core_plugin_sandbox]] → `contains` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_app_core_plugin_sandbox]] → `contains` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_app_core_plugin_sandbox]] → `contains` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_app_core_plugin_sandbox]] → `contains` → [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]]
+- [[assistant_app_core_plugin_sandbox]] → `contains` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_app_core_plugin_sandbox_rationale_1]] → `rationale_for` → [[assistant_app_core_plugin_sandbox]]
+- [[assistant_app_core_plugin_sandbox_pluginmanifest]] → `method` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_app_core_plugin_sandbox_pluginmanifest]] → `method` → [[assistant_app_core_plugin_sandbox_pluginmanifest_validate]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_file]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_app_core_plugin_sandbox_rationale_39]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin_init]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_validate]]
+- [[assistant_app_core_plugin_sandbox_rationale_64]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginmanifest_validate]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_execute]] → `references` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_app_core_plugin_sandbox_rationale_82]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin_execute_function]] → `references` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]] → `calls` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_loaded_plugins]] → `references` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_app_core_plugin_sandbox_rationale_96]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin]] → `method` → [[assistant_app_core_plugin_sandbox_wasmplugin_execute_function]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin]] → `method` → [[assistant_app_core_plugin_sandbox_wasmplugin_init]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin]] → `method` → [[assistant_app_core_plugin_sandbox_wasmplugin_is_loaded]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin]] → `method` → [[assistant_app_core_plugin_sandbox_wasmplugin_load]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin]] → `method` → [[assistant_app_core_plugin_sandbox_wasmplugin_unload]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]] → `calls` → [[assistant_app_core_plugin_sandbox_wasmplugin_load]]
+- [[assistant_app_core_plugin_sandbox_rationale_118]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_wasmplugin_load]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_execute]] → `calls` → [[assistant_app_core_plugin_sandbox_wasmplugin_execute_function]]
+- [[assistant_app_core_plugin_sandbox_rationale_153]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_wasmplugin_execute_function]]
+- [[assistant_app_core_plugin_sandbox_wasmplugin_execute_function]] → `references` → [[assistant_app_core_plugin_sandbox_py_any]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_execute]] → `references` → [[assistant_app_core_plugin_sandbox_py_any]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_clear]] → `calls` → [[assistant_app_core_plugin_sandbox_wasmplugin_unload]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_unload_plugin]] → `calls` → [[assistant_app_core_plugin_sandbox_wasmplugin_unload]]
+- [[assistant_app_core_plugin_sandbox_rationale_200]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_wasmplugin_unload]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_clear]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_execute]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_init]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_file]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_loaded_plugins]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox]] → `method` → [[assistant_app_core_plugin_sandbox_pluginsandbox_unload_plugin]]
+- [[assistant_app_core_plugin_sandbox_rationale_215]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_file]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]]
+- [[assistant_app_core_plugin_sandbox_rationale_234]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_bytes]]
+- [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_file]] → `references` → [[assistant_app_core_plugin_sandbox_py_path]]
+- [[assistant_app_core_plugin_sandbox_rationale_270]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginsandbox_load_plugin_from_file]]
+- [[assistant_app_core_plugin_sandbox_rationale_280]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginsandbox_execute]]
+- [[assistant_app_core_plugin_sandbox_rationale_290]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginsandbox_unload_plugin]]
+- [[assistant_app_core_plugin_sandbox_rationale_298]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_pluginsandbox_clear]]
+- [[assistant_app_core_plugin_sandbox_rationale_310]] → `rationale_for` → [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]]

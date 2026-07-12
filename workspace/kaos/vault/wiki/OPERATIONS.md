@@ -1,0 +1,104 @@
+# docs\guides\OPERATIONS.md
+
+## Símbolos
+
+- [[docs_guides_operations]] — code: OPERATIONS.md
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] — code: Guia de Operações — K.A.O.S
+- [[docs_guides_operations_backup]] — code: Backup
+- [[docs_guides_operations_postgresql]] — code: PostgreSQL
+- [[docs_guides_operations_qdrant]] — code: Qdrant
+- [[docs_guides_operations_volumes_docker]] — code: Volumes Docker
+- [[docs_guides_operations_arquivos_de_configuração]] — code: Arquivos de Configuração
+- [[docs_guides_operations_restore]] — code: Restore
+- [[docs_guides_operations_postgresql_57]] — code: PostgreSQL
+- [[docs_guides_operations_logs]] — code: Logs
+- [[docs_guides_operations_backend_loguru]] — code: Backend (Loguru)
+- [[docs_guides_operations_docker]] — code: Docker
+- [[docs_guides_operations_loki]] — code: Loki
+- [[docs_guides_operations_monitoramento]] — code: Monitoramento
+- [[docs_guides_operations_prometheus]] — code: Prometheus
+- [[docs_guides_operations_grafana]] — code: Grafana
+- [[docs_guides_operations_health_checks]] — code: Health Checks
+- [[docs_guides_operations_troubleshooting]] — code: Troubleshooting
+- [[docs_guides_operations_backend_não_inicia]] — code: Backend não inicia
+- [[docs_guides_operations_desktop_não_conecta]] — code: Desktop não conecta
+- [[docs_guides_operations_qdrant_com_erro]] — code: Qdrant com erro
+- [[docs_guides_operations_postgresql_com_erro]] — code: PostgreSQL com erro
+- [[docs_guides_operations_ollama_não_responde]] — code: Ollama não responde
+- [[docs_guides_operations_kirl_auditoria_não_funciona]] — code: KIRL / Auditoria não funciona
+- [[docs_guides_operations_atualizações]] — code: Atualizações
+- [[docs_guides_operations_backend]] — code: Backend
+- [[docs_guides_operations_desktop]] — code: Desktop
+- [[docs_guides_operations_docker_275]] — code: Docker
+- [[docs_guides_operations_migrations]] — code: Migrations
+- [[docs_guides_operations_ci_cd]] — code: CI/CD
+- [[docs_guides_operations_github_actions]] — code: GitHub Actions
+- [[docs_guides_operations_executar_ci_localmente]] — code: Executar CI Localmente
+- [[docs_guides_operations_deploy]] — code: Deploy
+- [[docs_guides_operations_produção_docker]] — code: Produção (Docker)
+- [[docs_guides_operations_requisitos_de_produção]] — code: Requisitos de Produção
+- [[docs_guides_operations_segurança_em_produção]] — code: Segurança em Produção
+- [[docs_guides_operations_métricas_de_saúde_do_sistema]] — code: Métricas de Saúde do Sistema
+- [[docs_guides_operations_indicadores_chave]] — code: Indicadores Chave
+- [[docs_guides_operations_comandos_de_diagnóstico_rápido]] — code: Comandos de Diagnóstico Rápido
+- [[docs_guides_operations_resumo]] — code: Resumo
+- [[docs_guides_operations_objetivo]] — code: Objetivo
+- [[docs_guides_operations_responsabilidades]] — code: Responsabilidades
+- [[docs_guides_operations_dependencias]] — code: Dependencias
+- [[docs_guides_operations_fluxos]] — code: Fluxos
+- [[docs_guides_operations_integracoes]] — code: Integracoes
+- [[docs_guides_operations_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_guides_operations_referencias_kirl]] — code: Referencias KIRL
+- [[docs_guides_operations_status]] — code: Status
+- [[docs_guides_operations_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_guides_operations]] → `contains` → [[docs_guides_operations_guia_de_operações_k_a_o_s]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_arquivos_relacionados]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_atualizações]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_backup]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_ci_cd]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_dependencias]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_deploy]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_fluxos]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_integracoes]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_logs]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_monitoramento]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_métricas_de_saúde_do_sistema]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_objetivo]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_referencias_kirl]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_responsabilidades]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_restore]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_resumo]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_status]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_troubleshooting]]
+- [[docs_guides_operations_guia_de_operações_k_a_o_s]] → `contains` → [[docs_guides_operations_ultima_atualizacao]]
+- [[docs_guides_operations_backup]] → `contains` → [[docs_guides_operations_arquivos_de_configuração]]
+- [[docs_guides_operations_backup]] → `contains` → [[docs_guides_operations_postgresql]]
+- [[docs_guides_operations_backup]] → `contains` → [[docs_guides_operations_qdrant]]
+- [[docs_guides_operations_backup]] → `contains` → [[docs_guides_operations_volumes_docker]]
+- [[docs_guides_operations_restore]] → `contains` → [[docs_guides_operations_postgresql_57]]
+- [[docs_guides_operations_logs]] → `contains` → [[docs_guides_operations_backend_loguru]]
+- [[docs_guides_operations_logs]] → `contains` → [[docs_guides_operations_docker]]
+- [[docs_guides_operations_logs]] → `contains` → [[docs_guides_operations_loki]]
+- [[docs_guides_operations_monitoramento]] → `contains` → [[docs_guides_operations_grafana]]
+- [[docs_guides_operations_monitoramento]] → `contains` → [[docs_guides_operations_health_checks]]
+- [[docs_guides_operations_monitoramento]] → `contains` → [[docs_guides_operations_prometheus]]
+- [[docs_guides_operations_troubleshooting]] → `contains` → [[docs_guides_operations_backend_não_inicia]]
+- [[docs_guides_operations_troubleshooting]] → `contains` → [[docs_guides_operations_desktop_não_conecta]]
+- [[docs_guides_operations_troubleshooting]] → `contains` → [[docs_guides_operations_kirl_auditoria_não_funciona]]
+- [[docs_guides_operations_troubleshooting]] → `contains` → [[docs_guides_operations_ollama_não_responde]]
+- [[docs_guides_operations_troubleshooting]] → `contains` → [[docs_guides_operations_postgresql_com_erro]]
+- [[docs_guides_operations_troubleshooting]] → `contains` → [[docs_guides_operations_qdrant_com_erro]]
+- [[docs_guides_operations_atualizações]] → `contains` → [[docs_guides_operations_backend]]
+- [[docs_guides_operations_atualizações]] → `contains` → [[docs_guides_operations_desktop]]
+- [[docs_guides_operations_atualizações]] → `contains` → [[docs_guides_operations_docker_275]]
+- [[docs_guides_operations_atualizações]] → `contains` → [[docs_guides_operations_migrations]]
+- [[docs_guides_operations_ci_cd]] → `contains` → [[docs_guides_operations_executar_ci_localmente]]
+- [[docs_guides_operations_ci_cd]] → `contains` → [[docs_guides_operations_github_actions]]
+- [[docs_guides_operations_deploy]] → `contains` → [[docs_guides_operations_produção_docker]]
+- [[docs_guides_operations_deploy]] → `contains` → [[docs_guides_operations_requisitos_de_produção]]
+- [[docs_guides_operations_deploy]] → `contains` → [[docs_guides_operations_segurança_em_produção]]
+- [[docs_guides_operations_métricas_de_saúde_do_sistema]] → `contains` → [[docs_guides_operations_comandos_de_diagnóstico_rápido]]
+- [[docs_guides_operations_métricas_de_saúde_do_sistema]] → `contains` → [[docs_guides_operations_indicadores_chave]]

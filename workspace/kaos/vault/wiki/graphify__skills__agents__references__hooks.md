@@ -1,0 +1,14 @@
+# graphify\tools\skillgen\expected\graphify__skills__agents__references__hooks.md
+
+## Símbolos
+
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks]] — code: graphify__skills__agents__references__hooks.md
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_graphify_reference_commit_hook_and_native_agents_md_integration]] — code: graphify reference: commit hook and native AGENTS.md integration
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_for_git_commit_hook]] — code: For git commit hook
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_for_native_agents_md_integration]] — code: For native AGENTS.md integration
+
+## Dependências
+
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_graphify_reference_commit_hook_and_native_agents_md_integration]]
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_graphify_reference_commit_hook_and_native_agents_md_integration]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_for_git_commit_hook]]
+- [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_graphify_reference_commit_hook_and_native_agents_md_integration]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_agents_references_hooks_for_native_agents_md_integration]]

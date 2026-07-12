@@ -26,6 +26,7 @@ class EvidenceLevel(str, Enum):
 @dataclass
 class EvidenceMetric:
     """A single evidence data point."""
+
     name: str
     value: float
     level: EvidenceLevel = EvidenceLevel.UNKNOWN
@@ -38,9 +39,8 @@ class EvidenceMetric:
 @dataclass
 class EvidenceReport:
     """Aggregated evidence report from all sources."""
-    generated_at: str = field(
-        default_factory=lambda: datetime.now().isoformat()
-    )
+
+    generated_at: str = field(default_factory=lambda: datetime.now().isoformat())
     metrics: list[EvidenceMetric] = field(default_factory=list)
     overall_score: float = 0.0  # 0-100
     level: EvidenceLevel = EvidenceLevel.UNKNOWN
@@ -66,8 +66,7 @@ class EvidencePort(ABC):
 
     @property
     @abstractmethod
-    def provider_name(self) -> str:
-        ...
+    def provider_name(self) -> str: ...
 
     @abstractmethod
     async def collect(self) -> EvidenceReport:

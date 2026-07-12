@@ -1,0 +1,100 @@
+# assistant\tests\unit\test_audit_feature_registry.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_audit_feature_registry]] — code: test_audit_feature_registry.py
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] — code: TestFeatureEntry
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_create_minimal]] — code: .test_create_minimal()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_create_full]] — code: .test_create_full()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_to_dict]] — code: .test_to_dict()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_from_dict]] — code: .test_from_dict()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] — code: TestFeatureRegistry
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_setup_method]] — code: .setup_method()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_and_get]] — code: .test_register_and_get()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_many]] — code: .test_register_many()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list]] — code: .test_list()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_phase]] — code: .test_list_by_phase()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_status]] — code: .test_list_by_status()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_unregister]] — code: .test_unregister()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_status]] — code: .test_update_status()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_last_commit]] — code: .test_update_last_commit()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_doc_ref]] — code: .test_add_doc_ref()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_code_ref]] — code: .test_add_code_ref()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_search]] — code: .test_search()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_get_by_name]] — code: .test_get_by_name()
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_export_json]] — code: .test_export_json()
+
+## Dependências
+
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] → `uses` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_create_full]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_create_minimal]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_to_dict]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `uses` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_code_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_doc_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_export_json]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_get_by_name]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_phase]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_status]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_and_get]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_many]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_search]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_unregister]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_last_commit]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_status]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_from_dict]] → `calls` → [[assistant_app_audit_feature_registry_featureentry_from_dict]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_code_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_doc_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_export_json]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_get_by_name]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_phase]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_status]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_and_get]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_search]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_unregister]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_last_commit]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_status]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_many]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register_many]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_code_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_doc_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_and_get]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_many]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_unregister]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_last_commit]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_status]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_get_by_name]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get_by_name]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_phase]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_list_by_phase]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_status]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_list_by_status]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_unregister]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_unregister]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_status]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_update_status]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_last_commit]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_update_last_commit]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_doc_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_add_doc_ref]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_code_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_add_code_ref]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_search]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_search]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_export_json]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_export_json]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_setup_method]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_clear]]
+- [[assistant_tests_unit_test_audit_feature_registry]] → `contains` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]]
+- [[assistant_tests_unit_test_audit_feature_registry]] → `contains` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_create_full]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_create_minimal]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_from_dict]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureentry_test_to_dict]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_setup_method]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_code_ref]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_add_doc_ref]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_export_json]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_get_by_name]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_phase]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_list_by_status]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_and_get]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_register_many]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_search]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_unregister]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_last_commit]]
+- [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry]] → `method` → [[assistant_tests_unit_test_audit_feature_registry_testfeatureregistry_test_update_status]]

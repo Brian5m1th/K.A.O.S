@@ -1,0 +1,122 @@
+# docs\operations\investigation\IMPLEMENTATION_PLAN_UPDATE.md
+
+## Símbolos
+
+- [[docs_operations_investigation_implementation_plan_update]] — code: IMPLEMENTATION_PLAN_UPDATE.md
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] — code: K.A.O.S Platform Evolution & Autonomous Engineering Specification (v13)
+- [[docs_operations_investigation_implementation_plan_update_1_architectural_rules_core_bounds]] — code: 1. Architectural Rules & Core Bounds
+- [[docs_operations_investigation_implementation_plan_update_2_platform_core_fixes_phase_12_recap]] — code: 2. Platform Core Fixes (Phase 12 Recap)
+- [[docs_operations_investigation_implementation_plan_update_component_0_frontend_mock_elimination_audit_ci_check]] — code: Component 0: Frontend Mock Elimination Audit & CI Check
+- [[docs_operations_investigation_implementation_plan_update_component_1_consolidation_of_duplicate_stores_hooks]] — code: Component 1: Consolidation of Duplicate Stores & Hooks
+- [[docs_operations_investigation_implementation_plan_update_component_2_boot_readiness_gates_offline_blocking_screen]] — code: Component 2: Boot & Readiness Gates (Offline Blocking Screen)
+- [[docs_operations_investigation_implementation_plan_update_component_3_endpoint_unification_get_api_system_dashboard]] — code: Component 3: Endpoint Unification (GET `/api/system/dashboard`)
+- [[docs_operations_investigation_implementation_plan_update_3_tool_integration_spec_kit_graphify_airllm_advanced_tool_suite]] — code: 3. Tool Integration: Spec Kit, Graphify, AirLLM, & Advanced Tool Suite
+- [[docs_operations_investigation_implementation_plan_update_3_1_github_spec_kit]] — code: 3.1. GitHub Spec Kit
+- [[docs_operations_investigation_implementation_plan_update_3_2_graphify_codebase_mapped]] — code: 3.2. Graphify Codebase Mapped
+- [[docs_operations_investigation_implementation_plan_update_3_2_1_proof_of_graphify_execution_codebase_relationship_queries]] — code: 3.2.1. Proof of Graphify Execution (Codebase Relationship Queries)
+- [[docs_operations_investigation_implementation_plan_update_3_3_airllm_inference_layer]] — code: 3.3. AirLLM Inference Layer
+- [[docs_operations_investigation_implementation_plan_update_3_4_advanced_tool_suite_layering_memory_rag_orchestration]] — code: 3.4. Advanced Tool Suite Layering (Memory, RAG, & Orchestration)
+- [[docs_operations_investigation_implementation_plan_update_4_graph_architecture_comparison_deprecation_strategy]] — code: 4. Graph Architecture Comparison & Deprecation Strategy
+- [[docs_operations_investigation_implementation_plan_update_recommendation_hybrid_integration_deprecation]] — code: Recommendation: Hybrid Integration & Deprecation
+- [[docs_operations_investigation_implementation_plan_update_5_engineering_standards_governance]] — code: 5. Engineering Standards & Governance
+- [[docs_operations_investigation_implementation_plan_update_6_reliability_engineering_how_features_fail]] — code: 6. Reliability Engineering (How Features Fail)
+- [[docs_operations_investigation_implementation_plan_update_7_observability_platform]] — code: 7. Observability Platform
+- [[docs_operations_investigation_implementation_plan_update_7_1_tool_telemetry_matrix]] — code: 7.1. Tool Telemetry Matrix
+- [[docs_operations_investigation_implementation_plan_update_7_2_workflow_telemetry]] — code: 7.2. Workflow Telemetry
+- [[docs_operations_investigation_implementation_plan_update_7_3_api_telemetry]] — code: 7.3. API Telemetry
+- [[docs_operations_investigation_implementation_plan_update_8_engineering_quality_gates]] — code: 8. Engineering Quality Gates
+- [[docs_operations_investigation_implementation_plan_update_9_refactoring_strategy_anti_pattern_check]] — code: 9. Refactoring Strategy & Anti-Pattern Check
+- [[docs_operations_investigation_implementation_plan_update_10_automated_testing_strategy]] — code: 10. Automated Testing Strategy
+- [[docs_operations_investigation_implementation_plan_update_11_security_engineering]] — code: 11. Security Engineering
+- [[docs_operations_investigation_implementation_plan_update_12_performance_engineering_targets]] — code: 12. Performance Engineering Targets
+- [[docs_operations_investigation_implementation_plan_update_13_architecture_fitness_functions]] — code: 13. Architecture Fitness Functions
+- [[docs_operations_investigation_implementation_plan_update_14_ai_engineering_layer]] — code: 14. AI Engineering Layer
+- [[docs_operations_investigation_implementation_plan_update_15_knowledge_intelligence_graph]] — code: 15. Knowledge Intelligence Graph
+- [[docs_operations_investigation_implementation_plan_update_16_self_healing_platform]] — code: 16. Self-Healing Platform
+- [[docs_operations_investigation_implementation_plan_update_17_continuous_architecture_evolution]] — code: 17. Continuous Architecture Evolution
+- [[docs_operations_investigation_implementation_plan_update_18_ai_planning_engine]] — code: 18. AI Planning Engine
+- [[docs_operations_investigation_implementation_plan_update_19_plugin_ecosystem]] — code: 19. Plugin Ecosystem
+- [[docs_operations_investigation_implementation_plan_update_20_autonomous_platform_evolution_loop]] — code: 20. Autonomous Platform Evolution Loop
+- [[docs_operations_investigation_implementation_plan_update_21_capability_maturity_matrix]] — code: 21. Capability Maturity Matrix
+- [[docs_operations_investigation_implementation_plan_update_22_technical_debt_platform_readiness_registry]] — code: 22. Technical Debt & Platform Readiness Registry
+- [[docs_operations_investigation_implementation_plan_update_23_architecture_decision_records_governance]] — code: 23. Architecture Decision Records Governance
+- [[docs_operations_investigation_implementation_plan_update_24_definition_of_done_dod]] — code: 24. Definition of Done (DoD)
+- [[docs_operations_investigation_implementation_plan_update_25_release_engineering]] — code: 25. Release Engineering
+- [[docs_operations_investigation_implementation_plan_update_26_dependency_lifecycle_management]] — code: 26. Dependency Lifecycle Management
+- [[docs_operations_investigation_implementation_plan_update_27_workspace_lifecycle]] — code: 27. Workspace Lifecycle
+- [[docs_operations_investigation_implementation_plan_update_28_memory_engineering]] — code: 28. Memory Engineering
+- [[docs_operations_investigation_implementation_plan_update_29_prompt_engineering_framework]] — code: 29. Prompt Engineering Framework
+- [[docs_operations_investigation_implementation_plan_update_30_provider_intelligence]] — code: 30. Provider Intelligence
+- [[docs_operations_investigation_implementation_plan_update_31_ai_evaluation_framework]] — code: 31. AI Evaluation Framework
+- [[docs_operations_investigation_implementation_plan_update_32_data_lifecycle]] — code: 32. Data Lifecycle
+- [[docs_operations_investigation_implementation_plan_update_33_event_driven_architecture]] — code: 33. Event-Driven Architecture
+- [[docs_operations_investigation_implementation_plan_update_34_cost_engineering]] — code: 34. Cost Engineering
+- [[docs_operations_investigation_implementation_plan_update_35_engineering_analytics]] — code: 35. Engineering Analytics
+- [[docs_operations_investigation_implementation_plan_update_36_incident_management]] — code: 36. Incident Management
+- [[docs_operations_investigation_implementation_plan_update_37_root_cause_analysis_rca_framework]] — code: 37. Root Cause Analysis (RCA) Framework
+- [[docs_operations_investigation_implementation_plan_update_38_engineering_knowledge_base]] — code: 38. Engineering Knowledge Base
+- [[docs_operations_investigation_implementation_plan_update_39_ai_governance]] — code: 39. AI Governance
+- [[docs_operations_investigation_implementation_plan_update_40_human_approval_workflow]] — code: 40. Human Approval Workflow
+- [[docs_operations_investigation_implementation_plan_update_41_continuous_benchmarking]] — code: 41. Continuous Benchmarking
+- [[docs_operations_investigation_implementation_plan_update_42_autonomous_engineering_runtime_aer]] — code: 42. Autonomous Engineering Runtime (AER)
+- [[docs_operations_investigation_implementation_plan_update_43_spec_driven_development_sdd_execution_flow]] — code: 43. Spec-Driven Development (SDD) Execution Flow
+
+## Dependências
+
+- [[docs_operations_investigation_implementation_plan_update]] → `contains` → [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_10_automated_testing_strategy]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_11_security_engineering]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_12_performance_engineering_targets]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_13_architecture_fitness_functions]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_14_ai_engineering_layer]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_15_knowledge_intelligence_graph]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_16_self_healing_platform]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_17_continuous_architecture_evolution]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_18_ai_planning_engine]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_19_plugin_ecosystem]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_1_architectural_rules_core_bounds]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_20_autonomous_platform_evolution_loop]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_21_capability_maturity_matrix]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_22_technical_debt_platform_readiness_registry]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_23_architecture_decision_records_governance]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_24_definition_of_done_dod]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_25_release_engineering]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_26_dependency_lifecycle_management]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_27_workspace_lifecycle]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_28_memory_engineering]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_29_prompt_engineering_framework]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_2_platform_core_fixes_phase_12_recap]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_30_provider_intelligence]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_31_ai_evaluation_framework]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_32_data_lifecycle]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_33_event_driven_architecture]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_34_cost_engineering]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_35_engineering_analytics]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_36_incident_management]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_37_root_cause_analysis_rca_framework]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_38_engineering_knowledge_base]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_39_ai_governance]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_3_tool_integration_spec_kit_graphify_airllm_advanced_tool_suite]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_40_human_approval_workflow]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_41_continuous_benchmarking]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_42_autonomous_engineering_runtime_aer]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_43_spec_driven_development_sdd_execution_flow]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_4_graph_architecture_comparison_deprecation_strategy]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_5_engineering_standards_governance]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_6_reliability_engineering_how_features_fail]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_7_observability_platform]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_8_engineering_quality_gates]]
+- [[docs_operations_investigation_implementation_plan_update_k_a_o_s_platform_evolution_autonomous_engineering_specification_v13]] → `contains` → [[docs_operations_investigation_implementation_plan_update_9_refactoring_strategy_anti_pattern_check]]
+- [[docs_operations_investigation_implementation_plan_update_2_platform_core_fixes_phase_12_recap]] → `contains` → [[docs_operations_investigation_implementation_plan_update_component_0_frontend_mock_elimination_audit_ci_check]]
+- [[docs_operations_investigation_implementation_plan_update_2_platform_core_fixes_phase_12_recap]] → `contains` → [[docs_operations_investigation_implementation_plan_update_component_1_consolidation_of_duplicate_stores_hooks]]
+- [[docs_operations_investigation_implementation_plan_update_2_platform_core_fixes_phase_12_recap]] → `contains` → [[docs_operations_investigation_implementation_plan_update_component_2_boot_readiness_gates_offline_blocking_screen]]
+- [[docs_operations_investigation_implementation_plan_update_2_platform_core_fixes_phase_12_recap]] → `contains` → [[docs_operations_investigation_implementation_plan_update_component_3_endpoint_unification_get_api_system_dashboard]]
+- [[docs_operations_investigation_implementation_plan_update_3_tool_integration_spec_kit_graphify_airllm_advanced_tool_suite]] → `contains` → [[docs_operations_investigation_implementation_plan_update_3_1_github_spec_kit]]
+- [[docs_operations_investigation_implementation_plan_update_3_tool_integration_spec_kit_graphify_airllm_advanced_tool_suite]] → `contains` → [[docs_operations_investigation_implementation_plan_update_3_2_graphify_codebase_mapped]]
+- [[docs_operations_investigation_implementation_plan_update_3_tool_integration_spec_kit_graphify_airllm_advanced_tool_suite]] → `contains` → [[docs_operations_investigation_implementation_plan_update_3_3_airllm_inference_layer]]
+- [[docs_operations_investigation_implementation_plan_update_3_tool_integration_spec_kit_graphify_airllm_advanced_tool_suite]] → `contains` → [[docs_operations_investigation_implementation_plan_update_3_4_advanced_tool_suite_layering_memory_rag_orchestration]]
+- [[docs_operations_investigation_implementation_plan_update_3_2_graphify_codebase_mapped]] → `contains` → [[docs_operations_investigation_implementation_plan_update_3_2_1_proof_of_graphify_execution_codebase_relationship_queries]]
+- [[docs_operations_investigation_implementation_plan_update_4_graph_architecture_comparison_deprecation_strategy]] → `contains` → [[docs_operations_investigation_implementation_plan_update_recommendation_hybrid_integration_deprecation]]
+- [[docs_operations_investigation_implementation_plan_update_7_observability_platform]] → `contains` → [[docs_operations_investigation_implementation_plan_update_7_1_tool_telemetry_matrix]]
+- [[docs_operations_investigation_implementation_plan_update_7_observability_platform]] → `contains` → [[docs_operations_investigation_implementation_plan_update_7_2_workflow_telemetry]]
+- [[docs_operations_investigation_implementation_plan_update_7_observability_platform]] → `contains` → [[docs_operations_investigation_implementation_plan_update_7_3_api_telemetry]]

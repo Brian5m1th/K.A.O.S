@@ -1,0 +1,94 @@
+# airllm\anima_100k\longer_training.py
+
+## Símbolos
+
+- [[airllm_anima_100k_longer_training]] — code: longer_training.py
+- [[airllm_anima_100k_longer_training_print_tensors]] — code: print_tensors()
+- [[airllm_anima_100k_longer_training_get_tensors]] — code: _get_tensors()
+- [[airllm_anima_100k_longer_training_get_sample_gen_test_examples]] — code: get_sample_gen_test_examples()
+- [[airllm_anima_100k_longer_training_modelarguments]] — code: ModelArguments
+- [[airllm_anima_100k_longer_training_dataarguments]] — code: DataArguments
+- [[airllm_anima_100k_longer_training_trainingarguments]] — code: TrainingArguments
+- [[airllm_anima_100k_longer_training_generationarguments]] — code: GenerationArguments
+- [[airllm_anima_100k_longer_training_find_all_linear_names]] — code: find_all_linear_names()
+- [[airllm_anima_100k_longer_training_samplegeneratecallback]] — code: SampleGenerateCallback
+- [[airllm_anima_100k_longer_training_samplegeneratecallback_on_substep_end]] — code: .on_substep_end()
+- [[airllm_anima_100k_longer_training_samplegeneratecallback_on_evaluate]] — code: .on_evaluate()
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback]] — code: SavePeftModelCallback
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback_save_model]] — code: .save_model()
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback_on_save]] — code: .on_save()
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback_on_train_end]] — code: .on_train_end()
+- [[airllm_anima_100k_longer_training_get_accelerate_model]] — code: get_accelerate_model()
+- [[airllm_anima_100k_longer_training_print_trainable_parameters]] — code: print_trainable_parameters()
+- [[airllm_anima_100k_longer_training_smart_tokenizer_and_embedding_resize]] — code: smart_tokenizer_and_embedding_resize()
+- [[airllm_anima_100k_longer_training_datacollatorforcausallm]] — code: DataCollatorForCausalLM
+- [[airllm_anima_100k_longer_training_datacollatorforcausallm_call]] — code: .__call__()
+- [[airllm_anima_100k_longer_training_extract_unnatural_instructions_data]] — code: extract_unnatural_instructions_data()
+- [[airllm_anima_100k_longer_training_extract_alpaca_dataset]] — code: extract_alpaca_dataset()
+- [[airllm_anima_100k_longer_training_local_dataset]] — code: local_dataset()
+- [[airllm_anima_100k_longer_training_make_data_module]] — code: make_data_module()
+- [[airllm_anima_100k_longer_training_get_last_checkpoint]] — code: get_last_checkpoint()
+- [[airllm_anima_100k_longer_training_train]] — code: train()
+- [[airllm_anima_100k_longer_training_rationale_302]] — code: A callback that prints a sample generations of the model in the process of train
+- [[airllm_anima_100k_longer_training_rationale_455]] — code: Prints the number of trainable parameters in the model.
+- [[airllm_anima_100k_longer_training_rationale_476]] — code: Resize tokenizer and embedding.      Note: This is the unoptimized version tha
+- [[airllm_anima_100k_longer_training_rationale_599]] — code: Make dataset and collator for supervised fine-tuning.     Datasets are expected
+
+## Dependências
+
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_dataarguments]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_datacollatorforcausallm]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_extract_alpaca_dataset]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_extract_unnatural_instructions_data]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_find_all_linear_names]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_generationarguments]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_get_accelerate_model]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_get_last_checkpoint]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_get_sample_gen_test_examples]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_get_tensors]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_local_dataset]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_make_data_module]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_modelarguments]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_print_tensors]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_print_trainable_parameters]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_samplegeneratecallback]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_savepeftmodelcallback]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_smart_tokenizer_and_embedding_resize]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_train]]
+- [[airllm_anima_100k_longer_training]] → `contains` → [[airllm_anima_100k_longer_training_trainingarguments]]
+- [[airllm_anima_100k_longer_training_print_tensors]] → `calls` → [[airllm_anima_100k_longer_training_get_tensors]]
+- [[airllm_anima_100k_longer_training_samplegeneratecallback_on_evaluate]] → `calls` → [[airllm_anima_100k_longer_training_print_tensors]]
+- [[airllm_anima_100k_longer_training_samplegeneratecallback_on_substep_end]] → `calls` → [[airllm_anima_100k_longer_training_print_tensors]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[airllm_anima_100k_longer_training_print_tensors]]
+- [[airllm_anima_100k_longer_training_samplegeneratecallback_on_evaluate]] → `calls` → [[airllm_anima_100k_longer_training_get_sample_gen_test_examples]]
+- [[airllm_anima_100k_longer_training_train]] → `indirect_call` → [[airllm_anima_100k_longer_training_modelarguments]]
+- [[airllm_anima_100k_longer_training_train]] → `indirect_call` → [[airllm_anima_100k_longer_training_dataarguments]]
+- [[airllm_anima_100k_longer_training_train]] → `indirect_call` → [[airllm_anima_100k_longer_training_trainingarguments]]
+- [[airllm_anima_100k_longer_training_train]] → `indirect_call` → [[airllm_anima_100k_longer_training_generationarguments]]
+- [[airllm_anima_100k_longer_training_get_accelerate_model]] → `calls` → [[airllm_anima_100k_longer_training_find_all_linear_names]]
+- [[airllm_anima_100k_longer_training_rationale_302]] → `rationale_for` → [[airllm_anima_100k_longer_training_samplegeneratecallback]]
+- [[airllm_anima_100k_longer_training_samplegeneratecallback]] → `method` → [[airllm_anima_100k_longer_training_samplegeneratecallback_on_evaluate]]
+- [[airllm_anima_100k_longer_training_samplegeneratecallback]] → `method` → [[airllm_anima_100k_longer_training_samplegeneratecallback_on_substep_end]]
+- [[airllm_anima_100k_longer_training_train]] → `indirect_call` → [[airllm_anima_100k_longer_training_samplegeneratecallback]]
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback]] → `method` → [[airllm_anima_100k_longer_training_savepeftmodelcallback_on_save]]
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback]] → `method` → [[airllm_anima_100k_longer_training_savepeftmodelcallback_on_train_end]]
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback]] → `method` → [[airllm_anima_100k_longer_training_savepeftmodelcallback_save_model]]
+- [[airllm_anima_100k_longer_training_train]] → `indirect_call` → [[airllm_anima_100k_longer_training_savepeftmodelcallback]]
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback_on_save]] → `calls` → [[airllm_anima_100k_longer_training_savepeftmodelcallback_save_model]]
+- [[airllm_anima_100k_longer_training_savepeftmodelcallback_on_train_end]] → `calls` → [[airllm_anima_100k_longer_training_savepeftmodelcallback_save_model]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[airllm_anima_100k_longer_training_get_accelerate_model]]
+- [[airllm_anima_100k_longer_training_rationale_455]] → `rationale_for` → [[airllm_anima_100k_longer_training_print_trainable_parameters]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[airllm_anima_100k_longer_training_print_trainable_parameters]]
+- [[airllm_anima_100k_longer_training_rationale_476]] → `rationale_for` → [[airllm_anima_100k_longer_training_smart_tokenizer_and_embedding_resize]]
+- [[airllm_anima_100k_longer_training_smart_tokenizer_and_embedding_resize]] → `references` → [[airllm_anima_100k_longer_training_py_pretrainedmodel]]
+- [[airllm_anima_100k_longer_training_smart_tokenizer_and_embedding_resize]] → `references` → [[airllm_anima_100k_longer_training_py_pretrainedtokenizer]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[airllm_anima_100k_longer_training_smart_tokenizer_and_embedding_resize]]
+- [[airllm_anima_100k_longer_training_make_data_module]] → `references` → [[airllm_anima_100k_longer_training_py_pretrainedtokenizer]]
+- [[airllm_anima_100k_longer_training_datacollatorforcausallm]] → `method` → [[airllm_anima_100k_longer_training_datacollatorforcausallm_call]]
+- [[airllm_anima_100k_longer_training_datacollatorforcausallm]] → `inherits` → [[airllm_anima_100k_longer_training_py_object]]
+- [[airllm_anima_100k_longer_training_make_data_module]] → `calls` → [[airllm_anima_100k_longer_training_datacollatorforcausallm]]
+- [[airllm_anima_100k_longer_training_datacollatorforcausallm_call]] → `references` → [[airllm_anima_100k_longer_training_py_tensor]]
+- [[airllm_anima_100k_longer_training_rationale_599]] → `rationale_for` → [[airllm_anima_100k_longer_training_make_data_module]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[airllm_anima_100k_longer_training_make_data_module]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[airllm_anima_100k_longer_training_get_last_checkpoint]]
+- [[airllm_anima_100k_longer_training_train]] → `calls` → [[seq2seqtrainer]]

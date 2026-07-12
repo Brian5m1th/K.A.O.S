@@ -1,0 +1,87 @@
+# airllm\air_llm\airllm\airllm_llama_mlx.py
+
+## Símbolos
+
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] — code: airllm_llama_mlx.py
+- [[airllm_air_llm_airllm_airllm_llama_mlx_modelargs]] — code: ModelArgs
+- [[airllm_air_llm_airllm_airllm_llama_mlx_sanitize_config]] — code: sanitize_config()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_get_model_args_from_config]] — code: get_model_args_from_config()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]] — code: RMSNorm
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_init]] — code: .__init__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_norm]] — code: ._norm()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_call]] — code: .__call__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention]] — code: Attention
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention_init]] — code: .__init__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention_call]] — code: .__call__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward]] — code: FeedForward
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_init]] — code: .__init__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_call]] — code: .__call__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock]] — code: TransformerBlock
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]] — code: .__init__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_call]] — code: .__call__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_sample]] — code: sample()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] — code: AirLLMLlamaMlx
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_set_layer_names_dict]] — code: .set_layer_names_dict()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_record_memory]] — code: .record_memory()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]] — code: .__init__()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_get_tokenizer]] — code: .get_tokenizer()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_generate]] — code: .generate()
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]] — code: .model_generate()
+
+## Dependências
+
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_attention]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_get_model_args_from_config]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_modelargs]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_sample]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_sanitize_config]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `contains` → [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `imports` → [[airllm_air_llm_airllm_persist_model_persister_modelpersister]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `imports_from` → [[airllm_air_llm_airllm_utils]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `imports` → [[airllm_air_llm_airllm_utils_clean_memory]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `imports` → [[airllm_air_llm_airllm_utils_find_or_create_local_splitted_path]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx]] → `imports` → [[airllm_air_llm_airllm_utils_load_layer]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention_init]] → `references` → [[airllm_air_llm_airllm_airllm_llama_mlx_modelargs]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_init]] → `references` → [[airllm_air_llm_airllm_airllm_llama_mlx_modelargs]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_get_model_args_from_config]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_modelargs]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]] → `references` → [[airllm_air_llm_airllm_airllm_llama_mlx_modelargs]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_get_model_args_from_config]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_sanitize_config]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_get_model_args_from_config]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_call]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_norm]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_call]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_rmsnorm_norm]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_attention_call]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_attention_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_attention]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_attention_call]] → `references` → [[array]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_call]] → `references` → [[array]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_call]] → `references` → [[array]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_call]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_feedforward_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_call]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_transformerblock_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_sample]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_generate]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_get_tokenizer]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_record_memory]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx]] → `method` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_set_layer_names_dict]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_set_layer_names_dict]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_record_memory]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_get_tokenizer]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_init]] → `calls` → [[airllm_air_llm_airllm_utils_find_or_create_local_splitted_path]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_generate]] → `calls` → [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]]
+- [[airllm_air_llm_airllm_airllm_llama_mlx_airllmllamamlx_model_generate]] → `calls` → [[airllm_air_llm_airllm_persist_model_persister_modelpersister_get_model_persister]]

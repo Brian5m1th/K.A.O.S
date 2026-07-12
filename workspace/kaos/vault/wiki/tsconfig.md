@@ -1,0 +1,83 @@
+# desktop\tsconfig.json
+
+## Símbolos
+
+- [[desktop_tsconfig]] — code: tsconfig.json
+- [[desktop_tsconfig_compileroptions]] — code: compilerOptions
+- [[desktop_tsconfig_compileroptions_target]] — code: target
+- [[desktop_tsconfig_compileroptions_usedefineforclassfields]] — code: useDefineForClassFields
+- [[desktop_tsconfig_compileroptions_lib]] — code: lib
+- [[ref_es2020]] — code: ES2020
+- [[ref_dom]] — code: DOM
+- [[ref_dom_iterable]] — code: DOM.Iterable
+- [[desktop_tsconfig_compileroptions_module]] — code: module
+- [[desktop_tsconfig_compileroptions_skiplibcheck]] — code: skipLibCheck
+- [[desktop_tsconfig_compileroptions_moduleresolution]] — code: moduleResolution
+- [[desktop_tsconfig_compileroptions_allowimportingtsextensions]] — code: allowImportingTsExtensions
+- [[desktop_tsconfig_compileroptions_isolatedmodules]] — code: isolatedModules
+- [[desktop_tsconfig_compileroptions_moduledetection]] — code: moduleDetection
+- [[desktop_tsconfig_compileroptions_noemit]] — code: noEmit
+- [[desktop_tsconfig_compileroptions_jsx]] — code: jsx
+- [[desktop_tsconfig_compileroptions_strict]] — code: strict
+- [[desktop_tsconfig_compileroptions_nounusedlocals]] — code: noUnusedLocals
+- [[desktop_tsconfig_compileroptions_nounusedparameters]] — code: noUnusedParameters
+- [[desktop_tsconfig_compileroptions_nofallthroughcasesinswitch]] — code: noFallthroughCasesInSwitch
+- [[desktop_tsconfig_compileroptions_forceconsistentcasinginfilenames]] — code: forceConsistentCasingInFileNames
+- [[desktop_tsconfig_compileroptions_baseurl]] — code: baseUrl
+- [[desktop_tsconfig_compileroptions_paths]] — code: paths
+- [[desktop_tsconfig_paths]] — code: @/*
+- [[desktop_tsconfig_json_ref_src]] — code: src/*
+- [[desktop_tsconfig_paths_infrastructure]] — code: @infrastructure/*
+- [[ref_src_infrastructure]] — code: src/infrastructure/*
+- [[desktop_tsconfig_paths_application]] — code: @application/*
+- [[ref_src_application]] — code: src/application/*
+- [[desktop_tsconfig_paths_presentation]] — code: @presentation/*
+- [[ref_src_presentation]] — code: src/presentation/*
+- [[desktop_tsconfig_paths_domain]] — code: @domain/*
+- [[ref_src_domain]] — code: src/domain/*
+- [[desktop_tsconfig_include]] — code: include
+- [[desktop_tsconfig_exclude]] — code: exclude
+- [[ref_src_tests_e2e]] — code: src/__tests__/e2e
+- [[ref_node_modules]] — code: node_modules
+- [[ref_src_tauri]] — code: src-tauri
+
+## Dependências
+
+- [[desktop_tsconfig]] → `contains` → [[desktop_tsconfig_compileroptions]]
+- [[desktop_tsconfig]] → `contains` → [[desktop_tsconfig_exclude]]
+- [[desktop_tsconfig]] → `contains` → [[desktop_tsconfig_include]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_allowimportingtsextensions]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_baseurl]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_forceconsistentcasinginfilenames]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_isolatedmodules]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_jsx]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_lib]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_module]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_moduledetection]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_moduleresolution]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_noemit]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_nofallthroughcasesinswitch]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_nounusedlocals]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_nounusedparameters]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_paths]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_skiplibcheck]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_strict]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_target]]
+- [[desktop_tsconfig_compileroptions]] → `contains` → [[desktop_tsconfig_compileroptions_usedefineforclassfields]]
+- [[desktop_tsconfig_compileroptions_lib]] → `extends` → [[ref_dom]]
+- [[desktop_tsconfig_compileroptions_lib]] → `extends` → [[ref_dom_iterable]]
+- [[desktop_tsconfig_compileroptions_lib]] → `extends` → [[ref_es2020]]
+- [[desktop_tsconfig_compileroptions_paths]] → `contains` → [[desktop_tsconfig_paths]]
+- [[desktop_tsconfig_compileroptions_paths]] → `contains` → [[desktop_tsconfig_paths_application]]
+- [[desktop_tsconfig_compileroptions_paths]] → `contains` → [[desktop_tsconfig_paths_domain]]
+- [[desktop_tsconfig_compileroptions_paths]] → `contains` → [[desktop_tsconfig_paths_infrastructure]]
+- [[desktop_tsconfig_compileroptions_paths]] → `contains` → [[desktop_tsconfig_paths_presentation]]
+- [[desktop_tsconfig_paths]] → `extends` → [[desktop_tsconfig_json_ref_src]]
+- [[desktop_tsconfig_include]] → `extends` → [[desktop_tsconfig_json_ref_src]]
+- [[desktop_tsconfig_paths_infrastructure]] → `extends` → [[ref_src_infrastructure]]
+- [[desktop_tsconfig_paths_application]] → `extends` → [[ref_src_application]]
+- [[desktop_tsconfig_paths_presentation]] → `extends` → [[ref_src_presentation]]
+- [[desktop_tsconfig_paths_domain]] → `extends` → [[ref_src_domain]]
+- [[desktop_tsconfig_exclude]] → `extends` → [[ref_node_modules]]
+- [[desktop_tsconfig_exclude]] → `extends` → [[ref_src_tauri]]
+- [[desktop_tsconfig_exclude]] → `extends` → [[ref_src_tests_e2e]]

@@ -14,7 +14,10 @@ from typing import Optional
 
 from loguru import logger
 from app.domain.ports.evidence_port import (
-    EvidencePort, EvidenceReport, EvidenceMetric, EvidenceLevel,
+    EvidencePort,
+    EvidenceReport,
+    EvidenceMetric,
+    EvidenceLevel,
 )
 
 
@@ -78,21 +81,27 @@ class EvidenceEngine(EvidencePort):
             node_count = len(data.get("nodes", []))
             edge_count = len(data.get("links", []))
 
-            metrics.append(EvidenceMetric(
-                name="graph_nodes",
-                value=node_count,
-                level=EvidenceLevel.HEALTHY if node_count > 1000 else EvidenceLevel.WARNING,
-                source="graphify",
-                description=f"{node_count} code symbols indexed",
-            ))
+            metrics.append(
+                EvidenceMetric(
+                    name="graph_nodes",
+                    value=node_count,
+                    level=EvidenceLevel.HEALTHY
+                    if node_count > 1000
+                    else EvidenceLevel.WARNING,
+                    source="graphify",
+                    description=f"{node_count} code symbols indexed",
+                )
+            )
 
-            metrics.append(EvidenceMetric(
-                name="graph_edges",
-                value=edge_count,
-                level=EvidenceLevel.HEALTHY,
-                source="graphify",
-                description=f"{edge_count} code relationships mapped",
-            ))
+            metrics.append(
+                EvidenceMetric(
+                    name="graph_edges",
+                    value=edge_count,
+                    level=EvidenceLevel.HEALTHY,
+                    source="graphify",
+                    description=f"{edge_count} code relationships mapped",
+                )
+            )
 
         return metrics
 
@@ -102,34 +111,44 @@ class EvidenceEngine(EvidencePort):
         try:
             result = subprocess.run(
                 ["git", "rev-parse", "HEAD"],
-                capture_output=True, text=True, timeout=5,
+                capture_output=True,
+                text=True,
+                timeout=5,
             )
             if result.returncode == 0:
-                metrics.append(EvidenceMetric(
-                    name="git_commit",
-                    value=1.0,
-                    level=EvidenceLevel.HEALTHY,
-                    source="git",
-                    description=f"HEAD: {result.stdout.strip()[:8]}",
-                ))
+                metrics.append(
+                    EvidenceMetric(
+                        name="git_commit",
+                        value=1.0,
+                        level=EvidenceLevel.HEALTHY,
+                        source="git",
+                        description=f"HEAD: {result.stdout.strip()[:8]}",
+                    )
+                )
 
             # Count recent commits (last 30 days)
             result = subprocess.run(
                 ["git", "rev-list", "--count", "--since=30.days", "HEAD"],
-                capture_output=True, text=True, timeout=5,
+                capture_output=True,
+                text=True,
+                timeout=5,
             )
             if result.returncode == 0:
                 commit_count = int(result.stdout.strip() or "0")
-                level = EvidenceLevel.HEALTHY if commit_count > 5 else EvidenceLevel.WARNING
-                metrics.append(EvidenceMetric(
-                    name="git_recent_commits",
-                    value=commit_count,
-                    level=level,
-                    threshold_good=5,
-                    threshold_bad=1,
-                    source="git",
-                    description=f"{commit_count} commits in last 30 days",
-                ))
+                level = (
+                    EvidenceLevel.HEALTHY if commit_count > 5 else EvidenceLevel.WARNING
+                )
+                metrics.append(
+                    EvidenceMetric(
+                        name="git_recent_commits",
+                        value=commit_count,
+                        level=level,
+                        threshold_good=5,
+                        threshold_bad=1,
+                        source="git",
+                        description=f"{commit_count} commits in last 30 days",
+                    )
+                )
         except Exception as e:
             logger.warning(f"[evidence:git] Failed: {e}")
 
@@ -137,18 +156,26 @@ class EvidenceEngine(EvidencePort):
 
     async def _collect_adr_evidence(self) -> list[EvidenceMetric]:
         """Collect evidence from Architecture Decision Records."""
-        adr_dir = Path("docs/adr") if (Path("docs/adr").exists()) else Path("kaos-research/adrs")
+        adr_dir = (
+            Path("docs/adr")
+            if (Path("docs/adr").exists())
+            else Path("kaos-research/adrs")
+        )
         adr_count = len(list(adr_dir.glob("*.md"))) if adr_dir.exists() else 0
 
-        return [EvidenceMetric(
-            name="adr_count",
-            value=adr_count,
-            level=EvidenceLevel.HEALTHY if adr_count >= 3 else EvidenceLevel.WARNING,
-            threshold_good=3,
-            threshold_bad=1,
-            source="adrs",
-            description=f"{adr_count} Architecture Decision Records",
-        )]
+        return [
+            EvidenceMetric(
+                name="adr_count",
+                value=adr_count,
+                level=EvidenceLevel.HEALTHY
+                if adr_count >= 3
+                else EvidenceLevel.WARNING,
+                threshold_good=3,
+                threshold_bad=1,
+                source="adrs",
+                description=f"{adr_count} Architecture Decision Records",
+            )
+        ]
 
     async def get_metric(self, name: str) -> Optional[EvidenceMetric]:
         report = await self.collect()

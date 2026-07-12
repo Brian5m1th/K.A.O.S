@@ -1,0 +1,113 @@
+# graphify\tests\test_multigraph_diagnostics.py
+
+## Símbolos
+
+- [[graphify_tests_test_multigraph_diagnostics]] — code: test_multigraph_diagnostics.py
+- [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]] — code: _diagnostic_fixture()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_categorizes_same_endpoint_collapse]] — code: test_diagnose_extraction_categorizes_same_endpoint_collapse()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_accepts_node_link_links_key]] — code: test_diagnose_extraction_accepts_node_link_links_key()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_does_not_mutate_input]] — code: test_diagnose_extraction_does_not_mutate_input()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_handles_malformed_shapes_without_crashing]] — code: test_diagnose_extraction_handles_malformed_shapes_without_crashing()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_handles_non_list_nodes_and_edges]] — code: test_diagnose_extraction_handles_non_list_nodes_and_edges()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_bounds_examples]] — code: test_diagnose_extraction_bounds_examples()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_stops_examples_at_requested_limit]] — code: test_diagnose_extraction_stops_examples_at_requested_limit()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_defaults_raw_inputs_to_directed]] — code: test_diagnose_extraction_defaults_raw_inputs_to_directed()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_reads_json_and_formats_report]] — code: test_diagnose_file_reads_json_and_formats_report()
+- [[graphify_tests_test_multigraph_diagnostics_test_format_diagnostic_report_includes_build_and_suppression_errors]] — code: test_format_diagnostic_report_includes_build_and_suppression_errors()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnostic_json_report_is_serializable]] — code: test_diagnostic_json_report_is_serializable()
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_finds_seen_sets]] — code: test_scan_producer_suppression_sites_finds_seen_sets()
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_handles_unknown_tuple_arity]] — code: test_scan_producer_suppression_sites_handles_unknown_tuple_arity()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_oversized_graph]] — code: test_diagnose_file_rejects_oversized_graph()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_non_object_json]] — code: test_diagnose_file_rejects_non_object_json()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_defaults_to_json_directed_flag]] — code: test_diagnose_file_defaults_to_json_directed_flag()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_explicit_directed_override]] — code: test_diagnose_file_explicit_directed_override()
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_reports_missing_file]] — code: test_scan_producer_suppression_sites_reports_missing_file()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_human_output]] — code: test_diagnose_multigraph_cli_human_output()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_undirected_override]] — code: test_diagnose_multigraph_cli_undirected_override()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_max_examples_zero]] — code: test_diagnose_multigraph_cli_max_examples_zero()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_json_output]] — code: test_diagnose_multigraph_cli_json_output()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_usage_errors]] — code: test_diagnose_multigraph_cli_usage_errors()
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_rejects_conflicting_direction_flags]] — code: test_diagnose_multigraph_cli_rejects_conflicting_direction_flags()
+
+## Dependências
+
+- [[graphify_tests_test_multigraph_diagnostics]] → `imports` → [[graphify_graphify_main]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `imports_from` → [[graphify_graphify_diagnostics]]
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_finds_seen_sets]] → `calls` → [[graphify_graphify_diagnostics_scan_producer_suppression_sites]]
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_handles_unknown_tuple_arity]] → `calls` → [[graphify_graphify_diagnostics_scan_producer_suppression_sites]]
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_reports_missing_file]] → `calls` → [[graphify_graphify_diagnostics_scan_producer_suppression_sites]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_accepts_node_link_links_key]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_bounds_examples]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_categorizes_same_endpoint_collapse]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_does_not_mutate_input]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_handles_malformed_shapes_without_crashing]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_handles_non_list_nodes_and_edges]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_stops_examples_at_requested_limit]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_format_diagnostic_report_includes_build_and_suppression_errors]] → `calls` → [[graphify_graphify_diagnostics_diagnose_extraction]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_defaults_raw_inputs_to_directed]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_defaults_to_json_directed_flag]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_explicit_directed_override]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_reads_json_and_formats_report]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_non_object_json]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_oversized_graph]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnostic_json_report_is_serializable]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnostic_json_report_is_serializable]] → `calls` → [[graphify_graphify_diagnostics_format_diagnostic_json]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_reads_json_and_formats_report]] → `calls` → [[graphify_graphify_diagnostics_format_diagnostic_report]]
+- [[graphify_tests_test_multigraph_diagnostics_test_format_diagnostic_report_includes_build_and_suppression_errors]] → `calls` → [[graphify_graphify_diagnostics_format_diagnostic_report]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_accepts_node_link_links_key]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_bounds_examples]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_categorizes_same_endpoint_collapse]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_defaults_raw_inputs_to_directed]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_does_not_mutate_input]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_handles_malformed_shapes_without_crashing]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_handles_non_list_nodes_and_edges]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_stops_examples_at_requested_limit]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_defaults_to_json_directed_flag]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_explicit_directed_override]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_reads_json_and_formats_report]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_non_object_json]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_oversized_graph]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_human_output]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_json_output]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_max_examples_zero]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_rejects_conflicting_direction_flags]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_undirected_override]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_usage_errors]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_diagnostic_json_report_is_serializable]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_format_diagnostic_report_includes_build_and_suppression_errors]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_finds_seen_sets]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_handles_unknown_tuple_arity]]
+- [[graphify_tests_test_multigraph_diagnostics]] → `contains` → [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_reports_missing_file]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_accepts_node_link_links_key]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_bounds_examples]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_categorizes_same_endpoint_collapse]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_defaults_raw_inputs_to_directed]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_does_not_mutate_input]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_stops_examples_at_requested_limit]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_defaults_to_json_directed_flag]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_explicit_directed_override]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_reads_json_and_formats_report]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_oversized_graph]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_human_output]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_json_output]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_max_examples_zero]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_rejects_conflicting_direction_flags]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_undirected_override]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnostic_json_report_is_serializable]] → `calls` → [[graphify_tests_test_multigraph_diagnostics_diagnostic_fixture]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_extraction_defaults_raw_inputs_to_directed]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_defaults_to_json_directed_flag]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_explicit_directed_override]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_reads_json_and_formats_report]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_non_object_json]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_file_rejects_oversized_graph]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_human_output]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_json_output]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_max_examples_zero]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_rejects_conflicting_direction_flags]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnose_multigraph_cli_undirected_override]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_diagnostic_json_report_is_serializable]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_format_diagnostic_report_includes_build_and_suppression_errors]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_finds_seen_sets]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_handles_unknown_tuple_arity]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]
+- [[graphify_tests_test_multigraph_diagnostics_test_scan_producer_suppression_sites_reports_missing_file]] → `references` → [[graphify_tests_test_multigraph_diagnostics_py_path]]

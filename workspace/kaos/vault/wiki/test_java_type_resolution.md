@@ -1,0 +1,74 @@
+# graphify\tests\test_java_type_resolution.py
+
+## Símbolos
+
+- [[graphify_tests_test_java_type_resolution]] — code: test_java_type_resolution.py
+- [[graphify_tests_test_java_type_resolution_write]] — code: _write()
+- [[graphify_tests_test_java_type_resolution_node_by_id]] — code: _node_by_id()
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_implements_resolves_to_real_def]] — code: test_java_cross_file_implements_resolves_to_real_def()
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_implements_disambiguated_by_import]] — code: test_java_ambiguous_implements_disambiguated_by_import()
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_reference_disambiguated_by_import]] — code: test_java_ambiguous_reference_disambiguated_by_import()
+- [[graphify_tests_test_java_type_resolution_test_java_implements_edge_survives_build]] — code: test_java_implements_edge_survives_build()
+- [[graphify_tests_test_java_type_resolution_label_edges]] — code: _label_edges()
+- [[graphify_tests_test_java_type_resolution_test_java_record_becomes_type_node]] — code: test_java_record_becomes_type_node()
+- [[graphify_tests_test_java_type_resolution_test_java_record_implements_interface]] — code: test_java_record_implements_interface()
+- [[graphify_tests_test_java_type_resolution_test_java_type_parameters_do_not_resolve_to_real_class]] — code: test_java_type_parameters_do_not_resolve_to_real_class()
+- [[graphify_tests_test_java_type_resolution_test_java_builtin_library_types_not_emitted_as_references]] — code: test_java_builtin_library_types_not_emitted_as_references()
+- [[graphify_tests_test_java_type_resolution_test_java_user_types_still_emit_references]] — code: test_java_user_types_still_emit_references()
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_constructor_call_resolves]] — code: test_java_cross_file_constructor_call_resolves()
+
+## Dependências
+
+- [[graphify_tests_test_java_type_resolution]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_java_type_resolution]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_implements_disambiguated_by_import]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_reference_disambiguated_by_import]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_builtin_library_types_not_emitted_as_references]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_constructor_call_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_implements_resolves_to_real_def]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_implements_edge_survives_build]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_becomes_type_node]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_implements_interface]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_type_parameters_do_not_resolve_to_real_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution_test_java_user_types_still_emit_references]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_label_edges]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_node_by_id]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_ambiguous_implements_disambiguated_by_import]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_ambiguous_reference_disambiguated_by_import]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_builtin_library_types_not_emitted_as_references]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_cross_file_constructor_call_resolves]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_cross_file_implements_resolves_to_real_def]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_implements_edge_survives_build]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_record_becomes_type_node]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_record_implements_interface]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_type_parameters_do_not_resolve_to_real_class]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_test_java_user_types_still_emit_references]]
+- [[graphify_tests_test_java_type_resolution]] → `contains` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_implements_disambiguated_by_import]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_reference_disambiguated_by_import]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_builtin_library_types_not_emitted_as_references]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_constructor_call_resolves]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_implements_resolves_to_real_def]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_implements_edge_survives_build]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_becomes_type_node]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_implements_interface]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_type_parameters_do_not_resolve_to_real_class]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_test_java_user_types_still_emit_references]] → `calls` → [[graphify_tests_test_java_type_resolution_write]]
+- [[graphify_tests_test_java_type_resolution_write]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_implements_disambiguated_by_import]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_reference_disambiguated_by_import]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_builtin_library_types_not_emitted_as_references]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_constructor_call_resolves]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_implements_resolves_to_real_def]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_implements_edge_survives_build]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_becomes_type_node]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_implements_interface]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_type_parameters_do_not_resolve_to_real_class]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_user_types_still_emit_references]] → `references` → [[graphify_tests_test_java_type_resolution_py_path]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_implements_disambiguated_by_import]] → `calls` → [[graphify_tests_test_java_type_resolution_node_by_id]]
+- [[graphify_tests_test_java_type_resolution_test_java_ambiguous_reference_disambiguated_by_import]] → `calls` → [[graphify_tests_test_java_type_resolution_node_by_id]]
+- [[graphify_tests_test_java_type_resolution_test_java_cross_file_implements_resolves_to_real_def]] → `calls` → [[graphify_tests_test_java_type_resolution_node_by_id]]
+- [[graphify_tests_test_java_type_resolution_test_java_builtin_library_types_not_emitted_as_references]] → `calls` → [[graphify_tests_test_java_type_resolution_label_edges]]
+- [[graphify_tests_test_java_type_resolution_test_java_record_becomes_type_node]] → `calls` → [[graphify_tests_test_java_type_resolution_label_edges]]
+- [[graphify_tests_test_java_type_resolution_test_java_type_parameters_do_not_resolve_to_real_class]] → `calls` → [[graphify_tests_test_java_type_resolution_label_edges]]
+- [[graphify_tests_test_java_type_resolution_test_java_user_types_still_emit_references]] → `calls` → [[graphify_tests_test_java_type_resolution_label_edges]]
