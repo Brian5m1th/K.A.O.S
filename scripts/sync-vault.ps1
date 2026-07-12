@@ -20,6 +20,14 @@ if (-not (Test-Path $target)) {
 }
 
 Write-Host "Syncing: $source → $target"
-robocopy $source $target /MIR /NP /NDL /NJH /NJS
+$robocopyExit = 0
+& robocopy $source $target /MIR /NP /NDL /NJH /NJS
+$robocopyExit = $LASTEXITCODE
+
+# Robocopy exit codes 0-7 are success
+if ($robocopyExit -ge 8) {
+    Write-Error "Robocopy falhou com código $robocopyExit"
+    exit 1
+}
 
 Write-Host "Sync concluído com sucesso."
