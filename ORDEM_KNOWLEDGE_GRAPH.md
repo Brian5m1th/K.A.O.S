@@ -23,8 +23,8 @@
 - [x] Grafo enriquecido gerado (20.644 nos, 31.514 arestas)
 - [x] pip install -e . (dev install)
 
-## Proximos Passos (Fase 3)
-- [ ] **Otimizar performance** do graphify enrich (progress bar, paralelismo)
-- [ ] **MCP tools** do grafo enriquecido no serve.py
-- [ ] **Dashboard** visual do grafo enriquecido
-- [ ] **CI/CD** integration com enrich automatico
+## Status Final
+- [x] **Otimizar performance** — progress bar (tqdm), filtro _should_enrich (100k->1.6k nodes), auth error handling, provider check
+- [x] **MCP tools** — graph_search, graph_explain, graph_affected_by, graph_risk_report registradas no serve.py
+- [x] **Dashboard** — HTML auto-contido com Chart.js: layers, risks, domains, smells, complexidade
+- [ ] **CI/CD** integration com enrich automatico (proximo passo disponivel)
