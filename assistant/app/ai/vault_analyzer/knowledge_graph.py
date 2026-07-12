@@ -113,20 +113,37 @@ class KnowledgeGraphBuilder:
 
     @staticmethod
     def _map_relation(relation: str) -> str:
+        """Map Graphify relations to Knowledge Graph relation types.
+
+        Now preserves the original semantic types instead of collapsing
+        everything into 'uses'. This allows AI agents to distinguish
+        between inheritance, calls, imports, and containment.
+        """
         mapping = {
-            "contains": "uses",
-            "imports": "uses",
-            "imports_from": "uses",
-            "calls": "uses",
-            "inherits": "uses",
+            "contains": "contains",
+            "imports": "imports",
+            "imports_from": "imports_from",
+            "calls": "calls",
+            "indirect_call": "calls",
+            "inherits": "inherits",
             "implements": "implements",
+            "references": "references",
+            "rationale_for": "documents",
+            "references_doc": "references_doc",
             "documents": "documents",
             "depends_on": "depends_on",
             "emits": "emits",
             "owns": "owns",
-            "re_exports": "uses",
+            "re_exports": "re_exports",
+            "defines": "defines",
+            "method": "method_of",
+            "instantiates": "instantiates",
+            "documented_by": "documented_by",
+            "tested_by": "tested_by",
+            "tests": "tests",
+            "uses": "uses",
         }
-        return mapping.get(relation, "uses")
+        return mapping.get(relation, relation)  # fallback: keep original
 
     @staticmethod
     def build() -> KnowledgeGraph:

@@ -24,6 +24,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { kaosFetch } from "@/infrastructure";
+import { useToast } from "@/shared/components/toast";
 
 interface MCPServer {
   name: string;
@@ -74,6 +75,7 @@ const OPENCODE_CATEGORIES = [
 ];
 
 export default function ToolsPage() {
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState("mcp");
 
   // --- MCP State ---
@@ -243,11 +245,11 @@ export default function ToolsPage() {
         fetchMcpData();
       } else {
         const data = await res.json();
-        alert(data.detail || "Failed to delete MCP server");
+        showToast(data.detail || "Failed to delete MCP server", "error");
       }
     } catch (err) {
       console.error(err);
-      alert("Network error. Please try again.");
+      showToast("Network error. Please try again.", "error");
     }
   };
 

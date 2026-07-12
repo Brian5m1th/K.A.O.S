@@ -4,6 +4,9 @@ QdrantAdapter — RetrievalPort implementation backed by Qdrant.
 Provides semantic vector search over the 'kaos' collection.
 """
 
+import hashlib
+from pathlib import Path
+
 import httpx
 
 from loguru import logger
@@ -61,11 +64,55 @@ class QdrantAdapter(RetrievalPort):
         return results
 
     async def index(self, documents: list[dict]) -> int:
-        """Index documents in Qdrant (stub — uses existing RAG pipeline)."""
-        logger.info(
-            f"[retrieval:qdrant] Index request for {len(documents)} docs (delegated to RAG pipeline)"
-        )
-        return 0  # Delegated to existing VaultIndexer
+        """Index documents in Qdrant."""
+        if not documents:
+            return 0
+
+        try:
+            from app.rag.indexer.vault_indexer import VaultIndexer
+
+            indexer = VaultIndexer()
+            total = 0
+            for doc in documents:
+                file_path = doc.get("path") or doc.get("file_path", "")
+                if file_path and Path(file_path).suffix == ".md":
+                    total += indexer.index_file(file_path)
+                else:
+                    # Generic document (non-markdown) — embed and upsert directly
+                    text = doc.get("text") or doc.get("content", "")
+                    metadata = doc.get("metadata", {})
+                    if text:
+                        from qdrant_client import QdrantClient
+                        from qdrant_client.models import PointStruct
+                        from app.rag.embeddings.embedder import Embedder
+
+                        embedder = Embedder()
+                        vector = await embedder.embed(text)
+                        point_id = hashlib.md5(text.encode()).hexdigest()
+                        client = QdrantClient(host=self._host, port=self._port)
+                        client.upsert(
+                            collection_name="kaos",
+                            points=[
+                                PointStruct(
+                                    id=point_id,
+                                    vector=vector,
+                                    payload={
+                                        "text": text,
+                                        "source": metadata.get("source", "api"),
+                                        **metadata,
+                                    },
+                                )
+                            ],
+                        )
+                        total += 1
+
+            logger.info(
+                f"[retrieval:qdrant] Indexed {total}/{len(documents)} documents"
+            )
+            return total
+        except Exception as exc:
+            logger.error(f"[retrieval:qdrant] Index failed: {exc}")
+            return 0
 
     async def count(self, collection: str = "kaos") -> int:
         """Count vectors in Qdrant collection."""
@@ -77,8 +124,8 @@ class QdrantAdapter(RetrievalPort):
                 )
                 if r.is_success:
                     return r.json().get("result", {}).get("count", 0)
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning(f"[retrieval:qdrant] Count failed: {exc}")
         return 0
 
     async def health(self) -> bool:

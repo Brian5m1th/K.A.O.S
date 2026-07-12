@@ -140,6 +140,6 @@ async def get_drift_history():
                     "code_vs_vault_diff": data.get("code_vs_vault_diff", 0),
                 }
             )
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning(f"[architecture] failed to parse history file {f}: {exc}")
     return {"total": len(entries), "history": entries}

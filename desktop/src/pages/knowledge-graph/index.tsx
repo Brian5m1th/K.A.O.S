@@ -13,15 +13,58 @@ import "reactflow/dist/style.css";
 import { kaosFetch } from "@/infrastructure";
 import { Badge } from "@/shared/ui/badge";
 import { Loader2, RefreshCw, GitGraph, Hammer, Search, X, Link, Compass } from "lucide-react";
+import { useToast } from "@/shared/components/toast";
+
+// ── Types ─────────────────────────────────────────────────────────
+
+interface GraphNodeData {
+  id: string;
+  type: string;
+  title?: string;
+  status?: string;
+  phase?: string;
+  description?: string;
+  [key: string]: unknown;
+}
+
+interface GraphEdgeData {
+  source: string;
+  target: string;
+  relation: string;
+}
+
+interface GraphOverview {
+  total_nodes: number;
+  total_edges: number;
+  features: number;
+  sdds: number;
+  workflows: number;
+  agents: number;
+}
+
+interface KnowledgeGraphResponse {
+  total_nodes: number;
+  total_edges: number;
+  features?: GraphNodeData[];
+  sdds?: GraphNodeData[];
+  workflows?: GraphNodeData[];
+  agents?: GraphNodeData[];
+  nodes?: GraphNodeData[];
+  edges?: GraphEdgeData[];
+  error?: string;
+}
+
+// ── Component ─────────────────────────────────────────────────────
 
 function KnowledgeGraphInner() {
+  const { showToast } = useToast();
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [loading, setLoading] = useState(true);
   const [rebuilding, setRebuilding] = useState(false);
   const [error, setError] = useState("");
-  const [overview, setOverview] = useState<any>(null);
-  const [selectedNode, setSelectedNode] = useState<any>(null);
+  const [overview, setOverview] = useState<GraphOverview | null>(null);
+  const [selectedNode, setSelectedNode] = useState<GraphNodeData | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const { setCenter } = useReactFlow();
@@ -32,7 +75,7 @@ function KnowledgeGraphInner() {
     try {
       const res = await kaosFetch("/api/architecture/knowledge-graph", "");
       if (!res.ok) throw new Error("Erro na API do grafo");
-      const data = await res.json();
+      const data: KnowledgeGraphResponse = await res.json();
 
       if (data.error) throw new Error(data.error);
 
@@ -45,7 +88,7 @@ function KnowledgeGraphInner() {
         agents: data.agents?.length || 0,
       });
 
-      const flowNodes: any[] = (data.nodes || []).map((n: any, i: number) => {
+      const flowNodes = (data.nodes || []).map((n: GraphNodeData, i: number) => {
         let borderColor = "rgba(161, 161, 170, 0.2)"; // Padrão cinza
         if (n.type === "feature") borderColor = "rgba(16, 185, 129, 0.4)"; // Verde
         else if (n.type === "sdd") borderColor = "rgba(245, 158, 11, 0.4)"; // Amarelo
@@ -77,7 +120,7 @@ function KnowledgeGraphInner() {
         };
       });
 
-      const flowEdges: any[] = (data.edges || []).map((e: any, i: number) => ({
+      const flowEdges = (data.edges || []).map((e: GraphEdgeData, i: number) => ({
         id: `e-${i}`,
         source: e.source,
         target: e.target,
@@ -90,8 +133,8 @@ function KnowledgeGraphInner() {
 
       setNodes(flowNodes);
       setEdges(flowEdges);
-    } catch (e: any) {
-      setError(e.message || "Falha ao carregar o grafo");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Falha ao carregar o grafo");
     } finally {
       setLoading(false);
     }
@@ -103,8 +146,8 @@ function KnowledgeGraphInner() {
       const res = await kaosFetch("/api/architecture/knowledge-graph", "", { method: "POST" });
       if (!res.ok) throw new Error("Erro ao reconstruir o grafo no backend");
       await fetchKG();
-    } catch (e: any) {
-      alert(e.message || "Erro durante a reconstrução");
+    } catch (e: unknown) {
+      showToast(e instanceof Error ? e.message : "Erro durante a reconstrução", "error");
     } finally {
       setRebuilding(false);
     }
@@ -114,7 +157,7 @@ function KnowledgeGraphInner() {
     fetchKG();
   }, [fetchKG]);
 
-  const handleNodeClick = (_event: any, node: any) => {
+  const handleNodeClick = (_event: React.MouseEvent | unknown, node: { data: { fullData: GraphNodeData } }) => {
     setSelectedNode(node.data.fullData);
   };
 
@@ -123,7 +166,7 @@ function KnowledgeGraphInner() {
     if (!searchQuery.trim()) return;
 
     const foundNode = nodes.find(
-      (n: any) =>
+      (n: { id: string; data: { fullData?: GraphNodeData }; position: { x: number; y: number } }) =>
         n.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (n.data.fullData?.title && n.data.fullData.title.toLowerCase().includes(searchQuery.toLowerCase()))
     );
@@ -135,15 +178,15 @@ function KnowledgeGraphInner() {
   };
 
   const dependencies = selectedNode
-    ? edges.filter((e: any) => e.source === selectedNode.id).map((e: any) => e.target)
+    ? edges.filter((e: { source: string }) => e.source === selectedNode.id).map((e: { target: string }) => e.target)
     : [];
 
   const dependents = selectedNode
-    ? edges.filter((e: any) => e.target === selectedNode.id).map((e: any) => e.source)
+    ? edges.filter((e: { target: string }) => e.target === selectedNode.id).map((e: { source: string }) => e.source)
     : [];
 
   const focusOnNodeById = (id: string) => {
-    const foundNode = nodes.find((n: any) => n.id === id);
+    const foundNode = nodes.find((n: { id: string; position: { x: number; y: number }; data: { fullData?: GraphNodeData } }) => n.id === id);
     if (foundNode) {
       setCenter(foundNode.position.x + 90, foundNode.position.y + 30, { zoom: 1.4, duration: 800 });
       setSelectedNode(foundNode.data.fullData);

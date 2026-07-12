@@ -8,11 +8,13 @@ import { CheckCircle2, ChevronRight, Server, Cpu, Play, Loader2, AlertTriangle }
 import { useAuthStore } from "@/application";
 import { kaosFetch } from "@/infrastructure";
 import { useAppInit, onBootstrapProgress } from "@/shared/lib/use-init";
+import { useToast } from "@/shared/components/toast";
 
 export default function WelcomePage() {
   const navigate = useNavigate();
   const serverUrl = useAuthStore((s) => s.serverUrl);
   const bootProgress = useAppInit();
+  const { showToast } = useToast();
 
   const [step, setStep] = useState(0);  // Step 0 = bootstrap health check
   const [urlInput, setUrlInput] = useState(serverUrl || "http://localhost:8000");
@@ -56,7 +58,7 @@ export default function WelcomePage() {
         throw new Error("O servidor respondeu com status inválido");
       }
     } catch (e: any) {
-      alert(`Falha de conexão com o K.A.O.S Backend em "${targetUrl}". Certifique-se de que o backend está rodando.\n\nDetalhes: ${e.message || String(e)}`);
+      showToast(`Falha de conexão com o K.A.O.S Backend em "${targetUrl}". Detalhes: ${e.message || String(e)}`, "error");
       // Restore previous url
       useAuthStore.setState({ serverUrl });
     } finally {
@@ -75,7 +77,7 @@ export default function WelcomePage() {
       if (!res.ok) throw new Error("Erro ao definir o provedor ativo");
       setStep(3);
     } catch (e: any) {
-      alert(`Não foi possível salvar o provedor no backend:\n${e.message || String(e)}`);
+      showToast(`Não foi possível salvar o provedor no backend: ${e.message || String(e)}`, "error");
     } finally {
       setChecking(false);
     }
@@ -88,7 +90,7 @@ export default function WelcomePage() {
       setChecking(false);
       navigate("/");
     } catch (e: any) {
-      alert(`Erro ao finalizar setup: ${e.message || String(e)}`);
+      showToast(`Erro ao finalizar setup: ${e.message || String(e)}`, "error");
       setChecking(false);
     }
   };

@@ -1,9 +1,16 @@
 import { isTauri } from "@/infrastructure/ipc";
 
+type TauriStore = {
+  get: (key: string) => Promise<unknown>;
+  set: (key: string, value: unknown) => Promise<void>;
+  save: () => Promise<void>;
+  entries: () => Promise<[string, unknown][]>;
+};
+
 const STORE_NAME = "settings.json";
 
 export class TauriStoreService {
-  private static instance: any = null;
+  private static instance: TauriStore | null = null;
 
   private static async getStore() {
     if (!isTauri()) {

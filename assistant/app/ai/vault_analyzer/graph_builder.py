@@ -312,22 +312,33 @@ class GraphBuilder:
 
     @staticmethod
     def _infer_relation(relation: str) -> str:
-        """Map Graphify relation names to ArchEdge relation types."""
+        """Map Graphify relation names to ArchEdge relation types.
+
+        Preserves original semantic types instead of collapsing into 'uses'.
+        """
         mapping = {
-            "contains": "uses",
-            "imports": "uses",
-            "imports_from": "uses",
-            "calls": "uses",
+            "contains": "contains",
+            "imports": "imports",
+            "imports_from": "imports_from",
+            "calls": "calls",
+            "indirect_call": "calls",
             "uses": "uses",
-            "inherits": "uses",
+            "inherits": "inherits",
             "implements": "implements",
+            "references": "references",
+            "references_doc": "references_doc",
+            "rationale_for": "documents",
             "documents": "documents",
             "depends_on": "depends_on",
             "emits": "emits",
             "owns": "owns",
-            "re_exports": "uses",
+            "re_exports": "re_exports",
+            "defines": "defines",
+            "documented_by": "documented_by",
+            "tested_by": "tested_by",
+            "tests": "tests",
         }
-        return mapping.get(relation, "uses")
+        return mapping.get(relation, relation)  # fallback: keep original
 
     @staticmethod
     def _infer_system_edges(snapshot: ArchGraphSnapshot):

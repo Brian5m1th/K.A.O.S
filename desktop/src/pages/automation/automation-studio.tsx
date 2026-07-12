@@ -57,13 +57,24 @@ export default function AutomationStudio() {
 
   useEffect(() => {
     if (!selectedWorkflow) return;
-    
-    const jsonData = (selectedWorkflow as any).json_data || {};
-    const n8nNodes = jsonData.nodes || [];
-    const n8nConnections = jsonData.connections || {};
+
+    interface N8nNode {
+      name: string;
+      type?: string;
+      position?: [number, number];
+      [key: string]: unknown;
+    }
+
+    interface N8nConnectionData {
+      main?: Array<Array<{ node: string }>>;
+    }
+
+    const jsonData = (selectedWorkflow as WorkflowItem & { json_data?: { nodes?: N8nNode[]; connections?: Record<string, N8nConnectionData> } }).json_data || {};
+    const n8nNodes: N8nNode[] = jsonData.nodes || [];
+    const n8nConnections: Record<string, N8nConnectionData> = jsonData.connections || {};
 
     // 1. Map nodes
-    const mappedNodes: Node[] = n8nNodes.map((n: any) => {
+    const mappedNodes: Node[] = n8nNodes.map((n: N8nNode) => {
       const isInput = n.type?.includes("webhook") || n.type?.includes("trigger");
       const isOutput = n.type?.includes("httpRequest") || n.type?.includes("respond");
       
@@ -85,10 +96,10 @@ export default function AutomationStudio() {
 
     // 2. Map edges
     const mappedEdges: Edge[] = [];
-    Object.entries(n8nConnections).forEach(([sourceName, connectionData]: [string, any]) => {
+    (Object.entries(n8nConnections) as [string, N8nConnectionData][]).forEach(([sourceName, connectionData]) => {
       const mainConnections = connectionData.main || [];
-      mainConnections.forEach((targetsList: any[]) => {
-        targetsList.forEach((target: any) => {
+      mainConnections.forEach((targetsList: Array<{ node: string }>) => {
+        targetsList.forEach((target: { node: string }) => {
           if (target && target.node) {
             mappedEdges.push({
               id: `e_${sourceName}_${target.node}`,

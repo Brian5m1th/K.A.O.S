@@ -24,10 +24,12 @@ class KnowledgeQueryRequest(BaseModel):
 
 def get_knowledge_service() -> KnowledgeService:
     from app.providers.graph.graphify_adapter import GraphifyAdapter
+    from app.providers.graph.enriched_adapter import EnrichedGraphAdapter
     from app.providers.memory.postgres_memory_adapter import PostgresMemoryAdapter
     from app.providers.retrieval.qdrant_adapter import QdrantAdapter
 
     gs = GraphService()
+    gs.registry.register("enriched", EnrichedGraphAdapter())
     gs.registry.register("graphify", GraphifyAdapter())
 
     ms = MemoryService()
