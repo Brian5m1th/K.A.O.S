@@ -13,7 +13,6 @@ from pydantic import BaseModel
 from typing import Optional
 
 from app.core.services.planner_service import PlannerService
-from app.domain.ports.planner_port import PlanRequest
 
 router = APIRouter(prefix="/api/planner", tags=["Planner"])
 
@@ -42,7 +41,8 @@ async def create_plan(
     planner: PlannerService = Depends(get_planner_service),
 ):
     """Generate an execution plan from an intent."""
-    request = PlanRequest(
+    from app.domain.ports.planner_port import PlanRequest as DomainPlanRequest
+    request = DomainPlanRequest(
         intent=body.intent,
         context=body.context,
         user_id=body.user_id,

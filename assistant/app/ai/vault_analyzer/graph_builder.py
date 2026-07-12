@@ -235,7 +235,6 @@ class GraphBuilder:
                     })
 
         # Add community cluster info from GRAPH_REPORT.md
-        communities_by_file = {}
         for node in data.get("nodes", []):
             sf = node.get("source_file", "")
             if sf:

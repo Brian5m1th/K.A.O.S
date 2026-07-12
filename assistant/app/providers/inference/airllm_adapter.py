@@ -38,9 +38,9 @@ class AirLLMAdapter(InferencePort):
 
     async def health(self) -> bool:
         try:
-            import airllm
-            return True
-        except ImportError:
+            import importlib
+            return importlib.util.find_spec("airllm") is not None
+        except Exception:
             return False
 
     async def list_models(self) -> list[str]:

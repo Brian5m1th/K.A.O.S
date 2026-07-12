@@ -56,7 +56,7 @@ class LangGraphAdapter(PlannerPort):
 
     async def health(self) -> bool:
         try:
-            from app.agent.graph import AgentGraph
-            return True
-        except ImportError:
+            import importlib.util
+            return importlib.util.find_spec("langgraph") is not None
+        except Exception:
             return False

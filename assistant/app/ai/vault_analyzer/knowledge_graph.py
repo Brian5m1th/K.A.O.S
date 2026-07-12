@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import json
+from typing import Optional
 from pathlib import Path
 
 from loguru import logger

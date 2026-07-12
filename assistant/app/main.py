@@ -54,6 +54,7 @@ from app.api.knowledge_api import router as knowledge_api_router
 from app.api.inference_api import router as inference_api_router
 from app.api.planner_api import router as planner_api_router
 from app.api.evidence_api import router as evidence_api_router
+from app.api.secrets import router as secrets_router
 from app.api.opencode import set_watcher as set_opencode_watcher
 from app.core.opencode_watcher import OpenCodeWatcher
 from app.config.settings import settings
@@ -472,6 +473,7 @@ app.include_router(knowledge_api_router)
 app.include_router(inference_api_router)
 app.include_router(planner_api_router)
 app.include_router(evidence_api_router)
+app.include_router(secrets_router)
 
 # Serve workflow templates como static assets para o Marketplace
 workflows_static = Path("data/workflows")
@@ -522,5 +524,6 @@ async def root() -> dict:
             "inference": "/api/inference/invoke",
             "planner": "/api/planner/plan",
             "evidence": "/api/evidence/report",
+            "secrets": "/api/secrets/status",
         },
     }
