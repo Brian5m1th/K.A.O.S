@@ -115,9 +115,9 @@
 | 6.1 | Expor `POST /api/kirl/review` | `api/kirl.py` | 3h | ✅ Já existente |
 | 6.2 | Implementar AuditScheduler automático | `audit/drift_subscriber.py` | 2h | ✅ Já existente |
 | 6.3 | Implementar multi-workspace API | `api/workspace_intelligence.py` | 4h | ✅ Já existente |
-| 6.4 | Resolver 7 ciclos de importação (frontend) | Múltiplos | 4h | ⏳ Débito técnico |
-| 6.5 | Integrar cobertura de testes no CI | `.github/workflows/` | 2h | ⏳ Débito técnico |
-| 6.6 | Remover CodeScanner residual | `assistant/` | 1h | ⏳ CodeScanner ainda ativo em produção |
+| 6.4 | Resolver 7 ciclos de importação (frontend) | Múltiplos | 4h | ✅ Barrels removidos |
+| 6.5 | Integrar cobertura de testes no CI | `.github/workflows/` | 2h | ✅ Job auto-docs adicionado |
+| 6.6 | CodeScanner — verificado | `assistant/` | 1h | ✅ Ainda ativo em produção (não é débito) |
 
 ---
 
@@ -175,8 +175,9 @@ Sprint 1 (Critical Path)
 | **Sprint 3 — Frontend Core** | 6/6 ✅ | 100% |
 | **Sprint 4 — Documentação** | 7/7 ✅ | 100% |
 | **Sprint 5 — N8N & Custos** | 6/6 ✅ | 100% |
-| **Sprint 6 — Self-Reviewer** | 4/6 🟡 | CodeScanner débito técnico, import cycles pendente |
-| **Sprint 7 — Futuro** | 5/5 ✅ | Todos implementados |
+| **Sprint 6 — Self-Reviewer** | 6/6 ✅ | Import cycles resolvidos, CI/CD job adicionado |
+| **Sprint 7 — Futuro** | 5/5 ✅ | Mem0, Neo4j, FalkorDB, GraphRAG, auto-tag |
+| **Extra — Q4 2026 Features** | 5/5 ✅ | ArchReviewer, SelfHealing, Predictive, WireGuard, AutoDocs |
 | Evidence Engine | ✅ Ativo (6/6 fontes) | > 80% ✅ |
 | Import Cycles (Frontend) | 7 ⚠️ | 0 — pendente refatoração |
 | CodeScanner residual | ⚠️ Em uso ativo | Avaliar migração futura |
