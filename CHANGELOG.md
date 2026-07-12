@@ -1,3 +1,19 @@
+# [2.7.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.6.0...v2.7.0) (2026-07-12)
+
+
+### Bug Fixes
+
+* **frontend:** remove barrel files creating import cycles, fix direct infra imports ([566cab2](https://github.com/Brian5m1th/K.A.O.S/commit/566cab26f251350b7a52c1c71cb14d6e559cb74e))
+
+
+### Features
+
+* **autonomous:** architecture reviewer, self-healing drl, predictive engine, wireguard vpn config ([8875e60](https://github.com/Brian5m1th/K.A.O.S/commit/8875e60ae22d7846144f145704a122e3768d71c0))
+* **ci:** add knowledge graph enrichment + dashboard generation to CI/CD ([d95be91](https://github.com/Brian5m1th/K.A.O.S/commit/d95be91e08b14ff871bf6546c8862b096b511f3e))
+* disable unavailable MCP servers + add-server command ([ae1b726](https://github.com/Brian5m1th/K.A.O.S/commit/ae1b726a61996f4dc9c3a3c44d3a21e3788b896f))
+* **graph:** add Knowledge Graph dashboard (Chart.js, self-contained HTML) ([dd81bf7](https://github.com/Brian5m1th/K.A.O.S/commit/dd81bf7ecc5c7a9157b704a019ed3b05be56b031))
+* **sprint7:** mem0, neo4j, falkordb adapters, graphrag experiment, auto-tag engine ([f8d7620](https://github.com/Brian5m1th/K.A.O.S/commit/f8d76207330bff589b6f78da9a4fe532c10a3a05))
+
 # [2.6.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.5...v2.6.0) (2026-07-12)
 
 
