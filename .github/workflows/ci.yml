@@ -294,3 +294,38 @@ jobs:
       - name: Sign image
         run: |
           cosign sign --yes "${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}@${{ steps.build.outputs.digest }}"
+
+  # ── Job 7: Auto-Documentação Contínua ─────────────────────────────────────────
+  auto-docs:
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT }}
+
+      - name: Sync vault (docs/wiki → workspace/kaos/vault/wiki)
+        shell: pwsh
+        run: ./scripts/sync-vault.ps1
+
+      - name: Check for vault divergence
+        shell: pwsh
+        run: ./scripts/check-duplicates.ps1
+
+      - name: Scan docs gaps
+        run: uv run python scripts/scan_docs_gaps.py
+        working-directory: assistant
+
+      - name: Commit auto-doc changes
+        shell: pwsh
+        run: |
+          git config user.name "kaos-bot"
+          git config user.email "bot@kaos.local"
+          git add docs/ workspace/kaos/vault/wiki/
+          if (git diff --cached --quiet) {
+            Write-Host "No changes to commit"
+          } else {
+            git commit -m "chore(docs): auto-sync vault and documentation [skip ci]"
+            git push
+          }
