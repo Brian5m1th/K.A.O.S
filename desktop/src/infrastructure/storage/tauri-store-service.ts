@@ -1,4 +1,4 @@
-import { isTauri } from "@/infrastructure/ipc";
+import { isTauri } from "@/infrastructure/ipc/ipc-bridge";
 
 type TauriStore = {
   get: (key: string) => Promise<unknown>;
