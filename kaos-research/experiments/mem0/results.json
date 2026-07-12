@@ -1,0 +1,12 @@
+{
+  "hypothesis": "H2",
+  "framework": "mem0",
+  "tests": [
+    {
+      "name": "import",
+      "status": "skip",
+      "reason": "not installed"
+    }
+  ],
+  "error": "mem0ai not installed. Run: pip install mem0ai"
+}

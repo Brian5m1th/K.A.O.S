@@ -1,0 +1,130 @@
+# assistant\tests\unit\test_contracts.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_contracts]] — code: test_contracts.py
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] — code: TestCapabilityProfile
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_default_empty]] — code: .test_default_empty()
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_with_capabilities]] — code: .test_with_capabilities()
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_has_any]] — code: .test_has_any()
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_has_all]] — code: .test_has_all()
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_merge]] — code: .test_merge()
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] — code: TestExecutionPlan
+- [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_defaults]] — code: .test_create_with_defaults()
+- [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_capabilities]] — code: .test_create_with_capabilities()
+- [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_explicit_ids]] — code: .test_create_with_explicit_ids()
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] — code: TestBaseContracts
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_chat_provider_cannot_be_instantiated]] — code: .test_chat_provider_cannot_be_instantiated()
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_embedding_provider_cannot_be_instantiated]] — code: .test_embedding_provider_cannot_be_instantiated()
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_vector_store_cannot_be_instantiated]] — code: .test_vector_store_cannot_be_instantiated()
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_memory_provider_cannot_be_instantiated]] — code: .test_memory_provider_cannot_be_instantiated()
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_workflow_cannot_be_instantiated]] — code: .test_workflow_cannot_be_instantiated()
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] — code: TestServiceRegistry
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_register_and_get_workflow]] — code: .test_register_and_get_workflow()
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_get_unregistered_workflow_raises]] — code: .test_get_unregistered_workflow_raises()
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_list_empty]] — code: .test_list_empty()
+- [[assistant_tests_unit_test_contracts_testeventbus]] — code: TestEventBus
+- [[assistant_tests_unit_test_contracts_testsubscriber]] — code: TestSubscriber
+- [[assistant_tests_unit_test_contracts_testsubscriber_init]] — code: .__init__()
+- [[assistant_tests_unit_test_contracts_testsubscriber_on_event]] — code: .on_event()
+- [[assistant_tests_unit_test_contracts_testeventbus_test_publish_and_subscribe]] — code: .test_publish_and_subscribe()
+- [[assistant_tests_unit_test_contracts_testeventbus_test_subscriber_error_does_not_propagate]] — code: .test_subscriber_error_does_not_propagate()
+
+## Dependências
+
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_default_empty]] → `calls` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_has_all]] → `calls` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_has_any]] → `calls` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_merge]] → `calls` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_with_capabilities]] → `calls` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_domain_execution_plan_capabilityprofile]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_capabilities]] → `calls` → [[assistant_app_domain_execution_plan_executionplan_create]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_defaults]] → `calls` → [[assistant_app_domain_execution_plan_executionplan_create]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_explicit_ids]] → `calls` → [[assistant_app_domain_execution_plan_executionplan_create]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testeventbus_test_publish_and_subscribe]] → `calls` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testeventbus_test_subscriber_error_does_not_propagate]] → `calls` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testsubscriber_on_event]] → `references` → [[assistant_app_observability_event_bus_event]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_observability_event_bus_eventsubscriber]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_observability_event_bus_eventsubscriber]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_observability_event_bus_eventsubscriber]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_observability_event_bus_eventsubscriber]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_observability_event_bus_eventsubscriber]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_observability_event_bus_eventsubscriber]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_observability_event_bus_eventbus]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_chat_provider_cannot_be_instantiated]] → `calls` → [[assistant_app_providers_base_chat_basechatprovider]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_embedding_provider_cannot_be_instantiated]] → `calls` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_memory_provider_cannot_be_instantiated]] → `calls` → [[assistant_app_providers_base_memory_basememoryprovider]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_vector_store_cannot_be_instantiated]] → `calls` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_register_and_get_workflow]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_register_workflow]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_get_unregistered_workflow_raises]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_workflow]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_register_and_get_workflow]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_workflow]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_list_empty]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_workflows]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry_test_register_and_get_workflow]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_workflows]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts_test_workflow_cannot_be_instantiated]] → `calls` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_contracts]] → `contains` → [[assistant_tests_unit_test_contracts_testbasecontracts]]
+- [[assistant_tests_unit_test_contracts]] → `contains` → [[assistant_tests_unit_test_contracts_testcapabilityprofile]]
+- [[assistant_tests_unit_test_contracts]] → `contains` → [[assistant_tests_unit_test_contracts_testeventbus]]
+- [[assistant_tests_unit_test_contracts]] → `contains` → [[assistant_tests_unit_test_contracts_testexecutionplan]]
+- [[assistant_tests_unit_test_contracts]] → `contains` → [[assistant_tests_unit_test_contracts_testserviceregistry]]
+- [[assistant_tests_unit_test_contracts]] → `contains` → [[assistant_tests_unit_test_contracts_testsubscriber]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `method` → [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_default_empty]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `method` → [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_has_all]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `method` → [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_has_any]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `method` → [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_merge]]
+- [[assistant_tests_unit_test_contracts_testcapabilityprofile]] → `method` → [[assistant_tests_unit_test_contracts_testcapabilityprofile_test_with_capabilities]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `method` → [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_capabilities]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `method` → [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_defaults]]
+- [[assistant_tests_unit_test_contracts_testexecutionplan]] → `method` → [[assistant_tests_unit_test_contracts_testexecutionplan_test_create_with_explicit_ids]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `method` → [[assistant_tests_unit_test_contracts_testbasecontracts_test_chat_provider_cannot_be_instantiated]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `method` → [[assistant_tests_unit_test_contracts_testbasecontracts_test_embedding_provider_cannot_be_instantiated]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `method` → [[assistant_tests_unit_test_contracts_testbasecontracts_test_memory_provider_cannot_be_instantiated]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `method` → [[assistant_tests_unit_test_contracts_testbasecontracts_test_vector_store_cannot_be_instantiated]]
+- [[assistant_tests_unit_test_contracts_testbasecontracts]] → `method` → [[assistant_tests_unit_test_contracts_testbasecontracts_test_workflow_cannot_be_instantiated]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `method` → [[assistant_tests_unit_test_contracts_testserviceregistry_test_get_unregistered_workflow_raises]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `method` → [[assistant_tests_unit_test_contracts_testserviceregistry_test_list_empty]]
+- [[assistant_tests_unit_test_contracts_testserviceregistry]] → `method` → [[assistant_tests_unit_test_contracts_testserviceregistry_test_register_and_get_workflow]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `method` → [[assistant_tests_unit_test_contracts_testeventbus_test_publish_and_subscribe]]
+- [[assistant_tests_unit_test_contracts_testeventbus]] → `method` → [[assistant_tests_unit_test_contracts_testeventbus_test_subscriber_error_does_not_propagate]]
+- [[assistant_tests_unit_test_contracts_testeventbus_test_publish_and_subscribe]] → `calls` → [[assistant_tests_unit_test_contracts_testsubscriber]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `method` → [[assistant_tests_unit_test_contracts_testsubscriber_init]]
+- [[assistant_tests_unit_test_contracts_testsubscriber]] → `method` → [[assistant_tests_unit_test_contracts_testsubscriber_on_event]]

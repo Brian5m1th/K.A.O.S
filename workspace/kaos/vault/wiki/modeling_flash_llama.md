@@ -1,0 +1,163 @@
+# airllm\anima_100k\modeling_flash_llama.py
+
+## Símbolos
+
+- [[airllm_anima_100k_modeling_flash_llama]] — code: modeling_flash_llama.py
+- [[airllm_anima_100k_modeling_flash_llama_rmsnorm_func]] — code: rmsnorm_func()
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm]] — code: LlamaRMSNorm
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]] — code: FlashRotaryEmbedding
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_compute_inv_freq]] — code: ._compute_inv_freq()
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_update_cos_sin_cache]] — code: ._update_cos_sin_cache()
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_llamamlp]] — code: LlamaMLP
+- [[airllm_anima_100k_modeling_flash_llama_llamamlp_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamamlp_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_repeat_kv]] — code: repeat_kv()
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention]] — code: LlamaAttention
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_shape]] — code: ._shape()
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer]] — code: LlamaDecoderLayer
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]] — code: LlamaPreTrainedModel
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel_init_weights]] — code: ._init_weights()
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel_set_gradient_checkpointing]] — code: ._set_gradient_checkpointing()
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel]] — code: LlamaModel
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_get_input_embeddings]] — code: .get_input_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_set_input_embeddings]] — code: .set_input_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] — code: LlamaForCausalLM
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_get_input_embeddings]] — code: .get_input_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_set_input_embeddings]] — code: .set_input_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_get_output_embeddings]] — code: .get_output_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_set_output_embeddings]] — code: .set_output_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_set_decoder]] — code: .set_decoder()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_get_decoder]] — code: .get_decoder()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_prepare_inputs_for_generation]] — code: .prepare_inputs_for_generation()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_reorder_cache]] — code: ._reorder_cache()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]] — code: LlamaForSequenceClassification
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]] — code: .__init__()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_get_input_embeddings]] — code: .get_input_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_set_input_embeddings]] — code: .set_input_embeddings()
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]] — code: .forward()
+- [[airllm_anima_100k_modeling_flash_llama_rationale_85]] — code: LlamaRMSNorm is equivalent to T5LayerNorm
+- [[airllm_anima_100k_modeling_flash_llama_rationale_101]] — code: The rotary position embeddings from RoFormer_ (Su et. al).     A crucial insigh
+- [[airllm_anima_100k_modeling_flash_llama_rationale_120]] — code: interleaved: if True, rotate pairs of even and odd dimensions (GPT-J style) inst
+- [[airllm_anima_100k_modeling_flash_llama_rationale_203]] — code: q: (batch, seqlen, nheads, headdim)         k: (batch, seqlen, nheads, headdim)
+- [[airllm_anima_100k_modeling_flash_llama_rationale_256]] — code: This is the equivalent of torch.repeat_interleave(x, dim=1, repeats=n_rep). The
+- [[airllm_anima_100k_modeling_flash_llama_rationale_268]] — code: Multi-headed attention from 'Attention Is All You Need' paper
+- [[airllm_anima_100k_modeling_flash_llama_rationale_437]] — code: Args:             hidden_states (`torch.FloatTensor`): input to the layer of sh
+- [[airllm_anima_100k_modeling_flash_llama_rationale_597]] — code: Transformer decoder consisting of *config.num_hidden_layers* layers. Each layer
+- [[airllm_anima_100k_modeling_flash_llama_rationale_788]] — code: r"""         Args:             labels (`torch.LongTensor` of shape `(batch_siz
+- [[airllm_anima_100k_modeling_flash_llama_rationale_961]] — code: r"""         labels (`torch.LongTensor` of shape `(batch_size,)`, *optional*):
+
+## Dependências
+
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamaattention]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamamlp]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamamodel]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_repeat_kv]]
+- [[airllm_anima_100k_modeling_flash_llama]] → `contains` → [[airllm_anima_100k_modeling_flash_llama_rmsnorm_func]]
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_forward]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_rmsnorm_func]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm]]
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_85]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_llamarmsnorm_init]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]] → `method` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_compute_inv_freq]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]] → `method` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]] → `method` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_init]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]] → `method` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_update_cos_sin_cache]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_101]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_compute_inv_freq]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_120]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_init]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_forward]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_update_cos_sin_cache]]
+- [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_203]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_flashrotaryembedding_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_shape]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_repeat_kv]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_tensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamamlp]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamlp]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamamlp_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamlp]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamamlp_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamlp_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_forward]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_repeat_kv]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_256]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_repeat_kv]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaattention_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaattention_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaattention_shape]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaattention]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_268]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_llamaattention]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_init]] → `references` → [[llamaconfig]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]] → `references` → [[llamaconfig]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_init]] → `references` → [[llamaconfig]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaattention_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_longtensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_longtensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_longtensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_longtensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_longtensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_floattensor]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_437]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_llamadecoderlayer_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_floattensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_floattensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_forward]] → `references` → [[airllm_anima_100k_modeling_flash_llama_py_floattensor]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `inherits` → [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]] → `inherits` → [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel]] → `inherits` → [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel_init_weights]]
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel_set_gradient_checkpointing]]
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel]] → `inherits` → [[airllm_anima_100k_modeling_flash_llama_py_pretrainedmodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamapretrainedmodel_set_gradient_checkpointing]] → `indirect_call` → [[airllm_anima_100k_modeling_flash_llama_llamamodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamamodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamamodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamamodel_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamamodel_get_input_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamamodel_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamamodel_set_input_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_597]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_llamamodel]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamamodel_forward]] → `references` → [[basemodeloutputwithpast]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_get_decoder]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_get_input_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_get_output_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_prepare_inputs_for_generation]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_reorder_cache]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_set_decoder]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_set_input_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_set_output_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_init]] → `calls` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]] → `references` → [[causallmoutputwithpast]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_788]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_llamaforcausallm_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_get_input_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_init]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification]] → `method` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_set_input_embeddings]]
+- [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]] → `references` → [[sequenceclassifieroutputwithpast]]
+- [[airllm_anima_100k_modeling_flash_llama_rationale_961]] → `rationale_for` → [[airllm_anima_100k_modeling_flash_llama_llamaforsequenceclassification_forward]]

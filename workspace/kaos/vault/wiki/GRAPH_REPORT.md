@@ -1,0 +1,168 @@
+# graphify\worked\rsl-siege-manager\GRAPH_REPORT.md
+
+## Símbolos
+
+- [[graphify_worked_rsl_siege_manager_graph_report]] — code: GRAPH_REPORT.md
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] — code: Graph Report - .  (2026-05-13)
+- [[graphify_worked_rsl_siege_manager_graph_report_corpus_check]] — code: Corpus Check
+- [[graphify_worked_rsl_siege_manager_graph_report_summary]] — code: Summary
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_freshness]] — code: Graph Freshness
+- [[graphify_worked_rsl_siege_manager_graph_report_community_hubs_navigation]] — code: Community Hubs (Navigation)
+- [[graphify_worked_rsl_siege_manager_graph_report_god_nodes_most_connected_your_core_abstractions]] — code: God Nodes (most connected - your core abstractions)
+- [[graphify_worked_rsl_siege_manager_graph_report_surprising_connections_you_probably_didn_t_know_these]] — code: Surprising Connections (you probably didn't know these)
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] — code: Communities (141 total, 52 thin omitted)
+- [[graphify_worked_rsl_siege_manager_graph_report_community_0_community_0]] — code: Community 0 - "Community 0"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_1_community_1]] — code: Community 1 - "Community 1"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_2_community_2]] — code: Community 2 - "Community 2"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_3_community_3]] — code: Community 3 - "Community 3"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_4_community_4]] — code: Community 4 - "Community 4"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_5_community_5]] — code: Community 5 - "Community 5"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_6_community_6]] — code: Community 6 - "Community 6"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_7_community_7]] — code: Community 7 - "Community 7"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_8_community_8]] — code: Community 8 - "Community 8"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_9_community_9]] — code: Community 9 - "Community 9"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_10_community_10]] — code: Community 10 - "Community 10"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_11_community_11]] — code: Community 11 - "Community 11"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_12_community_12]] — code: Community 12 - "Community 12"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_13_community_13]] — code: Community 13 - "Community 13"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_14_community_14]] — code: Community 14 - "Community 14"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_15_community_15]] — code: Community 15 - "Community 15"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_16_community_16]] — code: Community 16 - "Community 16"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_17_community_17]] — code: Community 17 - "Community 17"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_18_community_18]] — code: Community 18 - "Community 18"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_19_community_19]] — code: Community 19 - "Community 19"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_20_community_20]] — code: Community 20 - "Community 20"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_21_community_21]] — code: Community 21 - "Community 21"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_22_community_22]] — code: Community 22 - "Community 22"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_23_community_23]] — code: Community 23 - "Community 23"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_24_community_24]] — code: Community 24 - "Community 24"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_25_community_25]] — code: Community 25 - "Community 25"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_26_community_26]] — code: Community 26 - "Community 26"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_27_community_27]] — code: Community 27 - "Community 27"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_28_community_28]] — code: Community 28 - "Community 28"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_29_community_29]] — code: Community 29 - "Community 29"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_30_community_30]] — code: Community 30 - "Community 30"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_31_community_31]] — code: Community 31 - "Community 31"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_32_community_32]] — code: Community 32 - "Community 32"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_33_community_33]] — code: Community 33 - "Community 33"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_34_community_34]] — code: Community 34 - "Community 34"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_35_community_35]] — code: Community 35 - "Community 35"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_36_community_36]] — code: Community 36 - "Community 36"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_37_community_37]] — code: Community 37 - "Community 37"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_38_community_38]] — code: Community 38 - "Community 38"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_39_community_39]] — code: Community 39 - "Community 39"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_40_community_40]] — code: Community 40 - "Community 40"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_41_community_41]] — code: Community 41 - "Community 41"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_42_community_42]] — code: Community 42 - "Community 42"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_43_community_43]] — code: Community 43 - "Community 43"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_44_community_44]] — code: Community 44 - "Community 44"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_45_community_45]] — code: Community 45 - "Community 45"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_46_community_46]] — code: Community 46 - "Community 46"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_47_community_47]] — code: Community 47 - "Community 47"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_48_community_48]] — code: Community 48 - "Community 48"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_49_community_49]] — code: Community 49 - "Community 49"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_50_community_50]] — code: Community 50 - "Community 50"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_51_community_51]] — code: Community 51 - "Community 51"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_52_community_52]] — code: Community 52 - "Community 52"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_53_community_53]] — code: Community 53 - "Community 53"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_54_community_54]] — code: Community 54 - "Community 54"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_55_community_55]] — code: Community 55 - "Community 55"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_56_community_56]] — code: Community 56 - "Community 56"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_57_community_57]] — code: Community 57 - "Community 57"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_58_community_58]] — code: Community 58 - "Community 58"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_59_community_59]] — code: Community 59 - "Community 59"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_60_community_60]] — code: Community 60 - "Community 60"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_61_community_61]] — code: Community 61 - "Community 61"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_63_community_63]] — code: Community 63 - "Community 63"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_64_community_64]] — code: Community 64 - "Community 64"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_65_community_65]] — code: Community 65 - "Community 65"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_67_community_67]] — code: Community 67 - "Community 67"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_69_community_69]] — code: Community 69 - "Community 69"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_71_community_71]] — code: Community 71 - "Community 71"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_72_community_72]] — code: Community 72 - "Community 72"
+- [[graphify_worked_rsl_siege_manager_graph_report_community_73_community_73]] — code: Community 73 - "Community 73"
+- [[graphify_worked_rsl_siege_manager_graph_report_knowledge_gaps]] — code: Knowledge Gaps
+- [[graphify_worked_rsl_siege_manager_graph_report_suggested_questions]] — code: Suggested Questions
+
+## Dependências
+
+- [[graphify_worked_rsl_siege_manager_graph_report]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_hubs_navigation]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_corpus_check]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_god_nodes_most_connected_your_core_abstractions]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_graph_freshness]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_knowledge_gaps]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_suggested_questions]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_summary]]
+- [[graphify_worked_rsl_siege_manager_graph_report_graph_report_2026_05_13]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_surprising_connections_you_probably_didn_t_know_these]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_0_community_0]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_10_community_10]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_11_community_11]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_12_community_12]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_13_community_13]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_14_community_14]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_15_community_15]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_16_community_16]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_17_community_17]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_18_community_18]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_19_community_19]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_1_community_1]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_20_community_20]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_21_community_21]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_22_community_22]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_23_community_23]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_24_community_24]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_25_community_25]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_26_community_26]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_27_community_27]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_28_community_28]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_29_community_29]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_2_community_2]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_30_community_30]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_31_community_31]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_32_community_32]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_33_community_33]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_34_community_34]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_35_community_35]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_36_community_36]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_37_community_37]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_38_community_38]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_39_community_39]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_3_community_3]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_40_community_40]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_41_community_41]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_42_community_42]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_43_community_43]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_44_community_44]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_45_community_45]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_46_community_46]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_47_community_47]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_48_community_48]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_49_community_49]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_4_community_4]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_50_community_50]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_51_community_51]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_52_community_52]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_53_community_53]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_54_community_54]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_55_community_55]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_56_community_56]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_57_community_57]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_58_community_58]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_59_community_59]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_5_community_5]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_60_community_60]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_61_community_61]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_63_community_63]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_64_community_64]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_65_community_65]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_67_community_67]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_69_community_69]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_6_community_6]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_71_community_71]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_72_community_72]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_73_community_73]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_7_community_7]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_8_community_8]]
+- [[graphify_worked_rsl_siege_manager_graph_report_communities_141_total_52_thin_omitted]] → `contains` → [[graphify_worked_rsl_siege_manager_graph_report_community_9_community_9]]

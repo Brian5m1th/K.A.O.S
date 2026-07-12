@@ -1,0 +1,74 @@
+# assistant\app\api\audit.py
+
+## Símbolos
+
+- [[assistant_app_api_audit]] — code: audit.py
+- [[assistant_app_api_audit_run_audit]] — code: run_audit()
+- [[assistant_app_api_audit_get_snapshot]] — code: get_snapshot()
+- [[assistant_app_api_audit_get_coverage]] — code: get_coverage()
+- [[assistant_app_api_audit_scan_commits]] — code: scan_commits()
+- [[assistant_app_api_audit_get_commit_map]] — code: get_commit_map()
+- [[assistant_app_api_audit_scan_code]] — code: scan_code()
+- [[assistant_app_api_audit_register_feature]] — code: register_feature()
+- [[assistant_app_api_audit_list_features]] — code: list_features()
+- [[assistant_app_api_audit_get_feature]] — code: get_feature()
+- [[assistant_app_api_audit_generate_sdd]] — code: generate_sdd()
+- [[assistant_app_api_audit_generate_feature_node]] — code: generate_feature_node()
+- [[assistant_app_api_audit_readiness_f2]] — code: readiness_f2()
+- [[assistant_app_api_audit_rationale_17]] — code: Run full documentation audit and return drift report.
+- [[assistant_app_api_audit_rationale_42]] — code: Get latest DRL snapshot for frontend consumption.
+- [[assistant_app_api_audit_rationale_84]] — code: Get quick coverage percentage.
+- [[assistant_app_api_audit_rationale_92]] — code: Generate commit map from git log.
+- [[assistant_app_api_audit_rationale_112]] — code: Get existing commit map.
+- [[assistant_app_api_audit_rationale_132]] — code: Scan codebase for features.
+- [[assistant_app_api_audit_rationale_149]] — code: Register a new feature in the registry.
+- [[assistant_app_api_audit_rationale_167]] — code: List all registered features.
+- [[assistant_app_api_audit_rationale_175]] — code: Get a specific feature.
+- [[assistant_app_api_audit_rationale_185]] — code: Generate an SDD from template.
+- [[assistant_app_api_audit_rationale_201]] — code: Generate a feature node SDD (Obsidian-ready).
+- [[assistant_app_api_audit_rationale_219]] — code: Execute F2 Readiness Engine — 12 checks for Phase 2 readiness.
+
+## Dependências
+
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_generate_feature_node]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_generate_sdd]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_get_commit_map]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_get_coverage]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_get_feature]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_get_snapshot]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_list_features]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_readiness_f2]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_register_feature]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_run_audit]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_scan_code]]
+- [[assistant_app_api_audit]] → `contains` → [[assistant_app_api_audit_scan_commits]]
+- [[assistant_app_api_audit]] → `imports_from` → [[fastapi]]
+- [[assistant_app_api_audit_rationale_17]] → `rationale_for` → [[assistant_app_api_audit_run_audit]]
+- [[assistant_app_api_audit_run_audit]] → `references` → [[assistant_app_api_audit_py_backgroundtasks]]
+- [[assistant_app_api_audit_run_audit]] → `calls` → [[assistant_app_audit_audit_engine_auditengine_run_audit]]
+- [[assistant_app_api_audit_run_audit]] → `calls` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager_build_snapshot]]
+- [[assistant_app_api_audit_get_snapshot]] → `calls` → [[assistant_app_audit_audit_engine_auditengine_load_latest_report]]
+- [[assistant_app_api_audit_get_snapshot]] → `calls` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager_load]]
+- [[assistant_app_api_audit_rationale_42]] → `rationale_for` → [[assistant_app_api_audit_get_snapshot]]
+- [[assistant_app_api_audit_get_coverage]] → `calls` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager_get_coverage]]
+- [[assistant_app_api_audit_get_coverage]] → `calls` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager_get_drift_level]]
+- [[assistant_app_api_audit_rationale_84]] → `rationale_for` → [[assistant_app_api_audit_get_coverage]]
+- [[assistant_app_api_audit_rationale_92]] → `rationale_for` → [[assistant_app_api_audit_scan_commits]]
+- [[assistant_app_api_audit_rationale_112]] → `rationale_for` → [[assistant_app_api_audit_get_commit_map]]
+- [[assistant_app_api_audit_rationale_132]] → `rationale_for` → [[assistant_app_api_audit_scan_code]]
+- [[assistant_app_api_audit_scan_code]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_all]]
+- [[assistant_app_api_audit_rationale_149]] → `rationale_for` → [[assistant_app_api_audit_register_feature]]
+- [[assistant_app_api_audit_register_feature]] → `calls` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_api_audit_register_feature]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_app_api_audit_list_features]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_load_from_json]]
+- [[assistant_app_api_audit_rationale_167]] → `rationale_for` → [[assistant_app_api_audit_list_features]]
+- [[assistant_app_api_audit_get_feature]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_app_api_audit_get_feature]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_load_from_json]]
+- [[assistant_app_api_audit_rationale_175]] → `rationale_for` → [[assistant_app_api_audit_get_feature]]
+- [[assistant_app_api_audit_generate_sdd]] → `calls` → [[assistant_app_audit_sdd_generator_sddgenerator_generate_sdd]]
+- [[assistant_app_api_audit_generate_sdd]] → `calls` → [[assistant_app_audit_sdd_generator_sddtemplate]]
+- [[assistant_app_api_audit_rationale_185]] → `rationale_for` → [[assistant_app_api_audit_generate_sdd]]
+- [[assistant_app_api_audit_generate_feature_node]] → `calls` → [[assistant_app_audit_sdd_generator_sddgenerator_generate_feature_node]]
+- [[assistant_app_api_audit_rationale_201]] → `rationale_for` → [[assistant_app_api_audit_generate_feature_node]]
+- [[assistant_app_api_audit_rationale_219]] → `rationale_for` → [[assistant_app_api_audit_readiness_f2]]
+- [[assistant_app_api_audit_readiness_f2]] → `calls` → [[assistant_app_audit_readiness_engine_run_readiness_check]]

@@ -1,0 +1,134 @@
+# assistant\app\core\bootstrap_manager.py
+
+## Símbolos
+
+- [[assistant_app_core_bootstrap_manager]] — code: bootstrap_manager.py
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] — code: BootstrapState
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] — code: BootstrapStage
+- [[assistant_app_core_bootstrap_manager_stageresult]] — code: StageResult
+- [[assistant_app_core_bootstrap_manager_stageresult_label]] — code: .label()
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] — code: BootstrapResult
+- [[assistant_app_core_bootstrap_manager_bootstrapresult_is_ready]] — code: .is_ready()
+- [[assistant_app_core_bootstrap_manager_bootstrapresult_to_dict]] — code: .to_dict()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] — code: BootstrapManager
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]] — code: .boot()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]] — code: .get_state()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_reset]] — code: .reset()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]] — code: ._run_stage()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_detect_environment]] — code: ._detect_environment()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_check_docker_services]] — code: ._check_docker_services()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_init_database]] — code: ._init_database()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_scan_workspace]] — code: ._scan_workspace()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_index_vault]] — code: ._index_vault()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_knowledge_graph]] — code: ._build_knowledge_graph()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_arch_graph]] — code: ._build_arch_graph()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_audit]] — code: ._run_audit()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_finalize]] — code: ._finalize()
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_result]] — code: ._build_result()
+- [[assistant_app_core_bootstrap_manager_rationale_1]] — code: K.A.O.S Bootstrap Manager =========================== Orquestrador do startup
+- [[assistant_app_core_bootstrap_manager_rationale_42]] — code: Etapas individuais com timeout e criticidade.
+- [[assistant_app_core_bootstrap_manager_rationale_56]] — code: Resultado de uma etapa do bootstrap.
+- [[assistant_app_core_bootstrap_manager_rationale_71]] — code: Resultado completo do bootstrap.
+- [[assistant_app_core_bootstrap_manager_rationale_111]] — code: Orquestrador do startup.     Uso::          await BootstrapManager.boot()  #
+- [[assistant_app_core_bootstrap_manager_rationale_142]] — code: Pipeline completo de inicializacao.         Cada etapa tem timeout e tratamento
+- [[assistant_app_core_bootstrap_manager_rationale_245]] — code: Retorna estado atual do bootstrap (para endpoint healthcheck).
+- [[assistant_app_core_bootstrap_manager_rationale_273]] — code: Reseta o bootstrap (util em testes).
+- [[assistant_app_core_bootstrap_manager_rationale_287]] — code: Executa uma etapa do bootstrap com timeout.         Falha em uma etapa NAO prop
+- [[assistant_app_core_bootstrap_manager_rationale_333]] — code: Etapa 1: Detectar ambiente.
+- [[assistant_app_core_bootstrap_manager_rationale_342]] — code: Etapa 2: Verificar servicos Docker (apenas em container).
+- [[assistant_app_core_bootstrap_manager_rationale_366]] — code: Etapa 3: Inicializar database.
+- [[assistant_app_core_bootstrap_manager_rationale_374]] — code: Etapa 4: Escanear workspace.
+- [[assistant_app_core_bootstrap_manager_rationale_392]] — code: Etapa 5: Indexar vault.
+- [[assistant_app_core_bootstrap_manager_rationale_400]] — code: Etapa 6: Construir grafo de conhecimento.
+- [[assistant_app_core_bootstrap_manager_rationale_413]] — code: Etapa 7: Construir grafo de arquitetura.
+- [[assistant_app_core_bootstrap_manager_rationale_421]] — code: Etapa 8: Executar auditoria inicial.
+- [[assistant_app_core_bootstrap_manager_rationale_436]] — code: Finaliza o bootstrap com o estado dado.
+- [[assistant_app_core_bootstrap_manager_rationale_461]] — code: Constrói o resultado final.
+
+## Dependências
+
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `uses` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `uses` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] → `uses` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] → `uses` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_core_bootstrap_manager_stageresult]] → `uses` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `uses` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `uses` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] → `uses` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] → `uses` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_core_bootstrap_manager_stageresult]] → `uses` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_knowledge_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `uses` → [[assistant_app_audit_audit_engine_auditengine]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `uses` → [[assistant_app_audit_audit_engine_auditengine]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] → `uses` → [[assistant_app_audit_audit_engine_auditengine]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] → `uses` → [[assistant_app_audit_audit_engine_auditengine]]
+- [[assistant_app_core_bootstrap_manager_stageresult]] → `uses` → [[assistant_app_audit_audit_engine_auditengine]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_audit]] → `calls` → [[assistant_app_audit_audit_engine_auditengine_run_audit]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `uses` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `uses` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] → `uses` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] → `uses` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_core_bootstrap_manager_stageresult]] → `uses` → [[assistant_app_audit_code_scanner_codescanner]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_scan_workspace]] → `calls` → [[assistant_app_audit_code_scanner_codescanner_scan_all]]
+- [[assistant_app_core_bootstrap_manager]] → `contains` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_app_core_bootstrap_manager]] → `contains` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_app_core_bootstrap_manager]] → `contains` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_app_core_bootstrap_manager]] → `contains` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_app_core_bootstrap_manager]] → `imports_from` → [[assistant_app_core_bootstrap_manager_py_enum]]
+- [[assistant_app_core_bootstrap_manager]] → `contains` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_app_core_bootstrap_manager_rationale_1]] → `rationale_for` → [[assistant_app_core_bootstrap_manager]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_finalize]] → `references` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] → `inherits` → [[assistant_app_core_bootstrap_manager_py_enum]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstate]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] → `inherits` → [[assistant_app_core_bootstrap_manager_py_enum]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]] → `references` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_app_core_bootstrap_manager_bootstrapstage]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_bootstrap_manager_rationale_42]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]] → `references` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_app_core_bootstrap_manager_rationale_56]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_app_core_bootstrap_manager_stageresult]] → `method` → [[assistant_app_core_bootstrap_manager_stageresult_label]]
+- [[assistant_app_core_bootstrap_manager_stageresult]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]] → `references` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_result]] → `references` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapresult_is_ready]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapresult_to_dict]]
+- [[assistant_app_core_bootstrap_manager_bootstrapresult]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_bootstrap_manager_rationale_71]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_detect_environment]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult_to_dict]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_arch_graph]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_knowledge_graph]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_result]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_check_docker_services]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_detect_environment]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_finalize]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_index_vault]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_init_database]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_reset]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_audit]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `method` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_scan_workspace]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_app_core_bootstrap_manager_rationale_111]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_result]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_finalize]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_app_core_bootstrap_manager_rationale_142]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_app_core_bootstrap_manager_rationale_245]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_app_core_bootstrap_manager_rationale_273]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_reset]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_core_bootstrap_manager_rationale_287]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_detect_environment]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_app_core_bootstrap_manager_rationale_333]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_detect_environment]]
+- [[assistant_app_core_bootstrap_manager_rationale_342]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_check_docker_services]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_init_database]] → `calls` → [[assistant_app_database_create_tables]]
+- [[assistant_app_core_bootstrap_manager_rationale_366]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_init_database]]
+- [[assistant_app_core_bootstrap_manager_rationale_374]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_scan_workspace]]
+- [[assistant_app_core_bootstrap_manager_bootstrapmanager_index_vault]] → `calls` → [[assistant_app_obsidian_vault_init_create_vault_structure]]
+- [[assistant_app_core_bootstrap_manager_rationale_392]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_index_vault]]
+- [[assistant_app_core_bootstrap_manager_rationale_400]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_knowledge_graph]]
+- [[assistant_app_core_bootstrap_manager_rationale_413]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_arch_graph]]
+- [[assistant_app_core_bootstrap_manager_rationale_421]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_audit]]
+- [[assistant_app_core_bootstrap_manager_rationale_436]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_finalize]]
+- [[assistant_app_core_bootstrap_manager_rationale_461]] → `rationale_for` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_build_result]]

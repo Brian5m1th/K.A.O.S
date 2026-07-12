@@ -1,1 +1,1 @@
-# K.A.O.S Core Package
+# K.A.O.S services layer

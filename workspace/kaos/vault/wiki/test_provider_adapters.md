@@ -1,0 +1,212 @@
+# assistant\tests\unit\test_provider_adapters.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_provider_adapters]] — code: test_provider_adapters.py
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] — code: TestOllamaChatProvider
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider_test_is_chat_provider]] — code: .test_is_chat_provider()
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] — code: TestOpenAIChatProvider
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider_test_is_chat_provider]] — code: .test_is_chat_provider()
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] — code: TestAnthropicChatProvider
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider_test_is_chat_provider]] — code: .test_is_chat_provider()
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] — code: TestGeminiChatProvider
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider_test_is_chat_provider]] — code: .test_is_chat_provider()
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] — code: TestBgeEmbeddingProvider
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider_test_is_embedding_provider]] — code: .test_is_embedding_provider()
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] — code: TestOpenAIEmbeddingProvider
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider_test_is_embedding_provider]] — code: .test_is_embedding_provider()
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] — code: TestQdrantVectorStore
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore_test_store_name]] — code: .test_store_name()
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore_test_is_vector_store]] — code: .test_is_vector_store()
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] — code: TestObsidianMemoryProvider
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider_test_is_memory_provider]] — code: .test_is_memory_provider()
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] — code: TestPostgresMemoryProvider
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider_test_provider_name]] — code: .test_provider_name()
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider_test_is_memory_provider]] — code: .test_is_memory_provider()
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] — code: TestRegisterAllProviders
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]] — code: .test_register_all()
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_chat_provider_instances]] — code: .test_get_chat_provider_instances()
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_embedding_provider_instances]] — code: .test_get_embedding_provider_instances()
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_vector_store_instances]] — code: .test_get_vector_store_instances()
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_memory_provider_instances]] — code: .test_get_memory_provider_instances()
+
+## Dependências
+
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider_test_is_chat_provider]] → `indirect_call` → [[assistant_app_providers_base_chat_basechatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider_test_is_chat_provider]] → `indirect_call` → [[assistant_app_providers_base_chat_basechatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider_test_is_chat_provider]] → `indirect_call` → [[assistant_app_providers_base_chat_basechatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider_test_is_chat_provider]] → `indirect_call` → [[assistant_app_providers_base_chat_basechatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider_test_is_embedding_provider]] → `indirect_call` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider_test_is_embedding_provider]] → `indirect_call` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_base_embedding_baseembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider_test_is_memory_provider]] → `indirect_call` → [[assistant_app_providers_base_memory_basememoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider_test_is_memory_provider]] → `indirect_call` → [[assistant_app_providers_base_memory_basememoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore_test_is_vector_store]] → `indirect_call` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_base_vector_store_basevectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider_test_is_chat_provider]] → `calls` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_chat_anthropic_anthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider_test_is_chat_provider]] → `calls` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_chat_gemini_geminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider_test_is_chat_provider]] → `calls` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_chat_provider_instances]] → `indirect_call` → [[assistant_app_providers_chat_ollama_ollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider_test_is_chat_provider]] → `calls` → [[assistant_app_providers_chat_openai_openaichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_chat_provider_instances]] → `indirect_call` → [[assistant_app_providers_chat_openai_openaichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider_test_is_embedding_provider]] → `calls` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_embedding_provider_instances]] → `indirect_call` → [[assistant_app_providers_embedding_bge_bgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider_test_is_embedding_provider]] → `calls` → [[assistant_app_providers_embedding_openai_openaiembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_embedding_provider_instances]] → `indirect_call` → [[assistant_app_providers_embedding_openai_openaiembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider_test_is_memory_provider]] → `calls` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_memory_provider_instances]] → `indirect_call` → [[assistant_app_providers_memory_obsidian_obsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider_test_is_memory_provider]] → `calls` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_memory_provider_instances]] → `indirect_call` → [[assistant_app_providers_memory_postgres_postgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_chat_provider_instances]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_embedding_provider_instances]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_memory_provider_instances]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_vector_store_instances]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore_test_is_vector_store]] → `calls` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_vector_store_instances]] → `indirect_call` → [[assistant_app_providers_vector_qdrant_qdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_chat_provider_instances]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_chat_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_embedding_provider_instances]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_embedding_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_vector_store_instances]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_vector_store]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_memory_provider_instances]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_memory_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_chat_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_embedding_providers]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_vector_stores]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_memory_providers]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]]
+- [[assistant_tests_unit_test_provider_adapters]] → `contains` → [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testollamachatprovider_test_is_chat_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testollamachatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testollamachatprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider_test_is_chat_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testopenaichatprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider_test_is_chat_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testanthropicchatprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider_test_is_chat_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testgeminichatprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider_test_is_embedding_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testbgeembeddingprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider_test_is_embedding_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testopenaiembeddingprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `method` → [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore_test_is_vector_store]]
+- [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore]] → `method` → [[assistant_tests_unit_test_provider_adapters_testqdrantvectorstore_test_store_name]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider_test_is_memory_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testobsidianmemoryprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider_test_is_memory_provider]]
+- [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider]] → `method` → [[assistant_tests_unit_test_provider_adapters_testpostgresmemoryprovider_test_provider_name]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `method` → [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_chat_provider_instances]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `method` → [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_embedding_provider_instances]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `method` → [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_memory_provider_instances]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `method` → [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_get_vector_store_instances]]
+- [[assistant_tests_unit_test_provider_adapters_testregisterallproviders]] → `method` → [[assistant_tests_unit_test_provider_adapters_testregisterallproviders_test_register_all]]

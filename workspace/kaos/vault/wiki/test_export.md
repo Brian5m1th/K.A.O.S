@@ -1,0 +1,256 @@
+# graphify\tests\test_export.py
+
+## Símbolos
+
+- [[graphify_tests_test_export]] — code: test_export.py
+- [[graphify_tests_test_export_make_graph]] — code: make_graph()
+- [[graphify_tests_test_export_test_to_json_creates_file]] — code: test_to_json_creates_file()
+- [[graphify_tests_test_export_test_to_json_valid_json]] — code: test_to_json_valid_json()
+- [[graphify_tests_test_export_test_to_json_nodes_have_community]] — code: test_to_json_nodes_have_community()
+- [[graphify_tests_test_export_test_to_cypher_creates_file]] — code: test_to_cypher_creates_file()
+- [[graphify_tests_test_export_test_to_cypher_contains_merge_statements]] — code: test_to_cypher_contains_merge_statements()
+- [[graphify_tests_test_export_test_to_graphml_creates_file]] — code: test_to_graphml_creates_file()
+- [[graphify_tests_test_export_test_to_graphml_valid_xml]] — code: test_to_graphml_valid_xml()
+- [[graphify_tests_test_export_test_to_graphml_has_community_attribute]] — code: test_to_graphml_has_community_attribute()
+- [[graphify_tests_test_export_test_to_graphml_tolerates_none_attribute_values]] — code: test_to_graphml_tolerates_none_attribute_values()
+- [[graphify_tests_test_export_test_to_html_creates_file]] — code: test_to_html_creates_file()
+- [[graphify_tests_test_export_test_to_html_contains_visjs]] — code: test_to_html_contains_visjs()
+- [[graphify_tests_test_export_test_to_html_pins_visjs_version_with_sri]] — code: test_to_html_pins_visjs_version_with_sri()
+- [[graphify_tests_test_export_test_to_html_contains_search]] — code: test_to_html_contains_search()
+- [[graphify_tests_test_export_test_to_html_contains_legend_with_labels]] — code: test_to_html_contains_legend_with_labels()
+- [[graphify_tests_test_export_test_to_html_contains_nodes_and_edges]] — code: test_to_html_contains_nodes_and_edges()
+- [[graphify_tests_test_export_test_to_html_member_counts_accepted]] — code: test_to_html_member_counts_accepted()
+- [[graphify_tests_test_export_vis_nodes_from_html]] — code: _vis_nodes_from_html()
+- [[graphify_tests_test_export_test_to_html_annotated_node_gets_learning_status_and_ring]] — code: test_to_html_annotated_node_gets_learning_status_and_ring()
+- [[graphify_tests_test_export_test_to_html_contested_stale_node_gets_dashed_desaturated_ring]] — code: test_to_html_contested_stale_node_gets_dashed_desaturated_ring()
+- [[graphify_tests_test_export_test_to_html_unannotated_identical_to_pre_feature]] — code: test_to_html_unannotated_identical_to_pre_feature()
+- [[graphify_tests_test_export_test_to_canvas_file_paths_relative_to_vault]] — code: test_to_canvas_file_paths_relative_to_vault()
+- [[graphify_tests_test_export_test_to_canvas_no_communities_still_populates]] — code: test_to_canvas_no_communities_still_populates()
+- [[graphify_tests_test_export_test_to_canvas_node_grid_matches_box_columns]] — code: test_to_canvas_node_grid_matches_box_columns()
+- [[graphify_tests_test_export_punct_graph]] — code: _punct_graph()
+- [[graphify_tests_test_export_test_to_obsidian_never_emits_punctuation_only_filenames]] — code: test_to_obsidian_never_emits_punctuation_only_filenames()
+- [[graphify_tests_test_export_test_to_canvas_never_emits_punctuation_only_filenames]] — code: test_to_canvas_never_emits_punctuation_only_filenames()
+- [[graphify_tests_test_export_two_node_graph]] — code: _two_node_graph()
+- [[graphify_tests_test_export_test_to_obsidian_preserves_existing_user_notes_and_obsidian_config]] — code: test_to_obsidian_preserves_existing_user_notes_and_obsidian_config()
+- [[graphify_tests_test_export_test_to_obsidian_empty_dir_writes_full_vault]] — code: test_to_obsidian_empty_dir_writes_full_vault()
+- [[graphify_tests_test_export_test_to_obsidian_rerun_updates_own_notes_but_not_user_files]] — code: test_to_obsidian_rerun_updates_own_notes_but_not_user_files()
+- [[graphify_tests_test_export_case_collision_graph]] — code: _case_collision_graph()
+- [[graphify_tests_test_export_test_to_obsidian_case_only_distinct_labels_dont_overwrite]] — code: test_to_obsidian_case_only_distinct_labels_dont_overwrite()
+- [[graphify_tests_test_export_test_to_obsidian_generated_suffix_doesnt_overwrite_literal]] — code: test_to_obsidian_generated_suffix_doesnt_overwrite_literal()
+- [[graphify_tests_test_export_test_to_canvas_case_only_distinct_labels_get_distinct_files]] — code: test_to_canvas_case_only_distinct_labels_get_distinct_files()
+- [[graphify_tests_test_export_test_obsidian_canvas_filenames_agree]] — code: test_obsidian_canvas_filenames_agree()
+- [[graphify_tests_test_export_test_to_obsidian_community_notes_case_collision]] — code: test_to_obsidian_community_notes_case_collision()
+- [[graphify_tests_test_export_test_backup_no_graph_json]] — code: test_backup_no_graph_json()
+- [[graphify_tests_test_export_test_backup_no_markers]] — code: test_backup_no_markers()
+- [[graphify_tests_test_export_test_backup_semantic_marker]] — code: test_backup_semantic_marker()
+- [[graphify_tests_test_export_test_backup_curated_labels]] — code: test_backup_curated_labels()
+- [[graphify_tests_test_export_test_backup_default_labels_only]] — code: test_backup_default_labels_only()
+- [[graphify_tests_test_export_test_backup_same_day_no_accumulation]] — code: test_backup_same_day_no_accumulation()
+- [[graphify_tests_test_export_test_backup_same_day_changed_content]] — code: test_backup_same_day_changed_content()
+- [[graphify_tests_test_export_test_backup_env_disable]] — code: test_backup_env_disable()
+- [[graphify_tests_test_export_mkg]] — code: _mkG()
+- [[graphify_tests_test_export_test_to_json_refuses_shrink]] — code: test_to_json_refuses_shrink()
+- [[graphify_tests_test_export_test_to_json_fails_safe_on_corrupt_existing]] — code: test_to_json_fails_safe_on_corrupt_existing()
+- [[graphify_tests_test_export_test_to_json_proceeds_on_empty_existing]] — code: test_to_json_proceeds_on_empty_existing()
+- [[graphify_tests_test_export_test_to_html_handles_null_source_file_and_label]] — code: test_to_html_handles_null_source_file_and_label()
+- [[graphify_tests_test_export_rationale_86]] — code: nx.write_graphml raises ValueError on a None attribute value; to_graphml     mu
+- [[graphify_tests_test_export_rationale_121]] — code: vis-network script tag must use a pinned versioned URL with a sha384     Subres
+- [[graphify_tests_test_export_rationale_177]] — code: to_html accepts member_counts without raising.
+- [[graphify_tests_test_export_rationale_188]] — code: Extract the RAW_NODES JSON array embedded in the generated HTML.
+- [[graphify_tests_test_export_rationale_195]] — code: A node with an overlay entry gets learning_status + learning_stale fields,
+- [[graphify_tests_test_export_rationale_240]] — code: With no overlay, the HTML is byte-identical whether learning_overlay is     omi
+- [[graphify_tests_test_export_rationale_257]] — code: Node file paths in canvas must be vault-root-relative (just fname.md), not hardc
+- [[graphify_tests_test_export_rationale_272]] — code: #1324: empty communities (e.g. --no-cluster builds) on a populated graph     mu
+- [[graphify_tests_test_export_rationale_285]] — code: #1452: a community's node cards are laid out in the same ceil(sqrt(n))-column
+- [[graphify_tests_test_export_rationale_329]] — code: A 2-node graph where one node's label is all-punctuation (e.g. a `@/*`     tsco
+- [[graphify_tests_test_export_rationale_341]] — code: #1409: an all-punctuation label (e.g. `@/*`) must not produce a `@.md`-style
+- [[graphify_tests_test_export_rationale_356]] — code: #1409: same guard on the canvas exporter's file-node names.
+- [[graphify_tests_test_export_rationale_381]] — code: #1506: exporting into an existing vault must not overwrite a user's note that
+- [[graphify_tests_test_export_rationale_398]] — code: No regression: a fresh/empty dir still gets every note + .obsidian/graph.json.
+- [[graphify_tests_test_export_rationale_409]] — code: A re-run overwrites graphify's own prior notes (via the manifest) but leaves a
+- [[graphify_tests_test_export_rationale_424]] — code: Two nodes whose labels differ only by case - on macOS/APFS and Windows/NTFS
+- [[graphify_tests_test_export_rationale_436]] — code: Both notes must survive as separate files. On a case-insensitive filesystem
+- [[graphify_tests_test_export_rationale_453]] — code: A generated `_1` suffix must not collide with a node whose literal label is
+- [[graphify_tests_test_export_rationale_475]] — code: Canvas file-node references for case-only-distinct labels must be distinct
+- [[graphify_tests_test_export_rationale_489]] — code: The CLI calls to_obsidian and to_canvas separately with no shared map, so     t
+- [[graphify_tests_test_export_rationale_505]] — code: Two community labels differing only by case must each get their own     `_COMMU
+- [[graphify_tests_test_export_rationale_528]] — code: No graph.json → no backup.
+- [[graphify_tests_test_export_rationale_534]] — code: graph.json present but no sentinel and no curated labels → no backup.
+- [[graphify_tests_test_export_rationale_541]] — code: graph.json + .graphify_semantic_marker → backup taken.
+- [[graphify_tests_test_export_rationale_555]] — code: graph.json + non-default label in .graphify_labels.json → backup taken.
+- [[graphify_tests_test_export_rationale_565]] — code: All-default labels → no backup (not curated).
+- [[graphify_tests_test_export_rationale_574]] — code: Same content on same day returns existing backup dir without re-copying.
+- [[graphify_tests_test_export_rationale_587]] — code: Changed graph.json on same day overwrites the existing backup in place.
+- [[graphify_tests_test_export_rationale_600]] — code: GRAPHIFY_NO_BACKUP=1 disables backup entirely.
+- [[graphify_tests_test_export_rationale_617]] — code: #479: refuse to silently overwrite an existing graph with fewer nodes.
+- [[graphify_tests_test_export_rationale_625]] — code: A non-empty but unparseable existing graph.json (corrupt or mid-write)     must
+- [[graphify_tests_test_export_rationale_635]] — code: An empty/whitespace existing file has no nodes to lose, so it is not a     shri
+- [[graphify_tests_test_export_rationale_645]] — code: #1775: a node with source_file=None or label=None must not crash to_html     (s
+
+## Dependências
+
+- [[graphify_tests_test_export]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_export]] → `imports_from` → [[graphify_graphify_cluster]]
+- [[graphify_tests_test_export]] → `imports_from` → [[graphify_graphify_export]]
+- [[graphify_tests_test_export_test_backup_curated_labels]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_default_labels_only]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_env_disable]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_no_graph_json]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_no_markers]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_same_day_changed_content]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_same_day_no_accumulation]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_backup_semantic_marker]] → `calls` → [[graphify_graphify_export_backup_if_protected]]
+- [[graphify_tests_test_export_test_to_json_creates_file]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_export_test_to_json_fails_safe_on_corrupt_existing]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_export_test_to_json_nodes_have_community]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_export_test_to_json_proceeds_on_empty_existing]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_export_test_to_json_refuses_shrink]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_export_test_to_json_valid_json]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_export_test_to_cypher_contains_merge_statements]] → `calls` → [[graphify_graphify_export_to_cypher]]
+- [[graphify_tests_test_export_test_to_cypher_creates_file]] → `calls` → [[graphify_graphify_export_to_cypher]]
+- [[graphify_tests_test_export_test_obsidian_canvas_filenames_agree]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_case_only_distinct_labels_dont_overwrite]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_community_notes_case_collision]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_empty_dir_writes_full_vault]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_generated_suffix_doesnt_overwrite_literal]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_never_emits_punctuation_only_filenames]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_preserves_existing_user_notes_and_obsidian_config]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_to_obsidian_rerun_updates_own_notes_but_not_user_files]] → `calls` → [[graphify_graphify_export_to_obsidian]]
+- [[graphify_tests_test_export_test_obsidian_canvas_filenames_agree]] → `calls` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_tests_test_export_test_to_canvas_case_only_distinct_labels_get_distinct_files]] → `calls` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_tests_test_export_test_to_canvas_file_paths_relative_to_vault]] → `calls` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_tests_test_export_test_to_canvas_never_emits_punctuation_only_filenames]] → `calls` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_tests_test_export_test_to_canvas_no_communities_still_populates]] → `calls` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_tests_test_export_test_to_canvas_node_grid_matches_box_columns]] → `calls` → [[graphify_graphify_export_to_canvas]]
+- [[graphify_tests_test_export_test_to_graphml_creates_file]] → `calls` → [[graphify_graphify_export_to_graphml]]
+- [[graphify_tests_test_export_test_to_graphml_has_community_attribute]] → `calls` → [[graphify_graphify_export_to_graphml]]
+- [[graphify_tests_test_export_test_to_graphml_tolerates_none_attribute_values]] → `calls` → [[graphify_graphify_export_to_graphml]]
+- [[graphify_tests_test_export_test_to_graphml_valid_xml]] → `calls` → [[graphify_graphify_export_to_graphml]]
+- [[graphify_tests_test_export_test_to_html_annotated_node_gets_learning_status_and_ring]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_contains_legend_with_labels]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_contains_nodes_and_edges]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_contains_search]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_contains_visjs]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_contested_stale_node_gets_dashed_desaturated_ring]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_creates_file]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_handles_null_source_file_and_label]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_member_counts_accepted]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_pins_visjs_version_with_sri]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export_test_to_html_unannotated_identical_to_pre_feature]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_case_collision_graph]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_mkg]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_punct_graph]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_curated_labels]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_default_labels_only]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_env_disable]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_no_graph_json]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_no_markers]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_same_day_changed_content]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_same_day_no_accumulation]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_backup_semantic_marker]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_obsidian_canvas_filenames_agree]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_canvas_case_only_distinct_labels_get_distinct_files]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_canvas_file_paths_relative_to_vault]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_canvas_never_emits_punctuation_only_filenames]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_canvas_no_communities_still_populates]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_canvas_node_grid_matches_box_columns]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_cypher_contains_merge_statements]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_cypher_creates_file]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_graphml_creates_file]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_graphml_has_community_attribute]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_graphml_tolerates_none_attribute_values]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_graphml_valid_xml]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_annotated_node_gets_learning_status_and_ring]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_contains_legend_with_labels]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_contains_nodes_and_edges]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_contains_search]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_contains_visjs]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_contested_stale_node_gets_dashed_desaturated_ring]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_creates_file]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_handles_null_source_file_and_label]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_member_counts_accepted]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_pins_visjs_version_with_sri]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_html_unannotated_identical_to_pre_feature]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_json_creates_file]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_json_fails_safe_on_corrupt_existing]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_json_nodes_have_community]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_json_proceeds_on_empty_existing]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_json_refuses_shrink]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_json_valid_json]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_case_only_distinct_labels_dont_overwrite]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_community_notes_case_collision]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_empty_dir_writes_full_vault]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_generated_suffix_doesnt_overwrite_literal]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_never_emits_punctuation_only_filenames]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_preserves_existing_user_notes_and_obsidian_config]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_test_to_obsidian_rerun_updates_own_notes_but_not_user_files]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_two_node_graph]]
+- [[graphify_tests_test_export]] → `contains` → [[graphify_tests_test_export_vis_nodes_from_html]]
+- [[graphify_tests_test_export_test_to_canvas_file_paths_relative_to_vault]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_canvas_no_communities_still_populates]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_cypher_contains_merge_statements]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_cypher_creates_file]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_graphml_creates_file]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_graphml_has_community_attribute]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_graphml_tolerates_none_attribute_values]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_graphml_valid_xml]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_annotated_node_gets_learning_status_and_ring]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_contains_legend_with_labels]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_contains_nodes_and_edges]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_contains_search]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_contains_visjs]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_contested_stale_node_gets_dashed_desaturated_ring]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_creates_file]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_member_counts_accepted]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_pins_visjs_version_with_sri]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_html_unannotated_identical_to_pre_feature]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_json_creates_file]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_json_nodes_have_community]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_test_to_json_valid_json]] → `calls` → [[graphify_tests_test_export_make_graph]]
+- [[graphify_tests_test_export_rationale_86]] → `rationale_for` → [[graphify_tests_test_export_test_to_graphml_tolerates_none_attribute_values]]
+- [[graphify_tests_test_export_rationale_121]] → `rationale_for` → [[graphify_tests_test_export_test_to_html_pins_visjs_version_with_sri]]
+- [[graphify_tests_test_export_rationale_177]] → `rationale_for` → [[graphify_tests_test_export_test_to_html_member_counts_accepted]]
+- [[graphify_tests_test_export_rationale_188]] → `rationale_for` → [[graphify_tests_test_export_vis_nodes_from_html]]
+- [[graphify_tests_test_export_test_to_html_annotated_node_gets_learning_status_and_ring]] → `calls` → [[graphify_tests_test_export_vis_nodes_from_html]]
+- [[graphify_tests_test_export_test_to_html_contested_stale_node_gets_dashed_desaturated_ring]] → `calls` → [[graphify_tests_test_export_vis_nodes_from_html]]
+- [[graphify_tests_test_export_rationale_195]] → `rationale_for` → [[graphify_tests_test_export_test_to_html_annotated_node_gets_learning_status_and_ring]]
+- [[graphify_tests_test_export_rationale_240]] → `rationale_for` → [[graphify_tests_test_export_test_to_html_unannotated_identical_to_pre_feature]]
+- [[graphify_tests_test_export_rationale_257]] → `rationale_for` → [[graphify_tests_test_export_test_to_canvas_file_paths_relative_to_vault]]
+- [[graphify_tests_test_export_rationale_272]] → `rationale_for` → [[graphify_tests_test_export_test_to_canvas_no_communities_still_populates]]
+- [[graphify_tests_test_export_rationale_285]] → `rationale_for` → [[graphify_tests_test_export_test_to_canvas_node_grid_matches_box_columns]]
+- [[graphify_tests_test_export_rationale_329]] → `rationale_for` → [[graphify_tests_test_export_punct_graph]]
+- [[graphify_tests_test_export_test_to_canvas_never_emits_punctuation_only_filenames]] → `calls` → [[graphify_tests_test_export_punct_graph]]
+- [[graphify_tests_test_export_test_to_obsidian_never_emits_punctuation_only_filenames]] → `calls` → [[graphify_tests_test_export_punct_graph]]
+- [[graphify_tests_test_export_rationale_341]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_never_emits_punctuation_only_filenames]]
+- [[graphify_tests_test_export_rationale_356]] → `rationale_for` → [[graphify_tests_test_export_test_to_canvas_never_emits_punctuation_only_filenames]]
+- [[graphify_tests_test_export_test_to_obsidian_empty_dir_writes_full_vault]] → `calls` → [[graphify_tests_test_export_two_node_graph]]
+- [[graphify_tests_test_export_test_to_obsidian_preserves_existing_user_notes_and_obsidian_config]] → `calls` → [[graphify_tests_test_export_two_node_graph]]
+- [[graphify_tests_test_export_test_to_obsidian_rerun_updates_own_notes_but_not_user_files]] → `calls` → [[graphify_tests_test_export_two_node_graph]]
+- [[graphify_tests_test_export_rationale_381]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_preserves_existing_user_notes_and_obsidian_config]]
+- [[graphify_tests_test_export_rationale_398]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_empty_dir_writes_full_vault]]
+- [[graphify_tests_test_export_rationale_409]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_rerun_updates_own_notes_but_not_user_files]]
+- [[graphify_tests_test_export_rationale_424]] → `rationale_for` → [[graphify_tests_test_export_case_collision_graph]]
+- [[graphify_tests_test_export_test_obsidian_canvas_filenames_agree]] → `calls` → [[graphify_tests_test_export_case_collision_graph]]
+- [[graphify_tests_test_export_test_to_canvas_case_only_distinct_labels_get_distinct_files]] → `calls` → [[graphify_tests_test_export_case_collision_graph]]
+- [[graphify_tests_test_export_test_to_obsidian_case_only_distinct_labels_dont_overwrite]] → `calls` → [[graphify_tests_test_export_case_collision_graph]]
+- [[graphify_tests_test_export_rationale_436]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_case_only_distinct_labels_dont_overwrite]]
+- [[graphify_tests_test_export_rationale_453]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_generated_suffix_doesnt_overwrite_literal]]
+- [[graphify_tests_test_export_rationale_475]] → `rationale_for` → [[graphify_tests_test_export_test_to_canvas_case_only_distinct_labels_get_distinct_files]]
+- [[graphify_tests_test_export_rationale_489]] → `rationale_for` → [[graphify_tests_test_export_test_obsidian_canvas_filenames_agree]]
+- [[graphify_tests_test_export_rationale_505]] → `rationale_for` → [[graphify_tests_test_export_test_to_obsidian_community_notes_case_collision]]
+- [[graphify_tests_test_export_rationale_528]] → `rationale_for` → [[graphify_tests_test_export_test_backup_no_graph_json]]
+- [[graphify_tests_test_export_rationale_534]] → `rationale_for` → [[graphify_tests_test_export_test_backup_no_markers]]
+- [[graphify_tests_test_export_rationale_541]] → `rationale_for` → [[graphify_tests_test_export_test_backup_semantic_marker]]
+- [[graphify_tests_test_export_rationale_555]] → `rationale_for` → [[graphify_tests_test_export_test_backup_curated_labels]]
+- [[graphify_tests_test_export_rationale_565]] → `rationale_for` → [[graphify_tests_test_export_test_backup_default_labels_only]]
+- [[graphify_tests_test_export_rationale_574]] → `rationale_for` → [[graphify_tests_test_export_test_backup_same_day_no_accumulation]]
+- [[graphify_tests_test_export_rationale_587]] → `rationale_for` → [[graphify_tests_test_export_test_backup_same_day_changed_content]]
+- [[graphify_tests_test_export_rationale_600]] → `rationale_for` → [[graphify_tests_test_export_test_backup_env_disable]]
+- [[graphify_tests_test_export_test_to_json_fails_safe_on_corrupt_existing]] → `calls` → [[graphify_tests_test_export_mkg]]
+- [[graphify_tests_test_export_test_to_json_proceeds_on_empty_existing]] → `calls` → [[graphify_tests_test_export_mkg]]
+- [[graphify_tests_test_export_test_to_json_refuses_shrink]] → `calls` → [[graphify_tests_test_export_mkg]]
+- [[graphify_tests_test_export_rationale_617]] → `rationale_for` → [[graphify_tests_test_export_test_to_json_refuses_shrink]]
+- [[graphify_tests_test_export_rationale_625]] → `rationale_for` → [[graphify_tests_test_export_test_to_json_fails_safe_on_corrupt_existing]]
+- [[graphify_tests_test_export_rationale_635]] → `rationale_for` → [[graphify_tests_test_export_test_to_json_proceeds_on_empty_existing]]
+- [[graphify_tests_test_export_rationale_645]] → `rationale_for` → [[graphify_tests_test_export_test_to_html_handles_null_source_file_and_label]]

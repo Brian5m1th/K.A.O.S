@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { useSystemStore } from "@/shared/lib/stores/system-store";
+import { useSystemStore } from "@/application/stores/system-store";
 import { kaosFetch } from "@/infrastructure/http";
 import { vi } from "vitest";
 
@@ -10,7 +10,7 @@ describe("System Store", () => {
   beforeEach(() => {
     useSystemStore.setState({
       status: "offline", version: "0.5.0", setupStatus: "NOT_STARTED", setupStep: 0,
-      runtime: { activeModel: "", latency: 0, cpu: 0, vramUsed: 0, vramTotal: 16 },
+      runtime: { activeModel: "", latency: 0, cpu: 0, vramUsed: 0, vramTotal: 0 },
       services: { ollama: false, backend: false, qdrant: false, postgres: false, n8n: false, grafana: false, prometheus: false },
       metrics: { vectorCount: 0, tokenRate: 0 },
       documentation: { coverage: 0, driftLevel: "low", lastScan: null, missingCount: 0, outdatedCount: 0 },
@@ -36,7 +36,7 @@ describe("System Store", () => {
     useSystemStore.getState().setRuntime({ cpu: 45, latency: 120 });
     expect(useSystemStore.getState().runtime.cpu).toBe(45);
     expect(useSystemStore.getState().runtime.latency).toBe(120);
-    expect(useSystemStore.getState().runtime.vramTotal).toBe(16);
+    expect(useSystemStore.getState().runtime.vramTotal).toBe(0);
   });
 
   it("setService should toggle service", () => {
@@ -55,17 +55,35 @@ describe("System Store", () => {
     expect(useSystemStore.getState().documentation.driftLevel).toBe("medium");
   });
 
-  it("fetchAll should query multiple endpoints", async () => {
-    mockFetch
-      .mockResolvedValueOnce(new Response(JSON.stringify({ status: "ok" }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ ready: true }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ ollama: true, backend: true }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ provider_id: "gpt-4" }), { status: 200 }))
-      .mockResolvedValueOnce(new Response(JSON.stringify({ cpu: 50, vram_used: 4 }), { status: 200 }));
+  it("fetchAll should query the consolidated dashboard endpoint", async () => {
+    const mockDashboardData = {
+      services: {
+        backend: true,
+        ollama: true,
+        qdrant: true,
+        postgres: true,
+        n8n: false,
+        grafana: false,
+        prometheus: false,
+      },
+      runtime: {
+        activeModel: "gpt-4",
+        latency: 120,
+        cpu: 50,
+        vram: { used: 4, total: 16 }
+      },
+      metrics: {
+        vectorCount: 15234,
+        tokenRate: 42.3
+      }
+    };
+
+    mockFetch.mockResolvedValueOnce(new Response(JSON.stringify(mockDashboardData), { status: 200 }));
 
     await useSystemStore.getState().fetchAll();
 
-    expect(mockFetch).toHaveBeenCalledTimes(5);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(useSystemStore.getState().services.backend).toBe(true);
+    expect(useSystemStore.getState().runtime.activeModel).toBe("gpt-4");
   });
 });

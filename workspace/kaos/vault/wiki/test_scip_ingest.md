@@ -1,0 +1,454 @@
+# graphify\tests\test_scip_ingest.py
+
+## Símbolos
+
+- [[graphify_tests_test_scip_ingest]] — code: test_scip_ingest.py
+- [[graphify_tests_test_scip_ingest_test_ingest_empty_doc_returns_empty_lists]] — code: test_ingest_empty_doc_returns_empty_lists()
+- [[graphify_tests_test_scip_ingest_test_ingest_dict_without_documents_key]] — code: test_ingest_dict_without_documents_key()
+- [[graphify_tests_test_scip_ingest_test_ingest_documents_not_a_list_is_skipped]] — code: test_ingest_documents_not_a_list_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_documents_empty_list]] — code: test_ingest_documents_empty_list()
+- [[graphify_tests_test_scip_ingest_test_ingest_single_symbol_no_relationships]] — code: test_ingest_single_symbol_no_relationships()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_display_name_uses_suffix]] — code: test_ingest_symbol_without_display_name_uses_suffix()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label]] — code: test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_hash_uses_full_symbol_as_label]] — code: test_ingest_symbol_without_hash_uses_full_symbol_as_label()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_has_empty_source_location]] — code: test_ingest_symbol_without_occurrences_has_empty_source_location()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_key]] — code: test_ingest_symbol_without_occurrences_key()
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_symbols_in_one_document]] — code: test_ingest_multiple_symbols_in_one_document()
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_documents]] — code: test_ingest_multiple_documents()
+- [[graphify_tests_test_scip_ingest_make_symbol_doc]] — code: _make_symbol_doc()
+- [[graphify_tests_test_scip_ingest_test_ingest_is_reference_emits_scip_ref_edge]] — code: test_ingest_is_reference_emits_scip_ref_edge()
+- [[graphify_tests_test_scip_ingest_test_ingest_is_definition_emits_scip_def_edge]] — code: test_ingest_is_definition_emits_scip_def_edge()
+- [[graphify_tests_test_scip_ingest_test_ingest_is_implementation_emits_scip_impl_edge]] — code: test_ingest_is_implementation_emits_scip_impl_edge()
+- [[graphify_tests_test_scip_ingest_test_ingest_is_type_definition_emits_scip_typed_edge]] — code: test_ingest_is_type_definition_emits_scip_typed_edge()
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_priority_order]] — code: test_ingest_relationship_priority_order()
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_no_boolean_flags_defaults_to_ref]] — code: test_ingest_relationship_no_boolean_flags_defaults_to_ref()
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_relationships_on_one_symbol]] — code: test_ingest_multiple_relationships_on_one_symbol()
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_without_target_symbol_is_skipped]] — code: test_ingest_relationship_without_target_symbol_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_duplicate_edges_are_deduplicated]] — code: test_ingest_duplicate_edges_are_deduplicated()
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_structure_complete]] — code: test_ingest_edge_structure_complete()
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_source_location_from_first_occurrence]] — code: test_ingest_edge_source_location_from_first_occurrence()
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_contains_source_file_and_symbol_suffix]] — code: test_ingest_node_id_contains_source_file_and_symbol_suffix()
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_is_deterministic]] — code: test_ingest_node_id_is_deterministic()
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_differs_by_source_file]] — code: test_ingest_node_id_differs_by_source_file()
+- [[graphify_tests_test_scip_ingest_test_ingest_duplicate_symbols_in_same_file_are_deduplicated]] — code: test_ingest_duplicate_symbols_in_same_file_are_deduplicated()
+- [[graphify_tests_test_scip_ingest_test_ingest_non_dict_input_returns_empty]] — code: test_ingest_non_dict_input_returns_empty()
+- [[graphify_tests_test_scip_ingest_test_ingest_document_item_not_a_dict_is_skipped]] — code: test_ingest_document_item_not_a_dict_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_item_not_a_dict_is_skipped]] — code: test_ingest_symbol_item_not_a_dict_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_symbol_id_is_skipped]] — code: test_ingest_symbol_without_symbol_id_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_item_not_a_dict_is_skipped]] — code: test_ingest_relationship_item_not_a_dict_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_document_without_symbols_key]] — code: test_ingest_document_without_symbols_key()
+- [[graphify_tests_test_scip_ingest_test_ingest_document_with_symbols_not_a_list]] — code: test_ingest_document_with_symbols_not_a_list()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_kind_defaults_to_unknown]] — code: test_ingest_symbol_without_kind_defaults_to_unknown()
+- [[graphify_tests_test_scip_ingest_test_ingest_default_source_file_is_empty_string]] — code: test_ingest_default_source_file_is_empty_string()
+- [[graphify_tests_test_scip_ingest_test_ingest_source_file_falls_back_to_function_param]] — code: test_ingest_source_file_falls_back_to_function_param()
+- [[graphify_tests_test_scip_ingest_test_ingest_document_relative_path_overrides_source_file_param]] — code: test_ingest_document_relative_path_overrides_source_file_param()
+- [[graphify_tests_test_scip_ingest_test_ingest_document_without_language_defaults_to_function_param]] — code: test_ingest_document_without_language_defaults_to_function_param()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_short_range_uses_first_element_as_line]] — code: test_ingest_symbol_with_short_range_uses_first_element_as_line()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_dict_occurrence_is_skipped]] — code: test_ingest_symbol_with_non_dict_occurrence_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_list_range_falls_back_to_zero]] — code: test_ingest_symbol_with_non_list_range_falls_back_to_zero()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_documentation_becomes_description]] — code: test_ingest_symbol_with_documentation_becomes_description()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_empty_documentation_skips_description]] — code: test_ingest_symbol_with_empty_documentation_skips_description()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_documentation_omits_description]] — code: test_ingest_symbol_without_documentation_omits_description()
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_relationships_key_still_creates_node]] — code: test_ingest_symbol_without_relationships_key_still_creates_node()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_with_hash_separator]] — code: test_make_scip_node_id_with_hash_separator()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_without_hash]] — code: test_make_scip_node_id_without_hash()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_special_characters_are_sanitised]] — code: test_make_scip_node_id_special_characters_are_sanitised()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_deterministic]] — code: test_make_scip_node_id_deterministic()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_source_file_affects_hash]] — code: test_make_scip_node_id_source_file_affects_hash()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_symbol_affects_hash]] — code: test_make_scip_node_id_symbol_affects_hash()
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_empty_after_sanitisation_falls_back]] — code: test_make_scip_node_id_empty_after_sanitisation_falls_back()
+- [[graphify_tests_test_scip_ingest_test_scip_kind_to_file_type_always_code]] — code: test_scip_kind_to_file_type_always_code()
+- [[graphify_tests_test_scip_ingest_test_build_scip_metadata_with_description]] — code: test_build_scip_metadata_with_description()
+- [[graphify_tests_test_scip_ingest_test_build_scip_metadata_without_description]] — code: test_build_scip_metadata_without_description()
+- [[graphify_tests_test_scip_ingest_test_ingest_many_symbols]] — code: test_ingest_many_symbols()
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_with_zero_sourceline_has_empty_location]] — code: test_ingest_edge_with_zero_sourceline_has_empty_location()
+- [[graphify_tests_test_scip_ingest_test_relationship_target_in_same_document_resolves_via_index]] — code: test_relationship_target_in_same_document_resolves_via_index()
+- [[graphify_tests_test_scip_ingest_test_relationship_target_across_documents_resolves_via_index]] — code: test_relationship_target_across_documents_resolves_via_index()
+- [[graphify_tests_test_scip_ingest_test_relationship_target_unknown_emits_stub_node]] — code: test_relationship_target_unknown_emits_stub_node()
+- [[graphify_tests_test_scip_ingest_test_relationship_edges_survive_validate_extraction_and_build]] — code: test_relationship_edges_survive_validate_extraction_and_build()
+- [[graphify_tests_test_scip_ingest_test_non_string_relative_path_falls_back_to_default]] — code: test_non_string_relative_path_falls_back_to_default()
+- [[graphify_tests_test_scip_ingest_test_non_string_language_falls_back]] — code: test_non_string_language_falls_back()
+- [[graphify_tests_test_scip_ingest_test_non_string_symbol_id_is_skipped]] — code: test_non_string_symbol_id_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_relationships_none_is_treated_as_empty]] — code: test_relationships_none_is_treated_as_empty()
+- [[graphify_tests_test_scip_ingest_test_relationship_symbol_non_string_is_skipped]] — code: test_relationship_symbol_non_string_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_non_string_kind_falls_back_to_unknown]] — code: test_non_string_kind_falls_back_to_unknown()
+- [[graphify_tests_test_scip_ingest_test_non_string_display_name_falls_back]] — code: test_non_string_display_name_falls_back()
+- [[graphify_tests_test_scip_ingest_test_documentation_with_non_string_entries_is_ignored]] — code: test_documentation_with_non_string_entries_is_ignored()
+- [[graphify_tests_test_scip_ingest_test_unrecognized_top_level_structure_returns_empty]] — code: test_unrecognized_top_level_structure_returns_empty()
+- [[graphify_tests_test_scip_ingest_test_documents_field_non_list_returns_empty]] — code: test_documents_field_non_list_returns_empty()
+- [[graphify_tests_test_scip_ingest_test_document_entry_non_dict_is_skipped]] — code: test_document_entry_non_dict_is_skipped()
+- [[graphify_tests_test_scip_ingest_test_occurrence_negative_line_falls_back_to_zero]] — code: test_occurrence_negative_line_falls_back_to_zero()
+- [[graphify_tests_test_scip_ingest_test_duplicate_local_symbol_resolves_to_same_document]] — code: test_duplicate_local_symbol_resolves_to_same_document()
+- [[graphify_tests_test_scip_ingest_test_unique_cross_document_symbol_still_resolves]] — code: test_unique_cross_document_symbol_still_resolves()
+- [[graphify_tests_test_scip_ingest_test_ambiguous_duplicate_target_across_docs_creates_stub]] — code: test_ambiguous_duplicate_target_across_docs_creates_stub()
+- [[graphify_tests_test_scip_ingest_test_relationship_truthy_string_flag_is_ignored]] — code: test_relationship_truthy_string_flag_is_ignored()
+- [[graphify_tests_test_scip_ingest_test_relationship_int_flag_is_ignored]] — code: test_relationship_int_flag_is_ignored()
+- [[graphify_tests_test_scip_ingest_test_relationship_boolean_true_routes_correctly]] — code: test_relationship_boolean_true_routes_correctly()
+- [[graphify_tests_test_scip_ingest_test_occurrence_bool_line_falls_back_to_zero]] — code: test_occurrence_bool_line_falls_back_to_zero()
+- [[graphify_tests_test_scip_ingest_test_duplicate_same_document_definition_does_not_create_false_ambiguity]] — code: test_duplicate_same_document_definition_does_not_create_false_ambiguity()
+- [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_html_escaped]] — code: test_ingest_node_metadata_html_escaped()
+- [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_control_chars_stripped]] — code: test_ingest_node_metadata_control_chars_stripped()
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_metadata_sanitized]] — code: test_ingest_relationship_metadata_sanitized()
+- [[graphify_tests_test_scip_ingest_rationale_1]] — code: Comprehensive tests for graphify.scip_ingest.
+- [[graphify_tests_test_scip_ingest_rationale_21]] — code: Empty dict input produces empty nodes and edges.
+- [[graphify_tests_test_scip_ingest_rationale_27]] — code: documents key not present → no processing → empty result.
+- [[graphify_tests_test_scip_ingest_rationale_33]] — code: When documents is not a list, ingestion stops and returns empty.
+- [[graphify_tests_test_scip_ingest_rationale_39]] — code: Empty documents list produces empty nodes and edges.
+- [[graphify_tests_test_scip_ingest_rationale_45]] — code: A single symbol with no relationships yields one node and zero edges.
+- [[graphify_tests_test_scip_ingest_rationale_81]] — code: When display_name is missing, label falls back to the portion after #.
+- [[graphify_tests_test_scip_ingest_rationale_102]] — code: Symbol ending with '#' and no display_name must produce a non-empty label.
+- [[graphify_tests_test_scip_ingest_rationale_132]] — code: When symbol has no #, the label is the full symbol id.
+- [[graphify_tests_test_scip_ingest_rationale_153]] — code: When occurrences list is empty, source_location is empty string.
+- [[graphify_tests_test_scip_ingest_rationale_174]] — code: When occurrences key is missing entirely, falls back to empty source_location.
+- [[graphify_tests_test_scip_ingest_rationale_194]] — code: Multiple symbols in a single document all become nodes.
+- [[graphify_tests_test_scip_ingest_rationale_232]] — code: Symbols from multiple documents all become nodes.
+- [[graphify_tests_test_scip_ingest_rationale_262]] — code: Helper to build a minimal SCIP document with one symbol.
+- [[graphify_tests_test_scip_ingest_rationale_282]] — code: is_reference → relation 'scip_ref'.
+- [[graphify_tests_test_scip_ingest_rationale_294]] — code: is_definition → relation 'scip_def'.
+- [[graphify_tests_test_scip_ingest_rationale_305]] — code: is_implementation → relation 'scip_impl' (takes priority over is_definition).
+- [[graphify_tests_test_scip_ingest_rationale_316]] — code: is_type_definition → relation 'scip_typed'.
+- [[graphify_tests_test_scip_ingest_rationale_327]] — code: Implementation > TypeDefinition > Definition > Reference.
+- [[graphify_tests_test_scip_ingest_rationale_346]] — code: When none of is_* flags are set, relation defaults to 'scip_ref'.
+- [[graphify_tests_test_scip_ingest_rationale_357]] — code: A symbol with multiple relationships emits one edge per relationship.
+- [[graphify_tests_test_scip_ingest_rationale_373]] — code: Relationship with empty or missing symbol field is ignored.
+- [[graphify_tests_test_scip_ingest_rationale_387]] — code: The same source→target→relation→location edge is only emitted once.
+- [[graphify_tests_test_scip_ingest_rationale_406]] — code: Verify every field in the emitted edge dict.
+- [[graphify_tests_test_scip_ingest_rationale_424]] — code: source_location on edges uses the line from the first occurrence range[0].
+- [[graphify_tests_test_scip_ingest_rationale_449]] — code: Node id is derived from source_file and symbol suffix.
+- [[graphify_tests_test_scip_ingest_rationale_463]] — code: Same input produces the same node id.
+- [[graphify_tests_test_scip_ingest_rationale_475]] — code: Same symbol in different files produces different node ids.
+- [[graphify_tests_test_scip_ingest_rationale_502]] — code: The same symbol appearing twice in a document yields only one node.
+- [[graphify_tests_test_scip_ingest_rationale_536]] — code: Non-dict inputs are guarded and return empty nodes/edges.
+- [[graphify_tests_test_scip_ingest_rationale_542]] — code: Non-dict entries in the documents list are silently skipped.
+- [[graphify_tests_test_scip_ingest_rationale_561]] — code: Non-dict entries in the symbols list are silently skipped.
+- [[graphify_tests_test_scip_ingest_rationale_587]] — code: A symbol dict with empty or missing 'symbol' field produces no node.
+- [[graphify_tests_test_scip_ingest_rationale_604]] — code: Non-dict entries in the relationships list are silently skipped.
+- [[graphify_tests_test_scip_ingest_rationale_625]] — code: Document dict without 'symbols' key is treated as empty list.
+- [[graphify_tests_test_scip_ingest_rationale_632]] — code: When symbols is not a list, that document is skipped.
+- [[graphify_tests_test_scip_ingest_rationale_639]] — code: When kind is missing, metadata uses 'unknown'.
+- [[graphify_tests_test_scip_ingest_rationale_658]] — code: When no relative_path is given on document, source_file defaults to ''.
+- [[graphify_tests_test_scip_ingest_rationale_673]] — code: The source_file param provides a fallback when doc has no relative_path.
+- [[graphify_tests_test_scip_ingest_rationale_688]] — code: Document relative_path takes precedence over the source_file parameter.
+- [[graphify_tests_test_scip_ingest_rationale_704]] — code: When doc has no language field, uses the language function parameter.
+- [[graphify_tests_test_scip_ingest_rationale_722]] — code: A range list with exactly 2 elements (minimum required) sets sourceline from ran
+- [[graphify_tests_test_scip_ingest_rationale_743]] — code: Only the first occurrence is used; if it is not a dict, sourceline stays 0.
+- [[graphify_tests_test_scip_ingest_rationale_770]] — code: When range is not a list, sourceline stays 0 (empty source_location).
+- [[graphify_tests_test_scip_ingest_rationale_791]] — code: The first element of documentation[] becomes scip_description metadata.
+- [[graphify_tests_test_scip_ingest_rationale_813]] — code: When documentation[0] is empty string, scip_description is omitted.
+- [[graphify_tests_test_scip_ingest_rationale_835]] — code: When documentation key is missing, scip_description is not in metadata.
+- [[graphify_tests_test_scip_ingest_rationale_856]] — code: Missing relationships key — symbol still becomes a node.
+- [[graphify_tests_test_scip_ingest_rationale_876]] — code: Symbol with # uses suffix after last #.
+- [[graphify_tests_test_scip_ingest_rationale_886]] — code: Symbol without # uses the full symbol (sanitised) as suffix.
+- [[graphify_tests_test_scip_ingest_rationale_893]] — code: Non-alphanumeric characters are replaced with underscores.
+- [[graphify_tests_test_scip_ingest_rationale_900]] — code: Same inputs always produce the same id.
+- [[graphify_tests_test_scip_ingest_rationale_907]] — code: Different source_file produces different hash.
+- [[graphify_tests_test_scip_ingest_rationale_914]] — code: Different symbol produces different hash.
+- [[graphify_tests_test_scip_ingest_rationale_921]] — code: If sanitised suffix is empty, uses just the hash.
+- [[graphify_tests_test_scip_ingest_rationale_937]] — code: Any kind string maps to 'code'.
+- [[graphify_tests_test_scip_ingest_rationale_951]] — code: All three fields present when description is non-empty.
+- [[graphify_tests_test_scip_ingest_rationale_961]] — code: scip_description is omitted when description is empty string.
+- [[graphify_tests_test_scip_ingest_rationale_976]] — code: Ingestion handles a large number of symbols gracefully.
+- [[graphify_tests_test_scip_ingest_rationale_993]] — code: When sourceline is 0, source_location on edge is empty string.
+- [[graphify_tests_test_scip_ingest_rationale_1019]] — code: Cross-symbol relationship within ONE document resolves via the symbol index.
+- [[graphify_tests_test_scip_ingest_rationale_1045]] — code: Cross-document relationship resolves to the target document's node id.
+- [[graphify_tests_test_scip_ingest_rationale_1077]] — code: A relationship targeting a symbol NOT in any document creates a stub external no
+- [[graphify_tests_test_scip_ingest_rationale_1106]] — code: Result passes Graphify's validate_extraction and build_from_json keeps the edges
+- [[graphify_tests_test_scip_ingest_rationale_1144]] — code: `relative_path` as a non-string falls back to the function's source_file default
+- [[graphify_tests_test_scip_ingest_rationale_1158]] — code: `language` as a non-string falls back to the function default.
+- [[graphify_tests_test_scip_ingest_rationale_1174]] — code: A symbol entry with `symbol: <int>` is silently skipped.
+- [[graphify_tests_test_scip_ingest_rationale_1192]] — code: A symbol with `relationships: None` ingests without error and emits no edges.
+- [[graphify_tests_test_scip_ingest_rationale_1207]] — code: A relationship entry whose `symbol` is a non-string is silently skipped.
+- [[graphify_tests_test_scip_ingest_rationale_1232]] — code: A symbol with `kind` as a non-string falls back to 'unknown'.
+- [[graphify_tests_test_scip_ingest_rationale_1246]] — code: `display_name` as a non-string falls back to the symbol suffix.
+- [[graphify_tests_test_scip_ingest_rationale_1261]] — code: `documentation` first entry that isn't a string yields empty description (not cr
+- [[graphify_tests_test_scip_ingest_rationale_1276]] — code: Top-level non-dict shapes still return the empty result.
+- [[graphify_tests_test_scip_ingest_rationale_1283]] — code: `documents` as a non-list returns the empty result.
+- [[graphify_tests_test_scip_ingest_rationale_1288]] — code: A non-dict entry in `documents` is silently skipped.
+- [[graphify_tests_test_scip_ingest_rationale_1300]] — code: An occurrence with a negative line number resolves source_location to empty.
+- [[graphify_tests_test_scip_ingest_rationale_1325]] — code: When two docs both have `F#`, a relationship from b.py's F# to F# must     reso
+- [[graphify_tests_test_scip_ingest_rationale_1360]] — code: When a target symbol is defined in exactly ONE other document, the edge     sti
+- [[graphify_tests_test_scip_ingest_rationale_1390]] — code: When a target symbol is defined in 2+ documents AND the source is in a     thir
+- [[graphify_tests_test_scip_ingest_rationale_1436]] — code: `"is_implementation": "false"` is a truthy STRING — must not route to     scip_
+- [[graphify_tests_test_scip_ingest_rationale_1463]] — code: `"is_implementation": 1` is truthy but not True — must not route to scip_impl.
+- [[graphify_tests_test_scip_ingest_rationale_1489]] — code: Actual boolean True still routes to the corresponding scip_ relation.
+- [[graphify_tests_test_scip_ingest_rationale_1523]] — code: range[0] = True (which is technically an int subclass) must not produce 'LTrue'.
+- [[graphify_tests_test_scip_ingest_rationale_1544]] — code: Duplicate symbol records within the SAME document collapse to one node id     i
+- [[graphify_tests_test_scip_ingest_rationale_1586]] — code: SCIP-supplied description must be HTML-escaped before reaching node     metadat
+- [[graphify_tests_test_scip_ingest_rationale_1613]] — code: Control characters in SCIP description must not survive into the graph.
+- [[graphify_tests_test_scip_ingest_rationale_1639]] — code: SCIP relationship payloads embedded in edge metadata must be sanitized.
+
+## Dependências
+
+- [[graphify_tests_test_scip_ingest]] → `imports_from` → [[graphify_graphify_scip_ingest]]
+- [[graphify_tests_test_scip_ingest_test_ambiguous_duplicate_target_across_docs_creates_stub]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_document_entry_non_dict_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_documentation_with_non_string_entries_is_ignored]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_documents_field_non_list_returns_empty]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_duplicate_local_symbol_resolves_to_same_document]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_duplicate_same_document_definition_does_not_create_false_ambiguity]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_default_source_file_is_empty_string]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_dict_without_documents_key]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_document_item_not_a_dict_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_document_relative_path_overrides_source_file_param]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_document_with_symbols_not_a_list]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_document_without_language_defaults_to_function_param]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_document_without_symbols_key]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_documents_empty_list]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_documents_not_a_list_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_duplicate_edges_are_deduplicated]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_duplicate_symbols_in_same_file_are_deduplicated]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_source_location_from_first_occurrence]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_structure_complete]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_with_zero_sourceline_has_empty_location]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_empty_doc_returns_empty_lists]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_definition_emits_scip_def_edge]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_implementation_emits_scip_impl_edge]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_reference_emits_scip_ref_edge]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_type_definition_emits_scip_typed_edge]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_many_symbols]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_documents]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_relationships_on_one_symbol]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_symbols_in_one_document]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_contains_source_file_and_symbol_suffix]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_differs_by_source_file]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_is_deterministic]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_control_chars_stripped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_html_escaped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_non_dict_input_returns_empty]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_item_not_a_dict_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_metadata_sanitized]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_no_boolean_flags_defaults_to_ref]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_priority_order]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_without_target_symbol_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_single_symbol_no_relationships]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_source_file_falls_back_to_function_param]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_item_not_a_dict_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_documentation_becomes_description]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_empty_documentation_skips_description]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_dict_occurrence_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_list_range_falls_back_to_zero]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_short_range_uses_first_element_as_line]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_display_name_uses_suffix]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_documentation_omits_description]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_hash_uses_full_symbol_as_label]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_kind_defaults_to_unknown]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_has_empty_source_location]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_key]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_relationships_key_still_creates_node]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_symbol_id_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_non_string_display_name_falls_back]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_non_string_kind_falls_back_to_unknown]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_non_string_language_falls_back]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_non_string_relative_path_falls_back_to_default]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_non_string_symbol_id_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_occurrence_bool_line_falls_back_to_zero]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_occurrence_negative_line_falls_back_to_zero]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_boolean_true_routes_correctly]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_edges_survive_validate_extraction_and_build]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_int_flag_is_ignored]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_symbol_non_string_is_skipped]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_target_across_documents_resolves_via_index]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_target_in_same_document_resolves_via_index]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_target_unknown_emits_stub_node]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationship_truthy_string_flag_is_ignored]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_relationships_none_is_treated_as_empty]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_unique_cross_document_symbol_still_resolves]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_unrecognized_top_level_structure_returns_empty]] → `calls` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_deterministic]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_empty_after_sanitisation_falls_back]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_source_file_affects_hash]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_special_characters_are_sanitised]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_symbol_affects_hash]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_with_hash_separator]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_make_scip_node_id_without_hash]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_tests_test_scip_ingest_test_scip_kind_to_file_type_always_code]] → `calls` → [[graphify_graphify_scip_ingest_scip_kind_to_file_type]]
+- [[graphify_tests_test_scip_ingest_test_build_scip_metadata_with_description]] → `calls` → [[graphify_graphify_scip_ingest_build_scip_metadata]]
+- [[graphify_tests_test_scip_ingest_test_build_scip_metadata_without_description]] → `calls` → [[graphify_graphify_scip_ingest_build_scip_metadata]]
+- [[graphify_tests_test_scip_ingest_test_relationship_edges_survive_validate_extraction_and_build]] → `calls` → [[graphify_graphify_validate_validate_extraction]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ambiguous_duplicate_target_across_docs_creates_stub]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_build_scip_metadata_with_description]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_build_scip_metadata_without_description]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_document_entry_non_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_documentation_with_non_string_entries_is_ignored]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_documents_field_non_list_returns_empty]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_duplicate_local_symbol_resolves_to_same_document]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_duplicate_same_document_definition_does_not_create_false_ambiguity]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_default_source_file_is_empty_string]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_dict_without_documents_key]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_document_item_not_a_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_document_relative_path_overrides_source_file_param]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_document_with_symbols_not_a_list]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_document_without_language_defaults_to_function_param]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_document_without_symbols_key]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_documents_empty_list]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_documents_not_a_list_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_duplicate_edges_are_deduplicated]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_duplicate_symbols_in_same_file_are_deduplicated]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_edge_source_location_from_first_occurrence]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_edge_structure_complete]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_edge_with_zero_sourceline_has_empty_location]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_empty_doc_returns_empty_lists]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_is_definition_emits_scip_def_edge]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_is_implementation_emits_scip_impl_edge]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_is_reference_emits_scip_ref_edge]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_is_type_definition_emits_scip_typed_edge]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_many_symbols]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_multiple_documents]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_multiple_relationships_on_one_symbol]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_multiple_symbols_in_one_document]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_node_id_contains_source_file_and_symbol_suffix]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_node_id_differs_by_source_file]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_node_id_is_deterministic]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_control_chars_stripped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_html_escaped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_non_dict_input_returns_empty]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_item_not_a_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_metadata_sanitized]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_no_boolean_flags_defaults_to_ref]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_priority_order]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_without_target_symbol_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_single_symbol_no_relationships]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_source_file_falls_back_to_function_param]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_item_not_a_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_documentation_becomes_description]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_empty_documentation_skips_description]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_dict_occurrence_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_list_range_falls_back_to_zero]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_short_range_uses_first_element_as_line]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_display_name_uses_suffix]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_documentation_omits_description]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_hash_uses_full_symbol_as_label]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_kind_defaults_to_unknown]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_has_empty_source_location]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_key]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_relationships_key_still_creates_node]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_symbol_id_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_deterministic]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_empty_after_sanitisation_falls_back]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_source_file_affects_hash]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_special_characters_are_sanitised]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_symbol_affects_hash]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_with_hash_separator]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_without_hash]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_non_string_display_name_falls_back]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_non_string_kind_falls_back_to_unknown]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_non_string_language_falls_back]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_non_string_relative_path_falls_back_to_default]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_non_string_symbol_id_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_occurrence_bool_line_falls_back_to_zero]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_occurrence_negative_line_falls_back_to_zero]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_boolean_true_routes_correctly]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_edges_survive_validate_extraction_and_build]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_int_flag_is_ignored]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_symbol_non_string_is_skipped]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_target_across_documents_resolves_via_index]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_target_in_same_document_resolves_via_index]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_target_unknown_emits_stub_node]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationship_truthy_string_flag_is_ignored]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_relationships_none_is_treated_as_empty]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_scip_kind_to_file_type_always_code]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_unique_cross_document_symbol_still_resolves]]
+- [[graphify_tests_test_scip_ingest]] → `contains` → [[graphify_tests_test_scip_ingest_test_unrecognized_top_level_structure_returns_empty]]
+- [[graphify_tests_test_scip_ingest_rationale_1]] → `rationale_for` → [[graphify_tests_test_scip_ingest]]
+- [[graphify_tests_test_scip_ingest_rationale_21]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_empty_doc_returns_empty_lists]]
+- [[graphify_tests_test_scip_ingest_rationale_27]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_dict_without_documents_key]]
+- [[graphify_tests_test_scip_ingest_rationale_33]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_documents_not_a_list_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_39]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_documents_empty_list]]
+- [[graphify_tests_test_scip_ingest_rationale_45]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_single_symbol_no_relationships]]
+- [[graphify_tests_test_scip_ingest_rationale_81]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_display_name_uses_suffix]]
+- [[graphify_tests_test_scip_ingest_rationale_102]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label]]
+- [[graphify_tests_test_scip_ingest_rationale_132]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_hash_uses_full_symbol_as_label]]
+- [[graphify_tests_test_scip_ingest_rationale_153]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_has_empty_source_location]]
+- [[graphify_tests_test_scip_ingest_rationale_174]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_occurrences_key]]
+- [[graphify_tests_test_scip_ingest_rationale_194]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_multiple_symbols_in_one_document]]
+- [[graphify_tests_test_scip_ingest_rationale_232]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_multiple_documents]]
+- [[graphify_tests_test_scip_ingest_rationale_262]] → `rationale_for` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_duplicate_edges_are_deduplicated]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_edge_structure_complete]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_definition_emits_scip_def_edge]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_implementation_emits_scip_impl_edge]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_reference_emits_scip_ref_edge]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_is_type_definition_emits_scip_typed_edge]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_multiple_relationships_on_one_symbol]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_contains_source_file_and_symbol_suffix]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_node_id_is_deterministic]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_item_not_a_dict_is_skipped]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_no_boolean_flags_defaults_to_ref]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_priority_order]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_test_ingest_relationship_without_target_symbol_is_skipped]] → `calls` → [[graphify_tests_test_scip_ingest_make_symbol_doc]]
+- [[graphify_tests_test_scip_ingest_rationale_282]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_is_reference_emits_scip_ref_edge]]
+- [[graphify_tests_test_scip_ingest_rationale_294]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_is_definition_emits_scip_def_edge]]
+- [[graphify_tests_test_scip_ingest_rationale_305]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_is_implementation_emits_scip_impl_edge]]
+- [[graphify_tests_test_scip_ingest_rationale_316]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_is_type_definition_emits_scip_typed_edge]]
+- [[graphify_tests_test_scip_ingest_rationale_327]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_priority_order]]
+- [[graphify_tests_test_scip_ingest_rationale_346]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_no_boolean_flags_defaults_to_ref]]
+- [[graphify_tests_test_scip_ingest_rationale_357]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_multiple_relationships_on_one_symbol]]
+- [[graphify_tests_test_scip_ingest_rationale_373]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_without_target_symbol_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_387]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_duplicate_edges_are_deduplicated]]
+- [[graphify_tests_test_scip_ingest_rationale_406]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_edge_structure_complete]]
+- [[graphify_tests_test_scip_ingest_rationale_424]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_edge_source_location_from_first_occurrence]]
+- [[graphify_tests_test_scip_ingest_rationale_449]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_node_id_contains_source_file_and_symbol_suffix]]
+- [[graphify_tests_test_scip_ingest_rationale_463]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_node_id_is_deterministic]]
+- [[graphify_tests_test_scip_ingest_rationale_475]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_node_id_differs_by_source_file]]
+- [[graphify_tests_test_scip_ingest_rationale_502]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_duplicate_symbols_in_same_file_are_deduplicated]]
+- [[graphify_tests_test_scip_ingest_rationale_536]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_non_dict_input_returns_empty]]
+- [[graphify_tests_test_scip_ingest_rationale_542]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_document_item_not_a_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_561]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_item_not_a_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_587]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_symbol_id_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_604]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_item_not_a_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_625]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_document_without_symbols_key]]
+- [[graphify_tests_test_scip_ingest_rationale_632]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_document_with_symbols_not_a_list]]
+- [[graphify_tests_test_scip_ingest_rationale_639]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_kind_defaults_to_unknown]]
+- [[graphify_tests_test_scip_ingest_rationale_658]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_default_source_file_is_empty_string]]
+- [[graphify_tests_test_scip_ingest_rationale_673]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_source_file_falls_back_to_function_param]]
+- [[graphify_tests_test_scip_ingest_rationale_688]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_document_relative_path_overrides_source_file_param]]
+- [[graphify_tests_test_scip_ingest_rationale_704]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_document_without_language_defaults_to_function_param]]
+- [[graphify_tests_test_scip_ingest_rationale_722]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_short_range_uses_first_element_as_line]]
+- [[graphify_tests_test_scip_ingest_rationale_743]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_dict_occurrence_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_770]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_non_list_range_falls_back_to_zero]]
+- [[graphify_tests_test_scip_ingest_rationale_791]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_documentation_becomes_description]]
+- [[graphify_tests_test_scip_ingest_rationale_813]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_with_empty_documentation_skips_description]]
+- [[graphify_tests_test_scip_ingest_rationale_835]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_documentation_omits_description]]
+- [[graphify_tests_test_scip_ingest_rationale_856]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_symbol_without_relationships_key_still_creates_node]]
+- [[graphify_tests_test_scip_ingest_rationale_876]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_with_hash_separator]]
+- [[graphify_tests_test_scip_ingest_rationale_886]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_without_hash]]
+- [[graphify_tests_test_scip_ingest_rationale_893]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_special_characters_are_sanitised]]
+- [[graphify_tests_test_scip_ingest_rationale_900]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_deterministic]]
+- [[graphify_tests_test_scip_ingest_rationale_907]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_source_file_affects_hash]]
+- [[graphify_tests_test_scip_ingest_rationale_914]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_symbol_affects_hash]]
+- [[graphify_tests_test_scip_ingest_rationale_921]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_make_scip_node_id_empty_after_sanitisation_falls_back]]
+- [[graphify_tests_test_scip_ingest_rationale_937]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_scip_kind_to_file_type_always_code]]
+- [[graphify_tests_test_scip_ingest_rationale_951]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_build_scip_metadata_with_description]]
+- [[graphify_tests_test_scip_ingest_rationale_961]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_build_scip_metadata_without_description]]
+- [[graphify_tests_test_scip_ingest_rationale_976]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_many_symbols]]
+- [[graphify_tests_test_scip_ingest_rationale_993]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_edge_with_zero_sourceline_has_empty_location]]
+- [[graphify_tests_test_scip_ingest_rationale_1019]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_target_in_same_document_resolves_via_index]]
+- [[graphify_tests_test_scip_ingest_rationale_1045]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_target_across_documents_resolves_via_index]]
+- [[graphify_tests_test_scip_ingest_rationale_1077]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_target_unknown_emits_stub_node]]
+- [[graphify_tests_test_scip_ingest_rationale_1106]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_edges_survive_validate_extraction_and_build]]
+- [[graphify_tests_test_scip_ingest_rationale_1144]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_non_string_relative_path_falls_back_to_default]]
+- [[graphify_tests_test_scip_ingest_rationale_1158]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_non_string_language_falls_back]]
+- [[graphify_tests_test_scip_ingest_rationale_1174]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_non_string_symbol_id_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_1192]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationships_none_is_treated_as_empty]]
+- [[graphify_tests_test_scip_ingest_rationale_1207]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_symbol_non_string_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_1232]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_non_string_kind_falls_back_to_unknown]]
+- [[graphify_tests_test_scip_ingest_rationale_1246]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_non_string_display_name_falls_back]]
+- [[graphify_tests_test_scip_ingest_rationale_1261]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_documentation_with_non_string_entries_is_ignored]]
+- [[graphify_tests_test_scip_ingest_rationale_1276]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_unrecognized_top_level_structure_returns_empty]]
+- [[graphify_tests_test_scip_ingest_rationale_1283]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_documents_field_non_list_returns_empty]]
+- [[graphify_tests_test_scip_ingest_rationale_1288]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_document_entry_non_dict_is_skipped]]
+- [[graphify_tests_test_scip_ingest_rationale_1300]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_occurrence_negative_line_falls_back_to_zero]]
+- [[graphify_tests_test_scip_ingest_rationale_1325]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_duplicate_local_symbol_resolves_to_same_document]]
+- [[graphify_tests_test_scip_ingest_rationale_1360]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_unique_cross_document_symbol_still_resolves]]
+- [[graphify_tests_test_scip_ingest_rationale_1390]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ambiguous_duplicate_target_across_docs_creates_stub]]
+- [[graphify_tests_test_scip_ingest_rationale_1436]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_truthy_string_flag_is_ignored]]
+- [[graphify_tests_test_scip_ingest_rationale_1463]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_int_flag_is_ignored]]
+- [[graphify_tests_test_scip_ingest_rationale_1489]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_relationship_boolean_true_routes_correctly]]
+- [[graphify_tests_test_scip_ingest_rationale_1523]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_occurrence_bool_line_falls_back_to_zero]]
+- [[graphify_tests_test_scip_ingest_rationale_1544]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_duplicate_same_document_definition_does_not_create_false_ambiguity]]
+- [[graphify_tests_test_scip_ingest_rationale_1586]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_html_escaped]]
+- [[graphify_tests_test_scip_ingest_rationale_1613]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_node_metadata_control_chars_stripped]]
+- [[graphify_tests_test_scip_ingest_rationale_1639]] → `rationale_for` → [[graphify_tests_test_scip_ingest_test_ingest_relationship_metadata_sanitized]]

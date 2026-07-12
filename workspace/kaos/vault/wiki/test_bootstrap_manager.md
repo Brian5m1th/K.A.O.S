@@ -1,0 +1,151 @@
+# assistant\tests\unit\test_bootstrap_manager.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_bootstrap_manager]] — code: test_bootstrap_manager.py
+- [[assistant_tests_unit_test_bootstrap_manager_reset_bootstrap]] — code: reset_bootstrap()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] — code: TestBootstrapState
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate_test_all_states_present]] — code: .test_all_states_present()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] — code: TestBootstrapStage
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage_test_all_stages_present]] — code: .test_all_stages_present()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage_test_total_stages]] — code: .test_total_stages()
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] — code: TestStageResult
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_default_values]] — code: .test_default_values()
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_label_property]] — code: .test_label_property()
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_with_error]] — code: .test_with_error()
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_with_details]] — code: .test_with_details()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] — code: TestBootstrapResult
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_default_state_pending]] — code: .test_default_state_pending()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_ready_state]] — code: .test_ready_state()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_degraded_is_also_ready]] — code: .test_degraded_is_also_ready()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_started_at_isoformat]] — code: .test_started_at_isoformat()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_keys]] — code: .test_to_dict_keys()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_stages]] — code: .test_to_dict_stages()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] — code: TestBootstrapManagerState
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_initial_state]] — code: .test_initial_state()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_reset_clears_state]] — code: .test_reset_clears_state()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_get_state_after_partial_boot]] — code: .test_get_state_after_partial_boot()
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_boot_returns_bootstrap_result]] — code: .test_boot_returns_bootstrap_result()
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] — code: TestRunStage
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_successful_stage]] — code: .test_successful_stage()
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_failing_stage]] — code: .test_failing_stage()
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_timeout]] — code: .test_stage_timeout()
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_with_details]] — code: .test_stage_with_details()
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] — code: TestStageTimeouts
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts_test_all_stages_have_timeout]] — code: .test_all_stages_have_timeout()
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts_test_environment_fast]] — code: .test_environment_fast()
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts_test_vault_longest]] — code: .test_vault_longest()
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_1]] — code: Testes unitarios do BootstrapManager.  Valida: - BootstrapState enum - Stage
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_28]] — code: Reseta o BootstrapManager antes de cada teste unitario.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_160]] — code: Antes do boot, state = PENDING.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_166]] — code: reset() volta ao estado PENDING.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_175]] — code: Estado com stages parciais e refletido.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_188]] — code: boot() retorna BootstrapResult.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_202]] — code: Stage que sucede retorna StageResult com success=True.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_216]] — code: Stage que falha retorna StageResult com success=False e error.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_227]] — code: Stage que excede timeout retorna StageResult com error Timeout.
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_244]] — code: Stage pode retornar detalhes no dicionario.
+
+## Dependências
+
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage_test_total_stages]] → `indirect_call` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_get_state_after_partial_boot]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_keys]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_stages]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_default_values]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_label_property]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_with_details]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_with_error]] → `calls` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `uses` → [[assistant_app_core_bootstrap_manager_stageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_boot_returns_bootstrap_result]] → `indirect_call` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_default_state_pending]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_degraded_is_also_ready]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_ready_state]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_started_at_isoformat]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_keys]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_stages]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_boot_returns_bootstrap_result]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_get_state_after_partial_boot]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_initial_state]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_reset_bootstrap]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_reset]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_reset_clears_state]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_reset]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_failing_stage]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_timeout]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_with_details]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_successful_stage]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_run_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_reset_bootstrap]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_teststageresult]]
+- [[assistant_tests_unit_test_bootstrap_manager]] → `contains` → [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_1]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_28]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_reset_bootstrap]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstate_test_all_states_present]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage_test_all_stages_present]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapstage_test_total_stages]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_default_values]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_label_property]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_with_details]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststageresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststageresult_test_with_error]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_default_state_pending]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_degraded_is_also_ready]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_ready_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_started_at_isoformat]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_keys]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapresult_test_to_dict_stages]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_boot_returns_bootstrap_result]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_get_state_after_partial_boot]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_initial_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_reset_clears_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_160]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_initial_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_166]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_reset_clears_state]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_175]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_get_state_after_partial_boot]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_188]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testbootstrapmanagerstate_test_boot_returns_bootstrap_result]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_failing_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_timeout]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_with_details]]
+- [[assistant_tests_unit_test_bootstrap_manager_testrunstage]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_successful_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_202]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_successful_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_216]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_failing_stage]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_227]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_timeout]]
+- [[assistant_tests_unit_test_bootstrap_manager_rationale_244]] → `rationale_for` → [[assistant_tests_unit_test_bootstrap_manager_testrunstage_test_stage_with_details]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts_test_all_stages_have_timeout]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts_test_environment_fast]]
+- [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts]] → `method` → [[assistant_tests_unit_test_bootstrap_manager_teststagetimeouts_test_vault_longest]]

@@ -1,0 +1,167 @@
+# graphify\tests\test_wiki.py
+
+## Símbolos
+
+- [[graphify_tests_test_wiki]] — code: test_wiki.py
+- [[graphify_tests_test_wiki_inline_links]] — code: _inline_links()
+- [[graphify_tests_test_wiki_make_graph]] — code: _make_graph()
+- [[graphify_tests_test_wiki_test_to_wiki_writes_index]] — code: test_to_wiki_writes_index()
+- [[graphify_tests_test_wiki_test_to_wiki_returns_article_count]] — code: test_to_wiki_returns_article_count()
+- [[graphify_tests_test_wiki_test_to_wiki_community_articles_created]] — code: test_to_wiki_community_articles_created()
+- [[graphify_tests_test_wiki_test_to_wiki_god_node_article_created]] — code: test_to_wiki_god_node_article_created()
+- [[graphify_tests_test_wiki_test_index_links_all_communities]] — code: test_index_links_all_communities()
+- [[graphify_tests_test_wiki_test_index_lists_god_nodes]] — code: test_index_lists_god_nodes()
+- [[graphify_tests_test_wiki_test_community_article_has_cross_links]] — code: test_community_article_has_cross_links()
+- [[graphify_tests_test_wiki_test_community_article_shows_cohesion]] — code: test_community_article_shows_cohesion()
+- [[graphify_tests_test_wiki_test_community_article_has_audit_trail]] — code: test_community_article_has_audit_trail()
+- [[graphify_tests_test_wiki_test_god_node_article_has_connections]] — code: test_god_node_article_has_connections()
+- [[graphify_tests_test_wiki_test_god_node_article_links_community]] — code: test_god_node_article_links_community()
+- [[graphify_tests_test_wiki_test_to_wiki_skips_missing_god_node_ids]] — code: test_to_wiki_skips_missing_god_node_ids()
+- [[graphify_tests_test_wiki_test_to_wiki_no_labels_uses_fallback]] — code: test_to_wiki_no_labels_uses_fallback()
+- [[graphify_tests_test_wiki_test_article_navigation_footer]] — code: test_article_navigation_footer()
+- [[graphify_tests_test_wiki_test_community_article_truncation_notice]] — code: test_community_article_truncation_notice()
+- [[graphify_tests_test_wiki_test_cross_community_links_without_node_community_attrs]] — code: test_cross_community_links_without_node_community_attrs()
+- [[graphify_tests_test_wiki_test_god_node_article_community_without_node_attr]] — code: test_god_node_article_community_without_node_attr()
+- [[graphify_tests_test_wiki_test_to_wiki_drops_stale_community_nodes]] — code: test_to_wiki_drops_stale_community_nodes()
+- [[graphify_tests_test_wiki_test_to_wiki_all_stale_raises]] — code: test_to_wiki_all_stale_raises()
+- [[graphify_tests_test_wiki_test_to_wiki_stale_nodes_prints_warning]] — code: test_to_wiki_stale_nodes_prints_warning()
+- [[graphify_tests_test_wiki_test_community_article_handles_null_source_file]] — code: test_community_article_handles_null_source_file()
+- [[graphify_tests_test_wiki_test_to_wiki_case_only_distinct_labels_dont_overwrite]] — code: test_to_wiki_case_only_distinct_labels_dont_overwrite()
+- [[graphify_tests_test_wiki_test_to_wiki_god_node_label_case_collides_with_community]] — code: test_to_wiki_god_node_label_case_collides_with_community()
+- [[graphify_tests_test_wiki_test_wiki_emits_no_obsidian_wikilinks]] — code: test_wiki_emits_no_obsidian_wikilinks()
+- [[graphify_tests_test_wiki_test_wiki_links_resolve_to_real_files]] — code: test_wiki_links_resolve_to_real_files()
+- [[graphify_tests_test_wiki_test_wiki_link_display_keeps_label_but_target_is_filename]] — code: test_wiki_link_display_keeps_label_but_target_is_filename()
+- [[graphify_tests_test_wiki_test_wiki_special_characters_in_label_resolve]] — code: test_wiki_special_characters_in_label_resolve()
+- [[graphify_tests_test_wiki_test_wiki_link_with_bracketed_label_resolves]] — code: test_wiki_link_with_bracketed_label_resolves()
+- [[graphify_tests_test_wiki_test_wiki_links_to_nodes_without_articles_are_plain_text]] — code: test_wiki_links_to_nodes_without_articles_are_plain_text()
+- [[graphify_tests_test_wiki_test_wiki_links_use_collision_suffixed_slug]] — code: test_wiki_links_use_collision_suffixed_slug()
+- [[graphify_tests_test_wiki_rationale_1]] — code: Tests for graphify.wiki — Wikipedia-style article generation.
+- [[graphify_tests_test_wiki_rationale_13]] — code: Yield (display, decoded_target) for each inline markdown link, skipping     ext
+- [[graphify_tests_test_wiki_rationale_125]] — code: God node with bad ID should not crash.
+- [[graphify_tests_test_wiki_rationale_151]] — code: Communities with more than 25 nodes show a truncation notice.
+- [[graphify_tests_test_wiki_rationale_166]] — code: Cross-community links must work even when nodes have no 'community' attribute (#
+- [[graphify_tests_test_wiki_rationale_179]] — code: God node article must show community name even when node has no 'community' attr
+- [[graphify_tests_test_wiki_rationale_195]] — code: Stale node IDs in communities dict are silently dropped without crash (#936).
+- [[graphify_tests_test_wiki_rationale_207]] — code: If every community node is stale, raise ValueError with a helpful message (#936)
+- [[graphify_tests_test_wiki_rationale_215]] — code: Stale node IDs trigger a stderr warning showing the drop count (#936).
+- [[graphify_tests_test_wiki_rationale_225]] — code: source_file=None on a node must not crash sorted() with TypeError (#1016).
+- [[graphify_tests_test_wiki_rationale_238]] — code: Two community labels differing only by case must each get their own     article
+- [[graphify_tests_test_wiki_rationale_258]] — code: Community and god-node articles share one slug-dedup set, so a god-node     lab
+- [[graphify_tests_test_wiki_rationale_280]] — code: No generated file may contain Obsidian [[...]] syntax. Those links resolve
+- [[graphify_tests_test_wiki_rationale_290]] — code: Every inline markdown link target across the whole wiki must point at a     fil
+- [[graphify_tests_test_wiki_rationale_306]] — code: The fix's whole point: a link's display text is the human label (with     space
+- [[graphify_tests_test_wiki_rationale_317]] — code: Labels with spaces, &, #, and parentheses must still produce a link whose     U
+- [[graphify_tests_test_wiki_rationale_339]] — code: A label containing `[` / `]` (e.g. a generic like `Array[T]`) still     produce
+- [[graphify_tests_test_wiki_rationale_357]] — code: A god node links its neighbours, but only communities and god nodes get     art
+- [[graphify_tests_test_wiki_rationale_377]] — code: When two labels collide on disk and the second article gets a numeric     suffi
+
+## Dependências
+
+- [[graphify_tests_test_wiki]] → `imports_from` → [[graphify_graphify_wiki]]
+- [[graphify_tests_test_wiki_test_article_navigation_footer]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_community_article_handles_null_source_file]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_community_article_has_audit_trail]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_community_article_has_cross_links]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_community_article_shows_cohesion]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_community_article_truncation_notice]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_cross_community_links_without_node_community_attrs]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_god_node_article_community_without_node_attr]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_god_node_article_has_connections]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_god_node_article_links_community]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_index_links_all_communities]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_index_lists_god_nodes]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_all_stale_raises]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_case_only_distinct_labels_dont_overwrite]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_community_articles_created]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_drops_stale_community_nodes]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_god_node_article_created]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_god_node_label_case_collides_with_community]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_no_labels_uses_fallback]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_returns_article_count]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_skips_missing_god_node_ids]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_stale_nodes_prints_warning]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_to_wiki_writes_index]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_emits_no_obsidian_wikilinks]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_link_display_keeps_label_but_target_is_filename]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_link_with_bracketed_label_resolves]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_links_resolve_to_real_files]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_links_to_nodes_without_articles_are_plain_text]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_links_use_collision_suffixed_slug]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki_test_wiki_special_characters_in_label_resolve]] → `calls` → [[graphify_graphify_wiki_to_wiki]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_article_navigation_footer]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_community_article_handles_null_source_file]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_community_article_has_audit_trail]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_community_article_has_cross_links]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_community_article_shows_cohesion]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_community_article_truncation_notice]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_cross_community_links_without_node_community_attrs]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_god_node_article_community_without_node_attr]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_god_node_article_has_connections]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_god_node_article_links_community]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_index_links_all_communities]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_index_lists_god_nodes]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_all_stale_raises]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_case_only_distinct_labels_dont_overwrite]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_community_articles_created]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_drops_stale_community_nodes]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_god_node_article_created]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_god_node_label_case_collides_with_community]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_no_labels_uses_fallback]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_returns_article_count]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_skips_missing_god_node_ids]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_stale_nodes_prints_warning]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_to_wiki_writes_index]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_emits_no_obsidian_wikilinks]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_link_display_keeps_label_but_target_is_filename]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_link_with_bracketed_label_resolves]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_links_resolve_to_real_files]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_links_to_nodes_without_articles_are_plain_text]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_links_use_collision_suffixed_slug]]
+- [[graphify_tests_test_wiki]] → `contains` → [[graphify_tests_test_wiki_test_wiki_special_characters_in_label_resolve]]
+- [[graphify_tests_test_wiki_rationale_1]] → `rationale_for` → [[graphify_tests_test_wiki]]
+- [[graphify_tests_test_wiki_rationale_13]] → `rationale_for` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki_test_to_wiki_no_labels_uses_fallback]] → `calls` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki_test_wiki_links_resolve_to_real_files]] → `calls` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki_test_wiki_links_to_nodes_without_articles_are_plain_text]] → `calls` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki_test_wiki_links_use_collision_suffixed_slug]] → `calls` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki_test_wiki_special_characters_in_label_resolve]] → `calls` → [[graphify_tests_test_wiki_inline_links]]
+- [[graphify_tests_test_wiki_test_article_navigation_footer]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_community_article_has_audit_trail]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_community_article_has_cross_links]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_community_article_shows_cohesion]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_god_node_article_has_connections]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_god_node_article_links_community]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_index_links_all_communities]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_index_lists_god_nodes]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_all_stale_raises]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_community_articles_created]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_drops_stale_community_nodes]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_god_node_article_created]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_no_labels_uses_fallback]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_returns_article_count]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_skips_missing_god_node_ids]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_stale_nodes_prints_warning]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_to_wiki_writes_index]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_wiki_emits_no_obsidian_wikilinks]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_wiki_link_display_keeps_label_but_target_is_filename]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_wiki_links_resolve_to_real_files]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_test_wiki_links_to_nodes_without_articles_are_plain_text]] → `calls` → [[graphify_tests_test_wiki_make_graph]]
+- [[graphify_tests_test_wiki_rationale_125]] → `rationale_for` → [[graphify_tests_test_wiki_test_to_wiki_skips_missing_god_node_ids]]
+- [[graphify_tests_test_wiki_rationale_151]] → `rationale_for` → [[graphify_tests_test_wiki_test_community_article_truncation_notice]]
+- [[graphify_tests_test_wiki_rationale_166]] → `rationale_for` → [[graphify_tests_test_wiki_test_cross_community_links_without_node_community_attrs]]
+- [[graphify_tests_test_wiki_rationale_179]] → `rationale_for` → [[graphify_tests_test_wiki_test_god_node_article_community_without_node_attr]]
+- [[graphify_tests_test_wiki_rationale_195]] → `rationale_for` → [[graphify_tests_test_wiki_test_to_wiki_drops_stale_community_nodes]]
+- [[graphify_tests_test_wiki_rationale_207]] → `rationale_for` → [[graphify_tests_test_wiki_test_to_wiki_all_stale_raises]]
+- [[graphify_tests_test_wiki_rationale_215]] → `rationale_for` → [[graphify_tests_test_wiki_test_to_wiki_stale_nodes_prints_warning]]
+- [[graphify_tests_test_wiki_rationale_225]] → `rationale_for` → [[graphify_tests_test_wiki_test_community_article_handles_null_source_file]]
+- [[graphify_tests_test_wiki_rationale_238]] → `rationale_for` → [[graphify_tests_test_wiki_test_to_wiki_case_only_distinct_labels_dont_overwrite]]
+- [[graphify_tests_test_wiki_rationale_258]] → `rationale_for` → [[graphify_tests_test_wiki_test_to_wiki_god_node_label_case_collides_with_community]]
+- [[graphify_tests_test_wiki_rationale_280]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_emits_no_obsidian_wikilinks]]
+- [[graphify_tests_test_wiki_rationale_290]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_links_resolve_to_real_files]]
+- [[graphify_tests_test_wiki_rationale_306]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_link_display_keeps_label_but_target_is_filename]]
+- [[graphify_tests_test_wiki_rationale_317]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_special_characters_in_label_resolve]]
+- [[graphify_tests_test_wiki_rationale_339]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_link_with_bracketed_label_resolves]]
+- [[graphify_tests_test_wiki_rationale_357]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_links_to_nodes_without_articles_are_plain_text]]
+- [[graphify_tests_test_wiki_rationale_377]] → `rationale_for` → [[graphify_tests_test_wiki_test_wiki_links_use_collision_suffixed_slug]]

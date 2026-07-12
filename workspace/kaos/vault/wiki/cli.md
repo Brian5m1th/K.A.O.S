@@ -1,0 +1,94 @@
+# graphify\graphify\cli.py
+
+## Símbolos
+
+- [[graphify_graphify_cli]] — code: cli.py
+- [[graphify_graphify_cli_default_graph_path]] — code: _default_graph_path()
+- [[graphify_graphify_cli_stagetimer]] — code: _StageTimer
+- [[graphify_graphify_cli_stagetimer_init]] — code: .__init__()
+- [[graphify_graphify_cli_stagetimer_mark]] — code: .mark()
+- [[graphify_graphify_cli_stagetimer_total]] — code: .total()
+- [[graphify_graphify_cli_enforce_graph_size_cap_or_exit]] — code: _enforce_graph_size_cap_or_exit()
+- [[graphify_graphify_cli_run_hook_guard]] — code: _run_hook_guard()
+- [[graphify_graphify_cli_clone_repo]] — code: _clone_repo()
+- [[graphify_graphify_cli_reenter_main]] — code: _reenter_main()
+- [[graphify_graphify_cli_dispatch_command]] — code: dispatch_command()
+- [[graphify_graphify_cli_rationale_1]] — code: graphify command dispatch — every non-install subcommand.  Extracted verbatim
+- [[graphify_graphify_cli_rationale_56]] — code: Print per-stage wall-clock timings to stderr when --timing is set (#1490).
+- [[graphify_graphify_cli_rationale_80]] — code: Reject oversized graph files before parsing (CLI exit-on-fail flavor).      De
+- [[graphify_graphify_cli_rationale_97]] — code: Shell-agnostic PreToolUse guard (#522).      Reads the tool-call JSON from std
+- [[graphify_graphify_cli_rationale_154]] — code: Clone a GitHub repo to a local cache dir and return the path.      Clones into
+
+## Dependências
+
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_affected_format_affected]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_analyze_god_nodes]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_analyze_surprising_connections]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_analyze_suggest_questions]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_benchmark_print_benchmark]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_build_edge_data]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_build_build_from_json]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cache_check_semantic_cache]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cargo_introspect_introspect_cargo]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_clone_repo]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_default_graph_path]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_dispatch_command]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_enforce_graph_size_cap_or_exit]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_reenter_main]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_run_hook_guard]]
+- [[graphify_graphify_cli]] → `contains` → [[graphify_graphify_cli_stagetimer]]
+- [[graphify_graphify_cli]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_cli_rationale_1]] → `rationale_for` → [[graphify_graphify_cli]]
+- [[graphify_graphify_cli_default_graph_path]] → `calls` → [[graphify_graphify_cli_py_path]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_default_graph_path]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_stagetimer]]
+- [[graphify_graphify_cli_rationale_56]] → `rationale_for` → [[graphify_graphify_cli_stagetimer]]
+- [[graphify_graphify_cli_stagetimer]] → `method` → [[graphify_graphify_cli_stagetimer_init]]
+- [[graphify_graphify_cli_stagetimer]] → `method` → [[graphify_graphify_cli_stagetimer_mark]]
+- [[graphify_graphify_cli_stagetimer]] → `method` → [[graphify_graphify_cli_stagetimer_total]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_stagetimer_mark]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_stagetimer_total]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_enforce_graph_size_cap_or_exit]]
+- [[graphify_graphify_cli_enforce_graph_size_cap_or_exit]] → `references` → [[graphify_graphify_cli_py_path]]
+- [[graphify_graphify_cli_enforce_graph_size_cap_or_exit]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_cli_rationale_80]] → `rationale_for` → [[graphify_graphify_cli_enforce_graph_size_cap_or_exit]]
+- [[graphify_graphify_cli_clone_repo]] → `references` → [[graphify_graphify_cli_py_path]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_py_path]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_run_hook_guard]]
+- [[graphify_graphify_cli_rationale_97]] → `rationale_for` → [[graphify_graphify_cli_run_hook_guard]]
+- [[graphify_graphify_cli_run_hook_guard]] → `calls` → [[graphify_graphify_paths_out_path]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_clone_repo]]
+- [[graphify_graphify_cli_rationale_154]] → `rationale_for` → [[graphify_graphify_cli_clone_repo]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cli_reenter_main]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cluster_cluster]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cluster_community_member_sigs]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cluster_label_communities_by_hub]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cluster_remap_communities_to_previous]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_cluster_score_all]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_diagnostics_diagnose_file]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_diagnostics_format_diagnostic_json]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_diagnostics_format_diagnostic_report]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_exporters_html_to_html]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_global_graph_file_hash]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_global_graph_save_manifest]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_llm_custom_providers_path]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_llm_format_backend_env_keys]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_llm_generate_community_labels]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_llm_provider_base_url_ok]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_llm_validate_ollama_base_url]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_pg_introspect_introspect_postgres]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_prs_cmd_prs]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_prs_gh]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_serve_find_node]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_serve_pick_scored_endpoint]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_tree_html_write_tree_html]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_watch_check_update]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_graphify_cli_dispatch_command]] → `calls` → [[graphify_tests_test_indirect_dispatch_build]]

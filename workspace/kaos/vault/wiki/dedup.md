@@ -1,0 +1,101 @@
+# graphify\graphify\dedup.py
+
+## Símbolos
+
+- [[graphify_graphify_dedup]] — code: dedup.py
+- [[graphify_graphify_dedup_norm]] — code: _norm()
+- [[graphify_graphify_dedup_entropy]] — code: _entropy()
+- [[graphify_graphify_dedup_shingles]] — code: _shingles()
+- [[graphify_graphify_dedup_make_minhash]] — code: _make_minhash()
+- [[graphify_graphify_dedup_is_variant_pair]] — code: _is_variant_pair()
+- [[graphify_graphify_dedup_short_label_blocked]] — code: _short_label_blocked()
+- [[graphify_graphify_dedup_numeric_tokens_differ]] — code: _numeric_tokens_differ()
+- [[graphify_graphify_dedup_crossfile_fileanchored_blocked]] — code: _crossfile_fileanchored_blocked()
+- [[graphify_graphify_dedup_uf]] — code: _UF
+- [[graphify_graphify_dedup_uf_init]] — code: .__init__()
+- [[graphify_graphify_dedup_uf_find]] — code: .find()
+- [[graphify_graphify_dedup_uf_union]] — code: .union()
+- [[graphify_graphify_dedup_uf_components]] — code: .components()
+- [[graphify_graphify_dedup_is_code]] — code: _is_code()
+- [[graphify_graphify_dedup_deduplicate_entities]] — code: deduplicate_entities()
+- [[graphify_graphify_dedup_pick_winner]] — code: _pick_winner()
+- [[graphify_graphify_dedup_llm_tiebreak]] — code: _llm_tiebreak()
+- [[graphify_graphify_dedup_rationale_1]] — code: Entity deduplication pipeline for graphify knowledge graphs.  Pipeline: exact
+- [[graphify_graphify_dedup_rationale_20]] — code: Lowercase + collapse non-alphanumeric runs to space (Unicode-aware).
+- [[graphify_graphify_dedup_rationale_28]] — code: Shannon entropy in bits/char of the normalised label.
+- [[graphify_graphify_dedup_rationale_40]] — code: Return k-gram character shingles of text.
+- [[graphify_graphify_dedup_rationale_62]] — code: True if a and b are sibling model/SKU variants (same stem, different suffix).
+- [[graphify_graphify_dedup_rationale_77]] — code: Block fuzzy merge for short labels unless it's a same-length single-char substit
+- [[graphify_graphify_dedup_rationale_97]] — code: True when two labels carry different embedded numbers (#1284).      Long label
+- [[graphify_graphify_dedup_rationale_125]] — code: Block label-based merging of file-anchored non-code nodes across files (#1284).
+- [[graphify_graphify_dedup_rationale_177]] — code: True for AST-extracted code symbols.      Code-node identity is the node ID (w
+- [[graphify_graphify_dedup_rationale_199]] — code: Deduplicate near-identical entities in a knowledge graph.      Args:
+- [[graphify_graphify_dedup_rationale_452]] — code: Pick the canonical survivor: prefer no chunk suffix, then shorter ID.
+- [[graphify_graphify_dedup_rationale_473]] — code: Batch-resolve ambiguous pairs (score in [low, high)) via LLM.
+
+## Dependências
+
+- [[graphify_graphify_dedup]] → `imports_from` → [[graphify_graphify_minhash]]
+- [[graphify_graphify_dedup_make_minhash]] → `references` → [[graphify_graphify_minhash_minhash]]
+- [[graphify_graphify_dedup_uf]] → `uses` → [[graphify_graphify_minhash_minhash]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_minhash_minhashlsh]]
+- [[graphify_graphify_dedup_uf]] → `uses` → [[graphify_graphify_minhash_minhashlsh]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_crossfile_fileanchored_blocked]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_entropy]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_is_code]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_is_variant_pair]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_llm_tiebreak]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_make_minhash]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_norm]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_numeric_tokens_differ]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_pick_winner]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_shingles]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_short_label_blocked]]
+- [[graphify_graphify_dedup]] → `contains` → [[graphify_graphify_dedup_uf]]
+- [[graphify_graphify_dedup_rationale_1]] → `rationale_for` → [[graphify_graphify_dedup]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_norm]]
+- [[graphify_graphify_dedup_entropy]] → `calls` → [[graphify_graphify_dedup_norm]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_norm]]
+- [[graphify_graphify_dedup_rationale_20]] → `rationale_for` → [[graphify_graphify_dedup_norm]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_entropy]]
+- [[graphify_graphify_dedup_rationale_28]] → `rationale_for` → [[graphify_graphify_dedup_entropy]]
+- [[graphify_graphify_dedup_make_minhash]] → `calls` → [[graphify_graphify_dedup_shingles]]
+- [[graphify_graphify_dedup_rationale_40]] → `rationale_for` → [[graphify_graphify_dedup_shingles]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_make_minhash]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_is_variant_pair]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_is_variant_pair]]
+- [[graphify_graphify_dedup_rationale_62]] → `rationale_for` → [[graphify_graphify_dedup_is_variant_pair]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_short_label_blocked]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_short_label_blocked]]
+- [[graphify_graphify_dedup_rationale_77]] → `rationale_for` → [[graphify_graphify_dedup_short_label_blocked]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_numeric_tokens_differ]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_numeric_tokens_differ]]
+- [[graphify_graphify_dedup_rationale_97]] → `rationale_for` → [[graphify_graphify_dedup_numeric_tokens_differ]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_crossfile_fileanchored_blocked]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_crossfile_fileanchored_blocked]]
+- [[graphify_graphify_dedup_rationale_125]] → `rationale_for` → [[graphify_graphify_dedup_crossfile_fileanchored_blocked]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_uf]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `references` → [[graphify_graphify_dedup_uf]]
+- [[graphify_graphify_dedup_uf]] → `method` → [[graphify_graphify_dedup_uf_components]]
+- [[graphify_graphify_dedup_uf]] → `method` → [[graphify_graphify_dedup_uf_find]]
+- [[graphify_graphify_dedup_uf]] → `method` → [[graphify_graphify_dedup_uf_init]]
+- [[graphify_graphify_dedup_uf]] → `method` → [[graphify_graphify_dedup_uf_union]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_uf_find]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_uf_find]]
+- [[graphify_graphify_dedup_uf_components]] → `calls` → [[graphify_graphify_dedup_uf_find]]
+- [[graphify_graphify_dedup_uf_union]] → `calls` → [[graphify_graphify_dedup_uf_find]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_uf_union]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_uf_union]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_uf_components]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_is_code]]
+- [[graphify_graphify_dedup_rationale_177]] → `rationale_for` → [[graphify_graphify_dedup_is_code]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_llm_tiebreak]]
+- [[graphify_graphify_dedup_deduplicate_entities]] → `calls` → [[graphify_graphify_dedup_pick_winner]]
+- [[graphify_graphify_dedup_rationale_199]] → `rationale_for` → [[graphify_graphify_dedup_deduplicate_entities]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_dedup_pick_winner]]
+- [[graphify_graphify_dedup_rationale_452]] → `rationale_for` → [[graphify_graphify_dedup_pick_winner]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_llm_call_llm]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_llm_format_backend_env_keys]]
+- [[graphify_graphify_dedup_llm_tiebreak]] → `calls` → [[graphify_graphify_llm_get_backend_api_key]]
+- [[graphify_graphify_dedup_rationale_473]] → `rationale_for` → [[graphify_graphify_dedup_llm_tiebreak]]

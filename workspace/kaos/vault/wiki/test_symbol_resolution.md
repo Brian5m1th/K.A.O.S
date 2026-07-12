@@ -1,0 +1,204 @@
+# graphify\tests\test_symbol_resolution.py
+
+## Símbolos
+
+- [[graphify_tests_test_symbol_resolution]] — code: test_symbol_resolution.py
+- [[graphify_tests_test_symbol_resolution_test_normalise_callable_label_strips_function_punctuation]] — code: test_normalise_callable_label_strips_function_punctuation()
+- [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_skips_rationale_and_doc_tags]] — code: test_node_is_resolvable_symbol_skips_rationale_and_doc_tags()
+- [[graphify_tests_test_symbol_resolution_test_build_label_index_collects_unique_symbols]] — code: test_build_label_index_collects_unique_symbols()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_emits_unique_unqualified_call]] — code: test_resolve_cross_file_raw_calls_emits_unique_unqualified_call()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_member_calls]] — code: test_resolve_cross_file_raw_calls_skips_member_calls()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_ambiguous_duplicate_labels]] — code: test_resolve_cross_file_raw_calls_skips_ambiguous_duplicate_labels()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_real_edge_survives_test_mock]] — code: test_resolve_cross_file_raw_calls_real_edge_survives_test_mock()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_n_mock_scale]] — code: test_resolve_cross_file_raw_calls_n_mock_scale()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_call_site_is_test_prefers_test_local]] — code: test_resolve_cross_file_raw_calls_call_site_is_test_prefers_test_local()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_existing_pair]] — code: test_resolve_cross_file_raw_calls_skips_existing_pair()
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_supports_from_import_alias]] — code: test_parse_python_import_aliases_supports_from_import_alias()
+- [[graphify_tests_test_symbol_resolution_test_build_python_symbol_index_uses_module_stem_and_label]] — code: test_build_python_symbol_index_uses_module_stem_and_label()
+- [[graphify_tests_test_symbol_resolution_test_find_unique_python_symbol_returns_none_when_ambiguous]] — code: test_find_unique_python_symbol_returns_none_when_ambiguous()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_emits_extracted_edge]] — code: test_resolve_python_import_guided_calls_emits_extracted_edge()
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_source_edges]] — code: test_bash_call_resolver_emits_source_edges()
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_call_edges_from_sourced_files]] — code: test_bash_call_resolver_emits_call_edges_from_sourced_files()
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_existing_pair]] — code: test_bash_call_resolver_skips_existing_pair()
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_ambiguous_multiple_candidates]] — code: test_bash_call_resolver_skips_ambiguous_multiple_candidates()
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_non_bash_raw_calls]] — code: test_bash_call_resolver_skips_non_bash_raw_calls()
+- [[graphify_tests_test_symbol_resolution_test_bash_make_id_identical_to_make_id]] — code: test_bash_make_id_identical_to_make_id()
+- [[graphify_tests_test_symbol_resolution_test_bash_make_id_unicode_matches_make_id]] — code: test_bash_make_id_unicode_matches_make_id()
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_skips_function_local_imports]] — code: test_parse_python_import_aliases_skips_function_local_imports()
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_accepts_top_level_import]] — code: test_parse_python_import_aliases_accepts_top_level_import()
+- [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_requires_code_file_type]] — code: test_node_is_resolvable_symbol_requires_code_file_type()
+- [[graphify_tests_test_symbol_resolution_test_build_label_index_excludes_non_code_nodes]] — code: test_build_label_index_excludes_non_code_nodes()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_malformed_source]] — code: test_resolve_bash_source_edges_skips_malformed_source()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_bash_function_node_missing_id]] — code: test_resolve_bash_source_edges_skips_bash_function_node_missing_id()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_raw_call_missing_caller_nid]] — code: test_resolve_bash_source_edges_skips_raw_call_missing_caller_nid()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_accepts_none_per_file_entries]] — code: test_resolve_bash_source_edges_accepts_none_per_file_entries()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_non_dict_lists]] — code: test_resolve_bash_source_edges_skips_non_dict_lists()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_relative_path_resolves_against_source_dir]] — code: test_resolve_bash_source_edges_relative_path_resolves_against_source_dir()
+- [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_dict_per_file_entries]] — code: test_iter_raw_calls_skips_non_dict_per_file_entries()
+- [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_list_raw_calls]] — code: test_iter_raw_calls_skips_non_list_raw_calls()
+- [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_drops_non_dict_items_in_list]] — code: test_iter_raw_calls_drops_non_dict_items_in_list()
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_survives_malformed_raw_calls]] — code: test_resolve_cross_file_raw_calls_survives_malformed_raw_calls()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_survives_malformed_raw_calls]] — code: test_resolve_python_import_guided_calls_survives_malformed_raw_calls()
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_unhashable_callee]] — code: test_resolve_bash_source_edges_skips_unhashable_callee()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_non_dict_per_file_slot]] — code: test_resolve_python_import_guided_calls_non_dict_per_file_slot()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_shorter_than_paths]] — code: test_resolve_python_import_guided_calls_per_file_shorter_than_paths()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_none_slot]] — code: test_resolve_python_import_guided_calls_per_file_none_slot()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_is_sanitized]] — code: test_resolve_python_import_guided_calls_metadata_is_sanitized()
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias]] — code: test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias()
+- [[graphify_tests_test_symbol_resolution_rationale_1]] — code: Tests for graphify.symbol_resolution.
+- [[graphify_tests_test_symbol_resolution_rationale_103]] — code: Two genuine NON-test defs of the same name: the god-node guard must still     h
+- [[graphify_tests_test_symbol_resolution_rationale_128]] — code: A real cross-file call must resolve to the SRC definition even when a     same-
+- [[graphify_tests_test_symbol_resolution_rationale_155]] — code: One src def plus many same-named test stubs: exactly one edge to src.
+- [[graphify_tests_test_symbol_resolution_rationale_182]] — code: A test file calling save() with both a src def and a test-local def present
+- [[graphify_tests_test_symbol_resolution_rationale_500]] — code: When a callee function is defined in multiple sourced files, skip it.
+- [[graphify_tests_test_symbol_resolution_rationale_576]] — code: Non-bash raw_calls inside sourced-file per_file entries are ignored.
+- [[graphify_tests_test_symbol_resolution_rationale_614]] — code: _bash_make_id must produce identical output to _make_id for Unicode inputs.
+- [[graphify_tests_test_symbol_resolution_rationale_639]] — code: A `from helper import transform` inside a function MUST NOT become     file-wid
+- [[graphify_tests_test_symbol_resolution_rationale_661]] — code: A module-level `from helper import transform` IS file-wide evidence.
+- [[graphify_tests_test_symbol_resolution_rationale_673]] — code: Document/paper/image/concept nodes MUST NOT be indexed as call targets,     eve
+- [[graphify_tests_test_symbol_resolution_rationale_691]] — code: label index must not include document/paper/image nodes even when     label and
+- [[graphify_tests_test_symbol_resolution_rationale_706]] — code: A `bash_sources` entry missing `target_path` must not raise KeyError.
+- [[graphify_tests_test_symbol_resolution_rationale_727]] — code: A node tagged as bash_function but missing `id` must not raise KeyError.
+- [[graphify_tests_test_symbol_resolution_rationale_747]] — code: A raw_call entry missing `caller_nid` must not raise KeyError.
+- [[graphify_tests_test_symbol_resolution_rationale_776]] — code: A None entry in per_file (e.g. failed extraction) must be silently skipped.
+- [[graphify_tests_test_symbol_resolution_rationale_786]] — code: Non-dict entries in bash_sources/raw_calls/nodes must be silently skipped.
+- [[graphify_tests_test_symbol_resolution_rationale_804]] — code: `source ./helper.sh` from a/main.sh should resolve to a/helper.sh,     not to .
+- [[graphify_tests_test_symbol_resolution_rationale_837]] — code: A non-dict per_file entry (e.g. junk fragment) must be silently skipped.
+- [[graphify_tests_test_symbol_resolution_rationale_844]] — code: `raw_calls` that isn't a list must yield empty.
+- [[graphify_tests_test_symbol_resolution_rationale_853]] — code: Items inside `raw_calls` list that aren't dicts must be dropped.
+- [[graphify_tests_test_symbol_resolution_rationale_861]] — code: The python cross-file resolver returns [] (not crash) on bad raw_calls.
+- [[graphify_tests_test_symbol_resolution_rationale_871]] — code: Python import-guided resolver also tolerates malformed raw_calls.
+- [[graphify_tests_test_symbol_resolution_rationale_893]] — code: A bash raw_call with `callee: [list]` (unhashable for dict membership)     must
+- [[graphify_tests_test_symbol_resolution_rationale_928]] — code: A non-dict per_file slot (e.g. a string) must not raise AttributeError.
+- [[graphify_tests_test_symbol_resolution_rationale_939]] — code: per_file shorter than paths must not raise IndexError.
+- [[graphify_tests_test_symbol_resolution_rationale_952]] — code: A None per_file slot is treated as empty fragment (no crash, no edges).
+- [[graphify_tests_test_symbol_resolution_rationale_962]] — code: Edge metadata produced by the import-guided resolver must pass through     sani
+- [[graphify_tests_test_symbol_resolution_rationale_1020]] — code: Strong regression for #cycle-2.7-Codex-v2: monkeypatch the alias parser     so
+
+## Dependências
+
+- [[graphify_tests_test_symbol_resolution]] → `imports_from` → [[graphify_graphify_symbol_resolution]]
+- [[graphify_tests_test_symbol_resolution_test_normalise_callable_label_strips_function_punctuation]] → `calls` → [[graphify_graphify_symbol_resolution_normalise_callable_label]]
+- [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_requires_code_file_type]] → `calls` → [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]]
+- [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_skips_rationale_and_doc_tags]] → `calls` → [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]]
+- [[graphify_tests_test_symbol_resolution_test_build_label_index_collects_unique_symbols]] → `calls` → [[graphify_graphify_symbol_resolution_build_label_index]]
+- [[graphify_tests_test_symbol_resolution_test_build_label_index_excludes_non_code_nodes]] → `calls` → [[graphify_graphify_symbol_resolution_build_label_index]]
+- [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_drops_non_dict_items_in_list]] → `calls` → [[graphify_graphify_symbol_resolution_iter_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_dict_per_file_entries]] → `calls` → [[graphify_graphify_symbol_resolution_iter_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_list_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_iter_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_find_unique_python_symbol_returns_none_when_ambiguous]] → `calls` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_accepts_top_level_import]] → `calls` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_skips_function_local_imports]] → `calls` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_supports_from_import_alias]] → `calls` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_tests_test_symbol_resolution_test_build_python_symbol_index_uses_module_stem_and_label]] → `calls` → [[graphify_graphify_symbol_resolution_build_python_symbol_index]]
+- [[graphify_tests_test_symbol_resolution_test_find_unique_python_symbol_returns_none_when_ambiguous]] → `calls` → [[graphify_graphify_symbol_resolution_find_unique_python_symbol]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_emits_extracted_edge]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_is_sanitized]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_non_dict_per_file_slot]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_none_slot]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_shorter_than_paths]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_survives_malformed_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_call_site_is_test_prefers_test_local]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_emits_unique_unqualified_call]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_n_mock_scale]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_real_edge_survives_test_mock]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_ambiguous_duplicate_labels]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_existing_pair]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_member_calls]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_survives_malformed_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_test_bash_make_id_identical_to_make_id]] → `calls` → [[graphify_graphify_symbol_resolution_bash_make_id]]
+- [[graphify_tests_test_symbol_resolution_test_bash_make_id_unicode_matches_make_id]] → `calls` → [[graphify_graphify_symbol_resolution_bash_make_id]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_call_edges_from_sourced_files]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_source_edges]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_ambiguous_multiple_candidates]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_existing_pair]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_non_bash_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_accepts_none_per_file_entries]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_relative_path_resolves_against_source_dir]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_bash_function_node_missing_id]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_malformed_source]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_non_dict_lists]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_raw_call_missing_caller_nid]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_unhashable_callee]] → `calls` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_call_edges_from_sourced_files]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_source_edges]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_ambiguous_multiple_candidates]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_existing_pair]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_non_bash_raw_calls]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_make_id_identical_to_make_id]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_bash_make_id_unicode_matches_make_id]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_build_label_index_collects_unique_symbols]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_build_label_index_excludes_non_code_nodes]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_build_python_symbol_index_uses_module_stem_and_label]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_find_unique_python_symbol_returns_none_when_ambiguous]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_drops_non_dict_items_in_list]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_dict_per_file_entries]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_list_raw_calls]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_requires_code_file_type]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_skips_rationale_and_doc_tags]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_normalise_callable_label_strips_function_punctuation]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_accepts_top_level_import]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_skips_function_local_imports]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_supports_from_import_alias]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_accepts_none_per_file_entries]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_relative_path_resolves_against_source_dir]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_bash_function_node_missing_id]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_malformed_source]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_non_dict_lists]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_raw_call_missing_caller_nid]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_unhashable_callee]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_call_site_is_test_prefers_test_local]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_emits_unique_unqualified_call]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_n_mock_scale]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_real_edge_survives_test_mock]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_ambiguous_duplicate_labels]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_existing_pair]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_member_calls]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_survives_malformed_raw_calls]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_emits_extracted_edge]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_is_sanitized]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_non_dict_per_file_slot]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_none_slot]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_shorter_than_paths]]
+- [[graphify_tests_test_symbol_resolution]] → `contains` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_survives_malformed_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_rationale_1]] → `rationale_for` → [[graphify_tests_test_symbol_resolution]]
+- [[graphify_tests_test_symbol_resolution_rationale_103]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_skips_ambiguous_duplicate_labels]]
+- [[graphify_tests_test_symbol_resolution_rationale_128]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_real_edge_survives_test_mock]]
+- [[graphify_tests_test_symbol_resolution_rationale_155]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_n_mock_scale]]
+- [[graphify_tests_test_symbol_resolution_rationale_182]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_call_site_is_test_prefers_test_local]]
+- [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_supports_from_import_alias]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_call_edges_from_sourced_files]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_emits_source_edges]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_ambiguous_multiple_candidates]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_existing_pair]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_non_bash_raw_calls]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_find_unique_python_symbol_returns_none_when_ambiguous]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_emits_extracted_edge]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_is_sanitized]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias]] → `references` → [[graphify_tests_test_symbol_resolution_py_path]]
+- [[graphify_tests_test_symbol_resolution_rationale_500]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_ambiguous_multiple_candidates]]
+- [[graphify_tests_test_symbol_resolution_rationale_576]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_bash_call_resolver_skips_non_bash_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_rationale_614]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_bash_make_id_unicode_matches_make_id]]
+- [[graphify_tests_test_symbol_resolution_rationale_639]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_skips_function_local_imports]]
+- [[graphify_tests_test_symbol_resolution_rationale_661]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_parse_python_import_aliases_accepts_top_level_import]]
+- [[graphify_tests_test_symbol_resolution_rationale_673]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_node_is_resolvable_symbol_requires_code_file_type]]
+- [[graphify_tests_test_symbol_resolution_rationale_691]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_build_label_index_excludes_non_code_nodes]]
+- [[graphify_tests_test_symbol_resolution_rationale_706]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_malformed_source]]
+- [[graphify_tests_test_symbol_resolution_rationale_727]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_bash_function_node_missing_id]]
+- [[graphify_tests_test_symbol_resolution_rationale_747]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_raw_call_missing_caller_nid]]
+- [[graphify_tests_test_symbol_resolution_rationale_776]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_accepts_none_per_file_entries]]
+- [[graphify_tests_test_symbol_resolution_rationale_786]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_non_dict_lists]]
+- [[graphify_tests_test_symbol_resolution_rationale_804]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_relative_path_resolves_against_source_dir]]
+- [[graphify_tests_test_symbol_resolution_rationale_837]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_dict_per_file_entries]]
+- [[graphify_tests_test_symbol_resolution_rationale_844]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_skips_non_list_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_rationale_853]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_iter_raw_calls_drops_non_dict_items_in_list]]
+- [[graphify_tests_test_symbol_resolution_rationale_861]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_cross_file_raw_calls_survives_malformed_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_rationale_871]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_survives_malformed_raw_calls]]
+- [[graphify_tests_test_symbol_resolution_rationale_893]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_bash_source_edges_skips_unhashable_callee]]
+- [[graphify_tests_test_symbol_resolution_rationale_928]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_non_dict_per_file_slot]]
+- [[graphify_tests_test_symbol_resolution_rationale_939]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_shorter_than_paths]]
+- [[graphify_tests_test_symbol_resolution_rationale_952]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_per_file_none_slot]]
+- [[graphify_tests_test_symbol_resolution_rationale_962]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_is_sanitized]]
+- [[graphify_tests_test_symbol_resolution_rationale_1020]] → `rationale_for` → [[graphify_tests_test_symbol_resolution_test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias]]

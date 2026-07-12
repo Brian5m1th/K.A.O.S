@@ -1,0 +1,75 @@
+# airllm\air_llm\airllm\airllm_base.py
+
+## Símbolos
+
+- [[airllm_air_llm_airllm_airllm_base]] — code: airllm_base.py
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] — code: AirLLMBaseModel
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_set_layer_names_dict]] — code: .set_layer_names_dict()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] — code: .__init__()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_get_generation_config]] — code: .get_generation_config()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_get_tokenizer]] — code: .get_tokenizer()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init_model]] — code: .init_model()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_patch_device_property]] — code: ._patch_device_property()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_set_layers_from_layer_names]] — code: .set_layers_from_layer_names()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_load_layer_to_cpu]] — code: .load_layer_to_cpu()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_move_layer_to_device]] — code: .move_layer_to_device()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_needs_quantization]] — code: ._needs_quantization()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_param_names_from_state_dict]] — code: ._param_names_from_state_dict()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_install_streaming_hooks]] — code: ._install_streaming_hooks()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_next_streamed_idx]] — code: ._next_streamed_idx()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_pre_hook]] — code: ._pre_hook()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_post_hook]] — code: ._post_hook()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_generate]] — code: .generate()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_forward]] — code: .forward()
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_call]] — code: .__call__()
+- [[airllm_air_llm_airllm_airllm_base_rationale_29]] — code: Memory-frugal wrapper around a Hugging Face ``*ForCausalLM`` model.      The c
+- [[airllm_air_llm_airllm_airllm_base_rationale_53]] — code: Parameters         ----------         model_local_path_or_repo_id : str or Pat
+
+## Dependências
+
+- [[airllm_air_llm_airllm_airllm_base]] → `contains` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]]
+- [[airllm_air_llm_airllm_airllm_base]] → `imports_from` → [[airllm_air_llm_airllm_profiler]]
+- [[airllm_air_llm_airllm_airllm_base]] → `imports` → [[airllm_air_llm_airllm_profiler_layeredprofiler]]
+- [[airllm_air_llm_airllm_airllm_base]] → `imports_from` → [[airllm_air_llm_airllm_utils]]
+- [[airllm_air_llm_airllm_airllm_base]] → `imports` → [[airllm_air_llm_airllm_utils_clean_memory]]
+- [[airllm_air_llm_airllm_airllm_base]] → `imports` → [[airllm_air_llm_airllm_utils_find_or_create_local_splitted_path]]
+- [[airllm_air_llm_airllm_airllm_base]] → `imports` → [[airllm_air_llm_airllm_utils_load_layer]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_call]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_forward]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_generate]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_get_generation_config]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_get_tokenizer]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init_model]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_install_streaming_hooks]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_load_layer_to_cpu]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_move_layer_to_device]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_needs_quantization]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_next_streamed_idx]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_param_names_from_state_dict]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_patch_device_property]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_post_hook]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_pre_hook]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_set_layer_names_dict]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `method` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_set_layers_from_layer_names]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]] → `uses` → [[airllm_air_llm_airllm_profiler_layeredprofiler]]
+- [[airllm_air_llm_airllm_airllm_base_rationale_29]] → `rationale_for` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_set_layer_names_dict]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_get_generation_config]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_get_tokenizer]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init_model]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_install_streaming_hooks]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_set_layers_from_layer_names]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_profiler_layeredprofiler]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]] → `calls` → [[airllm_air_llm_airllm_utils_find_or_create_local_splitted_path]]
+- [[airllm_air_llm_airllm_airllm_base_rationale_53]] → `rationale_for` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_init_model]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_patch_device_property]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_install_streaming_hooks]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_load_layer_to_cpu]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_load_layer_to_cpu]] → `calls` → [[airllm_air_llm_airllm_utils_load_layer]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_pre_hook]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_load_layer_to_cpu]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_install_streaming_hooks]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_move_layer_to_device]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_move_layer_to_device]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_needs_quantization]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_move_layer_to_device]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_param_names_from_state_dict]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_pre_hook]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_move_layer_to_device]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_pre_hook]] → `calls` → [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_next_streamed_idx]]
+- [[airllm_air_llm_airllm_airllm_base_airllmbasemodel_post_hook]] → `calls` → [[airllm_air_llm_airllm_utils_clean_memory]]

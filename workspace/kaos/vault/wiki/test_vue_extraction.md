@@ -1,0 +1,81 @@
+# graphify\tests\test_vue_extraction.py
+
+## Símbolos
+
+- [[graphify_tests_test_vue_extraction]] — code: test_vue_extraction.py
+- [[graphify_tests_test_vue_extraction_write]] — code: _write()
+- [[graphify_tests_test_vue_extraction_targets]] — code: _targets()
+- [[graphify_tests_test_vue_extraction_labels]] — code: _labels()
+- [[graphify_tests_test_vue_extraction_test_vue_is_in_code_extensions]] — code: test_vue_is_in_code_extensions()
+- [[graphify_tests_test_vue_extraction_test_mask_preserves_line_numbers_and_blanks_markup]] — code: test_mask_preserves_line_numbers_and_blanks_markup()
+- [[graphify_tests_test_vue_extraction_test_script_setup_ts_static_imports_resolve]] — code: test_script_setup_ts_static_imports_resolve()
+- [[graphify_tests_test_vue_extraction_test_script_setup_extracts_symbols_with_correct_lines]] — code: test_script_setup_extracts_symbols_with_correct_lines()
+- [[graphify_tests_test_vue_extraction_test_typed_props_reference_imported_type]] — code: test_typed_props_reference_imported_type()
+- [[graphify_tests_test_vue_extraction_test_two_script_blocks_both_parsed]] — code: test_two_script_blocks_both_parsed()
+- [[graphify_tests_test_vue_extraction_test_dynamic_import_recovered]] — code: test_dynamic_import_recovered()
+- [[graphify_tests_test_vue_extraction_test_plain_js_script_block]] — code: test_plain_js_script_block()
+- [[graphify_tests_test_vue_extraction_test_template_only_file_does_not_crash]] — code: test_template_only_file_does_not_crash()
+- [[graphify_tests_test_vue_extraction_test_whole_file_to_js_grammar_would_extract_nothing]] — code: test_whole_file_to_js_grammar_would_extract_nothing()
+- [[graphify_tests_test_vue_extraction_test_vue_joins_cross_file_symbol_resolution]] — code: test_vue_joins_cross_file_symbol_resolution()
+- [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]] — code: test_generic_component_open_tag_with_angle_brackets()
+- [[graphify_tests_test_vue_extraction_rationale_1]] — code: Tests for ``.vue`` SFC extraction.  Feeding a whole SFC to the JS grammar prod
+- [[graphify_tests_test_vue_extraction_rationale_135]] — code: Vue allows a classic ``<script>`` plus ``<script setup>``; both are TS.
+- [[graphify_tests_test_vue_extraction_rationale_199]] — code: The SFC must not be parsed as one JS blob.      With the bug, a real SFC yield
+- [[graphify_tests_test_vue_extraction_rationale_222]] — code: A ``.vue`` calling an imported function wires to the real symbol across files.
+- [[graphify_tests_test_vue_extraction_rationale_248]] — code: A Vue 3.3+ generic= attribute containing '>' (e.g. Record<string, unknown>)
+
+## Dependências
+
+- [[graphify_tests_test_vue_extraction]] → `imports_from` → [[graphify_graphify_detect]]
+- [[graphify_tests_test_vue_extraction]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_vue_extraction_test_dynamic_import_recovered]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_plain_js_script_block]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_script_setup_extracts_symbols_with_correct_lines]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_script_setup_ts_static_imports_resolve]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_template_only_file_does_not_crash]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_two_script_blocks_both_parsed]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_typed_props_reference_imported_type]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_whole_file_to_js_grammar_would_extract_nothing]] → `calls` → [[graphify_graphify_extract_extract_vue]]
+- [[graphify_tests_test_vue_extraction_test_vue_joins_cross_file_symbol_resolution]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]] → `calls` → [[graphify_graphify_extractors_resolution_vue_mask_non_script]]
+- [[graphify_tests_test_vue_extraction_test_mask_preserves_line_numbers_and_blanks_markup]] → `calls` → [[graphify_graphify_extractors_resolution_vue_mask_non_script]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_labels]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_dynamic_import_recovered]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_mask_preserves_line_numbers_and_blanks_markup]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_plain_js_script_block]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_script_setup_extracts_symbols_with_correct_lines]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_script_setup_ts_static_imports_resolve]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_template_only_file_does_not_crash]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_two_script_blocks_both_parsed]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_typed_props_reference_imported_type]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_vue_is_in_code_extensions]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_vue_joins_cross_file_symbol_resolution]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_test_whole_file_to_js_grammar_would_extract_nothing]]
+- [[graphify_tests_test_vue_extraction]] → `contains` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_rationale_1]] → `rationale_for` → [[graphify_tests_test_vue_extraction]]
+- [[graphify_tests_test_vue_extraction_test_dynamic_import_recovered]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_plain_js_script_block]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_script_setup_extracts_symbols_with_correct_lines]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_script_setup_ts_static_imports_resolve]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_template_only_file_does_not_crash]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_two_script_blocks_both_parsed]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_typed_props_reference_imported_type]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_vue_joins_cross_file_symbol_resolution]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_test_whole_file_to_js_grammar_would_extract_nothing]] → `calls` → [[graphify_tests_test_vue_extraction_write]]
+- [[graphify_tests_test_vue_extraction_write]] → `references` → [[graphify_tests_test_vue_extraction_py_path]]
+- [[graphify_tests_test_vue_extraction_test_dynamic_import_recovered]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_plain_js_script_block]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_script_setup_ts_static_imports_resolve]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_template_only_file_does_not_crash]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_two_script_blocks_both_parsed]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_typed_props_reference_imported_type]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_test_whole_file_to_js_grammar_would_extract_nothing]] → `calls` → [[graphify_tests_test_vue_extraction_targets]]
+- [[graphify_tests_test_vue_extraction_rationale_135]] → `rationale_for` → [[graphify_tests_test_vue_extraction_test_two_script_blocks_both_parsed]]
+- [[graphify_tests_test_vue_extraction_rationale_199]] → `rationale_for` → [[graphify_tests_test_vue_extraction_test_whole_file_to_js_grammar_would_extract_nothing]]
+- [[graphify_tests_test_vue_extraction_rationale_222]] → `rationale_for` → [[graphify_tests_test_vue_extraction_test_vue_joins_cross_file_symbol_resolution]]
+- [[graphify_tests_test_vue_extraction_rationale_248]] → `rationale_for` → [[graphify_tests_test_vue_extraction_test_generic_component_open_tag_with_angle_brackets]]

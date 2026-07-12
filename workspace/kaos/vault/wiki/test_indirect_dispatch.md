@@ -1,0 +1,146 @@
+# graphify\tests\test_indirect_dispatch.py
+
+## Símbolos
+
+- [[graphify_tests_test_indirect_dispatch]] — code: test_indirect_dispatch.py
+- [[graphify_tests_test_indirect_dispatch_build]] — code: _build()
+- [[graphify_tests_test_indirect_dispatch_rels]] — code: _rels()
+- [[graphify_tests_test_indirect_dispatch_test_emits_indirect_call_edges_and_keeps_calls_precise]] — code: test_emits_indirect_call_edges_and_keeps_calls_precise()
+- [[graphify_tests_test_indirect_dispatch_test_affected_includes_indirect_callers]] — code: test_affected_includes_indirect_callers()
+- [[graphify_tests_test_indirect_dispatch_extract]] — code: _extract()
+- [[graphify_tests_test_indirect_dispatch_test_param_shadow_emits_no_indirect_call]] — code: test_param_shadow_emits_no_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_local_assignment_shadow_emits_no_indirect_call]] — code: test_local_assignment_shadow_emits_no_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_data_var_matching_function_name_emits_no_indirect_call]] — code: test_data_var_matching_function_name_emits_no_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_genuine_module_function_still_emits_indirect_call]] — code: test_genuine_module_function_still_emits_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_extract_dir]] — code: _extract_dir()
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_indirect_survives_id_relativization]] — code: test_cross_file_indirect_survives_id_relativization()
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_imported_callback_emits_indirect_call]] — code: test_cross_file_imported_callback_emits_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_affected_includes_importing_dispatcher]] — code: test_cross_file_affected_includes_importing_dispatcher()
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_param_shadow_emits_no_indirect_call]] — code: test_cross_file_param_shadow_emits_no_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_module_level_dict_registry_emits_indirect_call]] — code: test_module_level_dict_registry_emits_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_module_level_list_registry_emits_indirect_call]] — code: test_module_level_list_registry_emits_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_function_scoped_dispatch_table_attributes_to_function]] — code: test_function_scoped_dispatch_table_attributes_to_function()
+- [[graphify_tests_test_indirect_dispatch_test_dict_keys_are_not_dispatch_targets]] — code: test_dict_keys_are_not_dispatch_targets()
+- [[graphify_tests_test_indirect_dispatch_test_non_callable_collection_value_emits_no_indirect_call]] — code: test_non_callable_collection_value_emits_no_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_module_level_reassigned_name_shadows_dispatch_value]] — code: test_module_level_reassigned_name_shadows_dispatch_value()
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_dict_registry_emits_indirect_call]] — code: test_cross_file_dict_registry_emits_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_extract_js_dir]] — code: _extract_js_dir()
+- [[graphify_tests_test_indirect_dispatch_test_js_function_scoped_call_argument]] — code: test_js_function_scoped_call_argument()
+- [[graphify_tests_test_indirect_dispatch_test_js_module_object_and_array_registry]] — code: test_js_module_object_and_array_registry()
+- [[graphify_tests_test_indirect_dispatch_test_js_module_level_callback_registration]] — code: test_js_module_level_callback_registration()
+- [[graphify_tests_test_indirect_dispatch_test_js_inline_arrow_argument_is_not_a_reference]] — code: test_js_inline_arrow_argument_is_not_a_reference()
+- [[graphify_tests_test_indirect_dispatch_test_js_parameter_shadow_emits_no_indirect_call]] — code: test_js_parameter_shadow_emits_no_indirect_call()
+- [[graphify_tests_test_indirect_dispatch_test_js_object_keys_and_data_values_excluded]] — code: test_js_object_keys_and_data_values_excluded()
+- [[graphify_tests_test_indirect_dispatch_test_js_shorthand_property_reference]] — code: test_js_shorthand_property_reference()
+- [[graphify_tests_test_indirect_dispatch_test_js_cross_file_imported_callback_in_object]] — code: test_js_cross_file_imported_callback_in_object()
+- [[graphify_tests_test_indirect_dispatch_test_typescript_typed_params_and_arrow_consts]] — code: test_typescript_typed_params_and_arrow_consts()
+- [[graphify_tests_test_indirect_dispatch_rationale_1]] — code: Indirect dispatch edges.  A function passed BY NAME as a call argument (`execu
+- [[graphify_tests_test_indirect_dispatch_rationale_174]] — code: No recall regression: a real module fn passed by name still emits an edge.
+- [[graphify_tests_test_indirect_dispatch_rationale_205]] — code: Regression: when the scan root relativizes node ids (cache_root == project
+- [[graphify_tests_test_indirect_dispatch_rationale_272]] — code: Soundness carries across files: an imported name shadowed by a parameter     is
+- [[graphify_tests_test_indirect_dispatch_rationale_327]] — code: Only VALUES are references; a function used as a dict KEY is not invoked     th
+- [[graphify_tests_test_indirect_dispatch_rationale_341]] — code: A data value in the table (a number, a string) is not a callable and must     n
+- [[graphify_tests_test_indirect_dispatch_rationale_355]] — code: If the name is rebound to data at module scope, the table value is that     dat
+- [[graphify_tests_test_indirect_dispatch_rationale_428]] — code: Express routes / event wiring / timers live at module scope in JS.
+- [[graphify_tests_test_indirect_dispatch_rationale_443]] — code: An inline arrow / function expression is a direct definition, not a     by-name
+
+## Dependências
+
+- [[graphify_tests_test_indirect_dispatch]] → `imports_from` → [[graphify_graphify_affected]]
+- [[graphify_tests_test_indirect_dispatch_test_affected_includes_indirect_callers]] → `calls` → [[graphify_graphify_affected_affected_nodes]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_affected_includes_importing_dispatcher]] → `calls` → [[graphify_graphify_affected_affected_nodes]]
+- [[graphify_tests_test_indirect_dispatch]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_indirect_dispatch_build]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_indirect_dispatch_extract]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_indirect_dispatch_extract_dir]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_indirect_dispatch_extract_js_dir]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_indirect_survives_id_relativization]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_build]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_extract_dir]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_affected_includes_indirect_callers]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_cross_file_affected_includes_importing_dispatcher]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_cross_file_dict_registry_emits_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_cross_file_imported_callback_emits_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_cross_file_indirect_survives_id_relativization]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_cross_file_param_shadow_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_data_var_matching_function_name_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_dict_keys_are_not_dispatch_targets]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_emits_indirect_call_edges_and_keeps_calls_precise]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_function_scoped_dispatch_table_attributes_to_function]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_genuine_module_function_still_emits_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_cross_file_imported_callback_in_object]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_function_scoped_call_argument]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_inline_arrow_argument_is_not_a_reference]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_module_level_callback_registration]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_module_object_and_array_registry]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_object_keys_and_data_values_excluded]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_parameter_shadow_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_js_shorthand_property_reference]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_local_assignment_shadow_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_module_level_dict_registry_emits_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_module_level_list_registry_emits_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_module_level_reassigned_name_shadows_dispatch_value]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_non_callable_collection_value_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_param_shadow_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch]] → `contains` → [[graphify_tests_test_indirect_dispatch_test_typescript_typed_params_and_arrow_consts]]
+- [[graphify_tests_test_indirect_dispatch_rationale_1]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch]]
+- [[graphify_tests_test_indirect_dispatch_test_affected_includes_indirect_callers]] → `calls` → [[graphify_tests_test_indirect_dispatch_build]]
+- [[graphify_tests_test_indirect_dispatch_test_emits_indirect_call_edges_and_keeps_calls_precise]] → `calls` → [[graphify_tests_test_indirect_dispatch_build]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_dict_registry_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_imported_callback_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_indirect_survives_id_relativization]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_param_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_data_var_matching_function_name_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_dict_keys_are_not_dispatch_targets]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_emits_indirect_call_edges_and_keeps_calls_precise]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_function_scoped_dispatch_table_attributes_to_function]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_genuine_module_function_still_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_cross_file_imported_callback_in_object]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_function_scoped_call_argument]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_inline_arrow_argument_is_not_a_reference]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_module_level_callback_registration]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_module_object_and_array_registry]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_object_keys_and_data_values_excluded]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_parameter_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_js_shorthand_property_reference]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_local_assignment_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_module_level_dict_registry_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_module_level_list_registry_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_module_level_reassigned_name_shadows_dispatch_value]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_non_callable_collection_value_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_param_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_typescript_typed_params_and_arrow_consts]] → `calls` → [[graphify_tests_test_indirect_dispatch_rels]]
+- [[graphify_tests_test_indirect_dispatch_test_data_var_matching_function_name_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_dict_keys_are_not_dispatch_targets]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_function_scoped_dispatch_table_attributes_to_function]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_genuine_module_function_still_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_local_assignment_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_module_level_dict_registry_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_module_level_list_registry_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_module_level_reassigned_name_shadows_dispatch_value]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_non_callable_collection_value_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_test_param_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract]]
+- [[graphify_tests_test_indirect_dispatch_rationale_174]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_genuine_module_function_still_emits_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_affected_includes_importing_dispatcher]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_dict_registry_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_imported_callback_emits_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_cross_file_param_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_dir]]
+- [[graphify_tests_test_indirect_dispatch_rationale_205]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_cross_file_indirect_survives_id_relativization]]
+- [[graphify_tests_test_indirect_dispatch_rationale_272]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_cross_file_param_shadow_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch_rationale_327]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_dict_keys_are_not_dispatch_targets]]
+- [[graphify_tests_test_indirect_dispatch_rationale_341]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_non_callable_collection_value_emits_no_indirect_call]]
+- [[graphify_tests_test_indirect_dispatch_rationale_355]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_module_level_reassigned_name_shadows_dispatch_value]]
+- [[graphify_tests_test_indirect_dispatch_test_js_cross_file_imported_callback_in_object]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_function_scoped_call_argument]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_inline_arrow_argument_is_not_a_reference]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_module_level_callback_registration]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_module_object_and_array_registry]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_object_keys_and_data_values_excluded]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_parameter_shadow_emits_no_indirect_call]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_js_shorthand_property_reference]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_test_typescript_typed_params_and_arrow_consts]] → `calls` → [[graphify_tests_test_indirect_dispatch_extract_js_dir]]
+- [[graphify_tests_test_indirect_dispatch_rationale_428]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_js_module_level_callback_registration]]
+- [[graphify_tests_test_indirect_dispatch_rationale_443]] → `rationale_for` → [[graphify_tests_test_indirect_dispatch_test_js_inline_arrow_argument_is_not_a_reference]]

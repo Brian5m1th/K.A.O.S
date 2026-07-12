@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useThemeStore } from "@/shared/lib/stores/theme-store";
+import { useThemeStore } from "@/application/stores/theme-store";
 import { kaosFetch } from "@/infrastructure/http";
 
 vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));

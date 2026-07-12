@@ -1,0 +1,72 @@
+# docs\architecture\SYSTEM_ARCHITECTURE.md
+
+## Símbolos
+
+- [[docs_architecture_system_architecture]] — code: SYSTEM_ARCHITECTURE.md
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] — code: Arquitetura do Sistema — K.A.O.S
+- [[docs_architecture_system_architecture_visão_geral]] — code: Visão Geral
+- [[docs_architecture_system_architecture_camadas_do_backend]] — code: Camadas do Backend
+- [[docs_architecture_system_architecture_api_layer]] — code: API Layer
+- [[docs_architecture_system_architecture_service_layer]] — code: Service Layer
+- [[docs_architecture_system_architecture_workflow_orchestration]] — code: Workflow / Orchestration
+- [[docs_architecture_system_architecture_provider_layer]] — code: Provider Layer
+- [[docs_architecture_system_architecture_observability_event_bus]] — code: Observability / Event Bus
+- [[docs_architecture_system_architecture_camadas_do_frontend]] — code: Camadas do Frontend
+- [[docs_architecture_system_architecture_stores_zustand]] — code: Stores (Zustand)
+- [[docs_architecture_system_architecture_event_bus_typescript]] — code: Event Bus (TypeScript)
+- [[docs_architecture_system_architecture_command_palette_ctrl_k]] — code: Command Palette (CTRL+K)
+- [[docs_architecture_system_architecture_kirl_k_a_o_s_intelligence_runtime_layer]] — code: KIRL — K.A.O.S Intelligence Runtime Layer
+- [[docs_architecture_system_architecture_fluxos_de_dados]] — code: Fluxos de Dados
+- [[docs_architecture_system_architecture_chat_com_streaming]] — code: Chat com Streaming
+- [[docs_architecture_system_architecture_indexação_do_vault]] — code: Indexação do Vault
+- [[docs_architecture_system_architecture_auditoria_kirl]] — code: Auditoria KIRL
+- [[docs_architecture_system_architecture_dependências_entre_módulos]] — code: Dependências Entre Módulos
+- [[docs_architecture_system_architecture_regras_de_dependência_fsd]] — code: Regras de Dependência (FSD)
+- [[docs_architecture_system_architecture_segurança]] — code: Segurança
+- [[docs_architecture_system_architecture_observabilidade]] — code: Observabilidade
+- [[docs_architecture_system_architecture_métricas_prometheus]] — code: Métricas (Prometheus)
+- [[docs_architecture_system_architecture_logs_loguru]] — code: Logs (Loguru)
+- [[docs_architecture_system_architecture_tracing_opentelemetry]] — code: Tracing (OpenTelemetry)
+- [[docs_architecture_system_architecture_tecnologias_por_camada]] — code: Tecnologias por Camada
+- [[docs_architecture_system_architecture_diagrama_de_implantação]] — code: Diagrama de Implantação
+- [[docs_architecture_system_architecture_evolução_da_arquitetura]] — code: Evolução da Arquitetura
+- [[docs_architecture_system_architecture_2026_q1_fundação]] — code: 2026 Q1 — Fundação
+- [[docs_architecture_system_architecture_2026_q2_plataforma]] — code: 2026 Q2 — Plataforma
+- [[docs_architecture_system_architecture_2026_q3_inteligência]] — code: 2026 Q3 — Inteligência
+- [[docs_architecture_system_architecture_2026_q4_autonomia]] — code: 2026 Q4 — Autonomia
+- [[docs_architecture_system_architecture_glossário_arquitetural]] — code: Glossário Arquitetural
+
+## Dependências
+
+- [[docs_architecture_system_architecture]] → `contains` → [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_camadas_do_backend]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_camadas_do_frontend]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_dependências_entre_módulos]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_diagrama_de_implantação]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_evolução_da_arquitetura]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_fluxos_de_dados]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_glossário_arquitetural]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_kirl_k_a_o_s_intelligence_runtime_layer]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_observabilidade]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_segurança]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_tecnologias_por_camada]]
+- [[docs_architecture_system_architecture_arquitetura_do_sistema_k_a_o_s]] → `contains` → [[docs_architecture_system_architecture_visão_geral]]
+- [[docs_architecture_system_architecture_camadas_do_backend]] → `contains` → [[docs_architecture_system_architecture_api_layer]]
+- [[docs_architecture_system_architecture_camadas_do_backend]] → `contains` → [[docs_architecture_system_architecture_observability_event_bus]]
+- [[docs_architecture_system_architecture_camadas_do_backend]] → `contains` → [[docs_architecture_system_architecture_provider_layer]]
+- [[docs_architecture_system_architecture_camadas_do_backend]] → `contains` → [[docs_architecture_system_architecture_service_layer]]
+- [[docs_architecture_system_architecture_camadas_do_backend]] → `contains` → [[docs_architecture_system_architecture_workflow_orchestration]]
+- [[docs_architecture_system_architecture_camadas_do_frontend]] → `contains` → [[docs_architecture_system_architecture_command_palette_ctrl_k]]
+- [[docs_architecture_system_architecture_camadas_do_frontend]] → `contains` → [[docs_architecture_system_architecture_event_bus_typescript]]
+- [[docs_architecture_system_architecture_camadas_do_frontend]] → `contains` → [[docs_architecture_system_architecture_stores_zustand]]
+- [[docs_architecture_system_architecture_fluxos_de_dados]] → `contains` → [[docs_architecture_system_architecture_auditoria_kirl]]
+- [[docs_architecture_system_architecture_fluxos_de_dados]] → `contains` → [[docs_architecture_system_architecture_chat_com_streaming]]
+- [[docs_architecture_system_architecture_fluxos_de_dados]] → `contains` → [[docs_architecture_system_architecture_indexação_do_vault]]
+- [[docs_architecture_system_architecture_dependências_entre_módulos]] → `contains` → [[docs_architecture_system_architecture_regras_de_dependência_fsd]]
+- [[docs_architecture_system_architecture_observabilidade]] → `contains` → [[docs_architecture_system_architecture_logs_loguru]]
+- [[docs_architecture_system_architecture_observabilidade]] → `contains` → [[docs_architecture_system_architecture_métricas_prometheus]]
+- [[docs_architecture_system_architecture_observabilidade]] → `contains` → [[docs_architecture_system_architecture_tracing_opentelemetry]]
+- [[docs_architecture_system_architecture_evolução_da_arquitetura]] → `contains` → [[docs_architecture_system_architecture_2026_q1_fundação]]
+- [[docs_architecture_system_architecture_evolução_da_arquitetura]] → `contains` → [[docs_architecture_system_architecture_2026_q2_plataforma]]
+- [[docs_architecture_system_architecture_evolução_da_arquitetura]] → `contains` → [[docs_architecture_system_architecture_2026_q3_inteligência]]
+- [[docs_architecture_system_architecture_evolução_da_arquitetura]] → `contains` → [[docs_architecture_system_architecture_2026_q4_autonomia]]

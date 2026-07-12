@@ -1,0 +1,81 @@
+# docs\sdd\Fases 6-7 - Watcher LangGraph e Memoria.md
+
+## Símbolos
+
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] — code: Fases 6-7 - Watcher LangGraph e Memoria.md
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] — code: Fases 6-7 - Watcher LangGraph e MemÓria
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_parent]] — code: Parent
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_children]] — code: Children
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_related]] — code: Related
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_tags]] — code: Tags
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_conteudo]] — code: Conteudo
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_source_antigravity_ai]] — code: Source: Antigravity AI
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] — code: SDD — Fases 6 e 7: LangGraph Agent + Memória de Longo Prazo
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_objetivo]] — code: Objetivo
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_status_atual_concluído_fases_6_7_otimizações_fase_8]] — code: Status Atual: ✅ CONCLUÍDO (Fases 6-7 + Otimizações Fase 8)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_critério_de_sucesso_fase_6]] — code: Critério de Sucesso (Fase 6) ✅
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_critério_de_sucesso_fase_7]] — code: Critério de Sucesso (Fase 7) ✅
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_tarefas_fase_6_agente_langgraph]] — code: Tarefas — Fase 6 (Agente LangGraph) ✅
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_tarefas_fase_7_memória_de_longo_prazo]] — code: Tarefas — Fase 7 (Memória de Longo Prazo) ✅
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_otimizações_fase_8]] — code: Otimizações Fase 8 ✅
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_1_estrutura_de_módulos]] — code: 1. Estrutura de Módulos
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_3_nó_de_recuperação_rag_agent_nodes_retrieve_py]] — code: 3. Nó de Recuperação RAG (`agent/nodes/retrieve.py`)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_4_nó_planner_agent_nodes_planner_py]] — code: 4. Nó Planner (`agent/nodes/planner.py`)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_5_nó_executor_agent_nodes_executor_py]] — code: 5. Nó Executor (`agent/nodes/executor.py`)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_6_grafo_langgraph_agent_graph_py]] — code: 6. Grafo LangGraph (`agent/graph.py`)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_7_agent_service_service_agent_service_py]] — code: 7. Agent Service (`service/agent_service.py`)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_8_comandos_de_memória_de_longo_prazo_fase_7]] — code: 8. Comandos de Memória de Longo Prazo (Fase 7)
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_salve_esta_conversa]] — code: "Salve esta conversa"
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_atualize_a_nota_de_preferências]] — code: "Atualize a nota de preferências"
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_dependências_desta_fase]] — code: Dependências Desta Fase
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_desbloqueia]] — code: Desbloqueia
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_resumo]] — code: Resumo
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_dependencias]] — code: Dependencias
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fluxos]] — code: Fluxos
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_integracoes]] — code: Integracoes
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `references` → [[docs_sdd_ferramentas_do_langgraph]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `references` → [[docs_sdd_memoria_do_obsidian]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `references` → [[docs_sdd_orquestrador_langgraph]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `references` → [[docs_sdd_roadmap_geral]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]] → `references` → [[docs_sdd_roteamento_de_memoria]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_children]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_conteudo]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_parent]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_related]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_source_antigravity_ai]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fases_6_7_watcher_langgraph_e_memória]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_tags]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_1_estrutura_de_módulos]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_3_nó_de_recuperação_rag_agent_nodes_retrieve_py]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_4_nó_planner_agent_nodes_planner_py]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_5_nó_executor_agent_nodes_executor_py]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_6_grafo_langgraph_agent_graph_py]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_7_agent_service_service_agent_service_py]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_8_comandos_de_memória_de_longo_prazo_fase_7]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_arquivos_relacionados]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_critério_de_sucesso_fase_6]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_critério_de_sucesso_fase_7]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_dependencias]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_dependências_desta_fase]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_desbloqueia]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_fluxos]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_integracoes]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_objetivo]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_otimizações_fase_8]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_referencias_kirl]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_responsabilidades]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_resumo]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_status_atual_concluído_fases_6_7_otimizações_fase_8]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_tarefas_fase_6_agente_langgraph]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_tarefas_fase_7_memória_de_longo_prazo]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_sdd_fases_6_e_7_langgraph_agent_memória_de_longo_prazo]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_ultima_atualizacao]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_8_comandos_de_memória_de_longo_prazo_fase_7]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_atualize_a_nota_de_preferências]]
+- [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_8_comandos_de_memória_de_longo_prazo_fase_7]] → `contains` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria_salve_esta_conversa]]

@@ -1,0 +1,78 @@
+# docs\guides\OBSIDIAN_GUIDE.md
+
+## Símbolos
+
+- [[docs_guides_obsidian_guide]] — code: OBSIDIAN_GUIDE.md
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] — code: Guia Obsidian — K.A.O.S
+- [[docs_guides_obsidian_guide_visão_geral]] — code: Visão Geral
+- [[docs_guides_obsidian_guide_estrutura_do_vault]] — code: Estrutura do Vault
+- [[docs_guides_obsidian_guide_schema_oficial_de_frontmatter]] — code: Schema Oficial de Frontmatter
+- [[docs_guides_obsidian_guide_tipos_permitidos]] — code: Tipos Permitidos
+- [[docs_guides_obsidian_guide_owners_permitidos]] — code: Owners Permitidos
+- [[docs_guides_obsidian_guide_status_permitidos]] — code: Status Permitidos
+- [[docs_guides_obsidian_guide_wikilinks]] — code: Wikilinks
+- [[docs_guides_obsidian_guide_links_no_yaml]] — code: Links no YAML
+- [[docs_guides_obsidian_guide_tags]] — code: Tags
+- [[docs_guides_obsidian_guide_graph_view]] — code: Graph View
+- [[docs_guides_obsidian_guide_configuração_recomendada]] — code: Configuração Recomendada
+- [[docs_guides_obsidian_guide_grupos_de_cor_por_diretório]] — code: Grupos de Cor por Diretório
+- [[docs_guides_obsidian_guide_drift_heatmap]] — code: Drift Heatmap
+- [[docs_guides_obsidian_guide_cores_do_heatmap]] — code: Cores do Heatmap
+- [[docs_guides_obsidian_guide_como_interpretar]] — code: Como Interpretar
+- [[docs_guides_obsidian_guide_sincronização_com_k_a_o_s]] — code: Sincronização com K.A.O.S
+- [[docs_guides_obsidian_guide_fluxo_de_sincronização]] — code: Fluxo de Sincronização
+- [[docs_guides_obsidian_guide_automática]] — code: Automática
+- [[docs_guides_obsidian_guide_manual]] — code: Manual
+- [[docs_guides_obsidian_guide_templates]] — code: Templates
+- [[docs_guides_obsidian_guide_template_de_feature]] — code: Template de Feature
+- [[docs_guides_obsidian_guide_template_de_sistema]] — code: Template de Sistema
+- [[docs_guides_obsidian_guide_boas_práticas]] — code: Boas Práticas
+- [[docs_guides_obsidian_guide_troubleshooting]] — code: Troubleshooting
+- [[docs_guides_obsidian_guide_resumo]] — code: Resumo
+- [[docs_guides_obsidian_guide_objetivo]] — code: Objetivo
+- [[docs_guides_obsidian_guide_responsabilidades]] — code: Responsabilidades
+- [[docs_guides_obsidian_guide_dependencias]] — code: Dependencias
+- [[docs_guides_obsidian_guide_fluxos]] — code: Fluxos
+- [[docs_guides_obsidian_guide_integracoes]] — code: Integracoes
+- [[docs_guides_obsidian_guide_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_guides_obsidian_guide_referencias_kirl]] — code: Referencias KIRL
+- [[docs_guides_obsidian_guide_status]] — code: Status
+- [[docs_guides_obsidian_guide_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_guides_obsidian_guide]] → `contains` → [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_arquivos_relacionados]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_boas_práticas]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_dependencias]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_drift_heatmap]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_estrutura_do_vault]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_fluxos]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_graph_view]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_integracoes]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_objetivo]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_referencias_kirl]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_responsabilidades]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_resumo]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_schema_oficial_de_frontmatter]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_sincronização_com_k_a_o_s]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_status]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_tags]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_templates]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_troubleshooting]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_ultima_atualizacao]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_visão_geral]]
+- [[docs_guides_obsidian_guide_guia_obsidian_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_wikilinks]]
+- [[docs_guides_obsidian_guide_schema_oficial_de_frontmatter]] → `contains` → [[docs_guides_obsidian_guide_owners_permitidos]]
+- [[docs_guides_obsidian_guide_schema_oficial_de_frontmatter]] → `contains` → [[docs_guides_obsidian_guide_status_permitidos]]
+- [[docs_guides_obsidian_guide_schema_oficial_de_frontmatter]] → `contains` → [[docs_guides_obsidian_guide_tipos_permitidos]]
+- [[docs_guides_obsidian_guide_wikilinks]] → `contains` → [[docs_guides_obsidian_guide_links_no_yaml]]
+- [[docs_guides_obsidian_guide_graph_view]] → `contains` → [[docs_guides_obsidian_guide_configuração_recomendada]]
+- [[docs_guides_obsidian_guide_graph_view]] → `contains` → [[docs_guides_obsidian_guide_grupos_de_cor_por_diretório]]
+- [[docs_guides_obsidian_guide_drift_heatmap]] → `contains` → [[docs_guides_obsidian_guide_como_interpretar]]
+- [[docs_guides_obsidian_guide_drift_heatmap]] → `contains` → [[docs_guides_obsidian_guide_cores_do_heatmap]]
+- [[docs_guides_obsidian_guide_sincronização_com_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_automática]]
+- [[docs_guides_obsidian_guide_sincronização_com_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_fluxo_de_sincronização]]
+- [[docs_guides_obsidian_guide_sincronização_com_k_a_o_s]] → `contains` → [[docs_guides_obsidian_guide_manual]]
+- [[docs_guides_obsidian_guide_templates]] → `contains` → [[docs_guides_obsidian_guide_template_de_feature]]
+- [[docs_guides_obsidian_guide_templates]] → `contains` → [[docs_guides_obsidian_guide_template_de_sistema]]

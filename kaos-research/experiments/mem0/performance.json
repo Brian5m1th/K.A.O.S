@@ -1,0 +1,6 @@
+{
+  "hypothesis": "H2",
+  "framework": "mem0",
+  "benchmark": "performance",
+  "error": "mem0ai not installed"
+}

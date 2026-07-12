@@ -1,0 +1,177 @@
+# graphify\graphify\serve.py
+
+## Símbolos
+
+- [[graphify_graphify_serve]] — code: serve.py
+- [[graphify_graphify_serve_load_graph]] — code: _load_graph()
+- [[graphify_graphify_serve_communities_from_graph]] — code: _communities_from_graph()
+- [[graphify_graphify_serve_strip_diacritics]] — code: _strip_diacritics()
+- [[graphify_graphify_serve_search_tokens]] — code: _search_tokens()
+- [[graphify_graphify_serve_has_chinese]] — code: _has_chinese()
+- [[graphify_graphify_serve_segment_chinese]] — code: _segment_chinese()
+- [[graphify_graphify_serve_is_searchable]] — code: _is_searchable()
+- [[graphify_graphify_serve_query_terms]] — code: _query_terms()
+- [[graphify_graphify_serve_compute_idf]] — code: _compute_idf()
+- [[graphify_graphify_serve_trigrams]] — code: _trigrams()
+- [[graphify_graphify_serve_node_search_text]] — code: _node_search_text()
+- [[graphify_graphify_serve_get_trigram_index]] — code: _get_trigram_index()
+- [[graphify_graphify_serve_trigram_candidates]] — code: _trigram_candidates()
+- [[graphify_graphify_serve_score_nodes]] — code: _score_nodes()
+- [[graphify_graphify_serve_pick_scored_endpoint]] — code: _pick_scored_endpoint()
+- [[graphify_graphify_serve_pick_seeds]] — code: _pick_seeds()
+- [[graphify_graphify_serve_normalize_context_filters]] — code: _normalize_context_filters()
+- [[graphify_graphify_serve_infer_context_filters]] — code: _infer_context_filters()
+- [[graphify_graphify_serve_resolve_context_filters]] — code: _resolve_context_filters()
+- [[graphify_graphify_serve_filter_graph_by_context]] — code: _filter_graph_by_context()
+- [[graphify_graphify_serve_bfs]] — code: _bfs()
+- [[graphify_graphify_serve_dfs]] — code: _dfs()
+- [[graphify_graphify_serve_subgraph_to_text]] — code: _subgraph_to_text()
+- [[graphify_graphify_serve_query_graph_text]] — code: _query_graph_text()
+- [[graphify_graphify_serve_find_node]] — code: _find_node()
+- [[graphify_graphify_serve_filter_blank_stdin]] — code: _filter_blank_stdin()
+- [[graphify_graphify_serve_community_header]] — code: _community_header()
+- [[graphify_graphify_serve_build_server]] — code: _build_server()
+- [[graphify_graphify_serve_serve]] — code: serve()
+- [[graphify_graphify_serve_mcpasgiapp]] — code: _MCPASGIApp
+- [[graphify_graphify_serve_mcpasgiapp_init]] — code: .__init__()
+- [[graphify_graphify_serve_mcpasgiapp_call]] — code: .__call__()
+- [[graphify_graphify_serve_apikeymiddleware]] — code: _ApiKeyMiddleware
+- [[graphify_graphify_serve_apikeymiddleware_init]] — code: .__init__()
+- [[graphify_graphify_serve_apikeymiddleware_call]] — code: .__call__()
+- [[graphify_graphify_serve_build_http_app]] — code: _build_http_app()
+- [[graphify_graphify_serve_serve_http]] — code: serve_http()
+- [[graphify_graphify_serve_main]] — code: _main()
+- [[graphify_graphify_serve_rationale_66]] — code: Reconstruct community dict from community property stored on nodes.
+- [[graphify_graphify_serve_rationale_84]] — code: Split text into word tokens, stripping punctuation and diacritics.
+- [[graphify_graphify_serve_rationale_93]] — code: Segment Chinese text and keep the original term for exact matching.
+- [[graphify_graphify_serve_rationale_104]] — code: True if term is Chinese, non-English, or an English word longer than 2 chars.
+- [[graphify_graphify_serve_rationale_129]] — code: Split a query into searchable terms, segmenting Chinese text, then drop     Eng
+- [[graphify_graphify_serve_rationale_156]] — code: IDF weights for query terms, cached in G.graph['_idf_cache'].      Common term
+- [[graphify_graphify_serve_rationale_181]] — code: Character trigrams of `text`; for <3-char text the whole string is the key.
+- [[graphify_graphify_serve_rationale_188]] — code: Concatenate every field _score_nodes / _find_node match a query against, so
+- [[graphify_graphify_serve_rationale_211]] — code: Lazily build and cache a trigram -> node-position postings map on the graph.
+- [[graphify_graphify_serve_rationale_235]] — code: Node IDs whose text could contain any `needle` as a substring, via the     trig
+- [[graphify_graphify_serve_rationale_376]] — code: Pick a path endpoint from a _score_nodes result, preferring full-token matches.
+- [[graphify_graphify_serve_rationale_407]] — code: Select BFS seed nodes, stopping when score drops too far below the top.      P
+- [[graphify_graphify_serve_rationale_619]] — code: Render subgraph as text, cutting at token_budget (approx 3 chars/token).
+- [[graphify_graphify_serve_rationale_712]] — code: Return node IDs whose label or ID matches the search term (diacritic-insensitive
+- [[graphify_graphify_serve_rationale_780]] — code: Filter blank lines from stdin before MCP reads it.      Some MCP clients (Clau
+- [[graphify_graphify_serve_rationale_825]] — code: Build the configured low-level MCP Server (shared by every transport).      Al
+- [[graphify_graphify_serve_rationale_1408]] — code: Start the MCP server over stdio (the default, per-developer transport).
+- [[graphify_graphify_serve_rationale_1427]] — code: Raw-ASGI wrapper around the Streamable HTTP session manager.      Passed to a
+- [[graphify_graphify_serve_rationale_1443]] — code: Pure-ASGI API-key gate for the HTTP transport.      Implemented as raw ASGI (n
+- [[graphify_graphify_serve_rationale_1494]] — code: Build the Starlette ASGI app for the Streamable HTTP transport.      Split out
+- [[graphify_graphify_serve_rationale_1576]] — code: Start the MCP server over Streamable HTTP (MCP spec 2025-03-26).      Serves t
+
+## Dependências
+
+- [[graphify_graphify_serve]] → `imports_from` → [[array]]
+- [[graphify_graphify_serve_get_trigram_index]] → `calls` → [[array]]
+- [[graphify_graphify_serve_build_http_app]] → `indirect_call` → [[assistant_app_main_lifespan]]
+- [[graphify_graphify_serve]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_graphify_serve]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_serve_load_graph]] → `calls` → [[graphify_graphify_security_check_graph_file_size_cap]]
+- [[graphify_graphify_serve_community_header]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_graphify_serve_subgraph_to_text]] → `calls` → [[graphify_graphify_security_sanitize_label]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_apikeymiddleware]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_bfs]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_build_http_app]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_build_server]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_communities_from_graph]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_community_header]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_compute_idf]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_dfs]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_filter_blank_stdin]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_filter_graph_by_context]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_find_node]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_get_trigram_index]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_has_chinese]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_infer_context_filters]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_is_searchable]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_load_graph]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_main]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_mcpasgiapp]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_node_search_text]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_normalize_context_filters]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_pick_scored_endpoint]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_query_graph_text]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_resolve_context_filters]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_segment_chinese]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_serve]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_serve_http]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_graphify_serve]] → `contains` → [[graphify_graphify_serve_trigrams]]
+- [[graphify_graphify_serve]] → `imports_from` → [[graphify_security]]
+- [[graphify_graphify_serve_rationale_66]] → `rationale_for` → [[graphify_graphify_serve_communities_from_graph]]
+- [[graphify_graphify_serve_compute_idf]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_find_node]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_infer_context_filters]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_node_search_text]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_normalize_context_filters]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_score_nodes]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_search_tokens]] → `calls` → [[graphify_graphify_serve_strip_diacritics]]
+- [[graphify_graphify_serve_find_node]] → `calls` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve_node_search_text]] → `calls` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve_pick_scored_endpoint]] → `calls` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve_pick_seeds]] → `calls` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve_rationale_84]] → `rationale_for` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve_score_nodes]] → `calls` → [[graphify_graphify_serve_search_tokens]]
+- [[graphify_graphify_serve_query_terms]] → `calls` → [[graphify_graphify_serve_has_chinese]]
+- [[graphify_graphify_serve_query_terms]] → `calls` → [[graphify_graphify_serve_segment_chinese]]
+- [[graphify_graphify_serve_rationale_93]] → `rationale_for` → [[graphify_graphify_serve_segment_chinese]]
+- [[graphify_graphify_serve_query_terms]] → `calls` → [[graphify_graphify_serve_is_searchable]]
+- [[graphify_graphify_serve_rationale_104]] → `rationale_for` → [[graphify_graphify_serve_is_searchable]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_graphify_serve_rationale_129]] → `rationale_for` → [[graphify_graphify_serve_query_terms]]
+- [[graphify_graphify_serve_rationale_156]] → `rationale_for` → [[graphify_graphify_serve_compute_idf]]
+- [[graphify_graphify_serve_score_nodes]] → `calls` → [[graphify_graphify_serve_compute_idf]]
+- [[graphify_graphify_serve_get_trigram_index]] → `calls` → [[graphify_graphify_serve_trigrams]]
+- [[graphify_graphify_serve_rationale_181]] → `rationale_for` → [[graphify_graphify_serve_trigrams]]
+- [[graphify_graphify_serve_trigram_candidates]] → `calls` → [[graphify_graphify_serve_trigrams]]
+- [[graphify_graphify_serve_get_trigram_index]] → `calls` → [[graphify_graphify_serve_node_search_text]]
+- [[graphify_graphify_serve_rationale_188]] → `rationale_for` → [[graphify_graphify_serve_node_search_text]]
+- [[graphify_graphify_serve_rationale_211]] → `rationale_for` → [[graphify_graphify_serve_get_trigram_index]]
+- [[graphify_graphify_serve_trigram_candidates]] → `calls` → [[graphify_graphify_serve_get_trigram_index]]
+- [[graphify_graphify_serve_find_node]] → `calls` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_graphify_serve_rationale_235]] → `rationale_for` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_graphify_serve_score_nodes]] → `calls` → [[graphify_graphify_serve_trigram_candidates]]
+- [[graphify_graphify_serve_pick_seeds]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_score_nodes]]
+- [[graphify_graphify_serve_rationale_376]] → `rationale_for` → [[graphify_graphify_serve_pick_scored_endpoint]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_graphify_serve_rationale_407]] → `rationale_for` → [[graphify_graphify_serve_pick_seeds]]
+- [[graphify_graphify_serve_filter_graph_by_context]] → `calls` → [[graphify_graphify_serve_normalize_context_filters]]
+- [[graphify_graphify_serve_resolve_context_filters]] → `calls` → [[graphify_graphify_serve_normalize_context_filters]]
+- [[graphify_graphify_serve_resolve_context_filters]] → `calls` → [[graphify_graphify_serve_infer_context_filters]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_resolve_context_filters]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_filter_graph_by_context]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_bfs]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_dfs]]
+- [[graphify_graphify_serve_query_graph_text]] → `calls` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_graphify_serve_rationale_619]] → `rationale_for` → [[graphify_graphify_serve_subgraph_to_text]]
+- [[graphify_graphify_serve_rationale_712]] → `rationale_for` → [[graphify_graphify_serve_find_node]]
+- [[graphify_graphify_serve_rationale_780]] → `rationale_for` → [[graphify_graphify_serve_filter_blank_stdin]]
+- [[graphify_graphify_serve_serve]] → `calls` → [[graphify_graphify_serve_filter_blank_stdin]]
+- [[graphify_graphify_serve_build_http_app]] → `calls` → [[graphify_graphify_serve_build_server]]
+- [[graphify_graphify_serve_rationale_825]] → `rationale_for` → [[graphify_graphify_serve_build_server]]
+- [[graphify_graphify_serve_serve]] → `calls` → [[graphify_graphify_serve_build_server]]
+- [[graphify_graphify_serve_main]] → `calls` → [[graphify_graphify_serve_serve]]
+- [[graphify_graphify_serve_rationale_1408]] → `rationale_for` → [[graphify_graphify_serve_serve]]
+- [[graphify_graphify_serve_build_http_app]] → `calls` → [[graphify_graphify_serve_mcpasgiapp]]
+- [[graphify_graphify_serve_mcpasgiapp]] → `method` → [[graphify_graphify_serve_mcpasgiapp_call]]
+- [[graphify_graphify_serve_mcpasgiapp]] → `method` → [[graphify_graphify_serve_mcpasgiapp_init]]
+- [[graphify_graphify_serve_rationale_1427]] → `rationale_for` → [[graphify_graphify_serve_mcpasgiapp]]
+- [[graphify_graphify_serve_apikeymiddleware]] → `method` → [[graphify_graphify_serve_apikeymiddleware_call]]
+- [[graphify_graphify_serve_apikeymiddleware]] → `method` → [[graphify_graphify_serve_apikeymiddleware_init]]
+- [[graphify_graphify_serve_build_http_app]] → `indirect_call` → [[graphify_graphify_serve_apikeymiddleware]]
+- [[graphify_graphify_serve_rationale_1443]] → `rationale_for` → [[graphify_graphify_serve_apikeymiddleware]]
+- [[graphify_graphify_serve_rationale_1494]] → `rationale_for` → [[graphify_graphify_serve_build_http_app]]
+- [[graphify_graphify_serve_serve_http]] → `calls` → [[graphify_graphify_serve_build_http_app]]
+- [[graphify_graphify_serve_main]] → `calls` → [[graphify_graphify_serve_serve_http]]
+- [[graphify_graphify_serve_rationale_1576]] → `rationale_for` → [[graphify_graphify_serve_serve_http]]

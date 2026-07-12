@@ -1,0 +1,1376 @@
+# graphify\tests\test_languages.py
+
+## Símbolos
+
+- [[graphify_tests_test_languages]] — code: test_languages.py
+- [[graphify_tests_test_languages_labels]] — code: _labels()
+- [[graphify_tests_test_languages_relations]] — code: _relations()
+- [[graphify_tests_test_languages_calls]] — code: _calls()
+- [[graphify_tests_test_languages_references]] — code: _references()
+- [[graphify_tests_test_languages_edges_with_relation]] — code: _edges_with_relation()
+- [[graphify_tests_test_languages_normalize_symbol_label]] — code: _normalize_symbol_label()
+- [[graphify_tests_test_languages_node_by_label]] — code: _node_by_label()
+- [[graphify_tests_test_languages_edge_labels]] — code: _edge_labels()
+- [[graphify_tests_test_languages_test_java_no_error]] — code: test_java_no_error()
+- [[graphify_tests_test_languages_test_java_finds_class]] — code: test_java_finds_class()
+- [[graphify_tests_test_languages_test_java_finds_interface]] — code: test_java_finds_interface()
+- [[graphify_tests_test_languages_test_java_finds_methods]] — code: test_java_finds_methods()
+- [[graphify_tests_test_languages_test_java_finds_imports]] — code: test_java_finds_imports()
+- [[graphify_tests_test_languages_test_java_import_edges_have_import_context]] — code: test_java_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_java_no_dangling_edges]] — code: test_java_no_dangling_edges()
+- [[graphify_tests_test_languages_test_java_enum_constants_have_case_of_edge]] — code: test_java_enum_constants_have_case_of_edge()
+- [[graphify_tests_test_languages_test_c_no_error]] — code: test_c_no_error()
+- [[graphify_tests_test_languages_test_c_finds_functions]] — code: test_c_finds_functions()
+- [[graphify_tests_test_languages_test_c_finds_includes]] — code: test_c_finds_includes()
+- [[graphify_tests_test_languages_test_c_emits_calls]] — code: test_c_emits_calls()
+- [[graphify_tests_test_languages_test_c_calls_are_extracted]] — code: test_c_calls_are_extracted()
+- [[graphify_tests_test_languages_test_c_import_edges_have_import_context]] — code: test_c_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_c_parameter_and_return_type_contexts]] — code: test_c_parameter_and_return_type_contexts()
+- [[graphify_tests_test_languages_test_c_call_edges_have_call_context]] — code: test_c_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_cpp_no_error]] — code: test_cpp_no_error()
+- [[graphify_tests_test_languages_test_cpp_finds_class]] — code: test_cpp_finds_class()
+- [[graphify_tests_test_languages_test_cpp_finds_methods]] — code: test_cpp_finds_methods()
+- [[graphify_tests_test_languages_test_cpp_finds_includes]] — code: test_cpp_finds_includes()
+- [[graphify_tests_test_languages_test_cpp_import_edges_have_import_context]] — code: test_cpp_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_cpp_method_parameter_and_return_type_contexts]] — code: test_cpp_method_parameter_and_return_type_contexts()
+- [[graphify_tests_test_languages_test_cpp_field_and_template_argument_contexts]] — code: test_cpp_field_and_template_argument_contexts()
+- [[graphify_tests_test_languages_test_cpp_class_inherits_edge]] — code: test_cpp_class_inherits_edge()
+- [[graphify_tests_test_languages_test_cpp_struct_inherits_edge]] — code: test_cpp_struct_inherits_edge()
+- [[graphify_tests_test_languages_test_cpp_generic_parents_include_type_argument_references]] — code: test_cpp_generic_parents_include_type_argument_references()
+- [[graphify_tests_test_languages_test_cuda_no_error]] — code: test_cuda_no_error()
+- [[graphify_tests_test_languages_test_cuda_finds_kernel_and_device_functions]] — code: test_cuda_finds_kernel_and_device_functions()
+- [[graphify_tests_test_languages_test_cuda_finds_struct]] — code: test_cuda_finds_struct()
+- [[graphify_tests_test_languages_test_cuda_finds_includes]] — code: test_cuda_finds_includes()
+- [[graphify_tests_test_languages_test_cuda_host_call_edges]] — code: test_cuda_host_call_edges()
+- [[graphify_tests_test_languages_test_metal_is_code_extension]] — code: test_metal_is_code_extension()
+- [[graphify_tests_test_languages_test_metal_no_error]] — code: test_metal_no_error()
+- [[graphify_tests_test_languages_test_metal_finds_kernel_function_and_struct]] — code: test_metal_finds_kernel_function_and_struct()
+- [[graphify_tests_test_languages_test_ruby_no_error]] — code: test_ruby_no_error()
+- [[graphify_tests_test_languages_test_ruby_finds_class]] — code: test_ruby_finds_class()
+- [[graphify_tests_test_languages_test_ruby_finds_methods]] — code: test_ruby_finds_methods()
+- [[graphify_tests_test_languages_test_ruby_finds_function]] — code: test_ruby_finds_function()
+- [[graphify_tests_test_languages_test_ruby_inherits_edge]] — code: test_ruby_inherits_edge()
+- [[graphify_tests_test_languages_test_csharp_no_error]] — code: test_csharp_no_error()
+- [[graphify_tests_test_languages_test_csharp_finds_class]] — code: test_csharp_finds_class()
+- [[graphify_tests_test_languages_test_csharp_finds_interface]] — code: test_csharp_finds_interface()
+- [[graphify_tests_test_languages_test_csharp_finds_methods]] — code: test_csharp_finds_methods()
+- [[graphify_tests_test_languages_test_csharp_finds_usings]] — code: test_csharp_finds_usings()
+- [[graphify_tests_test_languages_test_csharp_inherits_edge]] — code: test_csharp_inherits_edge()
+- [[graphify_tests_test_languages_test_csharp_implements_iprocessor]] — code: test_csharp_implements_iprocessor()
+- [[graphify_tests_test_languages_test_csharp_splits_inherits_and_implements_edges]] — code: test_csharp_splits_inherits_and_implements_edges()
+- [[graphify_tests_test_languages_test_csharp_parameter_return_and_generic_contexts]] — code: test_csharp_parameter_return_and_generic_contexts()
+- [[graphify_tests_test_languages_test_java_normalizes_inherits_and_implements]] — code: test_java_normalizes_inherits_and_implements()
+- [[graphify_tests_test_languages_test_java_generic_parents_include_type_argument_references]] — code: test_java_generic_parents_include_type_argument_references()
+- [[graphify_tests_test_languages_test_java_type_parameters_do_not_emit_references]] — code: test_java_type_parameters_do_not_emit_references()
+- [[graphify_tests_test_languages_test_java_parameter_return_generic_and_attribute_contexts]] — code: test_java_parameter_return_generic_and_attribute_contexts()
+- [[graphify_tests_test_languages_test_java_field_type_references_have_field_context]] — code: test_java_field_type_references_have_field_context()
+- [[graphify_tests_test_languages_test_java_record_component_type_references]] — code: test_java_record_component_type_references()
+- [[graphify_tests_test_languages_test_java_record_components_skip_type_parameters]] — code: test_java_record_components_skip_type_parameters()
+- [[graphify_tests_test_languages_test_java_type_annotations_have_attribute_context]] — code: test_java_type_annotations_have_attribute_context()
+- [[graphify_tests_test_languages_test_java_enum_and_annotation_declarations_are_type_nodes]] — code: test_java_enum_and_annotation_declarations_are_type_nodes()
+- [[graphify_tests_test_languages_test_csharp_field_type_references_have_field_context]] — code: test_csharp_field_type_references_have_field_context()
+- [[graphify_tests_test_languages_test_csharp_property_type_references_have_field_context]] — code: test_csharp_property_type_references_have_field_context()
+- [[graphify_tests_test_languages_test_csharp_call_edges_have_call_context]] — code: test_csharp_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_csharp_import_edges_have_import_context]] — code: test_csharp_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_kotlin_no_error]] — code: test_kotlin_no_error()
+- [[graphify_tests_test_languages_test_kotlin_finds_class]] — code: test_kotlin_finds_class()
+- [[graphify_tests_test_languages_test_kotlin_finds_data_class]] — code: test_kotlin_finds_data_class()
+- [[graphify_tests_test_languages_test_kotlin_finds_methods]] — code: test_kotlin_finds_methods()
+- [[graphify_tests_test_languages_test_kotlin_finds_function]] — code: test_kotlin_finds_function()
+- [[graphify_tests_test_languages_test_kotlin_enum_entries_have_case_of_edge]] — code: test_kotlin_enum_entries_have_case_of_edge()
+- [[graphify_tests_test_languages_test_kotlin_emits_in_file_calls]] — code: test_kotlin_emits_in_file_calls()
+- [[graphify_tests_test_languages_test_kotlin_splits_inherits_and_implements]] — code: test_kotlin_splits_inherits_and_implements()
+- [[graphify_tests_test_languages_test_kotlin_interface_delegation_emits_implements]] — code: test_kotlin_interface_delegation_emits_implements()
+- [[graphify_tests_test_languages_test_kotlin_parameter_return_generic_and_field_contexts]] — code: test_kotlin_parameter_return_generic_and_field_contexts()
+- [[graphify_tests_test_languages_test_scala_no_error]] — code: test_scala_no_error()
+- [[graphify_tests_test_languages_test_scala_finds_class]] — code: test_scala_finds_class()
+- [[graphify_tests_test_languages_test_scala_finds_object]] — code: test_scala_finds_object()
+- [[graphify_tests_test_languages_test_scala_finds_methods]] — code: test_scala_finds_methods()
+- [[graphify_tests_test_languages_test_scala_import_edges_have_import_context]] — code: test_scala_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_scala_splits_inherits_and_mixes_in]] — code: test_scala_splits_inherits_and_mixes_in()
+- [[graphify_tests_test_languages_test_scala_constructor_parameter_field_context]] — code: test_scala_constructor_parameter_field_context()
+- [[graphify_tests_test_languages_test_scala_val_definition_field_context]] — code: test_scala_val_definition_field_context()
+- [[graphify_tests_test_languages_test_scala_var_definition_field_context]] — code: test_scala_var_definition_field_context()
+- [[graphify_tests_test_languages_test_scala_method_return_type_context]] — code: test_scala_method_return_type_context()
+- [[graphify_tests_test_languages_test_scala_call_edges_have_call_context]] — code: test_scala_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_php_no_error]] — code: test_php_no_error()
+- [[graphify_tests_test_languages_test_php_finds_class]] — code: test_php_finds_class()
+- [[graphify_tests_test_languages_test_php_finds_methods]] — code: test_php_finds_methods()
+- [[graphify_tests_test_languages_test_php_finds_function]] — code: test_php_finds_function()
+- [[graphify_tests_test_languages_test_php_finds_imports]] — code: test_php_finds_imports()
+- [[graphify_tests_test_languages_test_php_import_edges_have_import_context]] — code: test_php_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_php_call_edges_have_call_context]] — code: test_php_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_php_finds_static_property_access]] — code: test_php_finds_static_property_access()
+- [[graphify_tests_test_languages_test_php_static_prop_target_is_holding_class]] — code: test_php_static_prop_target_is_holding_class()
+- [[graphify_tests_test_languages_test_php_finds_config_helper_call]] — code: test_php_finds_config_helper_call()
+- [[graphify_tests_test_languages_test_php_config_helper_target_matches_first_segment]] — code: test_php_config_helper_target_matches_first_segment()
+- [[graphify_tests_test_languages_test_php_finds_container_bind]] — code: test_php_finds_container_bind()
+- [[graphify_tests_test_languages_test_php_container_bind_links_contract_to_implementation]] — code: test_php_container_bind_links_contract_to_implementation()
+- [[graphify_tests_test_languages_test_php_finds_event_listeners]] — code: test_php_finds_event_listeners()
+- [[graphify_tests_test_languages_test_php_event_listener_links_event_to_listener]] — code: test_php_event_listener_links_event_to_listener()
+- [[graphify_tests_test_languages_test_php_splits_inherits_implements_mixes_in]] — code: test_php_splits_inherits_implements_mixes_in()
+- [[graphify_tests_test_languages_test_php_property_parameter_and_return_contexts]] — code: test_php_property_parameter_and_return_contexts()
+- [[graphify_tests_test_languages_test_php_constructor_property_promotion_contexts]] — code: test_php_constructor_property_promotion_contexts()
+- [[graphify_tests_test_languages_test_swift_no_error]] — code: test_swift_no_error()
+- [[graphify_tests_test_languages_test_swift_finds_class]] — code: test_swift_finds_class()
+- [[graphify_tests_test_languages_test_swift_finds_protocol]] — code: test_swift_finds_protocol()
+- [[graphify_tests_test_languages_test_swift_finds_struct]] — code: test_swift_finds_struct()
+- [[graphify_tests_test_languages_test_swift_finds_methods]] — code: test_swift_finds_methods()
+- [[graphify_tests_test_languages_test_swift_finds_function]] — code: test_swift_finds_function()
+- [[graphify_tests_test_languages_test_swift_finds_imports]] — code: test_swift_finds_imports()
+- [[graphify_tests_test_languages_test_swift_import_edges_have_import_context]] — code: test_swift_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_swift_no_dangling_edges]] — code: test_swift_no_dangling_edges()
+- [[graphify_tests_test_languages_test_swift_imports_survive_build]] — code: test_swift_imports_survive_build()
+- [[graphify_tests_test_languages_test_swift_finds_actor]] — code: test_swift_finds_actor()
+- [[graphify_tests_test_languages_test_swift_finds_enum]] — code: test_swift_finds_enum()
+- [[graphify_tests_test_languages_test_swift_finds_enum_methods]] — code: test_swift_finds_enum_methods()
+- [[graphify_tests_test_languages_test_swift_finds_enum_cases]] — code: test_swift_finds_enum_cases()
+- [[graphify_tests_test_languages_test_swift_enum_cases_have_case_of_edge]] — code: test_swift_enum_cases_have_case_of_edge()
+- [[graphify_tests_test_languages_test_swift_enum_associated_value_type_emits_references]] — code: test_swift_enum_associated_value_type_emits_references()
+- [[graphify_tests_test_languages_test_swift_finds_deinit]] — code: test_swift_finds_deinit()
+- [[graphify_tests_test_languages_test_swift_finds_subscript]] — code: test_swift_finds_subscript()
+- [[graphify_tests_test_languages_test_swift_extension_methods_attach_to_type]] — code: test_swift_extension_methods_attach_to_type()
+- [[graphify_tests_test_languages_test_swift_extension_does_not_duplicate_type_node]] — code: test_swift_extension_does_not_duplicate_type_node()
+- [[graphify_tests_test_languages_test_swift_protocol_conformance_emits_implements]] — code: test_swift_protocol_conformance_emits_implements()
+- [[graphify_tests_test_languages_test_swift_extension_conformance_emits_implements]] — code: test_swift_extension_conformance_emits_implements()
+- [[graphify_tests_test_languages_test_swift_splits_inherits_and_implements]] — code: test_swift_splits_inherits_and_implements()
+- [[graphify_tests_test_languages_test_swift_parameter_return_generic_and_field_contexts]] — code: test_swift_parameter_return_generic_and_field_contexts()
+- [[graphify_tests_test_languages_test_swift_emits_calls]] — code: test_swift_emits_calls()
+- [[graphify_tests_test_languages_test_swift_call_edges_have_call_context]] — code: test_swift_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_swift_extension_across_files_merges_into_canonical_type]] — code: test_swift_extension_across_files_merges_into_canonical_type()
+- [[graphify_tests_test_languages_test_elixir_finds_module]] — code: test_elixir_finds_module()
+- [[graphify_tests_test_languages_test_elixir_finds_functions]] — code: test_elixir_finds_functions()
+- [[graphify_tests_test_languages_test_elixir_finds_imports]] — code: test_elixir_finds_imports()
+- [[graphify_tests_test_languages_test_elixir_import_edges_have_import_context]] — code: test_elixir_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_elixir_multi_alias_expands]] — code: test_elixir_multi_alias_expands()
+- [[graphify_tests_test_languages_test_elixir_finds_calls]] — code: test_elixir_finds_calls()
+- [[graphify_tests_test_languages_test_elixir_call_edges_have_call_context]] — code: test_elixir_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_elixir_method_edges]] — code: test_elixir_method_edges()
+- [[graphify_tests_test_languages_test_objc_finds_interface]] — code: test_objc_finds_interface()
+- [[graphify_tests_test_languages_test_objc_finds_subclass]] — code: test_objc_finds_subclass()
+- [[graphify_tests_test_languages_test_objc_finds_methods]] — code: test_objc_finds_methods()
+- [[graphify_tests_test_languages_test_objc_finds_imports]] — code: test_objc_finds_imports()
+- [[graphify_tests_test_languages_test_objc_import_edges_have_import_context]] — code: test_objc_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_objc_inherits_edge]] — code: test_objc_inherits_edge()
+- [[graphify_tests_test_languages_test_objc_splits_inherits_and_implements]] — code: test_objc_splits_inherits_and_implements()
+- [[graphify_tests_test_languages_test_objc_protocol_adopts_protocol]] — code: test_objc_protocol_adopts_protocol()
+- [[graphify_tests_test_languages_test_objc_property_type_context]] — code: test_objc_property_type_context()
+- [[graphify_tests_test_languages_test_objc_no_dangling_edges]] — code: test_objc_no_dangling_edges()
+- [[graphify_tests_test_languages_test_objc_resolves_self_method_calls]] — code: test_objc_resolves_self_method_calls()
+- [[graphify_tests_test_languages_test_objc_class_method_labeled_with_plus]] — code: test_objc_class_method_labeled_with_plus()
+- [[graphify_tests_test_languages_test_objc_compound_selector_call_resolves]] — code: test_objc_compound_selector_call_resolves()
+- [[graphify_tests_test_languages_test_objc_generic_property_type_extracted]] — code: test_objc_generic_property_type_extracted()
+- [[graphify_tests_test_languages_test_objc_module_import_edge]] — code: test_objc_module_import_edge()
+- [[graphify_tests_test_languages_test_objc_header_dispatch_routes_objc_not_c]] — code: test_objc_header_dispatch_routes_objc_not_c()
+- [[graphify_tests_test_languages_test_objc_ns_assume_nonnull_macro_does_not_break_parsing]] — code: test_objc_ns_assume_nonnull_macro_does_not_break_parsing()
+- [[graphify_tests_test_languages_test_objc_macro_free_header_unchanged]] — code: test_objc_macro_free_header_unchanged()
+- [[graphify_tests_test_languages_test_objc_quoted_import_edges_resolve_to_real_nodes]] — code: test_objc_quoted_import_edges_resolve_to_real_nodes()
+- [[graphify_tests_test_languages_test_objc_alloc_init_emits_type_reference]] — code: test_objc_alloc_init_emits_type_reference()
+- [[graphify_tests_test_languages_test_objc_alloc_init_unknown_class_no_resolved_edge]] — code: test_objc_alloc_init_unknown_class_no_resolved_edge()
+- [[graphify_tests_test_languages_test_objc_dot_syntax_property_accesses_edge]] — code: test_objc_dot_syntax_property_accesses_edge()
+- [[graphify_tests_test_languages_test_objc_dot_syntax_no_fanout_two_same_named_properties]] — code: test_objc_dot_syntax_no_fanout_two_same_named_properties()
+- [[graphify_tests_test_languages_test_objc_dot_syntax_unresolvable_property_zero_edges]] — code: test_objc_dot_syntax_unresolvable_property_zero_edges()
+- [[graphify_tests_test_languages_test_objc_selector_expression_calls_edge]] — code: test_objc_selector_expression_calls_edge()
+- [[graphify_tests_test_languages_test_objc_selector_no_fanout_two_same_named_methods]] — code: test_objc_selector_no_fanout_two_same_named_methods()
+- [[graphify_tests_test_languages_test_objc_dot_syntax_substring_sibling_exact_match]] — code: test_objc_dot_syntax_substring_sibling_exact_match()
+- [[graphify_tests_test_languages_test_objc_selector_substring_method_exact_match]] — code: test_objc_selector_substring_method_exact_match()
+- [[graphify_tests_test_languages_test_go_receiver_methods_share_type_node]] — code: test_go_receiver_methods_share_type_node()
+- [[graphify_tests_test_languages_test_go_receiver_uses_pkg_scope]] — code: test_go_receiver_uses_pkg_scope()
+- [[graphify_tests_test_languages_test_julia_finds_module]] — code: test_julia_finds_module()
+- [[graphify_tests_test_languages_test_julia_finds_structs]] — code: test_julia_finds_structs()
+- [[graphify_tests_test_languages_test_julia_finds_abstract_type]] — code: test_julia_finds_abstract_type()
+- [[graphify_tests_test_languages_test_julia_finds_functions]] — code: test_julia_finds_functions()
+- [[graphify_tests_test_languages_test_julia_finds_short_function]] — code: test_julia_finds_short_function()
+- [[graphify_tests_test_languages_test_julia_finds_imports]] — code: test_julia_finds_imports()
+- [[graphify_tests_test_languages_test_julia_import_edges_have_import_context]] — code: test_julia_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_julia_qualified_and_relative_imports]] — code: test_julia_qualified_and_relative_imports()
+- [[graphify_tests_test_languages_test_julia_finds_inherits]] — code: test_julia_finds_inherits()
+- [[graphify_tests_test_languages_test_julia_abstract_concrete_hierarchy_inherits]] — code: test_julia_abstract_concrete_hierarchy_inherits()
+- [[graphify_tests_test_languages_test_julia_struct_field_type_context]] — code: test_julia_struct_field_type_context()
+- [[graphify_tests_test_languages_test_julia_finds_calls]] — code: test_julia_finds_calls()
+- [[graphify_tests_test_languages_test_julia_call_edges_have_call_context]] — code: test_julia_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_julia_no_dangling_edges]] — code: test_julia_no_dangling_edges()
+- [[graphify_tests_test_languages_test_fortran_finds_module]] — code: test_fortran_finds_module()
+- [[graphify_tests_test_languages_test_fortran_finds_subroutines]] — code: test_fortran_finds_subroutines()
+- [[graphify_tests_test_languages_test_fortran_finds_function]] — code: test_fortran_finds_function()
+- [[graphify_tests_test_languages_test_fortran_finds_program]] — code: test_fortran_finds_program()
+- [[graphify_tests_test_languages_test_fortran_finds_use_imports]] — code: test_fortran_finds_use_imports()
+- [[graphify_tests_test_languages_test_fortran_use_edges_have_use_context]] — code: test_fortran_use_edges_have_use_context()
+- [[graphify_tests_test_languages_test_fortran_finds_calls]] — code: test_fortran_finds_calls()
+- [[graphify_tests_test_languages_test_fortran_finds_function_call]] — code: test_fortran_finds_function_call()
+- [[graphify_tests_test_languages_test_fortran_case_insensitive_names]] — code: test_fortran_case_insensitive_names()
+- [[graphify_tests_test_languages_test_fortran_finds_derived_type]] — code: test_fortran_finds_derived_type()
+- [[graphify_tests_test_languages_test_fortran_parameter_and_return_type_contexts]] — code: test_fortran_parameter_and_return_type_contexts()
+- [[graphify_tests_test_languages_test_fortran_no_dangling_edges]] — code: test_fortran_no_dangling_edges()
+- [[graphify_tests_test_languages_test_fortran_capital_f_parses_preprocessed]] — code: test_fortran_capital_F_parses_preprocessed()
+- [[graphify_tests_test_languages_test_powershell_no_error]] — code: test_powershell_no_error()
+- [[graphify_tests_test_languages_test_powershell_psm1_dispatched_and_extracted]] — code: test_powershell_psm1_dispatched_and_extracted()
+- [[graphify_tests_test_languages_test_powershell_finds_class_and_method]] — code: test_powershell_finds_class_and_method()
+- [[graphify_tests_test_languages_test_powershell_class_base_type_emits_inherits_edge]] — code: test_powershell_class_base_type_emits_inherits_edge()
+- [[graphify_tests_test_languages_test_powershell_property_field_type_context]] — code: test_powershell_property_field_type_context()
+- [[graphify_tests_test_languages_test_powershell_method_parameter_and_return_type_contexts]] — code: test_powershell_method_parameter_and_return_type_contexts()
+- [[graphify_tests_test_languages_test_powershell_import_module_emits_edge]] — code: test_powershell_import_module_emits_edge()
+- [[graphify_tests_test_languages_test_powershell_import_module_with_name_param]] — code: test_powershell_import_module_with_name_param()
+- [[graphify_tests_test_languages_test_powershell_dot_source_forward_slash_emits_edge]] — code: test_powershell_dot_source_forward_slash_emits_edge()
+- [[graphify_tests_test_languages_test_powershell_dot_source_backslash_emits_edge]] — code: test_powershell_dot_source_backslash_emits_edge()
+- [[graphify_tests_test_languages_test_powershell_import_module_inside_function_emits_edge]] — code: test_powershell_import_module_inside_function_emits_edge()
+- [[graphify_tests_test_languages_test_powershell_import_module_not_a_raw_call]] — code: test_powershell_import_module_not_a_raw_call()
+- [[graphify_tests_test_languages_test_powershell_dot_source_inside_function_emits_edge]] — code: test_powershell_dot_source_inside_function_emits_edge()
+- [[graphify_tests_test_languages_test_powershell_psd1_dispatched]] — code: test_powershell_psd1_dispatched()
+- [[graphify_tests_test_languages_test_powershell_psd1_no_error]] — code: test_powershell_psd1_no_error()
+- [[graphify_tests_test_languages_test_powershell_psd1_has_file_node]] — code: test_powershell_psd1_has_file_node()
+- [[graphify_tests_test_languages_test_powershell_psd1_root_module]] — code: test_powershell_psd1_root_module()
+- [[graphify_tests_test_languages_test_powershell_psd1_nested_modules]] — code: test_powershell_psd1_nested_modules()
+- [[graphify_tests_test_languages_test_powershell_psd1_required_modules_string]] — code: test_powershell_psd1_required_modules_string()
+- [[graphify_tests_test_languages_test_powershell_psd1_required_modules_hashtable]] — code: test_powershell_psd1_required_modules_hashtable()
+- [[graphify_tests_test_languages_test_powershell_psd1_no_moduleversion_as_edge]] — code: test_powershell_psd1_no_moduleversion_as_edge()
+- [[graphify_tests_test_languages_test_powershell_psd1_no_dangling_edges]] — code: test_powershell_psd1_no_dangling_edges()
+- [[graphify_tests_test_languages_test_ts_dynamic_import_no_error]] — code: test_ts_dynamic_import_no_error()
+- [[graphify_tests_test_languages_test_ts_dynamic_import_extracts_edges]] — code: test_ts_dynamic_import_extracts_edges()
+- [[graphify_tests_test_languages_test_ts_dynamic_import_confidence]] — code: test_ts_dynamic_import_confidence()
+- [[graphify_tests_test_languages_test_ts_dynamic_import_source_is_function]] — code: test_ts_dynamic_import_source_is_function()
+- [[graphify_tests_test_languages_test_ts_no_dynamic_import_in_sync_fn]] — code: test_ts_no_dynamic_import_in_sync_fn()
+- [[graphify_tests_test_languages_test_ts_dynamic_template_literal_skipped]] — code: test_ts_dynamic_template_literal_skipped()
+- [[graphify_tests_test_languages_test_ts_static_template_literal_resolved]] — code: test_ts_static_template_literal_resolved()
+- [[graphify_tests_test_languages_test_js_local_const_does_not_emit_phantom_node]] — code: test_js_local_const_does_not_emit_phantom_node()
+- [[graphify_tests_test_languages_test_js_module_level_arrow_produces_node_and_call_edges]] — code: test_js_module_level_arrow_produces_node_and_call_edges()
+- [[graphify_tests_test_languages_test_ts_local_const_does_not_emit_phantom_node]] — code: test_ts_local_const_does_not_emit_phantom_node()
+- [[graphify_tests_test_languages_test_ts_constructor_injection_calls_edge]] — code: test_ts_constructor_injection_calls_edge()
+- [[graphify_tests_test_languages_test_ts_this_field_receiver_not_same_file_collision]] — code: test_ts_this_field_receiver_not_same_file_collision()
+- [[graphify_tests_test_languages_ts_label_calls]] — code: _ts_label_calls()
+- [[graphify_tests_test_languages_test_ts_injected_field_resolves_to_typed_class_not_same_named_collision]] — code: test_ts_injected_field_resolves_to_typed_class_not_same_named_collision()
+- [[graphify_tests_test_languages_test_ts_injected_field_ambiguous_type_emits_no_edge]] — code: test_ts_injected_field_ambiguous_type_emits_no_edge()
+- [[graphify_tests_test_languages_test_markdown_no_error]] — code: test_markdown_no_error()
+- [[graphify_tests_test_languages_test_markdown_finds_headings]] — code: test_markdown_finds_headings()
+- [[graphify_tests_test_languages_test_markdown_finds_nested_heading]] — code: test_markdown_finds_nested_heading()
+- [[graphify_tests_test_languages_test_markdown_skips_fenced_code_blocks]] — code: test_markdown_skips_fenced_code_blocks()
+- [[graphify_tests_test_languages_test_markdown_contains_edges]] — code: test_markdown_contains_edges()
+- [[graphify_tests_test_languages_test_markdown_fenced_heading_not_parsed]] — code: test_markdown_fenced_heading_not_parsed()
+- [[graphify_tests_test_languages_test_markdown_no_dangling_edges]] — code: test_markdown_no_dangling_edges()
+- [[graphify_tests_test_languages_md_link_fixture]] — code: _md_link_fixture()
+- [[graphify_tests_test_languages_test_markdown_link_edges_emitted]] — code: test_markdown_link_edges_emitted()
+- [[graphify_tests_test_languages_test_markdown_link_skips_external_and_images]] — code: test_markdown_link_skips_external_and_images()
+- [[graphify_tests_test_languages_test_markdown_link_edges_resolve_to_real_nodes]] — code: test_markdown_link_edges_resolve_to_real_nodes()
+- [[graphify_tests_test_languages_test_groovy_no_error]] — code: test_groovy_no_error()
+- [[graphify_tests_test_languages_test_groovy_finds_class]] — code: test_groovy_finds_class()
+- [[graphify_tests_test_languages_test_groovy_finds_methods]] — code: test_groovy_finds_methods()
+- [[graphify_tests_test_languages_test_groovy_finds_imports]] — code: test_groovy_finds_imports()
+- [[graphify_tests_test_languages_test_groovy_import_edges_have_import_context]] — code: test_groovy_import_edges_have_import_context()
+- [[graphify_tests_test_languages_test_groovy_no_dangling_edges]] — code: test_groovy_no_dangling_edges()
+- [[graphify_tests_test_languages_test_groovy_extends_edge]] — code: test_groovy_extends_edge()
+- [[graphify_tests_test_languages_test_groovy_implements_edge]] — code: test_groovy_implements_edge()
+- [[graphify_tests_test_languages_test_groovy_spock_finds_class]] — code: test_groovy_spock_finds_class()
+- [[graphify_tests_test_languages_test_groovy_spock_finds_feature_methods]] — code: test_groovy_spock_finds_feature_methods()
+- [[graphify_tests_test_languages_test_groovy_spock_finds_method_with_apostrophe]] — code: test_groovy_spock_finds_method_with_apostrophe()
+- [[graphify_tests_test_languages_test_groovy_spock_preserves_import_edges]] — code: test_groovy_spock_preserves_import_edges()
+- [[graphify_tests_test_languages_test_groovy_spock_no_dangling_edges]] — code: test_groovy_spock_no_dangling_edges()
+- [[graphify_tests_test_languages_test_dm_no_error]] — code: test_dm_no_error()
+- [[graphify_tests_test_languages_test_dm_finds_global_proc]] — code: test_dm_finds_global_proc()
+- [[graphify_tests_test_languages_test_dm_finds_type_definition]] — code: test_dm_finds_type_definition()
+- [[graphify_tests_test_languages_test_dm_qualifies_proc_with_type_path]] — code: test_dm_qualifies_proc_with_type_path()
+- [[graphify_tests_test_languages_test_dm_finds_path_form_proc_definition]] — code: test_dm_finds_path_form_proc_definition()
+- [[graphify_tests_test_languages_test_dm_emits_include_edge]] — code: test_dm_emits_include_edge()
+- [[graphify_tests_test_languages_test_dm_unresolved_include_flagged_external]] — code: test_dm_unresolved_include_flagged_external()
+- [[graphify_tests_test_languages_test_dm_resolves_in_file_calls]] — code: test_dm_resolves_in_file_calls()
+- [[graphify_tests_test_languages_test_dm_ambiguous_member_call_left_unresolved]] — code: test_dm_ambiguous_member_call_left_unresolved()
+- [[graphify_tests_test_languages_test_dm_emits_new_as_instantiates]] — code: test_dm_emits_new_as_instantiates()
+- [[graphify_tests_test_languages_test_dm_call_edges_have_call_context]] — code: test_dm_call_edges_have_call_context()
+- [[graphify_tests_test_languages_test_dm_no_dangling_edges]] — code: test_dm_no_dangling_edges()
+- [[graphify_tests_test_languages_test_dm_super_call_not_emitted]] — code: test_dm_super_call_not_emitted()
+- [[graphify_tests_test_languages_test_dmi_no_error]] — code: test_dmi_no_error()
+- [[graphify_tests_test_languages_test_dmi_emits_state_nodes]] — code: test_dmi_emits_state_nodes()
+- [[graphify_tests_test_languages_test_dmi_state_contained_by_file]] — code: test_dmi_state_contained_by_file()
+- [[graphify_tests_test_languages_test_dmm_no_error]] — code: test_dmm_no_error()
+- [[graphify_tests_test_languages_test_dmm_extracts_type_paths_as_uses_edges]] — code: test_dmm_extracts_type_paths_as_uses_edges()
+- [[graphify_tests_test_languages_test_dmm_strips_var_overrides]] — code: test_dmm_strips_var_overrides()
+- [[graphify_tests_test_languages_test_dmm_handles_multiline_tile_definition]] — code: test_dmm_handles_multiline_tile_definition()
+- [[graphify_tests_test_languages_test_dmm_skips_grid_section]] — code: test_dmm_skips_grid_section()
+- [[graphify_tests_test_languages_test_dmf_no_error]] — code: test_dmf_no_error()
+- [[graphify_tests_test_languages_test_dmf_extracts_windows]] — code: test_dmf_extracts_windows()
+- [[graphify_tests_test_languages_test_dmf_elem_labels_carry_control_type]] — code: test_dmf_elem_labels_carry_control_type()
+- [[graphify_tests_test_languages_test_dmf_elem_under_window]] — code: test_dmf_elem_under_window()
+- [[graphify_tests_test_languages_test_dmf_no_dangling_edges]] — code: test_dmf_no_dangling_edges()
+- [[graphify_tests_test_languages_test_sln_no_error]] — code: test_sln_no_error()
+- [[graphify_tests_test_languages_test_sln_finds_projects]] — code: test_sln_finds_projects()
+- [[graphify_tests_test_languages_test_sln_contains_edges]] — code: test_sln_contains_edges()
+- [[graphify_tests_test_languages_test_sln_project_dependency_edges]] — code: test_sln_project_dependency_edges()
+- [[graphify_tests_test_languages_test_csproj_no_error]] — code: test_csproj_no_error()
+- [[graphify_tests_test_languages_test_csproj_finds_packages]] — code: test_csproj_finds_packages()
+- [[graphify_tests_test_languages_test_csproj_finds_project_references]] — code: test_csproj_finds_project_references()
+- [[graphify_tests_test_languages_test_csproj_finds_target_framework]] — code: test_csproj_finds_target_framework()
+- [[graphify_tests_test_languages_test_csproj_finds_sdk]] — code: test_csproj_finds_sdk()
+- [[graphify_tests_test_languages_test_xaml_finds_class_and_event_references]] — code: test_xaml_finds_class_and_event_references()
+- [[graphify_tests_test_languages_test_razor_no_error]] — code: test_razor_no_error()
+- [[graphify_tests_test_languages_test_razor_finds_using_directives]] — code: test_razor_finds_using_directives()
+- [[graphify_tests_test_languages_test_razor_finds_component_references]] — code: test_razor_finds_component_references()
+- [[graphify_tests_test_languages_test_razor_finds_inherits]] — code: test_razor_finds_inherits()
+- [[graphify_tests_test_languages_test_razor_finds_code_block_methods]] — code: test_razor_finds_code_block_methods()
+- [[graphify_tests_test_languages_test_razor_no_dangling_edges]] — code: test_razor_no_dangling_edges()
+- [[graphify_tests_test_languages_test_apex_class_extraction]] — code: test_apex_class_extraction()
+- [[graphify_tests_test_languages_test_apex_enum_extraction]] — code: test_apex_enum_extraction()
+- [[graphify_tests_test_languages_test_apex_interface_extraction]] — code: test_apex_interface_extraction()
+- [[graphify_tests_test_languages_test_apex_interface_extends]] — code: test_apex_interface_extends()
+- [[graphify_tests_test_languages_test_apex_method_extraction]] — code: test_apex_method_extraction()
+- [[graphify_tests_test_languages_test_apex_contains_and_method_relations]] — code: test_apex_contains_and_method_relations()
+- [[graphify_tests_test_languages_test_apex_soql_uses_edge]] — code: test_apex_soql_uses_edge()
+- [[graphify_tests_test_languages_test_apex_dml_uses_edge]] — code: test_apex_dml_uses_edge()
+- [[graphify_tests_test_languages_test_apex_file_node_present]] — code: test_apex_file_node_present()
+- [[graphify_tests_test_languages_test_apex_trigger_extraction]] — code: test_apex_trigger_extraction()
+- [[graphify_tests_test_languages_test_apex_trigger_uses_sobject]] — code: test_apex_trigger_uses_sobject()
+- [[graphify_tests_test_languages_test_apex_missing_file_returns_empty]] — code: test_apex_missing_file_returns_empty()
+- [[graphify_tests_test_languages_test_apex_no_dangling_edges]] — code: test_apex_no_dangling_edges()
+- [[graphify_tests_test_languages_test_systemverilog_no_error]] — code: test_systemverilog_no_error()
+- [[graphify_tests_test_languages_test_systemverilog_splits_inherits_and_implements]] — code: test_systemverilog_splits_inherits_and_implements()
+- [[graphify_tests_test_languages_test_systemverilog_field_parameter_return_and_generic_contexts]] — code: test_systemverilog_field_parameter_return_and_generic_contexts()
+- [[graphify_tests_test_languages_test_systemverilog_qualified_field_references]] — code: test_systemverilog_qualified_field_references()
+- [[graphify_tests_test_languages_test_systemverilog_does_not_emit_type_parameter_refs]] — code: test_systemverilog_does_not_emit_type_parameter_refs()
+- [[graphify_tests_test_languages_test_systemverilog_preserves_existing_module_extraction]] — code: test_systemverilog_preserves_existing_module_extraction()
+- [[graphify_tests_test_languages_test_systemverilog_missing_file_returns_empty]] — code: test_systemverilog_missing_file_returns_empty()
+- [[graphify_tests_test_languages_test_systemverilog_no_dangling_edges]] — code: test_systemverilog_no_dangling_edges()
+- [[graphify_tests_test_languages_corpus]] — code: _corpus()
+- [[graphify_tests_test_languages_nodes_with_label]] — code: _nodes_with_label()
+- [[graphify_tests_test_languages_assert_no_dangling]] — code: _assert_no_dangling()
+- [[graphify_tests_test_languages_test_cpp_header_routes_to_cpp_extractor]] — code: test_cpp_header_routes_to_cpp_extractor()
+- [[graphify_tests_test_languages_test_plain_c_header_stays_on_c_extractor]] — code: test_plain_c_header_stays_on_c_extractor()
+- [[graphify_tests_test_languages_test_cpp_paired_single_class_node]] — code: test_cpp_paired_single_class_node()
+- [[graphify_tests_test_languages_test_cpp_paired_method_decl_and_def_are_one_node]] — code: test_cpp_paired_method_decl_and_def_are_one_node()
+- [[graphify_tests_test_languages_test_cpp_paired_includes_resolve_to_real_header]] — code: test_cpp_paired_includes_resolve_to_real_header()
+- [[graphify_tests_test_languages_test_cpp_paired_no_dangling_edges]] — code: test_cpp_paired_no_dangling_edges()
+- [[graphify_tests_test_languages_test_objc_header_with_import_routes_to_objc]] — code: test_objc_header_with_import_routes_to_objc()
+- [[graphify_tests_test_languages_test_objc_paired_single_class_methods_not_duplicated]] — code: test_objc_paired_single_class_methods_not_duplicated()
+- [[graphify_tests_test_languages_test_objc_bridging_header_not_isolated]] — code: test_objc_bridging_header_not_isolated()
+- [[graphify_tests_test_languages_test_objc_paired_no_dangling_edges]] — code: test_objc_paired_no_dangling_edges()
+- [[graphify_tests_test_languages_test_swift_extension_folds_onto_objc_class]] — code: test_swift_extension_folds_onto_objc_class()
+- [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_across_directories]] — code: test_decldef_merge_does_not_merge_across_directories()
+- [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_same_name_same_dir_distinct_files]] — code: test_decldef_merge_does_not_merge_same_name_same_dir_distinct_files()
+- [[graphify_tests_test_languages_rationale_1]] — code: Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift
+- [[graphify_tests_test_languages_rationale_216]] — code: Regression for #915: `class Derived : public Base {}` should emit an inherits ed
+- [[graphify_tests_test_languages_rationale_228]] — code: Structs use the same `: Base` syntax as classes and must also emit inherits.
+- [[graphify_tests_test_languages_rationale_240]] — code: `class PooledClient : public Connection<HttpClient>` must emit the inherits
+- [[graphify_tests_test_languages_rationale_321]] — code: `class Sub < Base` must emit an inherits edge.      Ruby exposes the base clas
+- [[graphify_tests_test_languages_rationale_627]] — code: Regression test for the call-walker `simple_identifier` /     `identifier` rena
+- [[graphify_tests_test_languages_rationale_646]] — code: `class Foo : Bar by baz` wraps the delegated interface in an     `explicit_dele
+- [[graphify_tests_test_languages_rationale_995]] — code: `extension Foo` in a separate file from `class Foo` must resolve to a     singl
+- [[graphify_tests_test_languages_rationale_1045]] — code: `alias Foo.{Bar, Baz}` must emit one imports edge per expanded module.      Th
+- [[graphify_tests_test_languages_rationale_1128]] — code: `@protocol Derived <Base>` must emit an implements edge Derived->Base.     Prot
+- [[graphify_tests_test_languages_rationale_1150]] — code: `[self speak]` inside Dog.fetch must produce a calls edge. The method-body
+- [[graphify_tests_test_languages_rationale_1160]] — code: `+ (…)shared` is a class method and must be labeled +shared, not -shared (#1475)
+- [[graphify_tests_test_languages_rationale_1168]] — code: A compound message `[self a:x b:y]` resolves to the compound method def (#1475).
+- [[graphify_tests_test_languages_rationale_1183]] — code: `NSArray<Product *> *` must reference the element type Product (and the     con
+- [[graphify_tests_test_languages_rationale_1193]] — code: `@import Foundation;` / `@import UIKit.UIView;` produce imports edges (#1475).
+- [[graphify_tests_test_languages_rationale_1202]] — code: An ObjC `.h` (has @interface) routes to extract_objc; a plain C `.h` stays
+- [[graphify_tests_test_languages_rationale_1214]] — code: `NS_ASSUME_NONNULL_BEGIN` before `@interface` made tree-sitter-objc fail to
+- [[graphify_tests_test_languages_rationale_1236]] — code: A macro-free header still parses exactly as before (regression).
+- [[graphify_tests_test_languages_rationale_1250]] — code: Quoted `#import "X.h"` edges must target the real (disambiguated) file node id,
+- [[graphify_tests_test_languages_rationale_1290]] — code: `[[Foo alloc] init]` must emit a `references` edge to the project class Foo (#14
+- [[graphify_tests_test_languages_rationale_1306]] — code: `[[Unknown alloc] init]` with no such class must not produce a resolved     ref
+- [[graphify_tests_test_languages_rationale_1326]] — code: self.name dot-syntax resolves to an accesses edge within the same class.
+- [[graphify_tests_test_languages_rationale_1343]] — code: Two classes each declaring -name: self.name in A must NOT fan out to B's -name.
+- [[graphify_tests_test_languages_rationale_1366]] — code: Accessing a property not defined in the current class produces zero accesses edg
+- [[graphify_tests_test_languages_rationale_1379]] — code: @selector(uniqueMethod) with exactly one match produces a calls edge.
+- [[graphify_tests_test_languages_rationale_1396]] — code: @selector(doThing) with two doThing methods must emit zero calls edges.
+- [[graphify_tests_test_languages_rationale_1416]] — code: A substring-colliding sibling must neither be falsely matched nor suppress
+- [[graphify_tests_test_languages_rationale_1436]] — code: @selector(doThing) must resolve to `-doThing` exactly, not be suppressed by
+- [[graphify_tests_test_languages_rationale_1460]] — code: Methods on the same receiver type must share one canonical type node.
+- [[graphify_tests_test_languages_rationale_1467]] — code: Type node id should be scoped to directory, not file stem.
+- [[graphify_tests_test_languages_rationale_1525]] — code: Qualified (`using Base.Threads`) and relative (`using ..Mod`) imports     must
+- [[graphify_tests_test_languages_rationale_1624]] — code: `y = f(x)` function invocations must emit a calls edge.      Function calls ar
+- [[graphify_tests_test_languages_rationale_1726]] — code: Import-Module Foo at top level emits an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1734]] — code: Import-Module -Name Bar.psm1 resolves to module stem 'bar'.
+- [[graphify_tests_test_languages_rationale_1741]] — code: Dot-source `. ./Shared.psm1` emits an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1748]] — code: Dot-source `. .\\Utils.ps1` (backslash path) emits an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1755]] — code: Import-Module inside a function body still produces an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1764]] — code: Import-Module must not appear in raw_calls (it is an import, not a function call
+- [[graphify_tests_test_languages_rationale_1776]] — code: Dot-source inside a function body still produces an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1787]] — code: _get_extractor should route .psd1 to extract_powershell_manifest.
+- [[graphify_tests_test_languages_rationale_1812]] — code: RootModule = 'MyModule.psm1' produces an imports_from edge to 'mymodule'.
+- [[graphify_tests_test_languages_rationale_1821]] — code: NestedModules = @('Helpers.psm1', 'Logger.psm1') produces edges for both.
+- [[graphify_tests_test_languages_rationale_1829]] — code: RequiredModules string form 'PSReadLine' produces an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1838]] — code: RequiredModules hashtable form @{{ ModuleName='Pester' }} produces an imports_fr
+- [[graphify_tests_test_languages_rationale_1847]] — code: ModuleVersion values ('5.0', '1.0.0') must NOT appear as import targets.
+- [[graphify_tests_test_languages_rationale_1856]] — code: All imports_from edge sources must exist in the node set.
+- [[graphify_tests_test_languages_rationale_1870]] — code: Dynamic import() calls inside functions should produce imports_from edges.
+- [[graphify_tests_test_languages_rationale_1880]] — code: Dynamic imports should have EXTRACTED confidence (they are deterministic string
+- [[graphify_tests_test_languages_rationale_1889]] — code: Dynamic import edge source should be the enclosing function, not the file.
+- [[graphify_tests_test_languages_rationale_1900]] — code: Functions without dynamic imports should not get spurious imports_from edges.
+- [[graphify_tests_test_languages_rationale_1910]] — code: Dynamic template literals (with ${}) must not produce an imports_from edge.
+- [[graphify_tests_test_languages_rationale_1921]] — code: Static template literals (no ${}) should resolve the same as a plain string.
+- [[graphify_tests_test_languages_rationale_1929]] — code: Local const/let/var inside an arrow callback must NOT emit a node (#1077).
+- [[graphify_tests_test_languages_rationale_1959]] — code: Module-level arrow functions must still emit a node and capture their calls (#10
+- [[graphify_tests_test_languages_rationale_1980]] — code: Scope guard applies to TypeScript files too (shared _js_extra_walk path).
+- [[graphify_tests_test_languages_rationale_1998]] — code: this.repo.findById() in a class with constructor(private repo: IUserRepository)
+- [[graphify_tests_test_languages_rationale_2040]] — code: this.db.query() should NOT match an unrelated query() in the same file (#1316).
+- [[graphify_tests_test_languages_rationale_2079]] — code: The decisive #1316 guardrail: two classes each define `query`, but the     inje
+- [[graphify_tests_test_languages_rationale_2121]] — code: If the injected field's type name is ambiguous (two classes named Database),
+- [[graphify_tests_test_languages_rationale_2162]] — code: ### Database Migration is nested under ## Full Deploy.
+- [[graphify_tests_test_languages_rationale_2168]] — code: Fenced code blocks should NOT emit nodes (#1077).      They were always orphan
+- [[graphify_tests_test_languages_rationale_2181]] — code: Headings should be connected via 'contains' edges (file->h, h->h).
+- [[graphify_tests_test_languages_rationale_2191]] — code: A '## heading' inside a fenced block must not produce a heading node (#1077).
+- [[graphify_tests_test_languages_rationale_2229]] — code: A hub doc linking to sibling docs, plus those docs (#1376).
+- [[graphify_tests_test_languages_rationale_2249]] — code: Inline/wikilink markdown links to sibling docs become references edges (#1376).
+- [[graphify_tests_test_languages_rationale_2263]] — code: External URLs, in-page anchors and images must not produce edges (#1376).
+- [[graphify_tests_test_languages_rationale_2273]] — code: End-to-end: after extract()'s ID remap, link targets are real doc nodes,     so
+- [[graphify_tests_test_languages_rationale_2330]] — code: `class X extends Base` must emit an inherits edge.      tree-sitter-groovy exp
+- [[graphify_tests_test_languages_rationale_2347]] — code: `class X implements Iface` must emit an implements edge.
+- [[graphify_tests_test_languages_rationale_2747]] — code: Class properties with leading qualifiers (rand/local/protected/etc.) must     s
+- [[graphify_tests_test_languages_rationale_2795]] — code: Run the full extract() pipeline on fixture files (absolute, resolved     paths
+- [[graphify_tests_test_languages_rationale_2817]] — code: A `.h` with a C++ class must route to extract_cpp, not extract_c (which has
+- [[graphify_tests_test_languages_rationale_2825]] — code: A plain C header (no C++ signal) must keep its extract_c routing.
+- [[graphify_tests_test_languages_rationale_2832]] — code: Foo.h (class) + Foo.cpp (Foo::bar def) + Main.cpp must yield exactly ONE     Fo
+- [[graphify_tests_test_languages_rationale_2842]] — code: `void bar();` in Foo.h and `void Foo::bar() {}` in Foo.cpp must collapse to
+- [[graphify_tests_test_languages_rationale_2858]] — code: Foo.cpp and Main.cpp `#include "Foo.h"` must resolve to the real Foo.h file
+- [[graphify_tests_test_languages_rationale_2878]] — code: A bridging header that is only `#import "X.h"` (no @interface) must route to
+- [[graphify_tests_test_languages_rationale_2886]] — code: Widget.h (@interface) + Widget.m (@implementation) -> ONE Widget class node
+- [[graphify_tests_test_languages_rationale_2898]] — code: A bridging header of only `#import "Widget.h"` must produce an imports edge
+- [[graphify_tests_test_languages_rationale_2916]] — code: `extension Widget` in Swift over an ObjC `Widget` must fold onto the single
+- [[graphify_tests_test_languages_rationale_2931]] — code: Two unrelated `class Logger` in DIFFERENT directories (each its own .h/.cpp)
+- [[graphify_tests_test_languages_rationale_2943]] — code: Two same-named `class Dup` in the SAME dir but different base stems     (Alpha.
+
+## Dependências
+
+- [[graphify_tests_test_languages]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_languages_test_js_local_const_does_not_emit_phantom_node]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_js_module_level_arrow_produces_node_and_call_edges]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_dynamic_import_confidence]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_dynamic_import_extracts_edges]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_dynamic_import_no_error]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_dynamic_import_source_is_function]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_dynamic_template_literal_skipped]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_local_const_does_not_emit_phantom_node]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_no_dynamic_import_in_sync_fn]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_static_template_literal_resolved]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_ts_this_field_receiver_not_same_file_collision]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_languages_test_java_enum_and_annotation_declarations_are_type_nodes]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_enum_constants_have_case_of_edge]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_field_type_references_have_field_context]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_finds_class]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_finds_imports]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_finds_interface]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_generic_parents_include_type_argument_references]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_no_error]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_normalizes_inherits_and_implements]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_parameter_return_generic_and_attribute_contexts]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_record_component_type_references]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_record_components_skip_type_parameters]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_type_annotations_have_attribute_context]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_java_type_parameters_do_not_emit_references]] → `calls` → [[graphify_graphify_extract_extract_java]]
+- [[graphify_tests_test_languages_test_groovy_extends_edge]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_finds_class]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_finds_imports]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_implements_edge]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_no_error]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_spock_finds_class]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_spock_finds_feature_methods]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_spock_finds_method_with_apostrophe]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_spock_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_groovy_spock_preserves_import_edges]] → `calls` → [[graphify_graphify_extract_extract_groovy]]
+- [[graphify_tests_test_languages_test_c_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_calls_are_extracted]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_emits_calls]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_finds_functions]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_finds_includes]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_no_error]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_c_parameter_and_return_type_contexts]] → `calls` → [[graphify_graphify_extract_extract_c]]
+- [[graphify_tests_test_languages_test_cpp_class_inherits_edge]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_field_and_template_argument_contexts]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_finds_class]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_finds_includes]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_generic_parents_include_type_argument_references]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_method_parameter_and_return_type_contexts]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_no_error]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cpp_struct_inherits_edge]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cuda_finds_includes]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cuda_finds_kernel_and_device_functions]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cuda_finds_struct]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cuda_host_call_edges]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_cuda_no_error]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_metal_finds_kernel_function_and_struct]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_metal_no_error]] → `calls` → [[graphify_graphify_extract_extract_cpp]]
+- [[graphify_tests_test_languages_test_ruby_finds_class]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_languages_test_ruby_finds_function]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_languages_test_ruby_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_languages_test_ruby_inherits_edge]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_languages_test_ruby_no_error]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_languages_test_csharp_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_field_type_references_have_field_context]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_finds_class]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_finds_interface]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_finds_usings]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_implements_iprocessor]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_inherits_edge]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_no_error]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_parameter_return_and_generic_contexts]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_property_type_references_have_field_context]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_csharp_splits_inherits_and_implements_edges]] → `calls` → [[graphify_graphify_extract_extract_csharp]]
+- [[graphify_tests_test_languages_test_kotlin_emits_in_file_calls]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_enum_entries_have_case_of_edge]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_finds_class]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_finds_data_class]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_finds_function]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_interface_delegation_emits_implements]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_no_error]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_parameter_return_generic_and_field_contexts]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_kotlin_splits_inherits_and_implements]] → `calls` → [[graphify_graphify_extract_extract_kotlin]]
+- [[graphify_tests_test_languages_test_scala_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_constructor_parameter_field_context]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_finds_class]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_finds_object]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_method_return_type_context]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_no_error]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_splits_inherits_and_mixes_in]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_val_definition_field_context]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_scala_var_definition_field_context]] → `calls` → [[graphify_graphify_extract_extract_scala]]
+- [[graphify_tests_test_languages_test_php_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_config_helper_target_matches_first_segment]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_constructor_property_promotion_contexts]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_container_bind_links_contract_to_implementation]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_event_listener_links_event_to_listener]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_class]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_config_helper_call]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_container_bind]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_event_listeners]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_function]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_imports]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_finds_static_property_access]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_no_error]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_property_parameter_and_return_contexts]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_splits_inherits_implements_mixes_in]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_php_static_prop_target_is_holding_class]] → `calls` → [[graphify_graphify_extract_extract_php]]
+- [[graphify_tests_test_languages_test_swift_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_emits_calls]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_enum_associated_value_type_emits_references]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_enum_cases_have_case_of_edge]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_extension_conformance_emits_implements]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_extension_does_not_duplicate_type_node]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_extension_methods_attach_to_type]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_actor]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_class]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_deinit]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_enum]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_enum_cases]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_enum_methods]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_function]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_imports]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_protocol]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_struct]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_finds_subscript]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_imports_survive_build]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_no_error]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_parameter_return_generic_and_field_contexts]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_protocol_conformance_emits_implements]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_swift_splits_inherits_and_implements]] → `calls` → [[graphify_graphify_extract_extract_swift]]
+- [[graphify_tests_test_languages_test_csproj_finds_packages]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_languages_test_csproj_finds_project_references]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_languages_test_csproj_finds_sdk]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_languages_test_csproj_finds_target_framework]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_languages_test_csproj_no_error]] → `calls` → [[graphify_graphify_extract_extract_csproj]]
+- [[graphify_tests_test_languages_test_xaml_finds_class_and_event_references]] → `calls` → [[graphify_graphify_extract_extract_xaml]]
+- [[graphify_tests_test_languages_test_objc_header_with_import_routes_to_objc]] → `calls` → [[graphify_graphify_extract_is_objc_header]]
+- [[graphify_tests_test_languages_test_cpp_header_routes_to_cpp_extractor]] → `calls` → [[graphify_graphify_extract_is_cpp_header]]
+- [[graphify_tests_test_languages_test_plain_c_header_stays_on_c_extractor]] → `calls` → [[graphify_graphify_extract_is_cpp_header]]
+- [[graphify_tests_test_languages_test_cpp_header_routes_to_cpp_extractor]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_languages_test_objc_header_dispatch_routes_objc_not_c]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_languages_test_objc_header_with_import_routes_to_objc]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_languages_test_plain_c_header_stays_on_c_extractor]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_languages_test_powershell_psd1_dispatched]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_languages_test_powershell_psm1_dispatched_and_extracted]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_languages_test_markdown_link_edges_resolve_to_real_nodes]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_objc_alloc_init_emits_type_reference]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_objc_quoted_import_edges_resolve_to_real_nodes]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_swift_extension_across_files_merges_into_canonical_type]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_ts_constructor_injection_calls_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_ts_injected_field_ambiguous_type_emits_no_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_ts_injected_field_resolves_to_typed_class_not_same_named_collision]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_languages_test_apex_class_extraction]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_contains_and_method_relations]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_dml_uses_edge]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_enum_extraction]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_file_node_present]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_interface_extends]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_interface_extraction]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_method_extraction]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_missing_file_returns_empty]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_soql_uses_edge]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_trigger_extraction]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_apex_trigger_uses_sobject]] → `calls` → [[graphify_graphify_extractors_apex_extract_apex]]
+- [[graphify_tests_test_languages_test_dm_ambiguous_member_call_left_unresolved]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_emits_include_edge]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_emits_new_as_instantiates]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_finds_global_proc]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_finds_path_form_proc_definition]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_finds_type_definition]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_no_error]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_qualifies_proc_with_type_path]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_resolves_in_file_calls]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_super_call_not_emitted]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dm_unresolved_include_flagged_external]] → `calls` → [[graphify_graphify_extractors_dm_extract_dm]]
+- [[graphify_tests_test_languages_test_dmi_emits_state_nodes]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmi]]
+- [[graphify_tests_test_languages_test_dmi_no_error]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmi]]
+- [[graphify_tests_test_languages_test_dmi_state_contained_by_file]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmi]]
+- [[graphify_tests_test_languages_test_dmm_extracts_type_paths_as_uses_edges]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmm]]
+- [[graphify_tests_test_languages_test_dmm_handles_multiline_tile_definition]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmm]]
+- [[graphify_tests_test_languages_test_dmm_no_error]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmm]]
+- [[graphify_tests_test_languages_test_dmm_skips_grid_section]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmm]]
+- [[graphify_tests_test_languages_test_dmm_strips_var_overrides]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmm]]
+- [[graphify_tests_test_languages_test_dmf_elem_labels_carry_control_type]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmf]]
+- [[graphify_tests_test_languages_test_dmf_elem_under_window]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmf]]
+- [[graphify_tests_test_languages_test_dmf_extracts_windows]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmf]]
+- [[graphify_tests_test_languages_test_dmf_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmf]]
+- [[graphify_tests_test_languages_test_dmf_no_error]] → `calls` → [[graphify_graphify_extractors_dm_extract_dmf]]
+- [[graphify_tests_test_languages_test_elixir_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_finds_calls]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_finds_functions]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_finds_imports]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_finds_module]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_method_edges]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_elixir_multi_alias_expands]] → `calls` → [[graphify_graphify_extractors_elixir_extract_elixir]]
+- [[graphify_tests_test_languages_test_fortran_capital_f_parses_preprocessed]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_case_insensitive_names]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_calls]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_derived_type]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_function]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_function_call]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_module]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_program]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_subroutines]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_finds_use_imports]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_parameter_and_return_type_contexts]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_fortran_use_edges_have_use_context]] → `calls` → [[graphify_graphify_extractors_fortran_extract_fortran]]
+- [[graphify_tests_test_languages_test_go_receiver_methods_share_type_node]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_languages_test_go_receiver_uses_pkg_scope]] → `calls` → [[graphify_graphify_extractors_go_extract_go]]
+- [[graphify_tests_test_languages_test_julia_abstract_concrete_hierarchy_inherits]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_abstract_type]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_calls]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_functions]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_imports]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_inherits]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_module]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_short_function]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_finds_structs]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_qualified_and_relative_imports]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_julia_struct_field_type_context]] → `calls` → [[graphify_graphify_extractors_julia_extract_julia]]
+- [[graphify_tests_test_languages_test_markdown_contains_edges]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_fenced_heading_not_parsed]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_finds_headings]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_finds_nested_heading]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_link_edges_emitted]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_link_skips_external_and_images]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_no_error]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_markdown_skips_fenced_code_blocks]] → `calls` → [[graphify_graphify_extractors_markdown_extract_markdown]]
+- [[graphify_tests_test_languages_test_objc_alloc_init_unknown_class_no_resolved_edge]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_class_method_labeled_with_plus]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_compound_selector_call_resolves]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_dot_syntax_no_fanout_two_same_named_properties]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_dot_syntax_property_accesses_edge]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_dot_syntax_substring_sibling_exact_match]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_dot_syntax_unresolvable_property_zero_edges]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_finds_imports]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_finds_interface]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_finds_methods]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_finds_subclass]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_generic_property_type_extracted]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_inherits_edge]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_macro_free_header_unchanged]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_module_import_edge]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_ns_assume_nonnull_macro_does_not_break_parsing]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_property_type_context]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_protocol_adopts_protocol]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_resolves_self_method_calls]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_selector_expression_calls_edge]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_selector_no_fanout_two_same_named_methods]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_selector_substring_method_exact_match]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_objc_splits_inherits_and_implements]] → `calls` → [[graphify_graphify_extractors_objc_extract_objc]]
+- [[graphify_tests_test_languages_test_powershell_class_base_type_emits_inherits_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_dot_source_backslash_emits_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_dot_source_forward_slash_emits_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_dot_source_inside_function_emits_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_finds_class_and_method]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_import_module_emits_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_import_module_inside_function_emits_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_import_module_not_a_raw_call]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_import_module_with_name_param]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_method_parameter_and_return_type_contexts]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_no_error]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_property_field_type_context]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_psm1_dispatched_and_extracted]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell]]
+- [[graphify_tests_test_languages_test_powershell_psd1_has_file_node]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_nested_modules]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_no_error]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_no_moduleversion_as_edge]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_required_modules_hashtable]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_required_modules_string]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_powershell_psd1_root_module]] → `calls` → [[graphify_graphify_extractors_powershell_extract_powershell_manifest]]
+- [[graphify_tests_test_languages_test_razor_finds_code_block_methods]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_languages_test_razor_finds_component_references]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_languages_test_razor_finds_inherits]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_languages_test_razor_finds_using_directives]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_languages_test_razor_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_languages_test_razor_no_error]] → `calls` → [[graphify_graphify_extractors_razor_extract_razor]]
+- [[graphify_tests_test_languages_test_sln_contains_edges]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_languages_test_sln_finds_projects]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_languages_test_sln_no_error]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_languages_test_sln_project_dependency_edges]] → `calls` → [[graphify_graphify_extractors_sln_extract_sln]]
+- [[graphify_tests_test_languages_test_systemverilog_does_not_emit_type_parameter_refs]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_field_parameter_return_and_generic_contexts]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_missing_file_returns_empty]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_no_error]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_preserves_existing_module_extraction]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_qualified_field_references]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages_test_systemverilog_splits_inherits_and_implements]] → `calls` → [[graphify_graphify_extractors_verilog_extract_verilog]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_assert_no_dangling]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_md_link_fixture]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_node_by_label]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_normalize_symbol_label]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_class_extraction]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_contains_and_method_relations]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_dml_uses_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_enum_extraction]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_file_node_present]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_interface_extends]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_interface_extraction]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_method_extraction]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_missing_file_returns_empty]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_soql_uses_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_trigger_extraction]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_apex_trigger_uses_sobject]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_calls_are_extracted]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_emits_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_finds_functions]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_finds_includes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_c_parameter_and_return_type_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_class_inherits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_field_and_template_argument_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_finds_includes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_generic_parents_include_type_argument_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_header_routes_to_cpp_extractor]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_method_parameter_and_return_type_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_paired_includes_resolve_to_real_header]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_paired_method_decl_and_def_are_one_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_paired_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_paired_single_class_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cpp_struct_inherits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_field_type_references_have_field_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_finds_interface]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_finds_usings]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_implements_iprocessor]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_inherits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_parameter_return_and_generic_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_property_type_references_have_field_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csharp_splits_inherits_and_implements_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csproj_finds_packages]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csproj_finds_project_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csproj_finds_sdk]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csproj_finds_target_framework]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_csproj_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cuda_finds_includes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cuda_finds_kernel_and_device_functions]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cuda_finds_struct]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cuda_host_call_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_cuda_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_across_directories]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_same_name_same_dir_distinct_files]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_ambiguous_member_call_left_unresolved]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_emits_include_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_emits_new_as_instantiates]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_finds_global_proc]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_finds_path_form_proc_definition]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_finds_type_definition]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_qualifies_proc_with_type_path]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_resolves_in_file_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_super_call_not_emitted]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dm_unresolved_include_flagged_external]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmf_elem_labels_carry_control_type]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmf_elem_under_window]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmf_extracts_windows]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmf_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmf_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmi_emits_state_nodes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmi_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmi_state_contained_by_file]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmm_extracts_type_paths_as_uses_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmm_handles_multiline_tile_definition]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmm_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmm_skips_grid_section]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_dmm_strips_var_overrides]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_finds_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_finds_functions]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_finds_module]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_method_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_elixir_multi_alias_expands]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_capital_f_parses_preprocessed]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_case_insensitive_names]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_derived_type]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_function_call]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_module]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_program]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_subroutines]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_finds_use_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_parameter_and_return_type_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_fortran_use_edges_have_use_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_go_receiver_methods_share_type_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_go_receiver_uses_pkg_scope]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_extends_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_implements_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_spock_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_spock_finds_feature_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_spock_finds_method_with_apostrophe]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_spock_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_groovy_spock_preserves_import_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_enum_and_annotation_declarations_are_type_nodes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_enum_constants_have_case_of_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_field_type_references_have_field_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_finds_interface]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_generic_parents_include_type_argument_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_normalizes_inherits_and_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_parameter_return_generic_and_attribute_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_record_component_type_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_record_components_skip_type_parameters]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_type_annotations_have_attribute_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_java_type_parameters_do_not_emit_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_js_local_const_does_not_emit_phantom_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_js_module_level_arrow_produces_node_and_call_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_abstract_concrete_hierarchy_inherits]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_abstract_type]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_functions]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_inherits]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_module]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_short_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_finds_structs]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_qualified_and_relative_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_julia_struct_field_type_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_emits_in_file_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_enum_entries_have_case_of_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_finds_data_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_finds_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_interface_delegation_emits_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_parameter_return_generic_and_field_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_kotlin_splits_inherits_and_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_contains_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_fenced_heading_not_parsed]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_finds_headings]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_finds_nested_heading]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_link_edges_emitted]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_link_edges_resolve_to_real_nodes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_link_skips_external_and_images]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_markdown_skips_fenced_code_blocks]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_metal_finds_kernel_function_and_struct]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_metal_is_code_extension]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_metal_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_alloc_init_emits_type_reference]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_alloc_init_unknown_class_no_resolved_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_bridging_header_not_isolated]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_class_method_labeled_with_plus]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_compound_selector_call_resolves]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_dot_syntax_no_fanout_two_same_named_properties]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_dot_syntax_property_accesses_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_dot_syntax_substring_sibling_exact_match]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_dot_syntax_unresolvable_property_zero_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_finds_interface]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_finds_subclass]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_generic_property_type_extracted]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_header_dispatch_routes_objc_not_c]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_header_with_import_routes_to_objc]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_inherits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_macro_free_header_unchanged]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_module_import_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_ns_assume_nonnull_macro_does_not_break_parsing]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_paired_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_paired_single_class_methods_not_duplicated]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_property_type_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_protocol_adopts_protocol]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_quoted_import_edges_resolve_to_real_nodes]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_resolves_self_method_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_selector_expression_calls_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_selector_no_fanout_two_same_named_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_selector_substring_method_exact_match]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_objc_splits_inherits_and_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_config_helper_target_matches_first_segment]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_constructor_property_promotion_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_container_bind_links_contract_to_implementation]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_event_listener_links_event_to_listener]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_config_helper_call]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_container_bind]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_event_listeners]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_finds_static_property_access]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_property_parameter_and_return_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_splits_inherits_implements_mixes_in]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_php_static_prop_target_is_holding_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_plain_c_header_stays_on_c_extractor]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_class_base_type_emits_inherits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_dot_source_backslash_emits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_dot_source_forward_slash_emits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_dot_source_inside_function_emits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_finds_class_and_method]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_import_module_emits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_import_module_inside_function_emits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_import_module_not_a_raw_call]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_import_module_with_name_param]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_method_parameter_and_return_type_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_property_field_type_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_dispatched]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_has_file_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_nested_modules]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_no_moduleversion_as_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_required_modules_hashtable]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_required_modules_string]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psd1_root_module]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_powershell_psm1_dispatched_and_extracted]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_razor_finds_code_block_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_razor_finds_component_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_razor_finds_inherits]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_razor_finds_using_directives]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_razor_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_razor_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ruby_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ruby_finds_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ruby_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ruby_inherits_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ruby_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_constructor_parameter_field_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_finds_object]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_method_return_type_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_splits_inherits_and_mixes_in]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_val_definition_field_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_scala_var_definition_field_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_sln_contains_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_sln_finds_projects]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_sln_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_sln_project_dependency_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_call_edges_have_call_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_emits_calls]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_enum_associated_value_type_emits_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_enum_cases_have_case_of_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_extension_across_files_merges_into_canonical_type]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_extension_conformance_emits_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_extension_does_not_duplicate_type_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_extension_folds_onto_objc_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_extension_methods_attach_to_type]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_actor]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_class]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_deinit]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_enum]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_enum_cases]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_enum_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_imports]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_methods]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_protocol]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_struct]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_finds_subscript]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_import_edges_have_import_context]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_imports_survive_build]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_parameter_return_generic_and_field_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_protocol_conformance_emits_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_swift_splits_inherits_and_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_does_not_emit_type_parameter_refs]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_field_parameter_return_and_generic_contexts]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_missing_file_returns_empty]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_no_dangling_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_preserves_existing_module_extraction]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_qualified_field_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_systemverilog_splits_inherits_and_implements]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_constructor_injection_calls_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_dynamic_import_confidence]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_dynamic_import_extracts_edges]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_dynamic_import_no_error]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_dynamic_import_source_is_function]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_dynamic_template_literal_skipped]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_injected_field_ambiguous_type_emits_no_edge]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_injected_field_resolves_to_typed_class_not_same_named_collision]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_local_const_does_not_emit_phantom_node]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_no_dynamic_import_in_sync_fn]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_static_template_literal_resolved]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_ts_this_field_receiver_not_same_file_collision]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_test_xaml_finds_class_and_event_references]]
+- [[graphify_tests_test_languages]] → `contains` → [[graphify_tests_test_languages_ts_label_calls]]
+- [[graphify_tests_test_languages_rationale_1]] → `rationale_for` → [[graphify_tests_test_languages]]
+- [[graphify_tests_test_languages_test_apex_class_extraction]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_enum_extraction]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_file_node_present]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_interface_extraction]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_method_extraction]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_soql_uses_edge]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_trigger_extraction]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_trigger_uses_sobject]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_c_finds_functions]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_cpp_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_cpp_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csharp_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csharp_finds_interface]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csharp_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csproj_finds_packages]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csproj_finds_project_references]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csproj_finds_sdk]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_csproj_finds_target_framework]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_cuda_finds_kernel_and_device_functions]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_cuda_finds_struct]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dm_finds_global_proc]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dm_finds_path_form_proc_definition]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dm_finds_type_definition]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dm_qualifies_proc_with_type_path]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dmf_elem_labels_carry_control_type]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dmf_extracts_windows]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_dmi_emits_state_nodes]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_groovy_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_groovy_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_groovy_spock_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_groovy_spock_finds_feature_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_groovy_spock_finds_method_with_apostrophe]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_java_enum_constants_have_case_of_edge]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_java_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_java_finds_interface]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_java_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_js_local_const_does_not_emit_phantom_node]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_js_module_level_arrow_produces_node_and_call_edges]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_kotlin_enum_entries_have_case_of_edge]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_kotlin_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_kotlin_finds_data_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_kotlin_finds_function]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_kotlin_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_markdown_fenced_heading_not_parsed]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_markdown_finds_headings]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_markdown_finds_nested_heading]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_markdown_skips_fenced_code_blocks]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_metal_finds_kernel_function_and_struct]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_php_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_php_finds_function]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_php_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_razor_finds_code_block_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_ruby_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_ruby_finds_function]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_ruby_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_scala_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_scala_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_scala_finds_object]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_sln_finds_projects]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_actor]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_class]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_deinit]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_enum]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_enum_cases]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_enum_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_function]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_methods]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_protocol]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_struct]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_swift_finds_subscript]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_systemverilog_preserves_existing_module_extraction]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_ts_local_const_does_not_emit_phantom_node]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_xaml_finds_class_and_event_references]] → `calls` → [[graphify_tests_test_languages_labels]]
+- [[graphify_tests_test_languages_test_apex_contains_and_method_relations]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_apex_soql_uses_edge]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_apex_trigger_uses_sobject]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_c_finds_includes]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_cpp_finds_includes]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_csharp_finds_usings]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_cuda_finds_includes]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_groovy_finds_imports]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_groovy_spock_preserves_import_edges]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_java_finds_imports]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_js_module_level_arrow_produces_node_and_call_edges]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_markdown_contains_edges]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_php_finds_config_helper_call]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_php_finds_container_bind]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_php_finds_event_listeners]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_php_finds_imports]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_php_finds_static_property_access]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_razor_finds_component_references]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_razor_finds_inherits]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_razor_finds_using_directives]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_sln_contains_edges]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_sln_project_dependency_edges]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_swift_finds_imports]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_systemverilog_preserves_existing_module_extraction]] → `calls` → [[graphify_tests_test_languages_relations]]
+- [[graphify_tests_test_languages_test_cuda_host_call_edges]] → `calls` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages_test_dm_ambiguous_member_call_left_unresolved]] → `calls` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages_test_dm_resolves_in_file_calls]] → `calls` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages_test_dm_super_call_not_emitted]] → `calls` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages_test_kotlin_emits_in_file_calls]] → `calls` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages_test_swift_emits_calls]] → `calls` → [[graphify_tests_test_languages_calls]]
+- [[graphify_tests_test_languages_test_csharp_field_type_references_have_field_context]] → `calls` → [[graphify_tests_test_languages_references]]
+- [[graphify_tests_test_languages_test_java_type_parameters_do_not_emit_references]] → `calls` → [[graphify_tests_test_languages_references]]
+- [[graphify_tests_test_languages_test_c_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_c_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_cpp_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_dm_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_dm_emits_include_edge]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_dm_unresolved_include_flagged_external]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_elixir_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_elixir_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_groovy_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_java_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_julia_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_julia_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_objc_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_php_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_php_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_scala_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_scala_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_swift_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_test_swift_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_languages_edges_with_relation]]
+- [[graphify_tests_test_languages_edge_labels]] → `calls` → [[graphify_tests_test_languages_normalize_symbol_label]]
+- [[graphify_tests_test_languages_node_by_label]] → `calls` → [[graphify_tests_test_languages_normalize_symbol_label]]
+- [[graphify_tests_test_languages_test_apex_interface_extends]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_c_parameter_and_return_type_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_cpp_field_and_template_argument_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_cpp_generic_parents_include_type_argument_references]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_cpp_method_parameter_and_return_type_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_csharp_parameter_return_and_generic_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_csharp_property_type_references_have_field_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_csharp_splits_inherits_and_implements_edges]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_fortran_parameter_and_return_type_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_enum_and_annotation_declarations_are_type_nodes]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_enum_constants_have_case_of_edge]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_field_type_references_have_field_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_generic_parents_include_type_argument_references]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_normalizes_inherits_and_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_parameter_return_generic_and_attribute_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_record_component_type_references]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_record_components_skip_type_parameters]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_type_annotations_have_attribute_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_java_type_parameters_do_not_emit_references]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_julia_abstract_concrete_hierarchy_inherits]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_julia_struct_field_type_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_kotlin_enum_entries_have_case_of_edge]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_kotlin_interface_delegation_emits_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_kotlin_parameter_return_generic_and_field_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_kotlin_splits_inherits_and_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_alloc_init_emits_type_reference]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_generic_property_type_extracted]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_macro_free_header_unchanged]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_ns_assume_nonnull_macro_does_not_break_parsing]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_property_type_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_protocol_adopts_protocol]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_objc_splits_inherits_and_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_php_constructor_property_promotion_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_php_property_parameter_and_return_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_php_splits_inherits_implements_mixes_in]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_powershell_class_base_type_emits_inherits_edge]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_powershell_method_parameter_and_return_type_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_powershell_property_field_type_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_scala_constructor_parameter_field_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_scala_method_return_type_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_scala_splits_inherits_and_mixes_in]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_scala_val_definition_field_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_scala_var_definition_field_context]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_swift_enum_associated_value_type_emits_references]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_swift_extension_conformance_emits_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_swift_parameter_return_generic_and_field_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_swift_protocol_conformance_emits_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_swift_splits_inherits_and_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_systemverilog_does_not_emit_type_parameter_refs]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_systemverilog_field_parameter_return_and_generic_contexts]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_systemverilog_qualified_field_references]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_test_systemverilog_splits_inherits_and_implements]] → `calls` → [[graphify_tests_test_languages_edge_labels]]
+- [[graphify_tests_test_languages_rationale_216]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_class_inherits_edge]]
+- [[graphify_tests_test_languages_rationale_228]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_struct_inherits_edge]]
+- [[graphify_tests_test_languages_rationale_240]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_generic_parents_include_type_argument_references]]
+- [[graphify_tests_test_languages_rationale_321]] → `rationale_for` → [[graphify_tests_test_languages_test_ruby_inherits_edge]]
+- [[graphify_tests_test_languages_rationale_627]] → `rationale_for` → [[graphify_tests_test_languages_test_kotlin_emits_in_file_calls]]
+- [[graphify_tests_test_languages_rationale_646]] → `rationale_for` → [[graphify_tests_test_languages_test_kotlin_interface_delegation_emits_implements]]
+- [[graphify_tests_test_languages_rationale_995]] → `rationale_for` → [[graphify_tests_test_languages_test_swift_extension_across_files_merges_into_canonical_type]]
+- [[graphify_tests_test_languages_rationale_1045]] → `rationale_for` → [[graphify_tests_test_languages_test_elixir_multi_alias_expands]]
+- [[graphify_tests_test_languages_rationale_1128]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_protocol_adopts_protocol]]
+- [[graphify_tests_test_languages_rationale_1150]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_resolves_self_method_calls]]
+- [[graphify_tests_test_languages_rationale_1160]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_class_method_labeled_with_plus]]
+- [[graphify_tests_test_languages_rationale_1168]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_compound_selector_call_resolves]]
+- [[graphify_tests_test_languages_rationale_1183]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_generic_property_type_extracted]]
+- [[graphify_tests_test_languages_rationale_1193]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_module_import_edge]]
+- [[graphify_tests_test_languages_rationale_1202]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_header_dispatch_routes_objc_not_c]]
+- [[graphify_tests_test_languages_rationale_1214]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_ns_assume_nonnull_macro_does_not_break_parsing]]
+- [[graphify_tests_test_languages_rationale_1236]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_macro_free_header_unchanged]]
+- [[graphify_tests_test_languages_rationale_1250]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_quoted_import_edges_resolve_to_real_nodes]]
+- [[graphify_tests_test_languages_rationale_1290]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_alloc_init_emits_type_reference]]
+- [[graphify_tests_test_languages_rationale_1306]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_alloc_init_unknown_class_no_resolved_edge]]
+- [[graphify_tests_test_languages_rationale_1326]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_dot_syntax_property_accesses_edge]]
+- [[graphify_tests_test_languages_rationale_1343]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_dot_syntax_no_fanout_two_same_named_properties]]
+- [[graphify_tests_test_languages_rationale_1366]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_dot_syntax_unresolvable_property_zero_edges]]
+- [[graphify_tests_test_languages_rationale_1379]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_selector_expression_calls_edge]]
+- [[graphify_tests_test_languages_rationale_1396]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_selector_no_fanout_two_same_named_methods]]
+- [[graphify_tests_test_languages_rationale_1416]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_dot_syntax_substring_sibling_exact_match]]
+- [[graphify_tests_test_languages_rationale_1436]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_selector_substring_method_exact_match]]
+- [[graphify_tests_test_languages_rationale_1460]] → `rationale_for` → [[graphify_tests_test_languages_test_go_receiver_methods_share_type_node]]
+- [[graphify_tests_test_languages_rationale_1467]] → `rationale_for` → [[graphify_tests_test_languages_test_go_receiver_uses_pkg_scope]]
+- [[graphify_tests_test_languages_rationale_1525]] → `rationale_for` → [[graphify_tests_test_languages_test_julia_qualified_and_relative_imports]]
+- [[graphify_tests_test_languages_rationale_1624]] → `rationale_for` → [[graphify_tests_test_languages_test_fortran_finds_function_call]]
+- [[graphify_tests_test_languages_rationale_1726]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_import_module_emits_edge]]
+- [[graphify_tests_test_languages_rationale_1734]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_import_module_with_name_param]]
+- [[graphify_tests_test_languages_rationale_1741]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_dot_source_forward_slash_emits_edge]]
+- [[graphify_tests_test_languages_rationale_1748]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_dot_source_backslash_emits_edge]]
+- [[graphify_tests_test_languages_rationale_1755]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_import_module_inside_function_emits_edge]]
+- [[graphify_tests_test_languages_rationale_1764]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_import_module_not_a_raw_call]]
+- [[graphify_tests_test_languages_rationale_1776]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_dot_source_inside_function_emits_edge]]
+- [[graphify_tests_test_languages_rationale_1787]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_dispatched]]
+- [[graphify_tests_test_languages_rationale_1812]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_root_module]]
+- [[graphify_tests_test_languages_rationale_1821]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_nested_modules]]
+- [[graphify_tests_test_languages_rationale_1829]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_required_modules_string]]
+- [[graphify_tests_test_languages_rationale_1838]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_required_modules_hashtable]]
+- [[graphify_tests_test_languages_rationale_1847]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_no_moduleversion_as_edge]]
+- [[graphify_tests_test_languages_rationale_1856]] → `rationale_for` → [[graphify_tests_test_languages_test_powershell_psd1_no_dangling_edges]]
+- [[graphify_tests_test_languages_rationale_1870]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_dynamic_import_extracts_edges]]
+- [[graphify_tests_test_languages_rationale_1880]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_dynamic_import_confidence]]
+- [[graphify_tests_test_languages_rationale_1889]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_dynamic_import_source_is_function]]
+- [[graphify_tests_test_languages_rationale_1900]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_no_dynamic_import_in_sync_fn]]
+- [[graphify_tests_test_languages_rationale_1910]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_dynamic_template_literal_skipped]]
+- [[graphify_tests_test_languages_rationale_1921]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_static_template_literal_resolved]]
+- [[graphify_tests_test_languages_rationale_1929]] → `rationale_for` → [[graphify_tests_test_languages_test_js_local_const_does_not_emit_phantom_node]]
+- [[graphify_tests_test_languages_rationale_1959]] → `rationale_for` → [[graphify_tests_test_languages_test_js_module_level_arrow_produces_node_and_call_edges]]
+- [[graphify_tests_test_languages_rationale_1980]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_local_const_does_not_emit_phantom_node]]
+- [[graphify_tests_test_languages_rationale_1998]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_constructor_injection_calls_edge]]
+- [[graphify_tests_test_languages_rationale_2040]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_this_field_receiver_not_same_file_collision]]
+- [[graphify_tests_test_languages_test_ts_injected_field_ambiguous_type_emits_no_edge]] → `calls` → [[graphify_tests_test_languages_ts_label_calls]]
+- [[graphify_tests_test_languages_rationale_2079]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_injected_field_resolves_to_typed_class_not_same_named_collision]]
+- [[graphify_tests_test_languages_rationale_2121]] → `rationale_for` → [[graphify_tests_test_languages_test_ts_injected_field_ambiguous_type_emits_no_edge]]
+- [[graphify_tests_test_languages_rationale_2162]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_finds_nested_heading]]
+- [[graphify_tests_test_languages_rationale_2168]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_skips_fenced_code_blocks]]
+- [[graphify_tests_test_languages_rationale_2181]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_contains_edges]]
+- [[graphify_tests_test_languages_rationale_2191]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_fenced_heading_not_parsed]]
+- [[graphify_tests_test_languages_rationale_2229]] → `rationale_for` → [[graphify_tests_test_languages_md_link_fixture]]
+- [[graphify_tests_test_languages_test_markdown_link_edges_emitted]] → `calls` → [[graphify_tests_test_languages_md_link_fixture]]
+- [[graphify_tests_test_languages_test_markdown_link_edges_resolve_to_real_nodes]] → `calls` → [[graphify_tests_test_languages_md_link_fixture]]
+- [[graphify_tests_test_languages_test_markdown_link_skips_external_and_images]] → `calls` → [[graphify_tests_test_languages_md_link_fixture]]
+- [[graphify_tests_test_languages_rationale_2249]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_link_edges_emitted]]
+- [[graphify_tests_test_languages_rationale_2263]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_link_skips_external_and_images]]
+- [[graphify_tests_test_languages_rationale_2273]] → `rationale_for` → [[graphify_tests_test_languages_test_markdown_link_edges_resolve_to_real_nodes]]
+- [[graphify_tests_test_languages_rationale_2330]] → `rationale_for` → [[graphify_tests_test_languages_test_groovy_extends_edge]]
+- [[graphify_tests_test_languages_rationale_2347]] → `rationale_for` → [[graphify_tests_test_languages_test_groovy_implements_edge]]
+- [[graphify_tests_test_languages_rationale_2747]] → `rationale_for` → [[graphify_tests_test_languages_test_systemverilog_qualified_field_references]]
+- [[graphify_tests_test_languages_rationale_2795]] → `rationale_for` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_cpp_paired_includes_resolve_to_real_header]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_cpp_paired_method_decl_and_def_are_one_node]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_cpp_paired_no_dangling_edges]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_cpp_paired_single_class_node]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_across_directories]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_same_name_same_dir_distinct_files]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_objc_bridging_header_not_isolated]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_objc_paired_no_dangling_edges]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_objc_paired_single_class_methods_not_duplicated]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_swift_extension_folds_onto_objc_class]] → `calls` → [[graphify_tests_test_languages_corpus]]
+- [[graphify_tests_test_languages_test_cpp_paired_includes_resolve_to_real_header]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_cpp_paired_method_decl_and_def_are_one_node]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_cpp_paired_single_class_node]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_across_directories]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_same_name_same_dir_distinct_files]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_objc_bridging_header_not_isolated]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_objc_paired_single_class_methods_not_duplicated]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_swift_extension_folds_onto_objc_class]] → `calls` → [[graphify_tests_test_languages_nodes_with_label]]
+- [[graphify_tests_test_languages_test_cpp_paired_no_dangling_edges]] → `calls` → [[graphify_tests_test_languages_assert_no_dangling]]
+- [[graphify_tests_test_languages_test_objc_paired_no_dangling_edges]] → `calls` → [[graphify_tests_test_languages_assert_no_dangling]]
+- [[graphify_tests_test_languages_test_swift_extension_folds_onto_objc_class]] → `calls` → [[graphify_tests_test_languages_assert_no_dangling]]
+- [[graphify_tests_test_languages_rationale_2817]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_header_routes_to_cpp_extractor]]
+- [[graphify_tests_test_languages_rationale_2825]] → `rationale_for` → [[graphify_tests_test_languages_test_plain_c_header_stays_on_c_extractor]]
+- [[graphify_tests_test_languages_rationale_2832]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_paired_single_class_node]]
+- [[graphify_tests_test_languages_rationale_2842]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_paired_method_decl_and_def_are_one_node]]
+- [[graphify_tests_test_languages_rationale_2858]] → `rationale_for` → [[graphify_tests_test_languages_test_cpp_paired_includes_resolve_to_real_header]]
+- [[graphify_tests_test_languages_rationale_2878]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_header_with_import_routes_to_objc]]
+- [[graphify_tests_test_languages_rationale_2886]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_paired_single_class_methods_not_duplicated]]
+- [[graphify_tests_test_languages_rationale_2898]] → `rationale_for` → [[graphify_tests_test_languages_test_objc_bridging_header_not_isolated]]
+- [[graphify_tests_test_languages_rationale_2916]] → `rationale_for` → [[graphify_tests_test_languages_test_swift_extension_folds_onto_objc_class]]
+- [[graphify_tests_test_languages_rationale_2931]] → `rationale_for` → [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_across_directories]]
+- [[graphify_tests_test_languages_rationale_2943]] → `rationale_for` → [[graphify_tests_test_languages_test_decldef_merge_does_not_merge_same_name_same_dir_distinct_files]]

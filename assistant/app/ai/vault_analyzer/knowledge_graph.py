@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import json
+from typing import Optional
 from pathlib import Path
 
 from loguru import logger
@@ -9,7 +10,6 @@ from loguru import logger
 from app.ai.vault_analyzer.vault_reader import VaultReader
 from app.audit.feature_registry import FeatureRegistry
 from app.audit.sdd_resolver import SDDResolver
-from app.audit.code_scanner import CodeScanner
 from app.audit.runtime_resolver import RuntimePathResolver
 
 
@@ -41,12 +41,101 @@ class KnowledgeGraph:
 
 
 class KnowledgeGraphBuilder:
+    """Builds knowledge graph from Graphify, Vault, and DRL sources.
+
+    Deprecates the old CodeScanner regex-based scanner in favor of
+    Graphify's AST-level graph.json (12k+ nodes, 22k+ edges).
+    """
+
+    GRAPHIFY_PATH = Path("graphify-out/graph.json")
+
+    @classmethod
+    def _load_graphify_graph(cls) -> Optional[dict]:
+        """Load graphify-out/graph.json, return dict with 'files' and 'edges'."""
+        gf_path = RuntimePathResolver.project_root() / cls.GRAPHIFY_PATH
+        if not gf_path.exists():
+            logger.warning(
+                f"[knowledge_graph] Graphify graph not found at {gf_path}. "
+                "Run `graphify update .` to generate it."
+            )
+            return None
+
+        try:
+            with open(gf_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            logger.error(f"[knowledge_graph] Failed to load Graphify graph: {e}")
+            return None
+
+        # Aggregate file-level nodes
+        file_nodes: dict[str, dict] = {}
+        for node in data.get("nodes", []):
+            source_file = node.get("source_file", "")
+            if not source_file:
+                continue
+            if source_file not in file_nodes:
+                file_nodes[source_file] = {
+                    "id": source_file,
+                    "title": Path(source_file).name,
+                    "type": KnowledgeGraphBuilder._infer_type(source_file),
+                    "source": "code",
+                    "path": source_file,
+                }
+
+        # Aggregate file-level edges
+        file_edges = []
+        seen_file_edges = set()
+        for link in data.get("links", []):
+            src = link.get("source", "")
+            tgt = link.get("target", "")
+            src_file = cls._resolve_source_file(data, src)
+            tgt_file = cls._resolve_source_file(data, tgt)
+            if src_file and tgt_file and src_file != tgt_file:
+                edge_key = f"{src_file}|{tgt_file}"
+                if edge_key not in seen_file_edges:
+                    seen_file_edges.add(edge_key)
+                    file_edges.append(
+                        {
+                            "source": src_file,
+                            "target": tgt_file,
+                            "relation": cls._map_relation(link.get("relation", "uses")),
+                        }
+                    )
+
+        return {"files": file_nodes, "edges": file_edges}
+
+    @staticmethod
+    def _resolve_source_file(data: dict, symbol_id: str) -> Optional[str]:
+        for node in data.get("nodes", []):
+            if node.get("id") == symbol_id:
+                return node.get("source_file") or None
+        return None
+
+    @staticmethod
+    def _map_relation(relation: str) -> str:
+        mapping = {
+            "contains": "uses",
+            "imports": "uses",
+            "imports_from": "uses",
+            "calls": "uses",
+            "inherits": "uses",
+            "implements": "implements",
+            "documents": "documents",
+            "depends_on": "depends_on",
+            "emits": "emits",
+            "owns": "owns",
+            "re_exports": "uses",
+        }
+        return mapping.get(relation, "uses")
+
     @staticmethod
     def build() -> KnowledgeGraph:
         vault_nodes = VaultReader.scan_all()
         FeatureRegistry.load_from_json()
-        code = CodeScanner.scan_all()
         SDDResolver.scan_all_sdds()
+
+        # ── Load Graphify graph as the code relationship source ──
+        graphify_data = KnowledgeGraphBuilder._load_graphify_graph()
 
         kg = KnowledgeGraph()
         seen_ids: set[str] = set()
@@ -102,26 +191,28 @@ class KnowledgeGraphBuilder:
                 kg.features.append(entry)
                 seen_ids.add(fid)
 
-        all_code_refs = (
-            code.stores
-            + code.routes
-            + code.tools
-            + code.events
-            + code.agents
-            + code.workflows
-            + code.providers
-        )
-        for ref in all_code_refs:
-            if ref not in seen_ids:
-                ref_type = KnowledgeGraphBuilder._infer_type(ref)
-                entry = {
-                    "id": ref,
-                    "title": ref.split("/")[-1],
-                    "type": ref_type,
-                    "source": "code",
-                }
-                kg.nodes.append(entry)
-                seen_ids.add(ref)
+        # ── Graphify code nodes (aggregated at file level) ───────
+        if graphify_data:
+            for file_id, file_info in graphify_data.get("files", {}).items():
+                if file_id not in seen_ids:
+                    entry = {
+                        "id": file_id,
+                        "title": file_info["title"],
+                        "type": file_info["type"],
+                        "source": "code",
+                    }
+                    kg.nodes.append(entry)
+                    seen_ids.add(file_id)
+
+            for edge in graphify_data.get("edges", []):
+                if edge["source"] in seen_ids and edge["target"] in seen_ids:
+                    kg.edges.append(
+                        {
+                            "source": edge["source"],
+                            "target": edge["target"],
+                            "relation": edge["relation"],
+                        }
+                    )
 
         KnowledgeGraphBuilder._persist(kg)
         logger.info(
@@ -218,22 +309,15 @@ class KnowledgeGraphBuilder:
                 links = vn.links
                 wikilinks = vn.wikilinks
         else:
-            code = CodeScanner.scan_all()
-            all_code_refs = (
-                code.stores
-                + code.routes
-                + code.tools
-                + code.events
-                + code.agents
-                + code.workflows
-                + code.providers
-            )
-            if rel_path in all_code_refs:
-                node_id = rel_path
-                ref_type = KnowledgeGraphBuilder._infer_type(rel_path)
+            # Check file existence in Graphify graph
+            graphify_data = KnowledgeGraphBuilder._load_graphify_graph()
+            if graphify_data and rel_path in graphify_data.get("files", {}):
+                file_info = graphify_data["files"][rel_path]
+                node_id = file_info["id"]
+                ref_type = file_info["type"]
                 new_entry = {
-                    "id": rel_path,
-                    "title": rel_path.split("/")[-1],
+                    "id": node_id,
+                    "title": file_info["title"],
                     "type": ref_type,
                     "source": "code",
                     "path": rel_path,

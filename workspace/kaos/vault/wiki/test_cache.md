@@ -1,0 +1,211 @@
+# graphify\tests\test_cache.py
+
+## Símbolos
+
+- [[graphify_tests_test_cache]] — code: test_cache.py
+- [[graphify_tests_test_cache_tmp_file]] — code: tmp_file()
+- [[graphify_tests_test_cache_cache_root]] — code: cache_root()
+- [[graphify_tests_test_cache_test_file_hash_consistent]] — code: test_file_hash_consistent()
+- [[graphify_tests_test_cache_test_file_hash_changes]] — code: test_file_hash_changes()
+- [[graphify_tests_test_cache_test_cache_roundtrip]] — code: test_cache_roundtrip()
+- [[graphify_tests_test_cache_test_cache_miss_on_change]] — code: test_cache_miss_on_change()
+- [[graphify_tests_test_cache_test_cached_files]] — code: test_cached_files()
+- [[graphify_tests_test_cache_test_clear_cache]] — code: test_clear_cache()
+- [[graphify_tests_test_cache_test_md_frontmatter_only_change_same_hash]] — code: test_md_frontmatter_only_change_same_hash()
+- [[graphify_tests_test_cache_test_md_body_change_different_hash]] — code: test_md_body_change_different_hash()
+- [[graphify_tests_test_cache_test_md_no_frontmatter_hashed_normally]] — code: test_md_no_frontmatter_hashed_normally()
+- [[graphify_tests_test_cache_test_non_md_file_hashed_fully]] — code: test_non_md_file_hashed_fully()
+- [[graphify_tests_test_cache_test_body_content_strips_frontmatter]] — code: test_body_content_strips_frontmatter()
+- [[graphify_tests_test_cache_test_body_content_no_frontmatter]] — code: test_body_content_no_frontmatter()
+- [[graphify_tests_test_cache_test_body_content_hr_start_is_not_frontmatter]] — code: test_body_content_hr_start_is_not_frontmatter()
+- [[graphify_tests_test_cache_test_body_content_dash_title_start_is_not_frontmatter]] — code: test_body_content_dash_title_start_is_not_frontmatter()
+- [[graphify_tests_test_cache_test_body_content_dash_text_line_is_not_close_delimiter]] — code: test_body_content_dash_text_line_is_not_close_delimiter()
+- [[graphify_tests_test_cache_test_body_content_later_proper_close_skips_dash_text_lines]] — code: test_body_content_later_proper_close_skips_dash_text_lines()
+- [[graphify_tests_test_cache_test_body_content_well_formed_output_byte_identical]] — code: test_body_content_well_formed_output_byte_identical()
+- [[graphify_tests_test_cache_test_md_edit_above_hr_changes_hash]] — code: test_md_edit_above_hr_changes_hash()
+- [[graphify_tests_test_cache_test_save_cached_relativizes_source_file]] — code: test_save_cached_relativizes_source_file()
+- [[graphify_tests_test_cache_test_load_cached_absolutizes_source_file]] — code: test_load_cached_absolutizes_source_file()
+- [[graphify_tests_test_cache_test_load_cached_passes_through_legacy_absolute_source_file]] — code: test_load_cached_passes_through_legacy_absolute_source_file()
+- [[graphify_tests_test_cache_test_cache_portable_across_roots]] — code: test_cache_portable_across_roots()
+- [[graphify_tests_test_cache_test_ast_cache_invalidated_on_version_bump]] — code: test_ast_cache_invalidated_on_version_bump()
+- [[graphify_tests_test_cache_test_ast_cache_version_bump_cleans_stale_entries]] — code: test_ast_cache_version_bump_cleans_stale_entries()
+- [[graphify_tests_test_cache_test_legacy_unversioned_ast_entries_not_served]] — code: test_legacy_unversioned_ast_entries_not_served()
+- [[graphify_tests_test_cache_test_semantic_cache_survives_version_bump]] — code: test_semantic_cache_survives_version_bump()
+- [[graphify_tests_test_cache_test_save_cached_in_root_symlink_keeps_symlink_name]] — code: test_save_cached_in_root_symlink_keeps_symlink_name()
+- [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]] — code: test_semantic_prune_removes_orphan_entries()
+- [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]] — code: test_semantic_prune_keeps_live_unchanged_entries()
+- [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]] — code: test_semantic_prune_handles_deleted_file()
+- [[graphify_tests_test_cache_test_semantic_prune_ignores_ast_and_tmp]] — code: test_semantic_prune_ignores_ast_and_tmp()
+- [[graphify_tests_test_cache_test_save_semantic_cache_overwrites_by_default]] — code: test_save_semantic_cache_overwrites_by_default()
+- [[graphify_tests_test_cache_test_save_semantic_cache_merge_existing_unions]] — code: test_save_semantic_cache_merge_existing_unions()
+- [[graphify_tests_test_cache_rationale_1]] — code: Tests for graphify/cache.py.
+- [[graphify_tests_test_cache_rationale_20]] — code: Same file gives same hash on repeated calls.
+- [[graphify_tests_test_cache_rationale_29]] — code: Different file contents give different hashes.
+- [[graphify_tests_test_cache_rationale_38]] — code: Save then load returns the same result dict.
+- [[graphify_tests_test_cache_rationale_46]] — code: After file content changes, load_cached returns None.
+- [[graphify_tests_test_cache_rationale_55]] — code: cached_files returns the set of cached hashes.
+- [[graphify_tests_test_cache_rationale_70]] — code: clear_cache removes all .json files from graphify-out/cache/ (all subdirs).
+- [[graphify_tests_test_cache_rationale_80]] — code: Changing only frontmatter fields in a .md file does not change the hash.
+- [[graphify_tests_test_cache_rationale_90]] — code: Changing the body of a .md file produces a different hash.
+- [[graphify_tests_test_cache_rationale_100]] — code: A .md file with no frontmatter is hashed by its full content.
+- [[graphify_tests_test_cache_rationale_110]] — code: Non-.md files are still hashed by their full content.
+- [[graphify_tests_test_cache_rationale_120]] — code: _body_content correctly strips YAML frontmatter.
+- [[graphify_tests_test_cache_rationale_126]] — code: _body_content returns content unchanged when no frontmatter present.
+- [[graphify_tests_test_cache_rationale_134]] — code: A document opening with a ``----`` thematic break has no frontmatter;     a lat
+- [[graphify_tests_test_cache_rationale_141]] — code: ``--- title`` on the first line is prose, not an open delimiter.
+- [[graphify_tests_test_cache_rationale_147]] — code: ``--- text`` and ``----`` lines inside opened frontmatter are not the     close
+- [[graphify_tests_test_cache_rationale_154]] — code: A ``--- text`` line is skipped; the next whole ``---`` line closes.
+- [[graphify_tests_test_cache_rationale_160]] — code: For well-formed frontmatter the stripped body must stay byte-identical     to t
+- [[graphify_tests_test_cache_rationale_181]] — code: Editing content above a mid-document ``----`` break must change the     hash --
+- [[graphify_tests_test_cache_rationale_198]] — code: The on-disk cache JSON contains forward-slash relative source_file     entries
+- [[graphify_tests_test_cache_rationale_225]] — code: ``load_cached`` returns the same absolute-path shape that a fresh     extractio
+- [[graphify_tests_test_cache_rationale_246]] — code: Cache entries written by an older graphify (with absolute source_file     insid
+- [[graphify_tests_test_cache_rationale_271]] — code: End-to-end portability: a cache entry written at one root can be     consumed a
+- [[graphify_tests_test_cache_rationale_311]] — code: An AST entry written by version X must not be served after upgrading     to ver
+- [[graphify_tests_test_cache_rationale_329]] — code: Upgrading removes AST entries left behind by previous versions so the     cache
+- [[graphify_tests_test_cache_rationale_350]] — code: Entries written by pre-versioning graphify (flat cache/ or unversioned     cach
+- [[graphify_tests_test_cache_rationale_372]] — code: The semantic cache is deliberately not versioned: entries are produced     by t
+- [[graphify_tests_test_cache_rationale_393]] — code: ``source_file`` for an in-root symlink must be stored under the     symlink's o
+- [[graphify_tests_test_cache_rationale_426]] — code: Changing a file's content leaves the old content-hash entry orphaned;     pruni
+- [[graphify_tests_test_cache_rationale_451]] — code: Pruning against the FULL live set must keep every live entry — guards     the t
+- [[graphify_tests_test_cache_rationale_472]] — code: An entry for a file that no longer exists (dropped from the live set) is     pr
+- [[graphify_tests_test_cache_rationale_491]] — code: Prune touches only cache/semantic/*.json: AST entries and atomic-write     *.tm
+- [[graphify_tests_test_cache_rationale_516]] — code: Default save_semantic_cache replaces a file's cached entry (the final,     auth
+- [[graphify_tests_test_cache_rationale_528]] — code: #1715: merge_existing=True unions with the prior entry so a file split     acro
+
+## Dependências
+
+- [[graphify_tests_test_cache]] → `imports_from` → [[graphify_graphify_cache]]
+- [[graphify_tests_test_cache_test_body_content_dash_text_line_is_not_close_delimiter]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_body_content_dash_title_start_is_not_frontmatter]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_body_content_hr_start_is_not_frontmatter]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_body_content_later_proper_close_skips_dash_text_lines]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_body_content_no_frontmatter]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_body_content_strips_frontmatter]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_body_content_well_formed_output_byte_identical]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_tests_test_cache_test_cached_files]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_file_hash_changes]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_file_hash_consistent]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_legacy_unversioned_ast_entries_not_served]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_load_cached_passes_through_legacy_absolute_source_file]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_md_body_change_different_hash]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_md_edit_above_hr_changes_hash]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_md_frontmatter_only_change_same_hash]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_md_no_frontmatter_hashed_normally]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_non_md_file_hashed_fully]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_save_cached_in_root_symlink_keeps_symlink_name]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_save_cached_relativizes_source_file]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_tests_test_cache_test_ast_cache_version_bump_cleans_stale_entries]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_load_cached_passes_through_legacy_absolute_source_file]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_save_cached_in_root_symlink_keeps_symlink_name]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_save_cached_relativizes_source_file]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_semantic_cache_survives_version_bump]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_semantic_prune_ignores_ast_and_tmp]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_tests_test_cache_test_ast_cache_invalidated_on_version_bump]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_cache_miss_on_change]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_cache_portable_across_roots]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_cache_roundtrip]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_legacy_unversioned_ast_entries_not_served]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_load_cached_absolutizes_source_file]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_load_cached_passes_through_legacy_absolute_source_file]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_save_semantic_cache_merge_existing_unions]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_save_semantic_cache_overwrites_by_default]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_semantic_cache_survives_version_bump]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_tests_test_cache_test_ast_cache_invalidated_on_version_bump]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_ast_cache_version_bump_cleans_stale_entries]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_cache_miss_on_change]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_cache_portable_across_roots]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_cache_roundtrip]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_cached_files]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_clear_cache]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_load_cached_absolutizes_source_file]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_save_cached_in_root_symlink_keeps_symlink_name]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_save_cached_relativizes_source_file]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_semantic_cache_survives_version_bump]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_semantic_prune_ignores_ast_and_tmp]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_tests_test_cache_test_cached_files]] → `calls` → [[graphify_graphify_cache_cached_files]]
+- [[graphify_tests_test_cache_test_clear_cache]] → `calls` → [[graphify_graphify_cache_clear_cache]]
+- [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]] → `calls` → [[graphify_graphify_cache_prune_semantic_cache]]
+- [[graphify_tests_test_cache_test_semantic_prune_ignores_ast_and_tmp]] → `calls` → [[graphify_graphify_cache_prune_semantic_cache]]
+- [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]] → `calls` → [[graphify_graphify_cache_prune_semantic_cache]]
+- [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]] → `calls` → [[graphify_graphify_cache_prune_semantic_cache]]
+- [[graphify_tests_test_cache_test_save_semantic_cache_merge_existing_unions]] → `calls` → [[graphify_graphify_cache_save_semantic_cache]]
+- [[graphify_tests_test_cache_test_save_semantic_cache_overwrites_by_default]] → `calls` → [[graphify_graphify_cache_save_semantic_cache]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_cache_root]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_ast_cache_invalidated_on_version_bump]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_ast_cache_version_bump_cleans_stale_entries]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_dash_text_line_is_not_close_delimiter]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_dash_title_start_is_not_frontmatter]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_hr_start_is_not_frontmatter]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_later_proper_close_skips_dash_text_lines]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_no_frontmatter]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_strips_frontmatter]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_body_content_well_formed_output_byte_identical]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_cache_miss_on_change]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_cache_portable_across_roots]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_cache_roundtrip]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_cached_files]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_clear_cache]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_file_hash_changes]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_file_hash_consistent]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_legacy_unversioned_ast_entries_not_served]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_load_cached_absolutizes_source_file]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_load_cached_passes_through_legacy_absolute_source_file]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_md_body_change_different_hash]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_md_edit_above_hr_changes_hash]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_md_frontmatter_only_change_same_hash]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_md_no_frontmatter_hashed_normally]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_non_md_file_hashed_fully]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_save_cached_in_root_symlink_keeps_symlink_name]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_save_cached_relativizes_source_file]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_save_semantic_cache_merge_existing_unions]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_save_semantic_cache_overwrites_by_default]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_semantic_cache_survives_version_bump]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_semantic_prune_ignores_ast_and_tmp]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]]
+- [[graphify_tests_test_cache]] → `contains` → [[graphify_tests_test_cache_tmp_file]]
+- [[graphify_tests_test_cache_rationale_1]] → `rationale_for` → [[graphify_tests_test_cache]]
+- [[graphify_tests_test_cache_rationale_20]] → `rationale_for` → [[graphify_tests_test_cache_test_file_hash_consistent]]
+- [[graphify_tests_test_cache_rationale_29]] → `rationale_for` → [[graphify_tests_test_cache_test_file_hash_changes]]
+- [[graphify_tests_test_cache_rationale_38]] → `rationale_for` → [[graphify_tests_test_cache_test_cache_roundtrip]]
+- [[graphify_tests_test_cache_rationale_46]] → `rationale_for` → [[graphify_tests_test_cache_test_cache_miss_on_change]]
+- [[graphify_tests_test_cache_rationale_55]] → `rationale_for` → [[graphify_tests_test_cache_test_cached_files]]
+- [[graphify_tests_test_cache_rationale_70]] → `rationale_for` → [[graphify_tests_test_cache_test_clear_cache]]
+- [[graphify_tests_test_cache_rationale_80]] → `rationale_for` → [[graphify_tests_test_cache_test_md_frontmatter_only_change_same_hash]]
+- [[graphify_tests_test_cache_rationale_90]] → `rationale_for` → [[graphify_tests_test_cache_test_md_body_change_different_hash]]
+- [[graphify_tests_test_cache_rationale_100]] → `rationale_for` → [[graphify_tests_test_cache_test_md_no_frontmatter_hashed_normally]]
+- [[graphify_tests_test_cache_rationale_110]] → `rationale_for` → [[graphify_tests_test_cache_test_non_md_file_hashed_fully]]
+- [[graphify_tests_test_cache_rationale_120]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_strips_frontmatter]]
+- [[graphify_tests_test_cache_rationale_126]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_no_frontmatter]]
+- [[graphify_tests_test_cache_rationale_134]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_hr_start_is_not_frontmatter]]
+- [[graphify_tests_test_cache_rationale_141]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_dash_title_start_is_not_frontmatter]]
+- [[graphify_tests_test_cache_rationale_147]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_dash_text_line_is_not_close_delimiter]]
+- [[graphify_tests_test_cache_rationale_154]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_later_proper_close_skips_dash_text_lines]]
+- [[graphify_tests_test_cache_rationale_160]] → `rationale_for` → [[graphify_tests_test_cache_test_body_content_well_formed_output_byte_identical]]
+- [[graphify_tests_test_cache_rationale_181]] → `rationale_for` → [[graphify_tests_test_cache_test_md_edit_above_hr_changes_hash]]
+- [[graphify_tests_test_cache_rationale_198]] → `rationale_for` → [[graphify_tests_test_cache_test_save_cached_relativizes_source_file]]
+- [[graphify_tests_test_cache_rationale_225]] → `rationale_for` → [[graphify_tests_test_cache_test_load_cached_absolutizes_source_file]]
+- [[graphify_tests_test_cache_rationale_246]] → `rationale_for` → [[graphify_tests_test_cache_test_load_cached_passes_through_legacy_absolute_source_file]]
+- [[graphify_tests_test_cache_rationale_271]] → `rationale_for` → [[graphify_tests_test_cache_test_cache_portable_across_roots]]
+- [[graphify_tests_test_cache_rationale_311]] → `rationale_for` → [[graphify_tests_test_cache_test_ast_cache_invalidated_on_version_bump]]
+- [[graphify_tests_test_cache_rationale_329]] → `rationale_for` → [[graphify_tests_test_cache_test_ast_cache_version_bump_cleans_stale_entries]]
+- [[graphify_tests_test_cache_rationale_350]] → `rationale_for` → [[graphify_tests_test_cache_test_legacy_unversioned_ast_entries_not_served]]
+- [[graphify_tests_test_cache_rationale_372]] → `rationale_for` → [[graphify_tests_test_cache_test_semantic_cache_survives_version_bump]]
+- [[graphify_tests_test_cache_rationale_393]] → `rationale_for` → [[graphify_tests_test_cache_test_save_cached_in_root_symlink_keeps_symlink_name]]
+- [[graphify_tests_test_cache_rationale_426]] → `rationale_for` → [[graphify_tests_test_cache_test_semantic_prune_removes_orphan_entries]]
+- [[graphify_tests_test_cache_rationale_451]] → `rationale_for` → [[graphify_tests_test_cache_test_semantic_prune_keeps_live_unchanged_entries]]
+- [[graphify_tests_test_cache_rationale_472]] → `rationale_for` → [[graphify_tests_test_cache_test_semantic_prune_handles_deleted_file]]
+- [[graphify_tests_test_cache_rationale_491]] → `rationale_for` → [[graphify_tests_test_cache_test_semantic_prune_ignores_ast_and_tmp]]
+- [[graphify_tests_test_cache_rationale_516]] → `rationale_for` → [[graphify_tests_test_cache_test_save_semantic_cache_overwrites_by_default]]
+- [[graphify_tests_test_cache_rationale_528]] → `rationale_for` → [[graphify_tests_test_cache_test_save_semantic_cache_merge_existing_unions]]

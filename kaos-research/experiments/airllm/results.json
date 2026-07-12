@@ -1,0 +1,8 @@
+{
+  "hypothesis": "H7",
+  "framework": "airllm",
+  "test": "provider_integration",
+  "provider_name": "airllm",
+  "model_name": "test-model",
+  "provider_loaded": true
+}

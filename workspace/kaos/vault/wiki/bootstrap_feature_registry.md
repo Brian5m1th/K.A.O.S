@@ -1,0 +1,73 @@
+# assistant\scripts\bootstrap_feature_registry.py
+
+## Símbolos
+
+- [[assistant_scripts_bootstrap_feature_registry]] — code: bootstrap_feature_registry.py
+- [[assistant_scripts_bootstrap_feature_registry_gitfeature]] — code: GitFeature
+- [[assistant_scripts_bootstrap_feature_registry_gitfeature_to_dict]] — code: .to_dict()
+- [[assistant_scripts_bootstrap_feature_registry_git]] — code: _git()
+- [[assistant_scripts_bootstrap_feature_registry_get_all_commits]] — code: get_all_commits()
+- [[assistant_scripts_bootstrap_feature_registry_get_files_changed_in_commit]] — code: get_files_changed_in_commit()
+- [[assistant_scripts_bootstrap_feature_registry_normalize_id]] — code: _normalize_id()
+- [[assistant_scripts_bootstrap_feature_registry_name_from_subject]] — code: _name_from_subject()
+- [[assistant_scripts_bootstrap_feature_registry_extract_phase]] — code: _extract_phase()
+- [[assistant_scripts_bootstrap_feature_registry_extract_feature_id_from_commit]] — code: _extract_feature_id_from_commit()
+- [[assistant_scripts_bootstrap_feature_registry_classify_files_to_categories]] — code: _classify_files_to_categories()
+- [[assistant_scripts_bootstrap_feature_registry_merge_into]] — code: _merge_into()
+- [[assistant_scripts_bootstrap_feature_registry_enrich_with_sdds]] — code: enrich_with_sdds()
+- [[assistant_scripts_bootstrap_feature_registry_main]] — code: main()
+- [[assistant_scripts_bootstrap_feature_registry_rationale_55]] — code: Feature extraída do histórico git.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_86]] — code: Roda um comando git e retorna stdout. Nunca lança exceção.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_102]] — code: Retorna todos os commits no formato:     [{"hash": str, "subject": str, "author
+- [[assistant_scripts_bootstrap_feature_registry_rationale_128]] — code: Retorna lista de arquivos modificados/criados num commit.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_156]] — code: Converte qualquer string em feature-id normalizado kebab-case.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_165]] — code: Extrai um nome limpo de feature a partir do subject do commit.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_182]] — code: Extrai a Fase mencionada no commit.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_238]] — code: Extrai o ID de feature de um commit. Retorna None se não for feat/fix relevante.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_303]] — code: Classifica arquivos em docs e code_refs.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_334]] — code: Adiciona ou atualiza uma feature no dicionário.
+- [[assistant_scripts_bootstrap_feature_registry_rationale_371]] — code: Lê todos os SDDs do filesystem e os vincula às features existentes.     Cria fe
+
+## Dependências
+
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_features_index_path]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_classify_files_to_categories]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_enrich_with_sdds]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_extract_feature_id_from_commit]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_extract_phase]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_get_all_commits]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_get_files_changed_in_commit]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_git]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_gitfeature]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_main]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_merge_into]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_name_from_subject]]
+- [[assistant_scripts_bootstrap_feature_registry]] → `contains` → [[assistant_scripts_bootstrap_feature_registry_normalize_id]]
+- [[assistant_scripts_bootstrap_feature_registry_enrich_with_sdds]] → `references` → [[assistant_scripts_bootstrap_feature_registry_gitfeature]]
+- [[assistant_scripts_bootstrap_feature_registry_gitfeature]] → `method` → [[assistant_scripts_bootstrap_feature_registry_gitfeature_to_dict]]
+- [[assistant_scripts_bootstrap_feature_registry_merge_into]] → `references` → [[assistant_scripts_bootstrap_feature_registry_gitfeature]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_55]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_gitfeature]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_gitfeature_to_dict]]
+- [[assistant_scripts_bootstrap_feature_registry_get_all_commits]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_git]]
+- [[assistant_scripts_bootstrap_feature_registry_get_files_changed_in_commit]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_git]]
+- [[assistant_scripts_bootstrap_feature_registry_git]] → `references` → [[assistant_scripts_bootstrap_feature_registry_py_path]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_86]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_git]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_get_all_commits]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_102]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_get_all_commits]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_get_files_changed_in_commit]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_128]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_get_files_changed_in_commit]]
+- [[assistant_scripts_bootstrap_feature_registry_enrich_with_sdds]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_normalize_id]]
+- [[assistant_scripts_bootstrap_feature_registry_extract_feature_id_from_commit]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_normalize_id]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_156]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_normalize_id]]
+- [[assistant_scripts_bootstrap_feature_registry_merge_into]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_name_from_subject]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_165]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_name_from_subject]]
+- [[assistant_scripts_bootstrap_feature_registry_merge_into]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_extract_phase]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_182]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_extract_phase]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_extract_feature_id_from_commit]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_238]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_extract_feature_id_from_commit]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_classify_files_to_categories]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_303]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_classify_files_to_categories]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_merge_into]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_334]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_merge_into]]
+- [[assistant_scripts_bootstrap_feature_registry_main]] → `calls` → [[assistant_scripts_bootstrap_feature_registry_enrich_with_sdds]]
+- [[assistant_scripts_bootstrap_feature_registry_rationale_371]] → `rationale_for` → [[assistant_scripts_bootstrap_feature_registry_enrich_with_sdds]]

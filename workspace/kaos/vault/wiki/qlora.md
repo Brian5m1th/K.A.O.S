@@ -1,0 +1,81 @@
+# airllm\training\qlora.py
+
+## Símbolos
+
+- [[airllm_training_qlora]] — code: qlora.py
+- [[airllm_training_qlora_modelarguments]] — code: ModelArguments
+- [[airllm_training_qlora_dataarguments]] — code: DataArguments
+- [[airllm_training_qlora_trainingarguments]] — code: TrainingArguments
+- [[airllm_training_qlora_generationarguments]] — code: GenerationArguments
+- [[airllm_training_qlora_find_all_linear_names]] — code: find_all_linear_names()
+- [[airllm_training_qlora_samplegeneratecallback]] — code: SampleGenerateCallback
+- [[airllm_training_qlora_samplegeneratecallback_on_evaluate]] — code: .on_evaluate()
+- [[airllm_training_qlora_savepeftmodelcallback]] — code: SavePeftModelCallback
+- [[airllm_training_qlora_savepeftmodelcallback_save_model]] — code: .save_model()
+- [[airllm_training_qlora_savepeftmodelcallback_on_save]] — code: .on_save()
+- [[airllm_training_qlora_savepeftmodelcallback_on_train_end]] — code: .on_train_end()
+- [[airllm_training_qlora_get_accelerate_model]] — code: get_accelerate_model()
+- [[airllm_training_qlora_print_trainable_parameters]] — code: print_trainable_parameters()
+- [[airllm_training_qlora_smart_tokenizer_and_embedding_resize]] — code: smart_tokenizer_and_embedding_resize()
+- [[airllm_training_qlora_datacollatorforcausallm]] — code: DataCollatorForCausalLM
+- [[airllm_training_qlora_datacollatorforcausallm_call]] — code: .__call__()
+- [[airllm_training_qlora_extract_unnatural_instructions_data]] — code: extract_unnatural_instructions_data()
+- [[airllm_training_qlora_extract_alpaca_dataset]] — code: extract_alpaca_dataset()
+- [[airllm_training_qlora_local_dataset]] — code: local_dataset()
+- [[airllm_training_qlora_make_data_module]] — code: make_data_module()
+- [[airllm_training_qlora_get_last_checkpoint]] — code: get_last_checkpoint()
+- [[airllm_training_qlora_train]] — code: train()
+- [[airllm_training_qlora_rationale_248]] — code: A callback that prints a sample generations of the model in the process of train
+- [[airllm_training_qlora_rationale_382]] — code: Prints the number of trainable parameters in the model.
+- [[airllm_training_qlora_rationale_403]] — code: Resize tokenizer and embedding.      Note: This is the unoptimized version tha
+- [[airllm_training_qlora_rationale_526]] — code: Make dataset and collator for supervised fine-tuning.     Datasets are expected
+
+## Dependências
+
+- [[airllm_training_qlora_train]] → `calls` → [[seq2seqtrainer]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_dataarguments]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_datacollatorforcausallm]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_extract_alpaca_dataset]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_extract_unnatural_instructions_data]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_find_all_linear_names]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_generationarguments]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_get_accelerate_model]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_get_last_checkpoint]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_local_dataset]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_make_data_module]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_modelarguments]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_print_trainable_parameters]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_samplegeneratecallback]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_savepeftmodelcallback]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_smart_tokenizer_and_embedding_resize]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_train]]
+- [[airllm_training_qlora]] → `contains` → [[airllm_training_qlora_trainingarguments]]
+- [[airllm_training_qlora_train]] → `indirect_call` → [[airllm_training_qlora_modelarguments]]
+- [[airllm_training_qlora_train]] → `indirect_call` → [[airllm_training_qlora_dataarguments]]
+- [[airllm_training_qlora_train]] → `indirect_call` → [[airllm_training_qlora_trainingarguments]]
+- [[airllm_training_qlora_train]] → `indirect_call` → [[airllm_training_qlora_generationarguments]]
+- [[airllm_training_qlora_get_accelerate_model]] → `calls` → [[airllm_training_qlora_find_all_linear_names]]
+- [[airllm_training_qlora_rationale_248]] → `rationale_for` → [[airllm_training_qlora_samplegeneratecallback]]
+- [[airllm_training_qlora_samplegeneratecallback]] → `method` → [[airllm_training_qlora_samplegeneratecallback_on_evaluate]]
+- [[airllm_training_qlora_train]] → `indirect_call` → [[airllm_training_qlora_samplegeneratecallback]]
+- [[airllm_training_qlora_savepeftmodelcallback]] → `method` → [[airllm_training_qlora_savepeftmodelcallback_on_save]]
+- [[airllm_training_qlora_savepeftmodelcallback]] → `method` → [[airllm_training_qlora_savepeftmodelcallback_on_train_end]]
+- [[airllm_training_qlora_savepeftmodelcallback]] → `method` → [[airllm_training_qlora_savepeftmodelcallback_save_model]]
+- [[airllm_training_qlora_train]] → `indirect_call` → [[airllm_training_qlora_savepeftmodelcallback]]
+- [[airllm_training_qlora_savepeftmodelcallback_on_save]] → `calls` → [[airllm_training_qlora_savepeftmodelcallback_save_model]]
+- [[airllm_training_qlora_savepeftmodelcallback_on_train_end]] → `calls` → [[airllm_training_qlora_savepeftmodelcallback_save_model]]
+- [[airllm_training_qlora_train]] → `calls` → [[airllm_training_qlora_get_accelerate_model]]
+- [[airllm_training_qlora_rationale_382]] → `rationale_for` → [[airllm_training_qlora_print_trainable_parameters]]
+- [[airllm_training_qlora_train]] → `calls` → [[airllm_training_qlora_print_trainable_parameters]]
+- [[airllm_training_qlora_rationale_403]] → `rationale_for` → [[airllm_training_qlora_smart_tokenizer_and_embedding_resize]]
+- [[airllm_training_qlora_smart_tokenizer_and_embedding_resize]] → `references` → [[airllm_training_qlora_py_pretrainedmodel]]
+- [[airllm_training_qlora_smart_tokenizer_and_embedding_resize]] → `references` → [[airllm_training_qlora_py_pretrainedtokenizer]]
+- [[airllm_training_qlora_train]] → `calls` → [[airllm_training_qlora_smart_tokenizer_and_embedding_resize]]
+- [[airllm_training_qlora_make_data_module]] → `references` → [[airllm_training_qlora_py_pretrainedtokenizer]]
+- [[airllm_training_qlora_datacollatorforcausallm]] → `method` → [[airllm_training_qlora_datacollatorforcausallm_call]]
+- [[airllm_training_qlora_datacollatorforcausallm]] → `inherits` → [[airllm_training_qlora_py_object]]
+- [[airllm_training_qlora_make_data_module]] → `calls` → [[airllm_training_qlora_datacollatorforcausallm]]
+- [[airllm_training_qlora_datacollatorforcausallm_call]] → `references` → [[airllm_training_qlora_py_tensor]]
+- [[airllm_training_qlora_rationale_526]] → `rationale_for` → [[airllm_training_qlora_make_data_module]]
+- [[airllm_training_qlora_train]] → `calls` → [[airllm_training_qlora_make_data_module]]
+- [[airllm_training_qlora_train]] → `calls` → [[airllm_training_qlora_get_last_checkpoint]]

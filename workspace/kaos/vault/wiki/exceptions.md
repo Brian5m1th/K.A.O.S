@@ -1,0 +1,111 @@
+# graphify\worked\httpx\raw\exceptions.py
+
+## Símbolos
+
+- [[graphify_worked_httpx_raw_exceptions]] — code: exceptions.py
+- [[graphify_worked_httpx_raw_exceptions_httperror]] — code: HTTPError
+- [[graphify_worked_httpx_raw_exceptions_httperror_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_exceptions_requesterror]] — code: RequestError
+- [[graphify_worked_httpx_raw_exceptions_transporterror]] — code: TransportError
+- [[graphify_worked_httpx_raw_exceptions_timeoutexception]] — code: TimeoutException
+- [[graphify_worked_httpx_raw_exceptions_connecttimeout]] — code: ConnectTimeout
+- [[graphify_worked_httpx_raw_exceptions_readtimeout]] — code: ReadTimeout
+- [[graphify_worked_httpx_raw_exceptions_writetimeout]] — code: WriteTimeout
+- [[graphify_worked_httpx_raw_exceptions_pooltimeout]] — code: PoolTimeout
+- [[graphify_worked_httpx_raw_exceptions_networkerror]] — code: NetworkError
+- [[graphify_worked_httpx_raw_exceptions_connecterror]] — code: ConnectError
+- [[graphify_worked_httpx_raw_exceptions_readerror]] — code: ReadError
+- [[graphify_worked_httpx_raw_exceptions_writeerror]] — code: WriteError
+- [[graphify_worked_httpx_raw_exceptions_closeerror]] — code: CloseError
+- [[graphify_worked_httpx_raw_exceptions_proxyerror]] — code: ProxyError
+- [[graphify_worked_httpx_raw_exceptions_protocolerror]] — code: ProtocolError
+- [[graphify_worked_httpx_raw_exceptions_decodingerror]] — code: DecodingError
+- [[graphify_worked_httpx_raw_exceptions_toomanyredirects]] — code: TooManyRedirects
+- [[graphify_worked_httpx_raw_exceptions_httpstatuserror]] — code: HTTPStatusError
+- [[graphify_worked_httpx_raw_exceptions_httpstatuserror_init]] — code: .__init__()
+- [[graphify_worked_httpx_raw_exceptions_invalidurl]] — code: InvalidURL
+- [[graphify_worked_httpx_raw_exceptions_cookieconflict]] — code: CookieConflict
+- [[graphify_worked_httpx_raw_exceptions_rationale_1]] — code: httpx-like exception hierarchy. All exceptions inherit from HTTPError at the to
+- [[graphify_worked_httpx_raw_exceptions_rationale_8]] — code: Base class for all httpx exceptions.
+- [[graphify_worked_httpx_raw_exceptions_rationale_15]] — code: An error occurred while issuing a request.
+- [[graphify_worked_httpx_raw_exceptions_rationale_19]] — code: An error occurred at the transport layer.
+- [[graphify_worked_httpx_raw_exceptions_rationale_27]] — code: Timed out while connecting to the host.
+- [[graphify_worked_httpx_raw_exceptions_rationale_31]] — code: Timed out while receiving data from the host.
+- [[graphify_worked_httpx_raw_exceptions_rationale_35]] — code: Timed out while sending data to the host.
+- [[graphify_worked_httpx_raw_exceptions_rationale_39]] — code: Timed out waiting to acquire a connection from the pool.
+- [[graphify_worked_httpx_raw_exceptions_rationale_43]] — code: A network error occurred.
+- [[graphify_worked_httpx_raw_exceptions_rationale_47]] — code: Failed to establish a connection.
+- [[graphify_worked_httpx_raw_exceptions_rationale_51]] — code: Failed to receive data from the network.
+- [[graphify_worked_httpx_raw_exceptions_rationale_55]] — code: Failed to send data through the network.
+- [[graphify_worked_httpx_raw_exceptions_rationale_59]] — code: Failed to close a connection.
+- [[graphify_worked_httpx_raw_exceptions_rationale_63]] — code: An error occurred while establishing a proxy connection.
+- [[graphify_worked_httpx_raw_exceptions_rationale_67]] — code: A protocol was violated.
+- [[graphify_worked_httpx_raw_exceptions_rationale_71]] — code: Decoding of the response failed.
+- [[graphify_worked_httpx_raw_exceptions_rationale_79]] — code: A 4xx or 5xx response was received.
+- [[graphify_worked_httpx_raw_exceptions_rationale_86]] — code: URL is improperly formed or cannot be parsed.
+- [[graphify_worked_httpx_raw_exceptions_rationale_90]] — code: Attempted to look up a cookie by name but multiple cookies exist.
+
+## Dependências
+
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_closeerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_connecttimeout]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_cookieconflict]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_decodingerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_httperror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_networkerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_pooltimeout]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_protocolerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_proxyerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_readerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_readtimeout]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_requesterror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_toomanyredirects]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_writeerror]]
+- [[graphify_worked_httpx_raw_exceptions]] → `contains` → [[graphify_worked_httpx_raw_exceptions_writetimeout]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_1]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions]]
+- [[graphify_worked_httpx_raw_exceptions_httperror]] → `method` → [[graphify_worked_httpx_raw_exceptions_httperror_init]]
+- [[graphify_worked_httpx_raw_exceptions_httperror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_py_exception]]
+- [[graphify_worked_httpx_raw_exceptions_httpstatuserror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_httperror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_8]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_httperror]]
+- [[graphify_worked_httpx_raw_exceptions_requesterror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_httperror]]
+- [[graphify_worked_httpx_raw_exceptions_cookieconflict]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_py_exception]]
+- [[graphify_worked_httpx_raw_exceptions_invalidurl]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_py_exception]]
+- [[graphify_worked_httpx_raw_exceptions_httperror_init]] → `calls` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror_init]]
+- [[graphify_worked_httpx_raw_exceptions_decodingerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_requesterror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_15]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_requesterror]]
+- [[graphify_worked_httpx_raw_exceptions_toomanyredirects]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_requesterror]]
+- [[graphify_worked_httpx_raw_exceptions_transporterror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_requesterror]]
+- [[graphify_worked_httpx_raw_exceptions_networkerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_exceptions_protocolerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_exceptions_proxyerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_19]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_exceptions_timeoutexception]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_transporterror]]
+- [[graphify_worked_httpx_raw_exceptions_connecttimeout]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_exceptions_pooltimeout]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_exceptions_readtimeout]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_exceptions_writetimeout]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_timeoutexception]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_27]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_connecttimeout]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_31]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_readtimeout]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_35]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_writetimeout]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_39]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_pooltimeout]]
+- [[graphify_worked_httpx_raw_exceptions_closeerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_networkerror]]
+- [[graphify_worked_httpx_raw_exceptions_connecterror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_networkerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_43]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_networkerror]]
+- [[graphify_worked_httpx_raw_exceptions_readerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_networkerror]]
+- [[graphify_worked_httpx_raw_exceptions_writeerror]] → `inherits` → [[graphify_worked_httpx_raw_exceptions_networkerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_47]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_connecterror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_51]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_readerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_55]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_writeerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_59]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_closeerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_63]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_proxyerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_67]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_protocolerror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_71]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_decodingerror]]
+- [[graphify_worked_httpx_raw_exceptions_httpstatuserror]] → `method` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror_init]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_79]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_httpstatuserror]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_86]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_invalidurl]]
+- [[graphify_worked_httpx_raw_exceptions_rationale_90]] → `rationale_for` → [[graphify_worked_httpx_raw_exceptions_cookieconflict]]

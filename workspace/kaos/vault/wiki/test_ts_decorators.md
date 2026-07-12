@@ -1,0 +1,81 @@
+# graphify\tests\test_ts_decorators.py
+
+## Símbolos
+
+- [[graphify_tests_test_ts_decorators]] — code: test_ts_decorators.py
+- [[graphify_tests_test_ts_decorators_write]] — code: _write()
+- [[graphify_tests_test_ts_decorators_class_nid]] — code: _class_nid()
+- [[graphify_tests_test_ts_decorators_method_nid]] — code: _method_nid()
+- [[graphify_tests_test_ts_decorators_has_deco]] — code: _has_deco()
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_exported_class]] — code: test_class_decorator_on_exported_class()
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_plain_class]] — code: test_class_decorator_on_plain_class()
+- [[graphify_tests_test_ts_decorators_test_stacked_class_decorators]] — code: test_stacked_class_decorators()
+- [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]] — code: test_method_decorator_attributes_to_method()
+- [[graphify_tests_test_ts_decorators_test_stacked_method_decorators]] — code: test_stacked_method_decorators()
+- [[graphify_tests_test_ts_decorators_test_field_decorator_attributes_to_class]] — code: test_field_decorator_attributes_to_class()
+- [[graphify_tests_test_ts_decorators_test_parameter_decorator_attributes_to_constructor]] — code: test_parameter_decorator_attributes_to_constructor()
+- [[graphify_tests_test_ts_decorators_test_namespaced_decorator_uses_property_name]] — code: test_namespaced_decorator_uses_property_name()
+- [[graphify_tests_test_ts_decorators_test_external_decorator_stub_disambiguated_per_file]] — code: test_external_decorator_stub_disambiguated_per_file()
+- [[graphify_tests_test_ts_decorators_rationale_1]] — code: Regression tests: TypeScript/JavaScript decorator references.  `@Component`, `
+- [[graphify_tests_test_ts_decorators_rationale_33]] — code: True if owner_nid references the (cross-file, bare-stub) decorator symbol.
+- [[graphify_tests_test_ts_decorators_rationale_121]] — code: An external decorator (definition absent from the corpus — the common     frame
+
+## Dependências
+
+- [[graphify_tests_test_ts_decorators]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_exported_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_plain_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_external_decorator_stub_disambiguated_per_file]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_field_decorator_attributes_to_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_namespaced_decorator_uses_property_name]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_parameter_decorator_attributes_to_constructor]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_stacked_class_decorators]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_test_stacked_method_decorators]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ts_decorators_class_nid]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_method_nid]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_class_decorator_on_exported_class]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_class_decorator_on_plain_class]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_external_decorator_stub_disambiguated_per_file]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_field_decorator_attributes_to_class]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_namespaced_decorator_uses_property_name]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_parameter_decorator_attributes_to_constructor]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_stacked_class_decorators]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_test_stacked_method_decorators]]
+- [[graphify_tests_test_ts_decorators]] → `contains` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_rationale_1]] → `rationale_for` → [[graphify_tests_test_ts_decorators]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_exported_class]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_plain_class]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_external_decorator_stub_disambiguated_per_file]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_field_decorator_attributes_to_class]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_namespaced_decorator_uses_property_name]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_parameter_decorator_attributes_to_constructor]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_stacked_class_decorators]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_test_stacked_method_decorators]] → `calls` → [[graphify_tests_test_ts_decorators_write]]
+- [[graphify_tests_test_ts_decorators_write]] → `references` → [[graphify_tests_test_ts_decorators_py_path]]
+- [[graphify_tests_test_ts_decorators_class_nid]] → `calls` → [[graphify_tests_test_ts_decorators_py_path]]
+- [[graphify_tests_test_ts_decorators_method_nid]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_exported_class]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_plain_class]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_external_decorator_stub_disambiguated_per_file]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_field_decorator_attributes_to_class]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_namespaced_decorator_uses_property_name]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_stacked_class_decorators]] → `calls` → [[graphify_tests_test_ts_decorators_class_nid]]
+- [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]] → `calls` → [[graphify_tests_test_ts_decorators_method_nid]]
+- [[graphify_tests_test_ts_decorators_test_parameter_decorator_attributes_to_constructor]] → `calls` → [[graphify_tests_test_ts_decorators_method_nid]]
+- [[graphify_tests_test_ts_decorators_test_stacked_method_decorators]] → `calls` → [[graphify_tests_test_ts_decorators_method_nid]]
+- [[graphify_tests_test_ts_decorators_rationale_33]] → `rationale_for` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_exported_class]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_class_decorator_on_plain_class]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_field_decorator_attributes_to_class]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_method_decorator_attributes_to_method]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_namespaced_decorator_uses_property_name]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_parameter_decorator_attributes_to_constructor]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_stacked_class_decorators]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_test_stacked_method_decorators]] → `calls` → [[graphify_tests_test_ts_decorators_has_deco]]
+- [[graphify_tests_test_ts_decorators_rationale_121]] → `rationale_for` → [[graphify_tests_test_ts_decorators_test_external_decorator_stub_disambiguated_per_file]]

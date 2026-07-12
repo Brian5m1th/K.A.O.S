@@ -1,0 +1,547 @@
+# graphify\tests\test_extract.py
+
+## Símbolos
+
+- [[graphify_tests_test_extract]] — code: test_extract.py
+- [[graphify_tests_test_extract_test_make_id_strips_dots_and_underscores]] — code: test_make_id_strips_dots_and_underscores()
+- [[graphify_tests_test_extract_test_make_id_consistent]] — code: test_make_id_consistent()
+- [[graphify_tests_test_extract_test_make_id_no_leading_trailing_underscores]] — code: test_make_id_no_leading_trailing_underscores()
+- [[graphify_tests_test_extract_test_extract_python_finds_class]] — code: test_extract_python_finds_class()
+- [[graphify_tests_test_extract_test_extract_python_finds_methods]] — code: test_extract_python_finds_methods()
+- [[graphify_tests_test_extract_test_extract_python_no_dangling_edges]] — code: test_extract_python_no_dangling_edges()
+- [[graphify_tests_test_extract_test_structural_edges_are_extracted]] — code: test_structural_edges_are_extracted()
+- [[graphify_tests_test_extract_test_extract_merges_multiple_files]] — code: test_extract_merges_multiple_files()
+- [[graphify_tests_test_extract_test_extract_disambiguates_duplicate_symbol_ids_by_source_path]] — code: test_extract_disambiguates_duplicate_symbol_ids_by_source_path()
+- [[graphify_tests_test_extract_test_cpp_unresolved_base_class_stubs_stay_disambiguated_by_file]] — code: test_cpp_unresolved_base_class_stubs_stay_disambiguated_by_file()
+- [[graphify_tests_test_extract_test_cross_file_type_annotation_refs_resolve_to_single_node]] — code: test_cross_file_type_annotation_refs_resolve_to_single_node()
+- [[graphify_tests_test_extract_test_go_cross_file_type_refs_resolve_to_single_node]] — code: test_go_cross_file_type_refs_resolve_to_single_node()
+- [[graphify_tests_test_extract_test_imported_type_stubs_do_not_collide_across_source_files]] — code: test_imported_type_stubs_do_not_collide_across_source_files()
+- [[graphify_tests_test_extract_test_origin_file_is_not_serialized_into_extract_output]] — code: test_origin_file_is_not_serialized_into_extract_output()
+- [[graphify_tests_test_extract_test_go_imported_type_stubs_do_not_collide_across_source_files]] — code: test_go_imported_type_stubs_do_not_collide_across_source_files()
+- [[graphify_tests_test_extract_test_extract_updates_raw_call_callers_after_duplicate_id_disambiguation]] — code: test_extract_updates_raw_call_callers_after_duplicate_id_disambiguation()
+- [[graphify_tests_test_extract_test_extract_rewires_unique_inheritance_stub_to_real_definition]] — code: test_extract_rewires_unique_inheritance_stub_to_real_definition()
+- [[graphify_tests_test_extract_test_extract_keeps_stub_when_multiple_real_definitions_match]] — code: test_extract_keeps_stub_when_multiple_real_definitions_match()
+- [[graphify_tests_test_extract_test_extract_does_not_rewire_inheritance_stub_to_same_named_function]] — code: test_extract_does_not_rewire_inheritance_stub_to_same_named_function()
+- [[graphify_tests_test_extract_test_extract_does_not_rewire_constructor_method_to_same_named_class]] — code: test_extract_does_not_rewire_constructor_method_to_same_named_class()
+- [[graphify_tests_test_extract_test_collect_files_from_dir]] — code: test_collect_files_from_dir()
+- [[graphify_tests_test_extract_test_collect_files_skips_hidden]] — code: test_collect_files_skips_hidden()
+- [[graphify_tests_test_extract_test_collect_files_follows_symlinked_directory]] — code: test_collect_files_follows_symlinked_directory()
+- [[graphify_tests_test_extract_test_collect_files_skips_out_of_root_symlinked_directory]] — code: test_collect_files_skips_out_of_root_symlinked_directory()
+- [[graphify_tests_test_extract_test_collect_files_skips_out_of_root_symlinked_file_by_default]] — code: test_collect_files_skips_out_of_root_symlinked_file_by_default()
+- [[graphify_tests_test_extract_test_collect_files_handles_circular_symlinks]] — code: test_collect_files_handles_circular_symlinks()
+- [[graphify_tests_test_extract_legacy_collect_files]] — code: _legacy_collect_files()
+- [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_on_fixtures]] — code: test_collect_files_parity_with_legacy_on_fixtures()
+- [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_synthetic]] — code: test_collect_files_parity_with_legacy_synthetic()
+- [[graphify_tests_test_extract_test_collect_files_walks_each_directory_once]] — code: test_collect_files_walks_each_directory_once()
+- [[graphify_tests_test_extract_test_no_dangling_edges_on_extract]] — code: test_no_dangling_edges_on_extract()
+- [[graphify_tests_test_extract_test_calls_edges_emitted]] — code: test_calls_edges_emitted()
+- [[graphify_tests_test_extract_test_calls_edges_are_extracted]] — code: test_calls_edges_are_extracted()
+- [[graphify_tests_test_extract_test_python_call_edges_have_call_context]] — code: test_python_call_edges_have_call_context()
+- [[graphify_tests_test_extract_test_calls_no_self_loops]] — code: test_calls_no_self_loops()
+- [[graphify_tests_test_extract_test_run_analysis_calls_compute_score]] — code: test_run_analysis_calls_compute_score()
+- [[graphify_tests_test_extract_test_run_analysis_calls_normalize]] — code: test_run_analysis_calls_normalize()
+- [[graphify_tests_test_extract_test_method_calls_module_function]] — code: test_method_calls_module_function()
+- [[graphify_tests_test_extract_test_calls_deduplication]] — code: test_calls_deduplication()
+- [[graphify_tests_test_extract_test_cross_file_calls_skip_ambiguous_duplicate_labels]] — code: test_cross_file_calls_skip_ambiguous_duplicate_labels()
+- [[graphify_tests_test_extract_test_cross_file_call_survives_same_named_test_mock]] — code: test_cross_file_call_survives_same_named_test_mock()
+- [[graphify_tests_test_extract_test_cross_file_call_god_node_guard_two_real_defs]] — code: test_cross_file_call_god_node_guard_two_real_defs()
+- [[graphify_tests_test_extract_test_cross_file_call_survives_many_test_mocks]] — code: test_cross_file_call_survives_many_test_mocks()
+- [[graphify_tests_test_extract_test_extract_generic_surfaces_tree_sitter_version_mismatch_hint]] — code: test_extract_generic_surfaces_tree_sitter_version_mismatch_hint()
+- [[graphify_tests_test_extract_test_extract_js_destructured_require_imports_from]] — code: test_extract_js_destructured_require_imports_from()
+- [[graphify_tests_test_extract_test_extract_js_destructured_require_named_symbols]] — code: test_extract_js_destructured_require_named_symbols()
+- [[graphify_tests_test_extract_test_extract_js_member_require_emits_property_symbol]] — code: test_extract_js_member_require_emits_property_symbol()
+- [[graphify_tests_test_extract_test_extract_js_arrow_function_still_extracted]] — code: test_extract_js_arrow_function_still_extracted()
+- [[graphify_tests_test_extract_test_extract_js_this_assigned_methods]] — code: test_extract_js_this_assigned_methods()
+- [[graphify_tests_test_extract_test_extract_js_commonjs_exports_assignment]] — code: test_extract_js_commonjs_exports_assignment()
+- [[graphify_tests_test_extract_test_extract_js_prototype_method_assignment]] — code: test_extract_js_prototype_method_assignment()
+- [[graphify_tests_test_extract_test_extract_js_const_function_expression]] — code: test_extract_js_const_function_expression()
+- [[graphify_tests_test_extract_test_extract_ts_class_arrow_field]] — code: test_extract_ts_class_arrow_field()
+- [[graphify_tests_test_extract_test_extract_js_arbitrary_member_assignment_not_captured]] — code: test_extract_js_arbitrary_member_assignment_not_captured()
+- [[graphify_tests_test_extract_by_label_by_id]] — code: by_label_by_id()
+- [[graphify_tests_test_extract_test_cross_file_call_promoted_to_extracted_with_import_evidence]] — code: test_cross_file_call_promoted_to_extracted_with_import_evidence()
+- [[graphify_tests_test_extract_test_js_cross_file_call_without_import_emits_no_edge]] — code: test_js_cross_file_call_without_import_emits_no_edge()
+- [[graphify_tests_test_extract_test_python_qualified_class_method_call_resolves_extracted]] — code: test_python_qualified_class_method_call_resolves_extracted()
+- [[graphify_tests_test_extract_test_python_qualified_call_resolves_when_method_name_collides_with_caller]] — code: test_python_qualified_call_resolves_when_method_name_collides_with_caller()
+- [[graphify_tests_test_extract_test_python_instance_member_call_not_overconnected]] — code: test_python_instance_member_call_not_overconnected()
+- [[graphify_tests_test_extract_test_python_qualified_call_ambiguous_class_bails]] — code: test_python_qualified_call_ambiguous_class_bails()
+- [[graphify_tests_test_extract_test_extract_tsx_finds_helpers_and_component]] — code: test_extract_tsx_finds_helpers_and_component()
+- [[graphify_tests_test_extract_test_extract_tsx_jsx_expression_calls_resolve]] — code: test_extract_tsx_jsx_expression_calls_resolve()
+- [[graphify_tests_test_extract_test_extract_tsx_uses_tsx_grammar]] — code: test_extract_tsx_uses_tsx_grammar()
+- [[graphify_tests_test_extract_test_extract_falls_back_to_sequential_when_parallel_returns_false]] — code: test_extract_falls_back_to_sequential_when_parallel_returns_false()
+- [[graphify_tests_test_extract_test_extract_parallel_returns_false_on_broken_pool]] — code: test_extract_parallel_returns_false_on_broken_pool()
+- [[graphify_tests_test_extract_test_dispatch_includes_sh_and_json]] — code: test_dispatch_includes_sh_and_json()
+- [[graphify_tests_test_extract_test_extract_bash_finds_functions]] — code: test_extract_bash_finds_functions()
+- [[graphify_tests_test_extract_test_extract_bash_emits_defines_edges]] — code: test_extract_bash_emits_defines_edges()
+- [[graphify_tests_test_extract_test_extract_bash_emits_calls_edges]] — code: test_extract_bash_emits_calls_edges()
+- [[graphify_tests_test_extract_test_extract_bash_calls_have_extracted_confidence]] — code: test_extract_bash_calls_have_extracted_confidence()
+- [[graphify_tests_test_extract_test_extract_bash_emits_source_imports_from]] — code: test_extract_bash_emits_source_imports_from()
+- [[graphify_tests_test_extract_test_extract_bash_emits_script_invocation_calls]] — code: test_extract_bash_emits_script_invocation_calls()
+- [[graphify_tests_test_extract_test_extract_bash_skips_missing_and_shadowed_script_invocations]] — code: test_extract_bash_skips_missing_and_shadowed_script_invocations()
+- [[graphify_tests_test_extract_test_extract_bash_skips_dynamic_script_invocation]] — code: test_extract_bash_skips_dynamic_script_invocation()
+- [[graphify_tests_test_extract_test_extract_bash_relative_script_invocation_targets_existing_entrypoint]] — code: test_extract_bash_relative_script_invocation_targets_existing_entrypoint()
+- [[graphify_tests_test_extract_test_extract_bash_attributes_script_invocation_to_function]] — code: test_extract_bash_attributes_script_invocation_to_function()
+- [[graphify_tests_test_extract_test_extract_bash_no_self_loops]] — code: test_extract_bash_no_self_loops()
+- [[graphify_tests_test_extract_test_extract_bash_no_dangling_edges]] — code: test_extract_bash_no_dangling_edges()
+- [[graphify_tests_test_extract_test_extract_bash_skip_builtins_in_calls]] — code: test_extract_bash_skip_builtins_in_calls()
+- [[graphify_tests_test_extract_test_extract_bash_missing_grammar_returns_error]] — code: test_extract_bash_missing_grammar_returns_error()
+- [[graphify_tests_test_extract_test_extract_bash_rejects_command_substitution_as_call]] — code: test_extract_bash_rejects_command_substitution_as_call()
+- [[graphify_tests_test_extract_test_extract_bash_process_substitution_not_recorded]] — code: test_extract_bash_process_substitution_not_recorded()
+- [[graphify_tests_test_extract_test_extract_bash_shadowing_function_is_recorded]] — code: test_extract_bash_shadowing_function_is_recorded()
+- [[graphify_tests_test_extract_test_extract_bash_creates_entrypoint_node]] — code: test_extract_bash_creates_entrypoint_node()
+- [[graphify_tests_test_extract_test_extract_bash_top_level_call_attributes_to_entrypoint]] — code: test_extract_bash_top_level_call_attributes_to_entrypoint()
+- [[graphify_tests_test_extract_test_extract_bash_entrypoint_no_collision_with_function_named_script]] — code: test_extract_bash_entrypoint_no_collision_with_function_named_script()
+- [[graphify_tests_test_extract_test_extract_bash_nested_function_calls_recorded]] — code: test_extract_bash_nested_function_calls_recorded()
+- [[graphify_tests_test_extract_test_extract_bash_source_user_defined_emits_calls_not_imports_from]] — code: test_extract_bash_source_user_defined_emits_calls_not_imports_from()
+- [[graphify_tests_test_extract_test_extract_json_top_level_keys]] — code: test_extract_json_top_level_keys()
+- [[graphify_tests_test_extract_test_extract_json_nested_contains]] — code: test_extract_json_nested_contains()
+- [[graphify_tests_test_extract_test_extract_json_dependencies_become_imports]] — code: test_extract_json_dependencies_become_imports()
+- [[graphify_tests_test_extract_test_extract_json_extends_resolved]] — code: test_extract_json_extends_resolved()
+- [[graphify_tests_test_extract_test_extract_json_import_and_extends_targets_are_real_nodes]] — code: test_extract_json_import_and_extends_targets_are_real_nodes()
+- [[graphify_tests_test_extract_test_extract_json_large_file_skipped]] — code: test_extract_json_large_file_skipped()
+- [[graphify_tests_test_extract_test_extract_json_handles_invalid_json]] — code: test_extract_json_handles_invalid_json()
+- [[graphify_tests_test_extract_test_extract_json_no_self_loops]] — code: test_extract_json_no_self_loops()
+- [[graphify_tests_test_extract_test_extract_json_data_file_skipped]] — code: test_extract_json_data_file_skipped()
+- [[graphify_tests_test_extract_test_extract_json_top_level_array_skipped]] — code: test_extract_json_top_level_array_skipped()
+- [[graphify_tests_test_extract_test_extract_json_config_by_filename_still_extracted]] — code: test_extract_json_config_by_filename_still_extracted()
+- [[graphify_tests_test_extract_test_extract_json_config_by_key_probe]] — code: test_extract_json_config_by_key_probe()
+- [[graphify_tests_test_extract_test_extract_bash_via_dispatch]] — code: test_extract_bash_via_dispatch()
+- [[graphify_tests_test_extract_test_extract_json_via_dispatch]] — code: test_extract_json_via_dispatch()
+- [[graphify_tests_test_extract_test_extensionless_shebang_via_dispatch]] — code: test_extensionless_shebang_via_dispatch()
+- [[graphify_tests_test_extract_test_extensionless_without_usable_shebang_stays_unsupported]] — code: test_extensionless_without_usable_shebang_stays_unsupported()
+- [[graphify_tests_test_extract_test_extract_extensionless_bash_cli_end_to_end]] — code: test_extract_extensionless_bash_cli_end_to_end()
+- [[graphify_tests_test_extract_test_extract_bash_node_metadata_is_sanitized]] — code: test_extract_bash_node_metadata_is_sanitized()
+- [[graphify_tests_test_extract_test_barrel_reexport_emits_re_exports_edges]] — code: test_barrel_reexport_emits_re_exports_edges()
+- [[graphify_tests_test_extract_test_barrel_reexport_emits_imports_from]] — code: test_barrel_reexport_emits_imports_from()
+- [[graphify_tests_test_extract_test_barrel_reexport_context_tagged]] — code: test_barrel_reexport_context_tagged()
+- [[graphify_tests_test_extract_test_barrel_local_exports_still_extracted]] — code: test_barrel_local_exports_still_extracted()
+- [[graphify_tests_test_extract_test_barrel_reexport_confidence_extracted]] — code: test_barrel_reexport_confidence_extracted()
+- [[graphify_tests_test_extract_test_semantic_reference_edges_carry_context_and_source]] — code: test_semantic_reference_edges_carry_context_and_source()
+- [[graphify_tests_test_extract_test_pure_export_no_from_not_treated_as_reexport]] — code: test_pure_export_no_from_not_treated_as_reexport()
+- [[graphify_tests_test_extract_test_dart_child_node_ids_are_stem_based]] — code: test_dart_child_node_ids_are_stem_based()
+- [[graphify_tests_test_extract_test_separator_collision_paths_get_distinct_ids]] — code: test_separator_collision_paths_get_distinct_ids()
+- [[graphify_tests_test_extract_test_non_colliding_path_id_is_not_salted]] — code: test_non_colliding_path_id_is_not_salted()
+- [[graphify_tests_test_extract_test_case_insensitive_suffix_filtering]] — code: test_case_insensitive_suffix_filtering()
+- [[graphify_tests_test_extract_test_extract_warns_on_code_files_with_no_ast_extractor]] — code: test_extract_warns_on_code_files_with_no_ast_extractor()
+- [[graphify_tests_test_extract_test_extract_no_warning_when_all_code_has_extractors]] — code: test_extract_no_warning_when_all_code_has_extractors()
+- [[graphify_tests_test_extract_test_extract_warns_when_sql_extra_missing]] — code: test_extract_warns_when_sql_extra_missing()
+- [[graphify_tests_test_extract_test_extract_no_missing_dep_warning_when_sql_installed]] — code: test_extract_no_missing_dep_warning_when_sql_installed()
+- [[graphify_tests_test_extract_test_extract_progress_final_line_uses_consistent_denominator]] — code: test_extract_progress_final_line_uses_consistent_denominator()
+- [[graphify_tests_test_extract_test_get_extractor_routes_matlab_m_away_from_objc]] — code: test_get_extractor_routes_matlab_m_away_from_objc()
+- [[graphify_tests_test_extract_test_matlab_m_not_extracted_as_garbage]] — code: test_matlab_m_not_extracted_as_garbage()
+- [[graphify_tests_test_extract_test_rewire_binds_cross_module_function_reference_to_definition]] — code: test_rewire_binds_cross_module_function_reference_to_definition()
+- [[graphify_tests_test_extract_test_rewire_does_not_bind_function_reference_across_language]] — code: test_rewire_does_not_bind_function_reference_across_language()
+- [[graphify_tests_test_extract_test_rewire_does_not_bind_ambiguous_function_reference]] — code: test_rewire_does_not_bind_ambiguous_function_reference()
+- [[graphify_tests_test_extract_test_rewire_does_not_bind_supertype_stub_to_function]] — code: test_rewire_does_not_bind_supertype_stub_to_function()
+- [[graphify_tests_test_extract_rationale_21]] — code: Same input always produces same output.
+- [[graphify_tests_test_extract_rationale_44]] — code: All edge sources must reference a known node (targets may be external imports).
+- [[graphify_tests_test_extract_rationale_52]] — code: contains / method / inherits / imports edges must always be EXTRACTED.
+- [[graphify_tests_test_extract_rationale_109]] — code: Two different files' same-named, otherwise-undefined base class must not     co
+- [[graphify_tests_test_extract_rationale_140]] — code: #1402: a class defined once but referenced via type annotations in N other
+- [[graphify_tests_test_extract_rationale_163]] — code: #1402 (Go): the sourceless-stub fix landed in six extractors but the Go copy
+- [[graphify_tests_test_extract_rationale_192]] — code: #1462: imported stdlib/type stubs with the same label are distinct uses     whe
+- [[graphify_tests_test_extract_rationale_211]] — code: origin_file is an internal disambiguation hint (#1462) consumed only by the
+- [[graphify_tests_test_extract_rationale_241]] — code: #1462 (dedicated extractors): the imported-type-stub disambiguation (the     ``
+- [[graphify_tests_test_extract_rationale_438]] — code: The pre-#1261 rglob-per-extension implementation, kept as a parity oracle.
+- [[graphify_tests_test_extract_rationale_490]] — code: collect_files must scan every directory at most once and never descend     into
+- [[graphify_tests_test_extract_rationale_522]] — code: After merging multiple files, no internal edges should be dangling.
+- [[graphify_tests_test_extract_rationale_534]] — code: Call-graph pass must produce INFERRED calls edges.
+- [[graphify_tests_test_extract_rationale_541]] — code: AST-resolved call edges are deterministic and should be EXTRACTED/1.0.
+- [[graphify_tests_test_extract_rationale_564]] — code: run_analysis() calls compute_score() - must appear as a calls edge.
+- [[graphify_tests_test_extract_rationale_585]] — code: Analyzer.process() calls run_analysis() - cross class→function calls edge.
+- [[graphify_tests_test_extract_rationale_596]] — code: Same caller→callee pair must appear only once even if called multiple times.
+- [[graphify_tests_test_extract_rationale_603]] — code: Unqualified cross-file calls must not guess between duplicate helper names.
+- [[graphify_tests_test_extract_rationale_625]] — code: A real cross-file call must NOT be erased by a same-named test mock.      src/
+- [[graphify_tests_test_extract_rationale_657]] — code: Two genuine NON-test defs of the same name + one caller => ZERO edges.      Pr
+- [[graphify_tests_test_extract_rationale_686]] — code: One src def + many same-named test stubs + caller => exactly one src edge.
+- [[graphify_tests_test_extract_rationale_710]] — code: When Language() raises TypeError (e.g. old tree-sitter binding meets a     new
+- [[graphify_tests_test_extract_rationale_742]] — code: `const { foo } = require('./mod')` must emit imports_from to the resolved module
+- [[graphify_tests_test_extract_rationale_756]] — code: Destructured CJS requires must emit symbol-level `imports` edges per binder.
+- [[graphify_tests_test_extract_rationale_766]] — code: `const x = require('./m').y` must emit symbol edge for `y`.
+- [[graphify_tests_test_extract_rationale_775]] — code: Regression: arrow functions in lexical_declaration must still produce nodes.
+- [[graphify_tests_test_extract_rationale_788]] — code: `this.X = () => {}` / `this.X = function(){}` in a constructor-style     functi
+- [[graphify_tests_test_extract_rationale_820]] — code: `exports.X = fn` and `module.exports.X = fn` must produce function nodes.
+- [[graphify_tests_test_extract_rationale_833]] — code: `Foo.prototype.bar = fn` must be captured as a method owned by Foo.
+- [[graphify_tests_test_extract_rationale_846]] — code: `const f = function(){}` (function expression, not arrow) must be captured.
+- [[graphify_tests_test_extract_rationale_855]] — code: A class field initialised with an arrow function (`x = () => {}`) must be     c
+- [[graphify_tests_test_extract_rationale_872]] — code: Guard against the phantom-god-node class (#1077): an arbitrary     `obj.x = fn`
+- [[graphify_tests_test_extract_rationale_894]] — code: A cross-file `calls` edge must be EXTRACTED when the caller's file has     an `
+- [[graphify_tests_test_extract_rationale_920]] — code: A JS/TS call with no local definition and no import must NOT bind to a     same
+- [[graphify_tests_test_extract_rationale_944]] — code: `ClassName.method()` across files resolves to the class-qualified method     no
+- [[graphify_tests_test_extract_rationale_974]] — code: The real #1446 shape: a viewset action `approve()` delegates to a SERVICE     a
+- [[graphify_tests_test_extract_rationale_1006]] — code: A lowercase-receiver member call (`obj.run()`, `self.run()`) must NOT be     re
+- [[graphify_tests_test_extract_rationale_1032]] — code: When the class name is defined in 2+ files, the qualified call must not     res
+- [[graphify_tests_test_extract_rationale_1062]] — code: Functions defined alongside a JSX-returning component must be captured.
+- [[graphify_tests_test_extract_rationale_1072]] — code: Calls inside JSX expressions like `{fmtDate(now)}` must yield call edges.
+- [[graphify_tests_test_extract_rationale_1094]] — code: Wiring check: the .tsx config must use tree-sitter's `language_tsx`.
+- [[graphify_tests_test_extract_rationale_1107]] — code: extract() must run sequential when _extract_parallel signals failure (returns Fa
+- [[graphify_tests_test_extract_rationale_1135]] — code: _extract_parallel must catch BrokenProcessPool internally and return False.
+- [[graphify_tests_test_extract_rationale_1329]] — code: extract_bash returns error dict when tree-sitter-bash not installed (mocked).
+- [[graphify_tests_test_extract_rationale_1346]] — code: `$(build)` must not be recorded as a call edge to build().
+- [[graphify_tests_test_extract_rationale_1364]] — code: `<(helper)` (process substitution) must not be recorded as a call edge.
+- [[graphify_tests_test_extract_rationale_1382]] — code: User-defined function shadowing an external command (install/find/etc.) must sti
+- [[graphify_tests_test_extract_rationale_1402]] — code: Every bash file produces a `bash_entrypoint` node distinct from the file node, j
+- [[graphify_tests_test_extract_rationale_1419]] — code: Top-level function call attaches to the entrypoint node, not orphaned.
+- [[graphify_tests_test_extract_rationale_1450]] — code: Entrypoint node must have a distinct ID from a function also named 'script'.
+- [[graphify_tests_test_extract_rationale_1471]] — code: Calls made inside a nested (inner) function body must be collected.
+- [[graphify_tests_test_extract_rationale_1496]] — code: When 'source' is a user-defined function, 'source ./file.sh' must emit a     ca
+- [[graphify_tests_test_extract_rationale_1630]] — code: A data-shaped .json (eval fixture / dataset) must NOT emit per-key nodes.
+- [[graphify_tests_test_extract_rationale_1644]] — code: A JSON file whose root is an array is data, never a config/manifest.
+- [[graphify_tests_test_extract_rationale_1653]] — code: tsconfig.json must still be AST-extracted even without telltale keys.
+- [[graphify_tests_test_extract_rationale_1662]] — code: An arbitrarily-named JSON with config keys (dependencies) is still extracted.
+- [[graphify_tests_test_extract_rationale_1683]] — code: Extensionless CLIs resolve their extractor from the shebang, mirroring     dete
+- [[graphify_tests_test_extract_rationale_1717]] — code: A shebang-only bash CLI must contribute nodes with the same ID scheme     as a
+- [[graphify_tests_test_extract_rationale_1733]] — code: Bash extractor must route node metadata through sanitize_metadata so     HTML-s
+- [[graphify_tests_test_extract_rationale_1752]] — code: export { X } from './mod' must emit re_exports edges for each named specifier.
+- [[graphify_tests_test_extract_rationale_1766]] — code: Barrel file must emit file-level imports_from edges to source modules.
+- [[graphify_tests_test_extract_rationale_1777]] — code: re_exports edges should have context='re-export'.
+- [[graphify_tests_test_extract_rationale_1786]] — code: export function/const in a barrel file must still create nodes.
+- [[graphify_tests_test_extract_rationale_1796]] — code: All re_exports edges should have confidence=EXTRACTED.
+- [[graphify_tests_test_extract_rationale_1828]] — code: export { localVar } without 'from' should NOT create re_exports edges.
+- [[graphify_tests_test_extract_rationale_1841]] — code: Dart child node IDs must be built from _file_stem rather than absolute path.
+- [[graphify_tests_test_extract_rationale_1882]] — code: #1522: two distinct paths whose only difference is a separator-vs-punctuation
+- [[graphify_tests_test_extract_rationale_1902]] — code: The collision hash must touch only actual colliders — a path with no collision
+- [[graphify_tests_test_extract_rationale_2045]] — code: #1781: a cross-module reference to a function must land on the real     definit
+- [[graphify_tests_test_extract_rationale_2062]] — code: #1781 safety: a Python reference stub must not bind to a unique Go     function
+- [[graphify_tests_test_extract_rationale_2077]] — code: #1781 safety: two same-named functions leave the reference on the stub.
+- [[graphify_tests_test_extract_rationale_2091]] — code: #1781 safety: a stub used as a base type must never resolve to a     same-named
+
+## Dependências
+
+- [[graphify_tests_test_extract]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_extract_legacy_collect_files]] → `calls` → [[graphify_graphify_detect_is_noise_dir]]
+- [[graphify_tests_test_extract_legacy_collect_files]] → `calls` → [[graphify_graphify_detect_load_graphifyignore]]
+- [[graphify_tests_test_extract_legacy_collect_files]] → `calls` → [[graphify_graphify_detect_is_ignored]]
+- [[graphify_tests_test_extract]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_extract_test_calls_deduplication]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_calls_edges_are_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_calls_edges_emitted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_calls_no_self_loops]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_extract_python_finds_class]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_extract_python_finds_methods]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_extract_python_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_method_calls_module_function]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_python_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_run_analysis_calls_compute_score]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_run_analysis_calls_normalize]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_structural_edges_are_extracted]] → `calls` → [[graphify_graphify_extract_extract_python]]
+- [[graphify_tests_test_extract_test_barrel_local_exports_still_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_barrel_reexport_confidence_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_barrel_reexport_context_tagged]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_barrel_reexport_emits_imports_from]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_barrel_reexport_emits_re_exports_edges]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_arbitrary_member_assignment_not_captured]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_arrow_function_still_extracted]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_commonjs_exports_assignment]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_const_function_expression]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_destructured_require_imports_from]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_destructured_require_named_symbols]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_member_require_emits_property_symbol]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_prototype_method_assignment]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_js_this_assigned_methods]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_ts_class_arrow_field]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_tsx_finds_helpers_and_component]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_extract_tsx_jsx_expression_calls_resolve]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_pure_export_no_from_not_treated_as_reexport]] → `calls` → [[graphify_graphify_extract_extract_js]]
+- [[graphify_tests_test_extract_test_rewire_binds_cross_module_function_reference_to_definition]] → `calls` → [[graphify_graphify_extract_rewire_unique_stub_nodes]]
+- [[graphify_tests_test_extract_test_rewire_does_not_bind_ambiguous_function_reference]] → `calls` → [[graphify_graphify_extract_rewire_unique_stub_nodes]]
+- [[graphify_tests_test_extract_test_rewire_does_not_bind_function_reference_across_language]] → `calls` → [[graphify_graphify_extract_rewire_unique_stub_nodes]]
+- [[graphify_tests_test_extract_test_rewire_does_not_bind_supertype_stub_to_function]] → `calls` → [[graphify_graphify_extract_rewire_unique_stub_nodes]]
+- [[graphify_tests_test_extract_test_extensionless_shebang_via_dispatch]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_extract_test_extensionless_without_usable_shebang_stays_unsupported]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_extract_test_extract_bash_via_dispatch]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_extract_test_extract_json_via_dispatch]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_extract_test_get_extractor_routes_matlab_m_away_from_objc]] → `calls` → [[graphify_graphify_extract_get_extractor]]
+- [[graphify_tests_test_extract_test_case_insensitive_suffix_filtering]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cpp_unresolved_base_class_stubs_stay_disambiguated_by_file]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cross_file_call_god_node_guard_two_real_defs]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cross_file_call_promoted_to_extracted_with_import_evidence]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cross_file_call_survives_many_test_mocks]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cross_file_call_survives_same_named_test_mock]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cross_file_calls_skip_ambiguous_duplicate_labels]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_cross_file_type_annotation_refs_resolve_to_single_node]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_bash_relative_script_invocation_targets_existing_entrypoint]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_disambiguates_duplicate_symbol_ids_by_source_path]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_does_not_rewire_constructor_method_to_same_named_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_does_not_rewire_inheritance_stub_to_same_named_function]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_extensionless_bash_cli_end_to_end]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_json_import_and_extends_targets_are_real_nodes]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_keeps_stub_when_multiple_real_definitions_match]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_merges_multiple_files]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_no_missing_dep_warning_when_sql_installed]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_no_warning_when_all_code_has_extractors]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_progress_final_line_uses_consistent_denominator]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_rewires_unique_inheritance_stub_to_real_definition]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_updates_raw_call_callers_after_duplicate_id_disambiguation]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_warns_on_code_files_with_no_ast_extractor]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_extract_warns_when_sql_extra_missing]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_go_cross_file_type_refs_resolve_to_single_node]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_go_imported_type_stubs_do_not_collide_across_source_files]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_imported_type_stubs_do_not_collide_across_source_files]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_js_cross_file_call_without_import_emits_no_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_matlab_m_not_extracted_as_garbage]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_no_dangling_edges_on_extract]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_non_colliding_path_id_is_not_salted]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_origin_file_is_not_serialized_into_extract_output]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_python_instance_member_call_not_overconnected]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_python_qualified_call_ambiguous_class_bails]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_python_qualified_call_resolves_when_method_name_collides_with_caller]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_python_qualified_class_method_call_resolves_extracted]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_separator_collision_paths_get_distinct_ids]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_extract_test_case_insensitive_suffix_filtering]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_follows_symlinked_directory]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_from_dir]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_handles_circular_symlinks]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_on_fixtures]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_synthetic]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_skips_hidden]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_skips_out_of_root_symlinked_directory]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_skips_out_of_root_symlinked_file_by_default]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_walks_each_directory_once]] → `calls` → [[graphify_graphify_extract_collect_files]]
+- [[graphify_tests_test_extract_test_dart_child_node_ids_are_stem_based]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_extract_test_extract_bash_skip_builtins_in_calls]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_extract_test_extract_js_destructured_require_named_symbols]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_extract_test_extract_js_member_require_emits_property_symbol]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_extract_test_non_colliding_path_id_is_not_salted]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_tests_test_extract_test_extract_bash_attributes_script_invocation_to_function]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_calls_have_extracted_confidence]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_creates_entrypoint_node]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_emits_calls_edges]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_emits_defines_edges]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_emits_script_invocation_calls]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_emits_source_imports_from]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_entrypoint_no_collision_with_function_named_script]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_finds_functions]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_missing_grammar_returns_error]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_nested_function_calls_recorded]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_no_self_loops]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_node_metadata_is_sanitized]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_process_substitution_not_recorded]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_rejects_command_substitution_as_call]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_shadowing_function_is_recorded]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_skip_builtins_in_calls]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_skips_dynamic_script_invocation]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_skips_missing_and_shadowed_script_invocations]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_source_user_defined_emits_calls_not_imports_from]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_extract_bash_top_level_call_attributes_to_entrypoint]] → `calls` → [[graphify_graphify_extractors_bash_extract_bash]]
+- [[graphify_tests_test_extract_test_dart_child_node_ids_are_stem_based]] → `calls` → [[graphify_graphify_extractors_dart_extract_dart]]
+- [[graphify_tests_test_extract_test_semantic_reference_edges_carry_context_and_source]] → `calls` → [[graphify_graphify_extractors_engine_semantic_reference_edge]]
+- [[graphify_tests_test_extract_test_extract_generic_surfaces_tree_sitter_version_mismatch_hint]] → `calls` → [[graphify_graphify_extractors_engine_extract_generic]]
+- [[graphify_tests_test_extract_test_extract_json_config_by_filename_still_extracted]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_config_by_key_probe]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_data_file_skipped]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_dependencies_become_imports]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_extends_resolved]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_handles_invalid_json]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_import_and_extends_targets_are_real_nodes]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_large_file_skipped]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_nested_contains]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_no_self_loops]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_top_level_array_skipped]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_json_top_level_keys]] → `calls` → [[graphify_graphify_extractors_json_config_extract_json]]
+- [[graphify_tests_test_extract_test_extract_generic_surfaces_tree_sitter_version_mismatch_hint]] → `calls` → [[graphify_graphify_extractors_models_languageconfig]]
+- [[graphify_tests_test_extract_test_non_colliding_path_id_is_not_salted]] → `calls` → [[graphify_graphify_ids_make_id]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_by_label_by_id]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_legacy_collect_files]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_barrel_local_exports_still_extracted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_barrel_reexport_confidence_extracted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_barrel_reexport_context_tagged]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_barrel_reexport_emits_imports_from]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_barrel_reexport_emits_re_exports_edges]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_calls_deduplication]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_calls_edges_are_extracted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_calls_edges_emitted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_calls_no_self_loops]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_case_insensitive_suffix_filtering]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_follows_symlinked_directory]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_from_dir]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_handles_circular_symlinks]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_on_fixtures]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_synthetic]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_skips_hidden]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_skips_out_of_root_symlinked_directory]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_skips_out_of_root_symlinked_file_by_default]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_collect_files_walks_each_directory_once]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cpp_unresolved_base_class_stubs_stay_disambiguated_by_file]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cross_file_call_god_node_guard_two_real_defs]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cross_file_call_promoted_to_extracted_with_import_evidence]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cross_file_call_survives_many_test_mocks]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cross_file_call_survives_same_named_test_mock]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cross_file_calls_skip_ambiguous_duplicate_labels]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_cross_file_type_annotation_refs_resolve_to_single_node]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_dart_child_node_ids_are_stem_based]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_dispatch_includes_sh_and_json]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extensionless_shebang_via_dispatch]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extensionless_without_usable_shebang_stays_unsupported]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_attributes_script_invocation_to_function]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_calls_have_extracted_confidence]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_creates_entrypoint_node]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_emits_calls_edges]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_emits_defines_edges]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_emits_script_invocation_calls]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_emits_source_imports_from]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_entrypoint_no_collision_with_function_named_script]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_finds_functions]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_missing_grammar_returns_error]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_nested_function_calls_recorded]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_no_dangling_edges]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_no_self_loops]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_node_metadata_is_sanitized]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_process_substitution_not_recorded]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_rejects_command_substitution_as_call]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_relative_script_invocation_targets_existing_entrypoint]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_shadowing_function_is_recorded]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_skip_builtins_in_calls]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_skips_dynamic_script_invocation]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_skips_missing_and_shadowed_script_invocations]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_source_user_defined_emits_calls_not_imports_from]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_top_level_call_attributes_to_entrypoint]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_bash_via_dispatch]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_disambiguates_duplicate_symbol_ids_by_source_path]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_does_not_rewire_constructor_method_to_same_named_class]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_does_not_rewire_inheritance_stub_to_same_named_function]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_extensionless_bash_cli_end_to_end]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_falls_back_to_sequential_when_parallel_returns_false]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_generic_surfaces_tree_sitter_version_mismatch_hint]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_arbitrary_member_assignment_not_captured]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_arrow_function_still_extracted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_commonjs_exports_assignment]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_const_function_expression]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_destructured_require_imports_from]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_destructured_require_named_symbols]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_member_require_emits_property_symbol]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_prototype_method_assignment]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_js_this_assigned_methods]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_config_by_filename_still_extracted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_config_by_key_probe]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_data_file_skipped]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_dependencies_become_imports]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_extends_resolved]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_handles_invalid_json]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_import_and_extends_targets_are_real_nodes]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_large_file_skipped]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_nested_contains]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_no_self_loops]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_top_level_array_skipped]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_top_level_keys]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_json_via_dispatch]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_keeps_stub_when_multiple_real_definitions_match]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_merges_multiple_files]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_no_missing_dep_warning_when_sql_installed]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_no_warning_when_all_code_has_extractors]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_parallel_returns_false_on_broken_pool]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_progress_final_line_uses_consistent_denominator]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_python_finds_class]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_python_finds_methods]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_python_no_dangling_edges]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_rewires_unique_inheritance_stub_to_real_definition]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_ts_class_arrow_field]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_tsx_finds_helpers_and_component]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_tsx_jsx_expression_calls_resolve]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_tsx_uses_tsx_grammar]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_updates_raw_call_callers_after_duplicate_id_disambiguation]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_warns_on_code_files_with_no_ast_extractor]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_extract_warns_when_sql_extra_missing]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_get_extractor_routes_matlab_m_away_from_objc]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_go_cross_file_type_refs_resolve_to_single_node]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_go_imported_type_stubs_do_not_collide_across_source_files]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_imported_type_stubs_do_not_collide_across_source_files]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_js_cross_file_call_without_import_emits_no_edge]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_make_id_consistent]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_make_id_no_leading_trailing_underscores]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_make_id_strips_dots_and_underscores]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_matlab_m_not_extracted_as_garbage]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_method_calls_module_function]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_no_dangling_edges_on_extract]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_non_colliding_path_id_is_not_salted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_origin_file_is_not_serialized_into_extract_output]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_pure_export_no_from_not_treated_as_reexport]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_python_call_edges_have_call_context]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_python_instance_member_call_not_overconnected]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_python_qualified_call_ambiguous_class_bails]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_python_qualified_call_resolves_when_method_name_collides_with_caller]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_python_qualified_class_method_call_resolves_extracted]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_rewire_binds_cross_module_function_reference_to_definition]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_rewire_does_not_bind_ambiguous_function_reference]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_rewire_does_not_bind_function_reference_across_language]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_rewire_does_not_bind_supertype_stub_to_function]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_run_analysis_calls_compute_score]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_run_analysis_calls_normalize]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_semantic_reference_edges_carry_context_and_source]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_separator_collision_paths_get_distinct_ids]]
+- [[graphify_tests_test_extract]] → `contains` → [[graphify_tests_test_extract_test_structural_edges_are_extracted]]
+- [[graphify_tests_test_extract_rationale_21]] → `rationale_for` → [[graphify_tests_test_extract_test_make_id_consistent]]
+- [[graphify_tests_test_extract_rationale_44]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_python_no_dangling_edges]]
+- [[graphify_tests_test_extract_rationale_52]] → `rationale_for` → [[graphify_tests_test_extract_test_structural_edges_are_extracted]]
+- [[graphify_tests_test_extract_rationale_109]] → `rationale_for` → [[graphify_tests_test_extract_test_cpp_unresolved_base_class_stubs_stay_disambiguated_by_file]]
+- [[graphify_tests_test_extract_rationale_140]] → `rationale_for` → [[graphify_tests_test_extract_test_cross_file_type_annotation_refs_resolve_to_single_node]]
+- [[graphify_tests_test_extract_rationale_163]] → `rationale_for` → [[graphify_tests_test_extract_test_go_cross_file_type_refs_resolve_to_single_node]]
+- [[graphify_tests_test_extract_rationale_192]] → `rationale_for` → [[graphify_tests_test_extract_test_imported_type_stubs_do_not_collide_across_source_files]]
+- [[graphify_tests_test_extract_rationale_211]] → `rationale_for` → [[graphify_tests_test_extract_test_origin_file_is_not_serialized_into_extract_output]]
+- [[graphify_tests_test_extract_rationale_241]] → `rationale_for` → [[graphify_tests_test_extract_test_go_imported_type_stubs_do_not_collide_across_source_files]]
+- [[graphify_tests_test_extract_rationale_438]] → `rationale_for` → [[graphify_tests_test_extract_legacy_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_on_fixtures]] → `calls` → [[graphify_tests_test_extract_legacy_collect_files]]
+- [[graphify_tests_test_extract_test_collect_files_parity_with_legacy_synthetic]] → `calls` → [[graphify_tests_test_extract_legacy_collect_files]]
+- [[graphify_tests_test_extract_rationale_490]] → `rationale_for` → [[graphify_tests_test_extract_test_collect_files_walks_each_directory_once]]
+- [[graphify_tests_test_extract_rationale_522]] → `rationale_for` → [[graphify_tests_test_extract_test_no_dangling_edges_on_extract]]
+- [[graphify_tests_test_extract_rationale_534]] → `rationale_for` → [[graphify_tests_test_extract_test_calls_edges_emitted]]
+- [[graphify_tests_test_extract_rationale_541]] → `rationale_for` → [[graphify_tests_test_extract_test_calls_edges_are_extracted]]
+- [[graphify_tests_test_extract_rationale_564]] → `rationale_for` → [[graphify_tests_test_extract_test_run_analysis_calls_compute_score]]
+- [[graphify_tests_test_extract_rationale_585]] → `rationale_for` → [[graphify_tests_test_extract_test_method_calls_module_function]]
+- [[graphify_tests_test_extract_rationale_596]] → `rationale_for` → [[graphify_tests_test_extract_test_calls_deduplication]]
+- [[graphify_tests_test_extract_rationale_603]] → `rationale_for` → [[graphify_tests_test_extract_test_cross_file_calls_skip_ambiguous_duplicate_labels]]
+- [[graphify_tests_test_extract_rationale_625]] → `rationale_for` → [[graphify_tests_test_extract_test_cross_file_call_survives_same_named_test_mock]]
+- [[graphify_tests_test_extract_rationale_657]] → `rationale_for` → [[graphify_tests_test_extract_test_cross_file_call_god_node_guard_two_real_defs]]
+- [[graphify_tests_test_extract_rationale_686]] → `rationale_for` → [[graphify_tests_test_extract_test_cross_file_call_survives_many_test_mocks]]
+- [[graphify_tests_test_extract_rationale_710]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_generic_surfaces_tree_sitter_version_mismatch_hint]]
+- [[graphify_tests_test_extract_rationale_742]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_destructured_require_imports_from]]
+- [[graphify_tests_test_extract_rationale_756]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_destructured_require_named_symbols]]
+- [[graphify_tests_test_extract_rationale_766]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_member_require_emits_property_symbol]]
+- [[graphify_tests_test_extract_rationale_775]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_arrow_function_still_extracted]]
+- [[graphify_tests_test_extract_rationale_788]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_this_assigned_methods]]
+- [[graphify_tests_test_extract_test_extract_js_this_assigned_methods]] → `calls` → [[graphify_tests_test_extract_by_label_by_id]]
+- [[graphify_tests_test_extract_rationale_820]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_commonjs_exports_assignment]]
+- [[graphify_tests_test_extract_rationale_833]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_prototype_method_assignment]]
+- [[graphify_tests_test_extract_rationale_846]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_const_function_expression]]
+- [[graphify_tests_test_extract_rationale_855]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_ts_class_arrow_field]]
+- [[graphify_tests_test_extract_rationale_872]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_js_arbitrary_member_assignment_not_captured]]
+- [[graphify_tests_test_extract_rationale_894]] → `rationale_for` → [[graphify_tests_test_extract_test_cross_file_call_promoted_to_extracted_with_import_evidence]]
+- [[graphify_tests_test_extract_rationale_920]] → `rationale_for` → [[graphify_tests_test_extract_test_js_cross_file_call_without_import_emits_no_edge]]
+- [[graphify_tests_test_extract_rationale_944]] → `rationale_for` → [[graphify_tests_test_extract_test_python_qualified_class_method_call_resolves_extracted]]
+- [[graphify_tests_test_extract_rationale_974]] → `rationale_for` → [[graphify_tests_test_extract_test_python_qualified_call_resolves_when_method_name_collides_with_caller]]
+- [[graphify_tests_test_extract_rationale_1006]] → `rationale_for` → [[graphify_tests_test_extract_test_python_instance_member_call_not_overconnected]]
+- [[graphify_tests_test_extract_rationale_1032]] → `rationale_for` → [[graphify_tests_test_extract_test_python_qualified_call_ambiguous_class_bails]]
+- [[graphify_tests_test_extract_rationale_1062]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_tsx_finds_helpers_and_component]]
+- [[graphify_tests_test_extract_rationale_1072]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_tsx_jsx_expression_calls_resolve]]
+- [[graphify_tests_test_extract_rationale_1094]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_tsx_uses_tsx_grammar]]
+- [[graphify_tests_test_extract_rationale_1107]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_falls_back_to_sequential_when_parallel_returns_false]]
+- [[graphify_tests_test_extract_rationale_1135]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_parallel_returns_false_on_broken_pool]]
+- [[graphify_tests_test_extract_rationale_1329]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_missing_grammar_returns_error]]
+- [[graphify_tests_test_extract_rationale_1346]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_rejects_command_substitution_as_call]]
+- [[graphify_tests_test_extract_rationale_1364]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_process_substitution_not_recorded]]
+- [[graphify_tests_test_extract_rationale_1382]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_shadowing_function_is_recorded]]
+- [[graphify_tests_test_extract_rationale_1402]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_creates_entrypoint_node]]
+- [[graphify_tests_test_extract_rationale_1419]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_top_level_call_attributes_to_entrypoint]]
+- [[graphify_tests_test_extract_rationale_1450]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_entrypoint_no_collision_with_function_named_script]]
+- [[graphify_tests_test_extract_rationale_1471]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_nested_function_calls_recorded]]
+- [[graphify_tests_test_extract_rationale_1496]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_source_user_defined_emits_calls_not_imports_from]]
+- [[graphify_tests_test_extract_rationale_1630]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_json_data_file_skipped]]
+- [[graphify_tests_test_extract_rationale_1644]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_json_top_level_array_skipped]]
+- [[graphify_tests_test_extract_rationale_1653]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_json_config_by_filename_still_extracted]]
+- [[graphify_tests_test_extract_rationale_1662]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_json_config_by_key_probe]]
+- [[graphify_tests_test_extract_rationale_1683]] → `rationale_for` → [[graphify_tests_test_extract_test_extensionless_shebang_via_dispatch]]
+- [[graphify_tests_test_extract_rationale_1717]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_extensionless_bash_cli_end_to_end]]
+- [[graphify_tests_test_extract_rationale_1733]] → `rationale_for` → [[graphify_tests_test_extract_test_extract_bash_node_metadata_is_sanitized]]
+- [[graphify_tests_test_extract_rationale_1752]] → `rationale_for` → [[graphify_tests_test_extract_test_barrel_reexport_emits_re_exports_edges]]
+- [[graphify_tests_test_extract_rationale_1766]] → `rationale_for` → [[graphify_tests_test_extract_test_barrel_reexport_emits_imports_from]]
+- [[graphify_tests_test_extract_rationale_1777]] → `rationale_for` → [[graphify_tests_test_extract_test_barrel_reexport_context_tagged]]
+- [[graphify_tests_test_extract_rationale_1786]] → `rationale_for` → [[graphify_tests_test_extract_test_barrel_local_exports_still_extracted]]
+- [[graphify_tests_test_extract_rationale_1796]] → `rationale_for` → [[graphify_tests_test_extract_test_barrel_reexport_confidence_extracted]]
+- [[graphify_tests_test_extract_rationale_1828]] → `rationale_for` → [[graphify_tests_test_extract_test_pure_export_no_from_not_treated_as_reexport]]
+- [[graphify_tests_test_extract_rationale_1841]] → `rationale_for` → [[graphify_tests_test_extract_test_dart_child_node_ids_are_stem_based]]
+- [[graphify_tests_test_extract_rationale_1882]] → `rationale_for` → [[graphify_tests_test_extract_test_separator_collision_paths_get_distinct_ids]]
+- [[graphify_tests_test_extract_rationale_1902]] → `rationale_for` → [[graphify_tests_test_extract_test_non_colliding_path_id_is_not_salted]]
+- [[graphify_tests_test_extract_rationale_2045]] → `rationale_for` → [[graphify_tests_test_extract_test_rewire_binds_cross_module_function_reference_to_definition]]
+- [[graphify_tests_test_extract_rationale_2062]] → `rationale_for` → [[graphify_tests_test_extract_test_rewire_does_not_bind_function_reference_across_language]]
+- [[graphify_tests_test_extract_rationale_2077]] → `rationale_for` → [[graphify_tests_test_extract_test_rewire_does_not_bind_ambiguous_function_reference]]
+- [[graphify_tests_test_extract_rationale_2091]] → `rationale_for` → [[graphify_tests_test_extract_test_rewire_does_not_bind_supertype_stub_to_function]]

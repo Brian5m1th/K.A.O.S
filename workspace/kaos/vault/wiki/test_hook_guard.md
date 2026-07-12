@@ -1,0 +1,83 @@
+# graphify\tests\test_hook_guard.py
+
+## Símbolos
+
+- [[graphify_tests_test_hook_guard]] — code: test_hook_guard.py
+- [[graphify_tests_test_hook_guard_invoke]] — code: _invoke()
+- [[graphify_tests_test_hook_guard_test_search_nudges]] — code: test_search_nudges()
+- [[graphify_tests_test_hook_guard_test_search_silent]] — code: test_search_silent()
+- [[graphify_tests_test_hook_guard_test_search_silent_without_graph]] — code: test_search_silent_without_graph()
+- [[graphify_tests_test_hook_guard_test_search_missing_command_key]] — code: test_search_missing_command_key()
+- [[graphify_tests_test_hook_guard_test_search_non_string_command_is_silent]] — code: test_search_non_string_command_is_silent()
+- [[graphify_tests_test_hook_guard_test_search_top_level_command_without_tool_input]] — code: test_search_top_level_command_without_tool_input()
+- [[graphify_tests_test_hook_guard_test_search_non_dict_tool_input_is_silent]] — code: test_search_non_dict_tool_input_is_silent()
+- [[graphify_tests_test_hook_guard_test_read_nudges]] — code: test_read_nudges()
+- [[graphify_tests_test_hook_guard_test_read_silent]] — code: test_read_silent()
+- [[graphify_tests_test_hook_guard_test_read_silent_without_graph]] — code: test_read_silent_without_graph()
+- [[graphify_tests_test_hook_guard_test_read_non_dict_tool_input_is_silent]] — code: test_read_non_dict_tool_input_is_silent()
+- [[graphify_tests_test_hook_guard_test_read_respects_custom_output_dir_name]] — code: test_read_respects_custom_output_dir_name()
+- [[graphify_tests_test_hook_guard_test_read_nudges_source_outside_custom_output_dir]] — code: test_read_nudges_source_outside_custom_output_dir()
+- [[graphify_tests_test_hook_guard_test_fail_open_on_bad_stdin]] — code: test_fail_open_on_bad_stdin()
+- [[graphify_tests_test_hook_guard_test_search_out_path_error_is_swallowed]] — code: test_search_out_path_error_is_swallowed()
+- [[graphify_tests_test_hook_guard_test_gemini_allow_with_nudge]] — code: test_gemini_allow_with_nudge()
+- [[graphify_tests_test_hook_guard_test_gemini_allow_without_graph]] — code: test_gemini_allow_without_graph()
+- [[graphify_tests_test_hook_guard_test_gemini_always_allows_even_when_check_throws]] — code: test_gemini_always_allows_even_when_check_throws()
+- [[graphify_tests_test_hook_guard_env]] — code: _env()
+- [[graphify_tests_test_hook_guard_cli]] — code: _cli()
+- [[graphify_tests_test_hook_guard_test_dispatch_missing_mode_exits_zero_silent]] — code: test_dispatch_missing_mode_exits_zero_silent()
+- [[graphify_tests_test_hook_guard_test_dispatch_unknown_mode_exits_zero_silent]] — code: test_dispatch_unknown_mode_exits_zero_silent()
+- [[graphify_tests_test_hook_guard_test_dispatch_always_exits_zero]] — code: test_dispatch_always_exits_zero()
+- [[graphify_tests_test_hook_guard_test_read_nudge_em_dash_survives_utf8]] — code: test_read_nudge_em_dash_survives_utf8()
+- [[graphify_tests_test_hook_guard_rationale_1]] — code: Rigorous edge-case coverage for the `graphify hook-guard` subcommand (#522).
+
+## Dependências
+
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_cli]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_env]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_dispatch_always_exits_zero]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_dispatch_missing_mode_exits_zero_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_dispatch_unknown_mode_exits_zero_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_fail_open_on_bad_stdin]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_gemini_allow_with_nudge]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_gemini_allow_without_graph]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_gemini_always_allows_even_when_check_throws]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_non_dict_tool_input_is_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_nudge_em_dash_survives_utf8]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_nudges]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_nudges_source_outside_custom_output_dir]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_respects_custom_output_dir_name]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_read_silent_without_graph]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_missing_command_key]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_non_dict_tool_input_is_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_non_string_command_is_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_nudges]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_out_path_error_is_swallowed]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_silent]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_silent_without_graph]]
+- [[graphify_tests_test_hook_guard]] → `contains` → [[graphify_tests_test_hook_guard_test_search_top_level_command_without_tool_input]]
+- [[graphify_tests_test_hook_guard_rationale_1]] → `rationale_for` → [[graphify_tests_test_hook_guard]]
+- [[graphify_tests_test_hook_guard_test_fail_open_on_bad_stdin]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_gemini_allow_with_nudge]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_gemini_allow_without_graph]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_gemini_always_allows_even_when_check_throws]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_read_non_dict_tool_input_is_silent]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_read_nudges]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_read_nudges_source_outside_custom_output_dir]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_read_respects_custom_output_dir_name]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_read_silent]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_read_silent_without_graph]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_missing_command_key]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_non_dict_tool_input_is_silent]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_non_string_command_is_silent]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_nudges]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_out_path_error_is_swallowed]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_silent]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_silent_without_graph]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_test_search_top_level_command_without_tool_input]] → `calls` → [[graphify_tests_test_hook_guard_invoke]]
+- [[graphify_tests_test_hook_guard_cli]] → `calls` → [[graphify_tests_test_hook_guard_env]]
+- [[graphify_tests_test_hook_guard_test_read_nudge_em_dash_survives_utf8]] → `calls` → [[graphify_tests_test_hook_guard_env]]
+- [[graphify_tests_test_hook_guard_test_dispatch_always_exits_zero]] → `calls` → [[graphify_tests_test_hook_guard_cli]]
+- [[graphify_tests_test_hook_guard_test_dispatch_missing_mode_exits_zero_silent]] → `calls` → [[graphify_tests_test_hook_guard_cli]]
+- [[graphify_tests_test_hook_guard_test_dispatch_unknown_mode_exits_zero_silent]] → `calls` → [[graphify_tests_test_hook_guard_cli]]

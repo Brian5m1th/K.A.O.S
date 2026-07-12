@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useAgentStore } from "@/shared/lib/stores/agent-store";
+import { useAgentStore } from "@/application/stores/agent-store";
 import { kaosFetch } from "@/infrastructure/http";
 
 vi.mock("@/infrastructure/http", () => ({ kaosFetch: vi.fn() }));

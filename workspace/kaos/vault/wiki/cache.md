@@ -1,0 +1,109 @@
+# graphify\graphify\cache.py
+
+## Símbolos
+
+- [[graphify_graphify_cache]] — code: cache.py
+- [[graphify_graphify_cache_cleanup_stale_ast_entries]] — code: _cleanup_stale_ast_entries()
+- [[graphify_graphify_cache_body_content]] — code: _body_content()
+- [[graphify_graphify_cache_stat_index_file]] — code: _stat_index_file()
+- [[graphify_graphify_cache_ensure_stat_index]] — code: _ensure_stat_index()
+- [[graphify_graphify_cache_flush_stat_index]] — code: _flush_stat_index()
+- [[graphify_graphify_cache_normalize_path]] — code: _normalize_path()
+- [[graphify_graphify_cache_file_hash]] — code: file_hash()
+- [[graphify_graphify_cache_cached_word_count]] — code: cached_word_count()
+- [[graphify_graphify_cache_relativize_source_files_in]] — code: _relativize_source_files_in()
+- [[graphify_graphify_cache_absolutize_source_files_in]] — code: _absolutize_source_files_in()
+- [[graphify_graphify_cache_cache_dir]] — code: cache_dir()
+- [[graphify_graphify_cache_load_cached]] — code: load_cached()
+- [[graphify_graphify_cache_save_cached]] — code: save_cached()
+- [[graphify_graphify_cache_cached_files]] — code: cached_files()
+- [[graphify_graphify_cache_clear_cache]] — code: clear_cache()
+- [[graphify_graphify_cache_prune_semantic_cache]] — code: prune_semantic_cache()
+- [[graphify_graphify_cache_check_semantic_cache]] — code: check_semantic_cache()
+- [[graphify_graphify_cache_save_semantic_cache]] — code: save_semantic_cache()
+- [[graphify_graphify_cache_rationale_38]] — code: Remove AST cache entries left behind by other graphify versions.      Sweeps s
+- [[graphify_graphify_cache_rationale_72]] — code: Strip YAML frontmatter from Markdown content, returning only the body.
+- [[graphify_graphify_cache_rationale_150]] — code: Normalize path for consistent cache keys across Windows path spellings.
+- [[graphify_graphify_cache_rationale_161]] — code: SHA256 of file contents + path relative to root.      Uses a stat-based fastpa
+- [[graphify_graphify_cache_rationale_220]] — code: Word count with the same (size, mtime_ns) stat-fastpath cache as     :func:`fil
+- [[graphify_graphify_cache_rationale_267]] — code: Mutate ``payload`` to rewrite absolute ``source_file`` fields as     forward-sl
+- [[graphify_graphify_cache_rationale_307]] — code: Inverse of :func:`_relativize_source_files_in`.      Re-anchor relative ``sour
+- [[graphify_graphify_cache_rationale_335]] — code: Returns the cache directory for ``kind`` - creates it if needed.      kind is
+- [[graphify_graphify_cache_rationale_356]] — code: Return cached extraction for this file if hash matches, else None.      Cache
+- [[graphify_graphify_cache_rationale_388]] — code: Save extraction result for this file.      Stores as graphify-out/cache/{kind}
+- [[graphify_graphify_cache_rationale_443]] — code: Return set of file hashes that have a valid cache entry (any kind).
+- [[graphify_graphify_cache_rationale_458]] — code: Delete all cache entries (ast/, semantic/, and legacy flat entries).
+- [[graphify_graphify_cache_rationale_473]] — code: Remove orphaned semantic cache entries, returning the count pruned.      The s
+- [[graphify_graphify_cache_rationale_514]] — code: Check semantic extraction cache for a list of absolute file paths.      Return
+- [[graphify_graphify_cache_rationale_546]] — code: Save semantic extraction results to cache, keyed by source_file.      Groups n
+
+## Dependências
+
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_absolutize_source_files_in]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_body_content]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_cached_files]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_cached_word_count]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_check_semantic_cache]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_cleanup_stale_ast_entries]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_clear_cache]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_ensure_stat_index]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_flush_stat_index]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_normalize_path]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_prune_semantic_cache]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_relativize_source_files_in]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_save_semantic_cache]]
+- [[graphify_graphify_cache]] → `contains` → [[graphify_graphify_cache_stat_index_file]]
+- [[graphify_graphify_cache]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_cache_cache_dir]] → `calls` → [[graphify_graphify_cache_cleanup_stale_ast_entries]]
+- [[graphify_graphify_cache_cleanup_stale_ast_entries]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_rationale_38]] → `rationale_for` → [[graphify_graphify_cache_cleanup_stale_ast_entries]]
+- [[graphify_graphify_cache_absolutize_source_files_in]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_cache_dir]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_cached_files]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_cached_word_count]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_check_semantic_cache]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_clear_cache]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_ensure_stat_index]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_file_hash]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_load_cached]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_normalize_path]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_prune_semantic_cache]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_relativize_source_files_in]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_save_cached]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_save_semantic_cache]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_stat_index_file]] → `references` → [[graphify_graphify_cache_py_path]]
+- [[graphify_graphify_cache_file_hash]] → `calls` → [[graphify_graphify_cache_body_content]]
+- [[graphify_graphify_cache_rationale_72]] → `rationale_for` → [[graphify_graphify_cache_body_content]]
+- [[graphify_graphify_cache_ensure_stat_index]] → `calls` → [[graphify_graphify_cache_stat_index_file]]
+- [[graphify_graphify_cache_flush_stat_index]] → `calls` → [[graphify_graphify_cache_stat_index_file]]
+- [[graphify_graphify_cache_cached_word_count]] → `calls` → [[graphify_graphify_cache_ensure_stat_index]]
+- [[graphify_graphify_cache_ensure_stat_index]] → `indirect_call` → [[graphify_graphify_cache_flush_stat_index]]
+- [[graphify_graphify_cache_file_hash]] → `calls` → [[graphify_graphify_cache_ensure_stat_index]]
+- [[graphify_graphify_cache_cached_word_count]] → `calls` → [[graphify_graphify_cache_normalize_path]]
+- [[graphify_graphify_cache_file_hash]] → `calls` → [[graphify_graphify_cache_normalize_path]]
+- [[graphify_graphify_cache_rationale_150]] → `rationale_for` → [[graphify_graphify_cache_normalize_path]]
+- [[graphify_graphify_cache_load_cached]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_graphify_cache_rationale_161]] → `rationale_for` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_graphify_cache_save_cached]] → `calls` → [[graphify_graphify_cache_file_hash]]
+- [[graphify_graphify_cache_rationale_220]] → `rationale_for` → [[graphify_graphify_cache_cached_word_count]]
+- [[graphify_graphify_cache_rationale_267]] → `rationale_for` → [[graphify_graphify_cache_relativize_source_files_in]]
+- [[graphify_graphify_cache_save_cached]] → `calls` → [[graphify_graphify_cache_relativize_source_files_in]]
+- [[graphify_graphify_cache_load_cached]] → `calls` → [[graphify_graphify_cache_absolutize_source_files_in]]
+- [[graphify_graphify_cache_rationale_307]] → `rationale_for` → [[graphify_graphify_cache_absolutize_source_files_in]]
+- [[graphify_graphify_cache_load_cached]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_graphify_cache_rationale_335]] → `rationale_for` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_graphify_cache_save_cached]] → `calls` → [[graphify_graphify_cache_cache_dir]]
+- [[graphify_graphify_cache_check_semantic_cache]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_graphify_cache_rationale_356]] → `rationale_for` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_graphify_cache_save_semantic_cache]] → `calls` → [[graphify_graphify_cache_load_cached]]
+- [[graphify_graphify_cache_rationale_388]] → `rationale_for` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_graphify_cache_save_semantic_cache]] → `calls` → [[graphify_graphify_cache_save_cached]]
+- [[graphify_graphify_cache_rationale_443]] → `rationale_for` → [[graphify_graphify_cache_cached_files]]
+- [[graphify_graphify_cache_rationale_458]] → `rationale_for` → [[graphify_graphify_cache_clear_cache]]
+- [[graphify_graphify_cache_rationale_473]] → `rationale_for` → [[graphify_graphify_cache_prune_semantic_cache]]
+- [[graphify_graphify_cache_rationale_514]] → `rationale_for` → [[graphify_graphify_cache_check_semantic_cache]]
+- [[graphify_graphify_cache_rationale_546]] → `rationale_for` → [[graphify_graphify_cache_save_semantic_cache]]

@@ -26,33 +26,6 @@ const AGENT_STATUS_MAP: Record<
   stopped: { variant: "neutral", label: "STOPPED" },
 };
 
-const DEFAULT_AGENTS: AgentConfig[] = [
-  {
-    id: "memory",
-    name: "Memory Agent",
-    model: "qwen2.5-7b",
-    systemPrompt: "Consolidate and retrieve information from the knowledge vault.",
-    temperature: 0.3,
-    topP: 0.9,
-  },
-  {
-    id: "code-reviewer",
-    name: "Code Reviewer",
-    model: "llama3.3-70b",
-    systemPrompt: "Review code changes for bugs, style, and security issues.",
-    temperature: 0.1,
-    topP: 0.9,
-  },
-  {
-    id: "research",
-    name: "Research Bot",
-    model: "mixtral-8x7b",
-    systemPrompt: "Search and summarize information from the web and local documents.",
-    temperature: 0.7,
-    topP: 0.95,
-  },
-];
-
 const AGENT_TABS = [
   { id: "agents", label: "Agents" },
   { id: "playground", label: "Playground" },
@@ -98,10 +71,7 @@ export default function AgentsPage() {
           const list = data.agents || [];
 
           if (list.length === 0) {
-            // Fallback to default mock agents if no agents are found on backend
-            DEFAULT_AGENTS.forEach((cfg) => {
-              if (!agents[cfg.id]) register(cfg);
-            });
+            // No agents available from backend
             return;
           }
 
@@ -133,17 +103,11 @@ export default function AgentsPage() {
             }
           }
         } else {
-          // Fallback on HTTP error
-          DEFAULT_AGENTS.forEach((cfg) => {
-            if (!agents[cfg.id]) register(cfg);
-          });
+          // Backend unreachable or returned error — show empty state
+          console.error("Failed to fetch agents from backend");
         }
       } catch (err) {
         console.error("Failed to fetch opencode agents:", err);
-        // Fallback on connect error
-        DEFAULT_AGENTS.forEach((cfg) => {
-          if (!agents[cfg.id]) register(cfg);
-        });
       }
     };
     fetchOpenCodeAgents();

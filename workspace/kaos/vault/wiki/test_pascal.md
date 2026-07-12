@@ -1,0 +1,159 @@
+# graphify\tests\test_pascal.py
+
+## Símbolos
+
+- [[graphify_tests_test_pascal]] — code: test_pascal.py
+- [[graphify_tests_test_pascal_labels]] — code: _labels()
+- [[graphify_tests_test_pascal_relations]] — code: _relations()
+- [[graphify_tests_test_pascal_edges_with_relation]] — code: _edges_with_relation()
+- [[graphify_tests_test_pascal_test_pascal_no_error]] — code: test_pascal_no_error()
+- [[graphify_tests_test_pascal_test_pascal_finds_unit]] — code: test_pascal_finds_unit()
+- [[graphify_tests_test_pascal_test_pascal_finds_classes]] — code: test_pascal_finds_classes()
+- [[graphify_tests_test_pascal_test_pascal_finds_interface]] — code: test_pascal_finds_interface()
+- [[graphify_tests_test_pascal_test_pascal_finds_methods]] — code: test_pascal_finds_methods()
+- [[graphify_tests_test_pascal_test_pascal_finds_imports]] — code: test_pascal_finds_imports()
+- [[graphify_tests_test_pascal_test_pascal_import_edges_have_import_context]] — code: test_pascal_import_edges_have_import_context()
+- [[graphify_tests_test_pascal_test_pascal_finds_inherits]] — code: test_pascal_finds_inherits()
+- [[graphify_tests_test_pascal_test_pascal_inherits_from_base]] — code: test_pascal_inherits_from_base()
+- [[graphify_tests_test_pascal_test_pascal_finds_calls]] — code: test_pascal_finds_calls()
+- [[graphify_tests_test_pascal_test_pascal_call_edges_have_call_context]] — code: test_pascal_call_edges_have_call_context()
+- [[graphify_tests_test_pascal_test_pascal_all_edges_extracted]] — code: test_pascal_all_edges_extracted()
+- [[graphify_tests_test_pascal_test_pascal_no_dangling_edges]] — code: test_pascal_no_dangling_edges()
+- [[graphify_tests_test_pascal_test_pascal_dispatch_registered]] — code: test_pascal_dispatch_registered()
+- [[graphify_tests_test_pascal_test_pascal_detect_extensions_registered]] — code: test_pascal_detect_extensions_registered()
+- [[graphify_tests_test_pascal_test_lfm_no_error]] — code: test_lfm_no_error()
+- [[graphify_tests_test_pascal_test_lfm_finds_root_form_class]] — code: test_lfm_finds_root_form_class()
+- [[graphify_tests_test_pascal_test_lfm_finds_component_classes]] — code: test_lfm_finds_component_classes()
+- [[graphify_tests_test_pascal_test_lfm_finds_event_handlers]] — code: test_lfm_finds_event_handlers()
+- [[graphify_tests_test_pascal_test_lfm_event_edges_have_event_context]] — code: test_lfm_event_edges_have_event_context()
+- [[graphify_tests_test_pascal_test_lfm_contains_edges_form_hierarchy]] — code: test_lfm_contains_edges_form_hierarchy()
+- [[graphify_tests_test_pascal_test_lfm_no_dangling_edges]] — code: test_lfm_no_dangling_edges()
+- [[graphify_tests_test_pascal_test_lpk_no_error]] — code: test_lpk_no_error()
+- [[graphify_tests_test_pascal_test_lpk_finds_package_name]] — code: test_lpk_finds_package_name()
+- [[graphify_tests_test_pascal_test_lpk_finds_required_packages]] — code: test_lpk_finds_required_packages()
+- [[graphify_tests_test_pascal_test_lpk_imports_edges_have_import_context]] — code: test_lpk_imports_edges_have_import_context()
+- [[graphify_tests_test_pascal_test_lpk_contains_listed_units]] — code: test_lpk_contains_listed_units()
+- [[graphify_tests_test_pascal_test_lpk_no_dangling_edges]] — code: test_lpk_no_dangling_edges()
+- [[graphify_tests_test_pascal_test_dfm_no_error]] — code: test_dfm_no_error()
+- [[graphify_tests_test_pascal_test_dfm_finds_root_form_class]] — code: test_dfm_finds_root_form_class()
+- [[graphify_tests_test_pascal_test_dfm_finds_component_classes]] — code: test_dfm_finds_component_classes()
+- [[graphify_tests_test_pascal_test_dfm_finds_event_handlers]] — code: test_dfm_finds_event_handlers()
+- [[graphify_tests_test_pascal_test_dfm_event_edges_have_event_context]] — code: test_dfm_event_edges_have_event_context()
+- [[graphify_tests_test_pascal_test_dfm_contains_edges_form_hierarchy]] — code: test_dfm_contains_edges_form_hierarchy()
+- [[graphify_tests_test_pascal_test_dfm_no_dangling_edges]] — code: test_dfm_no_dangling_edges()
+- [[graphify_tests_test_pascal_test_dfm_binary_returns_empty_not_crash]] — code: test_dfm_binary_returns_empty_not_crash()
+- [[graphify_tests_test_pascal_test_dfm_dispatch_registered]] — code: test_dfm_dispatch_registered()
+- [[graphify_tests_test_pascal_test_dfm_detect_extension_registered]] — code: test_dfm_detect_extension_registered()
+- [[graphify_tests_test_pascal_dup_edges]] — code: _dup_edges()
+- [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_tree_sitter]] — code: test_pascal_no_duplicate_method_edges_tree_sitter()
+- [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_regex]] — code: test_pascal_no_duplicate_method_edges_regex()
+- [[graphify_tests_test_pascal_rationale_1]] — code: Tests for the Pascal/Delphi extractor.
+- [[graphify_tests_test_pascal_rationale_332]] — code: A class method appears in both the interface declaration and the     implementa
+
+## Dependências
+
+- [[graphify_tests_test_pascal_test_lpk_contains_listed_units]] → `calls` → [[graphify_graphify_extract_extract_lazarus_package]]
+- [[graphify_tests_test_pascal_test_lpk_finds_package_name]] → `calls` → [[graphify_graphify_extract_extract_lazarus_package]]
+- [[graphify_tests_test_pascal_test_lpk_finds_required_packages]] → `calls` → [[graphify_graphify_extract_extract_lazarus_package]]
+- [[graphify_tests_test_pascal_test_lpk_imports_edges_have_import_context]] → `calls` → [[graphify_graphify_extract_extract_lazarus_package]]
+- [[graphify_tests_test_pascal_test_lpk_no_dangling_edges]] → `calls` → [[graphify_graphify_extract_extract_lazarus_package]]
+- [[graphify_tests_test_pascal_test_lpk_no_error]] → `calls` → [[graphify_graphify_extract_extract_lazarus_package]]
+- [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_regex]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal_regex]]
+- [[graphify_tests_test_pascal_test_pascal_all_edges_extracted]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_call_edges_have_call_context]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_calls]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_classes]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_imports]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_inherits]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_interface]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_methods]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_finds_unit]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_import_edges_have_import_context]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_inherits_from_base]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_tree_sitter]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_pascal_no_error]] → `calls` → [[graphify_graphify_extractors_pascal_extract_pascal]]
+- [[graphify_tests_test_pascal_test_lfm_contains_edges_form_hierarchy]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_lfm_event_edges_have_event_context]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_lfm_finds_component_classes]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_lfm_finds_event_handlers]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_lfm_finds_root_form_class]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_lfm_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_lfm_no_error]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_lazarus_form]]
+- [[graphify_tests_test_pascal_test_dfm_binary_returns_empty_not_crash]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_contains_edges_form_hierarchy]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_event_edges_have_event_context]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_finds_component_classes]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_finds_event_handlers]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_finds_root_form_class]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_no_dangling_edges]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal_test_dfm_no_error]] → `calls` → [[graphify_graphify_extractors_pascal_forms_extract_delphi_form]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_dup_edges]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_edges_with_relation]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_relations]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_binary_returns_empty_not_crash]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_contains_edges_form_hierarchy]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_detect_extension_registered]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_dispatch_registered]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_event_edges_have_event_context]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_finds_component_classes]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_finds_event_handlers]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_finds_root_form_class]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_no_dangling_edges]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_dfm_no_error]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_contains_edges_form_hierarchy]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_event_edges_have_event_context]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_finds_component_classes]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_finds_event_handlers]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_finds_root_form_class]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_no_dangling_edges]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lfm_no_error]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lpk_contains_listed_units]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lpk_finds_package_name]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lpk_finds_required_packages]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lpk_imports_edges_have_import_context]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lpk_no_dangling_edges]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_lpk_no_error]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_all_edges_extracted]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_call_edges_have_call_context]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_detect_extensions_registered]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_dispatch_registered]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_calls]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_classes]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_imports]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_inherits]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_interface]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_methods]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_finds_unit]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_import_edges_have_import_context]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_inherits_from_base]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_no_dangling_edges]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_regex]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_tree_sitter]]
+- [[graphify_tests_test_pascal]] → `contains` → [[graphify_tests_test_pascal_test_pascal_no_error]]
+- [[graphify_tests_test_pascal_rationale_1]] → `rationale_for` → [[graphify_tests_test_pascal]]
+- [[graphify_tests_test_pascal_test_dfm_finds_component_classes]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_dfm_finds_event_handlers]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_dfm_finds_root_form_class]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_lfm_finds_component_classes]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_lfm_finds_event_handlers]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_lfm_finds_root_form_class]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_lpk_contains_listed_units]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_lpk_finds_package_name]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_lpk_finds_required_packages]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_pascal_finds_classes]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_pascal_finds_interface]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_pascal_finds_methods]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_pascal_finds_unit]] → `calls` → [[graphify_tests_test_pascal_labels]]
+- [[graphify_tests_test_pascal_test_dfm_contains_edges_form_hierarchy]] → `calls` → [[graphify_tests_test_pascal_relations]]
+- [[graphify_tests_test_pascal_test_lfm_contains_edges_form_hierarchy]] → `calls` → [[graphify_tests_test_pascal_relations]]
+- [[graphify_tests_test_pascal_test_pascal_finds_calls]] → `calls` → [[graphify_tests_test_pascal_relations]]
+- [[graphify_tests_test_pascal_test_pascal_finds_imports]] → `calls` → [[graphify_tests_test_pascal_relations]]
+- [[graphify_tests_test_pascal_test_pascal_finds_inherits]] → `calls` → [[graphify_tests_test_pascal_relations]]
+- [[graphify_tests_test_pascal_test_lpk_imports_edges_have_import_context]] → `calls` → [[graphify_tests_test_pascal_edges_with_relation]]
+- [[graphify_tests_test_pascal_test_pascal_call_edges_have_call_context]] → `calls` → [[graphify_tests_test_pascal_edges_with_relation]]
+- [[graphify_tests_test_pascal_test_pascal_import_edges_have_import_context]] → `calls` → [[graphify_tests_test_pascal_edges_with_relation]]
+- [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_regex]] → `calls` → [[graphify_tests_test_pascal_dup_edges]]
+- [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_tree_sitter]] → `calls` → [[graphify_tests_test_pascal_dup_edges]]
+- [[graphify_tests_test_pascal_rationale_332]] → `rationale_for` → [[graphify_tests_test_pascal_test_pascal_no_duplicate_method_edges_tree_sitter]]

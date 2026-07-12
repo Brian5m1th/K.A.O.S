@@ -1,0 +1,110 @@
+# assistant\tests\integration\test_bootstrap_flow.py
+
+## Símbolos
+
+- [[assistant_tests_integration_test_bootstrap_flow]] — code: test_bootstrap_flow.py
+- [[assistant_tests_integration_test_bootstrap_flow_reset_bootstrap]] — code: reset_bootstrap()
+- [[assistant_tests_integration_test_bootstrap_flow_client]] — code: client()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] — code: TestEnvironmentServiceIntegration
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_exists]] — code: .test_environment_endpoint_exists()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_returns_workspace]] — code: .test_environment_endpoint_returns_workspace()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_has_env_type]] — code: .test_environment_endpoint_has_env_type()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_has_kirl]] — code: .test_environment_endpoint_has_kirl()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_is_container]] — code: .test_environment_endpoint_is_container()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] — code: TestBootstrapEndpointIntegration
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_exists]] — code: .test_bootstrap_endpoint_exists()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_returns_state_dict]] — code: .test_bootstrap_endpoint_returns_state_dict()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_full_pipeline]] — code: .test_boot_full_pipeline()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_has_stages]] — code: .test_boot_has_stages()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_degraded_has_errors]] — code: .test_boot_degraded_has_errors()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_after_boot]] — code: .test_bootstrap_endpoint_after_boot()
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_multiple_boot_calls]] — code: .test_multiple_boot_calls()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] — code: TestEnvironmentAndBootstrapTogether
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_runs_before_bootstrap_in_pipeline]] — code: .test_environment_runs_before_bootstrap_in_pipeline()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_both_endpoints_available]] — code: .test_both_endpoints_available()
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_data_in_bootstrap_state]] — code: .test_environment_data_in_bootstrap_state()
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_1]] — code: Testes de integracao do fluxo de bootstrap completo.  Valida: - EnvironmentSe
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_21]] — code: Reseta bootstrap antes de cada teste de integracao.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_44]] — code: Testa EnvironmentService via HTTP endpoint.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_79]] — code: Testa BootstrapManager via HTTP endpoint.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_95]] — code: Executa o boot completo e verifica estado final.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_112]] — code: Verifica que stages foram populados.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_125]] — code: Se degraded=True, deve ter pelo menos um erro listado.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_136]] — code: Endpoint /api/system/bootstrap reflete boot() real.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_147]] — code: Chamar boot() multiplas vezes nao quebra.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_163]] — code: Testa que ambos servicos funcionam juntos no mesmo ciclo de vida.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_168]] — code: Environment e chamado antes do bootstrap no pipeline.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_179]] — code: Ambos endpoints respondem 200.
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_186]] — code: Bootstrap state contem environment_info.
+
+## Dependências
+
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapstate]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `uses` → [[assistant_app_core_bootstrap_manager_bootstrapmanager]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_degraded_has_errors]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_full_pipeline]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_has_stages]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_after_boot]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_multiple_boot_calls]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_data_in_bootstrap_state]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_runs_before_bootstrap_in_pipeline]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_data_in_bootstrap_state]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_runs_before_bootstrap_in_pipeline]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_tests_integration_test_bootstrap_flow_reset_bootstrap]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_reset]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `uses` → [[assistant_app_core_environment_service_environmentservice]]
+- [[assistant_tests_integration_test_bootstrap_flow]] → `imports_from` → [[assistant_app_main]]
+- [[assistant_tests_integration_test_bootstrap_flow]] → `contains` → [[assistant_tests_integration_test_bootstrap_flow_client]]
+- [[assistant_tests_integration_test_bootstrap_flow]] → `contains` → [[assistant_tests_integration_test_bootstrap_flow_reset_bootstrap]]
+- [[assistant_tests_integration_test_bootstrap_flow]] → `contains` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]]
+- [[assistant_tests_integration_test_bootstrap_flow]] → `contains` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]]
+- [[assistant_tests_integration_test_bootstrap_flow]] → `contains` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_1]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_21]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_reset_bootstrap]]
+- [[assistant_tests_integration_test_bootstrap_flow_client]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_44]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_exists]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_has_env_type]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_has_kirl]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_is_container]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_returns_workspace]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_exists]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_returns_workspace]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_has_env_type]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_has_kirl]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentserviceintegration_test_environment_endpoint_is_container]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_79]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_degraded_has_errors]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_full_pipeline]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_has_stages]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_after_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_exists]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_returns_state_dict]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_multiple_boot_calls]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_exists]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_returns_state_dict]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_95]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_full_pipeline]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_full_pipeline]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_112]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_has_stages]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_has_stages]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_125]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_degraded_has_errors]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_boot_degraded_has_errors]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_136]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_after_boot]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_bootstrap_endpoint_after_boot]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_147]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_multiple_boot_calls]]
+- [[assistant_tests_integration_test_bootstrap_flow_testbootstrapendpointintegration_test_multiple_boot_calls]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_163]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_both_endpoints_available]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_data_in_bootstrap_state]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether]] → `method` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_runs_before_bootstrap_in_pipeline]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_168]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_runs_before_bootstrap_in_pipeline]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_runs_before_bootstrap_in_pipeline]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_179]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_both_endpoints_available]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_both_endpoints_available]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]
+- [[assistant_tests_integration_test_bootstrap_flow_rationale_186]] → `rationale_for` → [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_data_in_bootstrap_state]]
+- [[assistant_tests_integration_test_bootstrap_flow_testenvironmentandbootstraptogether_test_environment_data_in_bootstrap_state]] → `references` → [[graphify_worked_httpx_raw_client_asyncclient]]

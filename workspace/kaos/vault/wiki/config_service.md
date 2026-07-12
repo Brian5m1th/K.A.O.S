@@ -1,0 +1,97 @@
+# assistant\app\core\config_service.py
+
+## Símbolos
+
+- [[assistant_app_core_config_service]] — code: config_service.py
+- [[assistant_app_core_config_service_set_restricted_permissions]] — code: _set_restricted_permissions()
+- [[assistant_app_core_config_service_write_with_retry]] — code: _write_with_retry()
+- [[assistant_app_core_config_service_extract_secrets]] — code: _extract_secrets()
+- [[assistant_app_core_config_service_configservice]] — code: ConfigService
+- [[assistant_app_core_config_service_configservice_ensure_paths]] — code: ._ensure_paths()
+- [[assistant_app_core_config_service_configservice_config_path]] — code: .config_path()
+- [[assistant_app_core_config_service_configservice_secrets_path]] — code: .secrets_path()
+- [[assistant_app_core_config_service_configservice_load_config]] — code: .load_config()
+- [[assistant_app_core_config_service_configservice_save_config]] — code: .save_config()
+- [[assistant_app_core_config_service_configservice_load_secrets]] — code: .load_secrets()
+- [[assistant_app_core_config_service_configservice_save_secrets]] — code: .save_secrets()
+- [[assistant_app_core_config_service_configservice_backup_config]] — code: ._backup_config()
+- [[assistant_app_core_config_service_configservice_migrate_schema]] — code: ._migrate_schema()
+- [[assistant_app_core_config_service_configservice_try_migrate_legacy]] — code: ._try_migrate_legacy()
+- [[assistant_app_core_config_service_configservice_get_provider]] — code: .get_provider()
+- [[assistant_app_core_config_service_rationale_1]] — code: Config Service for K.A.O.S.  Manages kaos.config.json (public settings) and ka
+- [[assistant_app_core_config_service_rationale_53]] — code: Restrict file access to the current user only.      - Unix: chmod 0o600     -
+- [[assistant_app_core_config_service_rationale_103]] — code: Write file with exponential backoff retry for Windows file-lock scenarios.
+- [[assistant_app_core_config_service_rationale_137]] — code: Recursively extract known secret fields into secrets dict.      Returns the cl
+- [[assistant_app_core_config_service_rationale_160]] — code: Central configuration manager for K.A.O.S.      Reads and writes ``kaos.config
+- [[assistant_app_core_config_service_rationale_197]] — code: Load configuration with automatic migration from legacy files.
+- [[assistant_app_core_config_service_rationale_236]] — code: Validate, backup, and persist configuration.
+- [[assistant_app_core_config_service_rationale_261]] — code: Load secrets from the isolated secrets file.
+- [[assistant_app_core_config_service_rationale_275]] — code: Persist secrets with restricted file permissions.
+- [[assistant_app_core_config_service_rationale_293]] — code: Create a .bak copy of the current config file before overwriting.
+- [[assistant_app_core_config_service_rationale_310]] — code: Run incremental schema migrations.          Currently supports: 0 → 1
+- [[assistant_app_core_config_service_rationale_343]] — code: Check for legacy data files and merge them into the new format.          Retur
+- [[assistant_app_core_config_service_rationale_425]] — code: Return provider config with apiKey from secrets merged in.
+
+## Dependências
+
+- [[assistant_app_core_config_service]] → `contains` → [[assistant_app_core_config_service_configservice]]
+- [[assistant_app_core_config_service]] → `contains` → [[assistant_app_core_config_service_extract_secrets]]
+- [[assistant_app_core_config_service]] → `contains` → [[assistant_app_core_config_service_set_restricted_permissions]]
+- [[assistant_app_core_config_service]] → `contains` → [[assistant_app_core_config_service_write_with_retry]]
+- [[assistant_app_core_config_service_rationale_1]] → `rationale_for` → [[assistant_app_core_config_service]]
+- [[assistant_app_core_config_service_configservice_save_secrets]] → `calls` → [[assistant_app_core_config_service_set_restricted_permissions]]
+- [[assistant_app_core_config_service_rationale_53]] → `rationale_for` → [[assistant_app_core_config_service_set_restricted_permissions]]
+- [[assistant_app_core_config_service_set_restricted_permissions]] → `references` → [[assistant_app_core_config_service_py_path]]
+- [[assistant_app_core_config_service_configservice_config_path]] → `references` → [[assistant_app_core_config_service_py_path]]
+- [[assistant_app_core_config_service_configservice_secrets_path]] → `references` → [[assistant_app_core_config_service_py_path]]
+- [[assistant_app_core_config_service_write_with_retry]] → `references` → [[assistant_app_core_config_service_py_path]]
+- [[assistant_app_core_config_service_configservice_save_config]] → `calls` → [[assistant_app_core_config_service_write_with_retry]]
+- [[assistant_app_core_config_service_configservice_save_secrets]] → `calls` → [[assistant_app_core_config_service_write_with_retry]]
+- [[assistant_app_core_config_service_rationale_103]] → `rationale_for` → [[assistant_app_core_config_service_write_with_retry]]
+- [[assistant_app_core_config_service_configservice_migrate_schema]] → `calls` → [[assistant_app_core_config_service_extract_secrets]]
+- [[assistant_app_core_config_service_configservice_try_migrate_legacy]] → `calls` → [[assistant_app_core_config_service_extract_secrets]]
+- [[assistant_app_core_config_service_rationale_137]] → `rationale_for` → [[assistant_app_core_config_service_extract_secrets]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_backup_config]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_config_path]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_get_provider]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_load_config]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_load_secrets]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_migrate_schema]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_save_config]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_save_secrets]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_secrets_path]]
+- [[assistant_app_core_config_service_configservice]] → `method` → [[assistant_app_core_config_service_configservice_try_migrate_legacy]]
+- [[assistant_app_core_config_service_configservice]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_app_core_config_service_rationale_160]] → `rationale_for` → [[assistant_app_core_config_service_configservice]]
+- [[assistant_app_core_config_service_configservice_config_path]] → `calls` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice_ensure_paths]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_config_path]]
+- [[assistant_app_core_config_service_configservice_load_config]] → `calls` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice_load_secrets]] → `calls` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice_save_config]] → `calls` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice_save_secrets]] → `calls` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice_secrets_path]] → `calls` → [[assistant_app_core_config_service_configservice_ensure_paths]]
+- [[assistant_app_core_config_service_configservice_backup_config]] → `calls` → [[assistant_app_core_config_service_configservice_config_path]]
+- [[assistant_app_core_config_service_configservice_load_config]] → `calls` → [[assistant_app_core_config_service_configservice_config_path]]
+- [[assistant_app_core_config_service_configservice_save_config]] → `calls` → [[assistant_app_core_config_service_configservice_config_path]]
+- [[assistant_app_core_config_service_configservice_load_secrets]] → `calls` → [[assistant_app_core_config_service_configservice_secrets_path]]
+- [[assistant_app_core_config_service_configservice_save_secrets]] → `calls` → [[assistant_app_core_config_service_configservice_secrets_path]]
+- [[assistant_app_core_config_service_configservice_get_provider]] → `calls` → [[assistant_app_core_config_service_configservice_load_config]]
+- [[assistant_app_core_config_service_configservice_load_config]] → `calls` → [[assistant_app_core_config_service_configservice_migrate_schema]]
+- [[assistant_app_core_config_service_configservice_load_config]] → `calls` → [[assistant_app_core_config_service_configservice_save_config]]
+- [[assistant_app_core_config_service_configservice_load_config]] → `calls` → [[assistant_app_core_config_service_configservice_try_migrate_legacy]]
+- [[assistant_app_core_config_service_rationale_197]] → `rationale_for` → [[assistant_app_core_config_service_configservice_load_config]]
+- [[assistant_app_core_config_service_configservice_save_config]] → `calls` → [[assistant_app_core_config_service_configservice_backup_config]]
+- [[assistant_app_core_config_service_configservice_try_migrate_legacy]] → `calls` → [[assistant_app_core_config_service_configservice_save_config]]
+- [[assistant_app_core_config_service_rationale_236]] → `rationale_for` → [[assistant_app_core_config_service_configservice_save_config]]
+- [[assistant_app_core_config_service_configservice_get_provider]] → `calls` → [[assistant_app_core_config_service_configservice_load_secrets]]
+- [[assistant_app_core_config_service_configservice_migrate_schema]] → `calls` → [[assistant_app_core_config_service_configservice_load_secrets]]
+- [[assistant_app_core_config_service_rationale_261]] → `rationale_for` → [[assistant_app_core_config_service_configservice_load_secrets]]
+- [[assistant_app_core_config_service_configservice_migrate_schema]] → `calls` → [[assistant_app_core_config_service_configservice_save_secrets]]
+- [[assistant_app_core_config_service_configservice_try_migrate_legacy]] → `calls` → [[assistant_app_core_config_service_configservice_save_secrets]]
+- [[assistant_app_core_config_service_rationale_275]] → `rationale_for` → [[assistant_app_core_config_service_configservice_save_secrets]]
+- [[assistant_app_core_config_service_rationale_293]] → `rationale_for` → [[assistant_app_core_config_service_configservice_backup_config]]
+- [[assistant_app_core_config_service_rationale_310]] → `rationale_for` → [[assistant_app_core_config_service_configservice_migrate_schema]]
+- [[assistant_app_core_config_service_configservice_try_migrate_legacy]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_core_config_service_rationale_343]] → `rationale_for` → [[assistant_app_core_config_service_configservice_try_migrate_legacy]]
+- [[assistant_app_core_config_service_rationale_425]] → `rationale_for` → [[assistant_app_core_config_service_configservice_get_provider]]

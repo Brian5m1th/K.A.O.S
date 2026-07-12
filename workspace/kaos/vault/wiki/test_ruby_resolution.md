@@ -1,0 +1,194 @@
+# graphify\tests\test_ruby_resolution.py
+
+## Símbolos
+
+- [[graphify_tests_test_ruby_resolution]] — code: test_ruby_resolution.py
+- [[graphify_tests_test_ruby_resolution_write]] — code: _write()
+- [[graphify_tests_test_ruby_resolution_raw_calls]] — code: _raw_calls()
+- [[graphify_tests_test_ruby_resolution_find_raw_call]] — code: _find_raw_call()
+- [[graphify_tests_test_ruby_resolution_labels]] — code: _labels()
+- [[graphify_tests_test_ruby_resolution_has_call_edge]] — code: _has_call_edge()
+- [[graphify_tests_test_ruby_resolution_test_member_call_captures_receiver]] — code: test_member_call_captures_receiver()
+- [[graphify_tests_test_ruby_resolution_test_local_binding_gives_receiver_a_type]] — code: test_local_binding_gives_receiver_a_type()
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_binding_yields_no_type]] — code: test_ambiguous_binding_yields_no_type()
+- [[graphify_tests_test_ruby_resolution_test_resolves_member_call_by_type]] — code: test_resolves_member_call_by_type()
+- [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]] — code: test_resolution_is_type_based_not_name_luck()
+- [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]] — code: test_no_false_positive_when_type_unknown()
+- [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]] — code: test_class_new_creates_instantiation_edge()
+- [[graphify_tests_test_ruby_resolution_node_labels]] — code: _node_labels()
+- [[graphify_tests_test_ruby_resolution_method_edges]] — code: _method_edges()
+- [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]] — code: test_plain_module_gets_a_node_with_methods()
+- [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]] — code: test_nested_modules_each_get_a_node()
+- [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]] — code: test_struct_new_constant_creates_class_with_methods()
+- [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]] — code: test_class_new_constant_creates_class_and_inherits()
+- [[graphify_tests_test_ruby_resolution_test_data_define_constant_creates_class]] — code: test_data_define_constant_creates_class()
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]] — code: test_constant_receiver_singleton_call_resolves()
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]] — code: test_constant_receiver_module_function_call_resolves()
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]] — code: test_constant_receiver_unknown_class_method_falls_back_to_class()
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]] — code: test_ambiguous_constant_receiver_emits_no_edge()
+- [[graphify_tests_test_ruby_resolution_mixes_in]] — code: _mixes_in()
+- [[graphify_tests_test_ruby_resolution_test_include_emits_mixes_in_edge]] — code: test_include_emits_mixes_in_edge()
+- [[graphify_tests_test_ruby_resolution_test_extend_and_prepend_emit_mixes_in]] — code: test_extend_and_prepend_emit_mixes_in()
+- [[graphify_tests_test_ruby_resolution_test_extend_self_and_nonconstant_args_emit_no_mixin]] — code: test_extend_self_and_nonconstant_args_emit_no_mixin()
+- [[graphify_tests_test_ruby_resolution_test_include_of_undefined_or_ambiguous_module_emits_no_edge]] — code: test_include_of_undefined_or_ambiguous_module_emits_no_edge()
+- [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]] — code: test_mixin_is_not_emitted_as_calls_edge()
+- [[graphify_tests_test_ruby_resolution_test_rake_files_extract_and_resolve_like_rb]] — code: test_rake_files_extract_and_resolve_like_rb()
+- [[graphify_tests_test_ruby_resolution_rationale_1]] — code: TDD specs for type-aware Ruby call-graph resolution.  These drive the "improve
+- [[graphify_tests_test_ruby_resolution_rationale_47]] — code: Return the `calls` edge whose source/target labels contain the given     substr
+- [[graphify_tests_test_ruby_resolution_rationale_144]] — code: The differentiator: adding an unrelated Worker#run must NOT break the edge.
+- [[graphify_tests_test_ruby_resolution_rationale_170]] — code: A member call on a receiver with no known type must NOT be resolved.
+- [[graphify_tests_test_ruby_resolution_rationale_189]] — code: `p = Processor.new` should link the caller to the Processor class.
+- [[graphify_tests_test_ruby_resolution_rationale_214]] — code: #1640 shape 1: `module Foo` must get a node and own its methods.
+- [[graphify_tests_test_ruby_resolution_rationale_223]] — code: #1640 shape 1, nested.
+- [[graphify_tests_test_ruby_resolution_rationale_232]] — code: #1640 shape 2: `Foo = Struct.new(...) do ... end`.
+- [[graphify_tests_test_ruby_resolution_rationale_240]] — code: #1640 shape 3: `Foo = Class.new(Super)` — node + inherits edge.
+- [[graphify_tests_test_ruby_resolution_rationale_255]] — code: #1634: `Processor.call` (def self.call) resolves to the singleton method.
+- [[graphify_tests_test_ruby_resolution_rationale_264]] — code: #1634 + #1640: `TaxCalculator.rate_for` resolves across files to a     module_f
+- [[graphify_tests_test_ruby_resolution_rationale_275]] — code: #1634: `Model.where` (no `where` def, e.g. ActiveRecord) still links to the
+- [[graphify_tests_test_ruby_resolution_rationale_286]] — code: Two classes named `Processor` => ambiguous receiver => bail (no wrong edge).
+- [[graphify_tests_test_ruby_resolution_rationale_354]] — code: #1784: `.rake` files are plain Ruby and must route to the Ruby extractor     an
+
+## Dependências
+
+- [[graphify_tests_test_ruby_resolution]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_binding_yields_no_type]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_data_define_constant_creates_class]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_local_binding_gives_receiver_a_type]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_member_call_captures_receiver]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]] → `calls` → [[graphify_graphify_extract_extract_ruby]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_extend_and_prepend_emit_mixes_in]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_extend_self_and_nonconstant_args_emit_no_mixin]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_include_emits_mixes_in_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_include_of_undefined_or_ambiguous_module_emits_no_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_rake_files_extract_and_resolve_like_rb]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution_test_resolves_member_call_by_type]] → `calls` → [[graphify_graphify_extract_extract]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_find_raw_call]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_method_edges]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_mixes_in]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_node_labels]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_raw_calls]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_ambiguous_binding_yields_no_type]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_data_define_constant_creates_class]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_extend_and_prepend_emit_mixes_in]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_extend_self_and_nonconstant_args_emit_no_mixin]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_include_emits_mixes_in_edge]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_include_of_undefined_or_ambiguous_module_emits_no_edge]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_local_binding_gives_receiver_a_type]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_member_call_captures_receiver]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_rake_files_extract_and_resolve_like_rb]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_resolves_member_call_by_type]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]]
+- [[graphify_tests_test_ruby_resolution]] → `contains` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_rationale_1]] → `rationale_for` → [[graphify_tests_test_ruby_resolution]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_binding_yields_no_type]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_data_define_constant_creates_class]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_extend_and_prepend_emit_mixes_in]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_extend_self_and_nonconstant_args_emit_no_mixin]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_include_emits_mixes_in_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_include_of_undefined_or_ambiguous_module_emits_no_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_local_binding_gives_receiver_a_type]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_member_call_captures_receiver]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_rake_files_extract_and_resolve_like_rb]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_resolves_member_call_by_type]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]] → `calls` → [[graphify_tests_test_ruby_resolution_write]]
+- [[graphify_tests_test_ruby_resolution_write]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_binding_yields_no_type]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_data_define_constant_creates_class]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_extend_and_prepend_emit_mixes_in]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_extend_self_and_nonconstant_args_emit_no_mixin]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_include_emits_mixes_in_edge]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_include_of_undefined_or_ambiguous_module_emits_no_edge]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_local_binding_gives_receiver_a_type]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_member_call_captures_receiver]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_resolves_member_call_by_type]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]] → `references` → [[graphify_tests_test_ruby_resolution_py_path]]
+- [[graphify_tests_test_ruby_resolution_find_raw_call]] → `calls` → [[graphify_tests_test_ruby_resolution_raw_calls]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_binding_yields_no_type]] → `calls` → [[graphify_tests_test_ruby_resolution_find_raw_call]]
+- [[graphify_tests_test_ruby_resolution_test_local_binding_gives_receiver_a_type]] → `calls` → [[graphify_tests_test_ruby_resolution_find_raw_call]]
+- [[graphify_tests_test_ruby_resolution_test_member_call_captures_receiver]] → `calls` → [[graphify_tests_test_ruby_resolution_find_raw_call]]
+- [[graphify_tests_test_ruby_resolution_has_call_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution_method_edges]] → `calls` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution_mixes_in]] → `calls` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]] → `calls` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]] → `calls` → [[graphify_tests_test_ruby_resolution_labels]]
+- [[graphify_tests_test_ruby_resolution_rationale_47]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_test_resolves_member_call_by_type]] → `calls` → [[graphify_tests_test_ruby_resolution_has_call_edge]]
+- [[graphify_tests_test_ruby_resolution_rationale_144]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_resolution_is_type_based_not_name_luck]]
+- [[graphify_tests_test_ruby_resolution_rationale_170]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_no_false_positive_when_type_unknown]]
+- [[graphify_tests_test_ruby_resolution_rationale_189]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_class_new_creates_instantiation_edge]]
+- [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]] → `calls` → [[graphify_tests_test_ruby_resolution_node_labels]]
+- [[graphify_tests_test_ruby_resolution_test_data_define_constant_creates_class]] → `calls` → [[graphify_tests_test_ruby_resolution_node_labels]]
+- [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]] → `calls` → [[graphify_tests_test_ruby_resolution_node_labels]]
+- [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]] → `calls` → [[graphify_tests_test_ruby_resolution_node_labels]]
+- [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]] → `calls` → [[graphify_tests_test_ruby_resolution_node_labels]]
+- [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]] → `calls` → [[graphify_tests_test_ruby_resolution_method_edges]]
+- [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]] → `calls` → [[graphify_tests_test_ruby_resolution_method_edges]]
+- [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]] → `calls` → [[graphify_tests_test_ruby_resolution_method_edges]]
+- [[graphify_tests_test_ruby_resolution_rationale_214]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_plain_module_gets_a_node_with_methods]]
+- [[graphify_tests_test_ruby_resolution_rationale_223]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_nested_modules_each_get_a_node]]
+- [[graphify_tests_test_ruby_resolution_rationale_232]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_struct_new_constant_creates_class_with_methods]]
+- [[graphify_tests_test_ruby_resolution_rationale_240]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_class_new_constant_creates_class_and_inherits]]
+- [[graphify_tests_test_ruby_resolution_rationale_255]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_constant_receiver_singleton_call_resolves]]
+- [[graphify_tests_test_ruby_resolution_rationale_264]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_constant_receiver_module_function_call_resolves]]
+- [[graphify_tests_test_ruby_resolution_rationale_275]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_constant_receiver_unknown_class_method_falls_back_to_class]]
+- [[graphify_tests_test_ruby_resolution_rationale_286]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_ambiguous_constant_receiver_emits_no_edge]]
+- [[graphify_tests_test_ruby_resolution_test_extend_and_prepend_emit_mixes_in]] → `calls` → [[graphify_tests_test_ruby_resolution_mixes_in]]
+- [[graphify_tests_test_ruby_resolution_test_extend_self_and_nonconstant_args_emit_no_mixin]] → `calls` → [[graphify_tests_test_ruby_resolution_mixes_in]]
+- [[graphify_tests_test_ruby_resolution_test_include_emits_mixes_in_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_mixes_in]]
+- [[graphify_tests_test_ruby_resolution_test_include_of_undefined_or_ambiguous_module_emits_no_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_mixes_in]]
+- [[graphify_tests_test_ruby_resolution_test_mixin_is_not_emitted_as_calls_edge]] → `calls` → [[graphify_tests_test_ruby_resolution_mixes_in]]
+- [[graphify_tests_test_ruby_resolution_rationale_354]] → `rationale_for` → [[graphify_tests_test_ruby_resolution_test_rake_files_extract_and_resolve_like_rb]]

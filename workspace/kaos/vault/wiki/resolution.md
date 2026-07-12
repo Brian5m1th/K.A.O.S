@@ -1,0 +1,327 @@
+# graphify\graphify\extractors\resolution.py
+
+## Símbolos
+
+- [[graphify_graphify_extractors_resolution]] — code: resolution.py
+- [[graphify_graphify_extractors_resolution_resolve_js_import_path]] — code: _resolve_js_import_path()
+- [[graphify_graphify_extractors_resolution_strip_jsonc]] — code: _strip_jsonc()
+- [[graphify_graphify_extractors_resolution_read_tsconfig_aliases]] — code: _read_tsconfig_aliases()
+- [[graphify_graphify_extractors_resolution_load_tsconfig_aliases]] — code: _load_tsconfig_aliases()
+- [[graphify_graphify_extractors_resolution_match_tsconfig_alias]] — code: _match_tsconfig_alias()
+- [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]] — code: _resolve_tsconfig_alias()
+- [[graphify_graphify_extractors_resolution_find_workspace_root]] — code: _find_workspace_root()
+- [[graphify_graphify_extractors_resolution_pnpm_workspace_globs]] — code: _pnpm_workspace_globs()
+- [[graphify_graphify_extractors_resolution_workspace_globs]] — code: _workspace_globs()
+- [[graphify_graphify_extractors_resolution_load_workspace_packages]] — code: _load_workspace_packages()
+- [[graphify_graphify_extractors_resolution_resolve_export_target]] — code: _resolve_export_target()
+- [[graphify_graphify_extractors_resolution_contained_in_package]] — code: _contained_in_package()
+- [[graphify_graphify_extractors_resolution_package_entry_candidates]] — code: _package_entry_candidates()
+- [[graphify_graphify_extractors_resolution_resolve_workspace_import]] — code: _resolve_workspace_import()
+- [[graphify_graphify_extractors_resolution_resolve_js_module_path]] — code: _resolve_js_module_path()
+- [[graphify_graphify_extractors_resolution_resolve_js_import_target]] — code: _resolve_js_import_target()
+- [[graphify_graphify_extractors_resolution_resolve_c_include_path]] — code: _resolve_c_include_path()
+- [[graphify_graphify_extractors_resolution_resolve_lua_import_target]] — code: _resolve_lua_import_target()
+- [[graphify_graphify_extractors_resolution_vue_mask_non_script]] — code: _vue_mask_non_script()
+- [[graphify_graphify_extractors_resolution_source_key]] — code: _source_key()
+- [[graphify_graphify_extractors_resolution_node_disambiguation_source_key]] — code: _node_disambiguation_source_key()
+- [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]] — code: _disambiguate_colliding_node_ids()
+- [[graphify_graphify_extractors_resolution_is_type_like_definition]] — code: _is_type_like_definition()
+- [[graphify_graphify_extractors_resolution_js_source_path]] — code: _js_source_path()
+- [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]] — code: _apply_symbol_resolution_facts()
+- [[graphify_graphify_extractors_resolution_parse_js_tree]] — code: _parse_js_tree()
+- [[graphify_graphify_extractors_resolution_walk_js_tree]] — code: _walk_js_tree()
+- [[graphify_graphify_extractors_resolution_js_module_specifier]] — code: _js_module_specifier()
+- [[graphify_graphify_extractors_resolution_js_named_specifiers]] — code: _js_named_specifiers()
+- [[graphify_graphify_extractors_resolution_js_export_clause]] — code: _js_export_clause()
+- [[graphify_graphify_extractors_resolution_js_export_statement_is_star]] — code: _js_export_statement_is_star()
+- [[graphify_graphify_extractors_resolution_js_namespace_export_name]] — code: _js_namespace_export_name()
+- [[graphify_graphify_extractors_resolution_js_lexical_aliases]] — code: _js_lexical_aliases()
+- [[graphify_graphify_extractors_resolution_js_exported_declaration_names]] — code: _js_exported_declaration_names()
+- [[graphify_graphify_extractors_resolution_js_default_import_name]] — code: _js_default_import_name()
+- [[graphify_graphify_extractors_resolution_js_default_export_name]] — code: _js_default_export_name()
+- [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]] — code: _js_top_level_function_bodies()
+- [[graphify_graphify_extractors_resolution_js_call_identifier]] — code: _js_call_identifier()
+- [[graphify_graphify_extractors_resolution_ts_heritage_clause_entries]] — code: _ts_heritage_clause_entries()
+- [[graphify_graphify_extractors_resolution_ts_collect_type_refs]] — code: _ts_collect_type_refs()
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] — code: _ts_walk_class_members()
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] — code: _collect_js_symbol_resolution_facts()
+- [[graphify_graphify_extractors_resolution_parse_python_tree]] — code: _parse_python_tree()
+- [[graphify_graphify_extractors_resolution_walk_python_tree]] — code: _walk_python_tree()
+- [[graphify_graphify_extractors_resolution_python_import_from_module]] — code: _python_import_from_module()
+- [[graphify_graphify_extractors_resolution_python_imported_names]] — code: _python_imported_names()
+- [[graphify_graphify_extractors_resolution_resolve_python_module_path]] — code: _resolve_python_module_path()
+- [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]] — code: _python_top_level_function_bodies()
+- [[graphify_graphify_extractors_resolution_python_call_identifier]] — code: _python_call_identifier()
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] — code: _collect_python_symbol_resolution_facts()
+- [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]] — code: _augment_symbol_resolution_edges()
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_imports]] — code: _resolve_cross_file_imports()
+- [[graphify_graphify_extractors_resolution_decldef_class_stem]] — code: _decldef_class_stem()
+- [[graphify_graphify_extractors_resolution_merge_decl_def_classes]] — code: _merge_decl_def_classes()
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_java_imports]] — code: _resolve_cross_file_java_imports()
+- [[graphify_graphify_extractors_resolution_resolve_java_type_references]] — code: _resolve_java_type_references()
+- [[graphify_graphify_extractors_resolution_pascal_project_root]] — code: _pascal_project_root()
+- [[graphify_graphify_extractors_resolution_pascal_resolve_unit]] — code: _pascal_resolve_unit()
+- [[graphify_graphify_extractors_resolution_pascal_resolve_class]] — code: _pascal_resolve_class()
+- [[graphify_graphify_extractors_resolution_rationale_1]] — code: resolution — moved verbatim from graphify/extract.py.
+- [[graphify_graphify_extractors_resolution_rationale_29]] — code: Resolve a JS/TS/Svelte import target to a local file when it exists.
+- [[graphify_graphify_extractors_resolution_rationale_61]] — code: Strip // line comments, /* */ block comments, and trailing commas from JSONC.
+- [[graphify_graphify_extractors_resolution_rationale_87]] — code: Recursively read path aliases from a tsconfig, following extends chains.
+- [[graphify_graphify_extractors_resolution_rationale_168]] — code: Walk up from start_dir to find tsconfig.json and return compilerOptions.paths al
+- [[graphify_graphify_extractors_resolution_rationale_186]] — code: Return (specificity, captured text, is_wildcard) when pattern matches raw.
+- [[graphify_graphify_extractors_resolution_rationale_212]] — code: Resolve `raw` against the most specific matching tsconfig alias pattern.
+- [[graphify_graphify_extractors_resolution_rationale_337]] — code: Resolve an `exports` map value (string or condition object) to a     relative t
+- [[graphify_graphify_extractors_resolution_rationale_354]] — code: Guard against `exports` targets that escape the package directory     (e.g. "./
+- [[graphify_graphify_extractors_resolution_rationale_430]] — code: Resolve a JS/TS module path or specifier to a local source file.      With a P
+- [[graphify_graphify_extractors_resolution_rationale_452]] — code: Resolve a JS/TS import path string to (target_nid, resolved_path).      Handle
+- [[graphify_graphify_extractors_resolution_rationale_479]] — code: Resolve a quoted #include path to a real file on disk.      Searches relative
+- [[graphify_graphify_extractors_resolution_rationale_492]] — code: Resolve a Lua require() module name to a node id.      Lua module names use do
+- [[graphify_graphify_extractors_resolution_rationale_538]] — code: Blank everything outside ``<script>`` bodies, keeping ``\\r``/``\\n``.      Re
+- [[graphify_graphify_extractors_resolution_rationale_584]] — code: Rewrite only colliding node IDs, using source path as the disambiguator.
+- [[graphify_graphify_extractors_resolution_rationale_730]] — code: Apply language-provided import/export/use facts to graph edges.
+- [[graphify_graphify_extractors_resolution_rationale_1095]] — code: Local binding of a default import: the `Foo` in `import Foo from './x'`.
+- [[graphify_graphify_extractors_resolution_rationale_1110]] — code: Local name of a default export, or None for anonymous defaults.      Handles `
+- [[graphify_graphify_extractors_resolution_rationale_1173]] — code: Return base/interface type names from an extends_clause or implements_clause.
+- [[graphify_graphify_extractors_resolution_rationale_1200]] — code: Walk a TS type annotation tree; append (name, role) tuples.      role is 'type
+- [[graphify_graphify_extractors_resolution_rationale_1249]] — code: Emit type-relation and type-reference use facts for a class declaration node.
+- [[graphify_graphify_extractors_resolution_rationale_1711]] — code: Two-pass import resolution: turn file-level imports into class-level edges.
+- [[graphify_graphify_extractors_resolution_rationale_1870]] — code: Return ``(dir, base_stem)`` for a header/impl source file, else None.      The
+- [[graphify_graphify_extractors_resolution_rationale_1892]] — code: Merge a class (and its methods) declared in a header with its definition in
+- [[graphify_graphify_extractors_resolution_rationale_2004]] — code: Two-pass Java import resolution.      Pass 1: build a global index {ClassName:
+- [[graphify_graphify_extractors_resolution_rationale_2090]] — code: Re-point dangling Java ``implements``/``inherits`` edges to the real     defini
+- [[graphify_graphify_extractors_resolution_rationale_2221]] — code: Return the highest ancestor directory that looks like a Pascal project root.
+- [[graphify_graphify_extractors_resolution_rationale_2249]] — code: Resolve a Pascal unit name to the graphify node ID of its source file.      Sc
+- [[graphify_graphify_extractors_resolution_rationale_2268]] — code: Resolve a Pascal class/interface name to the node ID of its defining file's clas
+
+## Dependências
+
+- [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_class]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_unit]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_imports]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_java_imports]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_resolve_js_import_target]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_resolve_lua_import_target]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `calls` → [[graphify_graphify_extractors_base_make_id]]
+- [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_class]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_imports]] → `calls` → [[graphify_graphify_extractors_base_file_stem]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_call_identifier]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_default_export_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_default_import_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_exported_declaration_names]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_lexical_aliases]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_module_specifier]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_named_specifiers]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_namespace_export_name]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_python_call_identifier]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_python_import_from_module]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_python_imported_names]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_ts_collect_type_refs]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_ts_heritage_clause_entries]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `calls` → [[graphify_graphify_extractors_base_read_text]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symboldeclarationfact]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolimportfact]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolimportfact]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolaliasfact]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolexportfact]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolexportfact]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_starexportfact]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_namespaceexportfact]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolusefact]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_models_symbolusefact]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `calls` → [[graphify_graphify_extractors_models_symbolusefact]]
+- [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]] → `references` → [[graphify_graphify_extractors_models_symbolresolutionfacts]]
+- [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]] → `calls` → [[graphify_graphify_extractors_models_symbolresolutionfacts]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `references` → [[graphify_graphify_extractors_models_symbolresolutionfacts]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `references` → [[graphify_graphify_extractors_models_symbolresolutionfacts]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `references` → [[graphify_graphify_extractors_models_symbolresolutionfacts]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_contained_in_package]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_decldef_class_stem]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_find_workspace_root]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_is_type_like_definition]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_call_identifier]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_default_export_name]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_default_import_name]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_export_clause]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_export_statement_is_star]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_exported_declaration_names]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_lexical_aliases]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_module_specifier]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_named_specifiers]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_namespace_export_name]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_source_path]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_load_tsconfig_aliases]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_load_workspace_packages]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_match_tsconfig_alias]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_merge_decl_def_classes]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_node_disambiguation_source_key]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_package_entry_candidates]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_parse_js_tree]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_parse_python_tree]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_pascal_project_root]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_pascal_resolve_class]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_pascal_resolve_unit]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_pnpm_workspace_globs]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_python_call_identifier]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_python_import_from_module]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_python_imported_names]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_read_tsconfig_aliases]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_c_include_path]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_cross_file_imports]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_cross_file_java_imports]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_export_target]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_java_type_references]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_js_import_path]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_js_import_target]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_lua_import_target]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_python_module_path]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_resolve_workspace_import]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_source_key]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_strip_jsonc]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_ts_collect_type_refs]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_ts_heritage_clause_entries]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_ts_walk_class_members]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_vue_mask_non_script]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_walk_js_tree]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_walk_python_tree]]
+- [[graphify_graphify_extractors_resolution]] → `contains` → [[graphify_graphify_extractors_resolution_workspace_globs]]
+- [[graphify_graphify_extractors_resolution_rationale_1]] → `rationale_for` → [[graphify_graphify_extractors_resolution]]
+- [[graphify_graphify_extractors_resolution_rationale_29]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_js_import_path]]
+- [[graphify_graphify_extractors_resolution_resolve_js_import_path]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_js_module_path]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_import_path]]
+- [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_import_path]]
+- [[graphify_graphify_extractors_resolution_resolve_workspace_import]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_import_path]]
+- [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_contained_in_package]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_decldef_class_stem]] → `calls` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_find_workspace_root]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_js_source_path]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_load_tsconfig_aliases]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_load_workspace_packages]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_merge_decl_def_classes]] → `calls` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_node_disambiguation_source_key]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_package_entry_candidates]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_parse_js_tree]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_parse_python_tree]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_pascal_project_root]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_class]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_unit]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_pnpm_workspace_globs]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_read_tsconfig_aliases]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_c_include_path]] → `calls` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_imports]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_cross_file_java_imports]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_java_type_references]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_js_import_target]] → `calls` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_js_module_path]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_lua_import_target]] → `calls` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_python_module_path]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]] → `calls` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_resolve_workspace_import]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_source_key]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_workspace_globs]] → `references` → [[graphify_graphify_extractors_resolution_py_path]]
+- [[graphify_graphify_extractors_resolution_rationale_61]] → `rationale_for` → [[graphify_graphify_extractors_resolution_strip_jsonc]]
+- [[graphify_graphify_extractors_resolution_read_tsconfig_aliases]] → `calls` → [[graphify_graphify_extractors_resolution_strip_jsonc]]
+- [[graphify_graphify_extractors_resolution_load_tsconfig_aliases]] → `calls` → [[graphify_graphify_extractors_resolution_read_tsconfig_aliases]]
+- [[graphify_graphify_extractors_resolution_rationale_87]] → `rationale_for` → [[graphify_graphify_extractors_resolution_read_tsconfig_aliases]]
+- [[graphify_graphify_extractors_resolution_rationale_168]] → `rationale_for` → [[graphify_graphify_extractors_resolution_load_tsconfig_aliases]]
+- [[graphify_graphify_extractors_resolution_resolve_js_module_path]] → `calls` → [[graphify_graphify_extractors_resolution_load_tsconfig_aliases]]
+- [[graphify_graphify_extractors_resolution_rationale_186]] → `rationale_for` → [[graphify_graphify_extractors_resolution_match_tsconfig_alias]]
+- [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]] → `calls` → [[graphify_graphify_extractors_resolution_match_tsconfig_alias]]
+- [[graphify_graphify_extractors_resolution_rationale_212]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]]
+- [[graphify_graphify_extractors_resolution_resolve_js_module_path]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_tsconfig_alias]]
+- [[graphify_graphify_extractors_resolution_load_workspace_packages]] → `calls` → [[graphify_graphify_extractors_resolution_find_workspace_root]]
+- [[graphify_graphify_extractors_resolution_workspace_globs]] → `calls` → [[graphify_graphify_extractors_resolution_pnpm_workspace_globs]]
+- [[graphify_graphify_extractors_resolution_load_workspace_packages]] → `calls` → [[graphify_graphify_extractors_resolution_workspace_globs]]
+- [[graphify_graphify_extractors_resolution_resolve_workspace_import]] → `calls` → [[graphify_graphify_extractors_resolution_load_workspace_packages]]
+- [[graphify_graphify_extractors_resolution_package_entry_candidates]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_export_target]]
+- [[graphify_graphify_extractors_resolution_rationale_337]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_export_target]]
+- [[graphify_graphify_extractors_resolution_resolve_export_target]] → `references` → [[graphify_graphify_extractors_resolution_py_any]]
+- [[graphify_graphify_extractors_resolution_package_entry_candidates]] → `calls` → [[graphify_graphify_extractors_resolution_contained_in_package]]
+- [[graphify_graphify_extractors_resolution_rationale_354]] → `rationale_for` → [[graphify_graphify_extractors_resolution_contained_in_package]]
+- [[graphify_graphify_extractors_resolution_resolve_workspace_import]] → `calls` → [[graphify_graphify_extractors_resolution_package_entry_candidates]]
+- [[graphify_graphify_extractors_resolution_resolve_js_module_path]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_workspace_import]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_graphify_extractors_resolution_rationale_430]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_graphify_extractors_resolution_resolve_js_import_target]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_js_module_path]]
+- [[graphify_graphify_extractors_resolution_rationale_452]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_js_import_target]]
+- [[graphify_graphify_extractors_resolution_rationale_479]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_c_include_path]]
+- [[graphify_graphify_extractors_resolution_rationale_492]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_lua_import_target]]
+- [[graphify_graphify_extractors_resolution_parse_js_tree]] → `calls` → [[graphify_graphify_extractors_resolution_vue_mask_non_script]]
+- [[graphify_graphify_extractors_resolution_rationale_538]] → `rationale_for` → [[graphify_graphify_extractors_resolution_vue_mask_non_script]]
+- [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]] → `calls` → [[graphify_graphify_extractors_resolution_source_key]]
+- [[graphify_graphify_extractors_resolution_node_disambiguation_source_key]] → `calls` → [[graphify_graphify_extractors_resolution_source_key]]
+- [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]] → `calls` → [[graphify_graphify_extractors_resolution_node_disambiguation_source_key]]
+- [[graphify_graphify_extractors_resolution_rationale_584]] → `rationale_for` → [[graphify_graphify_extractors_resolution_disambiguate_colliding_node_ids]]
+- [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_source_path]]
+- [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]] → `calls` → [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution_rationale_730]] → `rationale_for` → [[graphify_graphify_extractors_resolution_apply_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_parse_js_tree]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_walk_js_tree]]
+- [[graphify_graphify_extractors_resolution_js_named_specifiers]] → `calls` → [[graphify_graphify_extractors_resolution_walk_js_tree]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_module_specifier]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_named_specifiers]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_export_clause]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_export_statement_is_star]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_namespace_export_name]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_lexical_aliases]]
+- [[graphify_graphify_extractors_resolution_js_exported_declaration_names]] → `calls` → [[graphify_graphify_extractors_resolution_js_lexical_aliases]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_exported_declaration_names]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_default_import_name]]
+- [[graphify_graphify_extractors_resolution_rationale_1095]] → `rationale_for` → [[graphify_graphify_extractors_resolution_js_default_import_name]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_default_export_name]]
+- [[graphify_graphify_extractors_resolution_rationale_1110]] → `rationale_for` → [[graphify_graphify_extractors_resolution_js_default_export_name]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_top_level_function_bodies]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_js_call_identifier]]
+- [[graphify_graphify_extractors_resolution_rationale_1173]] → `rationale_for` → [[graphify_graphify_extractors_resolution_ts_heritage_clause_entries]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `calls` → [[graphify_graphify_extractors_resolution_ts_heritage_clause_entries]]
+- [[graphify_graphify_extractors_resolution_rationale_1200]] → `rationale_for` → [[graphify_graphify_extractors_resolution_ts_collect_type_refs]]
+- [[graphify_graphify_extractors_resolution_ts_walk_class_members]] → `calls` → [[graphify_graphify_extractors_resolution_ts_collect_type_refs]]
+- [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_ts_walk_class_members]]
+- [[graphify_graphify_extractors_resolution_rationale_1249]] → `rationale_for` → [[graphify_graphify_extractors_resolution_ts_walk_class_members]]
+- [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]] → `calls` → [[graphify_graphify_extractors_resolution_collect_js_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_parse_python_tree]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_walk_python_tree]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_python_import_from_module]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_python_imported_names]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_resolve_python_module_path]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_python_top_level_function_bodies]]
+- [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]] → `calls` → [[graphify_graphify_extractors_resolution_python_call_identifier]]
+- [[graphify_graphify_extractors_resolution_augment_symbol_resolution_edges]] → `calls` → [[graphify_graphify_extractors_resolution_collect_python_symbol_resolution_facts]]
+- [[graphify_graphify_extractors_resolution_rationale_1711]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_cross_file_imports]]
+- [[graphify_graphify_extractors_resolution_merge_decl_def_classes]] → `calls` → [[graphify_graphify_extractors_resolution_decldef_class_stem]]
+- [[graphify_graphify_extractors_resolution_rationale_1870]] → `rationale_for` → [[graphify_graphify_extractors_resolution_decldef_class_stem]]
+- [[graphify_graphify_extractors_resolution_rationale_1892]] → `rationale_for` → [[graphify_graphify_extractors_resolution_merge_decl_def_classes]]
+- [[graphify_graphify_extractors_resolution_rationale_2004]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_cross_file_java_imports]]
+- [[graphify_graphify_extractors_resolution_rationale_2090]] → `rationale_for` → [[graphify_graphify_extractors_resolution_resolve_java_type_references]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_class]] → `calls` → [[graphify_graphify_extractors_resolution_pascal_project_root]]
+- [[graphify_graphify_extractors_resolution_pascal_resolve_unit]] → `calls` → [[graphify_graphify_extractors_resolution_pascal_project_root]]
+- [[graphify_graphify_extractors_resolution_rationale_2221]] → `rationale_for` → [[graphify_graphify_extractors_resolution_pascal_project_root]]
+- [[graphify_graphify_extractors_resolution_rationale_2249]] → `rationale_for` → [[graphify_graphify_extractors_resolution_pascal_resolve_unit]]
+- [[graphify_graphify_extractors_resolution_rationale_2268]] → `rationale_for` → [[graphify_graphify_extractors_resolution_pascal_resolve_class]]

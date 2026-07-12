@@ -1,0 +1,204 @@
+# graphify\tests\test_analyze.py
+
+## Símbolos
+
+- [[graphify_tests_test_analyze]] — code: test_analyze.py
+- [[graphify_tests_test_analyze_make_graph]] — code: make_graph()
+- [[graphify_tests_test_analyze_test_god_nodes_returns_list]] — code: test_god_nodes_returns_list()
+- [[graphify_tests_test_analyze_test_god_nodes_sorted_by_degree]] — code: test_god_nodes_sorted_by_degree()
+- [[graphify_tests_test_analyze_test_god_nodes_have_required_keys]] — code: test_god_nodes_have_required_keys()
+- [[graphify_tests_test_analyze_test_surprising_connections_cross_source_multi_file]] — code: test_surprising_connections_cross_source_multi_file()
+- [[graphify_tests_test_analyze_test_surprising_connections_excludes_concept_nodes]] — code: test_surprising_connections_excludes_concept_nodes()
+- [[graphify_tests_test_analyze_test_surprising_connections_single_file_uses_community_bridges]] — code: test_surprising_connections_single_file_uses_community_bridges()
+- [[graphify_tests_test_analyze_test_surprising_connections_ambiguous_scores_higher_than_extracted]] — code: test_surprising_connections_ambiguous_scores_higher_than_extracted()
+- [[graphify_tests_test_analyze_test_surprise_score_accepts_precomputed_degrees]] — code: test_surprise_score_accepts_precomputed_degrees()
+- [[graphify_tests_test_analyze_test_surprising_connections_cross_type_scores_higher]] — code: test_surprising_connections_cross_type_scores_higher()
+- [[graphify_tests_test_analyze_make_cross_lang_graph]] — code: _make_cross_lang_graph()
+- [[graphify_tests_test_analyze_test_cross_language_inferred_calls_suppressed]] — code: test_cross_language_inferred_calls_suppressed()
+- [[graphify_tests_test_analyze_test_cross_language_inferred_uses_suppressed]] — code: test_cross_language_inferred_uses_suppressed()
+- [[graphify_tests_test_analyze_test_cross_language_semantically_similar_not_suppressed]] — code: test_cross_language_semantically_similar_not_suppressed()
+- [[graphify_tests_test_analyze_test_same_language_inferred_calls_not_suppressed]] — code: test_same_language_inferred_calls_not_suppressed()
+- [[graphify_tests_test_analyze_test_cross_language_extracted_calls_not_suppressed]] — code: test_cross_language_extracted_calls_not_suppressed()
+- [[graphify_tests_test_analyze_test_surprising_connections_have_why_field]] — code: test_surprising_connections_have_why_field()
+- [[graphify_tests_test_analyze_test_file_category]] — code: test_file_category()
+- [[graphify_tests_test_analyze_test_is_concept_node_empty_source]] — code: test_is_concept_node_empty_source()
+- [[graphify_tests_test_analyze_test_is_concept_node_real_file]] — code: test_is_concept_node_real_file()
+- [[graphify_tests_test_analyze_test_surprising_connections_have_required_keys]] — code: test_surprising_connections_have_required_keys()
+- [[graphify_tests_test_analyze_make_simple_graph]] — code: _make_simple_graph()
+- [[graphify_tests_test_analyze_test_graph_diff_new_nodes]] — code: test_graph_diff_new_nodes()
+- [[graphify_tests_test_analyze_test_graph_diff_removed_nodes]] — code: test_graph_diff_removed_nodes()
+- [[graphify_tests_test_analyze_test_graph_diff_new_edges]] — code: test_graph_diff_new_edges()
+- [[graphify_tests_test_analyze_test_graph_diff_empty_diff]] — code: test_graph_diff_empty_diff()
+- [[graphify_tests_test_analyze_make_code_doc_graph]] — code: _make_code_doc_graph()
+- [[graphify_tests_test_analyze_test_code_doc_inferred_calls_suppressed]] — code: test_code_doc_inferred_calls_suppressed()
+- [[graphify_tests_test_analyze_test_code_doc_inferred_uses_suppressed]] — code: test_code_doc_inferred_uses_suppressed()
+- [[graphify_tests_test_analyze_test_code_doc_extracted_calls_not_suppressed]] — code: test_code_doc_extracted_calls_not_suppressed()
+- [[graphify_tests_test_analyze_test_code_doc_inferred_semantically_similar_not_suppressed]] — code: test_code_doc_inferred_semantically_similar_not_suppressed()
+- [[graphify_tests_test_analyze_test_code_unknown_extension_inferred_calls_suppressed]] — code: test_code_unknown_extension_inferred_calls_suppressed()
+- [[graphify_tests_test_analyze_test_code_paper_inferred_calls_not_suppressed]] — code: test_code_paper_inferred_calls_not_suppressed()
+- [[graphify_tests_test_analyze_test_is_json_key_node_noise_label]] — code: test_is_json_key_node_noise_label()
+- [[graphify_tests_test_analyze_test_is_json_key_node_non_json_file]] — code: test_is_json_key_node_non_json_file()
+- [[graphify_tests_test_analyze_test_god_nodes_excludes_npm_dep_block_keys]] — code: test_god_nodes_excludes_npm_dep_block_keys()
+- [[graphify_tests_test_analyze_test_is_json_key_node_real_label]] — code: test_is_json_key_node_real_label()
+- [[graphify_tests_test_analyze_test_god_nodes_excludes_json_noise]] — code: test_god_nodes_excludes_json_noise()
+- [[graphify_tests_test_analyze_test_god_nodes_filter_is_case_insensitive]] — code: test_god_nodes_filter_is_case_insensitive()
+- [[graphify_tests_test_analyze_test_suggest_questions_excludes_rationale_nodes_from_isolated_count]] — code: test_suggest_questions_excludes_rationale_nodes_from_isolated_count()
+- [[graphify_tests_test_analyze_make_file_node]] — code: _make_file_node()
+- [[graphify_tests_test_analyze_make_cycle_graph_directed]] — code: _make_cycle_graph_directed()
+- [[graphify_tests_test_analyze_test_find_import_cycles_returns_structured_records]] — code: test_find_import_cycles_returns_structured_records()
+- [[graphify_tests_test_analyze_test_find_import_cycles_detects_2_and_3_cycles]] — code: test_find_import_cycles_detects_2_and_3_cycles()
+- [[graphify_tests_test_analyze_test_find_import_cycles_includes_self_loop_cycle]] — code: test_find_import_cycles_includes_self_loop_cycle()
+- [[graphify_tests_test_analyze_test_find_import_cycles_respects_max_cycle_length]] — code: test_find_import_cycles_respects_max_cycle_length()
+- [[graphify_tests_test_analyze_test_find_import_cycles_skips_nodes_without_source_file]] — code: test_find_import_cycles_skips_nodes_without_source_file()
+- [[graphify_tests_test_analyze_test_find_import_cycles_handles_undirected_graph_input]] — code: test_find_import_cycles_handles_undirected_graph_input()
+- [[graphify_tests_test_analyze_test_find_import_cycles_ignores_non_import_relations]] — code: test_find_import_cycles_ignores_non_import_relations()
+- [[graphify_tests_test_analyze_test_find_import_cycles_empty_graph]] — code: test_find_import_cycles_empty_graph()
+- [[graphify_tests_test_analyze_test_find_import_cycles_no_cycles]] — code: test_find_import_cycles_no_cycles()
+- [[graphify_tests_test_analyze_rationale_1]] — code: Tests for analyze.py.
+- [[graphify_tests_test_analyze_rationale_41]] — code: Multi-file graph: should find cross-file edges between real entities.
+- [[graphify_tests_test_analyze_rationale_51]] — code: Concept nodes (empty source_file) must not appear in surprises.
+- [[graphify_tests_test_analyze_rationale_64]] — code: Single-file graph: should return cross-community edges, not empty list.
+- [[graphify_tests_test_analyze_rationale_91]] — code: AMBIGUOUS edge should score higher than an otherwise identical EXTRACTED edge.
+- [[graphify_tests_test_analyze_rationale_131]] — code: Code↔paper edge should score higher than code↔code edge.
+- [[graphify_tests_test_analyze_rationale_150]] — code: Helper: Python node in backend/, TypeScript node in frontend/, different communi
+- [[graphify_tests_test_analyze_rationale_160]] — code: Cross-language INFERRED calls edge should score lower than same-language EXTRACT
+- [[graphify_tests_test_analyze_rationale_177]] — code: Cross-language INFERRED uses edge (the exact rsl-siege-manager false positive) s
+- [[graphify_tests_test_analyze_rationale_194]] — code: `semantically_similar_to` across languages is a genuine insight — must not be su
+- [[graphify_tests_test_analyze_rationale_211]] — code: INFERRED calls within the same language family must not be affected.
+- [[graphify_tests_test_analyze_rationale_230]] — code: EXTRACTED cross-language edges are real structural facts — must not be penalised
+- [[graphify_tests_test_analyze_rationale_291]] — code: Helper: build a small nx.Graph from node/edge specs.
+- [[graphify_tests_test_analyze_rationale_362]] — code: Code→doc INFERRED calls edge should score lower than same-language EXTRACTED.
+- [[graphify_tests_test_analyze_rationale_379]] — code: Code→doc INFERRED uses edge should score lower than same-language EXTRACTED.
+- [[graphify_tests_test_analyze_rationale_396]] — code: EXTRACTED code↔doc edges are real facts — must not be penalised.
+- [[graphify_tests_test_analyze_rationale_408]] — code: `semantically_similar_to` across code↔doc is explicit LLM insight — must not be
+- [[graphify_tests_test_analyze_rationale_425]] — code: _file_category falls back to 'doc' for unknown extensions, so INFERRED     call
+- [[graphify_tests_test_analyze_rationale_448]] — code: Code↔paper INFERRED calls should still surface — it is a meaningful link.
+- [[graphify_tests_test_analyze_rationale_493]] — code: npm package.json dep-block keys must be filtered from god_nodes output.      C
+- [[graphify_tests_test_analyze_rationale_569]] — code: god_nodes must not return generic JSON key nodes like 'name' or 'id'.
+- [[graphify_tests_test_analyze_rationale_587]] — code: JSON-key filter must match regardless of label casing.
+- [[graphify_tests_test_analyze_rationale_623]] — code: Create a graph node resembling real graphify schema.
+
+## Dependências
+
+- [[graphify_tests_test_analyze]] → `imports_from` → [[graphify_graphify_analyze]]
+- [[graphify_tests_test_analyze_test_is_json_key_node_noise_label]] → `calls` → [[graphify_graphify_analyze_is_json_key_node]]
+- [[graphify_tests_test_analyze_test_is_json_key_node_non_json_file]] → `calls` → [[graphify_graphify_analyze_is_json_key_node]]
+- [[graphify_tests_test_analyze_test_is_json_key_node_real_label]] → `calls` → [[graphify_graphify_analyze_is_json_key_node]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_detects_2_and_3_cycles]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_empty_graph]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_handles_undirected_graph_input]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_ignores_non_import_relations]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_includes_self_loop_cycle]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_no_cycles]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_respects_max_cycle_length]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_returns_structured_records]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_skips_nodes_without_source_file]] → `calls` → [[graphify_graphify_analyze_find_import_cycles]]
+- [[graphify_tests_test_analyze]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_analyze]] → `imports_from` → [[graphify_graphify_cluster]]
+- [[graphify_tests_test_analyze]] → `imports_from` → [[graphify_graphify_extract]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_make_code_doc_graph]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_make_cross_lang_graph]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_make_file_node]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_make_simple_graph]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_code_doc_extracted_calls_not_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_code_doc_inferred_calls_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_code_doc_inferred_semantically_similar_not_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_code_doc_inferred_uses_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_code_paper_inferred_calls_not_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_code_unknown_extension_inferred_calls_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_cross_language_extracted_calls_not_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_cross_language_inferred_calls_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_cross_language_inferred_uses_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_cross_language_semantically_similar_not_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_file_category]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_detects_2_and_3_cycles]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_empty_graph]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_handles_undirected_graph_input]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_ignores_non_import_relations]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_includes_self_loop_cycle]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_no_cycles]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_respects_max_cycle_length]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_returns_structured_records]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_find_import_cycles_skips_nodes_without_source_file]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_god_nodes_excludes_json_noise]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_god_nodes_excludes_npm_dep_block_keys]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_god_nodes_filter_is_case_insensitive]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_god_nodes_have_required_keys]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_god_nodes_returns_list]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_god_nodes_sorted_by_degree]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_graph_diff_empty_diff]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_graph_diff_new_edges]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_graph_diff_new_nodes]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_graph_diff_removed_nodes]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_is_concept_node_empty_source]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_is_concept_node_real_file]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_is_json_key_node_noise_label]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_is_json_key_node_non_json_file]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_is_json_key_node_real_label]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_same_language_inferred_calls_not_suppressed]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_suggest_questions_excludes_rationale_nodes_from_isolated_count]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprise_score_accepts_precomputed_degrees]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_ambiguous_scores_higher_than_extracted]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_cross_source_multi_file]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_cross_type_scores_higher]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_excludes_concept_nodes]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_have_required_keys]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_have_why_field]]
+- [[graphify_tests_test_analyze]] → `contains` → [[graphify_tests_test_analyze_test_surprising_connections_single_file_uses_community_bridges]]
+- [[graphify_tests_test_analyze_rationale_1]] → `rationale_for` → [[graphify_tests_test_analyze]]
+- [[graphify_tests_test_analyze_test_god_nodes_have_required_keys]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_test_god_nodes_returns_list]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_test_god_nodes_sorted_by_degree]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_test_surprising_connections_cross_source_multi_file]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_test_surprising_connections_excludes_concept_nodes]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_test_surprising_connections_have_required_keys]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_test_surprising_connections_have_why_field]] → `calls` → [[graphify_tests_test_analyze_make_graph]]
+- [[graphify_tests_test_analyze_rationale_41]] → `rationale_for` → [[graphify_tests_test_analyze_test_surprising_connections_cross_source_multi_file]]
+- [[graphify_tests_test_analyze_rationale_51]] → `rationale_for` → [[graphify_tests_test_analyze_test_surprising_connections_excludes_concept_nodes]]
+- [[graphify_tests_test_analyze_rationale_64]] → `rationale_for` → [[graphify_tests_test_analyze_test_surprising_connections_single_file_uses_community_bridges]]
+- [[graphify_tests_test_analyze_rationale_91]] → `rationale_for` → [[graphify_tests_test_analyze_test_surprising_connections_ambiguous_scores_higher_than_extracted]]
+- [[graphify_tests_test_analyze_rationale_131]] → `rationale_for` → [[graphify_tests_test_analyze_test_surprising_connections_cross_type_scores_higher]]
+- [[graphify_tests_test_analyze_rationale_150]] → `rationale_for` → [[graphify_tests_test_analyze_make_cross_lang_graph]]
+- [[graphify_tests_test_analyze_test_cross_language_extracted_calls_not_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_cross_lang_graph]]
+- [[graphify_tests_test_analyze_test_cross_language_inferred_calls_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_cross_lang_graph]]
+- [[graphify_tests_test_analyze_test_cross_language_inferred_uses_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_cross_lang_graph]]
+- [[graphify_tests_test_analyze_test_cross_language_semantically_similar_not_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_cross_lang_graph]]
+- [[graphify_tests_test_analyze_rationale_160]] → `rationale_for` → [[graphify_tests_test_analyze_test_cross_language_inferred_calls_suppressed]]
+- [[graphify_tests_test_analyze_rationale_177]] → `rationale_for` → [[graphify_tests_test_analyze_test_cross_language_inferred_uses_suppressed]]
+- [[graphify_tests_test_analyze_rationale_194]] → `rationale_for` → [[graphify_tests_test_analyze_test_cross_language_semantically_similar_not_suppressed]]
+- [[graphify_tests_test_analyze_rationale_211]] → `rationale_for` → [[graphify_tests_test_analyze_test_same_language_inferred_calls_not_suppressed]]
+- [[graphify_tests_test_analyze_rationale_230]] → `rationale_for` → [[graphify_tests_test_analyze_test_cross_language_extracted_calls_not_suppressed]]
+- [[graphify_tests_test_analyze_rationale_291]] → `rationale_for` → [[graphify_tests_test_analyze_make_simple_graph]]
+- [[graphify_tests_test_analyze_test_graph_diff_empty_diff]] → `calls` → [[graphify_tests_test_analyze_make_simple_graph]]
+- [[graphify_tests_test_analyze_test_graph_diff_new_edges]] → `calls` → [[graphify_tests_test_analyze_make_simple_graph]]
+- [[graphify_tests_test_analyze_test_graph_diff_new_nodes]] → `calls` → [[graphify_tests_test_analyze_make_simple_graph]]
+- [[graphify_tests_test_analyze_test_graph_diff_removed_nodes]] → `calls` → [[graphify_tests_test_analyze_make_simple_graph]]
+- [[graphify_tests_test_analyze_test_code_doc_extracted_calls_not_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_code_doc_graph]]
+- [[graphify_tests_test_analyze_test_code_doc_inferred_calls_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_code_doc_graph]]
+- [[graphify_tests_test_analyze_test_code_doc_inferred_semantically_similar_not_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_code_doc_graph]]
+- [[graphify_tests_test_analyze_test_code_doc_inferred_uses_suppressed]] → `calls` → [[graphify_tests_test_analyze_make_code_doc_graph]]
+- [[graphify_tests_test_analyze_rationale_362]] → `rationale_for` → [[graphify_tests_test_analyze_test_code_doc_inferred_calls_suppressed]]
+- [[graphify_tests_test_analyze_rationale_379]] → `rationale_for` → [[graphify_tests_test_analyze_test_code_doc_inferred_uses_suppressed]]
+- [[graphify_tests_test_analyze_rationale_396]] → `rationale_for` → [[graphify_tests_test_analyze_test_code_doc_extracted_calls_not_suppressed]]
+- [[graphify_tests_test_analyze_rationale_408]] → `rationale_for` → [[graphify_tests_test_analyze_test_code_doc_inferred_semantically_similar_not_suppressed]]
+- [[graphify_tests_test_analyze_rationale_425]] → `rationale_for` → [[graphify_tests_test_analyze_test_code_unknown_extension_inferred_calls_suppressed]]
+- [[graphify_tests_test_analyze_rationale_448]] → `rationale_for` → [[graphify_tests_test_analyze_test_code_paper_inferred_calls_not_suppressed]]
+- [[graphify_tests_test_analyze_rationale_493]] → `rationale_for` → [[graphify_tests_test_analyze_test_god_nodes_excludes_npm_dep_block_keys]]
+- [[graphify_tests_test_analyze_rationale_569]] → `rationale_for` → [[graphify_tests_test_analyze_test_god_nodes_excludes_json_noise]]
+- [[graphify_tests_test_analyze_rationale_587]] → `rationale_for` → [[graphify_tests_test_analyze_test_god_nodes_filter_is_case_insensitive]]
+- [[graphify_tests_test_analyze_make_cycle_graph_directed]] → `calls` → [[graphify_tests_test_analyze_make_file_node]]
+- [[graphify_tests_test_analyze_rationale_623]] → `rationale_for` → [[graphify_tests_test_analyze_make_file_node]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_ignores_non_import_relations]] → `calls` → [[graphify_tests_test_analyze_make_file_node]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_no_cycles]] → `calls` → [[graphify_tests_test_analyze_make_file_node]]
+- [[graphify_tests_test_analyze_make_cycle_graph_directed]] → `references` → [[digraph]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_detects_2_and_3_cycles]] → `calls` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_handles_undirected_graph_input]] → `calls` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_includes_self_loop_cycle]] → `calls` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_respects_max_cycle_length]] → `calls` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_returns_structured_records]] → `calls` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_skips_nodes_without_source_file]] → `calls` → [[graphify_tests_test_analyze_make_cycle_graph_directed]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_empty_graph]] → `calls` → [[digraph]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_ignores_non_import_relations]] → `calls` → [[digraph]]
+- [[graphify_tests_test_analyze_test_find_import_cycles_no_cycles]] → `calls` → [[digraph]]

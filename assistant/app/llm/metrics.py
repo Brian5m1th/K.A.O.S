@@ -15,11 +15,15 @@ class MetricEntry:
 
 
 class ProviderMetrics:
+    # Class-level global accumulator — all instances append here
+    _global_entries: list[MetricEntry] = []
+
     def __init__(self):
         self._entries: list[MetricEntry] = []
 
     def record(self, entry: MetricEntry) -> None:
         self._entries.append(entry)
+        ProviderMetrics._global_entries.append(entry)
         msg = (
             f"[metrics] provider={entry.provider} model={entry.model} "
             f"latency={entry.latency_ms:.0f}ms tokens_in={entry.tokens_in} "
@@ -98,3 +102,31 @@ class ProviderMetrics:
             "total_latency_ms": round(total_latency, 0),
             "avg_latency_ms": round(total_latency / len(self._entries), 0),
         }
+
+    @classmethod
+    def global_summary(cls) -> dict:
+        """Aggregate metrics across all ProviderMetrics instances."""
+        if not cls._global_entries:
+            return {}
+        total_cost = sum(e.cost for e in cls._global_entries)
+        total_latency = sum(e.latency_ms for e in cls._global_entries)
+        return {
+            "total_calls": len(cls._global_entries),
+            "total_cost": round(total_cost, 6),
+            "total_latency_ms": round(total_latency, 0),
+            "avg_latency_ms": round(total_latency / len(cls._global_entries), 0)
+            if cls._global_entries
+            else 0.0,
+        }
+
+    @classmethod
+    def global_token_rate(cls) -> float:
+        """Approximate token throughput (tokens/sec) from recent global entries."""
+        if not cls._global_entries:
+            return 0.0
+        recent = cls._global_entries[-20:]
+        total_tokens = sum(e.tokens_in + e.tokens_out for e in recent)
+        total_ms = sum(e.latency_ms for e in recent)
+        if total_ms == 0:
+            return 0.0
+        return round(total_tokens / (total_ms / 1000.0), 2)

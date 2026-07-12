@@ -1,0 +1,368 @@
+# graphify\tests\test_reflect.py
+
+## Símbolos
+
+- [[graphify_tests_test_reflect]] — code: test_reflect.py
+- [[graphify_tests_test_reflect_days_before]] — code: _days_before()
+- [[graphify_tests_test_reflect_run]] — code: _run()
+- [[graphify_tests_test_reflect_test_parse_round_trips_a_saved_doc]] — code: test_parse_round_trips_a_saved_doc()
+- [[graphify_tests_test_reflect_test_parse_returns_none_for_foreign_doc]] — code: test_parse_returns_none_for_foreign_doc()
+- [[graphify_tests_test_reflect_test_round_trip_survives_backslash_newline_and_quoted_node]] — code: test_round_trip_survives_backslash_newline_and_quoted_node()
+- [[graphify_tests_test_reflect_test_parse_handles_crlf]] — code: test_parse_handles_crlf()
+- [[graphify_tests_test_reflect_test_load_memory_docs_skips_foreign_and_sorts]] — code: test_load_memory_docs_skips_foreign_and_sorts()
+- [[graphify_tests_test_reflect_test_load_memory_docs_missing_dir_is_empty]] — code: test_load_memory_docs_missing_dir_is_empty()
+- [[graphify_tests_test_reflect_write_raw_doc]] — code: _write_raw_doc()
+- [[graphify_tests_test_reflect_test_load_memory_docs_orders_by_date_then_filename]] — code: test_load_memory_docs_orders_by_date_then_filename()
+- [[graphify_tests_test_reflect_doc]] — code: _doc()
+- [[graphify_tests_test_reflect_test_aggregate_counts_each_outcome]] — code: test_aggregate_counts_each_outcome()
+- [[graphify_tests_test_reflect_test_sources_split_into_preferred_tentative_contested]] — code: test_sources_split_into_preferred_tentative_contested()
+- [[graphify_tests_test_reflect_test_corroboration_threshold_promotes_only_repeated_nodes]] — code: test_corroboration_threshold_promotes_only_repeated_nodes()
+- [[graphify_tests_test_reflect_test_recency_decides_contested_verdict]] — code: test_recency_decides_contested_verdict()
+- [[graphify_tests_test_reflect_test_node_existence_gate_drops_stale_nodes]] — code: test_node_existence_gate_drops_stale_nodes()
+- [[graphify_tests_test_reflect_test_corroboration_counts_distinct_docs_not_citations]] — code: test_corroboration_counts_distinct_docs_not_citations()
+- [[graphify_tests_test_reflect_test_min_corroboration_is_honored_not_hardcoded]] — code: test_min_corroboration_is_honored_not_hardcoded()
+- [[graphify_tests_test_reflect_test_half_life_actually_feeds_decay]] — code: test_half_life_actually_feeds_decay()
+- [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]] — code: test_evenly_split_verdict_when_signals_cancel()
+- [[graphify_tests_test_reflect_test_nonpositive_half_life_disables_decay]] — code: test_nonpositive_half_life_disables_decay()
+- [[graphify_tests_test_reflect_test_negative_only_node_absent_from_sources]] — code: test_negative_only_node_absent_from_sources()
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_collected]] — code: test_dead_ends_and_corrections_collected()
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_follow_doc_order]] — code: test_dead_ends_and_corrections_follow_doc_order()
+- [[graphify_tests_test_reflect_test_no_community_grouping_without_graph]] — code: test_no_community_grouping_without_graph()
+- [[graphify_tests_test_reflect_test_doc_community_tie_breaks_to_smallest_label]] — code: test_doc_community_tie_breaks_to_smallest_label()
+- [[graphify_tests_test_reflect_test_community_grouping_uses_plurality_community]] — code: test_community_grouping_uses_plurality_community()
+- [[graphify_tests_test_reflect_test_render_is_deterministic]] — code: test_render_is_deterministic()
+- [[graphify_tests_test_reflect_test_render_has_summary_and_sections]] — code: test_render_has_summary_and_sections()
+- [[graphify_tests_test_reflect_test_render_includes_by_topic_when_graph_present]] — code: test_render_includes_by_topic_when_graph_present()
+- [[graphify_tests_test_reflect_test_topic_sections_alpha_with_uncategorized_last]] — code: test_topic_sections_alpha_with_uncategorized_last()
+- [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]] — code: test_render_byte_stable_across_independent_aggregations()
+- [[graphify_tests_test_reflect_test_contested_node_renders_once_under_contested]] — code: test_contested_node_renders_once_under_contested()
+- [[graphify_tests_test_reflect_test_header_is_cautious]] — code: test_header_is_cautious()
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] — code: test_lessons_artifact_cannot_be_globbed_back_into_memory()
+- [[graphify_tests_test_reflect_test_render_empty_memory_is_graceful]] — code: test_render_empty_memory_is_graceful()
+- [[graphify_tests_test_reflect_test_reflect_writes_lessons_file]] — code: test_reflect_writes_lessons_file()
+- [[graphify_tests_test_reflect_test_second_session_benefits_from_the_first]] — code: test_second_session_benefits_from_the_first()
+- [[graphify_tests_test_reflect_test_cli_reflect_end_to_end]] — code: test_cli_reflect_end_to_end()
+- [[graphify_tests_test_reflect_test_cli_save_result_rejects_bad_outcome]] — code: test_cli_save_result_rejects_bad_outcome()
+- [[graphify_tests_test_reflect_test_cli_save_result_reads_answer_from_file]] — code: test_cli_save_result_reads_answer_from_file()
+- [[graphify_tests_test_reflect_test_cli_save_result_requires_answer_or_answer_file]] — code: test_cli_save_result_requires_answer_or_answer_file()
+- [[graphify_tests_test_reflect_test_cli_reflect_cold_start_writes_empty_lessons]] — code: test_cli_reflect_cold_start_writes_empty_lessons()
+- [[graphify_tests_test_reflect_test_cli_reflect_respects_out_flag]] — code: test_cli_reflect_respects_out_flag()
+- [[graphify_tests_test_reflect_test_cli_reflect_groups_by_community_when_graph_present]] — code: test_cli_reflect_groups_by_community_when_graph_present()
+- [[graphify_tests_test_reflect_test_cli_node_existence_gate_drops_stale_node_end_to_end]] — code: test_cli_node_existence_gate_drops_stale_node_end_to_end()
+- [[graphify_tests_test_reflect_make_graph]] — code: _make_graph()
+- [[graphify_tests_test_reflect_test_lessons_fresh_missing_output_is_not_fresh]] — code: test_lessons_fresh_missing_output_is_not_fresh()
+- [[graphify_tests_test_reflect_test_lessons_fresh_true_when_output_newer_than_inputs]] — code: test_lessons_fresh_true_when_output_newer_than_inputs()
+- [[graphify_tests_test_reflect_test_lessons_fresh_false_when_memory_newer]] — code: test_lessons_fresh_false_when_memory_newer()
+- [[graphify_tests_test_reflect_test_lessons_fresh_false_when_graph_newer]] — code: test_lessons_fresh_false_when_graph_newer()
+- [[graphify_tests_test_reflect_test_lessons_fresh_false_when_graph_sidecar_newer]] — code: test_lessons_fresh_false_when_graph_sidecar_newer()
+- [[graphify_tests_test_reflect_test_cli_reflect_if_stale_skips_when_fresh]] — code: test_cli_reflect_if_stale_skips_when_fresh()
+- [[graphify_tests_test_reflect_test_cli_reflect_if_stale_reruns_when_labels_newer]] — code: test_cli_reflect_if_stale_reruns_when_labels_newer()
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_dedupe_by_question]] — code: test_dead_ends_and_corrections_dedupe_by_question()
+- [[graphify_tests_test_reflect_overlay_graph]] — code: _overlay_graph()
+- [[graphify_tests_test_reflect_overlay_corpus]] — code: _overlay_corpus()
+- [[graphify_tests_test_reflect_test_sidecar_write_classifies_and_keys_by_canonical_id]] — code: test_sidecar_write_classifies_and_keys_by_canonical_id()
+- [[graphify_tests_test_reflect_test_sidecar_is_byte_identical_across_runs]] — code: test_sidecar_is_byte_identical_across_runs()
+- [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]] — code: test_loader_marks_entry_stale_when_source_file_changes()
+- [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]] — code: test_relative_source_file_not_spuriously_stale_in_graphify_out_layout()
+- [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]] — code: test_relative_source_file_resolved_via_graphify_root_marker()
+- [[graphify_tests_test_reflect_test_flat_layout_does_not_match_same_named_file_one_dir_up]] — code: test_flat_layout_does_not_match_same_named_file_one_dir_up()
+- [[graphify_tests_test_reflect_test_provenance_capped_to_five_most_recent]] — code: test_provenance_capped_to_five_most_recent()
+- [[graphify_tests_test_reflect_test_ambiguous_or_unresolved_citation_is_skipped]] — code: test_ambiguous_or_unresolved_citation_is_skipped()
+- [[graphify_tests_test_reflect_rationale_1]] — code: Tests for `graphify reflect` and the work-memory reflection layer.  `graphify
+- [[graphify_tests_test_reflect_rationale_54]] — code: parse_memory_doc reads back exactly what save_query_result wrote, including
+- [[graphify_tests_test_reflect_rationale_70]] — code: A plain markdown file with no frontmatter is skipped, not crashed on.
+- [[graphify_tests_test_reflect_rationale_76]] — code: save -> parse preserves tricky characters in the question, the correction,
+- [[graphify_tests_test_reflect_rationale_116]] — code: Write a memory doc with a controlled date so ordering is deterministic to assert
+- [[graphify_tests_test_reflect_rationale_128]] — code: Determinism hinges on this sort: docs come back oldest-first, filename as tiebre
+- [[graphify_tests_test_reflect_rationale_164]] — code: Corroboration (k>=2) + sign decide the bucket, not raw frequency:     A is usef
+- [[graphify_tests_test_reflect_rationale_184]] — code: One save can't mint a 'preferred' lesson; a second distinct result promotes it.
+- [[graphify_tests_test_reflect_rationale_196]] — code: A fresh dead_end outweighs a stale useful (30d half-life), so the contested
+- [[graphify_tests_test_reflect_rationale_212]] — code: A cited node no longer in the graph is dropped from lessons entirely.
+- [[graphify_tests_test_reflect_rationale_221]] — code: A node cited twice *within one doc* counts as ONE corroborating result, so it
+- [[graphify_tests_test_reflect_rationale_230]] — code: Two distinct useful results -> preferred at k=2, but only tentative at k=3.
+- [[graphify_tests_test_reflect_rationale_239]] — code: Two stale useful + one fresh dead_end: a long half-life (≈no decay) lets the 2
+- [[graphify_tests_test_reflect_rationale_254]] — code: A same-date useful + dead_end on one node cancel to score 0 -> 'evenly split'.
+- [[graphify_tests_test_reflect_rationale_263]] — code: half_life<=0 turns decay off (full weight), so a stale useful and a fresh     d
+- [[graphify_tests_test_reflect_rationale_272]] — code: A node seen only in dead_end docs never appears as a source bucket entry, but
+- [[graphify_tests_test_reflect_rationale_292]] — code: dead_ends/corrections are appended in doc order, so their determinism rides on
+- [[graphify_tests_test_reflect_rationale_307]] — code: A doc whose source nodes split evenly across communities lands in the     lexic
+- [[graphify_tests_test_reflect_rationale_363]] — code: Topic headers render alphabetically, with Uncategorized always last.
+- [[graphify_tests_test_reflect_rationale_372]] — code: The headline guarantee: identical memory/ contents + same `now` -> byte-identica
+- [[graphify_tests_test_reflect_rationale_383]] — code: A mixed-signal node appears in a single Contested line, not silently in both
+- [[graphify_tests_test_reflect_rationale_395]] — code: The header nudges verification, not blind reuse.
+- [[graphify_tests_test_reflect_rationale_402]] — code: Regression guard: the LESSONS.md output must never be re-ingested as a memory
+- [[graphify_tests_test_reflect_rationale_434]] — code: The issue's worked example: session 1 records a win and a dead end; session 2
+- [[graphify_tests_test_reflect_rationale_474]] — code: argparse `choices` rejects an unknown outcome before save_query_result runs.
+- [[graphify_tests_test_reflect_rationale_482]] — code: --answer-file lets callers pass a long/multiline answer via a file instead
+- [[graphify_tests_test_reflect_rationale_496]] — code: Neither --answer nor --answer-file -> clean argparse error, not a crash.
+- [[graphify_tests_test_reflect_rationale_503]] — code: First run with no graphify-out/memory/ still succeeds and writes a valid doc.
+- [[graphify_tests_test_reflect_rationale_523]] — code: With a real graph.json present, reflect auto-detects it and groups lessons
+- [[graphify_tests_test_reflect_rationale_542]] — code: Through reflect()/CLI with a real graph.json: a cited node that isn't in the
+- [[graphify_tests_test_reflect_rationale_561]] — code: Build a minimal graph.json + analysis/labels in tmp_path/graphify-out/.      M
+- [[graphify_tests_test_reflect_rationale_648]] — code: `reflect --if-stale` skips the rebuild when LESSONS.md is already current,
+- [[graphify_tests_test_reflect_rationale_674]] — code: A label refresh changes LESSONS.md topic headings, so --if-stale must rebuild.
+- [[graphify_tests_test_reflect_rationale_701]] — code: Saving the same Q&A more than once must not duplicate lines in the dead-ends
+- [[graphify_tests_test_reflect_rationale_731]] — code: Write a minimal graph.json under ``out`` with the given node dicts.
+- [[graphify_tests_test_reflect_rationale_739]] — code: A corpus with: a PREFERRED node (2 useful), a TENTATIVE node (1 useful),     a
+- [[graphify_tests_test_reflect_rationale_756]] — code: reflect with a graph writes .graphify_learning.json next to graph.json with
+- [[graphify_tests_test_reflect_rationale_796]] — code: Two reflect runs on identical input + fixed `now` produce a byte-identical
+- [[graphify_tests_test_reflect_rationale_818]] — code: load_learning_overlay recomputes the file fingerprint: unchanged source =>
+- [[graphify_tests_test_reflect_rationale_841]] — code: Regression: with a RELATIVE source_file and graph.json under graphify-out/,
+- [[graphify_tests_test_reflect_rationale_867]] — code: When a committed .graphify_root marker records the project root (e.g. a     GRA
+- [[graphify_tests_test_reflect_rationale_887]] — code: In a flat layout (graph.json at the project root), the resolver must use the
+- [[graphify_tests_test_reflect_rationale_917]] — code: A node cited by >5 useful results keeps exactly the 5 most-recent in     proven
+- [[graphify_tests_test_reflect_rationale_940]] — code: A label shared by >1 node id (ambiguous) or absent from the graph     (unresolv
+
+## Dependências
+
+- [[graphify_tests_test_reflect_days_before]] → `calls` → [[timedelta]]
+- [[graphify_tests_test_reflect_make_graph]] → `calls` → [[graphify_graphify_export_to_json]]
+- [[graphify_tests_test_reflect]] → `imports_from` → [[graphify_graphify_ingest]]
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] → `calls` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_tests_test_reflect_test_load_memory_docs_skips_foreign_and_sorts]] → `calls` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_tests_test_reflect_test_parse_round_trips_a_saved_doc]] → `calls` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_tests_test_reflect_test_reflect_writes_lessons_file]] → `calls` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_tests_test_reflect_test_round_trip_survives_backslash_newline_and_quoted_node]] → `calls` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_tests_test_reflect_test_second_session_benefits_from_the_first]] → `calls` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_tests_test_reflect]] → `imports_from` → [[graphify_graphify_reflect]]
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] → `calls` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_tests_test_reflect_test_parse_handles_crlf]] → `calls` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_tests_test_reflect_test_parse_returns_none_for_foreign_doc]] → `calls` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_tests_test_reflect_test_parse_round_trips_a_saved_doc]] → `calls` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_tests_test_reflect_test_round_trip_survives_backslash_newline_and_quoted_node]] → `calls` → [[graphify_graphify_reflect_parse_memory_doc]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_follow_doc_order]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_tests_test_reflect_test_load_memory_docs_missing_dir_is_empty]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_tests_test_reflect_test_load_memory_docs_orders_by_date_then_filename]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_tests_test_reflect_test_load_memory_docs_skips_foreign_and_sorts]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]] → `calls` → [[graphify_graphify_reflect_load_memory_docs]]
+- [[graphify_tests_test_reflect_test_aggregate_counts_each_outcome]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_community_grouping_uses_plurality_community]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_contested_node_renders_once_under_contested]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_corroboration_counts_distinct_docs_not_citations]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_corroboration_threshold_promotes_only_repeated_nodes]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_collected]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_dedupe_by_question]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_follow_doc_order]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_doc_community_tie_breaks_to_smallest_label]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_half_life_actually_feeds_decay]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_header_is_cautious]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_min_corroboration_is_honored_not_hardcoded]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_negative_only_node_absent_from_sources]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_no_community_grouping_without_graph]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_node_existence_gate_drops_stale_nodes]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_nonpositive_half_life_disables_decay]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_recency_decides_contested_verdict]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_render_empty_memory_is_graceful]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_render_has_summary_and_sections]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_render_includes_by_topic_when_graph_present]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_render_is_deterministic]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_sources_split_into_preferred_tentative_contested]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_topic_sections_alpha_with_uncategorized_last]] → `calls` → [[graphify_graphify_reflect_aggregate_lessons]]
+- [[graphify_tests_test_reflect_test_contested_node_renders_once_under_contested]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_header_is_cautious]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_render_empty_memory_is_graceful]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_render_has_summary_and_sections]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_render_includes_by_topic_when_graph_present]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_render_is_deterministic]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_topic_sections_alpha_with_uncategorized_last]] → `calls` → [[graphify_graphify_reflect_render_lessons_md]]
+- [[graphify_tests_test_reflect_test_lessons_fresh_false_when_graph_newer]] → `calls` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_tests_test_reflect_test_lessons_fresh_false_when_graph_sidecar_newer]] → `calls` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_tests_test_reflect_test_lessons_fresh_false_when_memory_newer]] → `calls` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_tests_test_reflect_test_lessons_fresh_missing_output_is_not_fresh]] → `calls` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_tests_test_reflect_test_lessons_fresh_true_when_output_newer_than_inputs]] → `calls` → [[graphify_graphify_reflect_lessons_fresh]]
+- [[graphify_tests_test_reflect_test_ambiguous_or_unresolved_citation_is_skipped]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_flat_layout_does_not_match_same_named_file_one_dir_up]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_provenance_capped_to_five_most_recent]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_reflect_writes_lessons_file]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_second_session_benefits_from_the_first]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_sidecar_is_byte_identical_across_runs]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_sidecar_write_classifies_and_keys_by_canonical_id]] → `calls` → [[graphify_graphify_reflect_reflect]]
+- [[graphify_tests_test_reflect_test_flat_layout_does_not_match_same_named_file_one_dir_up]] → `calls` → [[graphify_graphify_reflect_load_learning_overlay]]
+- [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]] → `calls` → [[graphify_graphify_reflect_load_learning_overlay]]
+- [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]] → `calls` → [[graphify_graphify_reflect_load_learning_overlay]]
+- [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]] → `calls` → [[graphify_graphify_reflect_load_learning_overlay]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_days_before]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_make_graph]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_overlay_corpus]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_aggregate_counts_each_outcome]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_ambiguous_or_unresolved_citation_is_skipped]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_node_existence_gate_drops_stale_node_end_to_end]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_reflect_cold_start_writes_empty_lessons]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_reflect_end_to_end]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_reflect_groups_by_community_when_graph_present]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_reflect_if_stale_reruns_when_labels_newer]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_reflect_if_stale_skips_when_fresh]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_reflect_respects_out_flag]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_save_result_reads_answer_from_file]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_save_result_rejects_bad_outcome]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_cli_save_result_requires_answer_or_answer_file]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_community_grouping_uses_plurality_community]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_contested_node_renders_once_under_contested]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_corroboration_counts_distinct_docs_not_citations]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_corroboration_threshold_promotes_only_repeated_nodes]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_dead_ends_and_corrections_collected]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_dead_ends_and_corrections_dedupe_by_question]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_dead_ends_and_corrections_follow_doc_order]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_doc_community_tie_breaks_to_smallest_label]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_flat_layout_does_not_match_same_named_file_one_dir_up]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_half_life_actually_feeds_decay]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_header_is_cautious]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_lessons_fresh_false_when_graph_newer]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_lessons_fresh_false_when_graph_sidecar_newer]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_lessons_fresh_false_when_memory_newer]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_lessons_fresh_missing_output_is_not_fresh]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_lessons_fresh_true_when_output_newer_than_inputs]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_load_memory_docs_missing_dir_is_empty]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_load_memory_docs_orders_by_date_then_filename]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_load_memory_docs_skips_foreign_and_sorts]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_min_corroboration_is_honored_not_hardcoded]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_negative_only_node_absent_from_sources]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_no_community_grouping_without_graph]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_node_existence_gate_drops_stale_nodes]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_nonpositive_half_life_disables_decay]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_parse_handles_crlf]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_parse_returns_none_for_foreign_doc]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_parse_round_trips_a_saved_doc]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_provenance_capped_to_five_most_recent]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_recency_decides_contested_verdict]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_reflect_writes_lessons_file]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_render_empty_memory_is_graceful]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_render_has_summary_and_sections]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_render_includes_by_topic_when_graph_present]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_render_is_deterministic]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_round_trip_survives_backslash_newline_and_quoted_node]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_second_session_benefits_from_the_first]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_sidecar_is_byte_identical_across_runs]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_sidecar_write_classifies_and_keys_by_canonical_id]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_sources_split_into_preferred_tentative_contested]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_test_topic_sections_alpha_with_uncategorized_last]]
+- [[graphify_tests_test_reflect]] → `contains` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_rationale_1]] → `rationale_for` → [[graphify_tests_test_reflect]]
+- [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]] → `calls` → [[graphify_tests_test_reflect_days_before]]
+- [[graphify_tests_test_reflect_test_half_life_actually_feeds_decay]] → `calls` → [[graphify_tests_test_reflect_days_before]]
+- [[graphify_tests_test_reflect_test_nonpositive_half_life_disables_decay]] → `calls` → [[graphify_tests_test_reflect_days_before]]
+- [[graphify_tests_test_reflect_test_recency_decides_contested_verdict]] → `calls` → [[graphify_tests_test_reflect_days_before]]
+- [[graphify_tests_test_reflect_run]] → `references` → [[graphify_tests_test_reflect_py_completedprocess]]
+- [[graphify_tests_test_reflect_run]] → `references` → [[graphify_tests_test_reflect_py_path]]
+- [[graphify_tests_test_reflect_test_cli_node_existence_gate_drops_stale_node_end_to_end]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_reflect_cold_start_writes_empty_lessons]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_reflect_end_to_end]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_reflect_groups_by_community_when_graph_present]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_reflect_if_stale_reruns_when_labels_newer]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_reflect_if_stale_skips_when_fresh]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_reflect_respects_out_flag]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_save_result_reads_answer_from_file]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_save_result_rejects_bad_outcome]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_test_cli_save_result_requires_answer_or_answer_file]] → `calls` → [[graphify_tests_test_reflect_run]]
+- [[graphify_tests_test_reflect_make_graph]] → `references` → [[graphify_tests_test_reflect_py_path]]
+- [[graphify_tests_test_reflect_overlay_corpus]] → `references` → [[graphify_tests_test_reflect_py_path]]
+- [[graphify_tests_test_reflect_overlay_graph]] → `references` → [[graphify_tests_test_reflect_py_path]]
+- [[graphify_tests_test_reflect_write_raw_doc]] → `references` → [[graphify_tests_test_reflect_py_path]]
+- [[graphify_tests_test_reflect_rationale_54]] → `rationale_for` → [[graphify_tests_test_reflect_test_parse_round_trips_a_saved_doc]]
+- [[graphify_tests_test_reflect_rationale_70]] → `rationale_for` → [[graphify_tests_test_reflect_test_parse_returns_none_for_foreign_doc]]
+- [[graphify_tests_test_reflect_rationale_76]] → `rationale_for` → [[graphify_tests_test_reflect_test_round_trip_survives_backslash_newline_and_quoted_node]]
+- [[graphify_tests_test_reflect_overlay_corpus]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_rationale_116]] → `rationale_for` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_ambiguous_or_unresolved_citation_is_skipped]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_follow_doc_order]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_flat_layout_does_not_match_same_named_file_one_dir_up]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_load_memory_docs_orders_by_date_then_filename]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_provenance_capped_to_five_most_recent]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_test_sidecar_is_byte_identical_across_runs]] → `calls` → [[graphify_tests_test_reflect_write_raw_doc]]
+- [[graphify_tests_test_reflect_rationale_128]] → `rationale_for` → [[graphify_tests_test_reflect_test_load_memory_docs_orders_by_date_then_filename]]
+- [[graphify_tests_test_reflect_test_aggregate_counts_each_outcome]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_community_grouping_uses_plurality_community]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_contested_node_renders_once_under_contested]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_corroboration_counts_distinct_docs_not_citations]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_corroboration_threshold_promotes_only_repeated_nodes]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_collected]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_dead_ends_and_corrections_dedupe_by_question]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_doc_community_tie_breaks_to_smallest_label]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_half_life_actually_feeds_decay]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_header_is_cautious]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_min_corroboration_is_honored_not_hardcoded]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_negative_only_node_absent_from_sources]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_no_community_grouping_without_graph]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_node_existence_gate_drops_stale_nodes]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_nonpositive_half_life_disables_decay]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_recency_decides_contested_verdict]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_render_has_summary_and_sections]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_render_includes_by_topic_when_graph_present]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_render_is_deterministic]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_sources_split_into_preferred_tentative_contested]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_test_topic_sections_alpha_with_uncategorized_last]] → `calls` → [[graphify_tests_test_reflect_doc]]
+- [[graphify_tests_test_reflect_rationale_164]] → `rationale_for` → [[graphify_tests_test_reflect_test_sources_split_into_preferred_tentative_contested]]
+- [[graphify_tests_test_reflect_rationale_184]] → `rationale_for` → [[graphify_tests_test_reflect_test_corroboration_threshold_promotes_only_repeated_nodes]]
+- [[graphify_tests_test_reflect_rationale_196]] → `rationale_for` → [[graphify_tests_test_reflect_test_recency_decides_contested_verdict]]
+- [[graphify_tests_test_reflect_rationale_212]] → `rationale_for` → [[graphify_tests_test_reflect_test_node_existence_gate_drops_stale_nodes]]
+- [[graphify_tests_test_reflect_rationale_221]] → `rationale_for` → [[graphify_tests_test_reflect_test_corroboration_counts_distinct_docs_not_citations]]
+- [[graphify_tests_test_reflect_rationale_230]] → `rationale_for` → [[graphify_tests_test_reflect_test_min_corroboration_is_honored_not_hardcoded]]
+- [[graphify_tests_test_reflect_rationale_239]] → `rationale_for` → [[graphify_tests_test_reflect_test_half_life_actually_feeds_decay]]
+- [[graphify_tests_test_reflect_rationale_254]] → `rationale_for` → [[graphify_tests_test_reflect_test_evenly_split_verdict_when_signals_cancel]]
+- [[graphify_tests_test_reflect_rationale_263]] → `rationale_for` → [[graphify_tests_test_reflect_test_nonpositive_half_life_disables_decay]]
+- [[graphify_tests_test_reflect_rationale_272]] → `rationale_for` → [[graphify_tests_test_reflect_test_negative_only_node_absent_from_sources]]
+- [[graphify_tests_test_reflect_rationale_292]] → `rationale_for` → [[graphify_tests_test_reflect_test_dead_ends_and_corrections_follow_doc_order]]
+- [[graphify_tests_test_reflect_rationale_307]] → `rationale_for` → [[graphify_tests_test_reflect_test_doc_community_tie_breaks_to_smallest_label]]
+- [[graphify_tests_test_reflect_rationale_363]] → `rationale_for` → [[graphify_tests_test_reflect_test_topic_sections_alpha_with_uncategorized_last]]
+- [[graphify_tests_test_reflect_rationale_372]] → `rationale_for` → [[graphify_tests_test_reflect_test_render_byte_stable_across_independent_aggregations]]
+- [[graphify_tests_test_reflect_rationale_383]] → `rationale_for` → [[graphify_tests_test_reflect_test_contested_node_renders_once_under_contested]]
+- [[graphify_tests_test_reflect_rationale_395]] → `rationale_for` → [[graphify_tests_test_reflect_test_header_is_cautious]]
+- [[graphify_tests_test_reflect_rationale_402]] → `rationale_for` → [[graphify_tests_test_reflect_test_lessons_artifact_cannot_be_globbed_back_into_memory]]
+- [[graphify_tests_test_reflect_rationale_434]] → `rationale_for` → [[graphify_tests_test_reflect_test_second_session_benefits_from_the_first]]
+- [[graphify_tests_test_reflect_rationale_474]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_save_result_rejects_bad_outcome]]
+- [[graphify_tests_test_reflect_rationale_482]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_save_result_reads_answer_from_file]]
+- [[graphify_tests_test_reflect_rationale_496]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_save_result_requires_answer_or_answer_file]]
+- [[graphify_tests_test_reflect_rationale_503]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_reflect_cold_start_writes_empty_lessons]]
+- [[graphify_tests_test_reflect_rationale_523]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_reflect_groups_by_community_when_graph_present]]
+- [[graphify_tests_test_reflect_test_cli_reflect_groups_by_community_when_graph_present]] → `calls` → [[graphify_tests_test_reflect_make_graph]]
+- [[graphify_tests_test_reflect_rationale_542]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_node_existence_gate_drops_stale_node_end_to_end]]
+- [[graphify_tests_test_reflect_test_cli_node_existence_gate_drops_stale_node_end_to_end]] → `calls` → [[graphify_tests_test_reflect_make_graph]]
+- [[graphify_tests_test_reflect_rationale_561]] → `rationale_for` → [[graphify_tests_test_reflect_make_graph]]
+- [[graphify_tests_test_reflect_test_cli_reflect_if_stale_reruns_when_labels_newer]] → `calls` → [[graphify_tests_test_reflect_make_graph]]
+- [[graphify_tests_test_reflect_test_cli_reflect_if_stale_skips_when_fresh]] → `calls` → [[graphify_tests_test_reflect_make_graph]]
+- [[graphify_tests_test_reflect_rationale_648]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_reflect_if_stale_skips_when_fresh]]
+- [[graphify_tests_test_reflect_rationale_674]] → `rationale_for` → [[graphify_tests_test_reflect_test_cli_reflect_if_stale_reruns_when_labels_newer]]
+- [[graphify_tests_test_reflect_rationale_701]] → `rationale_for` → [[graphify_tests_test_reflect_test_dead_ends_and_corrections_dedupe_by_question]]
+- [[graphify_tests_test_reflect_rationale_731]] → `rationale_for` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_ambiguous_or_unresolved_citation_is_skipped]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_provenance_capped_to_five_most_recent]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_sidecar_is_byte_identical_across_runs]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_test_sidecar_write_classifies_and_keys_by_canonical_id]] → `calls` → [[graphify_tests_test_reflect_overlay_graph]]
+- [[graphify_tests_test_reflect_rationale_739]] → `rationale_for` → [[graphify_tests_test_reflect_overlay_corpus]]
+- [[graphify_tests_test_reflect_test_sidecar_write_classifies_and_keys_by_canonical_id]] → `calls` → [[graphify_tests_test_reflect_overlay_corpus]]
+- [[graphify_tests_test_reflect_rationale_756]] → `rationale_for` → [[graphify_tests_test_reflect_test_sidecar_write_classifies_and_keys_by_canonical_id]]
+- [[graphify_tests_test_reflect_rationale_796]] → `rationale_for` → [[graphify_tests_test_reflect_test_sidecar_is_byte_identical_across_runs]]
+- [[graphify_tests_test_reflect_rationale_818]] → `rationale_for` → [[graphify_tests_test_reflect_test_loader_marks_entry_stale_when_source_file_changes]]
+- [[graphify_tests_test_reflect_rationale_841]] → `rationale_for` → [[graphify_tests_test_reflect_test_relative_source_file_not_spuriously_stale_in_graphify_out_layout]]
+- [[graphify_tests_test_reflect_rationale_867]] → `rationale_for` → [[graphify_tests_test_reflect_test_relative_source_file_resolved_via_graphify_root_marker]]
+- [[graphify_tests_test_reflect_rationale_887]] → `rationale_for` → [[graphify_tests_test_reflect_test_flat_layout_does_not_match_same_named_file_one_dir_up]]
+- [[graphify_tests_test_reflect_rationale_917]] → `rationale_for` → [[graphify_tests_test_reflect_test_provenance_capped_to_five_most_recent]]
+- [[graphify_tests_test_reflect_rationale_940]] → `rationale_for` → [[graphify_tests_test_reflect_test_ambiguous_or_unresolved_citation_is_skipped]]

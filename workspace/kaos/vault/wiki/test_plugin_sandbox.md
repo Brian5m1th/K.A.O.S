@@ -1,0 +1,119 @@
+# assistant\tests\unit\test_plugin_sandbox.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_plugin_sandbox]] — code: test_plugin_sandbox.py
+- [[assistant_tests_unit_test_plugin_sandbox_valid_manifest_data]] — code: valid_manifest_data()
+- [[assistant_tests_unit_test_plugin_sandbox_valid_manifest]] — code: valid_manifest()
+- [[assistant_tests_unit_test_plugin_sandbox_wasm_magic_bytes]] — code: wasm_magic_bytes()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] — code: TestPluginManifest
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_create_from_dict_full]] — code: .test_create_from_dict_full()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_create_from_dict_minimal]] — code: .test_create_from_dict_minimal()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_valid]] — code: .test_validate_valid()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_missing_id]] — code: .test_validate_missing_id()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_empty_name]] — code: .test_validate_empty_name()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_empty_version]] — code: .test_validate_empty_version()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_denied_permissions]] — code: .test_validate_denied_permissions()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_allowed_permissions]] — code: .test_validate_allowed_permissions()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_empty_id_rejected]] — code: .test_empty_id_rejected()
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] — code: TestValidateWasmBytes
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_valid_magic_number]] — code: .test_valid_magic_number()
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_invalid_magic_number]] — code: .test_invalid_magic_number()
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_empty_bytes]] — code: .test_empty_bytes()
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_short_bytes]] — code: .test_short_bytes()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] — code: TestPluginSandbox
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_sandbox_init_empty]] — code: .test_sandbox_init_empty()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_plugin_invalid_manifest]] — code: .test_load_plugin_invalid_manifest()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_without_wasmtime_raises]] — code: .test_load_without_wasmtime_raises()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_unloaded_plugin]] — code: .test_execute_unloaded_plugin()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]] — code: .test_execute_function_not_in_whitelist()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_plugin]] — code: .test_unload_plugin()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_nonexistent]] — code: .test_unload_nonexistent()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_clear_all_plugins]] — code: .test_clear_all_plugins()
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_duplicate_plugin_rejected]] — code: .test_duplicate_plugin_rejected()
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_1]] — code: Testes unitarios do Plugin Sandbox (WebAssembly).  Testa validacao de manifest
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_45]] — code: Retorna apenas o magic number do Wasm (\\0asm) para testes de validacao.
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_100]] — code: Permissoes nao proibidas devem passar.
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_157]] — code: Sem wasmtime instalado, deve levantar erro.
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_172]] — code: Funcao nao listada no allowed_functions deve ser rejeitada.
+
+## Dependências
+
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_empty_name]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_empty_version]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_valid]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_duplicate_plugin_rejected]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_without_wasmtime_raises]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_valid_manifest]] → `references` → [[assistant_app_core_plugin_sandbox_pluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_create_from_dict_full]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_create_from_dict_minimal]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_empty_id_rejected]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_allowed_permissions]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_denied_permissions]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_missing_id]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_plugin_invalid_manifest]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_valid_manifest]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginmanifest_from_dict]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginexecutionresult]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `uses` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `uses` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_clear_all_plugins]] → `indirect_call` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_duplicate_plugin_rejected]] → `indirect_call` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]] → `indirect_call` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_plugin]] → `indirect_call` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `uses` → [[assistant_app_core_plugin_sandbox_wasmplugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_clear_all_plugins]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_duplicate_plugin_rejected]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_unloaded_plugin]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_plugin_invalid_manifest]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_without_wasmtime_raises]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_sandbox_init_empty]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_nonexistent]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_plugin]] → `calls` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `uses` → [[assistant_app_core_plugin_sandbox_pluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_empty_bytes]] → `calls` → [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_invalid_magic_number]] → `calls` → [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_short_bytes]] → `calls` → [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_valid_magic_number]] → `calls` → [[assistant_app_core_plugin_sandbox_validate_wasm_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox]] → `contains` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]]
+- [[assistant_tests_unit_test_plugin_sandbox]] → `contains` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox]] → `contains` → [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]]
+- [[assistant_tests_unit_test_plugin_sandbox]] → `contains` → [[assistant_tests_unit_test_plugin_sandbox_valid_manifest]]
+- [[assistant_tests_unit_test_plugin_sandbox]] → `contains` → [[assistant_tests_unit_test_plugin_sandbox_valid_manifest_data]]
+- [[assistant_tests_unit_test_plugin_sandbox]] → `contains` → [[assistant_tests_unit_test_plugin_sandbox_wasm_magic_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_1]] → `rationale_for` → [[assistant_tests_unit_test_plugin_sandbox]]
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_45]] → `rationale_for` → [[assistant_tests_unit_test_plugin_sandbox_wasm_magic_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_create_from_dict_full]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_create_from_dict_minimal]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_empty_id_rejected]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_allowed_permissions]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_denied_permissions]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_empty_name]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_empty_version]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_missing_id]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_valid]]
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_100]] → `rationale_for` → [[assistant_tests_unit_test_plugin_sandbox_testpluginmanifest_test_validate_allowed_permissions]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_empty_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_invalid_magic_number]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_short_bytes]]
+- [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testvalidatewasmbytes_test_valid_magic_number]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_clear_all_plugins]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_duplicate_plugin_rejected]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_unloaded_plugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_plugin_invalid_manifest]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_without_wasmtime_raises]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_sandbox_init_empty]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_nonexistent]]
+- [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox]] → `method` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_unload_plugin]]
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_157]] → `rationale_for` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_load_without_wasmtime_raises]]
+- [[assistant_tests_unit_test_plugin_sandbox_rationale_172]] → `rationale_for` → [[assistant_tests_unit_test_plugin_sandbox_testpluginsandbox_test_execute_function_not_in_whitelist]]

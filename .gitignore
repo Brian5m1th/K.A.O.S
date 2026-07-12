@@ -43,3 +43,16 @@ config/
 data/
 users/
 logs/
+
+# Third-party repositories cloned locally
+airllm/
+graphify/
+
+# Generated graph files
+graphify-out/cache/
+
+# Local config files
+.agents/
+.gemini/
+.opencode/
+.specify/

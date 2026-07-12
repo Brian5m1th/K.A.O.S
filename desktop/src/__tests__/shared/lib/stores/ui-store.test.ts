@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { useUIStore } from "@/shared/lib/stores/ui-store";
+import { useUIStore } from "@/application/stores/ui-store";
 
 describe("UI Store", () => {
   beforeEach(() => { useUIStore.setState({ sidebarCollapsed: false, commandPaletteOpen: false }); });

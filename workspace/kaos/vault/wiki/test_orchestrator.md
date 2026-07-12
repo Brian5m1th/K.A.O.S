@@ -1,0 +1,71 @@
+# assistant\tests\unit\test_orchestrator.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_orchestrator]] — code: test_orchestrator.py
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] — code: TestDeadLetterQueue
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_setup_method]] — code: .setup_method()
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_add_and_list]] — code: .test_add_and_list()
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_clear]] — code: .test_clear()
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_count]] — code: .test_count()
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] — code: TestPlanExecutor
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]] — code: .test_execute_unregistered_workflow_returns_error()
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] — code: TestUniversalOrchestrator
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_chat_workflow]] — code: .test_execute_chat_workflow()
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_memory_workflow]] — code: .test_execute_memory_workflow()
+
+## Dependências
+
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `uses` → [[assistant_app_domain_chat_chatrequest]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `uses` → [[assistant_app_domain_chat_chatrequest]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]] → `calls` → [[assistant_app_domain_chat_chatrequest]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `uses` → [[assistant_app_domain_chat_chatrequest]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_chat_workflow]] → `calls` → [[assistant_app_domain_chat_chatrequest]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_memory_workflow]] → `calls` → [[assistant_app_domain_chat_chatrequest]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `uses` → [[assistant_app_domain_execution_plan_executionplan]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]] → `calls` → [[assistant_app_domain_execution_plan_executionplan_create]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `uses` → [[assistant_app_orchestrator_dead_letter_queue_failedexecution]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_add_and_list]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_failedexecution]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_clear]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_failedexecution]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_count]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_failedexecution]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `uses` → [[assistant_app_orchestrator_dead_letter_queue_failedexecution]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `uses` → [[assistant_app_orchestrator_dead_letter_queue_failedexecution]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `uses` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `uses` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `uses` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_add_and_list]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_add]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_clear]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_add]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_count]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_add]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_add_and_list]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_list_all]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_add_and_list]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_count]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_clear]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_count]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_count]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_count]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_setup_method]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_clear]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_clear]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_clear]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `uses` → [[assistant_app_orchestrator_plan_executor_planexecutor]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `uses` → [[assistant_app_orchestrator_plan_executor_planexecutor]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]] → `calls` → [[assistant_app_orchestrator_plan_executor_planexecutor]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `uses` → [[assistant_app_orchestrator_plan_executor_planexecutor]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `uses` → [[assistant_app_orchestrator_universal_orchestrator_universalorchestrator]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `uses` → [[assistant_app_orchestrator_universal_orchestrator_universalorchestrator]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `uses` → [[assistant_app_orchestrator_universal_orchestrator_universalorchestrator]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_chat_workflow]] → `calls` → [[assistant_app_orchestrator_universal_orchestrator_universalorchestrator]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_memory_workflow]] → `calls` → [[assistant_app_orchestrator_universal_orchestrator_universalorchestrator]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_chat_workflow]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_memory_workflow]] → `calls` → [[assistant_app_providers_register_all_register_all_providers]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]] → `calls` → [[assistant_app_workflows_impl_registry_register_workflows]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_chat_workflow]] → `calls` → [[assistant_app_workflows_impl_registry_register_workflows]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_memory_workflow]] → `calls` → [[assistant_app_workflows_impl_registry_register_workflows]]
+- [[assistant_tests_unit_test_orchestrator]] → `contains` → [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]]
+- [[assistant_tests_unit_test_orchestrator]] → `contains` → [[assistant_tests_unit_test_orchestrator_testplanexecutor]]
+- [[assistant_tests_unit_test_orchestrator]] → `contains` → [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `method` → [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_setup_method]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `method` → [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_add_and_list]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `method` → [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_clear]]
+- [[assistant_tests_unit_test_orchestrator_testdeadletterqueue]] → `method` → [[assistant_tests_unit_test_orchestrator_testdeadletterqueue_test_count]]
+- [[assistant_tests_unit_test_orchestrator_testplanexecutor]] → `method` → [[assistant_tests_unit_test_orchestrator_testplanexecutor_test_execute_unregistered_workflow_returns_error]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `method` → [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_chat_workflow]]
+- [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator]] → `method` → [[assistant_tests_unit_test_orchestrator_testuniversalorchestrator_test_execute_memory_workflow]]

@@ -1,0 +1,42 @@
+# graphify\docs\superpowers\specs\2026-05-04-incremental-updates-dedup-design.md
+
+## Símbolos
+
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design]] — code: 2026-05-04-incremental-updates-dedup-design.md
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] — code: Design: Incremental Updates + Entity Deduplication
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_problem]] — code: Problem
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_pipeline_every_graphify_extract_run]] — code: Pipeline (every `graphify extract` run)
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]] — code: Feature 1: Incremental Updates
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_auto_detection]] — code: Auto-detection
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_incremental_mode_changes]] — code: Incremental mode changes
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_semantic_cache_both_full_and_incremental_mode]] — code: Semantic cache (both full and incremental mode)
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_output_summary]] — code: Output summary
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_files_changed]] — code: Files changed
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]] — code: Feature 2: Entity Deduplication
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_new_module_graphify_dedup_py]] — code: New module: `graphify/dedup.py`
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_pipeline]] — code: Pipeline
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_integration_point]] — code: Integration point
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_new_dependencies]] — code: New dependencies
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_files_changed_111]] — code: Files changed
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_testing]] — code: Testing
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_non_goals]] — code: Non-goals
+
+## Dependências
+
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_non_goals]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_pipeline_every_graphify_extract_run]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_problem]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_design_incremental_updates_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_testing]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_auto_detection]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_files_changed]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_incremental_mode_changes]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_output_summary]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_1_incremental_updates]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_semantic_cache_both_full_and_incremental_mode]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_files_changed_111]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_integration_point]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_new_dependencies]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_new_module_graphify_dedup_py]]
+- [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_feature_2_entity_deduplication]] → `contains` → [[graphify_docs_superpowers_specs_2026_05_04_incremental_updates_dedup_design_pipeline]]

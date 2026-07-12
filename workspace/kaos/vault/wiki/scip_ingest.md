@@ -1,0 +1,76 @@
+# graphify\graphify\scip_ingest.py
+
+## Símbolos
+
+- [[graphify_graphify_scip_ingest]] — code: scip_ingest.py
+- [[graphify_graphify_scip_ingest_ingest_scip_json]] — code: ingest_scip_json()
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] — code: _emit_symbol_node()
+- [[graphify_graphify_scip_ingest_emit_relationships]] — code: _emit_relationships()
+- [[graphify_graphify_scip_ingest_resolve_relationship_target]] — code: _resolve_relationship_target()
+- [[graphify_graphify_scip_ingest_is_true]] — code: _is_true()
+- [[graphify_graphify_scip_ingest_scip_relation_for]] — code: _scip_relation_for()
+- [[graphify_graphify_scip_ingest_first_occurrence_line]] — code: _first_occurrence_line()
+- [[graphify_graphify_scip_ingest_coerce_str]] — code: _coerce_str()
+- [[graphify_graphify_scip_ingest_make_scip_node_id]] — code: _make_scip_node_id()
+- [[graphify_graphify_scip_ingest_scip_kind_to_file_type]] — code: _scip_kind_to_file_type()
+- [[graphify_graphify_scip_ingest_build_scip_metadata]] — code: _build_scip_metadata()
+- [[graphify_graphify_scip_ingest_rationale_1]] — code: scip_ingest.py — SCIP JSON ingestion (simplified subset).  Reads a simplified
+- [[graphify_graphify_scip_ingest_rationale_47]] — code: Convert a SCIP-style JSON document into Graphify nodes and edges.      Paramet
+- [[graphify_graphify_scip_ingest_rationale_137]] — code: Append the canonical node for a SCIP symbol record.
+- [[graphify_graphify_scip_ingest_rationale_178]] — code: Append edges (and stub nodes when needed) for a symbol's relationships.      R
+- [[graphify_graphify_scip_ingest_rationale_257]] — code: Resolve a SCIP relationship target to an emitted node id, or None.      Resolu
+- [[graphify_graphify_scip_ingest_rationale_277]] — code: Return True only when value is exactly the boolean True.      Used for SCIP re
+- [[graphify_graphify_scip_ingest_rationale_286]] — code: Pick the Graphify relation tag for a SCIP relationship dict.      Flags are ac
+- [[graphify_graphify_scip_ingest_rationale_301]] — code: Read the 1-based line number from the first occurrence range, defensively.
+- [[graphify_graphify_scip_ingest_rationale_322]] — code: Return ``value`` if it is a string, else the ``default`` (also a string).
+- [[graphify_graphify_scip_ingest_rationale_331]] — code: Derive a stable Graphify node ID from a SCIP symbol identifier.      Uses SHA-
+- [[graphify_graphify_scip_ingest_rationale_348]] — code: Map SCIP symbol kind to a Graphify file_type.
+- [[graphify_graphify_scip_ingest_rationale_356]] — code: Build metadata for a SCIP node.
+
+## Dependências
+
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_build_scip_metadata]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_coerce_str]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_emit_relationships]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_emit_symbol_node]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_first_occurrence_line]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_is_true]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_resolve_relationship_target]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_scip_kind_to_file_type]]
+- [[graphify_graphify_scip_ingest]] → `contains` → [[graphify_graphify_scip_ingest_scip_relation_for]]
+- [[graphify_graphify_scip_ingest]] → `imports_from` → [[graphify_security]]
+- [[graphify_graphify_scip_ingest_rationale_1]] → `rationale_for` → [[graphify_graphify_scip_ingest]]
+- [[graphify_graphify_scip_ingest_ingest_scip_json]] → `calls` → [[graphify_graphify_scip_ingest_coerce_str]]
+- [[graphify_graphify_scip_ingest_ingest_scip_json]] → `calls` → [[graphify_graphify_scip_ingest_emit_relationships]]
+- [[graphify_graphify_scip_ingest_ingest_scip_json]] → `calls` → [[graphify_graphify_scip_ingest_emit_symbol_node]]
+- [[graphify_graphify_scip_ingest_ingest_scip_json]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_graphify_scip_ingest_ingest_scip_json]] → `references` → [[graphify_graphify_scip_ingest_py_any]]
+- [[graphify_graphify_scip_ingest_rationale_47]] → `rationale_for` → [[graphify_graphify_scip_ingest_ingest_scip_json]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `references` → [[graphify_graphify_scip_ingest_py_any]]
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] → `references` → [[graphify_graphify_scip_ingest_py_any]]
+- [[graphify_graphify_scip_ingest_scip_relation_for]] → `references` → [[graphify_graphify_scip_ingest_py_any]]
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] → `calls` → [[graphify_graphify_scip_ingest_build_scip_metadata]]
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] → `calls` → [[graphify_graphify_scip_ingest_coerce_str]]
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] → `calls` → [[graphify_graphify_scip_ingest_first_occurrence_line]]
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] → `calls` → [[graphify_graphify_scip_ingest_scip_kind_to_file_type]]
+- [[graphify_graphify_scip_ingest_emit_symbol_node]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_graphify_scip_ingest_rationale_137]] → `rationale_for` → [[graphify_graphify_scip_ingest_emit_symbol_node]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_scip_ingest_build_scip_metadata]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_scip_ingest_coerce_str]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_scip_ingest_first_occurrence_line]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_scip_ingest_resolve_relationship_target]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_scip_ingest_scip_relation_for]]
+- [[graphify_graphify_scip_ingest_emit_relationships]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_graphify_scip_ingest_rationale_178]] → `rationale_for` → [[graphify_graphify_scip_ingest_emit_relationships]]
+- [[graphify_graphify_scip_ingest_rationale_257]] → `rationale_for` → [[graphify_graphify_scip_ingest_resolve_relationship_target]]
+- [[graphify_graphify_scip_ingest_rationale_277]] → `rationale_for` → [[graphify_graphify_scip_ingest_is_true]]
+- [[graphify_graphify_scip_ingest_scip_relation_for]] → `calls` → [[graphify_graphify_scip_ingest_is_true]]
+- [[graphify_graphify_scip_ingest_rationale_286]] → `rationale_for` → [[graphify_graphify_scip_ingest_scip_relation_for]]
+- [[graphify_graphify_scip_ingest_rationale_301]] → `rationale_for` → [[graphify_graphify_scip_ingest_first_occurrence_line]]
+- [[graphify_graphify_scip_ingest_rationale_322]] → `rationale_for` → [[graphify_graphify_scip_ingest_coerce_str]]
+- [[graphify_graphify_scip_ingest_rationale_331]] → `rationale_for` → [[graphify_graphify_scip_ingest_make_scip_node_id]]
+- [[graphify_graphify_scip_ingest_rationale_348]] → `rationale_for` → [[graphify_graphify_scip_ingest_scip_kind_to_file_type]]
+- [[graphify_graphify_scip_ingest_rationale_356]] → `rationale_for` → [[graphify_graphify_scip_ingest_build_scip_metadata]]

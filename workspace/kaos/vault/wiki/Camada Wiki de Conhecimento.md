@@ -1,0 +1,108 @@
+# docs\sdd\Camada Wiki de Conhecimento.md
+
+## Símbolos
+
+- [[docs_sdd_camada_wiki_de_conhecimento]] — code: Camada Wiki de Conhecimento.md
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] — code: Camada Wiki de Conhecimento
+- [[docs_sdd_camada_wiki_de_conhecimento_parent]] — code: Parent
+- [[docs_sdd_camada_wiki_de_conhecimento_children]] — code: Children
+- [[docs_sdd_camada_wiki_de_conhecimento_related]] — code: Related
+- [[docs_sdd_camada_wiki_de_conhecimento_tags]] — code: Tags
+- [[docs_sdd_camada_wiki_de_conhecimento_conteudo]] — code: Conteudo
+- [[docs_sdd_camada_wiki_de_conhecimento_source_llm_wiki_pattern_k_a_o_s_sdd_009]] — code: Source: LLM Wiki Pattern + K.A.O.S SDD-009
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] — code: SDD — Knowledge Wiki Layer (LLM Wiki + RAG Híbrido)
+- [[docs_sdd_camada_wiki_de_conhecimento_objetivo]] — code: Objetivo
+- [[docs_sdd_camada_wiki_de_conhecimento_problema_atual]] — code: Problema Atual
+- [[docs_sdd_camada_wiki_de_conhecimento_arquitetura_alvo]] — code: Arquitetura Alvo
+- [[docs_sdd_camada_wiki_de_conhecimento_frontmatter_obrigatório]] — code: Frontmatter Obrigatório
+- [[docs_sdd_camada_wiki_de_conhecimento_agents_md_schema_vivo]] — code: AGENTS.md — Schema Vivo
+- [[docs_sdd_camada_wiki_de_conhecimento_conteúdo_principal]] — code: Conteúdo principal:
+- [[docs_sdd_camada_wiki_de_conhecimento_draft_mode]] — code: Draft Mode
+- [[docs_sdd_camada_wiki_de_conhecimento_fluxo]] — code: Fluxo
+- [[docs_sdd_camada_wiki_de_conhecimento_ferramentas]] — code: Ferramentas
+- [[docs_sdd_camada_wiki_de_conhecimento_ferramentas_wiki]] — code: Ferramentas Wiki
+- [[docs_sdd_camada_wiki_de_conhecimento_escrita]] — code: Escrita
+- [[docs_sdd_camada_wiki_de_conhecimento_draft_mode_206]] — code: Draft Mode
+- [[docs_sdd_camada_wiki_de_conhecimento_manutenção]] — code: Manutenção
+- [[docs_sdd_camada_wiki_de_conhecimento_ingestion_pipeline_langgraph_node]] — code: Ingestion Pipeline (LangGraph Node)
+- [[docs_sdd_camada_wiki_de_conhecimento_fluxo_do_nó_ingest_source]] — code: Fluxo do nó `ingest_source`
+- [[docs_sdd_camada_wiki_de_conhecimento_integração_no_grafo_langgraph]] — code: Integração no Grafo LangGraph
+- [[docs_sdd_camada_wiki_de_conhecimento_query_evolution]] — code: Query Evolution
+- [[docs_sdd_camada_wiki_de_conhecimento_fluxo_atual]] — code: Fluxo Atual
+- [[docs_sdd_camada_wiki_de_conhecimento_novo_fluxo]] — code: Novo Fluxo
+- [[docs_sdd_camada_wiki_de_conhecimento_index_md_catálogo_vivo]] — code: index.md — Catálogo Vivo
+- [[docs_sdd_camada_wiki_de_conhecimento_log_md_timeline_append_only]] — code: log.md — Timeline Append-only
+- [[docs_sdd_camada_wiki_de_conhecimento_wiki_linter]] — code: Wiki Linter
+- [[docs_sdd_camada_wiki_de_conhecimento_verificações]] — code: Verificações
+- [[docs_sdd_camada_wiki_de_conhecimento_periodicidade]] — code: Periodicidade
+- [[docs_sdd_camada_wiki_de_conhecimento_relação_com_outros_componentes]] — code: Relação com Outros Componentes
+- [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]] — code: Critérios de Aceite
+- [[docs_sdd_camada_wiki_de_conhecimento_fase_1_schema_estrutura]] — code: Fase 1 — Schema & Estrutura
+- [[docs_sdd_camada_wiki_de_conhecimento_fase_2_ferramentas_wiki]] — code: Fase 2 — Ferramentas Wiki
+- [[docs_sdd_camada_wiki_de_conhecimento_fase_3_ingestion_pipeline]] — code: Fase 3 — Ingestion Pipeline
+- [[docs_sdd_camada_wiki_de_conhecimento_fase_4_query_evolution]] — code: Fase 4 — Query Evolution
+- [[docs_sdd_camada_wiki_de_conhecimento_fase_5_manutenção]] — code: Fase 5 — Manutenção
+- [[docs_sdd_camada_wiki_de_conhecimento_resumo]] — code: Resumo
+- [[docs_sdd_camada_wiki_de_conhecimento_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_camada_wiki_de_conhecimento_dependencias]] — code: Dependencias
+- [[docs_sdd_camada_wiki_de_conhecimento_fluxos]] — code: Fluxos
+- [[docs_sdd_camada_wiki_de_conhecimento_integracoes]] — code: Integracoes
+- [[docs_sdd_camada_wiki_de_conhecimento_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_camada_wiki_de_conhecimento_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_camada_wiki_de_conhecimento_status]] — code: Status
+- [[docs_sdd_camada_wiki_de_conhecimento_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]]
+- [[docs_sdd_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]]
+- [[docs_sdd_camada_wiki_de_conhecimento]] → `references` → [[docs_sdd_estrutura_da_wiki]]
+- [[docs_sdd_camada_wiki_de_conhecimento]] → `references` → [[docs_sdd_memoria_do_obsidian]]
+- [[docs_sdd_camada_wiki_de_conhecimento]] → `references` → [[docs_sdd_pipeline_de_consulta_da_wiki]]
+- [[docs_sdd_camada_wiki_de_conhecimento]] → `references` → [[docs_sdd_provedor_hibrido_de_llm]]
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_children]]
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_conteudo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_parent]]
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_related]]
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_source_llm_wiki_pattern_k_a_o_s_sdd_009]]
+- [[docs_sdd_camada_wiki_de_conhecimento_camada_wiki_de_conhecimento]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_tags]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_agents_md_schema_vivo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_arquitetura_alvo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_arquivos_relacionados]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_dependencias]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_draft_mode]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_ferramentas_wiki]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fluxos]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_frontmatter_obrigatório]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_index_md_catálogo_vivo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_ingestion_pipeline_langgraph_node]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_integracoes]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_log_md_timeline_append_only]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_objetivo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_problema_atual]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_query_evolution]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_referencias_kirl]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_relação_com_outros_componentes]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_responsabilidades]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_resumo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_status]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_ultima_atualizacao]]
+- [[docs_sdd_camada_wiki_de_conhecimento_sdd_knowledge_wiki_layer_llm_wiki_rag_híbrido]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_wiki_linter]]
+- [[docs_sdd_camada_wiki_de_conhecimento_agents_md_schema_vivo]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_conteúdo_principal]]
+- [[docs_sdd_camada_wiki_de_conhecimento_draft_mode]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_ferramentas]]
+- [[docs_sdd_camada_wiki_de_conhecimento_draft_mode]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fluxo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_ferramentas_wiki]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_draft_mode_206]]
+- [[docs_sdd_camada_wiki_de_conhecimento_ferramentas_wiki]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_escrita]]
+- [[docs_sdd_camada_wiki_de_conhecimento_ferramentas_wiki]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_manutenção]]
+- [[docs_sdd_camada_wiki_de_conhecimento_ingestion_pipeline_langgraph_node]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fluxo_do_nó_ingest_source]]
+- [[docs_sdd_camada_wiki_de_conhecimento_ingestion_pipeline_langgraph_node]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_integração_no_grafo_langgraph]]
+- [[docs_sdd_camada_wiki_de_conhecimento_query_evolution]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fluxo_atual]]
+- [[docs_sdd_camada_wiki_de_conhecimento_query_evolution]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_novo_fluxo]]
+- [[docs_sdd_camada_wiki_de_conhecimento_wiki_linter]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_periodicidade]]
+- [[docs_sdd_camada_wiki_de_conhecimento_wiki_linter]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_verificações]]
+- [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fase_1_schema_estrutura]]
+- [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fase_2_ferramentas_wiki]]
+- [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fase_3_ingestion_pipeline]]
+- [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fase_4_query_evolution]]
+- [[docs_sdd_camada_wiki_de_conhecimento_critérios_de_aceite]] → `contains` → [[docs_sdd_camada_wiki_de_conhecimento_fase_5_manutenção]]

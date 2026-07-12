@@ -1,0 +1,12 @@
+# graphify\tools\skillgen\expected\graphify__skills__vscode__references__github-and-merge.md
+
+## Símbolos
+
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge]] — code: graphify__skills__vscode__references__github-and-merge.md
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge_graphify_reference_github_clone_and_cross_repo_merge]] — code: graphify reference: GitHub clone and cross-repo merge
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge_step_0_clone_github_repo_s_only_if_a_github_url_was_given]] — code: Step 0 - Clone GitHub repo(s) (only if a GitHub URL was given)
+
+## Dependências
+
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge_graphify_reference_github_clone_and_cross_repo_merge]]
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge_graphify_reference_github_clone_and_cross_repo_merge]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_github_and_merge_step_0_clone_github_repo_s_only_if_a_github_url_was_given]]

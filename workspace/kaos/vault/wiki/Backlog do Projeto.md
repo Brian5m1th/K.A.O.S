@@ -1,0 +1,117 @@
+# docs\Projetos\Backlog do Projeto.md
+
+## Símbolos
+
+- [[docs_projetos_backlog_do_projeto]] — code: Backlog do Projeto.md
+- [[docs_projetos_backlog_do_projeto_backlog_do_projeto]] — code: Backlog do Projeto
+- [[docs_projetos_backlog_do_projeto_parent]] — code: Parent
+- [[docs_projetos_backlog_do_projeto_children]] — code: Children
+- [[docs_projetos_backlog_do_projeto_related]] — code: Related
+- [[docs_projetos_backlog_do_projeto_tags]] — code: Tags
+- [[docs_projetos_backlog_do_projeto_conteudo]] — code: Conteudo
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] — code: Backlog — IA Pessoal Offline com Obsidian
+- [[docs_projetos_backlog_do_projeto_visão_geral_de_progresso]] — code: 📊 Visão Geral de Progresso
+- [[docs_projetos_backlog_do_projeto_legenda_de_categorias]] — code: Legenda de Categorias
+- [[docs_projetos_backlog_do_projeto_mapa_de_dependências_entre_fases]] — code: Mapa de Dependências entre Fases
+- [[docs_projetos_backlog_do_projeto_próximas_tarefas_prioritárias]] — code: Próximas Tarefas Prioritárias
+- [[docs_projetos_backlog_do_projeto_fase_1_fundação]] — code: Fase 1 — Fundação ✅
+- [[docs_projetos_backlog_do_projeto_fase_2_ia_local]] — code: Fase 2 — IA Local ✅
+- [[docs_projetos_backlog_do_projeto_fase_3_integração_com_obsidian]] — code: Fase 3 — Integração com Obsidian
+- [[docs_projetos_backlog_do_projeto_configuração]] — code: ⚙️ Configuração
+- [[docs_projetos_backlog_do_projeto_leitura]] — code: 📖 Leitura
+- [[docs_projetos_backlog_do_projeto_escrita]] — code: ✏️ Escrita
+- [[docs_projetos_backlog_do_projeto_busca]] — code: 🔍 Busca
+- [[docs_projetos_backlog_do_projeto_fase_4_organização_do_vault]] — code: Fase 4 — Organização do Vault ✅
+- [[docs_projetos_backlog_do_projeto_fase_5_rag]] — code: Fase 5 — RAG ✅
+- [[docs_projetos_backlog_do_projeto_fase_6_atualização_automática]] — code: Fase 6 — Atualização Automática ✅
+- [[docs_projetos_backlog_do_projeto_fase_7_agente_inteligente]] — code: Fase 7 — Agente Inteligente ✅
+- [[docs_projetos_backlog_do_projeto_fase_8_memória_de_longo_prazo]] — code: Fase 8 — Memória de Longo Prazo ✅
+- [[docs_projetos_backlog_do_projeto_fase_8_user_context_multiusuário]] — code: Fase 8 — User Context & Multiusuário
+- [[docs_projetos_backlog_do_projeto_fase_9_integrações_online]] — code: Fase 9 — Integrações Online
+- [[docs_projetos_backlog_do_projeto_fase_10_produção]] — code: Fase 10 — Produção ✅
+- [[docs_projetos_backlog_do_projeto_fase_11_otimização_de_performance_e_roteamento_inteligente]] — code: Fase 11 — Otimização de Performance e Roteamento Inteligente
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] — code: Fase 12 — Production Readiness ✅ (2026-07-11)
+- [[docs_projetos_backlog_do_projeto_backend]] — code: Backend
+- [[docs_projetos_backlog_do_projeto_frontend_store_cleanup]] — code: Frontend — Store Cleanup
+- [[docs_projetos_backlog_do_projeto_frontend_mock_elimination]] — code: Frontend — Mock Elimination
+- [[docs_projetos_backlog_do_projeto_frontend_architecture]] — code: Frontend — Architecture
+- [[docs_projetos_backlog_do_projeto_infrastructure]] — code: Infrastructure
+- [[docs_projetos_backlog_do_projeto_adrs_architecture_decision_records]] — code: ADRs (Architecture Decision Records)
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] — code: Fase 13 — Production Readiness Audit & Platform Evolution 🔵
+- [[docs_projetos_backlog_do_projeto_story_1_complete_backend_audit]] — code: Story 1 — Complete Backend Audit
+- [[docs_projetos_backlog_do_projeto_story_2_complete_frontend_audit]] — code: Story 2 — Complete Frontend Audit
+- [[docs_projetos_backlog_do_projeto_story_3_integration_audit]] — code: Story 3 — Integration Audit
+- [[docs_projetos_backlog_do_projeto_story_4_feature_enhancement_audit]] — code: Story 4 — Feature Enhancement Audit
+- [[docs_projetos_backlog_do_projeto_story_5_architecture_evolution]] — code: Story 5 — Architecture Evolution
+- [[docs_projetos_backlog_do_projeto_story_6_technical_debt_elimination]] — code: Story 6 — Technical Debt Elimination
+- [[docs_projetos_backlog_do_projeto_story_7_production_readiness_certification]] — code: Story 7 — Production Readiness Certification
+- [[docs_projetos_backlog_do_projeto_divida_tecnica_debt]] — code: Divida Tecnica (DEBT)
+- [[docs_projetos_backlog_do_projeto_ideias_idea]] — code: Ideias (IDEA)
+- [[docs_projetos_backlog_do_projeto_resumo]] — code: Resumo
+- [[docs_projetos_backlog_do_projeto_objetivo]] — code: Objetivo
+- [[docs_projetos_backlog_do_projeto_responsabilidades]] — code: Responsabilidades
+- [[docs_projetos_backlog_do_projeto_dependencias]] — code: Dependencias
+- [[docs_projetos_backlog_do_projeto_fluxos]] — code: Fluxos
+- [[docs_projetos_backlog_do_projeto_integracoes]] — code: Integracoes
+- [[docs_projetos_backlog_do_projeto_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_projetos_backlog_do_projeto_referencias_kirl]] — code: Referencias KIRL
+- [[docs_projetos_backlog_do_projeto_status]] — code: Status
+- [[docs_projetos_backlog_do_projeto_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_projetos_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_backlog_do_projeto]]
+- [[docs_projetos_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]]
+- [[docs_projetos_backlog_do_projeto]] → `references` → [[docs_projetos_informacoes_do_projeto]]
+- [[docs_projetos_backlog_do_projeto_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_children]]
+- [[docs_projetos_backlog_do_projeto_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_conteudo]]
+- [[docs_projetos_backlog_do_projeto_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_parent]]
+- [[docs_projetos_backlog_do_projeto_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_related]]
+- [[docs_projetos_backlog_do_projeto_backlog_do_projeto]] → `contains` → [[docs_projetos_backlog_do_projeto_tags]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_arquivos_relacionados]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_dependencias]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_divida_tecnica_debt]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_10_produção]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_11_otimização_de_performance_e_roteamento_inteligente]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_1_fundação]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_2_ia_local]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_3_integração_com_obsidian]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_4_organização_do_vault]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_5_rag]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_6_atualização_automática]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_7_agente_inteligente]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_8_memória_de_longo_prazo]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_8_user_context_multiusuário]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fase_9_integrações_online]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_fluxos]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_ideias_idea]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_integracoes]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_legenda_de_categorias]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_mapa_de_dependências_entre_fases]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_objetivo]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_próximas_tarefas_prioritárias]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_referencias_kirl]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_responsabilidades]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_resumo]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_status]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_ultima_atualizacao]]
+- [[docs_projetos_backlog_do_projeto_backlog_ia_pessoal_offline_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_visão_geral_de_progresso]]
+- [[docs_projetos_backlog_do_projeto_fase_3_integração_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_busca]]
+- [[docs_projetos_backlog_do_projeto_fase_3_integração_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_configuração]]
+- [[docs_projetos_backlog_do_projeto_fase_3_integração_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_escrita]]
+- [[docs_projetos_backlog_do_projeto_fase_3_integração_com_obsidian]] → `contains` → [[docs_projetos_backlog_do_projeto_leitura]]
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] → `contains` → [[docs_projetos_backlog_do_projeto_adrs_architecture_decision_records]]
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] → `contains` → [[docs_projetos_backlog_do_projeto_backend]]
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] → `contains` → [[docs_projetos_backlog_do_projeto_frontend_architecture]]
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] → `contains` → [[docs_projetos_backlog_do_projeto_frontend_mock_elimination]]
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] → `contains` → [[docs_projetos_backlog_do_projeto_frontend_store_cleanup]]
+- [[docs_projetos_backlog_do_projeto_fase_12_production_readiness_2026_07_11]] → `contains` → [[docs_projetos_backlog_do_projeto_infrastructure]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_1_complete_backend_audit]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_2_complete_frontend_audit]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_3_integration_audit]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_4_feature_enhancement_audit]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_5_architecture_evolution]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_6_technical_debt_elimination]]
+- [[docs_projetos_backlog_do_projeto_fase_13_production_readiness_audit_platform_evolution]] → `contains` → [[docs_projetos_backlog_do_projeto_story_7_production_readiness_certification]]

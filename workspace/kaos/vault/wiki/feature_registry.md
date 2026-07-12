@@ -1,0 +1,71 @@
+# assistant\app\audit\feature_registry.py
+
+## Símbolos
+
+- [[assistant_app_audit_feature_registry]] — code: feature_registry.py
+- [[assistant_app_audit_feature_registry_featureentry]] — code: FeatureEntry
+- [[assistant_app_audit_feature_registry_featureentry_to_dict]] — code: .to_dict()
+- [[assistant_app_audit_feature_registry_featureentry_from_dict]] — code: .from_dict()
+- [[assistant_app_audit_feature_registry_featureregistry]] — code: FeatureRegistry
+- [[assistant_app_audit_feature_registry_featureregistry_register]] — code: .register()
+- [[assistant_app_audit_feature_registry_featureregistry_register_many]] — code: .register_many()
+- [[assistant_app_audit_feature_registry_featureregistry_get]] — code: .get()
+- [[assistant_app_audit_feature_registry_featureregistry_get_by_name]] — code: .get_by_name()
+- [[assistant_app_audit_feature_registry_featureregistry_list]] — code: .list()
+- [[assistant_app_audit_feature_registry_featureregistry_list_by_phase]] — code: .list_by_phase()
+- [[assistant_app_audit_feature_registry_featureregistry_list_by_status]] — code: .list_by_status()
+- [[assistant_app_audit_feature_registry_featureregistry_unregister]] — code: .unregister()
+- [[assistant_app_audit_feature_registry_featureregistry_update_status]] — code: .update_status()
+- [[assistant_app_audit_feature_registry_featureregistry_update_last_commit]] — code: .update_last_commit()
+- [[assistant_app_audit_feature_registry_featureregistry_add_doc_ref]] — code: .add_doc_ref()
+- [[assistant_app_audit_feature_registry_featureregistry_add_code_ref]] — code: .add_code_ref()
+- [[assistant_app_audit_feature_registry_featureregistry_search]] — code: .search()
+- [[assistant_app_audit_feature_registry_featureregistry_export_json]] — code: .export_json()
+- [[assistant_app_audit_feature_registry_featureregistry_persist]] — code: ._persist()
+- [[assistant_app_audit_feature_registry_featureregistry_load_from_json]] — code: .load_from_json()
+- [[assistant_app_audit_feature_registry_featureregistry_clear]] — code: .clear()
+
+## Dependências
+
+- [[assistant_app_audit_feature_registry]] → `contains` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry]] → `contains` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_audit_feature_registry_featureentry]] → `method` → [[assistant_app_audit_feature_registry_featureentry_from_dict]]
+- [[assistant_app_audit_feature_registry_featureentry]] → `method` → [[assistant_app_audit_feature_registry_featureentry_to_dict]]
+- [[assistant_app_audit_feature_registry_featureregistry_get]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_get_by_name]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_list]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_list_by_phase]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_list_by_status]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_register]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_register_many]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_search]] → `references` → [[assistant_app_audit_feature_registry_featureentry]]
+- [[assistant_app_audit_feature_registry_featureregistry_export_json]] → `calls` → [[assistant_app_audit_feature_registry_featureentry_to_dict]]
+- [[assistant_app_audit_feature_registry_featureentry_from_dict]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_app_audit_feature_registry_featureregistry_load_from_json]] → `calls` → [[assistant_app_audit_feature_registry_featureentry_from_dict]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_add_code_ref]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_add_doc_ref]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_clear]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_export_json]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_get_by_name]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_list]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_list_by_phase]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_list_by_status]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_load_from_json]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_register_many]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_search]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_unregister]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_update_last_commit]]
+- [[assistant_app_audit_feature_registry_featureregistry]] → `method` → [[assistant_app_audit_feature_registry_featureregistry_update_status]]
+- [[assistant_app_audit_feature_registry_featureregistry_register]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry_register_many]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_register]]
+- [[assistant_app_audit_feature_registry_featureregistry_load_from_json]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_get]]
+- [[assistant_app_audit_feature_registry_featureregistry_unregister]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry_update_status]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry_update_last_commit]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry_add_doc_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry_add_code_ref]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]
+- [[assistant_app_audit_feature_registry_featureregistry_persist]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_export_json]]
+- [[assistant_app_audit_feature_registry_featureregistry_clear]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_persist]]

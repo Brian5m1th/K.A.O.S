@@ -1,0 +1,109 @@
+# graphify\graphify\symbol_resolution.py
+
+## Símbolos
+
+- [[graphify_graphify_symbol_resolution]] — code: symbol_resolution.py
+- [[graphify_graphify_symbol_resolution_importedsymbol]] — code: ImportedSymbol
+- [[graphify_graphify_symbol_resolution_normalise_callable_label]] — code: normalise_callable_label()
+- [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]] — code: node_is_resolvable_symbol()
+- [[graphify_graphify_symbol_resolution_build_label_index]] — code: build_label_index()
+- [[graphify_graphify_symbol_resolution_existing_edge_pairs]] — code: existing_edge_pairs()
+- [[graphify_graphify_symbol_resolution_iter_raw_calls]] — code: iter_raw_calls()
+- [[graphify_graphify_symbol_resolution_module_stem]] — code: _module_stem()
+- [[graphify_graphify_symbol_resolution_parse_python_import_aliases]] — code: parse_python_import_aliases()
+- [[graphify_graphify_symbol_resolution_node_source_stem]] — code: _node_source_stem()
+- [[graphify_graphify_symbol_resolution_build_python_symbol_index]] — code: build_python_symbol_index()
+- [[graphify_graphify_symbol_resolution_find_unique_python_symbol]] — code: find_unique_python_symbol()
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] — code: resolve_python_import_guided_calls()
+- [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]] — code: resolve_cross_file_raw_calls()
+- [[graphify_graphify_symbol_resolution_bash_make_id]] — code: _bash_make_id()
+- [[graphify_graphify_symbol_resolution_file_node_id_for_path]] — code: _file_node_id_for_path()
+- [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]] — code: resolve_bash_source_edges()
+- [[graphify_graphify_symbol_resolution_rationale_1]] — code: Deterministic symbol indexing and conservative cross-file resolution helpers.
+- [[graphify_graphify_symbol_resolution_rationale_21]] — code: A Python imported name that can be used as deterministic resolution evidence.
+- [[graphify_graphify_symbol_resolution_rationale_31]] — code: Normalize a node label into the key used for call resolution.
+- [[graphify_graphify_symbol_resolution_rationale_37]] — code: Return True when a node is suitable for deterministic symbol lookup.      Requ
+- [[graphify_graphify_symbol_resolution_rationale_58]] — code: Build label -> node id list for conservative cross-file resolution.
+- [[graphify_graphify_symbol_resolution_rationale_75]] — code: Return all existing source/target/relation edge triples.      Includes relatio
+- [[graphify_graphify_symbol_resolution_rationale_92]] — code: Return raw calls from all per-file extraction fragments.      Parameter is ``S
+- [[graphify_graphify_symbol_resolution_rationale_116]] — code: Return the final module component used to match Graphify source stems.
+- [[graphify_graphify_symbol_resolution_rationale_124]] — code: Parse deterministic Python import aliases from one source file.      Supported
+- [[graphify_graphify_symbol_resolution_rationale_173]] — code: Return the stem of a node's source file.
+- [[graphify_graphify_symbol_resolution_rationale_182]] — code: Build ``(module_stem, normalized_symbol_name) -> node_ids``.      This index i
+- [[graphify_graphify_symbol_resolution_rationale_210]] — code: Resolve one imported symbol to exactly one Graphify node id.
+- [[graphify_graphify_symbol_resolution_rationale_224]] — code: Resolve raw Python calls using explicit import evidence.      Only ``from modu
+- [[graphify_graphify_symbol_resolution_rationale_312]] — code: Resolve unqualified raw calls conservatively after all files are known.      T
+- [[graphify_graphify_symbol_resolution_rationale_381]] — code: Bash symbol node ID via the single shared recipe (#1378).      Previously an i
+- [[graphify_graphify_symbol_resolution_rationale_410]] — code: Resolve Bash source/import edges and source-backed function calls.      Defens
+
+## Dependências
+
+- [[graphify_graphify_symbol_resolution]] → `imports_from` → [[graphify_graphify_ids]]
+- [[graphify_graphify_symbol_resolution]] → `imports_from` → [[graphify_graphify_paths]]
+- [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]] → `calls` → [[graphify_graphify_paths_disambiguate_ambiguous_candidates]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `calls` → [[graphify_graphify_security_sanitize_metadata]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_bash_make_id]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_build_label_index]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_build_python_symbol_index]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_existing_edge_pairs]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_file_node_id_for_path]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_find_unique_python_symbol]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_importedsymbol]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_iter_raw_calls]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_module_stem]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_node_source_stem]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_normalise_callable_label]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_graphify_symbol_resolution]] → `contains` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_graphify_symbol_resolution]] → `imports_from` → [[graphify_security]]
+- [[graphify_graphify_symbol_resolution_rationale_1]] → `rationale_for` → [[graphify_graphify_symbol_resolution]]
+- [[graphify_graphify_symbol_resolution_find_unique_python_symbol]] → `references` → [[graphify_graphify_symbol_resolution_importedsymbol]]
+- [[graphify_graphify_symbol_resolution_parse_python_import_aliases]] → `references` → [[graphify_graphify_symbol_resolution_importedsymbol]]
+- [[graphify_graphify_symbol_resolution_rationale_21]] → `rationale_for` → [[graphify_graphify_symbol_resolution_importedsymbol]]
+- [[graphify_graphify_symbol_resolution_build_label_index]] → `calls` → [[graphify_graphify_symbol_resolution_normalise_callable_label]]
+- [[graphify_graphify_symbol_resolution_build_python_symbol_index]] → `calls` → [[graphify_graphify_symbol_resolution_normalise_callable_label]]
+- [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]] → `calls` → [[graphify_graphify_symbol_resolution_normalise_callable_label]]
+- [[graphify_graphify_symbol_resolution_rationale_31]] → `rationale_for` → [[graphify_graphify_symbol_resolution_normalise_callable_label]]
+- [[graphify_graphify_symbol_resolution_build_label_index]] → `calls` → [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]]
+- [[graphify_graphify_symbol_resolution_build_python_symbol_index]] → `calls` → [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]]
+- [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_rationale_37]] → `rationale_for` → [[graphify_graphify_symbol_resolution_node_is_resolvable_symbol]]
+- [[graphify_graphify_symbol_resolution_build_label_index]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_build_python_symbol_index]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_existing_edge_pairs]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_iter_raw_calls]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_node_source_stem]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `references` → [[graphify_graphify_symbol_resolution_py_any]]
+- [[graphify_graphify_symbol_resolution_rationale_58]] → `rationale_for` → [[graphify_graphify_symbol_resolution_build_label_index]]
+- [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_build_label_index]]
+- [[graphify_graphify_symbol_resolution_rationale_75]] → `rationale_for` → [[graphify_graphify_symbol_resolution_existing_edge_pairs]]
+- [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]] → `calls` → [[graphify_graphify_symbol_resolution_existing_edge_pairs]]
+- [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_existing_edge_pairs]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `calls` → [[graphify_graphify_symbol_resolution_existing_edge_pairs]]
+- [[graphify_graphify_symbol_resolution_rationale_92]] → `rationale_for` → [[graphify_graphify_symbol_resolution_iter_raw_calls]]
+- [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]] → `calls` → [[graphify_graphify_symbol_resolution_iter_raw_calls]]
+- [[graphify_graphify_symbol_resolution_parse_python_import_aliases]] → `calls` → [[graphify_graphify_symbol_resolution_module_stem]]
+- [[graphify_graphify_symbol_resolution_rationale_116]] → `rationale_for` → [[graphify_graphify_symbol_resolution_module_stem]]
+- [[graphify_graphify_symbol_resolution_parse_python_import_aliases]] → `references` → [[graphify_graphify_symbol_resolution_py_path]]
+- [[graphify_graphify_symbol_resolution_rationale_124]] → `rationale_for` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `calls` → [[graphify_graphify_symbol_resolution_parse_python_import_aliases]]
+- [[graphify_graphify_symbol_resolution_file_node_id_for_path]] → `references` → [[graphify_graphify_symbol_resolution_py_path]]
+- [[graphify_graphify_symbol_resolution_node_source_stem]] → `calls` → [[graphify_graphify_symbol_resolution_py_path]]
+- [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]] → `references` → [[graphify_graphify_symbol_resolution_py_path]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `references` → [[graphify_graphify_symbol_resolution_py_path]]
+- [[graphify_graphify_symbol_resolution_build_python_symbol_index]] → `calls` → [[graphify_graphify_symbol_resolution_node_source_stem]]
+- [[graphify_graphify_symbol_resolution_rationale_173]] → `rationale_for` → [[graphify_graphify_symbol_resolution_node_source_stem]]
+- [[graphify_graphify_symbol_resolution_rationale_182]] → `rationale_for` → [[graphify_graphify_symbol_resolution_build_python_symbol_index]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `calls` → [[graphify_graphify_symbol_resolution_build_python_symbol_index]]
+- [[graphify_graphify_symbol_resolution_rationale_210]] → `rationale_for` → [[graphify_graphify_symbol_resolution_find_unique_python_symbol]]
+- [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]] → `calls` → [[graphify_graphify_symbol_resolution_find_unique_python_symbol]]
+- [[graphify_graphify_symbol_resolution_rationale_224]] → `rationale_for` → [[graphify_graphify_symbol_resolution_resolve_python_import_guided_calls]]
+- [[graphify_graphify_symbol_resolution_rationale_312]] → `rationale_for` → [[graphify_graphify_symbol_resolution_resolve_cross_file_raw_calls]]
+- [[graphify_graphify_symbol_resolution_file_node_id_for_path]] → `calls` → [[graphify_graphify_symbol_resolution_bash_make_id]]
+- [[graphify_graphify_symbol_resolution_rationale_381]] → `rationale_for` → [[graphify_graphify_symbol_resolution_bash_make_id]]
+- [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]] → `calls` → [[graphify_graphify_symbol_resolution_file_node_id_for_path]]
+- [[graphify_graphify_symbol_resolution_rationale_410]] → `rationale_for` → [[graphify_graphify_symbol_resolution_resolve_bash_source_edges]]

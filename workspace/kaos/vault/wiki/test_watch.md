@@ -1,0 +1,274 @@
+# graphify\tests\test_watch.py
+
+## Símbolos
+
+- [[graphify_tests_test_watch]] — code: test_watch.py
+- [[graphify_tests_test_watch_test_notify_only_creates_flag]] — code: test_notify_only_creates_flag()
+- [[graphify_tests_test_watch_test_notify_only_creates_flag_dir]] — code: test_notify_only_creates_flag_dir()
+- [[graphify_tests_test_watch_test_notify_only_idempotent]] — code: test_notify_only_idempotent()
+- [[graphify_tests_test_watch_test_watched_extensions_includes_code]] — code: test_watched_extensions_includes_code()
+- [[graphify_tests_test_watch_test_watched_extensions_includes_docs]] — code: test_watched_extensions_includes_docs()
+- [[graphify_tests_test_watch_test_watched_extensions_includes_images]] — code: test_watched_extensions_includes_images()
+- [[graphify_tests_test_watch_test_watched_extensions_excludes_noise]] — code: test_watched_extensions_excludes_noise()
+- [[graphify_tests_test_watch_test_check_update_no_flag_returns_true]] — code: test_check_update_no_flag_returns_true()
+- [[graphify_tests_test_watch_test_check_update_with_flag_returns_true_and_prints]] — code: test_check_update_with_flag_returns_true_and_prints()
+- [[graphify_tests_test_watch_test_check_update_does_not_clear_flag]] — code: test_check_update_does_not_clear_flag()
+- [[graphify_tests_test_watch_test_watch_raises_without_watchdog]] — code: test_watch_raises_without_watchdog()
+- [[graphify_tests_test_watch_test_rebuild_lock_writes_pid_with_newline]] — code: test_rebuild_lock_writes_pid_with_newline()
+- [[graphify_tests_test_watch_test_rebuild_lock_removed_after_release]] — code: test_rebuild_lock_removed_after_release()
+- [[graphify_tests_test_watch_test_rebuild_lock_does_not_accumulate_pids_across_runs]] — code: test_rebuild_lock_does_not_accumulate_pids_across_runs()
+- [[graphify_tests_test_watch_test_graphify_root_preserves_relative_when_invoked_with_relative_path]] — code: test_graphify_root_preserves_relative_when_invoked_with_relative_path()
+- [[graphify_tests_test_watch_test_graphify_root_preserves_absolute_when_user_supplied]] — code: test_graphify_root_preserves_absolute_when_user_supplied()
+- [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_without_repo_root_returns_false]] — code: test_rebuild_code_deleted_cwd_without_repo_root_returns_false()
+- [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_uses_graphify_repo_root]] — code: test_rebuild_code_deleted_cwd_uses_graphify_repo_root()
+- [[graphify_tests_test_watch_test_rebuild_code_evicts_nodes_from_deleted_files]] — code: test_rebuild_code_evicts_nodes_from_deleted_files()
+- [[graphify_tests_test_watch_add_unrelated_semantic_pair]] — code: _add_unrelated_semantic_pair()
+- [[graphify_tests_test_watch_test_rebuild_code_preserves_hyperedges_for_rebuilt_surviving_source]] — code: test_rebuild_code_preserves_hyperedges_for_rebuilt_surviving_source()
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_final_deleted_file]] — code: test_rebuild_code_prunes_final_deleted_file()
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_source_not_listed_by_hook]] — code: test_rebuild_code_prunes_renamed_source_not_listed_by_hook()
+- [[graphify_tests_test_watch_test_rebuild_code_normalizes_preserved_source_paths]] — code: test_rebuild_code_normalizes_preserved_source_paths()
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_ast_backed_document]] — code: test_rebuild_code_prunes_renamed_ast_backed_document()
+- [[graphify_tests_test_watch_test_rebuild_code_evicts_removed_symbol_from_surviving_file]] — code: test_rebuild_code_evicts_removed_symbol_from_surviving_file()
+- [[graphify_tests_test_watch_test_rebuild_code_preupgrade_marker_less_node_one_cycle_lag]] — code: test_rebuild_code_preupgrade_marker_less_node_one_cycle_lag()
+- [[graphify_tests_test_watch_test_rebuild_lock_non_blocking_does_not_clobber_holder]] — code: test_rebuild_lock_non_blocking_does_not_clobber_holder()
+- [[graphify_tests_test_watch_test_rebuild_code_is_idempotent_when_cluster_ids_flap]] — code: test_rebuild_code_is_idempotent_when_cluster_ids_flap()
+- [[graphify_tests_test_watch_test_rebuild_code_skips_cluster_when_topology_unchanged]] — code: test_rebuild_code_skips_cluster_when_topology_unchanged()
+- [[graphify_tests_test_watch_watchdog_available]] — code: _watchdog_available()
+- [[graphify_tests_test_watch_test_watch_handler_honors_graphifyignore]] — code: test_watch_handler_honors_graphifyignore()
+- [[graphify_tests_test_watch_test_watch_loads_graphifyignore_once]] — code: test_watch_loads_graphifyignore_once()
+- [[graphify_tests_test_watch_shrink_payload]] — code: _shrink_payload()
+- [[graphify_tests_test_watch_test_check_shrink_blocks_silent_shrink]] — code: test_check_shrink_blocks_silent_shrink()
+- [[graphify_tests_test_watch_test_check_shrink_allows_force_override]] — code: test_check_shrink_allows_force_override()
+- [[graphify_tests_test_watch_test_check_shrink_allows_explicit_deletions]] — code: test_check_shrink_allows_explicit_deletions()
+- [[graphify_tests_test_watch_test_check_shrink_allows_no_existing_data]] — code: test_check_shrink_allows_no_existing_data()
+- [[graphify_tests_test_watch_test_check_shrink_allows_shrink_within_rebuilt_sources]] — code: test_check_shrink_allows_shrink_within_rebuilt_sources()
+- [[graphify_tests_test_watch_test_check_shrink_blocks_shrink_outside_rebuilt_sources]] — code: test_check_shrink_blocks_shrink_outside_rebuilt_sources()
+- [[graphify_tests_test_watch_test_check_shrink_allows_growth]] — code: test_check_shrink_allows_growth()
+- [[graphify_tests_test_watch_test_check_shrink_unlinks_tmp_on_refuse]] — code: test_check_shrink_unlinks_tmp_on_refuse()
+- [[graphify_tests_test_watch_test_check_shrink_keeps_tmp_when_deletions_declared]] — code: test_check_shrink_keeps_tmp_when_deletions_declared()
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_deleted_file_nodes]] — code: test_rebuild_code_prunes_deleted_file_nodes()
+- [[graphify_tests_test_watch_test_rebuild_code_accepts_repo_relative_changed_path_for_subdir_root]] — code: test_rebuild_code_accepts_repo_relative_changed_path_for_subdir_root()
+- [[graphify_tests_test_watch_test_rebuild_code_subdir_preserves_outside_ast_nodes]] — code: test_rebuild_code_subdir_preserves_outside_ast_nodes()
+- [[graphify_tests_test_watch_test_rebuild_code_subdir_survives_absolute_to_relative_invocation]] — code: test_rebuild_code_subdir_survives_absolute_to_relative_invocation()
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_legacy_watch_relative_subdir_source]] — code: test_rebuild_code_prunes_legacy_watch_relative_subdir_source()
+- [[graphify_tests_test_watch_test_rebuild_code_does_not_update_root_marker_when_write_is_refused]] — code: test_rebuild_code_does_not_update_root_marker_when_write_is_refused()
+- [[graphify_tests_test_watch_test_rebuild_code_incremental_rename_preserves_symlink_source_path]] — code: test_rebuild_code_incremental_rename_preserves_symlink_source_path()
+- [[graphify_tests_test_watch_test_queue_and_drain_pending_round_trip]] — code: test_queue_and_drain_pending_round_trip()
+- [[graphify_tests_test_watch_test_drain_pending_dedupes_and_skips_blank_lines]] — code: test_drain_pending_dedupes_and_skips_blank_lines()
+- [[graphify_tests_test_watch_test_queue_pending_noop_on_empty_list]] — code: test_queue_pending_noop_on_empty_list()
+- [[graphify_tests_test_watch_test_rebuild_code_queues_on_lock_contention]] — code: test_rebuild_code_queues_on_lock_contention()
+- [[graphify_tests_test_watch_test_rebuild_code_merges_pending_on_acquire]] — code: test_rebuild_code_merges_pending_on_acquire()
+- [[graphify_tests_test_watch_test_rebuild_code_drains_late_arrivals]] — code: test_rebuild_code_drains_late_arrivals()
+- [[graphify_tests_test_watch_test_rebuild_code_full_corpus_skips_pending_queue]] — code: test_rebuild_code_full_corpus_skips_pending_queue()
+- [[graphify_tests_test_watch_test_merge_changed_paths_dedupes_in_order]] — code: test_merge_changed_paths_dedupes_in_order()
+- [[graphify_tests_test_watch_rationale_1]] — code: Tests for watch.py - file watcher helpers (no watchdog required).
+- [[graphify_tests_test_watch_rationale_62]] — code: check_update returns True and is silent when needs_update flag is absent.
+- [[graphify_tests_test_watch_rationale_68]] — code: check_update returns True and prints notification when flag exists.
+- [[graphify_tests_test_watch_rationale_80]] — code: check_update never removes the needs_update flag (clearing is LLM's job).
+- [[graphify_tests_test_watch_rationale_121]] — code: GH-858: lock file must be unlinked once the rebuild completes so     downstream
+- [[graphify_tests_test_watch_rationale_132]] — code: GH-858: each acquisition truncates and rewrites the PID line rather     than ap
+- [[graphify_tests_test_watch_rationale_145]] — code: #777: ``.graphify_root`` stores the user-supplied path (``.``), not the     res
+- [[graphify_tests_test_watch_rationale_164]] — code: When the caller supplies an absolute path, ``.graphify_root`` stores     that a
+- [[graphify_tests_test_watch_rationale_180]] — code: Detached hooks can inherit a CWD that no longer exists.      Without GRAPHIFY_
+- [[graphify_tests_test_watch_rationale_204]] — code: GRAPHIFY_REPO_ROOT lets detached hook rebuilds recover from a deleted CWD.
+- [[graphify_tests_test_watch_rationale_230]] — code: #1007: graphify update (_rebuild_code with no changed_paths) must remove     no
+- [[graphify_tests_test_watch_rationale_287]] — code: #1755: AST-only updates must not drop semantic hyperedges whose members survive.
+- [[graphify_tests_test_watch_rationale_336]] — code: Deleting the final code file must reconcile the existing graph.
+- [[graphify_tests_test_watch_rationale_383]] — code: A hook-style rename list may contain only the destination path.
+- [[graphify_tests_test_watch_rationale_416]] — code: An incremental rebuild must not treat ./foo.py as a deleted live source.
+- [[graphify_tests_test_watch_rationale_447]] — code: Destination-only rename reconciliation also covers AST-backed docs.
+- [[graphify_tests_test_watch_rationale_473]] — code: #1116: graphify update (_rebuild_code with no changed_paths) must prune a     s
+- [[graphify_tests_test_watch_rationale_543]] — code: #1118 backward-compat: a graph.json built before #1116 has no `_origin`     mar
+- [[graphify_tests_test_watch_rationale_603]] — code: GH-858: a non-blocking caller that fails to acquire the lock must not     trunc
+- [[graphify_tests_test_watch_rationale_685]] — code: gh-928: the watch Handler must short-circuit paths matching     .graphifyignore
+- [[graphify_tests_test_watch_rationale_731]] — code: gh-928: .graphifyignore must be parsed exactly once at watch() startup,     not
+- [[graphify_tests_test_watch_rationale_768]] — code: Build a minimal graph-data dict with *n* placeholder nodes.
+- [[graphify_tests_test_watch_rationale_773]] — code: Default case: smaller new graph + no force + no declared deletions = refuse.
+- [[graphify_tests_test_watch_rationale_786]] — code: force=True bypasses the guard regardless of node delta.
+- [[graphify_tests_test_watch_rationale_796]] — code: Caller declared deletions → shrink is expected → guard skipped silently.
+- [[graphify_tests_test_watch_rationale_809]] — code: First-run case: no existing graph → guard inert.
+- [[graphify_tests_test_watch_rationale_819]] — code: #1116: a symbol removed from a re-extracted file is a legitimate shrink —     e
+- [[graphify_tests_test_watch_rationale_836]] — code: The guard's real job is intact: a node lost from a file we did NOT re-extract
+- [[graphify_tests_test_watch_rationale_849]] — code: new > existing is always fine.
+- [[graphify_tests_test_watch_rationale_859]] — code: When refusing, the temp graph file gets cleaned up so it can't leak across runs.
+- [[graphify_tests_test_watch_rationale_873]] — code: Mirror of the above: if the caller declared deletions, the tmp file is NOT unlin
+- [[graphify_tests_test_watch_rationale_894]] — code: End-to-end probe of the post-commit-delete bug fix.      Build a tiny graph, d
+- [[graphify_tests_test_watch_rationale_953]] — code: #1348: git-hook paths are repo-root-relative even when the graph root is a subdi
+- [[graphify_tests_test_watch_rationale_992]] — code: A full rebuild of a subdirectory must not prune graph data outside it.
+- [[graphify_tests_test_watch_rationale_1055]] — code: Persisted source paths keep their meaning when invocation style changes.
+- [[graphify_tests_test_watch_rationale_1094]] — code: Pre-rebase subdirectory graphs stored source_file relative to watch_root.
+- [[graphify_tests_test_watch_rationale_1131]] — code: A rejected candidate keeps the marker paired with the existing graph.
+- [[graphify_tests_test_watch_rationale_1158]] — code: Changed files under followed symlinks retain their watched lexical path.
+- [[graphify_tests_test_watch_rationale_1209]] — code: _queue_pending writes one path per line; _drain_pending reads + unlinks     and
+- [[graphify_tests_test_watch_rationale_1232]] — code: Repeated appends across concurrent contenders must dedupe; partial     writes l
+- [[graphify_tests_test_watch_rationale_1248]] — code: Empty change set must not create an empty .pending_changes file.
+- [[graphify_tests_test_watch_rationale_1258]] — code: #1059: when the rebuild lock is held, an incremental hook must queue     its ch
+- [[graphify_tests_test_watch_rationale_1293]] — code: #1059: the process that acquires the lock must drain .pending_changes     and p
+- [[graphify_tests_test_watch_rationale_1333]] — code: #1059: after the primary rebuild, the lock-holder must loop and drain     any p
+- [[graphify_tests_test_watch_rationale_1370]] — code: #1059: changed_paths=None means a full-corpus rebuild — the queue     must not
+- [[graphify_tests_test_watch_rationale_1403]] — code: _merge_changed_paths preserves first-seen order and drops dupes.
+
+## Dependências
+
+- [[graphify_tests_test_watch]] → `imports_from` → [[graphify_graphify_watch]]
+- [[graphify_tests_test_watch_test_drain_pending_dedupes_and_skips_blank_lines]] → `calls` → [[graphify_graphify_watch_queue_pending]]
+- [[graphify_tests_test_watch_test_queue_and_drain_pending_round_trip]] → `calls` → [[graphify_graphify_watch_queue_pending]]
+- [[graphify_tests_test_watch_test_queue_pending_noop_on_empty_list]] → `calls` → [[graphify_graphify_watch_queue_pending]]
+- [[graphify_tests_test_watch_test_drain_pending_dedupes_and_skips_blank_lines]] → `calls` → [[graphify_graphify_watch_drain_pending]]
+- [[graphify_tests_test_watch_test_queue_and_drain_pending_round_trip]] → `calls` → [[graphify_graphify_watch_drain_pending]]
+- [[graphify_tests_test_watch_test_merge_changed_paths_dedupes_in_order]] → `calls` → [[graphify_graphify_watch_merge_changed_paths]]
+- [[graphify_tests_test_watch_test_rebuild_code_queues_on_lock_contention]] → `calls` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_tests_test_watch_test_rebuild_lock_does_not_accumulate_pids_across_runs]] → `calls` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_tests_test_watch_test_rebuild_lock_non_blocking_does_not_clobber_holder]] → `calls` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_tests_test_watch_test_rebuild_lock_removed_after_release]] → `calls` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_tests_test_watch_test_rebuild_lock_writes_pid_with_newline]] → `calls` → [[graphify_graphify_watch_rebuild_lock]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_explicit_deletions]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_force_override]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_growth]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_no_existing_data]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_shrink_within_rebuilt_sources]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_blocks_shrink_outside_rebuilt_sources]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_blocks_silent_shrink]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_keeps_tmp_when_deletions_declared]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_check_shrink_unlinks_tmp_on_refuse]] → `calls` → [[graphify_graphify_watch_check_shrink]]
+- [[graphify_tests_test_watch_test_graphify_root_preserves_absolute_when_user_supplied]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_graphify_root_preserves_relative_when_invoked_with_relative_path]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_accepts_repo_relative_changed_path_for_subdir_root]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_uses_graphify_repo_root]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_without_repo_root_returns_false]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_evicts_nodes_from_deleted_files]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_evicts_removed_symbol_from_surviving_file]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_incremental_rename_preserves_symlink_source_path]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_is_idempotent_when_cluster_ids_flap]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_normalizes_preserved_source_paths]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_preserves_hyperedges_for_rebuilt_surviving_source]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_preupgrade_marker_less_node_one_cycle_lag]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_deleted_file_nodes]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_final_deleted_file]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_legacy_watch_relative_subdir_source]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_ast_backed_document]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_source_not_listed_by_hook]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_queues_on_lock_contention]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_skips_cluster_when_topology_unchanged]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_subdir_preserves_outside_ast_nodes]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_rebuild_code_subdir_survives_absolute_to_relative_invocation]] → `calls` → [[graphify_graphify_watch_rebuild_code]]
+- [[graphify_tests_test_watch_test_check_update_does_not_clear_flag]] → `calls` → [[graphify_graphify_watch_check_update]]
+- [[graphify_tests_test_watch_test_check_update_no_flag_returns_true]] → `calls` → [[graphify_graphify_watch_check_update]]
+- [[graphify_tests_test_watch_test_check_update_with_flag_returns_true_and_prints]] → `calls` → [[graphify_graphify_watch_check_update]]
+- [[graphify_tests_test_watch_test_notify_only_creates_flag]] → `calls` → [[graphify_graphify_watch_notify_only]]
+- [[graphify_tests_test_watch_test_notify_only_creates_flag_dir]] → `calls` → [[graphify_graphify_watch_notify_only]]
+- [[graphify_tests_test_watch_test_notify_only_idempotent]] → `calls` → [[graphify_graphify_watch_notify_only]]
+- [[graphify_tests_test_watch_test_watch_raises_without_watchdog]] → `calls` → [[graphify_graphify_watch_watch]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_add_unrelated_semantic_pair]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_allows_explicit_deletions]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_allows_force_override]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_allows_growth]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_allows_no_existing_data]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_allows_shrink_within_rebuilt_sources]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_blocks_shrink_outside_rebuilt_sources]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_blocks_silent_shrink]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_keeps_tmp_when_deletions_declared]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_shrink_unlinks_tmp_on_refuse]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_update_does_not_clear_flag]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_update_no_flag_returns_true]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_check_update_with_flag_returns_true_and_prints]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_drain_pending_dedupes_and_skips_blank_lines]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_graphify_root_preserves_absolute_when_user_supplied]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_graphify_root_preserves_relative_when_invoked_with_relative_path]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_merge_changed_paths_dedupes_in_order]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_notify_only_creates_flag]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_notify_only_creates_flag_dir]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_notify_only_idempotent]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_queue_and_drain_pending_round_trip]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_queue_pending_noop_on_empty_list]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_accepts_repo_relative_changed_path_for_subdir_root]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_uses_graphify_repo_root]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_without_repo_root_returns_false]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_does_not_update_root_marker_when_write_is_refused]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_drains_late_arrivals]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_evicts_nodes_from_deleted_files]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_evicts_removed_symbol_from_surviving_file]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_full_corpus_skips_pending_queue]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_incremental_rename_preserves_symlink_source_path]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_is_idempotent_when_cluster_ids_flap]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_merges_pending_on_acquire]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_normalizes_preserved_source_paths]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_preserves_hyperedges_for_rebuilt_surviving_source]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_preupgrade_marker_less_node_one_cycle_lag]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_prunes_deleted_file_nodes]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_prunes_final_deleted_file]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_prunes_legacy_watch_relative_subdir_source]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_ast_backed_document]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_source_not_listed_by_hook]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_queues_on_lock_contention]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_skips_cluster_when_topology_unchanged]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_subdir_preserves_outside_ast_nodes]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_code_subdir_survives_absolute_to_relative_invocation]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_lock_does_not_accumulate_pids_across_runs]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_lock_non_blocking_does_not_clobber_holder]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_lock_removed_after_release]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_rebuild_lock_writes_pid_with_newline]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watch_handler_honors_graphifyignore]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watch_loads_graphifyignore_once]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watch_raises_without_watchdog]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watched_extensions_excludes_noise]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watched_extensions_includes_code]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watched_extensions_includes_docs]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_test_watched_extensions_includes_images]]
+- [[graphify_tests_test_watch]] → `contains` → [[graphify_tests_test_watch_watchdog_available]]
+- [[graphify_tests_test_watch_rationale_1]] → `rationale_for` → [[graphify_tests_test_watch]]
+- [[graphify_tests_test_watch_rationale_62]] → `rationale_for` → [[graphify_tests_test_watch_test_check_update_no_flag_returns_true]]
+- [[graphify_tests_test_watch_rationale_68]] → `rationale_for` → [[graphify_tests_test_watch_test_check_update_with_flag_returns_true_and_prints]]
+- [[graphify_tests_test_watch_rationale_80]] → `rationale_for` → [[graphify_tests_test_watch_test_check_update_does_not_clear_flag]]
+- [[graphify_tests_test_watch_rationale_121]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_lock_removed_after_release]]
+- [[graphify_tests_test_watch_rationale_132]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_lock_does_not_accumulate_pids_across_runs]]
+- [[graphify_tests_test_watch_rationale_145]] → `rationale_for` → [[graphify_tests_test_watch_test_graphify_root_preserves_relative_when_invoked_with_relative_path]]
+- [[graphify_tests_test_watch_rationale_164]] → `rationale_for` → [[graphify_tests_test_watch_test_graphify_root_preserves_absolute_when_user_supplied]]
+- [[graphify_tests_test_watch_rationale_180]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_without_repo_root_returns_false]]
+- [[graphify_tests_test_watch_rationale_204]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_deleted_cwd_uses_graphify_repo_root]]
+- [[graphify_tests_test_watch_rationale_230]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_evicts_nodes_from_deleted_files]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_final_deleted_file]] → `calls` → [[graphify_tests_test_watch_add_unrelated_semantic_pair]]
+- [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_source_not_listed_by_hook]] → `calls` → [[graphify_tests_test_watch_add_unrelated_semantic_pair]]
+- [[graphify_tests_test_watch_rationale_287]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_preserves_hyperedges_for_rebuilt_surviving_source]]
+- [[graphify_tests_test_watch_rationale_336]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_prunes_final_deleted_file]]
+- [[graphify_tests_test_watch_rationale_383]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_source_not_listed_by_hook]]
+- [[graphify_tests_test_watch_rationale_416]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_normalizes_preserved_source_paths]]
+- [[graphify_tests_test_watch_rationale_447]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_prunes_renamed_ast_backed_document]]
+- [[graphify_tests_test_watch_rationale_473]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_evicts_removed_symbol_from_surviving_file]]
+- [[graphify_tests_test_watch_rationale_543]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_preupgrade_marker_less_node_one_cycle_lag]]
+- [[graphify_tests_test_watch_rationale_603]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_lock_non_blocking_does_not_clobber_holder]]
+- [[graphify_tests_test_watch_rationale_685]] → `rationale_for` → [[graphify_tests_test_watch_test_watch_handler_honors_graphifyignore]]
+- [[graphify_tests_test_watch_rationale_731]] → `rationale_for` → [[graphify_tests_test_watch_test_watch_loads_graphifyignore_once]]
+- [[graphify_tests_test_watch_rationale_768]] → `rationale_for` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_explicit_deletions]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_force_override]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_growth]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_allows_no_existing_data]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_blocks_silent_shrink]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_keeps_tmp_when_deletions_declared]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_test_check_shrink_unlinks_tmp_on_refuse]] → `calls` → [[graphify_tests_test_watch_shrink_payload]]
+- [[graphify_tests_test_watch_rationale_773]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_blocks_silent_shrink]]
+- [[graphify_tests_test_watch_rationale_786]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_allows_force_override]]
+- [[graphify_tests_test_watch_rationale_796]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_allows_explicit_deletions]]
+- [[graphify_tests_test_watch_rationale_809]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_allows_no_existing_data]]
+- [[graphify_tests_test_watch_rationale_819]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_allows_shrink_within_rebuilt_sources]]
+- [[graphify_tests_test_watch_rationale_836]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_blocks_shrink_outside_rebuilt_sources]]
+- [[graphify_tests_test_watch_rationale_849]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_allows_growth]]
+- [[graphify_tests_test_watch_rationale_859]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_unlinks_tmp_on_refuse]]
+- [[graphify_tests_test_watch_rationale_873]] → `rationale_for` → [[graphify_tests_test_watch_test_check_shrink_keeps_tmp_when_deletions_declared]]
+- [[graphify_tests_test_watch_rationale_894]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_prunes_deleted_file_nodes]]
+- [[graphify_tests_test_watch_rationale_953]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_accepts_repo_relative_changed_path_for_subdir_root]]
+- [[graphify_tests_test_watch_rationale_992]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_subdir_preserves_outside_ast_nodes]]
+- [[graphify_tests_test_watch_rationale_1055]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_subdir_survives_absolute_to_relative_invocation]]
+- [[graphify_tests_test_watch_rationale_1094]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_prunes_legacy_watch_relative_subdir_source]]
+- [[graphify_tests_test_watch_rationale_1131]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_does_not_update_root_marker_when_write_is_refused]]
+- [[graphify_tests_test_watch_rationale_1158]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_incremental_rename_preserves_symlink_source_path]]
+- [[graphify_tests_test_watch_rationale_1209]] → `rationale_for` → [[graphify_tests_test_watch_test_queue_and_drain_pending_round_trip]]
+- [[graphify_tests_test_watch_rationale_1232]] → `rationale_for` → [[graphify_tests_test_watch_test_drain_pending_dedupes_and_skips_blank_lines]]
+- [[graphify_tests_test_watch_rationale_1248]] → `rationale_for` → [[graphify_tests_test_watch_test_queue_pending_noop_on_empty_list]]
+- [[graphify_tests_test_watch_rationale_1258]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_queues_on_lock_contention]]
+- [[graphify_tests_test_watch_rationale_1293]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_merges_pending_on_acquire]]
+- [[graphify_tests_test_watch_rationale_1333]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_drains_late_arrivals]]
+- [[graphify_tests_test_watch_rationale_1370]] → `rationale_for` → [[graphify_tests_test_watch_test_rebuild_code_full_corpus_skips_pending_queue]]
+- [[graphify_tests_test_watch_rationale_1403]] → `rationale_for` → [[graphify_tests_test_watch_test_merge_changed_paths_dedupes_in_order]]

@@ -1,0 +1,86 @@
+# assistant\tests\integration\test_obsidian_e2e.py
+
+## Símbolos
+
+- [[assistant_tests_integration_test_obsidian_e2e]] — code: test_obsidian_e2e.py
+- [[assistant_tests_integration_test_obsidian_e2e_vault]] — code: vault()
+- [[assistant_tests_integration_test_obsidian_e2e_svc]] — code: svc()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] — code: TestNoteCreationE2E
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_full_roundtrip_create_read]] — code: .test_full_roundtrip_create_read()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_with_frontmatter]] — code: .test_create_note_with_frontmatter()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_utf8_special_chars]] — code: .test_create_note_utf8_special_chars()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_and_list_consistency]] — code: .test_create_and_list_consistency()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_update_read_cycle]] — code: .test_create_update_read_cycle()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_delete_confirm_removed]] — code: .test_create_delete_confirm_removed()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_multiple_folders_deep_path]] — code: .test_create_multiple_folders_deep_path()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_note_content_roundtrip_markdown_structure]] — code: .test_note_content_roundtrip_markdown_structure()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_large_content_preservation]] — code: .test_large_content_preservation()
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_timestamp_accuracy]] — code: .test_timestamp_accuracy()
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_1]] — code: Testes de integracao E2E para validacao de notas geradas pelo Python no Obsidian
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_21]] — code: Cria um vault temporario e configura o settings.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_30]] — code: Retorna uma instancia do ObsidianService apontando para o vault temp.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_40]] — code: Validacao completa do ciclo de vida de notas criadas pelo Python.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_45]] — code: Cria uma nota via Python e verifica que pode ser lida de volta com         cont
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_72]] — code: Valida que notas com frontmatter YAML sao preservadas.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_94]] — code: Valida que caracteres UTF-8 especiais (acentos, emoji, simbolos)         sao pr
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_114]] — code: Apos criar notas, a listagem deve retorna-las.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_125]] — code: Cria nota, atualiza, le de volta e verifica conteudo modificado.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_140]] — code: Cria nota, deleta, e confirma que foi removida do disco e do servico.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_154]] — code: Cria nota em subpasta aninhada e valida resolucao de caminho.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_168]] — code: Valida que a estrutura Markdown complexa e preservada.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_204]] — code: Valida que notas com conteudo grande (>10KB) sao preservadas.
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_218]] — code: Verifica que o timestamp do arquivo e razoavel.
+
+## Dependências
+
+- [[assistant_tests_integration_test_obsidian_e2e_svc]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `uses` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_and_list_consistency]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_delete_confirm_removed]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_multiple_folders_deep_path]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_utf8_special_chars]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_with_frontmatter]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_update_read_cycle]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_full_roundtrip_create_read]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_large_content_preservation]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_note_content_roundtrip_markdown_structure]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_timestamp_accuracy]] → `references` → [[assistant_app_obsidian_services_obsidian_service_obsidianservice]]
+- [[assistant_tests_integration_test_obsidian_e2e]] → `contains` → [[assistant_tests_integration_test_obsidian_e2e_svc]]
+- [[assistant_tests_integration_test_obsidian_e2e]] → `contains` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]]
+- [[assistant_tests_integration_test_obsidian_e2e]] → `contains` → [[assistant_tests_integration_test_obsidian_e2e_vault]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_1]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_21]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_vault]]
+- [[assistant_tests_integration_test_obsidian_e2e_vault]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_svc]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_and_list_consistency]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_delete_confirm_removed]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_multiple_folders_deep_path]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_utf8_special_chars]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_with_frontmatter]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_update_read_cycle]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_full_roundtrip_create_read]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_large_content_preservation]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_note_content_roundtrip_markdown_structure]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_timestamp_accuracy]] → `references` → [[assistant_tests_integration_test_obsidian_e2e_py_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_30]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_svc]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_40]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_and_list_consistency]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_delete_confirm_removed]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_multiple_folders_deep_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_utf8_special_chars]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_with_frontmatter]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_update_read_cycle]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_full_roundtrip_create_read]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_large_content_preservation]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_note_content_roundtrip_markdown_structure]]
+- [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e]] → `method` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_timestamp_accuracy]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_45]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_full_roundtrip_create_read]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_72]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_with_frontmatter]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_94]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_note_utf8_special_chars]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_114]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_and_list_consistency]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_125]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_update_read_cycle]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_140]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_delete_confirm_removed]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_154]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_create_multiple_folders_deep_path]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_168]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_note_content_roundtrip_markdown_structure]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_204]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_large_content_preservation]]
+- [[assistant_tests_integration_test_obsidian_e2e_rationale_218]] → `rationale_for` → [[assistant_tests_integration_test_obsidian_e2e_testnotecreatione2e_test_timestamp_accuracy]]

@@ -19,6 +19,8 @@ interface BootstrapProgress {
   step: BootstrapStep;
   message: string;
   error?: string;
+  /** Per-stage timing in ms: { "Backend": 3200, "Auth": 420 } */
+  timings?: Record<string, number>;
 }
 
 // Estado singleton do bootstrap — so roda uma vez
@@ -49,9 +51,17 @@ async function runBootstrapPipeline(serverUrl: string) {
   if (_bootstrapStarted) return;
   _bootstrapStarted = true;
 
+  const stageTimings: Record<string, number> = {};
+  let stageStart = performance.now();
+
   const progress = (step: BootstrapStep, message: string, error?: string) => {
-    const p: BootstrapProgress = { step, message, error };
-    console.log(`[bootstrap] ${step}: ${message}${error ? ` (${error})` : ""}`);
+    const now = performance.now();
+    const elapsed = now - stageStart;
+    stageTimings[step] = (stageTimings[step] || 0) + elapsed;
+    stageStart = now;
+
+    const p: BootstrapProgress = { step, message, error, timings: { ...stageTimings } };
+    console.log(`[bootstrap] ${step}: ${message}${error ? ` (${error})` : ""} (${elapsed.toFixed(0)}ms)`);
     notifyListeners(p);
   };
 
@@ -116,7 +126,40 @@ async function runBootstrapPipeline(serverUrl: string) {
   }
 
   if (!backendReachable) {
-    progress("wait_backend_health", "Backend nao respondeu apos 30s. Continuando...", "timeout");
+    progress("wait_backend_health", "Backend nao respondeu apos 30s. Sistema ficara offline.", "timeout");
+    // Set system store to offline — triggers full-screen offline overlay in AuthGate
+    try {
+      const { useSystemStore } = await import("@/application/stores/system-store");
+      useSystemStore.getState().setStatus("offline");
+    } catch {}
+    progress("error", "Nao foi possivel conectar ao backend K.A.O.S.");
+    return;
+  }
+
+  // 4.5. Aguardar readiness check (Postgres + Qdrant)
+  progress("wait_backend_health", "Verificando readiness do backend (Postgres, Qdrant)...");
+  let readinessOk = false;
+  for (let i = 0; i < 10; i++) {
+    await new Promise((r) => setTimeout(r, 2000));
+    try {
+      const r = await fetch(`${serverUrl}/api/system/readiness`);
+      if (r.ok) {
+        const data = await r.json();
+        if (data.ready) {
+          progress("wait_backend_health", `Readiness: ${data.message}`);
+          readinessOk = true;
+          break;
+        }
+        if (i % 2 === 0) {
+          progress("wait_backend_health", `Aguardando readiness: ${data.message} (tentativa ${i + 1}/10)...`);
+        }
+      }
+    } catch {
+      // Backend pode ainda estar subindo
+    }
+  }
+  if (!readinessOk) {
+    progress("wait_backend_health", "Servicos do backend nao estao prontos. Continuando...", "degraded");
   }
 
   // 5. Aguardar bootstrap completo

@@ -1,0 +1,14 @@
+# graphify\tools\skillgen\expected\graphify__skills__codex__references__hooks.md
+
+## Símbolos
+
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks]] — code: graphify__skills__codex__references__hooks.md
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_graphify_reference_commit_hook_and_native_claude_md_integration]] — code: graphify reference: commit hook and native CLAUDE.md integration
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_for_git_commit_hook]] — code: For git commit hook
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_for_native_claude_md_integration]] — code: For native CLAUDE.md integration
+
+## Dependências
+
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_graphify_reference_commit_hook_and_native_claude_md_integration]]
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_graphify_reference_commit_hook_and_native_claude_md_integration]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_for_git_commit_hook]]
+- [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_graphify_reference_commit_hook_and_native_claude_md_integration]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_codex_references_hooks_for_native_claude_md_integration]]

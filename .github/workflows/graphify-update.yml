@@ -1,0 +1,58 @@
+name: Daily Graphify Update
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # 03:00 UTC todo dia
+  workflow_dispatch:  # trigger manual
+
+permissions:
+  contents: write  # para commitar graphify-out/graph.json
+
+jobs:
+  update-graph:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Install Graphify
+        run: uv pip install graphifyy
+
+      - name: Update Graphify Graph
+        run: graphify update .
+        working-directory: ${{ github.workspace }}
+
+      - name: Verify graph.json changed
+        id: check
+        run: |
+          if git diff --quiet graphify-out/graph.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit graph.json
+        if: steps.check.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update graphify graph [skip ci]"
+          file_pattern: graphify-out/graph.json
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Summary
+        run: |
+          echo "## Graphify Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Graph updated: ${{ steps.check.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Files: graphify-out/graph.json" >> $GITHUB_STEP_SUMMARY
+          echo "- Timestamp: $(date -u)" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,93 @@
+# graphify\tests\test_benchmark.py
+
+## Símbolos
+
+- [[graphify_tests_test_benchmark]] — code: test_benchmark.py
+- [[graphify_tests_test_benchmark_make_graph]] — code: _make_graph()
+- [[graphify_tests_test_benchmark_write_graph]] — code: _write_graph()
+- [[graphify_tests_test_benchmark_test_query_returns_positive_for_matching_question]] — code: test_query_returns_positive_for_matching_question()
+- [[graphify_tests_test_benchmark_test_query_returns_zero_for_no_match]] — code: test_query_returns_zero_for_no_match()
+- [[graphify_tests_test_benchmark_test_query_bfs_expands_neighbors]] — code: test_query_bfs_expands_neighbors()
+- [[graphify_tests_test_benchmark_test_query_keeps_short_non_english_terms]] — code: test_query_keeps_short_non_english_terms()
+- [[graphify_tests_test_benchmark_test_run_benchmark_returns_reduction]] — code: test_run_benchmark_returns_reduction()
+- [[graphify_tests_test_benchmark_test_run_benchmark_corpus_tokens_proportional]] — code: test_run_benchmark_corpus_tokens_proportional()
+- [[graphify_tests_test_benchmark_test_run_benchmark_per_question_list]] — code: test_run_benchmark_per_question_list()
+- [[graphify_tests_test_benchmark_test_run_benchmark_estimates_corpus_if_no_words]] — code: test_run_benchmark_estimates_corpus_if_no_words()
+- [[graphify_tests_test_benchmark_test_run_benchmark_error_on_empty_graph]] — code: test_run_benchmark_error_on_empty_graph()
+- [[graphify_tests_test_benchmark_test_run_benchmark_includes_node_edge_counts]] — code: test_run_benchmark_includes_node_edge_counts()
+- [[graphify_tests_test_benchmark_test_print_benchmark_no_crash]] — code: test_print_benchmark_no_crash()
+- [[graphify_tests_test_benchmark_test_print_benchmark_error_message]] — code: test_print_benchmark_error_message()
+- [[graphify_tests_test_benchmark_test_safe_returns_unicode_when_encodable]] — code: test_safe_returns_unicode_when_encodable()
+- [[graphify_tests_test_benchmark_test_safe_falls_back_when_unencodable]] — code: test_safe_falls_back_when_unencodable()
+- [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]] — code: test_print_benchmark_survives_cp1252_stdout()
+- [[graphify_tests_test_benchmark_test_run_benchmark_rejects_oversized_graph]] — code: test_run_benchmark_rejects_oversized_graph()
+- [[graphify_tests_test_benchmark_rationale_1]] — code: Tests for graphify/benchmark.py.
+- [[graphify_tests_test_benchmark_rationale_155]] — code: Regression: U+2500 / U+2192 used to crash with UnicodeEncodeError on cp1252.
+- [[graphify_tests_test_benchmark_rationale_176]] — code: #F4: run_benchmark must refuse to read a graph.json that exceeds     the size c
+
+## Dependências
+
+- [[graphify_tests_test_benchmark_test_safe_falls_back_when_unencodable]] → `calls` → [[graphify_graphify_benchmark_safe]]
+- [[graphify_tests_test_benchmark_test_safe_returns_unicode_when_encodable]] → `calls` → [[graphify_graphify_benchmark_safe]]
+- [[graphify_tests_test_benchmark_test_safe_falls_back_when_unencodable]] → `calls` → [[graphify_graphify_benchmark_hr]]
+- [[graphify_tests_test_benchmark_test_safe_returns_unicode_when_encodable]] → `calls` → [[graphify_graphify_benchmark_hr]]
+- [[graphify_tests_test_benchmark_test_query_bfs_expands_neighbors]] → `calls` → [[graphify_graphify_benchmark_query_subgraph_tokens]]
+- [[graphify_tests_test_benchmark_test_query_keeps_short_non_english_terms]] → `calls` → [[graphify_graphify_benchmark_query_subgraph_tokens]]
+- [[graphify_tests_test_benchmark_test_query_returns_positive_for_matching_question]] → `calls` → [[graphify_graphify_benchmark_query_subgraph_tokens]]
+- [[graphify_tests_test_benchmark_test_query_returns_zero_for_no_match]] → `calls` → [[graphify_graphify_benchmark_query_subgraph_tokens]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_no_crash]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_corpus_tokens_proportional]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_error_on_empty_graph]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_estimates_corpus_if_no_words]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_includes_node_edge_counts]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_per_question_list]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_rejects_oversized_graph]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_returns_reduction]] → `calls` → [[graphify_graphify_benchmark_run_benchmark]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_error_message]] → `calls` → [[graphify_graphify_benchmark_print_benchmark]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_no_crash]] → `calls` → [[graphify_graphify_benchmark_print_benchmark]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]] → `calls` → [[graphify_graphify_benchmark_print_benchmark]]
+- [[graphify_tests_test_benchmark_make_graph]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_benchmark_test_query_keeps_short_non_english_terms]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_error_on_empty_graph]] → `calls` → [[graphify_tests_fixtures_sample_graph]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_print_benchmark_error_message]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_print_benchmark_no_crash]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_query_bfs_expands_neighbors]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_query_keeps_short_non_english_terms]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_query_returns_positive_for_matching_question]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_query_returns_zero_for_no_match]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_corpus_tokens_proportional]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_error_on_empty_graph]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_estimates_corpus_if_no_words]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_includes_node_edge_counts]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_per_question_list]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_rejects_oversized_graph]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_run_benchmark_returns_reduction]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_safe_falls_back_when_unencodable]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_test_safe_returns_unicode_when_encodable]]
+- [[graphify_tests_test_benchmark]] → `contains` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_rationale_1]] → `rationale_for` → [[graphify_tests_test_benchmark]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_no_crash]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_query_bfs_expands_neighbors]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_query_returns_positive_for_matching_question]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_query_returns_zero_for_no_match]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_corpus_tokens_proportional]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_estimates_corpus_if_no_words]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_includes_node_edge_counts]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_per_question_list]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_rejects_oversized_graph]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_returns_reduction]] → `calls` → [[graphify_tests_test_benchmark_make_graph]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_no_crash]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_corpus_tokens_proportional]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_error_on_empty_graph]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_estimates_corpus_if_no_words]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_includes_node_edge_counts]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_per_question_list]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_rejects_oversized_graph]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_test_run_benchmark_returns_reduction]] → `calls` → [[graphify_tests_test_benchmark_write_graph]]
+- [[graphify_tests_test_benchmark_rationale_155]] → `rationale_for` → [[graphify_tests_test_benchmark_test_print_benchmark_survives_cp1252_stdout]]
+- [[graphify_tests_test_benchmark_rationale_176]] → `rationale_for` → [[graphify_tests_test_benchmark_test_run_benchmark_rejects_oversized_graph]]

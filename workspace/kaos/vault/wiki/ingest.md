@@ -1,0 +1,76 @@
+# graphify\graphify\ingest.py
+
+## Símbolos
+
+- [[graphify_graphify_ingest]] — code: ingest.py
+- [[graphify_graphify_ingest_yaml_str]] — code: _yaml_str()
+- [[graphify_graphify_ingest_safe_filename]] — code: _safe_filename()
+- [[graphify_graphify_ingest_detect_url_type]] — code: _detect_url_type()
+- [[graphify_graphify_ingest_fetch_html]] — code: _fetch_html()
+- [[graphify_graphify_ingest_html_to_markdown]] — code: _html_to_markdown()
+- [[graphify_graphify_ingest_fetch_tweet]] — code: _fetch_tweet()
+- [[graphify_graphify_ingest_fetch_webpage]] — code: _fetch_webpage()
+- [[graphify_graphify_ingest_fetch_arxiv]] — code: _fetch_arxiv()
+- [[graphify_graphify_ingest_download_binary]] — code: _download_binary()
+- [[graphify_graphify_ingest_ingest]] — code: ingest()
+- [[graphify_graphify_ingest_save_query_result]] — code: save_query_result()
+- [[graphify_graphify_ingest_rationale_14]] — code: Escape a string for embedding in a YAML double-quoted scalar.      Handles eve
+- [[graphify_graphify_ingest_rationale_56]] — code: Turn a URL into a safe filename.
+- [[graphify_graphify_ingest_rationale_65]] — code: Classify the URL for targeted extraction.
+- [[graphify_graphify_ingest_rationale_89]] — code: Convert HTML to clean markdown. Uses markdownify if available, else basic strip.
+- [[graphify_graphify_ingest_rationale_104]] — code: Fetch a tweet URL. Returns (content, filename).
+- [[graphify_graphify_ingest_rationale_137]] — code: Fetch a generic webpage and convert to markdown.
+- [[graphify_graphify_ingest_rationale_166]] — code: Fetch arXiv abstract page.
+- [[graphify_graphify_ingest_rationale_211]] — code: Download a binary file (PDF, image) directly.
+- [[graphify_graphify_ingest_rationale_219]] — code: Fetch a URL and save it into target_dir as a graphify-ready file.      Returns
+- [[graphify_graphify_ingest_rationale_283]] — code: Save a Q&A result as markdown so it gets extracted into the graph on next --upda
+
+## Dependências
+
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_detect_url_type]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_download_binary]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_fetch_arxiv]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_fetch_html]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_fetch_tweet]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_fetch_webpage]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_html_to_markdown]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_ingest]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_safe_filename]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_save_query_result]]
+- [[graphify_graphify_ingest]] → `contains` → [[graphify_graphify_ingest_yaml_str]]
+- [[graphify_graphify_ingest]] → `imports_from` → [[graphify_security]]
+- [[graphify_graphify_ingest_fetch_arxiv]] → `calls` → [[graphify_graphify_ingest_yaml_str]]
+- [[graphify_graphify_ingest_fetch_tweet]] → `calls` → [[graphify_graphify_ingest_yaml_str]]
+- [[graphify_graphify_ingest_fetch_webpage]] → `calls` → [[graphify_graphify_ingest_yaml_str]]
+- [[graphify_graphify_ingest_rationale_14]] → `rationale_for` → [[graphify_graphify_ingest_yaml_str]]
+- [[graphify_graphify_ingest_save_query_result]] → `calls` → [[graphify_graphify_ingest_yaml_str]]
+- [[graphify_graphify_ingest_download_binary]] → `calls` → [[graphify_graphify_ingest_safe_filename]]
+- [[graphify_graphify_ingest_fetch_arxiv]] → `calls` → [[graphify_graphify_ingest_safe_filename]]
+- [[graphify_graphify_ingest_fetch_tweet]] → `calls` → [[graphify_graphify_ingest_safe_filename]]
+- [[graphify_graphify_ingest_fetch_webpage]] → `calls` → [[graphify_graphify_ingest_safe_filename]]
+- [[graphify_graphify_ingest_rationale_56]] → `rationale_for` → [[graphify_graphify_ingest_safe_filename]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_ingest_detect_url_type]]
+- [[graphify_graphify_ingest_rationale_65]] → `rationale_for` → [[graphify_graphify_ingest_detect_url_type]]
+- [[graphify_graphify_ingest_fetch_arxiv]] → `calls` → [[graphify_graphify_ingest_fetch_html]]
+- [[graphify_graphify_ingest_fetch_html]] → `calls` → [[graphify_graphify_security_safe_fetch_text]]
+- [[graphify_graphify_ingest_fetch_webpage]] → `calls` → [[graphify_graphify_ingest_fetch_html]]
+- [[graphify_graphify_ingest_fetch_webpage]] → `calls` → [[graphify_graphify_ingest_html_to_markdown]]
+- [[graphify_graphify_ingest_rationale_89]] → `rationale_for` → [[graphify_graphify_ingest_html_to_markdown]]
+- [[graphify_graphify_ingest_fetch_tweet]] → `calls` → [[graphify_graphify_security_safe_fetch_text]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_ingest_fetch_tweet]]
+- [[graphify_graphify_ingest_rationale_104]] → `rationale_for` → [[graphify_graphify_ingest_fetch_tweet]]
+- [[graphify_graphify_ingest_fetch_arxiv]] → `calls` → [[graphify_graphify_ingest_fetch_webpage]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_ingest_fetch_webpage]]
+- [[graphify_graphify_ingest_rationale_137]] → `rationale_for` → [[graphify_graphify_ingest_fetch_webpage]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_ingest_fetch_arxiv]]
+- [[graphify_graphify_ingest_rationale_166]] → `rationale_for` → [[graphify_graphify_ingest_fetch_arxiv]]
+- [[graphify_graphify_ingest_download_binary]] → `references` → [[graphify_graphify_ingest_py_path]]
+- [[graphify_graphify_ingest_download_binary]] → `calls` → [[graphify_graphify_security_safe_fetch]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_ingest_download_binary]]
+- [[graphify_graphify_ingest_rationale_211]] → `rationale_for` → [[graphify_graphify_ingest_download_binary]]
+- [[graphify_graphify_ingest_ingest]] → `references` → [[graphify_graphify_ingest_py_path]]
+- [[graphify_graphify_ingest_save_query_result]] → `references` → [[graphify_graphify_ingest_py_path]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_security_validate_url]]
+- [[graphify_graphify_ingest_ingest]] → `calls` → [[graphify_graphify_transcribe_download_audio]]
+- [[graphify_graphify_ingest_rationale_219]] → `rationale_for` → [[graphify_graphify_ingest_ingest]]
+- [[graphify_graphify_ingest_rationale_283]] → `rationale_for` → [[graphify_graphify_ingest_save_query_result]]

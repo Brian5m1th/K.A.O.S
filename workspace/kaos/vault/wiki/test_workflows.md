@@ -1,0 +1,144 @@
+# assistant\tests\unit\test_workflows.py
+
+## Símbolos
+
+- [[assistant_tests_unit_test_workflows]] — code: test_workflows.py
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] — code: TestChatWorkflow
+- [[assistant_tests_unit_test_workflows_testchatworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testchatworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testchatworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testragworkflow]] — code: TestRagWorkflow
+- [[assistant_tests_unit_test_workflows_testragworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testragworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testragworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] — code: TestAgentWorkflow
+- [[assistant_tests_unit_test_workflows_testagentworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testagentworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testagentworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] — code: TestResearchWorkflow
+- [[assistant_tests_unit_test_workflows_testresearchworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testresearchworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testresearchworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] — code: TestCodingWorkflow
+- [[assistant_tests_unit_test_workflows_testcodingworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testcodingworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testcodingworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] — code: TestMemoryWorkflow
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] — code: TestIngestWorkflow
+- [[assistant_tests_unit_test_workflows_testingestworkflow_test_name]] — code: .test_name()
+- [[assistant_tests_unit_test_workflows_testingestworkflow_test_required_capabilities]] — code: .test_required_capabilities()
+- [[assistant_tests_unit_test_workflows_testingestworkflow_test_is_workflow]] — code: .test_is_workflow()
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] — code: TestRegisterWorkflows
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_register_all]] — code: .test_register_all()
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] — code: .test_get_workflow_instances()
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_healthcheck]] — code: .test_healthcheck()
+
+## Dependências
+
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `uses` → [[assistant_app_registry_service_registry_serviceregistry]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_workflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_healthcheck]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_get_workflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_healthcheck]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_workflows]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_register_all]] → `calls` → [[assistant_app_registry_service_registry_serviceregistry_list_workflows]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_base_baseworkflow]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow_test_required_capabilities]] → `calls` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `indirect_call` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `uses` → [[assistant_app_workflows_impl_agent_agentworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_impl_chat_chatworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow_test_required_capabilities]] → `calls` → [[assistant_app_workflows_impl_chat_chatworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `indirect_call` → [[assistant_app_workflows_impl_chat_chatworkflow]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow_test_required_capabilities]] → `calls` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `indirect_call` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `uses` → [[assistant_app_workflows_impl_coding_codingworkflow]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow_test_required_capabilities]] → `calls` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `indirect_call` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `uses` → [[assistant_app_workflows_impl_ingest_ingestworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_impl_rag_ragworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow_test_required_capabilities]] → `calls` → [[assistant_app_workflows_impl_rag_ragworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `indirect_call` → [[assistant_app_workflows_impl_rag_ragworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `calls` → [[assistant_app_workflows_impl_registry_register_workflows]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_healthcheck]] → `calls` → [[assistant_app_workflows_impl_registry_register_workflows]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_register_all]] → `calls` → [[assistant_app_workflows_impl_registry_register_workflows]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]] → `indirect_call` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `uses` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow_test_is_workflow]] → `indirect_call` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow_test_required_capabilities]] → `calls` → [[assistant_app_workflows_impl_research_researchworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testagentworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testchatworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testcodingworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testingestworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testmemoryworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testragworkflow]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testregisterworkflows]]
+- [[assistant_tests_unit_test_workflows]] → `contains` → [[assistant_tests_unit_test_workflows_testresearchworkflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testchatworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testchatworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testchatworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testchatworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testragworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testragworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testragworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testragworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testagentworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testagentworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testagentworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testagentworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testresearchworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testresearchworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testresearchworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testresearchworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testcodingworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testcodingworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testcodingworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testcodingworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testmemoryworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testmemoryworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testingestworkflow_test_is_workflow]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testingestworkflow_test_name]]
+- [[assistant_tests_unit_test_workflows_testingestworkflow]] → `method` → [[assistant_tests_unit_test_workflows_testingestworkflow_test_required_capabilities]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `method` → [[assistant_tests_unit_test_workflows_testregisterworkflows_test_get_workflow_instances]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `method` → [[assistant_tests_unit_test_workflows_testregisterworkflows_test_healthcheck]]
+- [[assistant_tests_unit_test_workflows_testregisterworkflows]] → `method` → [[assistant_tests_unit_test_workflows_testregisterworkflows_test_register_all]]

@@ -1,0 +1,74 @@
+# assistant\app\api\system.py
+
+## Símbolos
+
+- [[assistant_app_api_system]] — code: system.py
+- [[assistant_app_api_system_check]] — code: _check()
+- [[assistant_app_api_system_check_postgres]] — code: _check_postgres()
+- [[assistant_app_api_system_system_status]] — code: system_status()
+- [[assistant_app_api_system_system_readiness]] — code: system_readiness()
+- [[assistant_app_api_system_system_environment]] — code: system_environment()
+- [[assistant_app_api_system_system_bootstrap_state]] — code: system_bootstrap_state()
+- [[assistant_app_api_system_system_version]] — code: system_version()
+- [[assistant_app_api_system_system_metrics]] — code: system_metrics()
+- [[assistant_app_api_system_system_dashboard]] — code: system_dashboard()
+- [[assistant_app_api_system_get_services_status]] — code: _get_services_status()
+- [[assistant_app_api_system_get_runtime_info]] — code: _get_runtime_info()
+- [[assistant_app_api_system_read_vram]] — code: _read_vram()
+- [[assistant_app_api_system_get_metrics_data]] — code: _get_metrics_data()
+- [[assistant_app_api_system_get_costs_data]] — code: _get_costs_data()
+- [[assistant_app_api_system_get_dlq_data]] — code: _get_dlq_data()
+- [[assistant_app_api_system_get_alerts_data]] — code: _get_alerts_data()
+- [[assistant_app_api_system_rationale_52]] — code: Boot readiness endpoint — validates core services before frontend     allows na
+- [[assistant_app_api_system_rationale_106]] — code: Retorna diagnostico completo do ambiente (EnvironmentService).
+- [[assistant_app_api_system_rationale_115]] — code: Retorna estado atual do bootstrap (BootstrapManager).
+- [[assistant_app_api_system_rationale_123]] — code: Retorna versao, branch e commit ativo na imagem Docker do container.
+- [[assistant_app_api_system_rationale_189]] — code: Consolidated dashboard endpoint.     Replaces 5+ parallel frontend calls with a
+
+## Dependências
+
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_check]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_check_postgres]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_get_alerts_data]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_get_costs_data]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_get_dlq_data]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_get_metrics_data]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_get_runtime_info]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_get_services_status]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_read_vram]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_bootstrap_state]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_dashboard]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_environment]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_metrics]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_readiness]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_status]]
+- [[assistant_app_api_system]] → `contains` → [[assistant_app_api_system_system_version]]
+- [[assistant_app_api_system]] → `imports_from` → [[fastapi]]
+- [[assistant_app_api_system_check]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_api_system_get_services_status]] → `calls` → [[assistant_app_api_system_check]]
+- [[assistant_app_api_system_system_readiness]] → `calls` → [[assistant_app_api_system_check]]
+- [[assistant_app_api_system_system_status]] → `calls` → [[assistant_app_api_system_check]]
+- [[assistant_app_api_system_check_postgres]] → `indirect_call` → [[graphify_scripts_gen_demo_path_e]]
+- [[assistant_app_api_system_check_postgres]] → `calls` → [[graphify_worked_httpx_raw_models_response_text]]
+- [[assistant_app_api_system_get_services_status]] → `calls` → [[assistant_app_api_system_check_postgres]]
+- [[assistant_app_api_system_system_readiness]] → `calls` → [[assistant_app_api_system_check_postgres]]
+- [[assistant_app_api_system_system_status]] → `calls` → [[assistant_app_api_system_check_postgres]]
+- [[assistant_app_api_system_rationale_52]] → `rationale_for` → [[assistant_app_api_system_system_readiness]]
+- [[assistant_app_api_system_rationale_106]] → `rationale_for` → [[assistant_app_api_system_system_environment]]
+- [[assistant_app_api_system_system_environment]] → `calls` → [[assistant_app_core_environment_service_environmentservice_detect]]
+- [[assistant_app_api_system_rationale_115]] → `rationale_for` → [[assistant_app_api_system_system_bootstrap_state]]
+- [[assistant_app_api_system_system_bootstrap_state]] → `calls` → [[assistant_app_core_bootstrap_manager_bootstrapmanager_get_state]]
+- [[assistant_app_api_system_rationale_123]] → `rationale_for` → [[assistant_app_api_system_system_version]]
+- [[assistant_app_api_system_rationale_189]] → `rationale_for` → [[assistant_app_api_system_system_dashboard]]
+- [[assistant_app_api_system_system_dashboard]] → `calls` → [[assistant_app_api_system_get_alerts_data]]
+- [[assistant_app_api_system_system_dashboard]] → `calls` → [[assistant_app_api_system_get_costs_data]]
+- [[assistant_app_api_system_system_dashboard]] → `calls` → [[assistant_app_api_system_get_dlq_data]]
+- [[assistant_app_api_system_system_dashboard]] → `calls` → [[assistant_app_api_system_get_metrics_data]]
+- [[assistant_app_api_system_system_dashboard]] → `calls` → [[assistant_app_api_system_get_runtime_info]]
+- [[assistant_app_api_system_system_dashboard]] → `calls` → [[assistant_app_api_system_get_services_status]]
+- [[assistant_app_api_system_get_runtime_info]] → `calls` → [[assistant_app_api_system_read_vram]]
+- [[assistant_app_api_system_get_runtime_info]] → `calls` → [[assistant_app_llm_metrics_providermetrics_global_summary]]
+- [[assistant_app_api_system_get_runtime_info]] → `calls` → [[assistant_app_setup_provider_config_get_active_provider_config]]
+- [[assistant_app_api_system_get_metrics_data]] → `calls` → [[assistant_app_llm_metrics_providermetrics_global_token_rate]]
+- [[assistant_app_api_system_get_costs_data]] → `indirect_call` → [[assistant_app_observability_cost_tracker_costtracker]]
+- [[assistant_app_api_system_get_dlq_data]] → `calls` → [[assistant_app_orchestrator_dead_letter_queue_deadletterqueue_list_all]]

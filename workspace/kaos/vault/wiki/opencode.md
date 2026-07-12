@@ -1,0 +1,71 @@
+# assistant\app\api\opencode.py
+
+## Símbolos
+
+- [[assistant_app_api_opencode]] — code: opencode.py
+- [[assistant_app_api_opencode_get_watcher]] — code: get_watcher()
+- [[assistant_app_api_opencode_set_watcher]] — code: set_watcher()
+- [[assistant_app_api_opencode_opencode_root]] — code: _opencode_root()
+- [[assistant_app_api_opencode_scan_subdir]] — code: _scan_subdir()
+- [[assistant_app_api_opencode_full_scan]] — code: _full_scan()
+- [[assistant_app_api_opencode_opencode_status]] — code: opencode_status()
+- [[assistant_app_api_opencode_refresh_cache]] — code: refresh_cache()
+- [[assistant_app_api_opencode_list_agents]] — code: list_agents()
+- [[assistant_app_api_opencode_list_commands]] — code: list_commands()
+- [[assistant_app_api_opencode_list_models]] — code: list_models()
+- [[assistant_app_api_opencode_list_providers]] — code: list_providers()
+- [[assistant_app_api_opencode_list_category]] — code: list_category()
+- [[assistant_app_api_opencode_get_agent]] — code: get_agent()
+- [[assistant_app_api_opencode_get_category_item]] — code: get_category_item()
+- [[assistant_app_api_opencode_executecommandrequest]] — code: ExecuteCommandRequest
+- [[assistant_app_api_opencode_execute_opencode_command]] — code: execute_opencode_command()
+- [[assistant_app_api_opencode_rationale_1]] — code: OpenCode Configuration Layer API.  Provides endpoints to discover agents, comm
+- [[assistant_app_api_opencode_rationale_59]] — code: Scan a subdirectory of .opencode/ and return file entries.
+- [[assistant_app_api_opencode_rationale_82]] — code: Perform a full scan of the .opencode/ directory.      Results are cached. If `
+- [[assistant_app_api_opencode_rationale_127]] — code: Force a cache refresh.
+
+## Dependências
+
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_execute_opencode_command]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_executecommandrequest]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_full_scan]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_get_agent]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_get_category_item]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_get_watcher]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_list_agents]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_list_category]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_list_commands]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_list_models]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_list_providers]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_opencode_root]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_opencode_status]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_refresh_cache]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode]] → `contains` → [[assistant_app_api_opencode_set_watcher]]
+- [[assistant_app_api_opencode]] → `imports_from` → [[fastapi]]
+- [[assistant_app_api_opencode_rationale_1]] → `rationale_for` → [[assistant_app_api_opencode]]
+- [[assistant_app_api_opencode_get_watcher]] → `references` → [[assistant_app_core_opencode_watcher_opencodewatcher]]
+- [[assistant_app_api_opencode_set_watcher]] → `references` → [[assistant_app_core_opencode_watcher_opencodewatcher]]
+- [[assistant_app_api_opencode_full_scan]] → `calls` → [[assistant_app_api_opencode_opencode_root]]
+- [[assistant_app_api_opencode_get_agent]] → `calls` → [[assistant_app_api_opencode_opencode_root]]
+- [[assistant_app_api_opencode_get_category_item]] → `calls` → [[assistant_app_api_opencode_opencode_root]]
+- [[assistant_app_api_opencode_opencode_root]] → `references` → [[assistant_app_api_opencode_py_path]]
+- [[assistant_app_api_opencode_opencode_root]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_get_opencode_path]]
+- [[assistant_app_api_opencode_scan_subdir]] → `calls` → [[assistant_app_api_opencode_opencode_root]]
+- [[assistant_app_api_opencode_full_scan]] → `calls` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_list_agents]] → `calls` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_list_category]] → `calls` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_list_commands]] → `calls` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_list_models]] → `calls` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_list_providers]] → `calls` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_rationale_59]] → `rationale_for` → [[assistant_app_api_opencode_scan_subdir]]
+- [[assistant_app_api_opencode_opencode_status]] → `calls` → [[assistant_app_api_opencode_full_scan]]
+- [[assistant_app_api_opencode_rationale_82]] → `rationale_for` → [[assistant_app_api_opencode_full_scan]]
+- [[assistant_app_api_opencode_refresh_cache]] → `calls` → [[assistant_app_api_opencode_full_scan]]
+- [[assistant_app_api_opencode_rationale_127]] → `rationale_for` → [[assistant_app_api_opencode_refresh_cache]]
+- [[assistant_app_api_opencode_execute_opencode_command]] → `references` → [[assistant_app_api_opencode_executecommandrequest]]
+- [[assistant_app_api_opencode_executecommandrequest]] → `inherits` → [[assistant_app_api_opencode_py_basemodel]]
+- [[assistant_app_api_opencode_executecommandrequest]] → `uses` → [[assistant_app_core_opencode_executor_opencodeexecutor]]
+- [[assistant_app_api_opencode_executecommandrequest]] → `uses` → [[assistant_app_core_opencode_watcher_opencodewatcher]]
+- [[assistant_app_api_opencode_executecommandrequest]] → `uses` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver]]
+- [[assistant_app_api_opencode_execute_opencode_command]] → `calls` → [[assistant_app_core_opencode_executor_opencodeexecutor_execute]]

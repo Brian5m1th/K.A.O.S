@@ -1,0 +1,110 @@
+# airllm\rlhf\qlora_dpo.py
+
+## Símbolos
+
+- [[airllm_rlhf_qlora_dpo]] — code: qlora_dpo.py
+- [[airllm_rlhf_qlora_dpo_modelarguments]] — code: ModelArguments
+- [[airllm_rlhf_qlora_dpo_dataarguments]] — code: DataArguments
+- [[airllm_rlhf_qlora_dpo_trainingarguments]] — code: TrainingArguments
+- [[airllm_rlhf_qlora_dpo_generationarguments]] — code: GenerationArguments
+- [[airllm_rlhf_qlora_dpo_find_all_linear_names]] — code: find_all_linear_names()
+- [[airllm_rlhf_qlora_dpo_samplegeneratecallback]] — code: SampleGenerateCallback
+- [[airllm_rlhf_qlora_dpo_samplegeneratecallback_on_evaluate]] — code: .on_evaluate()
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback]] — code: SavePeftModelCallback
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_save_model]] — code: .save_model()
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_on_save]] — code: .on_save()
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_on_train_end]] — code: .on_train_end()
+- [[airllm_rlhf_qlora_dpo_get_reference_model]] — code: get_reference_model()
+- [[airllm_rlhf_qlora_dpo_get_accelerate_model]] — code: get_accelerate_model()
+- [[airllm_rlhf_qlora_dpo_print_trainable_parameters]] — code: print_trainable_parameters()
+- [[airllm_rlhf_qlora_dpo_smart_tokenizer_and_embedding_resize]] — code: smart_tokenizer_and_embedding_resize()
+- [[airllm_rlhf_qlora_dpo_datacollatorforcausallm]] — code: DataCollatorForCausalLM
+- [[airllm_rlhf_qlora_dpo_datacollatorforcausallm_call]] — code: .__call__()
+- [[airllm_rlhf_qlora_dpo_extract_unnatural_instructions_data]] — code: extract_unnatural_instructions_data()
+- [[airllm_rlhf_qlora_dpo_extract_alpaca_dataset]] — code: extract_alpaca_dataset()
+- [[airllm_rlhf_qlora_dpo_local_dataset]] — code: local_dataset()
+- [[airllm_rlhf_qlora_dpo_make_data_module]] — code: make_data_module()
+- [[airllm_rlhf_qlora_dpo_get_last_checkpoint]] — code: get_last_checkpoint()
+- [[airllm_rlhf_qlora_dpo_get_batch_logps]] — code: _get_batch_logps()
+- [[airllm_rlhf_qlora_dpo_dpo_loss]] — code: dpo_loss()
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer]] — code: DPOSeq2SeqTrainer
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_init]] — code: .__init__()
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_compute_loss]] — code: .compute_loss()
+- [[airllm_rlhf_qlora_dpo_compute_metrics]] — code: compute_metrics()
+- [[airllm_rlhf_qlora_dpo_train]] — code: train()
+- [[airllm_rlhf_qlora_dpo_rationale_253]] — code: A callback that prints a sample generations of the model in the process of train
+- [[airllm_rlhf_qlora_dpo_rationale_430]] — code: Prints the number of trainable parameters in the model.
+- [[airllm_rlhf_qlora_dpo_rationale_451]] — code: Resize tokenizer and embedding.      Note: This is the unoptimized version tha
+- [[airllm_rlhf_qlora_dpo_rationale_569]] — code: Make dataset and collator for supervised fine-tuning.     Datasets are expected
+- [[airllm_rlhf_qlora_dpo_rationale_668]] — code: Compute the log probabilities of the given labels under the given logits.
+- [[airllm_rlhf_qlora_dpo_rationale_700]] — code: Compute the DPO loss for a batch of policy and reference model log probabilities
+
+## Dependências
+
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_compute_metrics]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_dataarguments]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_datacollatorforcausallm]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_dpo_loss]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_extract_alpaca_dataset]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_extract_unnatural_instructions_data]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_find_all_linear_names]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_generationarguments]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_get_accelerate_model]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_get_batch_logps]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_get_last_checkpoint]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_get_reference_model]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_local_dataset]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_make_data_module]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_modelarguments]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_print_trainable_parameters]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_samplegeneratecallback]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_smart_tokenizer_and_embedding_resize]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_train]]
+- [[airllm_rlhf_qlora_dpo]] → `contains` → [[airllm_rlhf_qlora_dpo_trainingarguments]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_modelarguments]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_dataarguments]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_trainingarguments]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_generationarguments]]
+- [[airllm_rlhf_qlora_dpo_get_accelerate_model]] → `calls` → [[airllm_rlhf_qlora_dpo_find_all_linear_names]]
+- [[airllm_rlhf_qlora_dpo_rationale_253]] → `rationale_for` → [[airllm_rlhf_qlora_dpo_samplegeneratecallback]]
+- [[airllm_rlhf_qlora_dpo_samplegeneratecallback]] → `method` → [[airllm_rlhf_qlora_dpo_samplegeneratecallback_on_evaluate]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_samplegeneratecallback]]
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback]] → `method` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_on_save]]
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback]] → `method` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_on_train_end]]
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback]] → `method` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_save_model]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback]]
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_on_save]] → `calls` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_save_model]]
+- [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_on_train_end]] → `calls` → [[airllm_rlhf_qlora_dpo_savepeftmodelcallback_save_model]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_get_reference_model]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_get_accelerate_model]]
+- [[airllm_rlhf_qlora_dpo_rationale_430]] → `rationale_for` → [[airllm_rlhf_qlora_dpo_print_trainable_parameters]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_print_trainable_parameters]]
+- [[airllm_rlhf_qlora_dpo_rationale_451]] → `rationale_for` → [[airllm_rlhf_qlora_dpo_smart_tokenizer_and_embedding_resize]]
+- [[airllm_rlhf_qlora_dpo_smart_tokenizer_and_embedding_resize]] → `references` → [[airllm_rlhf_qlora_dpo_py_pretrainedmodel]]
+- [[airllm_rlhf_qlora_dpo_smart_tokenizer_and_embedding_resize]] → `references` → [[airllm_rlhf_qlora_dpo_py_pretrainedtokenizer]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_smart_tokenizer_and_embedding_resize]]
+- [[airllm_rlhf_qlora_dpo_get_batch_logps]] → `references` → [[airllm_rlhf_qlora_dpo_py_pretrainedtokenizer]]
+- [[airllm_rlhf_qlora_dpo_make_data_module]] → `references` → [[airllm_rlhf_qlora_dpo_py_pretrainedtokenizer]]
+- [[airllm_rlhf_qlora_dpo_datacollatorforcausallm]] → `method` → [[airllm_rlhf_qlora_dpo_datacollatorforcausallm_call]]
+- [[airllm_rlhf_qlora_dpo_datacollatorforcausallm]] → `inherits` → [[airllm_rlhf_qlora_dpo_py_object]]
+- [[airllm_rlhf_qlora_dpo_make_data_module]] → `calls` → [[airllm_rlhf_qlora_dpo_datacollatorforcausallm]]
+- [[airllm_rlhf_qlora_dpo_datacollatorforcausallm_call]] → `references` → [[airllm_rlhf_qlora_dpo_py_tensor]]
+- [[airllm_rlhf_qlora_dpo_rationale_569]] → `rationale_for` → [[airllm_rlhf_qlora_dpo_make_data_module]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_make_data_module]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_get_last_checkpoint]]
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_compute_loss]] → `calls` → [[airllm_rlhf_qlora_dpo_get_batch_logps]]
+- [[airllm_rlhf_qlora_dpo_get_batch_logps]] → `references` → [[airllm_rlhf_qlora_dpo_py_floattensor]]
+- [[airllm_rlhf_qlora_dpo_get_batch_logps]] → `references` → [[airllm_rlhf_qlora_dpo_py_longtensor]]
+- [[airllm_rlhf_qlora_dpo_rationale_668]] → `rationale_for` → [[airllm_rlhf_qlora_dpo_get_batch_logps]]
+- [[airllm_rlhf_qlora_dpo_dpo_loss]] → `references` → [[airllm_rlhf_qlora_dpo_py_floattensor]]
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_compute_loss]] → `calls` → [[airllm_rlhf_qlora_dpo_dpo_loss]]
+- [[airllm_rlhf_qlora_dpo_rationale_700]] → `rationale_for` → [[airllm_rlhf_qlora_dpo_dpo_loss]]
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer]] → `method` → [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_compute_loss]]
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer]] → `method` → [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_init]]
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer]] → `inherits` → [[seq2seqtrainer]]
+- [[airllm_rlhf_qlora_dpo_train]] → `calls` → [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer]]
+- [[airllm_rlhf_qlora_dpo_dposeq2seqtrainer_init]] → `references` → [[airllm_rlhf_qlora_dpo_py_module]]
+- [[airllm_rlhf_qlora_dpo_compute_metrics]] → `references` → [[evalprediction]]
+- [[airllm_rlhf_qlora_dpo_train]] → `indirect_call` → [[airllm_rlhf_qlora_dpo_compute_metrics]]

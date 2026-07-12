@@ -1,0 +1,73 @@
+# graphify\tests\test_report.py
+
+## Símbolos
+
+- [[graphify_tests_test_report]] — code: test_report.py
+- [[graphify_tests_test_report_make_inputs]] — code: make_inputs()
+- [[graphify_tests_test_report_test_report_contains_header]] — code: test_report_contains_header()
+- [[graphify_tests_test_report_test_report_contains_corpus_check]] — code: test_report_contains_corpus_check()
+- [[graphify_tests_test_report_test_report_contains_god_nodes]] — code: test_report_contains_god_nodes()
+- [[graphify_tests_test_report_test_report_contains_surprising_connections]] — code: test_report_contains_surprising_connections()
+- [[graphify_tests_test_report_test_report_contains_communities]] — code: test_report_contains_communities()
+- [[graphify_tests_test_report_test_report_contains_ambiguous_section]] — code: test_report_contains_ambiguous_section()
+- [[graphify_tests_test_report_test_report_shows_token_cost]] — code: test_report_shows_token_cost()
+- [[graphify_tests_test_report_test_report_shows_raw_cohesion_scores]] — code: test_report_shows_raw_cohesion_scores()
+- [[graphify_tests_test_report_test_report_work_memory_section_present_with_overlay_and_dead_ends]] — code: test_report_work_memory_section_present_with_overlay_and_dead_ends()
+- [[graphify_tests_test_report_test_report_work_memory_section_absent_without_overlay]] — code: test_report_work_memory_section_absent_without_overlay()
+- [[graphify_tests_test_report_test_import_cycles_section_present_for_code_corpus]] — code: test_import_cycles_section_present_for_code_corpus()
+- [[graphify_tests_test_report_test_import_cycles_section_absent_for_documents_only_corpus]] — code: test_import_cycles_section_absent_for_documents_only_corpus()
+- [[graphify_tests_test_report_test_report_hubs_are_plain_text_by_default]] — code: test_report_hubs_are_plain_text_by_default()
+- [[graphify_tests_test_report_test_report_hubs_use_wikilinks_when_obsidian]] — code: test_report_hubs_use_wikilinks_when_obsidian()
+- [[graphify_tests_test_report_rationale_69]] — code: When a work-memory overlay (preferred sources) and query-scoped dead-ends     a
+- [[graphify_tests_test_report_rationale_98]] — code: No learning input => no section; report identical to pre-feature.
+
+## Dependências
+
+- [[graphify_tests_test_report]] → `imports_from` → [[graphify_graphify_analyze]]
+- [[graphify_tests_test_report]] → `imports_from` → [[graphify_graphify_build]]
+- [[graphify_tests_test_report]] → `imports_from` → [[graphify_graphify_cluster]]
+- [[graphify_tests_test_report]] → `imports_from` → [[graphify_graphify_report]]
+- [[graphify_tests_test_report_test_import_cycles_section_absent_for_documents_only_corpus]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_import_cycles_section_present_for_code_corpus]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_contains_ambiguous_section]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_contains_communities]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_contains_corpus_check]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_contains_god_nodes]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_contains_header]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_contains_surprising_connections]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_hubs_are_plain_text_by_default]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_hubs_use_wikilinks_when_obsidian]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_shows_raw_cohesion_scores]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_shows_token_cost]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_work_memory_section_absent_without_overlay]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report_test_report_work_memory_section_present_with_overlay_and_dead_ends]] → `calls` → [[graphify_graphify_report_generate]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_import_cycles_section_absent_for_documents_only_corpus]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_import_cycles_section_present_for_code_corpus]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_contains_ambiguous_section]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_contains_communities]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_contains_corpus_check]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_contains_god_nodes]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_contains_header]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_contains_surprising_connections]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_hubs_are_plain_text_by_default]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_hubs_use_wikilinks_when_obsidian]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_shows_raw_cohesion_scores]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_shows_token_cost]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_work_memory_section_absent_without_overlay]]
+- [[graphify_tests_test_report]] → `contains` → [[graphify_tests_test_report_test_report_work_memory_section_present_with_overlay_and_dead_ends]]
+- [[graphify_tests_test_report_test_import_cycles_section_present_for_code_corpus]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_contains_ambiguous_section]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_contains_communities]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_contains_corpus_check]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_contains_god_nodes]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_contains_header]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_contains_surprising_connections]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_hubs_are_plain_text_by_default]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_hubs_use_wikilinks_when_obsidian]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_shows_raw_cohesion_scores]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_shows_token_cost]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_work_memory_section_absent_without_overlay]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_test_report_work_memory_section_present_with_overlay_and_dead_ends]] → `calls` → [[graphify_tests_test_report_make_inputs]]
+- [[graphify_tests_test_report_rationale_69]] → `rationale_for` → [[graphify_tests_test_report_test_report_work_memory_section_present_with_overlay_and_dead_ends]]
+- [[graphify_tests_test_report_rationale_98]] → `rationale_for` → [[graphify_tests_test_report_test_report_work_memory_section_absent_without_overlay]]

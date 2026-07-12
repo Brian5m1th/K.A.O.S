@@ -257,9 +257,16 @@ pub struct BootstrapState {
 #[tauri::command]
 pub async fn check_docker() -> DockerVersion {
     println!("[docker] Verificando instalacao do Docker CLI...");
-    let output = std::process::Command::new("docker")
-        .arg("--version")
-        .output();
+    let mut cmd = std::process::Command::new("docker");
+    cmd.arg("--version");
+
+    #[cfg(windows)]
+    {
+        // 0x08000000 = CREATE_NO_WINDOW — suppress console popup on Windows
+        std::os::windows::process::CommandExt::creation_flags(&mut cmd, 0x08000000);
+    }
+
+    let output = cmd.output();
 
     match output {
         Ok(out) if out.status.success() => {
@@ -292,9 +299,16 @@ pub async fn check_docker() -> DockerVersion {
 #[tauri::command]
 pub async fn check_docker_engine() -> DockerEngine {
     println!("[docker] Verificando Docker Engine...");
-    let output = std::process::Command::new("docker")
-        .args(["info", "--format", "{{.ServerVersion}}"])
-        .output();
+    let mut cmd = std::process::Command::new("docker");
+    cmd.args(["info", "--format", "{{.ServerVersion}}"]);
+
+    #[cfg(windows)]
+    {
+        // 0x08000000 = CREATE_NO_WINDOW — suppress console popup on Windows
+        std::os::windows::process::CommandExt::creation_flags(&mut cmd, 0x08000000);
+    }
+
+    let output = cmd.output();
 
     match output {
         Ok(out) if out.status.success() => {

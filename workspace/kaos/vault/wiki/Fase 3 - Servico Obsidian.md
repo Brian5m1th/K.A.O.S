@@ -1,0 +1,80 @@
+# docs\sdd\Fase 3 - Servico Obsidian.md
+
+## Símbolos
+
+- [[docs_sdd_fase_3_servico_obsidian]] — code: Fase 3 - Servico Obsidian.md
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] — code: Fase 3 - Serviço Obsidian
+- [[docs_sdd_fase_3_servico_obsidian_parent]] — code: Parent
+- [[docs_sdd_fase_3_servico_obsidian_children]] — code: Children
+- [[docs_sdd_fase_3_servico_obsidian_related]] — code: Related
+- [[docs_sdd_fase_3_servico_obsidian_tags]] — code: Tags
+- [[docs_sdd_fase_3_servico_obsidian_conteudo]] — code: Conteudo
+- [[docs_sdd_fase_3_servico_obsidian_objetivo]] — code: Objetivo
+- [[docs_sdd_fase_3_servico_obsidian_critério_de_sucesso]] — code: Critério de Sucesso
+- [[docs_sdd_fase_3_servico_obsidian_tarefas]] — code: Tarefas
+- [[docs_sdd_fase_3_servico_obsidian_configuração]] — code: ⚙️ Configuração
+- [[docs_sdd_fase_3_servico_obsidian_leitura]] — code: 📖 Leitura
+- [[docs_sdd_fase_3_servico_obsidian_escrita]] — code: ✏️ Escrita
+- [[docs_sdd_fase_3_servico_obsidian_busca]] — code: 🔍 Busca
+- [[docs_sdd_fase_3_servico_obsidian_1_estrutura_de_módulos]] — code: 1. Estrutura de Módulos
+- [[docs_sdd_fase_3_servico_obsidian_2_dtos_de_domínio_domain_document_py]] — code: 2. DTOs de Domínio (`domain/document.py`)
+- [[docs_sdd_fase_3_servico_obsidian_3_obsidianservice_obsidian_services_obsidian_service_py]] — code: 3. ObsidianService (`obsidian/services/obsidian_service.py`)
+- [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]] — code: 4. Ferramentas LangGraph-Compatíveis
+- [[docs_sdd_fase_3_servico_obsidian_create_note_tool_py]] — code: `create_note_tool.py`
+- [[docs_sdd_fase_3_servico_obsidian_read_note_tool_py]] — code: `read_note_tool.py`
+- [[docs_sdd_fase_3_servico_obsidian_update_note_tool_py]] — code: `update_note_tool.py`
+- [[docs_sdd_fase_3_servico_obsidian_delete_note_tool_py]] — code: `delete_note_tool.py`
+- [[docs_sdd_fase_3_servico_obsidian_search_notes_tool_py]] — code: `search_notes_tool.py`
+- [[docs_sdd_fase_3_servico_obsidian_5_testes_unitários]] — code: 5. Testes Unitários
+- [[docs_sdd_fase_3_servico_obsidian_dependências_desta_fase]] — code: Dependências Desta Fase
+- [[docs_sdd_fase_3_servico_obsidian_desbloqueia]] — code: Desbloqueia
+- [[docs_sdd_fase_3_servico_obsidian_resumo]] — code: Resumo
+- [[docs_sdd_fase_3_servico_obsidian_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_fase_3_servico_obsidian_dependencias]] — code: Dependencias
+- [[docs_sdd_fase_3_servico_obsidian_fluxos]] — code: Fluxos
+- [[docs_sdd_fase_3_servico_obsidian_integracoes]] — code: Integracoes
+- [[docs_sdd_fase_3_servico_obsidian_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_fase_3_servico_obsidian_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_fase_3_servico_obsidian_status]] — code: Status
+- [[docs_sdd_fase_3_servico_obsidian_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_fase_3_servico_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]]
+- [[docs_sdd_fase_3_servico_obsidian]] → `references` → [[docs_sdd_fases_4_5_pipeline_rag_e_watcher]]
+- [[docs_sdd_fase_3_servico_obsidian]] → `references` → [[docs_sdd_fases_6_7_watcher_langgraph_e_memoria]]
+- [[docs_sdd_fase_3_servico_obsidian]] → `references` → [[docs_sdd_ferramentas_do_langgraph]]
+- [[docs_sdd_fase_3_servico_obsidian]] → `references` → [[docs_sdd_roadmap_geral]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_1_estrutura_de_módulos]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_2_dtos_de_domínio_domain_document_py]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_3_obsidianservice_obsidian_services_obsidian_service_py]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_5_testes_unitários]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_arquivos_relacionados]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_children]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_conteudo]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_critério_de_sucesso]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_dependencias]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_dependências_desta_fase]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_desbloqueia]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_fluxos]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_integracoes]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_objetivo]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_parent]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_referencias_kirl]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_related]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_responsabilidades]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_resumo]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_status]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_tags]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_tarefas]]
+- [[docs_sdd_fase_3_servico_obsidian_fase_3_serviço_obsidian]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_ultima_atualizacao]]
+- [[docs_sdd_fase_3_servico_obsidian_tarefas]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_busca]]
+- [[docs_sdd_fase_3_servico_obsidian_tarefas]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_configuração]]
+- [[docs_sdd_fase_3_servico_obsidian_tarefas]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_escrita]]
+- [[docs_sdd_fase_3_servico_obsidian_tarefas]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_leitura]]
+- [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_create_note_tool_py]]
+- [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_delete_note_tool_py]]
+- [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_read_note_tool_py]]
+- [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_search_notes_tool_py]]
+- [[docs_sdd_fase_3_servico_obsidian_4_ferramentas_langgraph_compatíveis]] → `contains` → [[docs_sdd_fase_3_servico_obsidian_update_note_tool_py]]

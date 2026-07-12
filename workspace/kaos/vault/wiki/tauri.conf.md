@@ -1,0 +1,74 @@
+# desktop\src-tauri\tauri.conf.json
+
+## Símbolos
+
+- [[desktop_src_tauri_tauri_conf]] — code: tauri.conf.json
+- [[desktop_src_tauri_tauri_conf_schema]] — code: $schema
+- [[desktop_src_tauri_tauri_conf_productname]] — code: productName
+- [[desktop_src_tauri_tauri_conf_version]] — code: version
+- [[desktop_src_tauri_tauri_conf_identifier]] — code: identifier
+- [[desktop_src_tauri_tauri_conf_build]] — code: build
+- [[desktop_src_tauri_tauri_conf_build_frontenddist]] — code: frontendDist
+- [[desktop_src_tauri_tauri_conf_build_devurl]] — code: devUrl
+- [[desktop_src_tauri_tauri_conf_build_beforedevcommand]] — code: beforeDevCommand
+- [[desktop_src_tauri_tauri_conf_build_beforebuildcommand]] — code: beforeBuildCommand
+- [[desktop_src_tauri_tauri_conf_app]] — code: app
+- [[desktop_src_tauri_tauri_conf_app_windows]] — code: windows
+- [[desktop_src_tauri_tauri_conf_app_security]] — code: security
+- [[desktop_src_tauri_tauri_conf_security_csp]] — code: csp
+- [[desktop_src_tauri_tauri_conf_bundle]] — code: bundle
+- [[desktop_src_tauri_tauri_conf_bundle_active]] — code: active
+- [[desktop_src_tauri_tauri_conf_bundle_targets]] — code: targets
+- [[desktop_src_tauri_tauri_conf_bundle_icon]] — code: icon
+- [[ref_icons_32x32_png]] — code: icons/32x32.png
+- [[ref_icons_128x128_png]] — code: icons/128x128.png
+- [[ref_icons_128x128_2x_png]] — code: icons/128x128@2x.png
+- [[ref_icons_icon_icns]] — code: icons/icon.icns
+- [[ref_icons_icon_ico]] — code: icons/icon.ico
+- [[desktop_src_tauri_tauri_conf_bundle_windows]] — code: windows
+- [[desktop_src_tauri_tauri_conf_windows_wix]] — code: wix
+- [[desktop_src_tauri_tauri_conf_windows_nsis]] — code: nsis
+- [[desktop_src_tauri_tauri_conf_nsis_installmode]] — code: installMode
+- [[desktop_src_tauri_tauri_conf_plugins]] — code: plugins
+- [[desktop_src_tauri_tauri_conf_plugins_updater]] — code: updater
+- [[desktop_src_tauri_tauri_conf_updater_pubkey]] — code: pubkey
+- [[desktop_src_tauri_tauri_conf_updater_endpoints]] — code: endpoints
+- [[ref_https_github_com_brian5m1th_k_a_o_s_releases_latest_download_update_proxy_json]] — code: https://github.com/Brian5m1th/K.A.O.S/releases/latest/download/update-proxy.json
+- [[desktop_src_tauri_tauri_conf_updater_windows]] — code: windows
+- [[desktop_src_tauri_tauri_conf_windows_installmode]] — code: installMode
+
+## Dependências
+
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_app]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_build]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_bundle]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_identifier]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_plugins]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_productname]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_schema]]
+- [[desktop_src_tauri_tauri_conf]] → `contains` → [[desktop_src_tauri_tauri_conf_version]]
+- [[desktop_src_tauri_tauri_conf_build]] → `contains` → [[desktop_src_tauri_tauri_conf_build_beforebuildcommand]]
+- [[desktop_src_tauri_tauri_conf_build]] → `contains` → [[desktop_src_tauri_tauri_conf_build_beforedevcommand]]
+- [[desktop_src_tauri_tauri_conf_build]] → `contains` → [[desktop_src_tauri_tauri_conf_build_devurl]]
+- [[desktop_src_tauri_tauri_conf_build]] → `contains` → [[desktop_src_tauri_tauri_conf_build_frontenddist]]
+- [[desktop_src_tauri_tauri_conf_app]] → `contains` → [[desktop_src_tauri_tauri_conf_app_security]]
+- [[desktop_src_tauri_tauri_conf_app]] → `contains` → [[desktop_src_tauri_tauri_conf_app_windows]]
+- [[desktop_src_tauri_tauri_conf_app_security]] → `contains` → [[desktop_src_tauri_tauri_conf_security_csp]]
+- [[desktop_src_tauri_tauri_conf_bundle]] → `contains` → [[desktop_src_tauri_tauri_conf_bundle_active]]
+- [[desktop_src_tauri_tauri_conf_bundle]] → `contains` → [[desktop_src_tauri_tauri_conf_bundle_icon]]
+- [[desktop_src_tauri_tauri_conf_bundle]] → `contains` → [[desktop_src_tauri_tauri_conf_bundle_targets]]
+- [[desktop_src_tauri_tauri_conf_bundle]] → `contains` → [[desktop_src_tauri_tauri_conf_bundle_windows]]
+- [[desktop_src_tauri_tauri_conf_bundle_icon]] → `extends` → [[ref_icons_128x128_2x_png]]
+- [[desktop_src_tauri_tauri_conf_bundle_icon]] → `extends` → [[ref_icons_128x128_png]]
+- [[desktop_src_tauri_tauri_conf_bundle_icon]] → `extends` → [[ref_icons_32x32_png]]
+- [[desktop_src_tauri_tauri_conf_bundle_icon]] → `extends` → [[ref_icons_icon_icns]]
+- [[desktop_src_tauri_tauri_conf_bundle_icon]] → `extends` → [[ref_icons_icon_ico]]
+- [[desktop_src_tauri_tauri_conf_bundle_windows]] → `contains` → [[desktop_src_tauri_tauri_conf_windows_nsis]]
+- [[desktop_src_tauri_tauri_conf_bundle_windows]] → `contains` → [[desktop_src_tauri_tauri_conf_windows_wix]]
+- [[desktop_src_tauri_tauri_conf_windows_nsis]] → `contains` → [[desktop_src_tauri_tauri_conf_nsis_installmode]]
+- [[desktop_src_tauri_tauri_conf_plugins]] → `contains` → [[desktop_src_tauri_tauri_conf_plugins_updater]]
+- [[desktop_src_tauri_tauri_conf_plugins_updater]] → `contains` → [[desktop_src_tauri_tauri_conf_updater_endpoints]]
+- [[desktop_src_tauri_tauri_conf_plugins_updater]] → `contains` → [[desktop_src_tauri_tauri_conf_updater_pubkey]]
+- [[desktop_src_tauri_tauri_conf_plugins_updater]] → `contains` → [[desktop_src_tauri_tauri_conf_updater_windows]]
+- [[desktop_src_tauri_tauri_conf_updater_endpoints]] → `extends` → [[ref_https_github_com_brian5m1th_k_a_o_s_releases_latest_download_update_proxy_json]]
+- [[desktop_src_tauri_tauri_conf_updater_windows]] → `contains` → [[desktop_src_tauri_tauri_conf_windows_installmode]]

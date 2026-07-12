@@ -6,6 +6,7 @@ from fastapi import APIRouter
 from loguru import logger
 from pydantic import BaseModel
 
+from app.config.settings import settings
 from app.setup.provider_config import (
     get_config,
     get_active_provider_config,
@@ -31,9 +32,33 @@ async def set_provider_config(config: dict):
 @router.get("/provider/active")
 async def get_active_provider():
     config = get_active_provider_config()
+    active_provider = config["provider"]
+    active_model = config["model"]
+
+    # Check if the configured model is actually installed (ollama / lmstudio)
+    if active_provider in ("ollama", "lmstudio"):
+        try:
+            import httpx
+
+            ollama_url = config.get("url", settings.OLLAMA_BASE_URL).rstrip("/")
+            async with httpx.AsyncClient(timeout=3) as client:
+                resp = await client.get(f"{ollama_url}/api/tags")
+                if resp.is_success:
+                    data = resp.json()
+                    installed_models = {m["name"] for m in data.get("models", [])}
+                    # Match model name (ollama may suffix with :latest)
+                    if (
+                        active_model not in installed_models
+                        and f"{active_model}:latest" not in installed_models
+                    ):
+                        active_model = "No model installed"
+        except Exception:
+            # Can't reach ollama — model status unknown, return as-is
+            pass
+
     return {
-        "activeProvider": config["provider"],
-        "model": config["model"],
+        "activeProvider": active_provider,
+        "model": active_model,
         "url": config["url"],
         "available": list(DEFAULT_CONFIG.keys()),
     }

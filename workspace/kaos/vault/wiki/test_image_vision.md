@@ -1,0 +1,86 @@
+# graphify\tests\test_image_vision.py
+
+## Símbolos
+
+- [[graphify_tests_test_image_vision]] — code: test_image_vision.py
+- [[graphify_tests_test_image_vision_make_corpus]] — code: _make_corpus()
+- [[graphify_tests_test_image_vision_test_pdf_routed_through_pypdf_not_readtext]] — code: test_pdf_routed_through_pypdf_not_readtext()
+- [[graphify_tests_test_image_vision_test_pdf_is_not_treated_as_vision_image]] — code: test_pdf_is_not_treated_as_vision_image()
+- [[graphify_tests_test_image_vision_test_non_pdf_still_read_as_plain_text]] — code: test_non_pdf_still_read_as_plain_text()
+- [[graphify_tests_test_image_vision_test_read_files_skips_out_of_root_symlink]] — code: test_read_files_skips_out_of_root_symlink()
+- [[graphify_tests_test_image_vision_test_partition_splits_raster_from_text]] — code: test_partition_splits_raster_from_text()
+- [[graphify_tests_test_image_vision_test_build_image_refs_sets_rel_media_and_bytes]] — code: test_build_image_refs_sets_rel_media_and_bytes()
+- [[graphify_tests_test_image_vision_test_build_image_refs_skips_out_of_root_symlink]] — code: test_build_image_refs_skips_out_of_root_symlink()
+- [[graphify_tests_test_image_vision_test_build_image_refs_drops_oversized]] — code: test_build_image_refs_drops_oversized()
+- [[graphify_tests_test_image_vision_test_path_backend_skips_byte_read_and_size_cap]] — code: test_path_backend_skips_byte_read_and_size_cap()
+- [[graphify_tests_test_image_vision_test_claude_cli_passes_oversized_image_by_path]] — code: test_claude_cli_passes_oversized_image_by_path()
+- [[graphify_tests_test_image_vision_test_capability_flags]] — code: test_capability_flags()
+- [[graphify_tests_test_image_vision_test_image_token_estimate_is_flat]] — code: test_image_token_estimate_is_flat()
+- [[graphify_tests_test_image_vision_test_chunk_packing_caps_images_per_chunk]] — code: test_chunk_packing_caps_images_per_chunk()
+- [[graphify_tests_test_image_vision_test_anthropic_content_has_base64_block]] — code: test_anthropic_content_has_base64_block()
+- [[graphify_tests_test_image_vision_test_openai_content_has_data_uri]] — code: test_openai_content_has_data_uri()
+- [[graphify_tests_test_image_vision_test_bedrock_content_uses_raw_bytes]] — code: test_bedrock_content_uses_raw_bytes()
+- [[graphify_tests_test_image_vision_test_builders_fall_back_to_string_without_pixels]] — code: test_builders_fall_back_to_string_without_pixels()
+- [[graphify_tests_test_image_vision_test_no_images_is_byte_identical]] — code: test_no_images_is_byte_identical()
+- [[graphify_tests_test_image_vision_fake_anthropic]] — code: _fake_anthropic()
+- [[graphify_tests_test_image_vision_fake_openai]] — code: _fake_openai()
+- [[graphify_tests_test_image_vision_fake_boto3]] — code: _fake_boto3()
+- [[graphify_tests_test_image_vision_test_call_claude_sends_image_block]] — code: test_call_claude_sends_image_block()
+- [[graphify_tests_test_image_vision_test_call_openai_compat_sends_image_url]] — code: test_call_openai_compat_sends_image_url()
+- [[graphify_tests_test_image_vision_test_call_openai_compat_text_only_without_images]] — code: test_call_openai_compat_text_only_without_images()
+- [[graphify_tests_test_image_vision_test_call_bedrock_sends_raw_image_bytes]] — code: test_call_bedrock_sends_raw_image_bytes()
+- [[graphify_tests_test_image_vision_test_claude_cli_adds_dir_and_read_instruction]] — code: test_claude_cli_adds_dir_and_read_instruction()
+- [[graphify_tests_test_image_vision_test_extract_files_direct_gates_pixels_by_capability]] — code: test_extract_files_direct_gates_pixels_by_capability()
+- [[graphify_tests_test_image_vision_rationale_1]] — code: Tests for image-vision support across the direct extraction backends.  Covers
+- [[graphify_tests_test_image_vision_rationale_34]] — code: A corpus with one raster image, one svg (text), and one markdown doc.
+
+## Dependências
+
+- [[graphify_tests_test_image_vision_test_pdf_routed_through_pypdf_not_readtext]] → `indirect_call` → [[graphify_graphify_detect_detect]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_fake_anthropic]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_fake_boto3]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_fake_openai]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_anthropic_content_has_base64_block]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_bedrock_content_uses_raw_bytes]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_build_image_refs_drops_oversized]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_build_image_refs_sets_rel_media_and_bytes]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_build_image_refs_skips_out_of_root_symlink]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_builders_fall_back_to_string_without_pixels]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_call_bedrock_sends_raw_image_bytes]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_call_claude_sends_image_block]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_call_openai_compat_sends_image_url]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_call_openai_compat_text_only_without_images]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_capability_flags]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_chunk_packing_caps_images_per_chunk]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_claude_cli_adds_dir_and_read_instruction]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_claude_cli_passes_oversized_image_by_path]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_extract_files_direct_gates_pixels_by_capability]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_image_token_estimate_is_flat]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_no_images_is_byte_identical]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_non_pdf_still_read_as_plain_text]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_openai_content_has_data_uri]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_partition_splits_raster_from_text]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_path_backend_skips_byte_read_and_size_cap]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_pdf_is_not_treated_as_vision_image]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_pdf_routed_through_pypdf_not_readtext]]
+- [[graphify_tests_test_image_vision]] → `contains` → [[graphify_tests_test_image_vision_test_read_files_skips_out_of_root_symlink]]
+- [[graphify_tests_test_image_vision_rationale_1]] → `rationale_for` → [[graphify_tests_test_image_vision]]
+- [[graphify_tests_test_image_vision_rationale_34]] → `rationale_for` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_anthropic_content_has_base64_block]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_bedrock_content_uses_raw_bytes]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_build_image_refs_sets_rel_media_and_bytes]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_builders_fall_back_to_string_without_pixels]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_call_bedrock_sends_raw_image_bytes]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_call_claude_sends_image_block]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_call_openai_compat_sends_image_url]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_claude_cli_adds_dir_and_read_instruction]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_extract_files_direct_gates_pixels_by_capability]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_image_token_estimate_is_flat]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_openai_content_has_data_uri]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_partition_splits_raster_from_text]] → `calls` → [[graphify_tests_test_image_vision_make_corpus]]
+- [[graphify_tests_test_image_vision_test_call_claude_sends_image_block]] → `calls` → [[graphify_tests_test_image_vision_fake_anthropic]]
+- [[graphify_tests_test_image_vision_test_call_openai_compat_sends_image_url]] → `calls` → [[graphify_tests_test_image_vision_fake_openai]]
+- [[graphify_tests_test_image_vision_test_call_openai_compat_text_only_without_images]] → `calls` → [[graphify_tests_test_image_vision_fake_openai]]
+- [[graphify_tests_test_image_vision_test_extract_files_direct_gates_pixels_by_capability]] → `calls` → [[graphify_tests_test_image_vision_fake_openai]]
+- [[graphify_tests_test_image_vision_test_call_bedrock_sends_raw_image_bytes]] → `calls` → [[graphify_tests_test_image_vision_fake_boto3]]

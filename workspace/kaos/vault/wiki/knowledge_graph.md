@@ -1,0 +1,76 @@
+# assistant\app\ai\vault_analyzer\knowledge_graph.py
+
+## Símbolos
+
+- [[assistant_app_ai_vault_analyzer_knowledge_graph]] — code: knowledge_graph.py
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]] — code: KnowledgeGraph
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph_to_dict]] — code: .to_dict()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] — code: KnowledgeGraphBuilder
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] — code: ._load_graphify_graph()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_resolve_source_file]] — code: ._resolve_source_file()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_map_relation]] — code: ._map_relation()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] — code: .build()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]] — code: .load()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_infer_type]] — code: ._infer_type()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]] — code: ._persist()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] — code: .update_file()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]] — code: .delete_file()
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_43]] — code: Builds knowledge graph from Graphify, Vault, and DRL sources.      Deprecates
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_53]] — code: Load graphify-out/graph.json, return dict with 'files' and 'edges'.
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_254]] — code: Atualiza incrementalmente um unico arquivo no grafo de conhecimento.
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_355]] — code: Remove incrementalmente um arquivo do grafo de conhecimento.
+
+## Dependências
+
+- [[assistant_app_ai_vault_analyzer_knowledge_graph]] → `contains` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph]] → `contains` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph_to_dict]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]] → `uses` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]] → `uses` → [[assistant_app_audit_sdd_resolver_sddresolver]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] → `references` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]] → `references` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]] → `references` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]] → `references` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraph_to_dict]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_infer_type]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_map_relation]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_resolve_source_file]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `uses` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]] → `uses` → [[assistant_app_audit_sdd_resolver_sddresolver]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_43]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_infer_type]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_map_relation]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_resolve_source_file]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_py_path]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_53]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load_graphify_graph]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] → `calls` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader_scan_all]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_load_from_json]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]] → `calls` → [[assistant_app_audit_sdd_resolver_sddresolver_scan_all_sdds]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_build]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_knowledge_graph_path]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_load]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_knowledge_graph_path]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_persist]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `references` → [[assistant_app_ai_vault_analyzer_knowledge_graph_py_path]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader_scan_single]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_254]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_update_file]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]] → `references` → [[assistant_app_ai_vault_analyzer_knowledge_graph_py_path]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_ai_vault_analyzer_knowledge_graph_rationale_355]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_knowledge_graph_knowledgegraphbuilder_delete_file]]

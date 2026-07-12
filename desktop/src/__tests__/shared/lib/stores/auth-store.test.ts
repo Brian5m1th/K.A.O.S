@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { useAuthStore } from "@/shared/lib/stores/auth-store";
+import { useAuthStore } from "@/application/stores/auth-store";
 import { kaosFetch } from "@/infrastructure/http";
 
 vi.mock("@/infrastructure/http", () => ({

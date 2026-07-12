@@ -1,0 +1,14 @@
+# graphify\tools\skillgen\expected\graphify__skills__vscode__references__update.md
+
+## Símbolos
+
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update]] — code: graphify__skills__vscode__references__update.md
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_graphify_reference_incremental_update_and_cluster_only]] — code: graphify reference: incremental update and cluster-only
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_for_update_incremental_re_extraction]] — code: For --update (incremental re-extraction)
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_for_cluster_only]] — code: For --cluster-only
+
+## Dependências
+
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_graphify_reference_incremental_update_and_cluster_only]]
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_graphify_reference_incremental_update_and_cluster_only]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_for_cluster_only]]
+- [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_graphify_reference_incremental_update_and_cluster_only]] → `contains` → [[graphify_tools_skillgen_expected_graphify_skills_vscode_references_update_for_update_incremental_re_extraction]]

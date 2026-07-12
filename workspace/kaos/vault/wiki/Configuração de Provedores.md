@@ -1,0 +1,86 @@
+# docs\sdd\Configuração de Provedores.md
+
+## Símbolos
+
+- [[docs_sdd_configuração_de_provedores]] — code: Configuração de Provedores.md
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] — code: Configuração de Provedores
+- [[docs_sdd_configuração_de_provedores_parent]] — code: Parent
+- [[docs_sdd_configuração_de_provedores_children]] — code: Children
+- [[docs_sdd_configuração_de_provedores_related]] — code: Related
+- [[docs_sdd_configuração_de_provedores_tags]] — code: Tags
+- [[docs_sdd_configuração_de_provedores_conteudo]] — code: Conteudo
+- [[docs_sdd_configuração_de_provedores_1_problema]] — code: 1. Problema
+- [[docs_sdd_configuração_de_provedores_2_solução]] — code: 2. Solução
+- [[docs_sdd_configuração_de_provedores_2_1_camada_de_persistencia]] — code: 2.1 Camada de Persistencia
+- [[docs_sdd_configuração_de_provedores_2_2_payload_do_endpoint]] — code: 2.2 Payload do Endpoint
+- [[docs_sdd_configuração_de_provedores_2_3_fluxo_de_configuracao]] — code: 2.3 Fluxo de Configuracao
+- [[docs_sdd_configuração_de_provedores_3_arquitetura_do_backend]] — code: 3. Arquitetura do Backend
+- [[docs_sdd_configuração_de_provedores_providerconfigservice]] — code: ProviderConfigService
+- [[docs_sdd_configuração_de_provedores_endpoints_da_api]] — code: Endpoints da API
+- [[docs_sdd_configuração_de_provedores_4_arquitetura_do_frontend]] — code: 4. Arquitetura do Frontend
+- [[docs_sdd_configuração_de_provedores_providerscreen_react]] — code: ProviderScreen (React)
+- [[docs_sdd_configuração_de_provedores_integracao_com_tauri_plugin_store]] — code: Integracao com Tauri plugin-store
+- [[docs_sdd_configuração_de_provedores_separacao_de_conceitos]] — code: Separacao de conceitos
+- [[docs_sdd_configuração_de_provedores_5_integracao_com_o_ecossistema]] — code: 5. Integracao com o Ecossistema
+- [[docs_sdd_configuração_de_provedores_llmfactory]] — code: LLMFactory
+- [[docs_sdd_configuração_de_provedores_fallback_chain]] — code: Fallback Chain
+- [[docs_sdd_configuração_de_provedores_offline_mode]] — code: Offline Mode
+- [[docs_sdd_configuração_de_provedores_6_seguranca]] — code: 6. Seguranca
+- [[docs_sdd_configuração_de_provedores_7_dependencias]] — code: 7. Dependencias
+- [[docs_sdd_configuração_de_provedores_backend_python]] — code: Backend (Python)
+- [[docs_sdd_configuração_de_provedores_frontend_desktop]] — code: Frontend (Desktop)
+- [[docs_sdd_configuração_de_provedores_8_proximos_passos]] — code: 8. Proximos Passos
+- [[docs_sdd_configuração_de_provedores_resumo]] — code: Resumo
+- [[docs_sdd_configuração_de_provedores_objetivo]] — code: Objetivo
+- [[docs_sdd_configuração_de_provedores_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_configuração_de_provedores_dependencias]] — code: Dependencias
+- [[docs_sdd_configuração_de_provedores_fluxos]] — code: Fluxos
+- [[docs_sdd_configuração_de_provedores_integracoes]] — code: Integracoes
+- [[docs_sdd_configuração_de_provedores_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_configuração_de_provedores_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_configuração_de_provedores_status]] — code: Status
+- [[docs_sdd_configuração_de_provedores_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_configuração_de_provedores]] → `references` → [[docs_sdd_arquitetura_de_orquestracao]]
+- [[docs_sdd_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_configuração_de_provedores]]
+- [[docs_sdd_configuração_de_provedores]] → `references` → [[docs_sdd_ferramentas_do_langgraph]]
+- [[docs_sdd_configuração_de_provedores]] → `references` → [[docs_sdd_provedor_hibrido_de_llm]]
+- [[docs_sdd_configuração_de_provedores]] → `references` → [[docs_sdd_variaveis_de_ambiente]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_1_problema]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_2_solução]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_3_arquitetura_do_backend]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_4_arquitetura_do_frontend]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_5_integracao_com_o_ecossistema]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_6_seguranca]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_7_dependencias]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_8_proximos_passos]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_arquivos_relacionados]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_children]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_conteudo]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_dependencias]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_fluxos]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_integracoes]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_objetivo]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_parent]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_referencias_kirl]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_related]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_responsabilidades]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_resumo]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_status]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_tags]]
+- [[docs_sdd_configuração_de_provedores_configuração_de_provedores]] → `contains` → [[docs_sdd_configuração_de_provedores_ultima_atualizacao]]
+- [[docs_sdd_configuração_de_provedores_2_solução]] → `contains` → [[docs_sdd_configuração_de_provedores_2_1_camada_de_persistencia]]
+- [[docs_sdd_configuração_de_provedores_2_solução]] → `contains` → [[docs_sdd_configuração_de_provedores_2_2_payload_do_endpoint]]
+- [[docs_sdd_configuração_de_provedores_2_solução]] → `contains` → [[docs_sdd_configuração_de_provedores_2_3_fluxo_de_configuracao]]
+- [[docs_sdd_configuração_de_provedores_3_arquitetura_do_backend]] → `contains` → [[docs_sdd_configuração_de_provedores_endpoints_da_api]]
+- [[docs_sdd_configuração_de_provedores_3_arquitetura_do_backend]] → `contains` → [[docs_sdd_configuração_de_provedores_providerconfigservice]]
+- [[docs_sdd_configuração_de_provedores_4_arquitetura_do_frontend]] → `contains` → [[docs_sdd_configuração_de_provedores_integracao_com_tauri_plugin_store]]
+- [[docs_sdd_configuração_de_provedores_4_arquitetura_do_frontend]] → `contains` → [[docs_sdd_configuração_de_provedores_providerscreen_react]]
+- [[docs_sdd_configuração_de_provedores_4_arquitetura_do_frontend]] → `contains` → [[docs_sdd_configuração_de_provedores_separacao_de_conceitos]]
+- [[docs_sdd_configuração_de_provedores_5_integracao_com_o_ecossistema]] → `contains` → [[docs_sdd_configuração_de_provedores_fallback_chain]]
+- [[docs_sdd_configuração_de_provedores_5_integracao_com_o_ecossistema]] → `contains` → [[docs_sdd_configuração_de_provedores_llmfactory]]
+- [[docs_sdd_configuração_de_provedores_5_integracao_com_o_ecossistema]] → `contains` → [[docs_sdd_configuração_de_provedores_offline_mode]]
+- [[docs_sdd_configuração_de_provedores_7_dependencias]] → `contains` → [[docs_sdd_configuração_de_provedores_backend_python]]
+- [[docs_sdd_configuração_de_provedores_7_dependencias]] → `contains` → [[docs_sdd_configuração_de_provedores_frontend_desktop]]

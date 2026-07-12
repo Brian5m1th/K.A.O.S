@@ -1,0 +1,90 @@
+# docs\sdd\Provedor Hibrido de LLM.md
+
+## Símbolos
+
+- [[docs_sdd_provedor_hibrido_de_llm]] — code: Provedor Hibrido de LLM.md
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] — code: Provedor HÍbrido de LLM
+- [[docs_sdd_provedor_hibrido_de_llm_parent]] — code: Parent
+- [[docs_sdd_provedor_hibrido_de_llm_children]] — code: Children
+- [[docs_sdd_provedor_hibrido_de_llm_related]] — code: Related
+- [[docs_sdd_provedor_hibrido_de_llm_tags]] — code: Tags
+- [[docs_sdd_provedor_hibrido_de_llm_conteudo]] — code: Conteudo
+- [[docs_sdd_provedor_hibrido_de_llm_objetivo]] — code: Objetivo
+- [[docs_sdd_provedor_hibrido_de_llm_problema_atual]] — code: Problema Atual
+- [[docs_sdd_provedor_hibrido_de_llm_problemas]] — code: Problemas
+- [[docs_sdd_provedor_hibrido_de_llm_arquitetura]] — code: Arquitetura
+- [[docs_sdd_provedor_hibrido_de_llm_camada_de_abstração]] — code: Camada de Abstração
+- [[docs_sdd_provedor_hibrido_de_llm_interface_baseprovider]] — code: Interface BaseProvider
+- [[docs_sdd_provedor_hibrido_de_llm_factory_pattern]] — code: Factory Pattern
+- [[docs_sdd_provedor_hibrido_de_llm_model_map_e_configuração]] — code: MODEL_MAP e Configuração
+- [[docs_sdd_provedor_hibrido_de_llm_provedores]] — code: Provedores
+- [[docs_sdd_provedor_hibrido_de_llm_ollamaprovider]] — code: OllamaProvider
+- [[docs_sdd_provedor_hibrido_de_llm_openaiprovider]] — code: OpenAIProvider
+- [[docs_sdd_provedor_hibrido_de_llm_claudeprovider]] — code: ClaudeProvider
+- [[docs_sdd_provedor_hibrido_de_llm_geminiprovider]] — code: GeminiProvider
+- [[docs_sdd_provedor_hibrido_de_llm_fallback_automático]] — code: Fallback Automático
+- [[docs_sdd_provedor_hibrido_de_llm_embeddings_independentes]] — code: Embeddings Independentes
+- [[docs_sdd_provedor_hibrido_de_llm_smart_routing_por_contexto_e_custo]] — code: Smart Routing por Contexto e Custo
+- [[docs_sdd_provedor_hibrido_de_llm_métricas_por_provider]] — code: Métricas por Provider
+- [[docs_sdd_provedor_hibrido_de_llm_compatibilidade_com_wiki_layer]] — code: Compatibilidade com Wiki Layer
+- [[docs_sdd_provedor_hibrido_de_llm_refatorações_necessárias]] — code: Refatorações Necessárias
+- [[docs_sdd_provedor_hibrido_de_llm_arquivos_a_modificar]] — code: Arquivos a modificar
+- [[docs_sdd_provedor_hibrido_de_llm_arquivos_novos]] — code: Arquivos novos
+- [[docs_sdd_provedor_hibrido_de_llm_critérios_de_aceite]] — code: Critérios de Aceite
+- [[docs_sdd_provedor_hibrido_de_llm_fase_1_abstração_factory]] — code: Fase 1 — Abstração + Factory
+- [[docs_sdd_provedor_hibrido_de_llm_fase_2_provedores_cloud]] — code: Fase 2 — Provedores Cloud
+- [[docs_sdd_provedor_hibrido_de_llm_fase_3_fallback_métricas]] — code: Fase 3 — Fallback + Métricas
+- [[docs_sdd_provedor_hibrido_de_llm_fase_4_smart_routing_futuro]] — code: Fase 4 — Smart Routing (futuro)
+- [[docs_sdd_provedor_hibrido_de_llm_resumo]] — code: Resumo
+- [[docs_sdd_provedor_hibrido_de_llm_responsabilidades]] — code: Responsabilidades
+- [[docs_sdd_provedor_hibrido_de_llm_dependencias]] — code: Dependencias
+- [[docs_sdd_provedor_hibrido_de_llm_fluxos]] — code: Fluxos
+- [[docs_sdd_provedor_hibrido_de_llm_integracoes]] — code: Integracoes
+- [[docs_sdd_provedor_hibrido_de_llm_arquivos_relacionados]] — code: Arquivos Relacionados
+- [[docs_sdd_provedor_hibrido_de_llm_referencias_kirl]] — code: Referencias KIRL
+- [[docs_sdd_provedor_hibrido_de_llm_status]] — code: Status
+- [[docs_sdd_provedor_hibrido_de_llm_ultima_atualizacao]] — code: Ultima Atualizacao
+
+## Dependências
+
+- [[docs_sdd_provedor_hibrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_arquitetura]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_arquivos_relacionados]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_camada_de_abstração]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_children]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_compatibilidade_com_wiki_layer]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_conteudo]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_critérios_de_aceite]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_dependencias]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_embeddings_independentes]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_factory_pattern]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_fallback_automático]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_fluxos]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_integracoes]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_interface_baseprovider]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_model_map_e_configuração]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_métricas_por_provider]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_objetivo]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_parent]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_problema_atual]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_provedores]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_refatorações_necessárias]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_referencias_kirl]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_related]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_responsabilidades]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_resumo]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_smart_routing_por_contexto_e_custo]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_status]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_tags]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedor_híbrido_de_llm]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_ultima_atualizacao]]
+- [[docs_sdd_provedor_hibrido_de_llm_problema_atual]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_problemas]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedores]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_claudeprovider]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedores]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_geminiprovider]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedores]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_ollamaprovider]]
+- [[docs_sdd_provedor_hibrido_de_llm_provedores]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_openaiprovider]]
+- [[docs_sdd_provedor_hibrido_de_llm_refatorações_necessárias]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_arquivos_a_modificar]]
+- [[docs_sdd_provedor_hibrido_de_llm_refatorações_necessárias]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_arquivos_novos]]
+- [[docs_sdd_provedor_hibrido_de_llm_critérios_de_aceite]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_fase_1_abstração_factory]]
+- [[docs_sdd_provedor_hibrido_de_llm_critérios_de_aceite]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_fase_2_provedores_cloud]]
+- [[docs_sdd_provedor_hibrido_de_llm_critérios_de_aceite]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_fase_3_fallback_métricas]]
+- [[docs_sdd_provedor_hibrido_de_llm_critérios_de_aceite]] → `contains` → [[docs_sdd_provedor_hibrido_de_llm_fase_4_smart_routing_futuro]]

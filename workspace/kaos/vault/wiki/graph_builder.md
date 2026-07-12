@@ -1,0 +1,81 @@
+# assistant\app\ai\vault_analyzer\graph_builder.py
+
+## Símbolos
+
+- [[assistant_app_ai_vault_analyzer_graph_builder]] — code: graph_builder.py
+- [[assistant_app_ai_vault_analyzer_graph_builder_archnode]] — code: ArchNode
+- [[assistant_app_ai_vault_analyzer_graph_builder_archedge]] — code: ArchEdge
+- [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]] — code: ArchGraphSnapshot
+- [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot_to_dict]] — code: .to_dict()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] — code: GraphBuilder
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] — code: .build()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load_graphify_graph]] — code: ._load_graphify_graph()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_resolve_source_file]] — code: ._resolve_source_file()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_add_graphify_nodes]] — code: ._add_graphify_nodes()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_type]] — code: ._infer_type()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_relation]] — code: ._infer_relation()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_system_edges]] — code: ._infer_system_edges()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_persist]] — code: ._persist()
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]] — code: .load()
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_67]] — code: Builds architecture graph from Graphify, Vault, and DRL sources.      Deprecates
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_181]] — code: Loads graphify-out/graph.json and returns aggregated file-level data.          R
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_251]] — code: Resolve a symbol ID back to its source file.
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_263]] — code: Add Graphify-derived nodes and edges to the snapshot.
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_288]] — code: Infer the type of a code reference from its path.
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_312]] — code: Map Graphify relation names to ArchEdge relation types.
+
+## Dependências
+
+- [[assistant_app_ai_vault_analyzer_graph_builder]] → `contains` → [[assistant_app_ai_vault_analyzer_graph_builder_archedge]]
+- [[assistant_app_ai_vault_analyzer_graph_builder]] → `contains` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]]
+- [[assistant_app_ai_vault_analyzer_graph_builder]] → `contains` → [[assistant_app_ai_vault_analyzer_graph_builder_archnode]]
+- [[assistant_app_ai_vault_analyzer_graph_builder]] → `contains` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archnode]] → `uses` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archnode]] → `uses` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archnode]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_add_graphify_nodes]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archnode]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archnode]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archnode]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archedge]] → `uses` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archedge]] → `uses` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archedge]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_add_graphify_nodes]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archedge]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archedge]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_system_edges]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archedge]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archedge]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot_to_dict]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]] → `uses` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]] → `uses` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_add_graphify_nodes]] → `references` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `references` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_system_edges]] → `references` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]] → `references` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_persist]] → `references` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_persist]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_archgraphsnapshot_to_dict]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_add_graphify_nodes]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_relation]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_system_edges]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_type]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load_graphify_graph]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_persist]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `method` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_resolve_source_file]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `uses` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `uses` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]] → `uses` → [[assistant_app_audit_feature_registry_featureregistry]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_67]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `calls` → [[assistant_app_ai_vault_analyzer_vault_reader_vaultreader_scan_all]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `calls` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager_load]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `calls` → [[assistant_app_audit_drl_snapshot_drlsnapshotmanager_update_graph_summary]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_build]] → `calls` → [[assistant_app_audit_feature_registry_featureregistry_load_from_json]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load_graphify_graph]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_project_root]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_181]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load_graphify_graph]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_251]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_resolve_source_file]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_263]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_add_graphify_nodes]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_288]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_type]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_rationale_312]] → `rationale_for` → [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_infer_relation]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_persist]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_graph_path]]
+- [[assistant_app_ai_vault_analyzer_graph_builder_graphbuilder_load]] → `calls` → [[assistant_app_core_runtime_path_resolver_runtimepathresolver_graph_path]]
