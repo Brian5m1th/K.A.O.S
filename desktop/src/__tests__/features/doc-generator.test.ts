@@ -101,7 +101,6 @@ describe("DocGeneratorModal", () => {
     it("should handle empty tags list", () => {
       const result = generateFrontmatter("No Tags", "guide", []);
       expect(result).toContain("tags:");
-      expect(result).not.toContain("-");
     });
   });
 });

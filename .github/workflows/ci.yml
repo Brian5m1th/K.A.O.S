@@ -66,12 +66,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v5
         with:
+          version: "latest"
           python-version: "3.13"
+          enable-cache: true
 
       - name: Install Graphify
-        run: uv pip install graphifyy
+        run: uv pip install --system graphifyy
 
       - name: Enrich Graph (structural quality, no LLM)
         continue-on-error: true
