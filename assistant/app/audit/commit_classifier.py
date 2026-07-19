@@ -193,5 +193,9 @@ if __name__ == "__main__":
     for c in classify_commits(test_commits):
         logger.info(
             "{} | {} | {} | {} | {}",
-            c.hash, c.type.value, c.impact.value, c.scope or "-", c.features_mentioned
+            c.hash,
+            c.type.value,
+            c.impact.value,
+            c.scope or "-",
+            c.features_mentioned,
         )

@@ -28,8 +28,7 @@ class Provider(ABC):
 
     @property
     @abstractmethod
-    def name(self) -> str:
-        ...
+    def name(self) -> str: ...
 
     @property
     def version(self) -> str:

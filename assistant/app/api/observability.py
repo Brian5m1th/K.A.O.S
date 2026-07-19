@@ -74,7 +74,9 @@ class SSEEventSubscriber(EventSubscriber):
             try:
                 q.put_nowait(payload)
             except Exception as e:
-                logger.debug("[observability] event listener queue full/disconnected: {}", e)
+                logger.debug(
+                    "[observability] event listener queue full/disconnected: {}", e
+                )
 
 
 # Subscribe this subscriber to ALL event names on import

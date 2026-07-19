@@ -50,7 +50,9 @@ class AutomationBus:
                         online = True
                         break
             except Exception as e:
-                logger.debug("[automation] connection attempt {} failed: {}", attempt + 1, e)
+                logger.debug(
+                    "[automation] connection attempt {} failed: {}", attempt + 1, e
+                )
             logger.debug(
                 f"[AutomationBus] Connection attempt {attempt + 1}/{retries} failed. Retrying in {delay}s..."
             )

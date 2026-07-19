@@ -182,5 +182,9 @@ if __name__ == "__main__":
     for e in entries[:10]:
         logger.info(
             "{} | {} | {} | {} | {}",
-            e.hash, e.type, e.impact, e.scope or "-", e.features
+            e.hash,
+            e.type,
+            e.impact,
+            e.scope or "-",
+            e.features,
         )

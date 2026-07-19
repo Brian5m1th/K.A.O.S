@@ -39,7 +39,9 @@ class TestExecutor:
             assert hasattr(tool, "invoke"), f"{name} nao tem invoke"
 
     def test_tool_registry_not_empty(self) -> None:
-        assert len(TOOL_REGISTRY) >= 20, f"Esperado >=20 tools, encontrado {len(TOOL_REGISTRY)}"
+        assert len(TOOL_REGISTRY) >= 20, (
+            f"Esperado >=20 tools, encontrado {len(TOOL_REGISTRY)}"
+        )
 
     def test_executor_node_is_callable(self) -> None:
         assert callable(executor)
