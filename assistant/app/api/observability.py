@@ -32,8 +32,8 @@ def log_sink(message):
     for q in list(LOG_LISTENERS):
         try:
             q.put_nowait(msg)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("[observability] log listener queue full/disconnected: {}", e)
 
 
 # Register the sink on import
@@ -73,8 +73,8 @@ class SSEEventSubscriber(EventSubscriber):
         for q in list(EVENT_LISTENERS):
             try:
                 q.put_nowait(payload)
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("[observability] event listener queue full/disconnected: {}", e)
 
 
 # Subscribe this subscriber to ALL event names on import
@@ -147,8 +147,8 @@ async def observability_health():
             async with httpx.AsyncClient(timeout=2) as c:
                 r = await c.get(url)
                 services[name] = r.is_success
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[observability] {} health check failed: {}", name, e)
     return services
 
 
@@ -232,7 +232,7 @@ async def stream_logs():
                 log = await q.get()
                 yield f"data: {log}\n\n"
         except asyncio.CancelledError:
-            pass
+            logger.debug("[observability] log stream cancelled (client disconnected)")
         finally:
             if q in LOG_LISTENERS:
                 LOG_LISTENERS.remove(q)
@@ -257,7 +257,7 @@ async def stream_events():
                 ev = await q.get()
                 yield f"data: {json.dumps(ev)}\n\n"
         except asyncio.CancelledError:
-            pass
+            logger.debug("[observability] event stream cancelled (client disconnected)")
         finally:
             if q in EVENT_LISTENERS:
                 EVENT_LISTENERS.remove(q)

@@ -78,8 +78,8 @@ async def system_readiness():
             if r.is_success:
                 vector_count = r.json().get("result", {}).get("count", 0)
                 vector_ready = True
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("[system] vector count check failed: {}", e)
 
     all_ready = postgres_ok and qdrant_ok
     degraded = postgres_ok and qdrant_ok and not vector_ready
@@ -177,8 +177,8 @@ async def system_metrics():
             if len(parts) >= 2:
                 vram_used = round(float(parts[0].strip()) / 1024.0, 2)
                 vram_total = round(float(parts[1].strip()) / 1024.0, 2)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[system] nvidia-smi query failed: {}", e)
 
     return {
         "cpu": cpu_percent,
@@ -340,8 +340,8 @@ async def _get_runtime_info() -> dict:
 
         summary = ProviderMetrics.global_summary()
         avg_latency = summary.get("avg_latency_ms", 0.0)
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("[system] failed to read provider metrics: {}", e)
 
     return {
         "activeModel": active_model or "No model installed",
@@ -379,8 +379,8 @@ async def _read_vram() -> dict:
                 "used": round(float(parts[0].strip()) / 1024.0, 2),
                 "total": round(float(parts[1].strip()) / 1024.0, 2),
             }
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("[system] nvidia-smi (_read_vram) failed: {}", e)
     return {"used": None, "total": None}
 
 
@@ -398,8 +398,8 @@ async def _get_metrics_data() -> dict:
             )
             if r.is_success:
                 vector_count = r.json().get("result", {}).get("count", 0)
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("[system] failed to query qdrant vector count: {}", e)
 
     # Token rate from ProviderMetrics
     token_rate = 0.0
@@ -407,8 +407,8 @@ async def _get_metrics_data() -> dict:
         from app.llm.metrics import ProviderMetrics
 
         token_rate = ProviderMetrics.global_token_rate()
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("[system] failed to read token rate: {}", e)
 
     return {
         "vectorCount": vector_count,
@@ -439,8 +439,9 @@ async def _get_costs_data() -> dict:
                 "total_usd": summary.get("total_cost", 0.0),
                 "total_tokens": 0,
             }
-    except Exception:
-        pass
+    except Exception as e:
+        logger.warning("[system] failed to read costs from CostTracker: {}", e)
+        return {"_error": str(e), "total_usd": None, "total_tokens": None}
     return {"total_usd": 0.0, "total_tokens": 0}
 
 
@@ -462,8 +463,9 @@ async def _get_dlq_data() -> dict:
             ],
             "count": len(failed),
         }
-    except Exception:
-        return {"failed": [], "count": 0}
+    except Exception as e:
+        logger.warning("[system] failed to list DLQ entries: {}", e)
+        return {"_error": str(e), "failed": None, "count": None}
 
 
 async def _get_alerts_data() -> dict:
@@ -485,8 +487,9 @@ async def _get_alerts_data() -> dict:
                 for n in notifications
             ]
         }
-    except Exception:
-        return {"notifications": []}
+    except Exception as e:
+        logger.warning("[system] failed to list notifications: {}", e)
+        return {"_error": str(e), "notifications": None}
 
 
 # Fallback helpers have been removed.

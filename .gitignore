@@ -13,9 +13,10 @@ env/
 .idea/
 .vscode/
 
-# Environment
+# Environment (keep .env.prod.example as template)
 .env
 .env.*
+!.env.prod.example
 
 # OS
 .DS_Store

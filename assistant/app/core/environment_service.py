@@ -276,8 +276,8 @@ class EnvironmentService:
             if settings.WORKSPACE_ROOT:
                 p = Path(settings.WORKSPACE_ROOT)
                 strategies.append(("settings.WORKSPACE_ROOT", p))
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[env] settings.WORKSPACE_ROOT not available: {}", e)
 
         # 3. Docker mount padrao
         if env_type == EnvironmentType.DOCKER:
@@ -340,8 +340,8 @@ class EnvironmentService:
                 if p.exists():
                     logger.info("[env] docs resolvido por settings: {}", p)
                     return p.resolve()
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[env] settings.OBSIDIAN_VAULT_PATH not available: {}", e)
 
         # 4. workspace.parent / "docs"
         docs_path = workspace.parent / "docs"
@@ -512,8 +512,8 @@ class EnvironmentService:
                 path = Path(result.stdout.strip())
                 if path.exists():
                     return path.resolve()
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[env] git root detection from CLI failed: {}", e)
         return None
 
     @classmethod
