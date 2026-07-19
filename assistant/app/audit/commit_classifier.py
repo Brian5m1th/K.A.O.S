@@ -1,6 +1,7 @@
 import re
 from dataclasses import dataclass
 from enum import Enum
+from loguru import logger
 
 
 class CommitType(Enum):
@@ -190,6 +191,7 @@ if __name__ == "__main__":
         ("stu901", "feat: SDD040-03 model router and circuit breaker (#60)"),
     ]
     for c in classify_commits(test_commits):
-        print(
-            f"{c.hash} | {c.type.value:6} | {c.impact.value:6} | {c.scope or '-':15} | {c.features_mentioned}"
+        logger.info(
+            "{} | {} | {} | {} | {}",
+            c.hash, c.type.value, c.impact.value, c.scope or "-", c.features_mentioned
         )
