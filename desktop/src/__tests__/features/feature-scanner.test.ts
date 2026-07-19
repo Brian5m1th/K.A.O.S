@@ -9,18 +9,20 @@ describe("FeatureScanner", () => {
     expect(FeatureScanner.filterByStatus).toBeDefined();
   });
 
-  it("listAll should return an array", () => {
-    const all = FeatureScanner.listAll();
+  it("listAll should return an array", async () => {
+    const all = await FeatureScanner.listAll();
     expect(Array.isArray(all)).toBe(true);
   });
 
-  it("filterByStatus should work with valid status", () => {
-    const completed = FeatureScanner.filterByStatus("done");
+  it("filterByStatus should work with valid status", async () => {
+    const features = await FeatureScanner.listAll();
+    const completed = FeatureScanner.filterByStatus(features, "done");
     expect(Array.isArray(completed)).toBe(true);
   });
 
-  it("filterByPhase should return array for valid phase", () => {
-    const phase1 = FeatureScanner.filterByPhase(1);
+  it("filterByPhase should return array for valid phase", async () => {
+    const features = await FeatureScanner.listAll();
+    const phase1 = FeatureScanner.filterByPhase(features, "1");
     expect(Array.isArray(phase1)).toBe(true);
   });
 });

@@ -54,7 +54,8 @@ export function DocumentationPage() {
     try {
       await kaosFetch("/api/audit/scan-commits", "", { method: "POST" });
       await runAudit();
-    } catch {
+    } catch (e) {
+      console.error("[documentation] Sync vault failed:", e);
     }
   }, [runAudit]);
 
@@ -62,7 +63,8 @@ export function DocumentationPage() {
     try {
       await DocSyncEngine.runOnce();
       await loadSnapshot();
-    } catch {
+    } catch (e) {
+      console.error("[documentation] Generate docs failed:", e);
     }
   }, [loadSnapshot]);
 

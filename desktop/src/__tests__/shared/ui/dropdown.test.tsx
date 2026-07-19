@@ -14,8 +14,8 @@ describe("Dropdown", () => {
       <Dropdown
         trigger={<button>Menu</button>}
         items={[
-          { label: "Option 1", onClick: () => {} },
-          { label: "Option 2", onClick: () => {} },
+          { id: "opt1", label: "Option 1", onClick: () => {} },
+          { id: "opt2", label: "Option 2", onClick: () => {} },
         ]}
       />,
     );
@@ -29,7 +29,7 @@ describe("Dropdown", () => {
       <Dropdown
         trigger={<button>Actions</button>}
         items={[
-          { label: "Delete", onClick: () => { clicked = true; } },
+          { id: "delete", label: "Delete", onClick: () => { clicked = true; } },
         ]}
       />,
     );
@@ -44,9 +44,9 @@ describe("Dropdown", () => {
       <Dropdown
         trigger={<button>Menu</button>}
         items={[
-          { label: "Edit", onClick: () => {} },
-          { type: "divider" },
-          { label: "Delete", onClick: () => {} },
+          { id: "edit", label: "Edit", onClick: () => {} },
+          { id: "divider", label: "", onClick: () => {} },
+          { id: "delete", label: "Delete", onClick: () => {} },
         ]}
       />,
     );

@@ -260,7 +260,7 @@ export default function DashboardPage() {
     if (!isOnline) return;
 
     const url = `${serverUrl}/api/observability/logs/stream`;
-    console.log("[DashboardPage] Conectando ao Live System Logs:", url);
+    console.debug("[DashboardPage] Conectando ao Live System Logs:", url);
 
     const eventSource = new EventSource(url);
 
@@ -287,7 +287,7 @@ export default function DashboardPage() {
       const res = await kaosFetch(`${serverUrl}/api/agents/status`, "");
       if (res.ok) {
         const data = await res.json();
-        const runningNames = Object.values(data.instances || {}).map((inst: AgentInstanceItem) => inst.name);
+        const runningNames = (Object.values(data.instances || {}) as AgentInstanceItem[]).map((inst) => inst.name);
         setAgents((prev) =>
           prev.map((agent) => {
             const isRunning = runningNames.includes(agent.name);

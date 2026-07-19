@@ -114,7 +114,7 @@ export default function ObservabilityPage() {
     { name: "Loki", status: obsServices.loki ?? false },
   ];
 
-  const allUp = serviceEntries.some((s) => s.status);
+  const allUp = serviceEntries.every((s) => s.status);
   const tokenRate = metrics.tokenRate > 0 ? `${metrics.tokenRate} t/s` : "—";
   const avgLatency = runtime.latency > 0 ? `${runtime.latency}ms` : "—";
 

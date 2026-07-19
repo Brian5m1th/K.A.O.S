@@ -185,8 +185,8 @@ export default function ChatPage() {
           if (!activeModel) setActiveModel(defaultM);
         }
       }
-    } catch {
-      // Backend offline — keep defaults
+    } catch (e) {
+      console.error("[chat] Failed to fetch providers:", e);
     } finally {
       setProvidersLoading(false);
     }

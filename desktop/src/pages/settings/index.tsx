@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
@@ -7,6 +7,7 @@ import { Badge } from "@/shared/ui/badge";
 import { Tabs } from "@/shared/ui/tabs";
 import { kaosFetch } from "@/infrastructure";
 import { useAuthStore, useThemeStore, useSystemStore } from "@/application";
+import { useToast } from "@/shared/components/toast";
 import { UpdateCard } from "@/features/auto-update/ui/UpdateCard";
 import {
   Sun, Moon, Key, GitBranch, Workflow, Variable,
@@ -45,6 +46,7 @@ const THEMES = ["dark", "light", "kaos-blue", "purple", "terminal", "cyberpunk",
 const ACCENT_COLORS = ["#3B82F6", "#8B5CF6", "#10B981", "#F59E0B", "#EF4444", "#06B6D4"];
 
 export default function SettingsPage() {
+  const { showToast } = useToast();
   const maskedKey = useAuthStore((s) => s.maskedKey);
   const mode = useThemeStore((s) => s.mode);
   const accentColor = useThemeStore((s) => s.accentColor);
@@ -104,7 +106,7 @@ export default function SettingsPage() {
           }
           setEnvVars(envList);
         }
-      } catch {} finally { setLoading(false); }
+      } catch (e) { console.error("[settings] Failed to fetch:", e); } finally { setLoading(false); }
     };
     fetchAll();
   }, []);
@@ -119,7 +121,7 @@ export default function SettingsPage() {
       });
       const d = await res.json();
       setProviders((prev) => prev.map((p) => p.id === id ? { ...p, configured: d.status === "connected" } : p));
-    } catch {} finally { setForms((s) => ({ ...s, [id]: { ...s[id], testing: false } })); }
+    } catch (e) { console.error("[settings] Test failed:", e); } finally { setForms((s) => ({ ...s, [id]: { ...s[id], testing: false } })); }
   };
 
   const handleSave = async (id: string) => {
@@ -131,7 +133,7 @@ export default function SettingsPage() {
         body: JSON.stringify({ [id]: { url: f.url, apiKey: f.apiKey, model: f.model } }),
       });
       setProviders((prev) => prev.map((p) => p.id === id ? { ...p, configured: true } : p));
-    } catch {} finally { setForms((s) => ({ ...s, [id]: { ...s[id], saving: false } })); }
+    } catch (e) { console.error("[settings] Save failed:", e); } finally { setForms((s) => ({ ...s, [id]: { ...s[id], saving: false } })); }
   };
 
   const handleActivate = async (id: string) => {
@@ -143,7 +145,7 @@ export default function SettingsPage() {
       if (res.ok) {
         setActiveProvider(id);
       }
-    } catch {}
+    } catch (e) { console.error("[settings] Activate failed:", e); }
   };
 
   const handleSaveGlobal = async () => {

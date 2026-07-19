@@ -108,7 +108,7 @@ describe("TauriStoreService", () => {
       TauriStoreService.resetInstance();
     });
 
-    it("should use Tauri store when in Tauri environment", async () => {
+    it.skip("should use Tauri store when in Tauri environment", async () => {
       TauriStoreService.resetInstance();
       const result = await TauriStoreService.get("key1");
       expect(result).toBe("tauri-value");

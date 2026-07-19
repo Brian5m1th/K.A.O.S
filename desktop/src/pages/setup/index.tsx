@@ -37,8 +37,9 @@ export default function SetupPage() {
       } else {
         showToast("Servidor respondeu, mas com status inválido.", "warning");
       }
-    } catch (e: any) {
-      showToast(`Falha ao conectar: ${e.message || String(e)}`, "error");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      showToast(`Falha ao conectar: ${msg}`, "error");
     }
   };
 
@@ -65,7 +66,8 @@ export default function SetupPage() {
     setLoading(false);
 
     // If no error, registration succeeded and tokens are stored
-    if (!error) {
+    const currentError = useAuthStore.getState().error;
+    if (!currentError) {
       navigate("/", { replace: true });
     }
   };

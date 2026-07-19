@@ -4,7 +4,4 @@
  * This file exists for backward compatibility during FSD migration.
  * All new code should import from @/infrastructure/storage/tauri-store-service.
  */
-export {
-  isTauri,
-  TauriStoreService,
-} from "@/infrastructure/storage/tauri-store-service";
+export { TauriStoreService } from "@/infrastructure/storage/tauri-store-service";
