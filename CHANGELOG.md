@@ -1,3 +1,39 @@
+# [2.8.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.7.1...v2.8.0) (2026-07-19)
+
+
+### Bug Fixes
+
+* add setup-uv to auto-docs job, make scan-docs-gaps continue-on-error ([2aabc79](https://github.com/Brian5m1th/K.A.O.S/commit/2aabc79830814519168ec70eee10d3a6c046e23b))
+* barrel files — corrigir re-exports quebrados ([7cf67ea](https://github.com/Brian5m1th/K.A.O.S/commit/7cf67eab6bf7e3466f185d8eab9d01d0c756fd3c))
+* error handling — preencher 7 catch vazios + any→unknown + race condition setup ([ceed6a1](https://github.com/Brian5m1th/K.A.O.S/commit/ceed6a1c0553dca32d35e5f8833e5102346d894f))
+* explicit exit 0 at end of sync-vault.ps1 ([75b0c69](https://github.com/Brian5m1th/K.A.O.S/commit/75b0c69d4b180e8f89bf68f6c4475fa195b7580c))
+* remove --system from uv pip install graphifyy (venv already exists) ([fc15fec](https://github.com/Brian5m1th/K.A.O.S/commit/fc15fecb8c6e95f377523127b91985c0b5b7f261))
+* remove dead code — presentation/, graphify-inspector, config.ts, shared/types, empty barrels ([dd74172](https://github.com/Brian5m1th/K.A.O.S/commit/dd741725138e9835759c083473ee81bf98392a08))
+* robocopy exit code handling in sync-vault.ps1 ([4e567f8](https://github.com/Brian5m1th/K.A.O.S/commit/4e567f86b8e3fe477c31c38cf05d83efdc2d8a16))
+* runtime bugs — ToolLogger frozen state, command-palette stale closure, observability logic, dashboard type ([b36be2e](https://github.com/Brian5m1th/K.A.O.S/commit/b36be2ea77702a5ba2b5e1bd051935d353e59151))
+* set PSNativeCommandUseErrorActionPreference=false in sync-vault.ps1 ([c0b9023](https://github.com/Brian5m1th/K.A.O.S/commit/c0b902332acc1f1c133a026c3faf5d7ae90f3adc))
+* test assertion in doc-generator, setup-uv version arg, graphify install with --system ([e59f73d](https://github.com/Brian5m1th/K.A.O.S/commit/e59f73d7792cd29d37a23df1b3fda6ca8c062f0b))
+* TS type errors in graph-updater, knowledge-graph, and commands-init ([aa81d62](https://github.com/Brian5m1th/K.A.O.S/commit/aa81d62392fa91f0bed48bcd938576ee824cf15c))
+* unused import in enriched_adapter.py, broken import path in commands-init.ts ([0bd8a63](https://github.com/Brian5m1th/K.A.O.S/commit/0bd8a63657e0f0fd434e19cbf2b3f630ca26b28b))
+* update docs submodule pointer to pushed commit ([0bf6133](https://github.com/Brian5m1th/K.A.O.S/commit/0bf6133589b2ce51e108f6cc8a99b70bec1b9d6a))
+
+
+### Features
+
+* W1.2 + W1.5 — Alertmanager receiver + Grafana provisioning YAML ([9d1daa0](https://github.com/Brian5m1th/K.A.O.S/commit/9d1daa01d37fa0a8e05be8f81f20500c6cd029a6))
+* W3.2-W3.3 — abstractmethod + replace print() with logger ([f96f8d9](https://github.com/Brian5m1th/K.A.O.S/commit/f96f8d9798303dce6d74cfcc0b744afbc71fab56))
+* W4.1 — deduplicate 7 file pairs in frontend ([5f82f4f](https://github.com/Brian5m1th/K.A.O.S/commit/5f82f4f24dc67a32463610c95751d88e0f121538))
+* W4.2 — fix empty catch blocks in observability and dashboard pages ([124f018](https://github.com/Brian5m1th/K.A.O.S/commit/124f01852294f16fafa0b44bbd2e74795ceb577e))
+* W4.3-W4.5 — console.log→debug, TODOs→FSD markers, G-XX tags removed ([63efa50](https://github.com/Brian5m1th/K.A.O.S/commit/63efa5044984a2d0873e4510a619a2f213c3df45))
+* W4.4 — tipar any types em pages (8/8 tracked) ([b781c28](https://github.com/Brian5m1th/K.A.O.S/commit/b781c287b150ff0721a3c4f7fd53bdf502180ab3))
+* W4.6 — replace 6 stub tests with real tests ([c3640c0](https://github.com/Brian5m1th/K.A.O.S/commit/c3640c0a93dfad9bf30053b8814c08515a658f19))
+* W4.7 — fix catch(e:any) → catch(e:unknown) ([3c4bdce](https://github.com/Brian5m1th/K.A.O.S/commit/3c4bdce6c24a595e08e3d82b32541b56c515ff5e))
+* W5 — test coverage for mcp-platform + kaos-research ([9d0b59b](https://github.com/Brian5m1th/K.A.O.S/commit/9d0b59b7f6ccaa24fb38fffa04502b6c5831729e))
+* W6 — ADR-005, wiki dedup, remove noisy dirs ([e7e78c6](https://github.com/Brian5m1th/K.A.O.S/commit/e7e78c649a0279458fefa2676ec9a020760a58cd))
+* W7 — Observabilidade Avançada ([a01ad0b](https://github.com/Brian5m1th/K.A.O.S/commit/a01ad0bac37c657d5711761a0405149de2aa0e8e))
+* Wave 0-1 — security template, fix 18 except:pass, add _error to return paths ([f5b7e70](https://github.com/Brian5m1th/K.A.O.S/commit/f5b7e702fb6f8a62cccc36302f0213f847503c8e))
+* Wave 3 — fix 17 remaining except:pass across 13 files ([c1c18bf](https://github.com/Brian5m1th/K.A.O.S/commit/c1c18bfd05db7c7626be9219babdb6450d381696))
+
 ## [2.7.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.7.0...v2.7.1) (2026-07-12)
 
 
