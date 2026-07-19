@@ -50,7 +50,7 @@ airllm/
 graphify/
 
 # Generated graph files
-graphify-out/cache/
+graphify-out/
 SDD/
 
 # Local config files
