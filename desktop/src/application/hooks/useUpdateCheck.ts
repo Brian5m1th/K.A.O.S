@@ -1,18 +1,6 @@
-import { useEffect } from "react";
-import { useUpdateScheduler } from "./useUpdateScheduler";
-
 /**
- * Hook bridge que dispara a verificacao de atualizacao no startup.
- * Consumido por use-init.ts.
+ * useUpdateCheck — thin re-export of the canonical feature implementation.
  *
- * G-10: schedule e estavel (usa getState() internamente + useCallback),
- *       entao eslint-disable e intencional para evitar re-execucao.
+ * All new code should import from @/features/auto-update/hooks/useUpdateCheck.
  */
-export function useUpdateCheck() {
-  const { schedule } = useUpdateScheduler();
-
-  useEffect(() => {
-    schedule(); // silencioso, respeita cooldown
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-}
+export { useUpdateCheck } from "@/features/auto-update/hooks/useUpdateCheck";
