@@ -1,4 +1,4 @@
-from app.agent.nodes.executor import TOOL_REGISTRY
+from app.agent.nodes.executor import TOOL_REGISTRY, executor
 
 
 class TestExecutor:
@@ -36,4 +36,10 @@ class TestExecutor:
 
     def test_tool_registry_tools_have_invoke(self) -> None:
         for name, tool in TOOL_REGISTRY.items():
-            assert hasattr(tool, "invoke"), f"{name} não tem invoke"
+            assert hasattr(tool, "invoke"), f"{name} nao tem invoke"
+
+    def test_tool_registry_not_empty(self) -> None:
+        assert len(TOOL_REGISTRY) >= 20, f"Esperado >=20 tools, encontrado {len(TOOL_REGISTRY)}"
+
+    def test_executor_node_is_callable(self) -> None:
+        assert callable(executor)
