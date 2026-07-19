@@ -103,7 +103,7 @@ export default function AutomationMarketplace() {
       const jsonRes = await fetch(`/workflows/${tpl.json_name}`).catch(() => null);
       if (jsonRes && jsonRes.ok) {
         jsonData = await jsonRes.json();
-        console.log(`[marketplace] Template JSON loaded: ${tpl.json_name}`);
+        console.debug(`[marketplace] Template JSON loaded: ${tpl.json_name}`);
       } else {
         console.warn(`[marketplace] Template JSON not found at /workflows/${tpl.json_name}, using fallback`);
       }

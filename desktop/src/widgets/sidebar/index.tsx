@@ -216,6 +216,7 @@ export function Sidebar() {
                 systemStatus === "online" && "bg-accent-primary ring-accent-primary/20",
                 systemStatus === "degraded" && "bg-warning ring-warning/20",
                 systemStatus === "offline" && "bg-error ring-error/20",
+                !["online", "degraded", "offline"].includes(systemStatus) && "bg-text-dim ring-text-dim/20",
               )}
             />
             {!sidebarCollapsed && (
