@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronRight, Terminal, Loader2, CheckCircle2, XCircle } from "lucide-react";
 import type { ToolCall } from "../types";
@@ -11,8 +11,9 @@ type ToolDisplayStatus = "running" | "success" | "error";
 
 export function ToolLogger({ toolCall }: ToolLoggerProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [displayStatus] = useState<ToolDisplayStatus>(
-    toolCall.output ? "success" : "running",
+  const displayStatus = useMemo<ToolDisplayStatus>(
+    () => toolCall.output ? "success" : "running",
+    [toolCall.output],
   );
 
   const statusConfig = {

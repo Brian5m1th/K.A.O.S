@@ -13,7 +13,6 @@ export function CommandPalette() {
   const open = useUIStore((s) => s.commandPaletteOpen);
   const setOpen = useUIStore((s) => s.setCommandPaletteOpen);
   const navigate = useNavigate();
-  const systemState = useSystemStore.getState();
 
   const buildContext = useCallback((): CommandContext => ({
     navigate,
@@ -22,8 +21,8 @@ export function CommandPalette() {
       const nextTheme = currentTheme === "light" ? "dark" : "light";
       useThemeStore.getState().setMode(nextTheme);
     },
-    system: systemState,
-  }), [navigate, systemState]);
+    system: useSystemStore.getState(),
+  }), [navigate]);
 
   const filtered = query
     ? commandRegistry.search(query)
