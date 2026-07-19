@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import httpx
+from loguru import logger
 
 from app.audit.runtime_resolver import RuntimePathResolver
 from app.config.settings import settings
@@ -90,7 +91,8 @@ def _read_json(path: Path) -> dict | None:
         return None
     try:
         return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
+    except Exception as e:
+        logger.warning("[readiness] failed to parse JSON from {}: {}", path, e)
         return None
 
 

@@ -170,8 +170,8 @@ class _MCPServerProcess(MCPServer):
             try:
                 self._process.kill()
                 self._process.wait(timeout=3)
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("[mcp] force-kill cleanup for '{}': {}", self._name, e)
             self._process = None
             return False
 

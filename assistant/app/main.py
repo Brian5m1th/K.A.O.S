@@ -404,8 +404,8 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         from app.core.automation_bus import AutomationBus
 
         asyncio.run(AutomationBus.stop_worker())
-    except Exception:
-        pass
+    except Exception as e:
+        logger.debug("[finish] automation bus stop failed: {}", e)
     logger.debug("[finish] {} - encerrado", settings.APP_NAME)
 
 

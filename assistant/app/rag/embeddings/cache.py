@@ -2,6 +2,7 @@ import sqlite3
 import hashlib
 import json
 from pathlib import Path
+from loguru import logger
 
 
 class EmbeddingCache:
@@ -24,8 +25,8 @@ class EmbeddingCache:
                 conn.execute(
                     "CREATE INDEX IF NOT EXISTS idx_model ON chunk_embeddings(model)"
                 )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[cache] failed to initialize schema: {}", e)
 
     def _hash(self, text: str) -> str:
         return hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -40,8 +41,8 @@ class EmbeddingCache:
                 ).fetchone()
                 if row:
                     return json.loads(row[0])
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[cache] failed to read embedding: {}", e)
         return None
 
     def set(self, text: str, model: str, vector: list[float]) -> None:
@@ -55,5 +56,5 @@ class EmbeddingCache:
                 """,
                     (h, model, json.dumps(vector)),
                 )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[cache] failed to write embedding: {}", e)

@@ -116,8 +116,8 @@ async def register(
         try:
             result = await session.execute(select(User).limit(1))
             admin_exists = result.scalar_one_or_none() is not None
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[auth] db admin check failed: {}", e)
     admin_exists = admin_exists or len(_memory_users) > 0
 
     if admin_exists:
@@ -191,8 +191,8 @@ async def login(
                     "email": db_user.email,
                     "role": db_user.role,
                 }
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[auth] db user fetch failed: {}", e)
 
     # Fallback to memory
     if user_data is None:

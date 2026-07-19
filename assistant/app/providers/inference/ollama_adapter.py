@@ -5,6 +5,7 @@ Provides local LLM inference via Ollama.
 """
 
 from typing import AsyncIterator
+from loguru import logger
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from app.domain.ports.inference_port import (
@@ -56,7 +57,8 @@ class OllamaAdapter(InferencePort):
             async with httpx.AsyncClient(timeout=3) as c:
                 r = await c.get(f"{ollama_url}/api/tags")
                 return r.is_success
-        except Exception:
+        except Exception as e:
+            logger.warning("[ollama] health check failed: {}", e)
             return False
 
     async def list_models(self) -> list[str]:

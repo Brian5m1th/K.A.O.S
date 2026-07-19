@@ -111,7 +111,8 @@ class SDDResolver:
     def _parse_sdd(cls, path: Path) -> Optional[SDDEntry]:
         try:
             content = path.read_text(encoding="utf-8")
-        except Exception:
+        except Exception as e:
+            logger.warning("[sdd] failed to read {}: {}", path, e)
             return None
 
         title_match = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
