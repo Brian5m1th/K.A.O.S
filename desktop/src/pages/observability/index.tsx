@@ -51,7 +51,9 @@ export default function ObservabilityPage() {
           }));
           setAlerts(items);
         }
-      } catch {} finally {
+      } catch (e) {
+        console.error("[observability] Failed to fetch notifications:", e);
+      } finally {
         setAlertsLoading(false);
       }
     };
@@ -67,7 +69,9 @@ export default function ObservabilityPage() {
           const data = await res.json();
           setObsServices(data);
         }
-      } catch {}
+      } catch (e) {
+        console.error("[observability] Failed to fetch observability health:", e);
+      }
     };
     fetchObs();
     const interval = setInterval(fetchObs, 15_000);

@@ -173,7 +173,9 @@ export default function DashboardPage() {
           const data = await res.json();
           setDlqItems(data.failed || []);
         }
-      } catch {} finally {
+      } catch (e) {
+        console.error("[dashboard] Failed to fetch DLQ:", e);
+      } finally {
         setWfLoading(false);
       }
     };
@@ -232,7 +234,9 @@ export default function DashboardPage() {
         const data = await res.json();
         setNotifications(data.notifications || []);
       }
-    } catch {} finally {
+    } catch (e) {
+      console.error("[dashboard] Failed to fetch notifications:", e);
+    } finally {
       setAlertsLoading(false);
     }
   };
