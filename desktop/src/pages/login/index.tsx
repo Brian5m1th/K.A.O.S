@@ -45,8 +45,8 @@ export default function LoginPage() {
       } else {
         showToast("Servidor respondeu, mas com status inválido.", "warning");
       }
-    } catch (e: any) {
-      showToast(`Falha ao conectar: ${e.message || String(e)}`, "error");
+    } catch (e: unknown) {
+      showToast(`Falha ao conectar: ${e instanceof Error ? e.message : String(e)}`, "error");
     }
   };
 
@@ -130,8 +130,8 @@ export default function LoginPage() {
         setMode("login");
         setLocalSuccess("");
       }, 2500);
-    } catch (err: any) {
-      setLocalError(err.message || "Erro ao tentar redefinir senha");
+    } catch (err: unknown) {
+      setLocalError(err instanceof Error ? err.message : "Erro ao tentar redefinir senha");
     } finally {
       setLoading(false);
     }

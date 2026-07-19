@@ -30,8 +30,8 @@ export default function CostsPage() {
       const data = await res.json();
       setTotalCost(data.total_usd || 0);
       setBreakdown(data.breakdown || []);
-    } catch (e: any) {
-      setError(e.message || "Erro ao carregar os dados de telemetria financeira.");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Erro ao carregar os dados de telemetria financeira.");
     } finally {
       setLoading(false);
     }

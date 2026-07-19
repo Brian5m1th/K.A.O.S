@@ -42,6 +42,14 @@ interface AgentItem {
   activity: string;
 }
 
+interface CostBreakdownItem {
+  total_tokens?: number;
+}
+
+interface AgentInstanceItem {
+  name: string;
+}
+
 interface NotificationItem {
   id: string;
   level: "info" | "warning" | "error" | "critical";
@@ -204,7 +212,7 @@ export default function DashboardPage() {
         if (costsRes.ok) {
           const costsData = await costsRes.json();
           const totalTokens = (costsData.breakdown || []).reduce(
-            (acc: number, item: any) => acc + (item.total_tokens || 0),
+            (acc: number, item: CostBreakdownItem) => acc + (item.total_tokens || 0),
             0
           );
           setCosts({
@@ -279,7 +287,7 @@ export default function DashboardPage() {
       const res = await kaosFetch(`${serverUrl}/api/agents/status`, "");
       if (res.ok) {
         const data = await res.json();
-        const runningNames = Object.values(data.instances || {}).map((inst: any) => inst.name);
+        const runningNames = Object.values(data.instances || {}).map((inst: AgentInstanceItem) => inst.name);
         setAgents((prev) =>
           prev.map((agent) => {
             const isRunning = runningNames.includes(agent.name);

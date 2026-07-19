@@ -16,6 +16,24 @@ import { Card, CardContent } from "@/shared/ui/card";
 import { Badge } from "@/shared/ui/badge";
 import { Loader2, RefreshCw, Network } from "lucide-react";
 
+interface GraphAPINode {
+  id: string;
+  label: string;
+  type: string;
+}
+
+interface GraphAPIEdge {
+  source: string;
+  target: string;
+  relation: string;
+}
+
+interface GraphAPIData {
+  nodes: GraphAPINode[];
+  edges: GraphAPIEdge[];
+  error?: string;
+}
+
 const NODE_COLORS: Record<string, string> = {
   feature: "#3B82F6",
   store: "#10B981",
@@ -41,13 +59,13 @@ export default function GraphifyPage() {
     try {
       const res = await kaosFetch("/api/architecture/graph", "");
       if (!res.ok) throw new Error("API error");
-      const data = await res.json();
+      const data: GraphAPIData = await res.json();
 
       if (data.error || !data.nodes) {
         throw new Error(data.error || "No graph data");
       }
 
-      const flowNodes: Node[] = data.nodes.map((n: any, i: number) => ({
+      const flowNodes: Node[] = data.nodes.map((n: GraphAPINode, i: number) => ({
         id: n.id,
         type: "default",
         position: { x: 150 + (i % 4) * 200, y: 50 + Math.floor(i / 4) * 120 },
@@ -71,7 +89,7 @@ export default function GraphifyPage() {
         },
       }));
 
-      const flowEdges: Edge[] = data.edges.map((e: any, i: number) => ({
+      const flowEdges: Edge[] = data.edges.map((e: GraphAPIEdge, i: number) => ({
         id: `e-${i}`,
         source: e.source,
         target: e.target,
