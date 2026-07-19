@@ -61,7 +61,7 @@ async function runBootstrapPipeline(serverUrl: string) {
     stageStart = now;
 
     const p: BootstrapProgress = { step, message, error, timings: { ...stageTimings } };
-    console.log(`[bootstrap] ${step}: ${message}${error ? ` (${error})` : ""} (${elapsed.toFixed(0)}ms)`);
+    console.debug(`[bootstrap] ${step}: ${message}${error ? ` (${error})` : ""} (${elapsed.toFixed(0)}ms)`);
     notifyListeners(p);
   };
 
@@ -118,7 +118,7 @@ async function runBootstrapPipeline(serverUrl: string) {
         break;
       }
     } catch {
-      // tentar de novo
+      console.debug("[bootstrap] Health check attempt failed, retrying...");
     }
     if (i % 3 === 0) {
       progress("wait_backend_health", `Aguardando backend (tentativa ${i + 1}/15)...`);
@@ -131,7 +131,9 @@ async function runBootstrapPipeline(serverUrl: string) {
     try {
       const { useSystemStore } = await import("@/application/stores/system-store");
       useSystemStore.getState().setStatus("offline");
-    } catch {}
+    } catch {
+      console.debug("[bootstrap] Failed to set offline status, system store may not be ready");
+    }
     progress("error", "Nao foi possivel conectar ao backend K.A.O.S.");
     return;
   }
@@ -155,7 +157,7 @@ async function runBootstrapPipeline(serverUrl: string) {
         }
       }
     } catch {
-      // Backend pode ainda estar subindo
+      console.debug("[bootstrap] Backend pode ainda estar subindo");
     }
   }
   if (!readinessOk) {
@@ -175,7 +177,7 @@ async function runBootstrapPipeline(serverUrl: string) {
 
       if (state.is_ready) {
         progress("wait_bootstrap_ready", `Bootstrap concluido (${state.degraded ? "degradado" : "saudavel"})`);
-        console.log("[bootstrap] Stages:", JSON.stringify(state.stages));
+        console.debug("[bootstrap] Stages:", JSON.stringify(state.stages));
         bootstrapComplete = true;
         break;
       }
@@ -187,7 +189,7 @@ async function runBootstrapPipeline(serverUrl: string) {
         progress("wait_bootstrap_ready", `Bootstrap em progresso: ${lastStage.stage}...`);
       }
     } catch {
-      // tentar de novo
+      console.debug("[bootstrap] State poll failed, retrying...");
     }
   }
 
@@ -213,10 +215,10 @@ export function useAppInit(): BootstrapProgress {
 
   useEffect(() => {
     if (accessToken) {
-      console.log("[useAppInit] User authenticated, starting DocSyncEngine...");
+      console.debug("[useAppInit] User authenticated, starting DocSyncEngine...");
       DocSyncEngine.start(60000);
     } else {
-      console.log("[useAppInit] No user session, stopping DocSyncEngine...");
+      console.debug("[useAppInit] No user session, stopping DocSyncEngine...");
       DocSyncEngine.stop();
     }
     return () => {
@@ -235,7 +237,7 @@ export function useAppInit(): BootstrapProgress {
       try {
         const version = await invokeIpc<string>("get_app_version");
         useUpdateStore.getState().setCurrentVersion(version);
-        console.log(`[useAppInit] Dynamic version retrieved: ${version}`);
+        console.debug("[useAppInit] Dynamic version retrieved:", version);
       } catch (e) {
         console.error("[useAppInit] Failed to get real app version:", e);
       }

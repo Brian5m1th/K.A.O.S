@@ -5,7 +5,8 @@
  * These represent the core concepts of K.A.O.S Desktop:
  * conversations, settings, workflows, users, etc.
  *
- * TODO: Migrate entity types from pages/*.tsx into this directory
+ * FSD Migration: Entity types will be migrated from pages/*.tsx into this directory.
+ * See IMPLEMENTATION_GRAPH.md W4.5.
  * as the FSD architecture matures.
  */
 

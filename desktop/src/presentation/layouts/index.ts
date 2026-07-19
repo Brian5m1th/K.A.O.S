@@ -6,7 +6,8 @@
  * visual structure (header, sidebar, content area, etc.)
  *
  * Current layout lives in @/app/routes/index.tsx (AppRoutes).
- * TODO: Extract reusable layout components here as the app grows.
+ * FSD Migration: Layout components will be extracted here.
+ * See IMPLEMENTATION_GRAPH.md W4.5.
  */
 
 export { }

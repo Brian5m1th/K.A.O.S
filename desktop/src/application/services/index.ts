@@ -6,7 +6,8 @@
  * specific business capability.
  *
  * Available stores (Zustand) in @/application/stores provide state management.
- * TODO: Extract service logic from page components into this directory.
+ * FSD Migration: Service logic will be extracted from page components into this directory.
+ * See IMPLEMENTATION_GRAPH.md W4.5.
  */
 
 export { } from "./conversation-service";
