@@ -42,6 +42,14 @@ interface AgentItem {
   activity: string;
 }
 
+interface CostBreakdownItem {
+  total_tokens?: number;
+}
+
+interface AgentInstanceItem {
+  name: string;
+}
+
 interface NotificationItem {
   id: string;
   level: "info" | "warning" | "error" | "critical";
@@ -173,7 +181,9 @@ export default function DashboardPage() {
           const data = await res.json();
           setDlqItems(data.failed || []);
         }
-      } catch {} finally {
+      } catch (e) {
+        console.error("[dashboard] Failed to fetch DLQ:", e);
+      } finally {
         setWfLoading(false);
       }
     };
@@ -202,7 +212,7 @@ export default function DashboardPage() {
         if (costsRes.ok) {
           const costsData = await costsRes.json();
           const totalTokens = (costsData.breakdown || []).reduce(
-            (acc: number, item: any) => acc + (item.total_tokens || 0),
+            (acc: number, item: CostBreakdownItem) => acc + (item.total_tokens || 0),
             0
           );
           setCosts({
@@ -232,7 +242,9 @@ export default function DashboardPage() {
         const data = await res.json();
         setNotifications(data.notifications || []);
       }
-    } catch {} finally {
+    } catch (e) {
+      console.error("[dashboard] Failed to fetch notifications:", e);
+    } finally {
       setAlertsLoading(false);
     }
   };
@@ -248,7 +260,7 @@ export default function DashboardPage() {
     if (!isOnline) return;
 
     const url = `${serverUrl}/api/observability/logs/stream`;
-    console.log("[DashboardPage] Conectando ao Live System Logs:", url);
+    console.debug("[DashboardPage] Conectando ao Live System Logs:", url);
 
     const eventSource = new EventSource(url);
 
@@ -275,7 +287,7 @@ export default function DashboardPage() {
       const res = await kaosFetch(`${serverUrl}/api/agents/status`, "");
       if (res.ok) {
         const data = await res.json();
-        const runningNames = Object.values(data.instances || {}).map((inst: any) => inst.name);
+        const runningNames = (Object.values(data.instances || {}) as AgentInstanceItem[]).map((inst) => inst.name);
         setAgents((prev) =>
           prev.map((agent) => {
             const isRunning = runningNames.includes(agent.name);

@@ -180,6 +180,7 @@ class CommitMapper:
 if __name__ == "__main__":
     entries = CommitMapper.generate_map(50)
     for e in entries[:10]:
-        print(
-            f"{e.hash} | {e.type:6} | {e.impact:6} | {e.scope or '-':15} | {e.features}"
+        logger.info(
+            "{} | {} | {} | {} | {}",
+            e.hash, e.type, e.impact, e.scope or "-", e.features
         )

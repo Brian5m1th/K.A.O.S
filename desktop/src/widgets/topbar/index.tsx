@@ -31,7 +31,7 @@ export function TopBar() {
         ? "DEGRADED"
         : "OFFLINE";
 
-  const timeStr = time.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  const timeStr = time.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 
   return (
     <header className="flex h-9 items-center justify-between border-b border-border-subtle bg-surface/80 px-4 text-xs text-text-muted backdrop-blur-md">

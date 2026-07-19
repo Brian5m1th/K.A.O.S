@@ -127,7 +127,8 @@ class VaultReader:
             meta = yaml.safe_load(match.group(1))
             body = match.group(2)
             return meta if isinstance(meta, dict) else None, body
-        except Exception:
+        except Exception as e:
+            logger.debug("[vault] frontmatter parse error: {}", e)
             return None, content
 
     @classmethod

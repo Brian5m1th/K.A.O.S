@@ -92,8 +92,8 @@ class DatabaseCredentialProvider(CredentialProvider):
                 # Cannot run sync when loop is running; fallback to file
                 logger.debug("[credential:db] loop running, fallback to file provider")
                 return None
-        except RuntimeError:
-            pass
+        except RuntimeError as e:
+            logger.debug("[credential:db] no event loop available: {}", e)
 
         try:
             repo_data = asyncio.run(self._get_credential_from_db(service, key))

@@ -32,7 +32,7 @@ interface UpdateState {
 /**
  * Store de atualizacao do K.A.O.S Desktop.
  *
- * Segue o padrao de system-store.ts (G-02):
+ * Segue o padrao de system-store.ts: armazena apenas o necessario para sobreviver
  * - create()(...persist(...)) com partialize para persistir so o necessario
  * - Mutacoes atomicas chamadas APENAS pelo useUpdaterService
  * - currentVersion vem de __APP_VERSION__ (injetado pelo Vite) como fallback, mas atualizada dinamicamente
@@ -58,7 +58,7 @@ export const useUpdateStore = create<UpdateState>()(
     }),
     {
       name: "kaos-update-store",
-      // G-02: persistir apenas o necessario para sobreviver a reinicializacao
+      // Persistir apenas o necessario para sobreviver a reinicializacao
       partialize: (state) => ({
         lastCheckAt: state.lastCheckAt,
         channel: state.channel,

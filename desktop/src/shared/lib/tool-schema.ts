@@ -30,26 +30,4 @@ export function createToolEvent(
   };
 }
 
-export function completeToolEvent(
-  event: ToolEvent,
-  output: unknown,
-): ToolEvent {
-  return {
-    ...event,
-    status: "success",
-    output,
-    completedAt: Date.now(),
-  };
-}
 
-export function failToolEvent(
-  event: ToolEvent,
-  error: string,
-): ToolEvent {
-  return {
-    ...event,
-    status: "error",
-    error,
-    completedAt: Date.now(),
-  };
-}

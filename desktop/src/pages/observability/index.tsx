@@ -51,7 +51,9 @@ export default function ObservabilityPage() {
           }));
           setAlerts(items);
         }
-      } catch {} finally {
+      } catch (e) {
+        console.error("[observability] Failed to fetch notifications:", e);
+      } finally {
         setAlertsLoading(false);
       }
     };
@@ -67,7 +69,9 @@ export default function ObservabilityPage() {
           const data = await res.json();
           setObsServices(data);
         }
-      } catch {}
+      } catch (e) {
+        console.error("[observability] Failed to fetch observability health:", e);
+      }
     };
     fetchObs();
     const interval = setInterval(fetchObs, 15_000);
@@ -110,7 +114,7 @@ export default function ObservabilityPage() {
     { name: "Loki", status: obsServices.loki ?? false },
   ];
 
-  const allUp = serviceEntries.some((s) => s.status);
+  const allUp = serviceEntries.every((s) => s.status);
   const tokenRate = metrics.tokenRate > 0 ? `${metrics.tokenRate} t/s` : "—";
   const avgLatency = runtime.latency > 0 ? `${runtime.latency}ms` : "—";
 

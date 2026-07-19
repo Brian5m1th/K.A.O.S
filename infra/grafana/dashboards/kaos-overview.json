@@ -1,86 +1,104 @@
 {
   "title": "K.A.O.S - Overview",
   "uid": "kaos-overview",
-  "version": 1,
+  "version": 2,
   "tags": ["kaos", "production"],
-  "time": { "from": "now-1h", "to": "now" },
+  "time": { "from": "now-6h", "to": "now" },
   "panels": [
     {
       "title": "Requests por minuto",
       "type": "graph",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
-      "targets": [
-        {
-          "expr": "rate(kaos_events_total{event_name=\"request_started\"}[1m])",
-          "legendFormat": "requests/s"
-        }
-      ]
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "targets": [{ "expr": "rate(kaos_events_total{event_name=\"request_started\"}[1m])", "legendFormat": "requests/s" }]
     },
     {
       "title": "Custo acumulado (USD)",
       "type": "graph",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
-      "targets": [
-        {
-          "expr": "kaos_cost_total_usd",
-          "legendFormat": "total"
-        }
-      ]
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "targets": [{ "expr": "kaos_cost_total_usd", "legendFormat": "total" }]
+    },
+    {
+      "title": "Erros",
+      "type": "graph",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "targets": [{ "expr": "rate(kaos_events_total{status=\"failed\"}[5m])", "legendFormat": "errors/s" }]
     },
     {
       "title": "Latencia de Workflows",
       "type": "graph",
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
-      "targets": [
-        {
-          "expr": "rate(kaos_workflow_duration_seconds_sum[5m]) / rate(kaos_workflow_duration_seconds_count[5m])",
-          "legendFormat": "{{workflow}}"
-        }
-      ]
+      "targets": [{ "expr": "rate(kaos_workflow_duration_seconds_sum[5m]) / rate(kaos_workflow_duration_seconds_count[5m])", "legendFormat": "{{workflow}}" }]
     },
     {
-      "title": "Erros",
-      "type": "graph",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
-      "targets": [
-        {
-          "expr": "rate(kaos_events_total{status=\"failed\"}[5m])",
-          "legendFormat": "errors/s"
+      "title": "DRL Drift Score",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 8 },
+      "targets": [{ "expr": "kaos_drl_drift_score", "legendFormat": "drift" }],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 0.2 },
+            { "color": "red", "value": 0.5 }
+          ]}
         }
-      ]
+      }
+    },
+    {
+      "title": "Cobertura de Testes",
+      "type": "gauge",
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 8 },
+      "targets": [{ "expr": "kaos_test_coverage_percent", "legendFormat": "coverage" }],
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "red", "value": null },
+            { "color": "yellow", "value": 50 },
+            { "color": "green", "value": 80 }
+          ]}
+        }
+      }
+    },
+    {
+      "title": "Modulos sem Teste",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 8 },
+      "targets": [{ "expr": "kaos_modules_without_tests", "legendFormat": "missing" }]
     },
     {
       "title": "Estado do Circuit Breaker",
       "type": "stat",
-      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 16 },
-      "targets": [
-        {
-          "expr": "kaos_circuit_breaker_state",
-          "legendFormat": "state"
-        }
-      ]
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 12 },
+      "targets": [{ "expr": "kaos_circuit_breaker_state", "legendFormat": "state" }]
     },
     {
       "title": "Custo por Provedor",
       "type": "piechart",
-      "gridPos": { "h": 8, "w": 12, "x": 4, "y": 16 },
-      "targets": [
-        {
-          "expr": "kaos_cost_total_usd",
-          "legendFormat": "{{provider}}"
+      "gridPos": { "h": 8, "w": 8, "x": 4, "y": 12 },
+      "targets": [{ "expr": "kaos_cost_total_usd", "legendFormat": "{{provider}}" }]
+    },
+    {
+      "title": "Import Cycles",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 12 },
+      "targets": [{ "expr": "kaos_import_cycles", "legendFormat": "cycles" }],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 3 },
+            { "color": "red", "value": 8 }
+          ]}
         }
-      ]
+      }
     },
     {
       "title": "Logs Recentes",
       "type": "logs",
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 24 },
-      "targets": [
-        {
-          "expr": "{job=\"kaos-api\"} |= \"event\"",
-          "legendFormat": ""
-        }
-      ],
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 16 },
+      "targets": [{ "expr": "{job=\"kaos-api\"} |= \"event\"", "legendFormat": "" }],
       "datasource": "Loki"
     }
   ]

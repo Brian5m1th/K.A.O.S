@@ -57,9 +57,9 @@ export default function WelcomePage() {
       } else {
         throw new Error("O servidor respondeu com status inválido");
       }
-    } catch (e: any) {
-      showToast(`Falha de conexão com o K.A.O.S Backend em "${targetUrl}". Detalhes: ${e.message || String(e)}`, "error");
-      // Restore previous url
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      showToast(`Falha de conexão com o K.A.O.S Backend em "${targetUrl}". Detalhes: ${msg}`, "error");
       useAuthStore.setState({ serverUrl });
     } finally {
       setChecking(false);
@@ -76,8 +76,9 @@ export default function WelcomePage() {
       });
       if (!res.ok) throw new Error("Erro ao definir o provedor ativo");
       setStep(3);
-    } catch (e: any) {
-      showToast(`Não foi possível salvar o provedor no backend: ${e.message || String(e)}`, "error");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      showToast(`Não foi possível salvar o provedor no backend: ${msg}`, "error");
     } finally {
       setChecking(false);
     }
@@ -89,8 +90,9 @@ export default function WelcomePage() {
       useAuthStore.setState({ configured: true });
       setChecking(false);
       navigate("/");
-    } catch (e: any) {
-      showToast(`Erro ao finalizar setup: ${e.message || String(e)}`, "error");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      showToast(`Erro ao finalizar setup: ${msg}`, "error");
       setChecking(false);
     }
   };

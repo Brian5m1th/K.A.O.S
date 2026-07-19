@@ -72,8 +72,8 @@ class DRLSnapshotManager:
             from app.audit.commit_mapper import CommitMapper
 
             commits = CommitMapper.load()
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[drl] CommitMapper.load failed: {}", e)
 
         last_commit = commits[0].hash if commits else ""
 

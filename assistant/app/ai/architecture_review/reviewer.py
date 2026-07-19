@@ -138,8 +138,8 @@ class ArchitectureReviewer:
                 content = py_file.read_text(encoding="utf-8")
                 todo_count += content.count("TODO")
                 fixme_count += content.count("FIXME")
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("[reviewer] skipping unreadable file {}: {}", py_file, e)
 
         if todo_count > 20:
             findings.append(

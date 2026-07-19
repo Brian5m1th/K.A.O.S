@@ -29,8 +29,8 @@ export default function VaultPage() {
       }
       const data = await response.json();
       setFiles(data.files || []);
-    } catch (err: any) {
-      setError(err.message || "Error accessing backend server");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Error accessing backend server");
     } finally {
       setLoadingList(false);
     }
@@ -46,8 +46,8 @@ export default function VaultPage() {
       const text = await response.text();
       setSelectedContent(text);
       setSelectedPath(path);
-    } catch (err: any) {
-      setSelectedContent(`Erro ao carregar o arquivo: ${err.message}`);
+    } catch (err: unknown) {
+      setSelectedContent(`Erro ao carregar o arquivo: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoadingContent(false);
     }

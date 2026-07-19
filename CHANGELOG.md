@@ -1,3 +1,68 @@
+## [2.7.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.7.0...v2.7.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* add setup-uv to auto-docs job, make scan-docs-gaps continue-on-error ([8a75190](https://github.com/Brian5m1th/K.A.O.S/commit/8a75190d8b7344f446ddb538414a28c49acfaca6))
+* explicit exit 0 at end of sync-vault.ps1 ([1bee305](https://github.com/Brian5m1th/K.A.O.S/commit/1bee30521668d4ad5ac2c7dc988914529a39169b))
+* remove --system from uv pip install graphifyy (venv already exists) ([e2e9d9d](https://github.com/Brian5m1th/K.A.O.S/commit/e2e9d9dd5233335dcd96933d0e0121a52ed1ea09))
+* robocopy exit code handling in sync-vault.ps1 ([2a2021b](https://github.com/Brian5m1th/K.A.O.S/commit/2a2021bfba8d6ca1e6b3661b05b3f90e116c90ac))
+* set PSNativeCommandUseErrorActionPreference=false in sync-vault.ps1 ([4af88d4](https://github.com/Brian5m1th/K.A.O.S/commit/4af88d493ce365c1ee06d60030910a6b4d9fdefb))
+* test assertion in doc-generator, setup-uv version arg, graphify install with --system ([9f4fc25](https://github.com/Brian5m1th/K.A.O.S/commit/9f4fc25890988fa68a79d3a1eda6cdd0f0435003))
+* TS type errors in graph-updater, knowledge-graph, and commands-init ([c922cf9](https://github.com/Brian5m1th/K.A.O.S/commit/c922cf9d8f18a1d7e23dda47964893a37ad30d36))
+* unused import in enriched_adapter.py, broken import path in commands-init.ts ([1c04713](https://github.com/Brian5m1th/K.A.O.S/commit/1c0471397ce39168d4f832d266f54443bc877f4a))
+
+# [2.7.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.6.0...v2.7.0) (2026-07-12)
+
+
+### Bug Fixes
+
+* **frontend:** remove barrel files creating import cycles, fix direct infra imports ([566cab2](https://github.com/Brian5m1th/K.A.O.S/commit/566cab26f251350b7a52c1c71cb14d6e559cb74e))
+
+
+### Features
+
+* **autonomous:** architecture reviewer, self-healing drl, predictive engine, wireguard vpn config ([8875e60](https://github.com/Brian5m1th/K.A.O.S/commit/8875e60ae22d7846144f145704a122e3768d71c0))
+* **ci:** add knowledge graph enrichment + dashboard generation to CI/CD ([d95be91](https://github.com/Brian5m1th/K.A.O.S/commit/d95be91e08b14ff871bf6546c8862b096b511f3e))
+* disable unavailable MCP servers + add-server command ([ae1b726](https://github.com/Brian5m1th/K.A.O.S/commit/ae1b726a61996f4dc9c3a3c44d3a21e3788b896f))
+* **graph:** add Knowledge Graph dashboard (Chart.js, self-contained HTML) ([dd81bf7](https://github.com/Brian5m1th/K.A.O.S/commit/dd81bf7ecc5c7a9157b704a019ed3b05be56b031))
+* **sprint7:** mem0, neo4j, falkordb adapters, graphrag experiment, auto-tag engine ([f8d7620](https://github.com/Brian5m1th/K.A.O.S/commit/f8d76207330bff589b6f78da9a4fe532c10a3a05))
+
+# [2.6.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.5...v2.6.0) (2026-07-12)
+
+
+### Bug Fixes
+
+* **deploy:** use --ignore-buildable flag on docker compose pull ([df0d98f](https://github.com/Brian5m1th/K.A.O.S/commit/df0d98f3c3db4f0f25907e556963963ca6540ed6))
+* eliminate all mock/fabricated data patterns ([a206737](https://github.com/Brian5m1th/K.A.O.S/commit/a20673759ca8f9e7d5703697655cbbdc3dd77333))
+* gitignore — exclude airllm/, graphify/, graphify-out/cache/, local config dirs ([b5d6916](https://github.com/Brian5m1th/K.A.O.S/commit/b5d6916a636d73415adaac748d1bbd6dd27c5942))
+* lint errors — ruff cleanup (30 issues fixed) ([cdd503f](https://github.com/Brian5m1th/K.A.O.S/commit/cdd503f3406f1d4e257c20107033c15564de06b6))
+* remove graphify/ submodule from index — no .gitmodules entry ([f657a3b](https://github.com/Brian5m1th/K.A.O.S/commit/f657a3bc3020af68f9f800839354803b986a36d5))
+* ruff auto-fix — 13 unused import issues ([477fe66](https://github.com/Brian5m1th/K.A.O.S/commit/477fe66ba753b73de7cbcb6831b2a9269c14c3c4))
+
+
+### Features
+
+* 11 framework adapters — Graphify, Qdrant, Ollama, AirLLM, OpenAI, Gemini, Claude, LangGraph, PostgreSQL, NetworkX, EvidenceEngine ([2c3683f](https://github.com/Brian5m1th/K.A.O.S/commit/2c3683f14cdac0ae509040739209e9dceb4b2f6b))
+* 5 Desktop stores + Graphify Inspector — zero framework imports ([5c5234b](https://github.com/Brian5m1th/K.A.O.S/commit/5c5234b24b6a7480b8260c6d3ad00a1f9020a450))
+* 6 REST APIs, 24 endpoints, FastAPI dependency injection ([d1fe5b8](https://github.com/Brian5m1th/K.A.O.S/commit/d1fe5b8ec140ba48801d51c9cd42ac0a22e806de))
+* 7 capability services — Graph, Memory, Retrieval, Inference, Planner, Evidence, Knowledge ([5806684](https://github.com/Brian5m1th/K.A.O.S/commit/5806684206236db8d83041b8a6ac0434b5bbeadf))
+* define 6 domain ports for capability-first architecture ([dd6003d](https://github.com/Brian5m1th/K.A.O.S/commit/dd6003d2931cd5dad4375e2b8e956f196ec5fb29))
+* generic ProviderRegistry for runtime provider swapping ([bc1c6a4](https://github.com/Brian5m1th/K.A.O.S/commit/bc1c6a4bfe8e8f8e8133978222bc0d6eb9e5417f))
+* GitHub Actions graphify-update, secrets API/desktop store, graphify obsidian export scripts ([11ac716](https://github.com/Brian5m1th/K.A.O.S/commit/11ac7163f1e3a987bb9a63c05c591523c2bfab43))
+* integrate Graphify graph.json as code intelligence source ([39216a8](https://github.com/Brian5m1th/K.A.O.S/commit/39216a8fb79b6a4c772b2f81f0e49927c4d36d0a))
+* kaos-research laboratory — evidence-driven framework evaluation ([16b14d0](https://github.com/Brian5m1th/K.A.O.S/commit/16b14d0c53cdb87004b9eb49cb04f18d976b085f))
+* **production:** K.A.O.S production readiness — mock elimination, store consolidation, unified dashboard, offline gate, Windows fix ([77593e4](https://github.com/Brian5m1th/K.A.O.S/commit/77593e49a6fcee0f47b9ffaa7c1ef891934620c7))
+
+## [2.5.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.4...v2.5.5) (2026-07-11)
+
+
+### Bug Fixes
+
+* **cargo:** remove unused net.timeout key and update docs submodule ([a17619c](https://github.com/Brian5m1th/K.A.O.S/commit/a17619cb7269160920e445e28d53ec77cd948f45))
+* **desktop:** resolve duplicate kaos-client module state causing localhost fallback ([57646c0](https://github.com/Brian5m1th/K.A.O.S/commit/57646c0dd8b8820f1aa59a328a6fdd38b64451f2))
+* **ops:** restore production api gateway, update deploy cleanup, and update docs submodule ([dd409df](https://github.com/Brian5m1th/K.A.O.S/commit/dd409dfc9267b4ab97b96d53c0c8c9e9e9b010c3))
+
 ## [2.5.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.3...v2.5.4) (2026-07-11)
 
 

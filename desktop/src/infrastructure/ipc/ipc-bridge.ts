@@ -42,14 +42,14 @@ async function fetchHealth(serverUrl: string): Promise<{ reachable: boolean; sta
       return { reachable: true, status: data.status || "ok", error: null };
     }
     return { reachable: true, status: `HTTP ${resp.status}`, error: null };
-  } catch (e: any) {
-    return { reachable: false, status: null, error: e.message || String(e) };
+  } catch (e: unknown) {
+    return { reachable: false, status: null, error: e instanceof Error ? e.message : String(e) };
   }
 }
 
 async function fetchBootstrapState(serverUrl: string): Promise<{
   state: string; is_ready: boolean; degraded: boolean; boot_complete: boolean;
-  stages: any[]; errors: string[]; total_elapsed_ms: number;
+  stages: Array<{ stage: string; success: boolean; error?: string }>; errors: string[]; total_elapsed_ms: number;
 }> {
   try {
     const resp = await fetch(`${serverUrl}/api/system/bootstrap`);
@@ -57,8 +57,8 @@ async function fetchBootstrapState(serverUrl: string): Promise<{
       return await resp.json();
     }
     return { state: "backend_error", is_ready: false, degraded: false, boot_complete: false, stages: [], errors: [`HTTP ${resp.status}`], total_elapsed_ms: 0 };
-  } catch (e: any) {
-    return { state: "backend_unreachable", is_ready: false, degraded: false, boot_complete: false, stages: [], errors: [e.message || String(e)], total_elapsed_ms: 0 };
+  } catch (e: unknown) {
+    return { state: "backend_unreachable", is_ready: false, degraded: false, boot_complete: false, stages: [], errors: [e instanceof Error ? e.message : String(e)], total_elapsed_ms: 0 };
   }
 }
 

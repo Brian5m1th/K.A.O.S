@@ -27,7 +27,7 @@ export default function PipelinesPage() {
       if (res.ok) {
         const data = await res.json();
         // Map ISO timestamp to relative time or clean date
-        const formatted = (data.runs || []).map((r: any) => {
+        const formatted = (data.runs || []).map((r: PipelineRun) => {
           let timeLabel = r.timestamp;
           if (r.timestamp) {
             try {
@@ -40,7 +40,9 @@ export default function PipelinesPage() {
                 if (hrs < 24) timeLabel = `${hrs}h ago`;
                 else timeLabel = new Date(r.timestamp).toLocaleDateString();
               }
-            } catch {}
+            } catch {
+              console.debug("Pipeline timestamp parse failed:", r.timestamp);
+            }
           }
           return {
             ...r,

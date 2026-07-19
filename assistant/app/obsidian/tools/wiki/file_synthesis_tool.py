@@ -29,7 +29,7 @@ def file_synthesis_page(
     svc.create_note(Path(dst).stem, str(Path(dst).parent), full)
     try:
         append_log.invoke({"entry": f"Síntese criada: [[{dst}]] — {title}"})
-    except Exception:
-        pass
+    except Exception as e:
+        logger.debug("[wiki] append_log failed (non-critical): {}", e)
     logger.info(f"[info] file_synthesis_page - draft criado: {dst}")
     return dst

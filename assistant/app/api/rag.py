@@ -110,8 +110,8 @@ async def list_vault_files():
                     "size": p.stat().st_size,
                 }
             )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("[rag] failed to stat file {}: {}", p, e)
 
     # Ordenar pelo caminho relativo
     md_files.sort(key=lambda x: x["path"].lower())

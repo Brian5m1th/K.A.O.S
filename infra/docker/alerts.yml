@@ -36,3 +36,95 @@ groups:
         annotations:
           summary: "Public endpoint {{ $labels.instance }} is down"
           description: "The external check for {{ $labels.instance }} returned failure."
+
+      # ── K.A.O.S Architecture Alerts ─────────────────────────
+
+      - alert: DRLHighDrift
+        expr: kaos_drl_drift_score > 0.5
+        for: 5m
+        labels:
+          severity: critical
+          team: kaos-architect
+        annotations:
+          summary: "DRL drift score is {{ $value | humanize }}"
+          description: "Documentation drift is HIGH. Run `graphify update .` and check DRL baseline."
+
+      - alert: DRLMediumDrift
+        expr: kaos_drl_drift_score > 0.2
+        for: 15m
+        labels:
+          severity: warning
+          team: kaos-architect
+        annotations:
+          summary: "DRL drift score is {{ $value | humanize }} (medium)"
+          description: "Documentation drift is above medium threshold."
+
+      - alert: NoDRLSnapshot
+        expr: time() - kaos_drl_snapshot_timestamp_seconds > 86400
+        for: 0m
+        labels:
+          severity: warning
+          team: kaos-architect
+        annotations:
+          summary: "No DRL snapshot in 24h"
+          description: "Last snapshot was {{ $value | humanizeDuration }} ago. CI may be stalled."
+
+      - alert: LowTestCoverage
+        expr: kaos_test_coverage_percent < 50
+        for: 10m
+        labels:
+          severity: critical
+          team: kaos-backend
+        annotations:
+          summary: "Test coverage is {{ $value | humanize }}%"
+          description: "Coverage below 50% threshold. Add tests."
+
+      - alert: ModulesWithoutTests
+        expr: kaos_modules_without_tests > 0
+        for: 1h
+        labels:
+          severity: warning
+          team: kaos-backend
+        annotations:
+          summary: "{{ $value }} module(s) have zero tests"
+          description: "New modules were added without test files."
+
+      - alert: ImportCycleDetected
+        expr: kaos_import_cycles > 0
+        for: 5m
+        labels:
+          severity: warning
+          team: kaos-architect
+        annotations:
+          summary: "{{ $value }} import cycle(s) detected"
+          description: "Run `graphify query 'cycles'` to identify and break."
+
+      - alert: HighErrorRate
+        expr: rate(kaos_events_total{status="failed"}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+          team: kaos-backend
+        annotations:
+          summary: "Error rate is {{ $value | humanize }} errors/s"
+          description: "Error rate exceeded 0.1/s for 5 minutes."
+
+      - alert: CircuitBreakerOpen
+        expr: kaos_circuit_breaker_state == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: kaos-backend
+        annotations:
+          summary: "Circuit breaker is OPEN"
+          description: "A circuit breaker tripped. Check downstream dependencies."
+
+      - alert: CostAnomaly
+        expr: kaos_cost_total_usd > 100
+        for: 30m
+        labels:
+          severity: warning
+          team: kaos-architect
+        annotations:
+          summary: "Cost exceeds $100 ({{ $value | humanize }})"
+          description: "LLM API costs are running high. Investigate usage patterns."

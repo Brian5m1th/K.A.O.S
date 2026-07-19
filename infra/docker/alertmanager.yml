@@ -10,7 +10,22 @@ route:
 
 receivers:
   - name: 'default-receiver'
-    # O usuário poderá preencher com seu webhook real para alertas automatizados.
-    # Exemplo para Discord:
+    webhook_configs:
+      - url: 'http://n8n:5678/webhook/kaos-alerts'
+        send_resolved: true
+        http_config:
+          headers:
+            X-KAOS-Source: alertmanager
+
+    # Discord integration — uncomment and set your webhook URL:
     # discord_configs:
-    #   - webhook_url: 'SUA_WEBHOOK_URL_DO_DISCORD'
+    #   - webhook_url: 'https://discord.com/api/webhooks/your_webhook_id/your_webhook_token'
+    #     title: '{{ .GroupLabels.alertname }}'
+    #     message: '{{ .CommonAnnotations.description }}'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'cluster']

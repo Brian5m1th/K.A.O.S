@@ -1,16 +1,16 @@
-# Graph Report - K.A.O.S  (2026-07-11)
+# Graph Report - K.A.O.S  (2026-07-19)
 
 ## Corpus Check
-- 1686 files · ~1,644,606 words
+- 3162 files · ~988,173 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 20644 nodes · 31514 edges · 1578 communities (1293 shown, 285 thin omitted)
-- Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 4711 edges (avg confidence: 0.71)
+- 17070 nodes · 21404 edges · 2778 communities (2699 shown, 79 thin omitted)
+- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 1947 edges (avg confidence: 0.62)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b6612620`
+- Built from commit: `3a9f0ac0`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -191,7 +191,6 @@
 - prs.py
 - Cookies
 - automation.py
-- WorkspaceManager
 - CircuitBreaker
 - BaseChatProvider
 - introspect_cargo
@@ -428,6 +427,7 @@
 - contract-validation.test.ts
 - normalize_sections
 - humanize_label
+- dynamic_import.ts
 - Widget
 - sample.sh
 - sample.c
@@ -498,6 +498,7 @@
 - pytest_collection_modifyitems
 - Dup
 - Dup
+- lib.rs
 - AccountTrigger
 - sample.dmi
 - Foo
@@ -682,6 +683,7 @@
 - vite.config.ts
 - base.py
 - __init__.py
+- .get
 - test_install_fallback_is_loud_not_silent
 - test_hooks_do_not_use_nohup
 - test_hooks_use_cross_platform_detach
@@ -752,19 +754,45 @@
 - test_agents_audit_baseline_is_amps_v8_body
 - __main__.py
 - __init__.py
+- doc-generator.test.ts
+- __init__.py
+- plain.h
+- sample.dmm
+- distance
+- .buildRequest
+- .get
+- .post
+- ButtonOKClick
 - TButton
 - x
 - y
 - z
+- .log
+- .run
+- sample.psd1
+- .fetch
+- .run
+- .buildRequest
+- .get
+- .post
+- .log
+- .run
 - Int
+- __init__.py
+- __init__.py
+- __init__.py
 - graphifyy
 - kaos-platform
+- check-prerequisites.ps1
+- setup-plan.ps1
+- setup-tasks.ps1
 - PropagaçÃo de Contexto de Usuário
 - Guia Obsidian — K.A.O.S
 - Spec: K.A.O.S — Roadmap Expansion v2 (Fases 9–14)
 - index.ts
 - Fase 3 - Serviço Obsidian
 - Arquitetura do Sistema — K.A.O.S
+- index.md
 - README.he-IL.md
 - /graphify
 - /graphify
@@ -995,6 +1023,7 @@
 - 4. Plano de Refatoração e Migração
 - Uso
 - Arquitetura da IA Pessoal Offline
+- sdd_fase3_obsidian_service.md
 - README.de-DE.md
 - README.es-ES.md
 - README.fr-FR.md
@@ -1467,498 +1496,1708 @@
 - security.md
 - testing.md
 - typescript.md
+- __init__.py
+- setup.py
+- __init__.py
+- test_cn_dataset_lenghts.py
+- kiro-steering.md
+- command-kilo.md
+- graphify__always_on__kiro-steering.md
+- kiro-steering.md
+- agent-tool-disk.md
+- agent-tool-disk-powershell.md
+- codex-agenttask.md
+- manual-paste.md
+- opencode-mention.md
+- task-tool-disk.md
+- task-tool-disk-trae.md
+- default.md
+- posix.md
+- powershell.md
+- assistant\app\repositories\user_model_profile_repository.py
+- assistant\app\api\user_model_profiles.py
+- assistant\app\repositories\user_profile_repository.py
+- assistant\app\api\users.py
+- desktop\src\features\manage-settings\hooks\useSettings.ts
+- desktop\src\__tests__\features\useSettings.test.ts
+- desktop\src\features\dashboard\hooks\useSystemMetrics.ts
+- desktop\src\features\auto-update\hooks\useUpdateCheck.ts
+- desktop\src\features\auto-update\hooks\useUpdaterService.ts
+- desktop\src\features\auto-update\hooks\useUpdateScheduler.ts
+- desktop\src\features\index-vault\hooks\useVaultInit.ts
+- graphify\worked\httpx\raw\utils.py
+- graphify\graphify\validate.py
+- assistant\scripts\validate_documentation.py
+- docs\sdd\validation-audit.md
+- docs\VALIDATION_REPORT.md
+- docs\sdd\Variaveis de Ambiente.md
+- assistant\app\rag\indexer\vault_indexer.py
+- assistant\app\obsidian\vault_init.py
+- assistant\app\ai\vault_analyzer\vault_reader.py
+- docs\storage\VAULT_SUBMODULE.md
+- assistant\app\audit\vault_sync.py
+- assistant\app\obsidian\watcher\vault_watcher.py
+- assistant\app\providers\base\vector_store.py
+- scripts\verify-no-mocks.ps1
+- graphify\graphify\extractors\verilog.py
+- docs\Arquitetura\Visao Geral.md
+- desktop\vite.config.ts
+- graphify\tools\skillgen\fragments\always-on\vscode-instructions.md
+- graphify\graphify\watch.py
+- graphify\tests\fixtures\src\WebApi\WebApi.csproj
+- assistant\app\api\webhooks.py
+- assistant\app\runtime\communication\whatsapp_evolution.py
+- assistant\app\providers\whatsapp\whatsapp_provider.py
+- assistant\app\providers\whatsapp\whatsapp_tool.py
+- graphify\tests\fixtures\objc_mixed\Widget.m
+- graphify\tests\fixtures\objc_mixed\WidgetExtras.swift
+- graphify\graphify\wiki.py
+- assistant\app\obsidian\wiki_pipeline.py
+- assistant\app\obsidian\tools\wiki\wiki_utils.py
+- assistant\app\domain\workflow.py
+- docs\guides\WORKFLOWS_AUDIT.md
+- assistant\app\api\workspace_intelligence.py
+- assistant\app\memory\storage\workspace_storage.py
+- graphify\graphify\extractors\zig.py
+- profile_cmd
+- Ordem de Execução — Knowledge Graph Semântico K.A.O.S
+- Como Executar Testes
+- Contribuicao
+- MCP (Model Context Protocol)
+- Roadmap
+- Configuracao
+- kaos-research\adrs\001-evidence-engine.md
+- kaos-research\adrs\002-capability-ports.md
+- kaos-research\adrs\003-technology-observatory.md
+- graphify\docs\superpowers\plans\2026-05-04-incremental-updates-dedup.md
+- graphify\docs\superpowers\specs\2026-05-04-incremental-updates-dedup-design.md
+- graphify\tools\skillgen\fragments\references\shared\add-watch.md
+- assistant\app\api\admin.py
+- docs\adr\ADR-001-consolidated-dashboard-endpoint.md
+- docs\adr\ADR-002-elimination-of-mock-data.md
+- docs\adr\ADR-003-store-consolidation.md
+- docs\adr\ADR-004-offline-boot-gate.md
+- docs\governance\ADR-template.md
+- graphify\graphify\affected.py
+- assistant\app\workflows\impl\agent.py
+- assistant\app\service\agent_service.py
+- desktop\src\application\stores\agent-store.ts
+- desktop\src\__tests__\shared\lib\stores\agent-store.test.ts
+- docs\sdd\Agente de Ingestao de Conhecimento.md
+- graphify\AGENTS.md
+- assistant\app\api\agents_api.py
+- graphify\tools\skillgen\fragments\always-on\agents-md.md
+- docs\wiki\AGENTS.pt-BR.md
+- docs\openCode\skills\ai-agent-engineer.md
+- graphify\tools\skillgen\fragments\core\aider.md
+- airllm\air_llm\airllm\airllm.py
+- assistant\app\providers\inference\airllm_adapter.py
+- airllm\air_llm\airllm\airllm_baichuan.py
+- airllm\air_llm\airllm\airllm_base.py
+- airllm\air_llm\airllm\airllm_chatglm.py
+- airllm\air_llm\airllm\airllm_internlm.py
+- airllm\air_llm\airllm\airllm_llama_mlx.py
+- airllm\air_llm\airllm\airllm_mistral.py
+- airllm\air_llm\airllm\airllm_mixtral.py
+- assistant\app\llm\providers\airllm_provider.py
+- airllm\air_llm\airllm\airllm_qwen.py
+- airllm\air_llm\airllm\airllm_qwen2.py
+- graphify\tests\fixtures\cpp_samedir\Alpha.h
+- graphify\worked\mixed-corpus\raw\analyze.py
+- assistant\app\ai\vault_analyzer\analyzer_engine.py
+- assistant\app\providers\chat\anthropic.py
+- docs\Arquitetura\Anti-padroes de Projeto.md
+- graphify\tools\skillgen\fragments\always-on\antigravity-rules.md
+- graphify\graphify\extractors\apex.py
+- docs\security\API_KEYS.md
+- docs\openCode\references\api-patterns.md
+- docs\api\API_REFERENCE.md
+- graphify\tests\fixtures\xaml_viewmodel\App.csproj
+- assistant\app\obsidian\tools\wiki\append_log_tool.py
+- desktop\src\app\layouts\AppLayout.tsx
+- assistant\app\api\apps_api.py
+- kaos-research\reports\architectural-research.md
+- graphify\worked\example\raw\architecture.md
+- desktop\src\features\documentation-audit\heatmap\architecture-health.tsx
+- docs\sdd\Arquitetura de Orquestracao.md
+- docs\Arquitetura\Arquitetura Geral.md
+- assistant\app\api\audit.py
+- assistant\scripts\audit_desktop.py
+- assistant\scripts\audit_docs.py
+- assistant\app\core\documentation\audit_engine.py
+- desktop\src\__tests__\integration\audit-graph-flow.test.ts
+- assistant\scripts\audit_pr_docs.py
+- docs\audit-report.md
+- assistant\app\observability\subscribers\audit_subscriber.py
+- graphify\worked\httpx\raw\auth.py
+- desktop\src\__tests__\integration\auth-chat-flow.test.ts
+- desktop\src\application\stores\auth-store.ts
+- desktop\src\__tests__\shared\lib\stores\auth-store.test.ts
+- docs\sdd\auth-wizard.md
+- airllm\air_llm\airllm\auto_model.py
+- assistant\app\api\automation.py
+- assistant\app\core\automation_bus.py
+- assistant\app\models\automation_registry.py
+- assistant\app\core\automation_sdk.py
+- desktop\src\pages\automation\automation-studio.tsx
+- assistant\app\providers\aws\aws_tool.py
+- docs\Projetos\Backlog do Projeto.md
+- desktop\src\shared\ui\badge.tsx
+- desktop\src\__tests__\shared\ui\badge.test.tsx
+- graphify\tests\fixtures\barrel_reexport.ts
+- graphify\graphify\extractors\base.py
+- assistant\app\providers\automation\base_workflow_provider.py
+- graphify\tests\fixtures\pascal_cross_file\BaseGadget.pas
+- graphify\graphify\extractors\bash.py
+- graphify\tests\bench_extract.py
+- graphify\graphify\benchmark.py
+- graphify\BENCHMARKS.md
+- graphify\tests\fixtures\cpp_samedir\Beta.h
+- assistant\app\providers\embedding\bge.py
+- graphify\tests\fixtures\bindings.xaml
+- graphify\graphify\extractors\blade.py
+- assistant\scripts\bootstrap_feature_registry.py
+- assistant\app\core\bootstrap_manager.py
+- graphify\tests\fixtures\objc_mixed\Bridging-Header.h
+- graphify\worked\mixed-corpus\raw\build.py
+- docs\sdd\Busca Vetorial e RAG.md
+- desktop\src\shared\ui\button.tsx
+- desktop\src\__tests__\shared\ui\button.test.tsx
+- graphify\graphify\cache.py
+- graphify\graphify\callflow_html.py
+- docs\sdd\Camada Wiki de Conhecimento.md
+- assistant\app\api\capabilities.py
+- docs\blueprint\capability-map.md
+- kaos-research\evidence\capability-matrix.md
+- assistant\app\models\capability_policy.py
+- assistant\app\repositories\capability_policy_repository.py
+- desktop\src\shared\ui\card.tsx
+- desktop\src\__tests__\shared\ui\card.test.tsx
+- graphify\graphify\cargo_introspect.py
+- graphify\CHANGELOG.md
+- assistant\app\workflows\impl\chat.py
+- desktop\src\application\stores\chat-store.ts
+- desktop\src\__tests__\shared\lib\stores\chat-store.test.ts
+- desktop\src\features\ask-ai\ui\ChatInput.tsx
+- scripts\check-version-consistency.js
+- .specify\templates\checklist-template.md
+- docs\guides\CICD_ARCHITECTURE.md
+- assistant\app\orchestrator\circuit_breaker.py
+- graphify\tests\fixtures\cjs_require.js
+- docs\sdd\Classificador de Intencoes.md
+- graphify\tools\skillgen\fragments\always-on\claude-md.md
+- assistant\app\llm\providers\claude_provider.py
+- graphify\graphify\cli.py
+- graphify\worked\httpx\raw\client.py
+- docs\operations\investigation\CLOUDFLARE_ANALYSIS.md
+- docs\operations\investigation\CLOUDLFARE_ANALYSIS.md
+- graphify\worked\mixed-corpus\raw\cluster.py
+- docs\openCode\references\code-conventions.md
+- desktop\src\features\documentation-audit\auto-doc\code-introspector.ts
+- desktop\src\__tests__\features\code-introspector.test.ts
+- docs\openCode\skills\code-reviewer.md
+- assistant\app\audit\code_scanner.py
+- assistant\app\workflows\impl\coding.py
+- assistant\app\domain\command.py
+- desktop\src\shared\lib\command-registry.ts
+- desktop\src\__tests__\shared\lib\command-registry.test.ts
+- desktop\src\shared\lib\commands-init.ts
+- assistant\app\audit\commit_classifier.py
+- assistant\app\audit\commit_mapper.py
+- desktop\src\features\documentation-audit\engine\commit-mapper.ts
+- .commitlintrc.json
+- .specify\scripts\powershell\common.ps1
+- .opencode\rules\comunicacao.md
+- assistant\app\core\config_service.py
+- docs\sdd\Configuração de Provedores.md
+- graphify\tests\conftest.py
+- desktop\src\entities\provider\constants.ts
+- .specify\memory\constitution.md
+- .specify\templates\constitution-template.md
+- assistant\app\domain\context.py
+- desktop\src\__tests__\integration\contract-validation.test.ts
+- assistant\app\models\conversation.py
+- assistant\app\repositories\conversation_repository.py
+- desktop\src\application\stores\conversation-store.ts
+- desktop\src\__tests__\shared\lib\stores\conversation-store.test.ts
+- assistant\app\api\conversations.py
+- graphify\tests\fixtures\cookieHelpers.ts
+- graphify\tools\skillgen\fragments\core\core.md
+- docs\security\COSIGN.md
+- assistant\app\models\cost_event.py
+- assistant\app\repositories\cost_repository.py
+- assistant\app\observability\cost_tracker.py
+- desktop\src\features\documentation-audit\ui\CoverageChart.tsx
+- assistant\app\obsidian\tools\wiki\create_entity_tool.py
+- .specify\scripts\powershell\create-new-feature.ps1
+- assistant\app\obsidian\tools\create_note_tool.py
+- assistant\app\obsidian\tools\wiki\create_source_tool.py
+- assistant\app\obsidian\tools\wiki\create_synthesis_tool.py
+- graphify\graphify\extractors\csharp.py
+- desktop\src\presentation\components\model-selector\CustomModelInput.tsx
+- graphify\graphify\extractors\dart.py
+- assistant\app\database.py
+- assistant\app\orchestrator\dead_letter_queue.py
+- graphify\graphify\dedup.py
+- graphify\tools\skillgen\fragments\references\query\default.md
+- assistant\app\obsidian\tools\delete_note_tool.py
+- graphify\tests\fixtures\deploy_guide.md
+- docs\operations\investigation\DEPLOY_MATRIX.md
+- docs\operations\investigation\DEPLOY_PIPELINE_ANALYSIS.md
+- docs\guides\DEPLOYMENT_GUIDE.md
+- graphify\tests\fixtures\pascal_cross_file\DerivedGadget.pas
+- graphify\tests\fixtures\xaml_viewmodel\Views\DesignView.xaml
+- graphify\tests\fixtures\xaml_viewmodel\ViewModels\DesignViewModel.cs
+- docs\desktop-api-alignment.md
+- docs\architecture\DESKTOP_ARCHITECTURE.md
+- docs\desktop-audit-report.md
+- docs\desktop-compatibility-report.md
+- docs\operations\investigation\DESKTOP_CONNECTIVITY_ANALYSIS.md
+- docs\desktop-missing-docs.md
+- docs\desktop-refactor-plan.md
+- docs\desktop-roadmap-alignment.md
+- graphify\graphify\detect.py
+- docs\guides\DEVELOPER_GUIDE.md
+- graphify\tools\skillgen\fragments\core\devin.md
+- graphify\graphify\diagnostics.py
+- desktop\src\shared\ui\dialog.tsx
+- docs\openCode\references\directory-structure.md
+- docs\sdd\Divisao de Texto (Chunking).md
+- graphify\graphify\extractors\dm.py
+- desktop\src\features\documentation-audit\auto-doc\doc-sync-engine.ts
+- desktop\src\features\generate-docs\ui\DocGeneratorModal.tsx
+- docs\openCode\rules\docker.md
+- docs\openCode\skills\docker-expert.md
+- docs\openCode\tools\docker-tools.md
+- assistant\app\api\docs.py
+- docs\sdd\docs-source-refactor.md
+- assistant\app\domain\document.py
+- assistant\app\rag\embeddings\document_cache.py
+- docs\openCode\skills\documentation-writer.md
+- docs\operations\investigation\DOMAIN_HEALTH_MATRIX.md
+- assistant\app\obsidian\tools\wiki\draft_tools.py
+- assistant\app\ai\vault_analyzer\drift_engine.py
+- desktop\src\features\documentation-audit\engine\drift-engine.ts
+- desktop\src\__tests__\features\drift-engine.test.ts
+- desktop\src\features\documentation-audit\store\drift-store.ts
+- desktop\src\__tests__\features\drift-store.test.ts
+- assistant\app\audit\drift_subscriber.py
+- desktop\src\features\documentation-audit\ui\DriftTimeline.tsx
+- assistant\app\audit\drl_snapshot.py
+- desktop\src\shared\ui\dropdown.tsx
+- desktop\src\__tests__\shared\ui\dropdown.test.tsx
+- graphify\tests\fixtures\dynamic_import.ts
+- graphify\graphify\extractors\elixir.py
+- assistant\app\providers\email\email_reader.py
+- assistant\app\providers\email\email_sender.py
+- assistant\app\providers\email\email_tool.py
+- assistant\app\rag\embeddings\embedder.py
+- assistant\app\providers\base\embedding.py
+- desktop\src\shared\ui\empty-state.tsx
+- graphify\graphify\extractors\engine.py
+- assistant\migrations\env.py
+- assistant\app\core\environment_service.py
+- docs\sdd\Especificacao Funcional.md
+- docs\sdd\Especificacao Tecnica.md
+- docs\sdd\Estado do Agente.md
+- docs\Arquitetura\Estrategia de Repositorios.md
+- docs\Arquitetura\Estrategia de Testes.md
+- docs\sdd\Estrutura da Wiki.md
+- docs\Arquitetura\Estrutura de Pastas.md
+- assistant\app\domain\event.py
+- assistant\app\observability\event_bus.py
+- desktop\src\shared\lib\event-bus.ts
+- desktop\src\__tests__\shared\lib\event-bus.test.ts
+- assistant\app\api\evidence_api.py
+- docs\governance\evidence-driven-decisions.md
+- assistant\app\ai\vault_analyzer\evidence_engine.py
+- assistant\app\domain\ports\evidence_port.py
+- assistant\app\core\services\evidence_service.py
+- desktop\src\application\stores\evidence-store.ts
+- graphify\worked\httpx\raw\exceptions.py
+- assistant\app\observability\execution_context.py
+- assistant\app\domain\execution_plan.py
+- kaos-research\experiments\mem0\experiment.py
+- graphify\graphify\export.py
+- graphify\tools\skillgen\fragments\references\shared\exports.md
+- graphify\graphify\extract.py
+- graphify\tools\skillgen\fragments\references\shared\extraction-spec.md
+- graphify\tools\skillgen\fragments\references\shared\extraction-spec-compact.md
+- assistant\app\llm\factory.py
+- assistant\app\repositories\failed_execution_repository.py
+- docs\sdd\Fase 1 - Fundacao.md
+- docs\sdd\Fase 2 - IA Local.md
+- docs\sdd\Fase 3 - Servico Obsidian.md
+- docs\sdd\Fases 4-5 - Pipeline RAG e Watcher.md
+- docs\sdd\Fases 6-7 - Watcher LangGraph e Memoria.md
+- assistant\app\router\fast_router.py
+- desktop\src\features\documentation-audit\auto-doc\feature-extractor.ts
+- desktop\src\__tests__\features\feature-extractor.test.ts
+- assistant\app\repositories\feature_flag_repository.py
+- assistant\app\api\feature_flags.py
+- assistant\app\audit\feature_registry.py
+- desktop\src\features\documentation-audit\engine\feature-scanner.ts
+- desktop\src\__tests__\features\feature-scanner.test.ts
+- docs\sdd\Ferramentas do LangGraph.md
+- graphify\graphify\file_slice.py
+- assistant\app\obsidian\tools\wiki\file_synthesis_tool.py
+- docs\guides\FIRST_RUN.md
+- scripts\fix_docs_metadata.py
+- docs\Arquitetura\Fluxo de Dados.md
+- graphify\tests\fixtures\swift_cross_file\Foo.swift
+- graphify\tests\fixtures\swift_cross_file\Foo+Ext.swift
+- graphify\graphify\extractors\fortran.py
+- docs\architecture\FRONTEND_FSD_ARCHITECTURE.md
+- assistant\app\audit\frontmatter_parser.py
+- docs\sdd\functional-spec.md
+- airllm\funding.json
+- assistant\app\providers\chat\gemini.py
+- graphify\tools\skillgen\fragments\always-on\gemini-md.md
+- assistant\app\llm\providers\gemini_provider.py
+- graphify\tools\skillgen\gen.py
+- graphify\scripts\gen_demo_path.py
+- airllm\scripts\gen_star_history.py
+- scripts\gen_update_proxy.py
+- assistant\scripts\generate_feature_catalog.py
+- scripts\generate_icons.py
+- docs\sdd\Gerador de Embeddings.md
+- docs\ci-cd\GITHUB_ACTIONS.md
+- docs\openCode\rules\github-actions.md
+- graphify\tools\skillgen\fragments\references\shared\github-and-merge.md
+- assistant\app\tools\github_tools.py
+- docs\openCode\tools\github-tools.md
+- graphify\graphify\global_graph.py
+- graphify\graphify\extractors\go.py
+- graphify\graphify\google_workspace.py
+- docs\observability\GRAFANA_DASHBOARDS.md
+- assistant\app\agent\graph.py
+- assistant\app\api\graph_api.py
+- assistant\app\ai\vault_analyzer\graph_builder.py
+- desktop\src\features\documentation-audit\graph\graph-builder.ts
+- desktop\src\__tests__\features\graph-builder.test.ts
+- desktop\src\features\documentation-audit\graph\graph-export.ts
+- desktop\src\__tests__\features\graph-export.test.ts
+- assistant\app\domain\ports\graph_port.py
+- graphify\worked\rsl-siege-manager\GRAPH_REPORT.md
+- assistant\app\core\services\graph_service.py
+- desktop\src\features\documentation-audit\graph\graph-store.ts
+- desktop\src\features\documentation-audit\graph\graph-updater.ts
+- assistant\app\core\documentation\graph_validator.py
+- graphify\graphify\exporters\graphdb.py
+- .agents\workflows\graphify.md
+- graphify\tools\skillgen\expected\graphify__always_on__agents-md.md
+- graphify\tools\skillgen\expected\graphify__always_on__antigravity-rules.md
+- graphify\tools\skillgen\expected\graphify__always_on__claude-md.md
+- graphify\tools\skillgen\expected\graphify__always_on__gemini-md.md
+- graphify\tools\skillgen\expected\graphify__always_on__vscode-instructions.md
+- kaos-research\benchmarks\results\graphify-benchmark.md
+- graphify\tools\skillgen\expected\graphify__skill.md
+- graphify\tools\skillgen\expected\graphify__skill-agents.md
+- graphify\tools\skillgen\expected\graphify__skill-aider.md
+- graphify\tools\skillgen\expected\graphify__skill-amp.md
+- graphify\tools\skillgen\expected\graphify__skill-claw.md
+- graphify\tools\skillgen\expected\graphify__skill-codex.md
+- graphify\tools\skillgen\expected\graphify__skill-copilot.md
+- graphify\tools\skillgen\expected\graphify__skill-devin.md
+- graphify\tools\skillgen\expected\graphify__skill-droid.md
+- graphify\tools\skillgen\expected\graphify__skill-kilo.md
+- graphify\tools\skillgen\expected\graphify__skill-kiro.md
+- graphify\tools\skillgen\expected\graphify__skill-opencode.md
+- graphify\tools\skillgen\expected\graphify__skill-pi.md
+- graphify\tools\skillgen\expected\graphify__skill-trae.md
+- graphify\tools\skillgen\expected\graphify__skill-vscode.md
+- graphify\tools\skillgen\expected\graphify__skill-windows.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__agents__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__amp__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__claude__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__claw__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__codex__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__copilot__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__droid__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__kilo__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__kiro__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__opencode__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__pi__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__trae__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__vscode__references__update.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__add-watch.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__exports.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__extraction-spec.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__github-and-merge.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__hooks.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__query.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__transcribe.md
+- graphify\tools\skillgen\expected\graphify__skills__windows__references__update.md
+- docs\Arquitetura\Guia de Testes e Uso.md
+- assistant\app\auth\handshake.py
+- assistant\app\auth\hash.py
+- assistant\app\api\health.py
+- assistant\app\orchestrator\health_cache.py
+- assistant\app\core\documentation\health_engine.py
+- desktop\src\features\documentation-audit\heatmap\heatmap-chart.tsx
+- desktop\src\features\documentation-audit\heatmap\heatmap-store.ts
+- desktop\src\__tests__\features\heatmap-store.test.ts
+- graphify\tools\skillgen\fragments\references\shared\hooks.md
+- graphify\tools\skillgen\fragments\references\host\hooks-agents-md.md
+- graphify\docs\how-it-works.md
+- graphify\graphify\exporters\html.py
+- kaos-research\evidence\hypotheses.md
+- docs\sdd\Identidade Open Code.md
+- assistant\app\domain\identity.py
+- graphify\graphify\ids.py
+- docs\operations\investigation\IMPLEMENTATION_PLAN_UPDATE.md
+- docs\sdd\Indexador do Vault.md
+- assistant\app\api\indexing.py
+- assistant\app\api\inference_api.py
+- airllm\air_llm\inference_example.py
+- assistant\app\domain\ports\inference_port.py
+- assistant\app\core\services\inference_service.py
+- desktop\src\application\stores\inference-store.ts
+- docs\Projetos\Informacoes do Projeto.md
+- docs\Arquitetura\Infraestrutura Docker.md
+- graphify\graphify\ingest.py
+- desktop\src\shared\ui\input.tsx
+- desktop\src\__tests__\shared\ui\input.test.tsx
+- graphify\graphify\install.py
+- docs\guides\INSTALLATION.md
+- docs\Arquitetura\Integracoes de Servicos.md
+- assistant\app\api\integrations.py
+- assistant\app\domain\intent.py
+- assistant\app\router\intent_classifier.py
+- docs\operations\investigation\INVESTIGATION_SESSION.md
+- desktop\src\shared\api\ipc-bridge.ts
+- desktop\src\__tests__\shared\api\ipc-bridge.test.ts
+- graphify\graphify\extractors\json_config.py
+- graphify\graphify\extractors\julia.py
+- assistant\app\auth\jwt.py
+- docs\openCode\agents\kaos-architect.md
+- docs\openCode\agents\kaos-auditor.md
+- docs\openCode\agents\kaos-backend-engineer.md
+- desktop\src\shared\api\kaos-client.ts
+- desktop\src\__tests__\shared\api\kaos-client.test.ts
+- docs\openCode\agents\kaos-devops-engineer.md
+- docs\openCode\agents\kaos-documentation-engineer.md
+- docs\openCode\agents\kaos-frontend-engineer.md
+- docs\openCode\agents\kaos-mcp-architect.md
+- docs\openCode\agents\kaos-security-auditor.md
+- docs\openCode\tools\kaos-tools.md
+- graphify\tools\skillgen\fragments\extra\kilo-rules.md
+- assistant\app\api\kirl.py
+- docs\guides\KIRL_GUIDE.md
+- assistant\app\api\knowledge_api.py
+- assistant\app\ai\vault_analyzer\knowledge_graph.py
+- assistant\app\core\knowledge_graph_watcher.py
+- assistant\app\core\services\knowledge_service.py
+- desktop\src\application\stores\knowledge-store.ts
+- assistant\app\providers\planner\langgraph_adapter.py
+- desktop\src\features\documentation-audit\graph\layout-engine.ts
+- desktop\src\__tests__\features\layout-engine.test.ts
+- graphify\tests\fixtures\crate_b\src\lib.rs
+- assistant\app\obsidian\tools\wiki\lint_wiki_tool.py
+- assistant\app\obsidian\tools\list_notes_tool.py
+- assistant\app\obsidian\tools\list_projects_tool.py
+- graphify\graphify\llm.py
+- assistant\app\service\llm_service.py
+- graphify\tests\fixtures\cpp_logger\b\Logger.h
+- assistant\app\observability\subscribers\logger_subscriber.py
+- docs\observability\LOKI_QUERIES.md
+- airllm\anima_100k\longer_training.py
+- graphify\tests\fixtures\cpp_paired\Main.cpp
+- graphify\tools\skillgen\__main__.py
+- graphify\tests\fixtures\xaml_viewmodel\ViewModels\MainViewModel.cs
+- assistant\app\runtime\communication\manager.py
+- graphify\worked\rsl-siege-manager\manifest.json
+- graphify\graphify\manifest_ingest.py
+- graphify\graphify\extractors\markdown.py
+- desktop\src\pages\automation\marketplace.tsx
+- docs\openCode\rules\mcp.md
+- assistant\app\tools\mcp_adapter.py
+- docs\openCode\skills\mcp-engineer.md
+- assistant\app\core\mcp_health.py
+- graphify\graphify\mcp_ingest.py
+- assistant\app\core\mcp_manager.py
+- docs\openCode\references\mcp-patterns.md
+- assistant\app\core\mcp_registry.py
+- assistant\app\core\mcp_server_base.py
+- docs\sdd\Memoria do Obsidian.md
+- assistant\app\workflows\impl\memory.py
+- assistant\app\api\memory_api.py
+- assistant\app\domain\ports\memory_port.py
+- assistant\app\router\memory_router.py
+- assistant\app\memory\memory_service.py
+- desktop\src\application\stores\memory-store.ts
+- assistant\app\router\memory_workflow.py
+- desktop\src\entities\message\ui\MessageBubble.tsx
+- assistant\app\llm\metrics.py
+- assistant\app\observability\subscribers\metrics_subscriber.py
+- assistant\scripts\migrate_memory_to_postgres.py
+- graphify\graphify\extractors\MIGRATION.md
+- graphify\graphify\_minhash.py
+- desktop\src\features\documentation-audit\ui\MissingFeaturesList.tsx
+- airllm\air_llm\airllm\persist\mlx_model_persister.py
+- airllm\air_llm\airllm\persist\model_persister.py
+- assistant\app\models\model_registry.py
+- assistant\app\repositories\model_repository.py
+- assistant\app\models\model_router.py
+- desktop\src\presentation\components\model-selector\ModelDropdown.tsx
+- airllm\anima_100k\modeling_flash_llama.py
+- graphify\worked\httpx\raw\models.py
+- desktop\src\presentation\components\model-selector\ModelSelector.tsx
+- desktop\src\presentation\components\model-selector\ModelShortcuts.tsx
+- docs\sdd\Monitoramento do Vault (Watcher).md
+- docs\monitoring\MONITORING.md
+- desktop\src\shared\lib\motion.ts
+- docs\sdd\multi-user-rbac.md
+- graphify\graphify\multigraph_compat.py
+- docs\openCode\rules\n8n.md
+- docs\openCode\skills\n8n-architect.md
+- assistant\app\observability\subscribers\n8n_subscriber.py
+- assistant\app\tools\n8n_webhook_tool.py
+- assistant\app\providers\automation\n8n_workflow_provider.py
+- docs\operations\investigation\NETWORK_ANALYSIS.md
+- assistant\app\providers\graph\networkx_fallback.py
+- graphify\docs\node-summaries-rfc.md
+- graphify\worked\example\raw\notes.md
+- assistant\app\api\notifications.py
+- graphify\graphify\extractors\objc.py
+- docs\Projetos\Objetivos do Projeto.md
+- assistant\app\api\observability.py
+- docs\openCode\skills\observability-engineer.md
+- docs\sdd\observability-real.md
+- docs\openCode\tools\observability-tools.md
+- kaos-research\technology-observatory\observatory.py
+- assistant\app\providers\memory\obsidian.py
+- docs\guides\OBSIDIAN_GUIDE.md
+- assistant\app\obsidian\services\obsidian_service.py
+- docs\sdd\Obsidian Watcher.md
+- assistant\app\providers\chat\ollama.py
+- assistant\app\providers\inference\ollama_adapter.py
+- assistant\app\llm\providers\ollama_provider.py
+- docs\evolution\onboarding.md
+- assistant\app\providers\embedding\openai.py
+- assistant\app\providers\inference\openai_adapter.py
+- assistant\app\api\opencode.py
+- assistant\app\core\opencode_executor.py
+- assistant\app\core\opencode_watcher.py
+- docs\guides\OPERATIONS.md
+- docs\guides\OPERATIONS_RUNBOOK.md
+- assistant\app\api\orchestrator.py
+- docs\sdd\Orquestrador LangGraph.md
+- graphify\tests\fixtures\pascal_cross_file\OtherGadget.pas
+- desktop\src\features\documentation-audit\ui\OutdatedDocsList.tsx
+- package.json
+- docs\Arquitetura\Padroes de Projeto.md
+- graphify\worked\example\raw\parser.py
+- graphify\graphify\extractors\pascal.py
+- graphify\graphify\extractors\pascal_forms.py
+- graphify\graphify\pascal_resolution.py
+- graphify\graphify\paths.py
+- graphify\graphify\pg_introspect.py
+- docs\sdd\Pipeline de Consulta da Wiki.md
+- .specify\memory\plan.md
+- assistant\app\orchestrator\plan_executor.py
+- .specify\templates\plan-template.md
+- assistant\app\agent\nodes\planner.py
+- assistant\app\api\planner_api.py
+- assistant\app\domain\ports\planner_port.py
+- assistant\app\core\services\planner_service.py
+- assistant\app\core\plugin_registry.py
+- assistant\app\core\plugin_sandbox.py
+- assistant\app\api\plugins.py
+- assistant\app\providers\memory\postgres.py
+- assistant\app\providers\memory\postgres_memory_adapter.py
+- assistant\app\memory\postgres_repository.py
+- assistant\app\memory\storage\postgres_storage.py
+- graphify\tools\skillgen\fragments\extra\powershell-troubleshooting.md
+- graphify\tests\fixtures\xaml_viewmodel\Views\PrismOrderView.xaml
+- graphify\tests\fixtures\xaml_viewmodel\ViewModels\PrismOrderViewModel.cs
+- airllm\air_llm\airllm\profiler.py
+- PROJECT_HEALTH.md
+- assistant\app\models\prompt.py
+- assistant\app\api\prompts.py
+- docs\sdd\Propagacao de Contexto de Usuario.md
+- docs\sdd\Provedor Hibrido de LLM.md
+- assistant\app\llm\provider.py
+- docs\sdd\provider-catalog.md
+- assistant\app\setup\provider_config.py
+- assistant\app\repositories\provider_config_repository.py
+- assistant\app\api\provider_configs.py
+- assistant\app\core\provider_registry.py
+- docs\architecture\PROVIDER_ROUTING.md
+- assistant\app\orchestrator\provider_selector.py
+- docs\sdd\provider-ux.md
+- desktop\src\presentation\components\model-selector\ProviderDropdown.tsx
+- docs\providers\PROVIDERS.md
+- graphify\graphify\prs.py
+- .github\PULL_REQUEST_TEMPLATE.md
+- docs\openCode\rules\python.md
+- docs\openCode\skills\python-developer.md
+- assistant\app\providers\vector\qdrant.py
+- assistant\app\providers\retrieval\qdrant_adapter.py
+- airllm\training\qlora.py
+- airllm\rlhf\qlora_dpo.py
+- docs\governance\quality-gates.md
+- graphify\graphify\skills\windows\references\query.md
+- graphify\graphify\querylog.py
+- assistant\app\workflows\impl\rag.py
+- docs\openCode\skills\rag-engineer.md
+- graphify\graphify\extractors\razor.py
+- docs\openCode\rules\react.md
+- docs\openCode\skills\react-developer.md
+- assistant\app\obsidian\tools\read_note_tool.py
+- assistant\app\obsidian\tools\wiki\read_wiki_tool.py
+- assistant\app\audit\readiness_engine.py
+- kaos-research\README.md
+- graphify\docs\translations\README.ar-SA.md
+- graphify\docs\translations\README.cs-CZ.md
+- graphify\docs\translations\README.da-DK.md
+- graphify\docs\translations\README.de-DE.md
+- graphify\docs\translations\README.el-GR.md
+- airllm\training\README_en.md
+- graphify\docs\translations\README.es-ES.md
+- graphify\docs\translations\README.fa-IR.md
+- graphify\docs\translations\README.fi-FI.md
+- graphify\docs\translations\README.fil-PH.md
+- graphify\docs\translations\README.fr-FR.md
+- graphify\docs\translations\README.he-IL.md
+- graphify\docs\translations\README.hi-IN.md
+- graphify\docs\translations\README.hu-HU.md
+- graphify\docs\translations\README.id-ID.md
+- graphify\docs\translations\README.it-IT.md
+- airllm\README_ja.md
+- graphify\docs\translations\README.ja-JP.md
+- graphify\docs\translations\README.ko-KR.md
+- graphify\docs\translations\README.nl-NL.md
+- graphify\docs\translations\README.no-NO.md
+- graphify\docs\translations\README.pl-PL.md
+- graphify\docs\translations\README.pt-BR.md
+- graphify\docs\translations\README.ro-RO.md
+- graphify\docs\translations\README.ru-RU.md
+- graphify\docs\translations\README.sv-SE.md
+- graphify\docs\translations\README.th-TH.md
+- graphify\docs\translations\README.tr-TR.md
+- graphify\docs\translations\README.uk-UA.md
+- graphify\docs\translations\README.uz-UZ.md
+- graphify\docs\translations\README.vi-VN.md
+- graphify\docs\translations\README.zh-CN.md
+- graphify\docs\translations\README.zh-TW.md
+- docs\operations\investigation\REAL_INFRASTRUCTURE_MAP.md
+- assistant\app\core\documentation\recovery_engine.py
+- docs\sdd\Recuperador Semantico.md
+- docs\sdd\Refatoracao Frontend FSD.md
+- graphify\graphify\reflect.py
+- assistant\app\providers\register_all.py
+- assistant\app\workflows\impl\registry.py
+- assistant\scripts\reindex_with_cache.py
+- graphify\graphify\report.py
+- assistant\app\core\documentation\report_generator.py
+- assistant\app\memory\repository.py
+- docs\operations\investigation\REQUEST_FLOW_TRACE.md
+- assistant\app\workflows\impl\research.py
+- graphify\graphify\extractors\resolution.py
+- graphify\graphify\resolver_registry.py
+- assistant\app\domain\ports\retrieval_port.py
+- assistant\app\core\services\retrieval_service.py
+- assistant\app\agent\nodes\retrieve.py
+- graphify\worked\rsl-siege-manager\review.md
+- docs\sdd\Roadmap Geral.md
+- docs\operations\investigation\ROOT_CAUSE_ANALYSIS.md
+- docs\sdd\Roteamento de Memoria.md
+- graphify\graphify\ruby_resolution.py
+- airllm\training\run_Amina_training.sh
+- airllm\rlhf\run_dpo_training.sh
+- airllm\training\run_finetune_raining_based_on_Anima.sh
+- airllm\anima_100k\run_longer_training.sh
+- assistant\app\runtime\runtime_layer.py
+- assistant\app\core\runtime_path_resolver.py
+- assistant\app\audit\runtime_resolver.py
+- assistant\app\runtime\runtime_selector.py
+- graphify\graphify\extractors\rust.py
+- airllm\air_llm\airllm\persist\safetensor_model_persister.py
+- graphify\tests\fixtures\sample.md
+- graphify\tests\fixtures\sample_calls.py
+- graphify\tests\fixtures\sample_import.ps1
+- graphify\tests\fixtures\sample_php_config.php
+- graphify\tests\fixtures\sample_php_container.php
+- graphify\tests\fixtures\sample_php_listen.php
+- graphify\tests\fixtures\sample_php_static_prop.php
+- graphify\tests\fixtures\sample_preprocessed.F90
+- graphify\tests\fixtures\sample_scoped_calls.pas
+- graphify\tests\fixtures\sample_spock.groovy
+- graphify\tests\fixtures\sample_tsconfig.json
+- graphify\tests\fixtures\sample.xaml.cs
+- assistant\app\obsidian\tools\save_conversation_tool.py
+- scripts\scan_docs_gaps.py
+- graphify\graphify\scip_ingest.py
+- desktop\src\shared\ui\scroll-area.tsx
+- assistant\app\obsidian\tools\search_notes_tool.py
+- graphify\SECURITY.md
+- graphify\graphify\semantic_cleanup.py
+- assistant\app\rag\retriever\semantic_retriever.py
+- desktop\src\shared\ui\separator.tsx
+- assistant\app\notifications\service.py
+- assistant\app\registry\service_registry.py
+- assistant\app\dependencies\services.py
+- assistant\app\api\settings_api.py
+- graphify\tests\fixtures\xaml_viewmodel\Views\SettingsView.xaml
+- graphify\tests\fixtures\xaml_viewmodel\ViewModels\SettingsViewModel.cs
+- docs\setup\SETUP.md
+- desktop\src\shared\ui\skeleton.tsx
+- graphify\graphify\skill.md
+- graphify\graphify\skill-agents.md
+- graphify\graphify\skill-aider.md
+- graphify\graphify\skill-amp.md
+- graphify\graphify\skill-claw.md
+- graphify\graphify\skill-codex.md
+- graphify\graphify\skill-copilot.md
+- graphify\graphify\skill-devin.md
+- graphify\graphify\skill-droid.md
+- graphify\graphify\skill-kilo.md
+- graphify\graphify\skill-kiro.md
+- graphify\graphify\skill-opencode.md
+- graphify\graphify\skill-pi.md
+- graphify\graphify\skill-trae.md
+- graphify\graphify\skill-vscode.md
+- graphify\graphify\skill-windows.md
+- graphify\graphify\extractors\sln.py
+- assistant\app\router\smart_router.py
+- desktop\src\shared\ui\sparkline.tsx
+- .specify\templates\spec-template.md
+- .specify\memory\specification.md
+- .opencode\commands\speckit.analyze.md
+- .opencode\commands\speckit.checklist.md
+- .opencode\commands\speckit.clarify.md
+- .opencode\commands\speckit.constitution.md
+- .opencode\commands\speckit.converge.md
+- .opencode\commands\speckit.implement.md
+- .opencode\commands\speckit.plan.md
+- .opencode\commands\speckit.specify.md
+- .opencode\commands\speckit.tasks.md
+- .opencode\commands\speckit.taskstoissues.md
+- graphify\graphify\extractors\sql.py
+- assistant\app\agent\state.py
+- kaos-research\evidence\state-audit-report.md
+- desktop\src\shared\ui\status-dot.tsx
+- graphify\worked\example\raw\storage.py
+- graphify\tests\fixtures\storageHelpers.ts
+- assistant\app\ai\vault_analyzer\suggestion_engine.py
+- assistant\app\memory\summarizer.py
+- graphify\graphify\symbol_resolution.py
+- assistant\scripts\sync_github_registry.py
+- assistant\app\api\system.py
+- docs\architecture\SYSTEM_ARCHITECTURE.md
+- desktop\src\application\stores\system-store.ts
+- desktop\src\__tests__\shared\lib\stores\system-store.test.ts
+- desktop\src\shared\ui\tabs.tsx
+- desktop\src\__tests__\shared\ui\tabs.test.tsx
+- .specify\memory\tasks.md
+- .specify\templates\tasks-template.md
+- desktop\src-tauri\tauri.conf.json
+- desktop\src\shared\api\tauri-store-service.ts
+- desktop\src\__tests__\shared\api\tauri-store-service.test.ts
+- docs\sdd\technical-spec.md
+- graphify\graphify\extractors\terraform.py
+- docs\sdd\test.md
+- graphify\tests\test_affected_cli.py
+- graphify\tests\test_affected_member_seed.py
+- graphify\tests\test_agents_platform.py
+- graphify\tests\test_analyze.py
+- graphify\tests\test_anthropic_custom_endpoint.py
+- graphify\tests\test_antigravity_install.py
+- graphify\tests\test_astro_extraction.py
+- assistant\tests\unit\test_audit_code_scanner.py
+- assistant\tests\unit\test_audit_commit_classifier.py
+- assistant\tests\unit\test_audit_engine.py
+- assistant\tests\unit\test_audit_feature_registry.py
+- assistant\tests\unit\test_audit_sdd_generator.py
+- assistant\tests\test_automation.py
+- assistant\tests\unit\test_automation_bus.py
+- assistant\tests\unit\test_automation_providers.py
+- assistant\tests\unit\test_automation_sdk.py
+- airllm\air_llm\tests\test_automodel.py
+- assistant\tests\unit\test_aws_tools.py
+- graphify\tests\test_backend_extras.py
+- graphify\tests\test_benchmark.py
+- assistant\tests\integration\test_bootstrap_flow.py
+- graphify\tests\test_build.py
+- graphify\tests\test_build_merge_hyperedges_and_prune.py
+- graphify\tests\test_builtin_global_type_refs.py
+- graphify\tests\test_cache.py
+- graphify\tests\test_callflow_html.py
+- assistant\tests\unit\test_capability_registry.py
+- graphify\tests\test_cargo_introspect.py
+- graphify\tests\test_case_sensitive_resolution.py
+- graphify\tests\test_charmap_encoding.py
+- assistant\tests\test_chat.py
+- graphify\tests\test_chunking.py
+- graphify\tests\test_claude_cli_backend.py
+- graphify\tests\test_claude_md.py
+- graphify\tests\test_cli_export.py
+- graphify\tests\test_cluster.py
+- graphify\tests\test_codebuddy.py
+- assistant\tests\unit\test_communication_runtime.py
+- graphify\tests\test_community_hub_labels.py
+- airllm\air_llm\tests\test_compression.py
+- graphify\tests\test_confidence.py
+- assistant\tests\unit\test_contracts.py
+- graphify\tests\test_corrupt_graph_json.py
+- assistant\tests\unit\test_cost_tracker.py
+- graphify\tests\test_cpp_objc_cross_file_calls.py
+- graphify\tests\test_cpp_preprocess.py
+- assistant\tests\unit\test_credential_service.py
+- graphify\tests\test_cross_language_call_resolution.py
+- graphify\tests\test_csharp_member_calls.py
+- graphify\tests\test_csharp_type_resolution.py
+- graphify\tests\test_dart.py
+- assistant\tests\unit\test_dashboard_contract.py
+- graphify\tests\test_dedup.py
+- assistant\tests\unit\test_desktop_apis.py
+- graphify\tests\test_detect.py
+- graphify\tests\test_devin.py
+- assistant\tests\unit\test_domain_user.py
+- graphify\tests\test_dotnet.py
+- assistant\tests\unit\test_email_provider.py
+- assistant\tests\unit\rag\test_embedder.py
+- assistant\tests\unit\rag\test_embeddings_cache.py
+- assistant\tests\unit\test_environment_service.py
+- assistant\tests\unit\test_evidence_engine.py
+- assistant\tests\unit\agent\test_executor.py
+- graphify\tests\test_explain_cli.py
+- graphify\tests\test_export.py
+- graphify\tests\test_extract.py
+- graphify\tests\test_extract_code_only_cli.py
+- graphify\tests\test_extraction_spec_ids.py
+- graphify\tests\test_extractors_registry.py
+- assistant\tests\unit\llm\test_factory.py
+- graphify\tests\test_falkordb_integration.py
+- graphify\tests\test_file_node_id_spec.py
+- graphify\tests\test_file_slice.py
+- graphify\tests\test_gemini_hook.py
+- assistant\tests\unit\test_github_mcp.py
+- graphify\tests\test_global_graph.py
+- graphify\tests\test_google_workspace.py
+- assistant\tests\unit\test_handshake.py
+- assistant\tests\test_health.py
+- graphify\tests\test_hook_guard.py
+- graphify\tests\test_hooks.py
+- graphify\tests\test_hypergraph.py
+- graphify\tests\test_id_normalization_contract.py
+- graphify\tests\test_image_vision.py
+- graphify\tests\test_import_extension_resolution.py
+- graphify\tests\test_incremental.py
+- assistant\tests\test_indexing.py
+- graphify\tests\test_indirect_dispatch.py
+- graphify\tests\test_indirect_dispatch_assign_return.py
+- graphify\tests\test_indirect_dispatch_getattr.py
+- graphify\tests\test_ingest.py
+- graphify\tests\test_install.py
+- graphify\tests\test_install_references.py
+- graphify\tests\test_install_roundtrip.py
+- graphify\tests\test_install_strings.py
+- graphify\tests\test_install_upgrade.py
+- graphify\tests\test_java_member_calls.py
+- graphify\tests\test_java_type_resolution.py
+- graphify\tests\test_js_import_resolution.py
+- assistant\tests\unit\test_knowledge_graph.py
+- graphify\tests\test_label_retry.py
+- graphify\tests\test_labeling.py
+- graphify\tests\test_language_resolvers.py
+- graphify\tests\test_languages.py
+- graphify\tests\test_llm_backends.py
+- graphify\tests\test_llm_parser.py
+- graphify\tests\test_long_path_hashing.py
+- graphify\tests\test_manifest_ingest.py
+- graphify\tests\test_mcp_ingest.py
+- assistant\tests\unit\memory\test_memory_service.py
+- graphify\tests\test_merge_graphs_cli.py
+- graphify\tests\test_minhash.py
+- assistant\tests\unit\test_model_registry.py
+- assistant\tests\unit\test_model_router.py
+- graphify\tests\test_multigraph_compat.py
+- graphify\tests\test_multigraph_diagnostics.py
+- graphify\tests\test_multilang.py
+- assistant\tests\unit\test_observability_subscribers.py
+- graphify\tests\test_obsidian_dangling_member.py
+- assistant\tests\integration\test_obsidian_e2e.py
+- graphify\tests\test_obsidian_filename_cap.py
+- assistant\tests\unit\obsidian\test_obsidian_service.py
+- assistant\tests\unit\obsidian\test_obsidian_tools.py
+- graphify\tests\test_office_incremental.py
+- graphify\tests\test_office_limits.py
+- graphify\tests\test_ollama.py
+- graphify\tests\test_ollama_retry_cap.py
+- assistant\tests\test_openai.py
+- graphify\tests\test_openai_custom_endpoint.py
+- assistant\tests\unit\test_opencode_executor.py
+- assistant\tests\unit\test_orchestrator.py
+- graphify\tests\test_pascal.py
+- graphify\tests\test_pascal_call_scoping.py
+- graphify\tests\test_pascal_resolution.py
+- graphify\tests\test_path_cli.py
+- graphify\tests\test_paths.py
+- graphify\tests\test_pg_introspect.py
+- graphify\tests\test_phantom_cross_package_call.py
+- graphify\tests\test_phantom_external_import.py
+- graphify\tests\test_pipeline.py
+- assistant\tests\unit\test_plugin_sandbox.py
+- assistant\tests\unit\test_provider_adapters.py
+- graphify\tests\test_provider_registry.py
+- graphify\tests\test_prs.py
+- graphify\tests\test_python_import_resolution.py
+- assistant\tests\unit\test_qdrant_hnsw.py
+- graphify\tests\test_query_cli.py
+- graphify\tests\test_querylog.py
+- assistant\tests\integration\rag\test_rag_pipeline.py
+- graphify\tests\test_rationale.py
+- graphify\tests\test_read_hook.py
+- graphify\tests\test_reflect.py
+- graphify\tests\test_replace_or_append_section.py
+- graphify\tests\test_report.py
+- assistant\tests\unit\test_repositories.py
+- graphify\tests\test_ruby_resolution.py
+- assistant\tests\unit\test_runtime_selector.py
+- graphify\tests\test_scip_ingest.py
+- graphify\tests\test_search_hook.py
+- assistant\tests\unit\test_secret_manager.py
+- graphify\tests\test_security.py
+- graphify\tests\test_semantic_cleanup.py
+- graphify\tests\test_semantic_id_remap_root.py
+- assistant\tests\unit\rag\test_semantic_retriever.py
+- graphify\tests\test_semantic_similarity.py
+- graphify\tests\test_serve.py
+- graphify\tests\test_serve_http.py
+- graphify\tests\test_skill_version_warning.py
+- graphify\tests\test_skillgen.py
+- assistant\tests\fixtures\raw\test-source.md
+- assistant\tests\unit\agent\test_state.py
+- airllm\air_llm\tests\test_streaming_gpu.py
+- graphify\tests\test_swift_cross_file_calls.py
+- graphify\tests\test_swift_import_resolution.py
+- graphify\tests\test_symbol_resolution.py
+- graphify\tests\test_terraform.py
+- assistant\tests\unit\rag\test_text_splitter.py
+- graphify\tests\test_transcribe.py
+- graphify\tests\test_ts_decorators.py
+- graphify\tests\test_ts_generators.py
+- graphify\tests\test_ts_import_require.py
+- graphify\tests\test_ts_inheritance.py
+- graphify\tests\test_ts_namespace.py
+- graphify\tests\test_ts_receiver_member_calls.py
+- graphify\tests\test_typescript_module_extensions.py
+- graphify\tests\test_validate.py
+- assistant\tests\unit\rag\test_vault_indexer.py
+- assistant\tests\unit\obsidian\test_vault_watcher.py
+- graphify\tests\test_vue_extraction.py
+- graphify\tests\test_watch.py
+- assistant\tests\unit\test_whatsapp_provider.py
+- graphify\tests\test_wheel_packaging.py
+- graphify\tests\test_wiki.py
+- assistant\tests\unit\test_wiki_pipeline.py
+- graphify\tests\test_word_count_cache.py
+- assistant\tests\unit\test_workflows.py
+- assistant\tests\unit\test_workspace_intelligence.py
+- graphify\tests\test_zero_node_no_cache.py
+- docs\openCode\rules\testing.md
+- docs\openCode\references\testing-patterns.md
+- assistant\app\rag\chunking\text_splitter.py
+- desktop\src\shared\ui\textarea.tsx
+- desktop\src\application\stores\theme-store.ts
+- desktop\src\__tests__\shared\lib\stores\theme-store.test.ts
+- airllm\air_llm\airllm\tokenization_baichuan.py
+- desktop\src\shared\lib\tool-schema.ts
+- graphify\tests\fixtures\xaml_viewmodel\Views\ToolkitView.xaml
+- graphify\tests\fixtures\xaml_viewmodel\ViewModels\ToolkitViewModel.cs
+- desktop\src\entities\message\ui\ToolLogger.tsx
+- desktop\src\shared\ui\tooltip.tsx
+- assistant\app\observability\tracing.py
+- graphify\tools\skillgen\fragments\references\shared\transcribe.md
+- graphify\worked\httpx\raw\transport.py
+- graphify\graphify\tree_html.py
+- docs\troubleshooting\TROUBLESHOOTING.md
+- desktop\tsconfig.json
+- desktop\src\entities\provider\types.ts
+- docs\openCode\rules\typescript.md
+- graphify\tests\fixtures\typescript_advanced.ts
+- desktop\src\application\stores\ui-store.ts
+- desktop\src\__tests__\shared\lib\stores\ui-store.test.ts
+- assistant\app\orchestrator\universal_orchestrator.py
+- assistant\app\obsidian\tools\wiki\update_index_tool.py
+- assistant\app\obsidian\tools\update_note_tool.py
+- desktop\src\application\stores\update-store.ts
+- desktop\src\__tests__\shared\lib\stores\update-store.test.ts
+- scripts\update-versions.js
+- desktop\src\features\auto-update\ui\UpdateCard.tsx
+- graphify\tests\fixtures\urlHelpers.ts
+- desktop\src\shared\lib\use-init.ts
+- assistant\app\models\user.py
+- assistant\app\middleware\user_context.py
+- docs\guides\USER_GUIDE.md
+- assistant\app\repositories\user_model_profile_repository.py
+- assistant\app\api\user_model_profiles.py
+- assistant\app\repositories\user_profile_repository.py
+- assistant\app\api\users.py
+- desktop\src\features\manage-settings\hooks\useSettings.ts
+- desktop\src\__tests__\features\useSettings.test.ts
+- desktop\src\features\dashboard\hooks\useSystemMetrics.ts
+- desktop\src\features\auto-update\hooks\useUpdateCheck.ts
+- desktop\src\features\auto-update\hooks\useUpdaterService.ts
+- desktop\src\features\auto-update\hooks\useUpdateScheduler.ts
+- desktop\src\features\index-vault\hooks\useVaultInit.ts
+- graphify\worked\httpx\raw\utils.py
+- graphify\graphify\validate.py
+- assistant\scripts\validate_documentation.py
+- docs\sdd\validation-audit.md
+- docs\VALIDATION_REPORT.md
+- docs\sdd\Variaveis de Ambiente.md
+- assistant\app\rag\indexer\vault_indexer.py
+- assistant\app\obsidian\vault_init.py
+- docs\storage\VAULT_SUBMODULE.md
+- assistant\app\audit\vault_sync.py
+- assistant\app\obsidian\watcher\vault_watcher.py
+- assistant\app\providers\base\vector_store.py
+- scripts\verify-no-mocks.ps1
+- graphify\graphify\extractors\verilog.py
+- docs\Arquitetura\Visao Geral.md
+- desktop\vite.config.ts
+- graphify\tools\skillgen\fragments\always-on\vscode-instructions.md
+- graphify\graphify\watch.py
+- graphify\tests\fixtures\src\WebApi\WebApi.csproj
+- assistant\app\api\webhooks.py
+- assistant\app\runtime\communication\whatsapp_evolution.py
+- assistant\app\providers\whatsapp\whatsapp_provider.py
+- assistant\app\providers\whatsapp\whatsapp_tool.py
+- graphify\tests\fixtures\objc_mixed\Widget.m
+- graphify\tests\fixtures\objc_mixed\WidgetExtras.swift
+- graphify\graphify\wiki.py
+- assistant\app\obsidian\wiki_pipeline.py
+- assistant\app\obsidian\tools\wiki\wiki_utils.py
+- assistant\app\router\workflow_router.py
+- docs\guides\WORKFLOWS_AUDIT.md
+- assistant\app\api\workspace_intelligence.py
+- assistant\app\memory\storage\workspace_storage.py
+- graphify\graphify\extractors\zig.py
+- index.ts
+- 6. PostgreSQL
+- 7. Qdrant
+- 8. n8n (Opcional)
+- desktop\src\__tests__\features\ask-ai.test.ts
+- desktop\src\__tests__\features\doc-generator.test.ts
+- desktop\src\__tests__\e2e\navigation.spec.ts
+- desktop\playwright.config.ts
+- desktop\postcss.config.js
+- desktop\tailwind.config.js
+- desktop\src\vite-env.d.ts
+- desktop\vitest.config.ts
+- Arquitetura
+- Creditos
+- Requisitos
+- Visao Geral
+- desktop\src\__tests__\features\ask-ai.test.ts
+- desktop\src\__tests__\features\doc-generator.test.ts
+- desktop\src\__tests__\e2e\navigation.spec.ts
+- desktop\playwright.config.ts
+- desktop\postcss.config.js
+- desktop\tailwind.config.js
+- desktop\src\vite-env.d.ts
+- desktop\vitest.config.ts
+- AGENTS.md
+- __init__.py
+- __init__.py
+- __init__.py
+- __init__.py
+- engine.py
+- [2.3.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.1...v2.3.2) (2026-07-10)
+- [2.3.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.2...v2.3.3) (2026-07-10)
+- @tauri-apps/plugin-updater
+- msw
+- postcss
+- @testing-library/jest-dom
+- @vitejs/plugin-react
+- index.ts
+- index.ts
+- MIGRATION_MAP.md
+- 11. Verificação Pós-Instalação
+- Requisitos Mínimos
+- pre-commit
+- __init__.py
+- mcp-platform
 
 ## God Nodes (most connected - your core abstractions)
-1. `extract()` - 223 edges
-2. `Changelog` - 156 edges
-3. `kaosFetch()` - 82 edges
-4. `_read_text()` - 82 edges
-5. `ingest_scip_json()` - 82 edges
-6. `_labels()` - 74 edges
-7. `Communities (141 total, 52 thin omitted)` - 71 edges
-8. `e()` - 68 edges
-9. `extract_js()` - 63 edges
-10. `_rebuild_code()` - 62 edges
+1. `kaosFetch()` - 80 edges
+2. `ObsidianService` - 58 edges
+3. `Event` - 55 edges
+4. `RuntimePathResolver` - 52 edges
+5. `ServiceRegistry` - 49 edges
+6. `FeatureRegistry` - 45 edges
+7. `K.A.O.S Platform Evolution & Autonomous Engineering Specification (v13)` - 44 edges
+8. `ProviderHealthCache` - 42 edges
+9. `FeatureEntry` - 40 edges
+10. `LLMFactory` - 39 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `test_property_make_id_equals_normalize_id()` --calls--> `_normalize_id()`  [INFERRED]
-  graphify/tests/test_id_normalization_contract.py → assistant/scripts/bootstrap_feature_registry.py
-- `client()` --calls--> `AsyncClient`  [INFERRED]
-  assistant/tests/unit/test_desktop_apis.py → graphify/worked/httpx/raw/client.py
-- `test_airllm_loading()` --calls--> `AutoModel`  [INFERRED]
-  kaos-research/experiments/airllm/experiment.py → airllm/air_llm/airllm/auto_model.py
-- `_get_db_session()` --indirect_call--> `e()`  [INFERRED]
-  assistant/app/api/auth.py → graphify/scripts/gen_demo_path.py
-- `get_setup_status()` --indirect_call--> `e()`  [INFERRED]
-  assistant/app/api/auth.py → graphify/scripts/gen_demo_path.py
+- `_get_db_session()` --calls--> `get_session()`  [INFERRED]
+  assistant/app/api/auth.py → assistant/app/api/conversations.py
+- `temp_vault()` --indirect_call--> `AutomationBus`  [INFERRED]
+  assistant/tests/unit/test_workspace_intelligence.py → assistant/app/core/automation_bus.py
+- `get_memory_adapters()` --indirect_call--> `PostgresMemoryAdapter`  [INFERRED]
+  assistant/app/providers/__init__.py → assistant/app/providers/memory/postgres_memory_adapter.py
+- `get_planner_adapters()` --indirect_call--> `LangGraphAdapter`  [INFERRED]
+  assistant/app/providers/__init__.py → assistant/app/providers/planner/langgraph_adapter.py
+- `get_evidence_adapters()` --indirect_call--> `EvidenceEngine`  [INFERRED]
+  assistant/app/providers/__init__.py → assistant/app/providers/evidence/engine.py
 
 ## Import Cycles
-- 1-file cycle: `graphify/tests/fixtures/sample.sv -> graphify/tests/fixtures/sample.sv`
-- 3-file cycle: `desktop/src/application/hooks/index.ts -> desktop/src/application/hooks/useUpdaterService.ts -> desktop/src/application/index.ts -> desktop/src/application/hooks/index.ts`
 - 3-file cycle: `desktop/src/application/hooks/index.ts -> desktop/src/application/hooks/useUpdateScheduler.ts -> desktop/src/application/index.ts -> desktop/src/application/hooks/index.ts`
+- 3-file cycle: `desktop/src/application/hooks/index.ts -> desktop/src/application/hooks/useUpdaterService.ts -> desktop/src/application/index.ts -> desktop/src/application/hooks/index.ts`
 - 4-file cycle: `desktop/src/application/hooks/index.ts -> desktop/src/application/hooks/useUpdateCheck.ts -> desktop/src/application/hooks/useUpdateScheduler.ts -> desktop/src/application/index.ts -> desktop/src/application/hooks/index.ts`
 - 4-file cycle: `desktop/src/application/hooks/index.ts -> desktop/src/application/hooks/useUpdateScheduler.ts -> desktop/src/application/hooks/useUpdaterService.ts -> desktop/src/application/index.ts -> desktop/src/application/hooks/index.ts`
-- 4-file cycle: `desktop/src/application/stores/agent-store.ts -> desktop/src/infrastructure/index.ts -> desktop/src/infrastructure/event-bus/index.ts -> desktop/src/infrastructure/event-bus/event-bus.ts -> desktop/src/application/stores/agent-store.ts`
 - 4-file cycle: `desktop/src/application/stores/system-store.ts -> desktop/src/infrastructure/index.ts -> desktop/src/infrastructure/commands/index.ts -> desktop/src/infrastructure/commands/command-registry.ts -> desktop/src/application/stores/system-store.ts`
+- 4-file cycle: `desktop/src/application/stores/agent-store.ts -> desktop/src/infrastructure/index.ts -> desktop/src/infrastructure/event-bus/index.ts -> desktop/src/infrastructure/event-bus/event-bus.ts -> desktop/src/application/stores/agent-store.ts`
 - 5-file cycle: `desktop/src/application/hooks/index.ts -> desktop/src/application/hooks/useUpdateCheck.ts -> desktop/src/application/hooks/useUpdateScheduler.ts -> desktop/src/application/hooks/useUpdaterService.ts -> desktop/src/application/index.ts -> desktop/src/application/hooks/index.ts`
 
-## Communities (1578 total, 285 thin omitted)
+## Communities (2778 total, 79 thin omitted)
 
 ### Community 0 - "_read_text"
-Cohesion: 0.02
-Nodes (124): Get the name from a node using config.name_field, falling back to child types., _resolve_name(), _c_collect_type_refs(), _cpp_collect_type_refs(), _cpp_declarator_name(), _cpp_local_var_types(), _csharp_attribute_names(), _csharp_classify_base() (+116 more)
+Cohesion: 0.05
+Nodes (30): LifecycleError, Enum, Exception, str, Server lifecycle manager — state machine, process management, health tracking., Raised when a lifecycle transition fails., ServerState, MCPTransport (+22 more)
 
 ### Community 1 - "install.py"
 Cohesion: 0.04
-Nodes (114): _agents_install(), _agents_platform_install(), _agents_platform_uninstall(), _agents_uninstall(), _always_on(), _amp_install(), _amp_legacy_cleanup(), _amp_uninstall() (+106 more)
+Nodes (48): 1.1 Diretórios de Documentação por Categoria, 1.2 Diretórios Vazios (Placeholders), 1.3 Documentos Raiz, 2.1 Duplicação Massiva: `docs/wiki/` ⇔ `workspace/kaos/vault/wiki/`, 2.2 SDDs Triplicados, 2.3 READMEs Duplicados, 2.4 Documentos Raiz Duplicados no Vault, 2.5 Architecture Docs Duplicados (Ramo) (+40 more)
 
 ### Community 2 - "EnvironmentInfo"
 Cohesion: 0.04
-Nodes (43): EnvironmentInfo, EnvironmentService, EnvironmentType, Enum, Path, K.A.O.S Environment Service ============================= Servico central e un, Servico unico de resolucao de ambiente.     Use ``EnvironmentService.detect()``, Detecta e retorna o ambiente atual.         Cacheado apos a primeira chamada. (+35 more)
+Nodes (45): EnvironmentInfo, EnvironmentService, EnvironmentType, Enum, Path, K.A.O.S Environment Service ============================= Servico central e un, Servico unico de resolucao de ambiente.     Use ``EnvironmentService.detect()``, Detecta e retorna o ambiente atual.         Cacheado apos a primeira chamada. (+37 more)
 
 ### Community 3 - "extract.py"
-Cohesion: 0.03
-Nodes (100): _extract_js_rationale(), extract_lua(), _extract_parallel(), _extract_python_rationale(), _extract_sequential(), _extract_single_file(), _get_c_func_name(), _get_extractor() (+92 more)
+Cohesion: 0.05
+Nodes (48): args, command, args, command, DATABASE_URL, args, command, args (+40 more)
 
 ### Community 4 - "_file_stem"
-Cohesion: 0.03
-Nodes (126): _augment_js_reexport_edges(), _import_js(), _import_lua(), Compatibility wrapper for the JS/TS symbol-resolution post-pass., Extract require('module') from Lua variable_declaration nodes., _file_stem(), _make_id(), Path (+118 more)
+Cohesion: 0.04
+Nodes (46): 6.1 Script de Sync (prioridade alta), 6.2 Pre-commit Hook (prioridade média), 6.3 CI/CD Job (prioridade baixa), 6.4 Script de Verificação de Duplicação (prioridade baixa), Alternativa Futura (se viável), Arquivo: `scripts/sync-vault.ps1`, Ação, Changelog (+38 more)
 
 ### Community 5 - "test_cache.py"
-Cohesion: 0.04
-Nodes (101): _absolutize_source_files_in(), _body_content(), cache_dir(), cached_files(), cached_word_count(), check_semantic_cache(), _cleanup_stale_ast_entries(), clear_cache() (+93 more)
+Cohesion: 0.08
+Nodes (30): config_cmd(), mcp config — Configuration commands., View and edit MCP platform configuration., ensure_dirs(), get_active_profile_path(), get_config_path(), get_mcp_home(), get_profile_path() (+22 more)
 
 ### Community 6 - "test_extract.py"
-Cohesion: 0.02
-Nodes (144): _is_noise_dir(), Return True if this directory name looks like a venv, cache, or dep dir., collect_files(), extract_bash(), Path, Bash extractor. Moved verbatim from graphify/extract.py., Extract functions, source imports, and cross-function calls from a .sh file., extract_json() (+136 more)
+Cohesion: 0.09
+Nodes (15): ManagedServer, Gracefully shut down the server., Run a health check and update internal state., Central manager for all MCP server processes., Start all enabled servers. Returns count of successful starts., Start a single server by ID., Stop all running servers., Stop a single server. (+7 more)
 
 ### Community 7 - "BaseVectorStore"
-Cohesion: 0.04
-Nodes (31): BaseChatProvider, ABC, Message, BaseEmbeddingProvider, ABC, BaseVectorStore, ABC, AnthropicChatProvider (+23 more)
+Cohesion: 0.07
+Nodes (13): BaseChatProvider, ABC, Message, AnthropicChatProvider, Message, GeminiChatProvider, Message, OllamaChatProvider (+5 more)
 
 ### Community 8 - "test_detect.py"
-Cohesion: 0.03
-Nodes (95): detect(), _is_sensitive(), Return True if this file likely contains secrets and should be skipped., .graphifyignore is evaluated after .gitignore, so a `!` negation in it can, Files matching .graphifyignore patterns are excluded from detect()., Files inside .worktrees/ are never indexed (#947)., Files inside .claude/worktrees/ (nested placement) are never indexed (#1023)., extra_excludes patterns exclude matching files from detect() (#947). (+87 more)
+Cohesion: 0.14
+Nodes (9): ChatRequest, ChatResponse, Message, BaseModel, ExecutionPlan, Any, ChatWorkflow, MemoryWorkflow (+1 more)
 
 ### Community 9 - "EnvironmentService"
-Cohesion: 0.05
-Nodes (44): BootstrapManager, BootstrapResult, BootstrapStage, BootstrapState, Enum, K.A.O.S Bootstrap Manager =========================== Orquestrador do startup, Orquestrador do startup.     Uso::          await BootstrapManager.boot()  #, Pipeline completo de inicializacao.         Cada etapa tem timeout e tratamento (+36 more)
+Cohesion: 0.03
+Nodes (57): BootstrapManager, BootstrapResult, BootstrapStage, BootstrapState, Enum, K.A.O.S Bootstrap Manager =========================== Orquestrador do startup, Orquestrador do startup.     Uso::          await BootstrapManager.boot()  #, Pipeline completo de inicializacao.         Cada etapa tem timeout e tratamento (+49 more)
 
 ### Community 10 - "test_install.py"
-Cohesion: 0.03
-Nodes (87): gemini_install(), Copy skill file, write GEMINI.md section, and install BeforeTool hook., _agents_install(), _agents_uninstall(), _install(), _kilo_install(), _kilo_uninstall(), Tests for graphify install --platform routing. (+79 more)
+Cohesion: 0.10
+Nodes (15): GraphQuery, GraphResult, A query against the code graph., Result of a graph query., Execute a traversal/neighborhood search from matching nodes., Execute a semantic search across the enriched graph., Execute a traversal search using graph.json., Neo4jAdapter (+7 more)
 
 ### Community 11 - "classify_file"
-Cohesion: 0.03
-Nodes (86): classify_file(), Return the interpreter name from a shebang line.      Handles forms that a nai, _shebang_interpreter(), Plain shebang returns the interpreter basename., `#!/usr/bin/env python3` returns the interpreter, not 'env'., `#!/usr/bin/env -S python3 -u` (-S split-args form) recovers the interpreter., `#!/usr/bin/env -i bash` skips env flags and resolves to the interpreter., `#!/usr/bin/env DEBUG=1 python3` skips var=value assignments. (+78 more)
+Cohesion: 0.07
+Nodes (28): Arquivos Relacionados, Backlog — IA Pessoal Offline com Obsidian, Dependencias, Divida Tecnica (DEBT), Fase 10 — Produção ✅, Fase 11 — Otimização de Performance e Roteamento Inteligente, Fase 1 — Fundação ✅, Fase 2 — IA Local ✅ (+20 more)
 
 ### Community 12 - "main"
-Cohesion: 0.03
-Nodes (80): _count_by_ext(), _format_languages(), main(), Path, Run extraction, return (elapsed_seconds, node_count, edge_count)., Count files by extension., _run_extraction(), _devin_install_user() (+72 more)
+Cohesion: 0.11
+Nodes (20): mcp registry — Registry query commands., Query the MCP server registry., registry_cmd(), PlatformConfig, Central configuration for the MCP platform., Look up a server by ID in the registry., List server IDs that have local config files., AuthorizationContext (+12 more)
 
 ### Community 13 - "test_analyze.py"
-Cohesion: 0.04
-Nodes (73): DiGraph, find_import_cycles(), _is_json_key_node(), Detect circular import dependencies at the file level.      Collapses symbol-l, _make_code_doc_graph(), _make_cross_lang_graph(), _make_cycle_graph_directed(), _make_file_node() (+65 more)
+Cohesion: 0.14
+Nodes (13): EvidenceEngine, EvidenceMetric, EvidenceReport, Path, Collect evidence from Git history., Collect evidence from test suite results., Collect evidence from benchmark results., Multi-source evidence collection engine. (+5 more)
 
 ### Community 14 - "test_import_extension_resolution.py"
-Cohesion: 0.05
-Nodes (77): extract_svelte(), Extract imports from .svelte files: script-block via JS AST + template regex fal, Resolve a JS/TS module path or specifier to a local source file.      With a P, _resolve_js_module_path(), _import_targets(), Path, Tests for #716 — TypeScript bare-path imports, Svelte 5 rune file imports (`fro, JS variant of the rune file pattern: a `.svelte.js` file (used in     JavaScrip (+69 more)
+Cohesion: 0.08
+Nodes (25): Assumptions, Boundary A: User ↔ Platform (T0 → T1), Boundary B: Platform ↔ Agent (T1 → T2), Boundary C: Platform ↔ MCP Server (T1 → T3), Data Flow Diagrams, Denial of Service, Elevation of Privilege, Incident Response Quick Reference (+17 more)
 
 ### Community 15 - "BaseWorkflow"
-Cohesion: 0.05
-Nodes (24): ChatRequest, ChatResponse, Message, BaseModel, ExecutionPlan, Any, ServiceRegistry, BaseWorkflow (+16 more)
+Cohesion: 0.06
+Nodes (15): BaseWorkflow, ABC, AgentWorkflow, CodingWorkflow, IngestWorkflow, ResearchWorkflow, TestServiceRegistry, TestAgentWorkflow (+7 more)
 
 ### Community 16 - "test_languages.py"
-Cohesion: 0.02
-Nodes (254): extract_c(), extract_cpp(), extract_csharp(), extract_groovy(), extract_java(), extract_kotlin(), extract_php(), extract_scala() (+246 more)
+Cohesion: 0.08
+Nodes (23): 10. Evolution Roadmap, 1. System Context (C4 Level 1), 2. Container Diagram (C4 Level 2), 3. Component Diagram (C4 Level 3) — Core Library, 4.1 MCP Server Discovery Flow, 4.2 Tool Call Flow (Agent → Transport → Server), 4.3 Permission Evaluation Flow, 4.4 Update/Rollback Flow (+15 more)
 
 ### Community 17 - "kaosFetch"
 Cohesion: 0.03
-Nodes (49): AuthState, User, useChatStore, EvidenceMetric, EvidenceReport, EvidenceState, useEvidenceStore, InferenceResult (+41 more)
+Nodes (64): AuthState, User, useChatStore, ConversationSession, ConversationState, useConversationStore, EvidenceMetric, EvidenceReport (+56 more)
 
 ### Community 18 - "test_js_import_resolution.py"
-Cohesion: 0.15
-Nodes (60): _file_node_id(), File-level node ID matching the skill.md spec: ``{parent_dir}_{stem}`` —     on, _extract_for(), _has_edge(), _has_no_symbol_to_symbol_edge(), _has_symbol_edge(), _has_symbol_to_symbol_edge(), Path (+52 more)
+Cohesion: 0.10
+Nodes (14): generate_cmd(), mcp generate — Generate agent configuration files., Generate MCP configuration for AI agents., AgentConfigGenerator, Path, Agent configuration generators — generate configs for Claude Code, OpenCode, VS, Generates MCP server configuration for various AI agents., Get the currently enabled servers in the format needed for agent configs. (+6 more)
 
 ### Community 19 - "RuntimePathResolver"
-Cohesion: 0.07
-Nodes (26): Gera um stub para features que não possuem documentação nem relacionamentos sufi, Path, Runtime Path Resolver for K.A.O.S. ===================================== Respo, Compatibilidade KIRL — delegado para resolve_kirl_dir()., Return the active runtime directory for KIRL., Wrapper de compatibilidade — delega para EnvironmentService., Retorna o EnvironmentInfo cacheado., Return the absolute path to the project root directory. (+18 more)
+Cohesion: 0.08
+Nodes (21): get_vault_file(), list_vault_files(), Gera um stub para features que não possuem documentação nem relacionamentos sufi, Path, Runtime Path Resolver for K.A.O.S. ===================================== Respo, Compatibilidade KIRL — delegado para resolve_kirl_dir()., Return the active runtime directory for KIRL., Wrapper de compatibilidade — delega para EnvironmentService. (+13 more)
 
 ### Community 20 - "AsyncClient"
-Cohesion: 0.04
-Nodes (47): client(), Testes de integracao do fluxo de bootstrap completo.  Valida: - EnvironmentSe, Verifica que stages foram populados., Se degraded=True, deve ter pelo menos um erro listado., Endpoint /api/system/bootstrap reflete boot() real., Chamar boot() multiplas vezes nao quebra., Ambos endpoints respondem 200., Testa EnvironmentService via HTTP endpoint. (+39 more)
+Cohesion: 0.13
+Nodes (20): client(), _ensure_workflow_templates(), Any, AsyncClient, Path, Quando data/workflows/ nao existe, retorna lista vazia., Usa os templates reais em data/workflows/ (criados na Fase 7)., Templates retornados tem nome e descricao. (+12 more)
 
 ### Community 21 - "llm.py"
-Cohesion: 0.05
-Nodes (67): BaseException, _backend_env_keys(), _backend_supports_vision(), _bedrock_inference_config(), _build_image_refs(), _call_claude_cli(), _call_llm(), _claude_cli_envelope() (+59 more)
+Cohesion: 0.12
+Nodes (15): get_inference_service(), inference_health(), invoke_inference(), InvokeRequest, list_models(), BaseModel, Inference REST API — LLM model inference and provider management.  Endpoints:, Non-streaming LLM inference. (+7 more)
 
 ### Community 22 - ".run_audit"
 Cohesion: 0.06
 Nodes (31): DocumentationAuditEngine, extract_bullet_links(), Any, Executa a auditoria completa da documentação e retorna as métricas coletadas., Executa a correção automática e normalização de documentos., re_escape(), re_search_sec(), GraphValidator (+23 more)
 
 ### Community 23 - "test_build.py"
-Cohesion: 0.03
-Nodes (82): dedupe_edges(), dedupe_nodes(), edge_data(), edge_datas(), Return one edge attribute dict for (u, v), tolerating MultiGraph.      For Mul, Return every edge attribute dict for (u, v); always a list., Collapse nodes sharing an ``id``, last-writer-wins on attributes.      Mirrors, Collapse exact parallel edges by ``(source, target, relation)``, keeping the (+74 more)
+Cohesion: 0.11
+Nodes (12): EnrichedGraphAdapter, NodeInfo, PathInfo, EnrichedGraphAdapter — Wraps the enriched Knowledge Graph for GraphPort.  Repl, Find shortest path between two nodes., Check if the enriched graph is available., Semantic search across node labels, descriptions, and tags., Find similar nodes based on domain, layer, and tags. (+4 more)
 
 ### Community 24 - "SDDResolver"
-Cohesion: 0.10
-Nodes (16): AnalyzerEngine, ArchitectureAnalysis, Async wrapper that runs analysis and emits EventBus event (RF-B05)., Evidence, EvidenceEngine, Suggestion, SuggestionEngine, _generate_report_markdown() (+8 more)
+Cohesion: 0.05
+Nodes (37): AnalyzerEngine, ArchitectureAnalysis, Async wrapper that runs analysis and emits EventBus event (RF-B05)., Evidence, EvidenceEngine, Suggestion, SuggestionEngine, _generate_report_markdown() (+29 more)
 
 ### Community 25 - "Message"
-Cohesion: 0.09
-Nodes (36): ConversationsListResponse, delete_session(), get_session(), list_sessions(), AsyncSession, BaseModel, Conversations API — Session History endpoints.  RF-D02: GET /api/conversations, RF-D02: Lista sessões paginadas por user_id. (+28 more)
+Cohesion: 0.14
+Nodes (26): ConversationsListResponse, delete_session(), get_session(), list_sessions(), AsyncSession, BaseModel, Conversations API — Session History endpoints.  RF-D02: GET /api/conversations, RF-D02: Lista sessões paginadas por user_id. (+18 more)
 
 ### Community 26 - "extract_files_direct"
-Cohesion: 0.11
-Nodes (37): _best_cut(), bisect_slice(), expand_oversized_files(), FileSlice, is_splittable_text(), Path, Intra-file slicing for oversized text documents (#1369).  The extraction packe, Replace each oversized splittable-text file with a list of ``FileSlice``s. (+29 more)
+Cohesion: 0.13
+Nodes (15): mcp update — Update and rollback commands., Check, apply, or rollback MCP server updates., _run_apply(), _run_check(), _run_history(), _run_rollback(), update_cmd(), Update manager — version checking, compatibility validation, backup/rollback. (+7 more)
 
 ### Community 27 - "index.tsx"
-Cohesion: 0.10
-Nodes (28): GraphBuilder, GraphData, GraphEdge, GraphNode, GraphExport, GraphState, useGraphData(), useGraphFilters() (+20 more)
+Cohesion: 0.07
+Nodes (34): DriftEngine, DriftReport, GraphBuilder, GraphData, GraphEdge, GraphNode, GraphExport, GraphState (+26 more)
 
 ### Community 28 - "index.ts"
-Cohesion: 0.07
-Nodes (57): Props, UpdateCard(), CoverageChart(), CoverageChartProps, DriftTimeline(), DriftTimelineProps, levelConfig, missing_featuresListProps (+49 more)
+Cohesion: 0.09
+Nodes (44): Props, ModelSelector(), Props, ProviderOption, UpdateCard(), CoverageChart(), CoverageChartProps, DriftTimeline() (+36 more)
 
 ### Community 29 - "test_codebuddy.py"
-Cohesion: 0.05
-Nodes (66): codebuddy_install(), codebuddy_uninstall(), Install the graphify skill and CODEBUDDY.md section for CodeBuddy., Remove the graphify skill tree (SKILL.md + references/) and the CODEBUDDY.md sec, _codebuddy_install_user(), _codebuddy_md_path(), Tests for graphify codebuddy install / uninstall commands., The installed hook must include Read|Glob matcher for file-read interception. (+58 more)
+Cohesion: 0.09
+Nodes (21): ADR-005: Permission Model, Alternatives Considered, Audit Logging, Authorization Engine, Consequences, Context, Decision, Dimension 1: Agent Identity (+13 more)
 
 ### Community 30 - "detect.py"
-Cohesion: 0.06
-Nodes (58): _auto_follow_symlinks(), convert_office_file(), _could_contain_included_path(), count_words(), detect_incremental(), docx_to_markdown(), _env_command_args(), extract_pdf_text() (+50 more)
+Cohesion: 0.10
+Nodes (20): ADR-007: Update & Rollback Strategy, Alternatives Considered, Backup System, Compatibility Validation, Consequences, Context, Decision, Disaster Recovery (+12 more)
 
 ### Community 31 - "extract"
-Cohesion: 0.11
-Nodes (59): _canonicalize_csharp_namespace_nodes(), _check_tree_sitter_version(), extract(), _merge_swift_extensions(), Collapse duplicate C# namespace node entries to one canonical node per label., Collapse cross-file Swift `extension Foo` nodes into the canonical `Foo`., Raise a clear error if tree-sitter is too old for the new Language API., Extract AST nodes and edges from a list of code files.      Two-pass process: (+51 more)
+Cohesion: 0.17
+Nodes (9): Mem0Adapter, MemoryEntry, Mem0Adapter — MemoryPort implementation backed by Mem0.  Mem0 provides persist, Retrieve a specific memory by ID., Delete a memory entry., MemoryPort adapter using Mem0 for persistent user memory., Store a memory entry via Mem0., Search memories by semantic similarity. (+1 more)
 
 ### Community 32 - "test_dotnet.py"
-Cohesion: 0.04
-Nodes (80): extract_csproj(), extract_slnx(), extract_xaml(), _project_xml_is_safe(), Reject XML that declares DTDs or entities.      Stdlib ``xml.etree.ElementTree, Extract projects and inter-project dependencies from a .slnx file.      .slnx, Extract packages, project refs, and target framework from a .csproj/.fsproj/.vbp, Extract WPF/XAML structure, bindings, x:Class, and event handler references. (+72 more)
+Cohesion: 0.16
+Nodes (13): AgentConfig, AgentInstance, AgentState, AgentStatus, useAgentStore, UpdateChannel, UpdateInfo, UpdatePhase (+5 more)
 
 ### Community 33 - "FeatureRegistry"
-Cohesion: 0.10
-Nodes (10): get_feature(), Register a new feature in the registry., Get a specific feature., register_feature(), FeatureEntry, FeatureRegistry, Registra feature no registry se existir., register_feature() (+2 more)
+Cohesion: 0.05
+Nodes (37): ArchEdge, ArchGraphSnapshot, ArchNode, GraphBuilder, Loads graphify-out/graph.json and returns aggregated file-level data., Resolve a symbol ID back to its source file., Add Graphify-derived nodes and edges to the snapshot., Infer the type of a code reference from its path. (+29 more)
 
 ### Community 34 - "CostTracker"
-Cohesion: 0.08
-Nodes (19): _get_costs_data(), CostEvent, Base, CostEvent SQLAlchemy model.  Persists cost tracking events for observability a, CostTracker, Any, UUID, Salva evento de custo no PostgreSQL. Fire-and-forget friendly. (+11 more)
+Cohesion: 0.07
+Nodes (33): CostBreakdownResponse, CostsResponse, CostSummaryResponse, get_costs(), get_costs_summary(), AsyncSession, BaseModel, RF-F01: Breakdown de custos por provider e workflow. (+25 more)
 
 ### Community 35 - "test_multigraph_diagnostics.py"
-Cohesion: 0.08
-Nodes (54): _canonical_edge(), _count_extra(), diagnose_extraction(), diagnose_file(), _edge_list(), _exact_signature(), format_diagnostic_json(), format_diagnostic_report() (+46 more)
+Cohesion: 0.11
+Nodes (17): ADR-004: Transport Abstraction Layer, Alternatives Considered, Consequences, Context, Decision, Evidence Supporting This Decision, Implementation Plan, Negative (+9 more)
 
 ### Community 36 - "extract_js"
-Cohesion: 0.03
-Nodes (63): extract_js(), Extract classes, functions, arrow functions, and imports from a .js/.ts/.tsx/.mt, by_label_by_id(), Functions defined alongside a JSX-returning component must be captured., Calls inside JSX expressions like `{fmtDate(now)}` must yield call edges., export { X } from './mod' must emit re_exports edges for each named specifier., Barrel file must emit file-level imports_from edges to source modules., re_exports edges should have context='re-export'. (+55 more)
+Cohesion: 0.11
+Nodes (17): Active Profile State, ADR-006: Profile System Design, Alternatives Considered, Auto-Detection Rules, Consequences, Context, Decision, Evidence Supporting This Decision (+9 more)
 
 ### Community 37 - "test_pascal.py"
-Cohesion: 0.07
-Nodes (52): extract_lazarus_package(), Extract package metadata from Lazarus .lpk package files (XML format).      .l, extract_pascal(), extract_delphi_form(), extract_lazarus_form(), Path, Pascal_forms extractor. Moved verbatim from graphify/extract.py., Extract component hierarchy from Delphi .dfm form files.      .dfm files come (+44 more)
+Cohesion: 0.11
+Nodes (17): ADR-008: Security Model & Trust Boundaries, Audit Logging, Consequences, Context, Decision, Evidence Supporting This Decision, Implementation Plan, Incident Response (+9 more)
 
 ### Community 38 - "test_mcp_ingest.py"
 Cohesion: 0.11
-Nodes (38): extract_mcp_config(), is_mcp_config_path(), Path, Return True when ``path`` is a recognised MCP config filename., Parse an MCP config file into Graphify nodes and edges.      Behaviour matches, _label_by_kind(), Path, Tests for graphify.mcp_ingest — MCP config file extraction. (+30 more)
+Nodes (17): ADR-009: Lifecycle Management (Server, Plugin, Agent), Agent Lifecycle, Alternatives Considered, Consequences, Context, Decision, Evidence Supporting This Decision, Implementation Plan (+9 more)
 
 ### Community 39 - "index.ts"
 Cohesion: 0.07
-Nodes (35): AuthGate(), useAuthStore, useSystemStore, useSystemMetrics(), AgentItem, DashboardPage(), DlqItem, NotificationItem (+27 more)
+Nodes (36): MCPServer, MCPTool, OPENCODE_CATEGORIES, OpenCodeItem, OpenCodeItemDetail, TOOLS_TABS, cn(), ButtonProps (+28 more)
 
 ### Community 40 - "to_wiki"
-Cohesion: 0.06
-Nodes (63): _community_article(), _cross_community_links(), _god_node_article(), _index_md(), _md_link(), Path, Make a label safe for use as a filename across platforms.      Substitutes cha, Generate a Wikipedia-style wiki from the graph.      Writes:       - index.md (+55 more)
+Cohesion: 0.13
+Nodes (11): health_cmd(), mcp health — Health monitoring commands., Check MCP server health and view metrics., _run_health_check(), HealthMonitor, Health monitor — periodic health checks, metrics, and alerting., Monitors MCP server health and stores metrics., Record a health check result to the metrics store. (+3 more)
 
 ### Community 41 - "openai.py"
 Cohesion: 0.12
 Nodes (18): _build_context(), ChatCompletionRequest, ChatMessage, BaseModel, CommandType, Enum, str, RequestContext (+10 more)
 
 ### Community 42 - "useUpdateStore"
-Cohesion: 0.06
-Nodes (37): useSettings(), UseSettingsReturn, useUpdateCheck(), ProgressPayload, UnlistenFn, UpdateResult, useUpdaterService(), useUpdateScheduler() (+29 more)
+Cohesion: 0.07
+Nodes (33): useSettings(), UseSettingsReturn, useUpdateCheck(), ProgressPayload, UnlistenFn, UpdateResult, useUpdaterService(), useUpdateScheduler() (+25 more)
 
 ### Community 43 - "test_export.py"
-Cohesion: 0.05
-Nodes (63): backup_if_protected(), Path, Snapshot graph artifacts to a dated subfolder before an overwrite.      Trigge, Export graph as GraphML - opens in Gephi, yEd, and any GraphML-compatible tool., to_cypher(), to_graphml(), Generate an interactive vis.js HTML visualization of the graph.      Features:, to_html() (+55 more)
+Cohesion: 0.13
+Nodes (12): _install_all(), install_cmd(), _install_server(), mcp install — Install MCP servers from the registry., Install a single MCP server., Install MCP servers from the registry., Secrets manager — resolves secret values from env vars, encrypted files, and OS, Manages and resolves secret references for MCP servers. (+4 more)
 
 ### Community 44 - "_labels"
-Cohesion: 0.01
-Nodes (156): 0.1.0 (2026-04-03), 0.1.1 (2026-04-04), 0.1.3 (2026-04-04), 0.1.4 (2026-04-05), 0.1.5 (2026-04-05), 0.1.6 (2026-04-05), 0.1.7 (2026-04-05), 0.1.8 (2026-04-05) (+148 more)
+Cohesion: 0.14
+Nodes (12): GraphPort, NodeInfo, PathInfo, ABC, GraphPort — Code intelligence capability.  Exposes structural queries over the, Information about a code symbol or file., Path between two code symbols., Interface for code intelligence graph queries.      Concrete implementations: (+4 more)
 
 ### Community 45 - "ProviderHealthCache"
 Cohesion: 0.11
 Nodes (9): ModelRouter, ModelSelection, HealthStatus, ProviderHealthCache, Enum, TestModelRouter, TestModelSelection, TestProviderHealthCache (+1 more)
 
 ### Community 46 - "index.tsx"
-Cohesion: 0.06
-Nodes (30): AppProviders(), Props, AgentsPage, AppRoutes(), ArchitecturePage, AutomationMarketplacePage, AutomationStudioPage, ChatPage (+22 more)
+Cohesion: 0.07
+Nodes (36): AppLayout(), AgentsPage, ArchitecturePage, AuthGate(), AutomationMarketplacePage, AutomationStudioPage, ChatPage, CostsPage (+28 more)
 
 ### Community 47 - "test_ruby_resolution.py"
-Cohesion: 0.10
-Nodes (50): extract_ruby(), Extract classes, methods, singleton methods, and calls from a .rb file., `class Sub < Base` must emit an inherits edge.      Ruby exposes the base clas, test_ruby_inherits_edge(), test_ruby_no_error(), _find_raw_call(), _has_call_edge(), _labels() (+42 more)
+Cohesion: 0.12
+Nodes (16): ADR-002: Global Configuration Hierarchy, Agent Configuration Generation, Alternatives Considered, Configuration Resolution Order, Consequences, Context, Decision, Directory Layout (+8 more)
 
 ### Community 48 - "test_reflect.py"
-Cohesion: 0.09
-Nodes (49): aggregate_lessons(), Aggregate parsed memory docs into a deterministic lessons structure.      ``no, Render the aggregate into the deterministic LESSONS.md markdown body., render_lessons_md(), _days_before(), _doc(), Tests for `graphify reflect` and the work-memory reflection layer.  `graphify, Corroboration (k>=2) + sign decide the bucket, not raw frequency:     A is usef (+41 more)
+Cohesion: 0.12
+Nodes (16): ADR-003: MCP Registry Schema, Alternatives Considered, Categories, Consequences, Context, Decision, Evidence Supporting This Decision, Implementation Plan (+8 more)
 
 ### Community 49 - "test_cli_export.py"
-Cohesion: 0.09
-Nodes (49): _make_graph(), CompletedProcess, Path, Integration tests for graphify export subcommands and CLI commands.  Each test, #1423: `graphify extract` honours GRAPHIFY_OUT for where it WRITES, not only, Build a minimal graph.json + analysis/labels files in tmp_path/graphify-out/., cluster-only must not crash with FileNotFoundError when graphify-out/ is absent, #1747 Case 2: `cluster-only --graph <elsewhere>/graphify-out/graph.json`     mu (+41 more)
+Cohesion: 0.16
+Nodes (11): get_knowledge_service(), knowledge_health(), KnowledgeQueryRequest, BaseModel, query_knowledge(), Knowledge REST API — Unified knowledge coalescing queries.  Endpoints:   POST, Coalescing query across graph, retrieval, and memory sources., KnowledgeService (+3 more)
 
 ### Community 50 - "AuditEngine"
-Cohesion: 0.10
-Nodes (11): get_snapshot(), Get latest DRL snapshot for frontend consumption., AuditEngine, DriftReport, Path, SDDEntry, SDDResolver, Etapa 8: Executar auditoria inicial. (+3 more)
+Cohesion: 0.07
+Nodes (17): DriftEngine, DriftScore, Scan codebase for features., scan_code(), AuditEngine, DriftReport, CodeScanner, CodeSnapshot (+9 more)
 
 ### Community 51 - "Event"
-Cohesion: 0.05
-Nodes (54): CostBreakdownResponse, CostsResponse, CostSummaryResponse, get_costs(), get_costs_summary(), AsyncSession, BaseModel, RF-F01: Breakdown de custos por provider e workflow. (+46 more)
+Cohesion: 0.09
+Nodes (21): AuditScheduler, DriftSubscriber, Event, AuditSubscriber, LoggerSubscriber, MetricsSubscriber, N8NSubscriber, test_ollama_cost_is_zero() (+13 more)
 
 ### Community 52 - "e"
 Cohesion: 0.07
 Nodes (30): PipelineResult, PipelineStageResult, Any, Wiki Pipeline — Pipeline orquestrado Source -> Entities -> Concepts -> Synthesis, Executa linting completo no wiki.          Returns:             Relatorio com, Lista todos os rascunhos pendentes no wiki.          Returns:             Lis, Aprova todos os rascunhos pendentes.          Returns:             Numero de, Executa o pipeline completo para uma fonte.          Fluxo:         source -> (+22 more)
 
 ### Community 53 - "to_obsidian"
-Cohesion: 0.07
-Nodes (43): _dedup_node_filenames(), Map each node_id to a unique note filename, appending a numeric suffix on     c, Export graph as an Obsidian vault - one .md file per node with [[wikilinks]],, Export graph as an Obsidian Canvas file - communities as groups, nodes as cards., to_canvas(), to_obsidian(), _case_collision_graph(), #1452: a community's node cards are laid out in the same ceil(sqrt(n))-column (+35 more)
+Cohesion: 0.14
+Nodes (10): InferencePort, InferenceResult, ABC, InferencePort — LLM inference and model routing capability.  Provides a unifie, Unified inference result., Interface for LLM model inference.      Concrete implementations:       - Oll, Non-streaming inference call., Streaming inference call. Yields content chunks. (+2 more)
 
 ### Community 54 - "ChatRequest"
-Cohesion: 0.10
-Nodes (18): clear_dlq(), execute_workflow(), _get_orchestrator(), list_dlq(), StreamingResponse, DeadLetterQueue, FailedExecution, PlanExecutor (+10 more)
+Cohesion: 0.11
+Nodes (17): clear_dlq(), execute_workflow(), _get_orchestrator(), list_dlq(), StreamingResponse, DeadLetterQueue, FailedExecution, PlanExecutor (+9 more)
 
 ### Community 55 - "validate_extraction"
-Cohesion: 0.14
-Nodes (22): introspect_postgres(), _quote_ident(), Connect to PostgreSQL, reconstruct DDL, and extract via extract_sql()., Double-quote a PostgreSQL identifier, escaping embedded double-quotes., _make_mock_psycopg(), _q(), Baseline: tables, views, routines, and a single-column FK all survive., Reserved-word and special-character table names must survive DDL round-trip. (+14 more)
+Cohesion: 0.17
+Nodes (10): Conversation, Base, ConversationTurn, UUID, ConversationRepository — CRUD for conversation history.  Uses SQLAlchemy async, Remove all turns for a session. Returns count of deleted records., Represents a single turn in a conversation (user or assistant)., Persist a single turn (user or assistant) and return the ORM object. (+2 more)
 
 ### Community 56 - "test_serve.py"
-Cohesion: 0.07
-Nodes (47): _communities_from_graph(), _community_header(), _find_node(), _load_graph(), Node IDs whose text could contain any `needle` as a substring, via the     trig, Reconstruct community dict from community property stored on nodes., Return node IDs whose label or ID matches the search term (diacritic-insensitive, _trigram_candidates() (+39 more)
+Cohesion: 0.12
+Nodes (15): 1. Visão Geral da Estrutura, 2. Detecção de Mocks e Referências Sintéticas, 3. Páginas Encontradas, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+7 more)
 
 ### Community 57 - "exceptions.py"
-Cohesion: 0.06
-Nodes (33): CloseError, ConnectTimeout, CookieConflict, DecodingError, HTTPError, HTTPStatusError, InvalidURL, PoolTimeout (+25 more)
+Cohesion: 0.18
+Nodes (15): _display_status(), emergency_stop_cmd(), mcp start/stop/restart/status/emergency — Server lifecycle commands., Restart a single MCP server., Show status of all MCP servers., Emergency stop all MCP servers., restart_cmd(), _run_emergency_stop() (+7 more)
 
 ### Community 58 - "analyze.py"
-Cohesion: 0.08
-Nodes (49): _cross_community_surprises(), _cross_file_surprises(), _cross_language(), _file_category(), god_nodes(), graph_diff(), _is_concept_node(), _is_file_node() (+41 more)
+Cohesion: 0.26
+Nodes (14): delete_secret(), _get_cipher(), list_providers(), _load_secrets(), BaseModel, Fernet, Path, Secrets Management API — Desktop → Backend secrets storage.  Desktop envia cha (+6 more)
 
 ### Community 59 - "EmailReader"
 Cohesion: 0.06
 Nodes (26): EmailMessage, EmailReader, Message, Email Reader — Leitura e triagem de mensagens via IMAP., Verifica se o servico de email esta configurado., Representa uma mensagem de email., Leitor de email via protocolo IMAP.      Responsavel por conectar ao servidor, Decodifica cabecalho MIME para string legivel. (+18 more)
 
 ### Community 60 - ".text"
-Cohesion: 0.09
-Nodes (22): get_flag(), list_flags(), AsyncSession, set_flag(), get_user(), AsyncSession, upsert_user(), FailedExecutionRecord (+14 more)
+Cohesion: 0.08
+Nodes (24): get_flag(), list_flags(), AsyncSession, set_flag(), get_user(), AsyncSession, Request, upsert_user() (+16 more)
 
 ### Community 61 - "build.py"
-Cohesion: 0.06
-Nodes (51): build(), build_from_json(), build_merge(), deduplicate_by_label(), graph_has_legacy_ids(), _infer_merge_root(), _norm_label(), _norm_source_file() (+43 more)
+Cohesion: 0.21
+Nodes (4): KnowledgeGraphEventHandler, KnowledgeGraphWatcher, FileSystemEventHandler, Knowledge Graph Watcher — monitors workspace files (docs, backend app, desktop s
 
 ### Community 62 - "deduplicate_entities"
-Cohesion: 0.08
-Nodes (43): deduplicate_entities(), Deduplicate near-identical entities in a knowledge graph.      Args:, _make_nodes(), Tests for graphify/dedup.py entity deduplication pipeline., deduplicate_entities accepts dedup_llm_backend without crashing when no ambiguou, build() should deduplicate near-identical nodes across extractions., Chip SKU variants (ASR1603 vs ASR1605) must not be merged (#878)., Short labels differing by an insertion (cranel vs cranelr) must not merge (#878) (+35 more)
+Cohesion: 0.16
+Nodes (9): MemoryEntry, MemoryPort, ABC, MemoryPort — Agent and user memory capability.  Stores and retrieves episodic,, A single memory record., Interface for memory storage and retrieval.      Concrete implementations:, Store a memory entry. Returns the assigned ID., Retrieve a specific memory by ID. (+1 more)
 
 ### Community 63 - "extract_objc"
-Cohesion: 0.04
-Nodes (46): extract_objc(), _objc_local_var_types(), Path, objc — moved verbatim from graphify/extract.py., Collect ``var -> ClassName`` from ObjC local declarations (``Foo *f = ...;``), Extract interfaces, implementations, protocols, methods, and imports from .m/.mm, `@protocol Derived <Base>` must emit an implements edge Derived->Base.     Prot, `[self speak]` inside Dog.fetch must produce a calls edge. The method-body (+38 more)
+Cohesion: 0.18
+Nodes (6): FalkorDBAdapter, FalkorDBAdapter — RetrievalPort implementation backed by FalkorDB.  FalkorDB (, Index documents as graph nodes with text property., Count document nodes in the graph., RetrievalPort adapter using FalkorDB for hybrid graph+vector search., Hybrid search: Cypher + optional vector similarity.
 
 ### Community 64 - "extract_powershell"
-Cohesion: 0.10
-Nodes (20): extract_powershell_manifest(), _psd1_module_name(), Path, Powershell extractor. Moved verbatim from graphify/extract.py., Derive a bare module name from a raw string value.      e.g. 'MyModule.psm1' →, Extract module dependency edges from a PowerShell .psd1 manifest file.      .p, RootModule = 'MyModule.psm1' produces an imports_from edge to 'mymodule'., NestedModules = @('Helpers.psm1', 'Logger.psm1') produces edges for both. (+12 more)
+Cohesion: 0.13
+Nodes (14): 1. Status de Compatibilidade, 2. Mapeamento de Endpoints Utilizados no Desktop, 3. Discrepâncias de Tipagem e Mocks Esquecidos, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+6 more)
 
 ### Community 65 - "test_watch.py"
-Cohesion: 0.04
-Nodes (39): Tests for watch.py - file watcher helpers (no watchdog required)., Pre-rebase subdirectory graphs stored source_file relative to watch_root., A rejected candidate keeps the marker paired with the existing graph., Changed files under followed symlinks retain their watched lexical path., #1059: the process that acquires the lock must drain .pending_changes     and p, #1059: after the primary rebuild, the lock-holder must loop and drain     any p, #1059: changed_paths=None means a full-corpus rebuild — the queue     must not, #777: ``.graphify_root`` stores the user-supplied path (``.``), not the     res (+31 more)
+Cohesion: 0.13
+Nodes (14): ADR-001: Scope and Purpose — Personal AI Engineering Platform (MCP), Alternatives Considered, Consequences, Context, Decision, Evidence Supporting This Decision, Implementation Plan, Negative (+6 more)
 
 ### Community 66 - "test_security.py"
-Cohesion: 0.09
-Nodes (33): _max_graph_file_bytes(), Return the graph.json size cap in bytes.      Honors the ``GRAPHIFY_MAX_GRAPH_, Strip control characters and cap length.      Safe for embedding in JSON data, Return a control-character-free, HTML-escaped, bounded string., Sanitize a metadata value while preserving simple JSON-compatible types., sanitize_label(), _sanitize_metadata_string(), _sanitize_metadata_value() (+25 more)
+Cohesion: 0.13
+Nodes (15): Active Initiatives, Arquivos Relacionados, Branching Strategy, Dependencias, Fluxos, Integracoes, Objetivo, Projeto — K.A.O.S (+7 more)
 
 ### Community 67 - "test_global_graph.py"
-Cohesion: 0.10
-Nodes (41): prefix_graph_for_global(), prune_repo_from_graph(), Remove all nodes tagged with repo_tag from G in-place. Returns count removed., Return a copy of G with all node IDs prefixed with repo_tag::.      Labels are, _file_hash(), global_add(), global_list(), global_path() (+33 more)
+Cohesion: 0.14
+Nodes (13): 1. Endpoints do Backend Consumidos pelo Frontend, 2. Endpoints Não Consumidos ou Opcionais, Alinhamento de APIs (Backend vs Desktop) — K.A.O.S, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+5 more)
 
 ### Community 68 - "useAuthStore"
-Cohesion: 0.03
-Nodes (71): Communities (141 total, 52 thin omitted), Community 0 - "Community 0", Community 10 - "Community 10", Community 11 - "Community 11", Community 12 - "Community 12", Community 13 - "Community 13", Community 14 - "Community 14", Community 15 - "Community 15" (+63 more)
+Cohesion: 0.14
+Nodes (13): 1. Oportunidades de Otimização identificadas, 2. Cronograma de Refatoração Proposto, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Plano de Refatoração do Desktop — K.A.O.S (+5 more)
 
 ### Community 69 - "_edge_labels"
-Cohesion: 0.05
-Nodes (29): FlashRotaryEmbedding, LlamaAttention, LlamaDecoderLayer, LlamaForCausalLM, LlamaForSequenceClassification, LlamaMLP, LlamaModel, LlamaPreTrainedModel (+21 more)
+Cohesion: 0.14
+Nodes (13): 1. Cobertura Documental das Páginas, 2. Documentação que precisa ser enriquecida, Arquivos Relacionados, Dependencias, Documentação Faltante do Desktop — K.A.O.S, Fluxos, Integracoes, Objetivo (+5 more)
 
 ### Community 70 - "reflect.py"
-Cohesion: 0.08
-Nodes (42): _build_id_label_maps(), build_learning_overlay(), _code_fingerprint(), _content_hash(), _decay(), _dedupe_by_question(), _doc_community(), _empty_bucket() (+34 more)
+Cohesion: 0.21
+Nodes (8): TagEngine — ML-based auto-tagging for Obsidian vault notes.  Uses embedding si, Extract tags from YAML frontmatter., Suggest tags for multiple notes at once.          Args:             notes: Li, A suggested tag with confidence score., Suggests tags for vault notes based on content analysis., Generate tag suggestions from note content.          Args:             conten, TagEngine, TagSuggestion
 
 ### Community 71 - "scip_ingest.py"
-Cohesion: 0.06
-Nodes (42): _build_scip_metadata(), _coerce_str(), _emit_relationships(), _emit_symbol_node(), _first_occurrence_line(), _is_true(), _make_scip_node_id(), Any (+34 more)
+Cohesion: 0.26
+Nodes (12): get_evidence_service(), get_graph_service(), get_inference_service(), get_knowledge_service(), get_memory_service(), get_planner_service(), get_retrieval_service(), init_services() (+4 more)
 
 ### Community 72 - "test_chunking.py"
-Cohesion: 0.04
-Nodes (54): extract_corpus_parallel(), _merge_into(), _pack_chunks_by_tokens(), Greedily pack files/slices into chunks that fit a token budget.      Units are, Extract a corpus in chunks, merging results.      Chunking strategy:, Append a chunk result into the running merged accumulator., no_tokenizer(), Tests for token-aware chunking and parallel chunk execution in graphify.llm. (+46 more)
+Cohesion: 0.19
+Nodes (8): GraphRAGExperiment, GraphRAGResult, GraphRAG Experiment — Hybrid Graph + Vector Retrieval.  Combines Graphify's co, Run a benchmark comparing RAG vs GraphRAG relevance., Combined graph + vector retrieval result., Experimental GraphRAG pipeline — combines graph + vector context., Retrieve context using hybrid graph+vector approach.          Args:, Get graph context for a source file from the knowledge graph.
 
 ### Community 73 - "test_semantic_cleanup.py"
-Cohesion: 0.06
-Nodes (41): Tests for graphify.semantic_cleanup.validate_semantic_fragment (#825)., Invalid JSON returns an error instead of raising., A node with file_type='rationale' is removed wholesale., Sentence-like rationale node connected via `rationale_for` → attribute on target, F3: a node with file_type='document' (allowed) that is BOTH sentence-like     A, A short named node with a period (e.g. abbreviation) is NOT sentence-like., F4: hyperedges referencing removed nodes are repaired or dropped., A hyperedge referencing only nodes not present in the fragment is dropped. (+33 more)
+Cohesion: 0.15
+Nodes (13): [2.5.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.0...v2.5.1) (2026-07-11), [2.5.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.1...v2.5.2) (2026-07-11), [2.5.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.2...v2.5.3) (2026-07-11), [2.5.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.3...v2.5.4) (2026-07-11), [2.5.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.4...v2.5.5) (2026-07-11), [2.6.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.5.5...v2.6.0) (2026-07-12), Bug Fixes, Bug Fixes (+5 more)
 
 ### Community 74 - "BaseTransport"
-Cohesion: 0.09
-Nodes (23): Limits, The main Client and AsyncClient classes. BaseClient holds all shared logic. Cli, Timeout, ConnectError, NetworkError, An error occurred at the transport layer., A network error occurred., Failed to establish a connection. (+15 more)
+Cohesion: 0.38
+Nodes (11): Generate-AgentConfigs(), Initialize-Directories(), Initialize-Profiles(), Install-NpxPackage(), Install-Servers(), Test-Health(), Test-Prerequisites(), Write-Err() (+3 more)
 
 ### Community 75 - "CodeScanner"
-Cohesion: 0.11
-Nodes (15): CodeScanner, CodeSnapshot, Path, Path para desktop/src, ou None se nao existir., Path para assistant/app (backendo Python)., Scanner de codigo fonte do K.A.O.S.     Usa EnvironmentService para resolver pa, Escaneia todo o codebase e retorna um snapshot., Retorna EnvironmentInfo cacheado. (+7 more)
+Cohesion: 0.15
+Nodes (12): Cronograma Recomendado, Legenda, Mapa de Dependências entre Sprints, Ordem de Implementação — K.A.O.S, SPRINT 1 — Critical Path (Backend) 🔴, SPRINT 2 — Fortalecimento (Backend) 🔴, SPRINT 3 — Frontend Core 🟡, SPRINT 4 — Documentação 🟡 (+4 more)
 
 ### Community 76 - "auth.py"
 Cohesion: 0.10
-Nodes (32): ApiKeyStatusResponse, _generate_tokens(), get_api_key(), _get_db_session(), get_handshake_public_key(), get_me(), get_setup_status(), HandshakeExchangeRequest (+24 more)
+Nodes (31): ApiKeyStatusResponse, _generate_tokens(), get_api_key(), _get_db_session(), get_handshake_public_key(), get_me(), get_setup_status(), HandshakeExchangeRequest (+23 more)
 
 ### Community 77 - "chat-store.ts"
-Cohesion: 0.13
-Nodes (8): AppEvent, EventBus, Listener, SystemMetrics, createToolEvent(), ToolEvent, ToolEventType, ToolStatus
+Cohesion: 0.10
+Nodes (16): ChatState, Message, ToolCall, MessageBubble(), Props, ToolDisplayStatus, ToolLogger(), ToolLoggerProps (+8 more)
 
 ### Community 78 - "extract_python"
-Cohesion: 0.08
-Nodes (41): extract_python(), Extract classes, functions, and imports from a .py file via tree-sitter AST., All edge sources must reference a known node (targets may be external imports)., contains / method / inherits / imports edges must always be EXTRACTED., Call-graph pass must produce INFERRED calls edges., AST-resolved call edges are deterministic and should be EXTRACTED/1.0., run_analysis() calls compute_score() - must appear as a calls edge., Analyzer.process() calls run_analysis() - cross class→function calls edge. (+33 more)
+Cohesion: 0.30
+Nodes (5): ArchitectureReviewer, ArchitectureReviewer — AI-powered architecture analysis.  Reads the knowledge, Reviews codebase architecture using graph + SDD + code analysis., ReviewFinding, ReviewResult
 
 ### Community 79 - "claude_install"
-Cohesion: 0.07
-Nodes (39): claude_install(), Write the graphify section to the local CLAUDE.md., Tests for graphify claude install / uninstall commands., claude_install also writes .claude/settings.json with PreToolUse hook., Running claude_install twice does not duplicate the PreToolUse hook., Creates CLAUDE.md when none exists., claude_uninstall removes the PreToolUse hook from settings.json., A hook relocated to .claude/settings.local.json is removed on uninstall. (+31 more)
-
-### Community 80 - "GraphBuilder"
-Cohesion: 0.11
-Nodes (16): ArchEdge, ArchGraphSnapshot, ArchNode, GraphBuilder, Loads graphify-out/graph.json and returns aggregated file-level data.          R, Resolve a symbol ID back to its source file., Add Graphify-derived nodes and edges to the snapshot., Infer the type of a code reference from its path. (+8 more)
+Cohesion: 0.21
+Nodes (5): CostTracker, Any, UUID, Salva evento de custo no PostgreSQL. Fire-and-forget friendly., tracker()
 
 ### Community 81 - "Request"
-Cohesion: 0.10
-Nodes (14): Auth, BasicAuth, BearerAuth, DigestAuth, NetRCAuth, Authentication handlers. Auth objects are callables that modify a request befor, Load credentials from ~/.netrc based on the request host., Base class for all authentication handlers. (+6 more)
+Cohesion: 0.23
+Nodes (10): main(), Path, scan_desktop_code(), write_report(), _git_commit_and_push(), main(), Path, Executa graphify update . e opcionalmente commita/push. (+2 more)
 
 ### Community 82 - "ingest_scip_json"
-Cohesion: 0.05
-Nodes (40): ingest_scip_json(), Convert a SCIP-style JSON document into Graphify nodes and edges.      Paramet, Cross-symbol relationship within ONE document resolves via the symbol index., Cross-document relationship resolves to the target document's node id., A relationship targeting a symbol NOT in any document creates a stub external no, `language` as a non-string falls back to the function default., A symbol with `relationships: None` ingests without error and emits no edges., A symbol with `kind` as a non-string falls back to 'unknown'. (+32 more)
+Cohesion: 0.20
+Nodes (10): CostsPage(), GraphEdgeData, GraphNodeData, GraphOverview, KnowledgeGraphInner(), KnowledgeGraphResponse, LoginPage(), SetupPage() (+2 more)
 
 ### Community 83 - "system-store.ts"
-Cohesion: 0.14
-Nodes (10): DriftLevel, SetupStatus, SystemServices, SystemState, SystemStatus, Command, CommandContext, CommandRegistry (+2 more)
+Cohesion: 0.06
+Nodes (28): AppProviders(), Props, AppRoutes(), DriftLevel, SetupStatus, SystemServices, SystemState, SystemStatus (+20 more)
 
 ### Community 84 - "test_labeling.py"
-Cohesion: 0.11
-Nodes (36): _community_label_lines(), generate_community_labels(), label_communities(), _placeholder_community_labels(), One prompt line per community (largest first), sampling up to ``top_k``     rep, Return a complete ``{cid: name}`` map using ``backend`` for naming.      Commu, CLI entry point: resolve a backend, name communities, and degrade to     ``Comm, _graph() (+28 more)
+Cohesion: 0.17
+Nodes (9): Dependências, graphify\worked\example\raw\api.py, Símbolos, Dependências, graphify\worked\example\raw\processor.py, Símbolos, Dependências, graphify\worked\example\raw\validator.py (+1 more)
 
 ### Community 85 - "test_install_references.py"
-Cohesion: 0.07
-Nodes (38): _build_wheel_names(), fake_bundle(), _first_unbuilt_progressive_host(), _install(), Tests for the progressive-disclosure references/ sidecar install path.  The re, Reinstall swaps references/ in place, dropping a stale fragment., Uninstall rmtrees references/ before the dir walk so the tree is cleared., If SKILL.md links references/ but the dir is gone, warn to repair. (+30 more)
+Cohesion: 0.14
+Nodes (9): assistant\app\agent\nodes\executor.py, Dependências, Símbolos, Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\ExplicitMainWindow.xaml, Símbolos, assistant\tests\unit\test_bootstrap_manager.py, Dependências (+1 more)
 
 ### Community 86 - "KnowledgeGraphBuilder"
 Cohesion: 0.10
-Nodes (13): KnowledgeGraph, KnowledgeGraphBuilder, Path, Atualiza incrementalmente um unico arquivo no grafo de conhecimento., Remove incrementalmente um arquivo do grafo de conhecimento., Builds knowledge graph from Graphify, Vault, and DRL sources.      Deprecates, Load graphify-out/graph.json, return dict with 'files' and 'edges'., Etapa 6: Construir grafo de conhecimento. (+5 more)
+Nodes (14): KnowledgeGraph, KnowledgeGraphBuilder, Path, Map Graphify relations to Knowledge Graph relation types.          Now preserv, Atualiza incrementalmente um unico arquivo no grafo de conhecimento., Remove incrementalmente um arquivo do grafo de conhecimento., Builds knowledge graph from Graphify, Vault, and DRL sources.      Deprecates, Load graphify-out/graph.json, return dict with 'files' and 'edges'. (+6 more)
 
 ### Community 87 - "compilerOptions"
 Cohesion: 0.05
 Nodes (37): compilerOptions, allowImportingTsExtensions, baseUrl, forceConsistentCasingInFileNames, isolatedModules, jsx, lib, module (+29 more)
 
 ### Community 88 - "serve.py"
-Cohesion: 0.08
-Nodes (34): array, _ApiKeyMiddleware, _build_http_app(), _build_server(), _filter_blank_stdin(), _get_trigram_index(), _infer_context_filters(), _main() (+26 more)
+Cohesion: 0.31
+Nodes (5): ChangeImpact, ImpactPrediction, PredictiveEngine, PredictiveEngine — Predict architecture impact of code changes.  Uses the know, Predicts architecture impact of code changes.
 
 ### Community 89 - "test_transcribe.py"
-Cohesion: 0.08
-Nodes (35): build_whisper_prompt(), download_audio(), _get_whisper(), _get_yt_dlp(), is_url(), _model_name(), Path, Transcribe a video/audio file or URL to a .txt transcript.      If video_path (+27 more)
+Cohesion: 0.27
+Nodes (5): HealingAction, HealingResult, SelfHealingDRL — Documentation Runtime Layer self-healing engine.  Auto-detect, Self-healing engine for the Documentation Runtime Layer., SelfHealingDRL
 
 ### Community 90 - "build_merge"
-Cohesion: 0.18
-Nodes (17): _he_ids(), Path, Incremental --update: hyperedge preservation (#1574) and root-less prune (#1571), A symlinked scan root (macOS /var -> /private/var, symlinked home/worktree), #1796: a file present in BOTH new_chunks (re-extracted) and prune_sources     m, #1796 guard must not break real deletions: a file in prune_sources but NOT, Write a graph.json in the shape to_json emits (top-level hyperedges)., The runbook omits root; the fallback root must not break preservation. (+9 more)
+Cohesion: 0.20
+Nodes (4): PostgresMemoryAdapter, MemoryEntry, PostgresMemoryAdapter — MemoryPort implementation backed by PostgreSQL.  Store, Memory adapter backed by existing PostgreSQL storage.
 
 ### Community 91 - "_relations"
-Cohesion: 0.05
-Nodes (37): delete_memory(), get_memory(), get_memory_service(), memory_health(), BaseModel, MemoryService, Memory REST API — Agent and user memory storage.  Endpoints:   POST   /api/memor, Delete a memory entry. (+29 more)
+Cohesion: 0.19
+Nodes (15): delete_memory(), get_memory(), get_memory_service(), memory_health(), BaseModel, MemoryService, Memory REST API — Agent and user memory storage.  Endpoints:   POST   /api/me, Delete a memory entry. (+7 more)
 
 ### Community 92 - "extract_bash"
 Cohesion: 0.05
 Nodes (39): create_plan(), execute_plan(), ExecuteRequest, get_planner_service(), plan_status(), planner_health(), PlanRequest, BaseModel (+31 more)
 
 ### Community 93 - "__main__.py"
-Cohesion: 0.06
-Nodes (29): _check_skill_version(), __getattr__(), main(), Path, graphify CLI - `graphify install` sets up the Claude Code skill., Warn if the installed skill is from an older graphify version., Parse a version string into a comparable integer tuple (``0.9.2`` -> ``(0, 9, 2), _version_tuple() (+21 more)
+Cohesion: 0.18
+Nodes (10): Contact, Disaster Recovery Procedures — Personal AI Engineering Platform (MCP), Emergency Stop, Recovery Commands Reference, Recovery Scenarios, Scenario 1: Server Won't Start After Update, Scenario 2: Registry Corrupted, Scenario 3: Secrets Compromised (+2 more)
 
 ### Community 94 - "test_indirect_dispatch.py"
-Cohesion: 0.12
-Nodes (36): _extract(), _extract_dir(), _extract_js_dir(), Indirect dispatch edges.  A function passed BY NAME as a call argument (`execu, No recall regression: a real module fn passed by name still emits an edge., Regression: when the scan root relativizes node ids (cache_root == project, Soundness carries across files: an imported name shadowed by a parameter     is, Only VALUES are references; a function used as a dict KEY is not invoked     th (+28 more)
+Cohesion: 0.18
+Nodes (11): Arquitetura da IA Pessoal Offline, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades (+3 more)
 
 ### Community 95 - "ConfigService"
-Cohesion: 0.11
-Nodes (22): configure_integration(), Configure or update an integration type with credentials.      Request body::, get_settings(), save_settings(), ConfigService, _extract_secrets(), Path, Config Service for K.A.O.S.  Manages kaos.config.json (public settings) and ka (+14 more)
+Cohesion: 0.10
+Nodes (24): configure_integration(), Configure or update an integration type with credentials.      Request body::, get_settings(), save_settings(), ConfigService, _extract_secrets(), Path, Config Service for K.A.O.S.  Manages kaos.config.json (public settings) and ka (+16 more)
 
 ### Community 96 - "use-init.ts"
 Cohesion: 0.13
 Nodes (8): CodeIntrospector, IntrospectionResult, DocSyncEngine, SyncEvent, SyncResult, DetectedFeature, FeatureExtractor, DocumentationPage()
 
 ### Community 97 - "test_scip_ingest.py"
-Cohesion: 0.06
-Nodes (35): Comprehensive tests for graphify.scip_ingest., `relative_path` as a non-string falls back to the function's source_file default, When symbol has no #, the label is the full symbol id., When a target symbol is defined in 2+ documents AND the source is in a     thir, `"is_implementation": "false"` is a truthy STRING — must not route to     scip_, range[0] = True (which is technically an int subclass) must not produce 'LTrue'., SCIP-supplied description must be HTML-escaped before reaching node     metadat, SCIP relationship payloads embedded in edge metadata must be sanitized. (+27 more)
-
-### Community 98 - "analyze.py"
-Cohesion: 0.09
-Nodes (34): _cross_community_surprises(), _cross_file_surprises(), _file_category(), god_nodes(), graph_diff(), _is_concept_node(), _is_file_node(), _node_community_map() (+26 more)
+Cohesion: 0.27
+Nodes (5): AgentConfigPayload, chat_with_agent(), ChatPayload, BaseModel, start_agent()
 
 ### Community 99 - "test_benchmark.py"
-Cohesion: 0.13
-Nodes (33): _estimate_tokens(), _hr(), print_benchmark(), _query_subgraph_tokens(), Token-reduction benchmark - measures how much context graphify saves vs naive fu, Print a human-readable benchmark report., Return unicode_char if stdout can encode it, else ascii_fallback.      Windows, Horizontal rule that survives non-UTF-8 stdout (e.g. Windows cp1252 console). (+25 more)
+Cohesion: 0.20
+Nodes (9): [2.2.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.1.0...v2.2.0) (2026-07-08), [2.5.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.4.0...v2.5.0) (2026-07-10), [2.7.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.6.0...v2.7.0) (2026-07-12), [2.7.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.7.0...v2.7.1) (2026-07-12), Bug Fixes, Bug Fixes, Features, Features (+1 more)
 
 ### Community 100 - "test_symbol_resolution.py"
-Cohesion: 0.09
-Nodes (26): _file_node_id_for_path(), Path, Resolve Bash source/import edges and source-backed function calls.      Defens, resolve_bash_source_edges(), Path, When a callee function is defined in multiple sourced files, skip it., Non-bash raw_calls inside sourced-file per_file entries are ignored., A `bash_sources` entry missing `target_path` must not raise KeyError. (+18 more)
+Cohesion: 0.20
+Nodes (7): ConversationMessage, ConversationSession, TODO: Migrate entity types from pages/*.tsx into this directory, ProviderSetting, ProviderType, SystemSetting, UserPreferences
 
 ### Community 101 - "audit_pr_docs.py"
-Cohesion: 0.06
-Nodes (37): generate_feature_node(), generate_sdd(), get_commit_map(), list_features(), BackgroundTasks, Get existing commit map., Scan codebase for features., List all registered features. (+29 more)
+Cohesion: 0.10
+Nodes (24): generate_feature_node(), generate_sdd(), Generate an SDD from template., Generate a feature node SDD (Obsidian-ready)., Path, SDDGenerator, SDDTemplate, audit_commits() (+16 more)
 
 ### Community 102 - "PostgresMemoryRepository"
 Cohesion: 0.05
-Nodes (25): Path, WorkspaceManager, MemoryService, Path, Run async coroutine in thread pool to avoid blocking sync code., Base, ConversationMemory, MemoryMessage (+17 more)
+Nodes (27): Path, WorkspaceManager, MemoryService, Path, Delete all conversation files matching a session_id. Returns count of deleted fi, Run async coroutine in thread pool to avoid blocking sync code., Base, ConversationMemory (+19 more)
 
 ### Community 103 - "test_claude_cli_backend.py"
-Cohesion: 0.06
-Nodes (17): Tests for the `claude-cli` backend (#855/#856).  Mocks subprocess.run + shutil, --system-prompt must NOT be used: the CLI ignores its 'raw JSON only'     direc, The full extraction schema, an explicit imperative, and the source must     all, The <untrusted_source> guardrails from _extraction_system must survive     the, On Windows, npm installs `claude.ps1` alongside `claude.cmd`.     `CreateProces, If `claude.cmd` is somehow unavailable but `claude` resolves     (e.g. WSL-styl, If neither `claude.cmd` nor `claude` are on PATH on Windows,     raise the stan, On non-Windows platforms, behaviour is unchanged: bare `claude`     is passed t (+9 more)
+Cohesion: 0.22
+Nodes (4): MemoryService, MemoryEntry, MemoryService — Memory storage and retrieval orchestrator., Service for user and agent memory management.
 
 ### Community 104 - "MCPManager"
-Cohesion: 0.13
-Nodes (25): delete_mcp_server(), list_mcp_servers(), list_mcp_tools(), MCPSchema, MCPServerListEntry, MCPServerListResponse, MCPServerRequest, MCPServerResponse (+17 more)
+Cohesion: 0.22
+Nodes (17): list_mcp_servers(), list_mcp_tools(), MCPSchema, MCPServerListEntry, MCPServerListResponse, MCPServerRequest, MCPServerResponse, MCPToolResponse (+9 more)
 
 ### Community 105 - "tauri.conf.json"
 Cohesion: 0.06
 Nodes (33): app, security, windows, build, beforeBuildCommand, beforeDevCommand, devUrl, frontendDist (+25 more)
 
 ### Community 106 - "test_hooks.py"
-Cohesion: 0.10
-Nodes (31): _make_git_repo(), Path, Tests for hooks.py - git hook install/uninstall., Hook scripts must embed sys.executable so the hook works without the     graphi, graphify hook-check must not emit additionalContext — Codex Desktop rejects it., End-to-end: the files written to .git/hooks must be nohup-free (#1161)., A Windows-style core.hooksPath must raise (loud failure), not silently     crea, A legitimate POSIX core.hooksPath (Husky-style) must still install. (+23 more)
+Cohesion: 0.25
+Nodes (6): Backlog do Projeto, Children, Conteudo, Parent, Related, Tags
 
 ### Community 107 - "test_serve_http.py"
-Cohesion: 0.13
-Nodes (29): _call_tool(), _client(), _graph_file(), _init_session(), _project_with_graph(), Path, TestClient, Tests for the Streamable HTTP transport on the MCP server (issue #1143).  Thes (+21 more)
+Cohesion: 0.22
+Nodes (9): Arquitetura e Capacidades, Backend (FastAPI + Python 3.13), Desktop (Tauri 2 + React), Docker e Infra, Funcionalidades, KIRL — Documentation Runtime Layer, MCP — Model Context Protocol, Observabilidade (+1 more)
 
 ### Community 108 - "BaseEmbeddingProvider"
-Cohesion: 0.10
-Nodes (5): CapabilityProfile, UUID, TestCapabilityProfile, TestExecutionPlan, TestServiceRegistry
+Cohesion: 0.08
+Nodes (9): CapabilityProfile, UUID, BaseVectorStore, ABC, TestBaseContracts, TestCapabilityProfile, TestEventBus, TestExecutionPlan (+1 more)
+
+### Community 109 - "ServiceRegistry"
+Cohesion: 0.11
+Nodes (7): BaseEmbeddingProvider, ABC, BgeEmbeddingProvider, OpenAIEmbeddingProvider, register_embedding_providers(), TestBgeEmbeddingProvider, TestOpenAIEmbeddingProvider
 
 ### Community 110 - "HttpClient"
-Cohesion: 0.10
-Nodes (25): __global__, AuthedHttpClient, token_, Connection, resource, HttpClient, main(), string (+17 more)
+Cohesion: 0.32
+Nodes (5): MemoryQuery, MemoryResult, Search parameters for memory retrieval., Search result wrapper., Search memories by semantic similarity or metadata.
 
 ### Community 111 - "dedup.py"
-Cohesion: 0.09
-Nodes (27): _crossfile_fileanchored_blocked(), _is_code(), _is_variant_pair(), _llm_tiebreak(), _make_minhash(), _numeric_tokens_differ(), _pick_winner(), Entity deduplication pipeline for graphify knowledge graphs.  Pipeline: exact (+19 more)
+Cohesion: 0.25
+Nodes (8): Fase 13 — Production Readiness Audit & Platform Evolution 🔵, Story 1 — Complete Backend Audit, Story 2 — Complete Frontend Audit, Story 3 — Integration Audit, Story 4 — Feature Enhancement Audit, Story 5 — Architecture Evolution, Story 6 — Technical Debt Elimination, Story 7 — Production Readiness Certification
 
 ### Community 112 - "manifest_ingest.py"
-Cohesion: 0.11
-Nodes (28): _coerce_deps(), extract_package_manifest(), is_package_manifest_path(), _parse_apm(), _parse_apm_fallback(), _parse_pyproject(), _pep508_name(), _pkg_id() (+20 more)
+Cohesion: 0.25
+Nodes (8): 1. Clone o repositorio, 2. Configure o ambiente, 3. Inicie a infraestrutura (Docker), 4. Inicie o backend (desenvolvimento), 5. Inicie o desktop, Alternativa: Producao, Alternativa: Tudo com Docker (recomendado para Dev), Instalacao
 
 ### Community 113 - "_rebuild_code"
-Cohesion: 0.09
-Nodes (31): _apply_resource_limits(), _canonical_graph_for_compare(), _canonical_topology_for_compare(), _changed_path_candidates(), _git_head(), _json_text(), _merge_changed_paths(), _node_community_map() (+23 more)
+Cohesion: 0.25
+Nodes (6): Dependências, graphify\tools\skillgen\fragments\references\shared\update.md, Símbolos, Dependências, desktop\src-tauri\src\updater.rs, Símbolos
 
 ### Community 114 - "database.py"
-Cohesion: 0.13
-Nodes (11): Etapa 3: Inicializar database., Base, create_tables(), get_session(), _get_session_factory(), AsyncSession, DeclarativeBase, Create all tables registered on Base.metadata. (+3 more)
+Cohesion: 0.11
+Nodes (22): create_prompt(), delete_prompt(), list_prompts(), PromptResponse, PromptSchema, AsyncSession, BaseModel, update_prompt() (+14 more)
 
 ### Community 115 - "TestCommitClassifier"
 Cohesion: 0.13
@@ -1969,52 +3208,52 @@ Cohesion: 0.11
 Nodes (25): create_concept(), _get_service(), Cria uma página de conceito na wiki (ex: RAG, embeddings, LangGraph). Cria como, Atualiza um conceito existente. Cria um draft da nova versão., update_concept(), create_entity(), _get_service(), Cria uma página de entidade na wiki (ex: pessoa, projeto, tecnologia). Cria como (+17 more)
 
 ### Community 117 - "test_minhash.py"
-Cohesion: 0.11
-Nodes (23): _lsh_integrate(), _mh_coeffs(), MinHash, MinHashLSH, _optimal_lsh_params(), MinHash + band-LSH — datasketch-compatible drop-in (no scipy).  datasketch.lsh, MinHash sketch — same API as datasketch.MinHash for the subset used here., Numerical integration — replaces scipy.integrate.quad for LSH param search. (+15 more)
+Cohesion: 0.29
+Nodes (4): EvidenceLevel, str, Retrieve historical evidence snapshots for a given metric., Path to the evidence history JSON file.
 
 ### Community 118 - "test_image_vision.py"
-Cohesion: 0.10
-Nodes (20): _fake_anthropic(), _fake_boto3(), _fake_openai(), _make_corpus(), Tests for image-vision support across the direct extraction backends.  Covers, A corpus with one raster image, one svg (text), and one markdown doc., test_anthropic_content_has_base64_block(), test_bedrock_content_uses_raw_bytes() (+12 more)
+Cohesion: 0.48
+Nodes (6): client(), AsyncClient, test_readiness_degraded_when_ollama_unavailable(), test_readiness_ready_when_ollama_available(), test_send_message_empty_content_returns_422(), test_send_message_streams_response()
 
 ### Community 119 - "CredentialManager"
-Cohesion: 0.11
-Nodes (13): CredentialManager, CredentialProvider, FileSecretsCredentialProvider, ABC, Credential Service — Centralized Plugable Secrets Storage.  SDD-KAOS-EVOLUTION, Retrieve a credential., Fallback credential provider using ConfigService secrets file., Centralized manager to orchestrate pluggable credential providers. (+5 more)
+Cohesion: 0.09
+Nodes (13): CredentialManager, CredentialProvider, DatabaseCredentialProvider, ABC, Credential Service — Centralized Plugable Secrets Storage.  SDD-KAOS-EVOLUTION, Centralized manager to orchestrate pluggable credential providers., Register a new credential provider (e.g. Keychain, Vault)., Retrieve a credential from the active providers. (+5 more)
 
 ### Community 120 - "DocGeneratorModal.tsx"
-Cohesion: 0.11
-Nodes (21): ChatState, useConversationStore, Message, ToolCall, MessageBubble(), Props, ToolDisplayStatus, ToolLogger() (+13 more)
+Cohesion: 0.52
+Nodes (6): client(), AsyncClient, _read_sse(), test_openai_chat_completions(), test_openai_chat_completions_empty_body_returns_422(), test_openai_chat_completions_no_user_message()
 
 ### Community 121 - "test_hypergraph.py"
-Cohesion: 0.05
-Nodes (49): attach_hyperedges(), _cap_filename(), _cypher_escape(), _cypher_label(), _git_head(), _obsidian_tag(), prune_dangling_edges(), Sanitize a community name for use as an Obsidian tag.      Obsidian tags only (+41 more)
+Cohesion: 0.29
+Nodes (7): [2.2.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.0...v2.2.1) (2026-07-08), [2.2.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.1...v2.2.2) (2026-07-10), [2.3.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.2...v2.3.0) (2026-07-10), Bug Fixes, Bug Fixes, Bug Fixes, Features
 
 ### Community 122 - "run_language_resolvers"
-Cohesion: 0.17
-Nodes (18): LanguageResolver, Path, Registry for cross-file, language-specific resolution passes.  Some call/refer, One cross-file, language-specific resolution pass.      ``resolve`` has the si, Append a resolver to the global registry and return it (for inline use)., Return a copy of the registered resolvers, in registration order., Run every resolver whose suffix appears in ``paths``.      Behaviorally identi, register() (+10 more)
+Cohesion: 0.29
+Nodes (6): 1. Comparativo de Métricas (Antes vs Depois), 2. Sumário Executivo de Ações, 3. Lacunas Restantes (Gaps de Conhecimento), 4. Recomendações Futuras, Arquivos Corrigidos Detalhes:, Relatório de Auditoria e Normalização de Documentação — K.A.O.S
 
 ### Community 123 - "_make_graph"
-Cohesion: 0.08
-Nodes (40): _bfs(), _dfs(), _filter_graph_by_context(), _query_graph_text(), Render subgraph as text, cutting at token_budget (approx 3 chars/token)., _score_nodes(), _subgraph_to_text(), _make_graph() (+32 more)
+Cohesion: 0.29
+Nodes (7): ADRs (Architecture Decision Records), Backend, Fase 12 — Production Readiness ✅ (2026-07-11), Frontend — Architecture, Frontend — Mock Elimination, Frontend — Store Cleanup, Infrastructure
 
 ### Community 124 - "TestSubprocessEncoding"
-Cohesion: 0.07
-Nodes (18): Regression tests for UnicodeEncodeError on Windows cp1252 console.  On Windows, Writing a file with → ✅ ≥ then passing its content through         _call_claude, _call_llm with backend='claude-cli' must also use encoding='utf-8'., extract_corpus_parallel must surface chunk failures loudly — either via     non, When chunks fail, extract_corpus_parallel must record failed_chunks > 0, A summary line must appear on stderr when ≥1 chunk fails., When all chunks succeed, failed_chunks must be 0 and no failure         summary, Exercises the same code path as the rsl-siege-manager reproduction     without (+10 more)
+Cohesion: 0.38
+Nodes (6): benchmark_cmd(), _benchmark_server(), mcp benchmark — Benchmark MCP server performance., Benchmark MCP server performance metrics., Run benchmarks on a single MCP server., _run_benchmark()
 
 ### Community 125 - "ObsidianService"
-Cohesion: 0.15
-Nodes (19): ObsidianService, Path, Path, test_create_and_read_note(), test_create_note_duplicate_raises(), test_delete_nonexistent_raises(), test_delete_note(), test_list_notes() (+11 more)
+Cohesion: 0.17
+Nodes (18): ObsidianService, Path, Path, test_create_and_read_note(), test_create_note_duplicate_raises(), test_delete_nonexistent_raises(), test_delete_note(), test_list_notes() (+10 more)
 
 ### Community 126 - "TestNoteCreationE2E"
 Cohesion: 0.10
 Nodes (18): Path, Testes de integracao E2E para validacao de notas geradas pelo Python no Obsidian, Apos criar notas, a listagem deve retorna-las., Cria nota, atualiza, le de volta e verifica conteudo modificado., Cria nota, deleta, e confirma que foi removida do disco e do servico., Cria nota em subpasta aninhada e valida resolucao de caminho., Valida que a estrutura Markdown complexa e preservada., Valida que notas com conteudo grande (>10KB) sao preservadas. (+10 more)
 
 ### Community 127 - "write_callflow_html"
-Cohesion: 0.09
-Nodes (28): build_section_node_map(), CallflowOptions, classify_edges(), detect_lang(), html_comment_text(), infer_project_name(), load_labels(), load_report() (+20 more)
+Cohesion: 0.48
+Nodes (6): export_graphify_to_obsidian(), main(), _manual_export_to_obsidian(), Path, Exporta graphify graph para formato Obsidian., Export manual do graph.json para formato Obsidian.
 
 ### Community 128 - "_platform_artifacts"
-Cohesion: 0.07
-Nodes (29): _platform_artifacts(), codex: spawn/wait/close_agent dispatch needing multi_agent = true., codex (was 4-value) and windows (was 5-value) now carry the superset., The extraction variant differs: codex compact, windows verbose., #1325: the unified query reference ships BOTH the vocab-expansion step and, No split host emits a trigger: field — not part of Agent Skills spec (#1180)., kilo gets the Kilo-specific rules tail before Honesty Rules., Each dispatch variant lands in the right host's B2 slot. (+21 more)
+Cohesion: 0.53
+Nodes (5): _get_retriever(), AgentState, _read_wiki_index(), _read_wiki_page(), retrieve_context()
 
 ### Community 129 - "WorkspaceIntelligenceService"
 Cohesion: 0.11
@@ -2029,116 +3268,116 @@ Cohesion: 0.12
 Nodes (8): AIRuntime, ProviderRuntimeAdapter, ABC, Any, BaseMessage, Seleciona o melhor runtime com base em objetivos do usuário., RuntimeSelector, TestRuntimeSelector
 
 ### Community 132 - "bootstrap_feature_registry.py"
-Cohesion: 0.11
-Nodes (26): _classify_files_to_categories(), enrich_with_sdds(), _extract_feature_id_from_commit(), _extract_phase(), get_all_commits(), get_files_changed_in_commit(), _git(), GitFeature (+18 more)
+Cohesion: 0.12
+Nodes (24): _classify_files_to_categories(), enrich_with_sdds(), _extract_feature_id_from_commit(), _extract_phase(), get_all_commits(), get_files_changed_in_commit(), _git(), GitFeature (+16 more)
 
 ### Community 133 - "cluster.py"
-Cohesion: 0.12
-Nodes (26): cluster(), cohesion_score(), community_member_sigs(), label_communities_by_hub(), _partition(), Community detection on NetworkX graphs. Uses Leiden (graspologic) if available,, Per-community membership fingerprints: ``{cid: sha256(sorted member ids)}``., Context manager to suppress stdout/stderr during library calls.      graspolog (+18 more)
+Cohesion: 0.33
+Nodes (6): Anti-padrões de Projeto, Children, Conteudo, Parent, Related, Tags
 
 ### Community 134 - "test_install_roundtrip.py"
-Cohesion: 0.09
-Nodes (27): _copy_in_tmp(), fake_progressive_bundle(), _has_real_bundle(), _install_via_entrypoint(), Full per-platform install + uninstall round-trip suite.  Every platform graphi, amp's project-scope skill lands under .agents/skills, an Amp search root., VS Code Copilot Chat round trip at ~/.copilot/skills/graphify + instructions fil, Drive the high-level install() entry point with home + cwd in tmp_path. (+19 more)
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, EstratÉgia de RepositÓrios, Parent, Related, Tags
 
 ### Community 135 - "test_read_hook.py"
-Cohesion: 0.12
-Nodes (27): _env(), The Read|Glob PreToolUse guard nudges toward the graph instead of raw reads., Config files must stay silent: '.json' must not match the '.js' extension., A real trailing extension must win on multi-dot names (the segment split):, Backslash-separated paths split on the real final segment, then its ext., An extension that sits on a directory component, not the final segment,     mus, A nudge is additionalContext only - the guard must exit 0, never deny., Reading the graph's own report must not start a go-read-the-graph loop. (+19 more)
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, EstratÉgia de Testes, Parent, Related, Tags
 
 ### Community 136 - "_make_symbol_doc"
-Cohesion: 0.07
-Nodes (28): _make_symbol_doc(), Helper to build a minimal SCIP document with one symbol., is_reference → relation 'scip_ref'., is_definition → relation 'scip_def'., is_implementation → relation 'scip_impl' (takes priority over is_definition)., is_type_definition → relation 'scip_typed'., Implementation > TypeDefinition > Definition > Reference., When none of is_* flags are set, relation defaults to 'scip_ref'. (+20 more)
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, Estrutura de Pastas, Parent, Related, Tags
 
 ### Community 137 - "gen.py"
-Cohesion: 0.07
-Nodes (27): _enum_lines(), _is_cache_unlink_fix_line(), _is_chunk_cleanup_line(), _is_content_scope_fix_line(), _is_directed_fix_line(), _is_enum_line(), _is_frontmatter_description_line(), _is_manifest_root_fix_line() (+19 more)
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, Guia de Testes e Uso, Parent, Related, Tags
 
 ### Community 138 - "Response"
-Cohesion: 0.12
-Nodes (5): BaseClient, Client, Shared implementation for Client and AsyncClient.     Handles auth, redirects,, Synchronous HTTP client., Response
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, Padrões de Projeto, Parent, Related, Tags
 
 ### Community 139 - "LLMFactory"
-Cohesion: 0.09
-Nodes (10): AgentConfigPayload, chat_with_agent(), ChatPayload, BaseModel, start_agent(), LLMFactory, MetricEntry, ProviderMetrics (+2 more)
+Cohesion: 0.13
+Nodes (4): LLMFactory, MetricEntry, ProviderMetrics, TestLLMFactory
 
 ### Community 140 - "readiness_engine.py"
-Cohesion: 0.24
-Nodes (24): _api_get(), CheckDefinition, CheckResult, compute_fingerprint(), _json_path(), Path, F2 Readiness Engine — Graph Runtime & Audit Foundation.  12 checks organizados, Compute input_fingerprint from features + graph state. (+16 more)
+Cohesion: 0.21
+Nodes (26): Execute F2 Readiness Engine — 12 checks for Phase 2 readiness., readiness_f2(), _api_get(), CheckDefinition, CheckResult, compute_fingerprint(), _json_path(), Path (+18 more)
 
 ### Community 141 - "system.py"
 Cohesion: 0.07
-Nodes (30): _check(), _check_postgres(), _get_alerts_data(), _get_dlq_data(), _get_metrics_data(), _get_runtime_info(), _get_services_status(), Retorna diagnostico completo do ambiente (EnvironmentService). (+22 more)
+Nodes (32): _check(), _check_postgres(), _get_alerts_data(), _get_costs_data(), _get_dlq_data(), _get_metrics_data(), _get_runtime_info(), _get_services_status() (+24 more)
 
 ### Community 142 - "_VaultEventHandler"
-Cohesion: 0.23
+Cohesion: 0.21
 Nodes (4): FileSystemEventHandler, _VaultEventHandler, TestVaultEventHandler, FileSystemEvent
 
 ### Community 143 - "sample.swift"
-Cohesion: 0.09
-Nodes (17): Bool, Foundation, CacheManager, createProcessor(), NetworkError, connectionFailed, failed, timeout (+9 more)
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, Parent, Related, Tags, Visõ Geral
 
 ### Community 144 - "dependencies"
 Cohesion: 0.07
 Nodes (27): clsx, dependencies, clsx, framer-motion, lucide-react, react, react-dom, react-router-dom (+19 more)
 
 ### Community 145 - "extract_vue"
-Cohesion: 0.16
-Nodes (23): extract_vue(), Extract imports, symbols, and type refs from a ``.vue`` SFC.      Masks the no, Blank everything outside ``<script>`` bodies, keeping ``\\r``/``\\n``.      Re, _vue_mask_non_script(), Path, Tests for ``.vue`` SFC extraction.  Feeding a whole SFC to the JS grammar prod, Vue allows a classic ``<script>`` plus ``<script setup>``; both are TS., The SFC must not be parsed as one JS blob.      With the bug, a real SFC yield (+15 more)
+Cohesion: 0.33
+Nodes (6): 2.1 Instalar Python 3.13, 2.2 Instalar UV (Package Manager), 2.3 Configurar Ambiente, 2.4 Configurar Variáveis de Ambiente, 2.5 Executar Backend, 2. Backend (Python / FastAPI)
 
 ### Community 146 - "_extract_pascal_regex"
-Cohesion: 0.16
-Nodes (16): _extract_pascal_regex(), _pascal_find_body(), _pascal_split_bases(), _pascal_split_sections(), _pascal_split_uses(), _pascal_strip_comments(), Path, pascal — moved verbatim from graphify/extract.py. (+8 more)
+Cohesion: 0.33
+Nodes (6): 4.1 Subir Serviços, 4.2 Serviços Disponíveis, 4.3 Verificar Status, 4.4 Logs, 4.5 Parar Serviços, 4. Infraestrutura (Docker)
 
 ### Community 147 - "test_agents_platform.py"
-Cohesion: 0.10
-Nodes (25): Tests for the generic `agents` platform and its `skills` alias (#1432).  `grap, `graphify uninstall --platform agents|skills` (global) clears ~/.agents/skills., `graphify uninstall --project` (no platform) removes the agents project skill, `graphify install --project --platform agents` writes ./.agents/skills and, `graphify agents install` is the amp-twin: skill at ~/.agents/skills PLUS a, Running `graphify agents install` twice leaves a single AGENTS.md section., `graphify skills install`/`uninstall` behaves exactly like the agents form:, `graphify install` (no platform) stays single-platform claude/windows and     n (+17 more)
+Cohesion: 0.33
+Nodes (6): 1. Conversar com IA, 2. Executar Auditoria, 3. Navegar na Arquitetura, 4. Buscar no Vault, 5. Usar Command Palette, Exemplos de Uso
 
 ### Community 148 - "test_hook_guard.py"
-Cohesion: 0.14
-Nodes (26): _cli(), _env(), _invoke(), Rigorous edge-case coverage for the `graphify hook-guard` subcommand (#522)., test_dispatch_always_exits_zero(), test_dispatch_missing_mode_exits_zero_silent(), test_dispatch_unknown_mode_exits_zero_silent(), test_fail_open_on_bad_stdin() (+18 more)
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, InformaçÃes do Projeto, Parent, Related, Tags
 
 ### Community 149 - "test_llm_backends.py"
-Cohesion: 0.08
-Nodes (5): _backend_base_url(), _ok(), Tests for direct semantic-extraction backend selection., test_base_url_env_overrides(), test_extract_corpus_parallel_ollama_parallel_env_restores_concurrency()
+Cohesion: 0.33
+Nodes (6): Children, Conteudo, Objetivos do Projeto, Parent, Related, Tags
 
 ### Community 150 - "build_graph"
-Cohesion: 0.10
-Nodes (18): build_graph(), AgentState, route_entry(), should_use_tool(), executor(), AgentState, _get_factory(), planner() (+10 more)
+Cohesion: 0.12
+Nodes (13): build_graph(), AgentState, route_entry(), should_use_tool(), executor(), AgentState, _get_factory(), planner() (+5 more)
 
 ### Community 151 - "extract_dmm"
-Cohesion: 0.09
-Nodes (25): _dmm_type_path(), extract_dmf(), extract_dmi(), extract_dmm(), Path, Dm extractor. Moved verbatim from graphify/extract.py., Pull the BYOND metadata text out of a .dmi PNG, or empty string on failure., Extract icon state names from a .dmi (BYOND PNG icon sheet). (+17 more)
+Cohesion: 0.33
+Nodes (6): Adapters & Integrations, Documentation System, Estrutura do Projeto, Intelligence & Memory, Novas Capacidades (Sprint 7 + Q4 2026), Planning & Execution
 
 ### Community 152 - "extract_markdown"
-Cohesion: 0.08
-Nodes (25): extract_markdown(), Path, Markdown extractor. Moved verbatim from graphify/extract.py., Resolve a markdown link target to the absolute path of a sibling document., Extract structural nodes and edges from a Markdown file.      Produces nodes f, _resolve_markdown_link(), _md_link_fixture(), ### Database Migration is nested under ## Full Deploy. (+17 more)
+Cohesion: 0.33
+Nodes (6): Backend (desenvolvimento), Como Executar, Docker (stack completa), Frontend Desktop (desenvolvimento), Frontend Web (Vite apenas), Scripts de setup
 
 ### Community 153 - "log_query"
-Cohesion: 0.13
-Nodes (24): _log_path(), log_query(), _log_responses(), nodes_from_result(), Any, Path, Query logging for graphify — append-only JSONL, fail-silent., Append one JSONL record to the query log. Never raises. (+16 more)
+Cohesion: 0.40
+Nodes (5): Cobertura Mínima, Comandos, Diretrizes, Estratégia de Testes — K.A.O.S, Pirâmide
 
 ### Community 154 - "ModelRecord"
 Cohesion: 0.11
 Nodes (13): get_model(), list_models(), AsyncSession, ModelRegistry, AsyncSession, ModelRecord, ModelRepository, AsyncSession (+5 more)
 
 ### Community 155 - "VaultIndexer"
-Cohesion: 0.17
+Cohesion: 0.18
 Nodes (3): VaultIndexer, main(), TestVaultIndexer
 
 ### Community 156 - "devDependencies"
 Cohesion: 0.08
-Nodes (25): autoprefixer, devDependencies, autoprefixer, msw, postcss, tailwindcss, @tauri-apps/cli, @testing-library/jest-dom (+17 more)
+Nodes (25): autoprefixer, devDependencies, autoprefixer, jsdom, @playwright/test, tailwindcss, @tauri-apps/cli, @testing-library/react (+17 more)
 
 ### Community 157 - "google_workspace.py"
-Cohesion: 0.12
-Nodes (16): convert_google_workspace_file(), _extract_file_id_from_url(), _extract_resource_key(), google_workspace_enabled(), Any, Path, Optional Google Workspace shortcut export support.  Google Drive for desktop s, Export a Google Workspace shortcut to a Markdown sidecar.      Returns the con (+8 more)
+Cohesion: 0.40
+Nodes (5): 🎯 Diretrizes de Projeto, 🔗 Fluxo de Requisição (Open WebUI → FastAPI → Ollama), 🗺️ Monorepo — Estrutura de Pacotes, 🛠️ Stack Tecnológica, Visão Geral do Assistente de IA Local
 
 ### Community 158 - "_write_raw_doc"
-Cohesion: 0.12
-Nodes (25): load_learning_overlay(), Load the sidecar next to ``graph_path`` and return ``{node_id -> entry}``     w, _overlay_corpus(), _overlay_graph(), Path, Write a memory doc with a controlled date so ordering is deterministic to assert, Write a minimal graph.json under ``out`` with the given node dicts., A corpus with: a PREFERRED node (2 useful), a TENTATIVE node (1 useful),     a (+17 more)
+Cohesion: 0.40
+Nodes (5): 3.1 Instalar Rust, 3.2 Instalar Dependências, 3.3 Executar em Modo Desenvolvimento, 3.4 Build de Produção, 3. Desktop (Tauri + React + TypeScript)
 
 ### Community 159 - "updater.rs"
 Cohesion: 0.18
-Nodes (23): AppHandle, BackendHealth, BootstrapState, check_backend_health(), check_docker(), check_docker_engine(), check_for_update(), DockerEngine (+15 more)
+Nodes (24): AppHandle, BackendHealth, BootstrapState, check_backend_health(), check_docker(), check_docker_engine(), check_for_update(), DockerEngine (+16 more)
 
 ### Community 160 - "VaultSync"
 Cohesion: 0.12
@@ -2149,28 +3388,28 @@ Cohesion: 0.11
 Nodes (16): aws_describe_service(), aws_list_instances(), aws_run_command(), Any, AWS Tools — Ferramentas LangChain para comandos AWS.  Utiliza subprocess para, Descreve o status de um servico AWS.      Args:         service: Nome do serv, Executa um comando AWS CLI customizado.      ATENCAO: Apenas comandos de leitu, Registra as ferramentas AWS no TOOL_REGISTRY global. (+8 more)
 
 ### Community 162 - "WhatsAppProvider"
-Cohesion: 0.11
-Nodes (13): Any, WhatsApp Provider — Envio de mensagens via Evolution API / N8N., Provedor de mensagens WhatsApp via Evolution API.      Utiliza a Evolution API, Envia uma mensagem WhatsApp.          Args:             to: Numero de telefon, WhatsAppProvider, WhatsApp Tools — Ferramentas LangChain para integracao WhatsApp., Envia uma mensagem WhatsApp.      Args:         to: Numero de telefone do des, Registra as ferramentas WhatsApp no TOOL_REGISTRY global. (+5 more)
+Cohesion: 0.07
+Nodes (20): Any, WhatsApp Provider — Envio e recebimento de mensagens via Evolution API., Recupera mensagens recebidas da fila do Evolution API.          Args:, Represents a received WhatsApp message., Registra um webhook para receber mensagens em tempo real.          Args:, Processa um payload de webhook recebido do Evolution API.          Args:, Provedor de mensagens WhatsApp via Evolution API.      Utiliza a Evolution API, Envia uma mensagem WhatsApp.          Args:             to: Numero de telefon (+12 more)
 
 ### Community 163 - "generate_section_flowchart"
-Cohesion: 0.11
-Nodes (24): generate_overview_graph(), generate_section_flowchart(), group_nodes_by_file(), mermaid_class_defs(), mermaid_init(), mermaid_section_id(), node_kind(), node_label() (+16 more)
+Cohesion: 0.40
+Nodes (5): 🔍 Busca, ⚙️ Configuração, ✏️ Escrita, Fase 3 — Integração com Obsidian, 📖 Leitura
 
 ### Community 164 - "_load_graphifyignore"
-Cohesion: 0.11
-Nodes (24): _is_ignored(), _load_graphifyignore(), Read .graphifyignore files and return (anchor_dir, pattern) pairs.      Patter, Return True if the path should be ignored per .graphifyignore patterns.      U, A ! re-include cannot un-ignore a file whose parent dir is excluded (#882)., A ! re-include must still un-ignore a file when no ancestor is excluded (#882)., If the ancestor dir itself is re-included, its children should not be blocked (#, /inbox/ must not match src/inbox/ — only inbox/ at the anchor root. (+16 more)
+Cohesion: 0.40
+Nodes (4): 1. Fase 1: Desktop Stabilization, 2. Fase 2: Graphify, 3. Próximos Passos (Fases 3-6), Alinhamento com o Roadmap Oficial — K.A.O.S Desktop
 
 ### Community 165 - "save_manifest"
-Cohesion: 0.09
-Nodes (24): load_manifest(), Load the manifest from a previous run. Returns {} on any error.      When ``ro, Save current file mtimes + content hashes for change detection.      kind="ast, save_manifest(), ``save_manifest(root=...)`` writes forward-slash relative keys., Back-compat: callers that don't pass ``root`` still get the legacy     absolute, ``load_manifest(root=...)`` re-anchors stored relative keys so the     in-memor, Legacy absolute-keyed manifests still load correctly when ``root``     is suppl (+16 more)
+Cohesion: 0.40
+Nodes (4): Arquivos, Setup, Topologia, WireGuard VPN — K.A.O.S Production Access
 
 ### Community 166 - "multigraph_compat.py"
-Cohesion: 0.17
-Nodes (18): _build_probe_graph(), CapabilityCheck, _check(), MultigraphCapabilityResult, _probe_duplicate_key_overwrite_semantics(), _probe_keyed_parallel_edges(), probe_multigraph_capabilities(), _probe_node_link_round_trip() (+10 more)
+Cohesion: 0.40
+Nodes (3): main(), MCP Platform CLI entry point., Personal AI Engineering Platform — Universal MCP CLI.
 
 ### Community 167 - "test_skillgen.py"
-Cohesion: 0.08
-Nodes (23): Tests for the tools/skillgen generator and the claude lean-core split.  skillg, Regression for #1461: every skill body that describes Step 3 extraction must, Every v8 heading single-homes for the cli-inline split hosts too., Every platform now carries one unified frontmatter description, byte for byte., The file_type enum is the six-value superset in every rendered artifact., The guard's line scanner flags 4- and 5-value pipe enums, not the superset., Generated artifacts use LF newlines and end in exactly one newline., #1417: every save_manifest call in a shipped runbook threads root=.      Witho (+15 more)
+Cohesion: 0.40
+Nodes (5): Health Checks, Logs, Metricas (Prometheus), Observabilidade, Tracing (OpenTelemetry)
 
 ### Community 168 - "FastAPI"
 Cohesion: 0.13
@@ -2185,56 +3424,52 @@ Cohesion: 0.18
 Nodes (19): ArchitectureHealth(), DriftIndicator(), HeatmapChart(), HeatmapChartProps, ScoreBar(), ArchAnalysis, HeatmapEntry, HeatmapState (+11 more)
 
 ### Community 171 - "dispatch_command"
-Cohesion: 0.20
-Nodes (13): _clone_repo(), _default_graph_path(), dispatch_command(), _enforce_graph_size_cap_or_exit(), Path, graphify command dispatch — every non-install subcommand.  Extracted verbatim, Clone a GitHub repo to a local cache dir and return the path.      Clones into, Print per-stage wall-clock timings to stderr when --timing is set (#1490). (+5 more)
-
-### Community 172 - "test_ollama.py"
-Cohesion: 0.11
-Nodes (21): detect_backend(), _ollama_host_is_link_local_or_metadata(), True if *host* is, or resolves to, a link-local / cloud-metadata address., Warn if OLLAMA_BASE_URL looks unsafe; hard-block link-local/metadata (F3)., Return the name of whichever backend has an API key set, or None.      Priorit, _validate_ollama_base_url(), Tests for the Ollama backend additions in graphify/llm.py., Link-local / cloud-metadata Ollama targets fail closed (F3). (+13 more)
+Cohesion: 0.60
+Nodes (4): export_to_obsidian(), main(), Path, Exporta graphify-out/graph.json para formato Obsidian.
 
 ### Community 173 - "prs.py"
-Cohesion: 0.30
-Nodes (22): bold(), _c(), _ci_icon(), cmd_prs(), cyan(), dim(), green(), magenta() (+14 more)
+Cohesion: 0.50
+Nodes (4): 5.1 Instalar Ollama, 5.2 Baixar Modelos, 5.3 Verificar Funcionamento, 5. Ollama
 
 ### Community 174 - "Cookies"
-Cohesion: 0.11
-Nodes (4): Cookies, Headers, Core data models: URL, Headers, Cookies, Request, Response. These are the centr, URL
+Cohesion: 0.50
+Nodes (4): 9.1 Prometheus, 9.2 Grafana, 9.3 Loki, 9. Observabilidade
 
 ### Community 175 - "automation.py"
-Cohesion: 0.19
-Nodes (14): get_execution_history(), _infer_category(), list_templates(), list_workflows(), Any, AsyncSession, UUID, FastAPI Router for K.A.O.S Automation Platform. Handles workflow query, templat (+6 more)
-
-### Community 176 - "WorkspaceManager"
-Cohesion: 0.04
-Nodes (46): Anti-padrões de Projeto, Children, Conteudo, Parent, Related, Tags, Children, Conteudo (+38 more)
+Cohesion: 0.09
+Nodes (30): get_execution_history(), import_workflow(), _infer_category(), list_templates(), list_workflows(), Any, AsyncSession, UUID (+22 more)
 
 ### Community 177 - "CircuitBreaker"
-Cohesion: 0.15
+Cohesion: 0.14
 Nodes (4): CircuitBreaker, CircuitState, Enum, TestCircuitBreaker
 
+### Community 178 - "BaseChatProvider"
+Cohesion: 0.10
+Nodes (8): OpenAIChatProvider, Message, register_chat_providers(), register_memory_providers(), register_all_providers(), register_vector_stores(), ServiceRegistry, TestRegisterAllProviders
+
 ### Community 179 - "introspect_cargo"
-Cohesion: 0.17
-Nodes (20): introspect_cargo(), _load_toml(), _member_manifest_paths(), Any, Path, Cargo manifest introspection for workspace-internal crate dependencies., Return crate nodes and internal dependency edges from Cargo manifests., Real workspace: pin raw graph fields while excluding registry-only deps. (+12 more)
+Cohesion: 0.50
+Nodes (4): Backend (Loguru), Docker, Logs, Loki
 
 ### Community 180 - "security.py"
-Cohesion: 0.11
-Nodes (18): _build_opener(), _ip_is_blocked(), _NoFileRedirectHandler, Resolve *host* once and return (family, validated_ip) for the first     address, HTTPConnection that resolves + validates DNS once, then connects to the     exa, HTTPSConnection variant of _SSRFGuardedHTTPConnection.      Connects to the va, urllib handler that routes http:// through _SSRFGuardedHTTPConnection., urllib handler that routes https:// through _SSRFGuardedHTTPSConnection. (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\adrs\001-evidence-engine.md, Símbolos
 
 ### Community 181 - "_check_shrink"
-Cohesion: 0.12
-Nodes (22): _check_shrink(), Return True (ok to proceed) or False (shrink refused).      When False, cleans, Build a minimal graph-data dict with *n* placeholder nodes., Default case: smaller new graph + no force + no declared deletions = refuse., force=True bypasses the guard regardless of node delta., Caller declared deletions → shrink is expected → guard skipped silently., First-run case: no existing graph → guard inert., #1116: a symbol removed from a re-extracted file is a legitimate shrink —     e (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\adrs\002-capability-ports.md, Símbolos
 
 ### Community 182 - "Graph"
-Cohesion: 0.12
-Nodes (21): build_graph(), Graph, GraphEvent, GraphPair, Logger, DataProcessor, Processor, Result (+13 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\adrs\003-technology-observatory.md, Símbolos
 
 ### Community 183 - "_corpus"
-Cohesion: 0.13
-Nodes (22): _assert_no_dangling(), _corpus(), _nodes_with_label(), Run the full extract() pipeline on fixture files (absolute, resolved     paths, Foo.h (class) + Foo.cpp (Foo::bar def) + Main.cpp must yield exactly ONE     Fo, `void bar();` in Foo.h and `void Foo::bar() {}` in Foo.cpp must collapse to, Foo.cpp and Main.cpp `#include "Foo.h"` must resolve to the real Foo.h file, Widget.h (@interface) + Widget.m (@implementation) -> ONE Widget class node (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\superpowers\plans\2026-05-04-incremental-updates-dedup.md, Símbolos
 
 ### Community 184 - "_run"
-Cohesion: 0.10
-Nodes (22): _make_graph(), CompletedProcess, argparse `choices` rejects an unknown outcome before save_query_result runs., --answer-file lets callers pass a long/multiline answer via a file instead, Neither --answer nor --answer-file -> clean argparse error, not a crash., First run with no graphify-out/memory/ still succeeds and writes a valid doc., With a real graph.json present, reflect auto-detects it and groups lessons, Through reflect()/CLI with a real graph.json: a cited node that isn't in the (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\superpowers\specs\2026-05-04-incremental-updates-dedup-design.md, Símbolos
 
 ### Community 185 - "CapabilityRegistry"
 Cohesion: 0.14
@@ -2245,48 +3480,48 @@ Cohesion: 0.12
 Nodes (7): _MCPServerProcess, MCP Manager — singleton responsible for initialising, running, and shutting dow, Concrete MCPServer wrapping a local STDIO subprocess., Read the registry and start all enabled MCP servers.          Returns the numb, Gracefully stop all running MCP servers.          Returns the number of succes, Shut down and remove a single MCP server process from memory., MCPServer
 
 ### Community 187 - "Counter"
-Cohesion: 0.12
-Nodes (21): derive_flow_chain(), edge_score(), generate_overview_cards(), node_degree_scores(), node_importance(), preferred_edges(), Counter, Aggregate inter-section edge counts and relation names. (+13 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\add-watch.md, Símbolos
 
 ### Community 188 - "extract_dart"
-Cohesion: 0.11
-Nodes (12): extract_dart(), Path, Dart extractor. Moved verbatim from graphify/extract.py., Extract classes, mixins, functions, imports, generic calls, and annotations from, Test that the universal parser successfully extracts generic relationships, anno, Test complex Dart 3+ syntax and precise Riverpod/Bloc mappings., Test that the parser successfully handles namespaces in extends/implements, and, Test typedefs, mixin on, factories, constructor DI types, and universal navigati (+4 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\admin.py, Dependências, Símbolos
 
 ### Community 189 - "extract_fortran"
-Cohesion: 0.10
-Nodes (20): _cpp_preprocess(), extract_fortran(), Path, Fortran extractor. Moved verbatim from graphify/extract.py., Run cpp -w -P on a capital-F Fortran file and return preprocessed bytes., Extract programs, modules, subroutines, functions, use statements, and calls fro, `y = f(x)` function invocations must emit a calls edge.      Function calls ar, test_fortran_capital_F_parses_preprocessed() (+12 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-001-consolidated-dashboard-endpoint.md, Símbolos
 
 ### Community 190 - "extract_verilog"
-Cohesion: 0.05
-Nodes (40): extract_elixir(), Path, Elixir extractor. Moved verbatim from graphify/extract.py., Extract modules, functions, imports, and calls from a .ex/.exs file., Last constant of a ``constant`` or ``scope_resolution`` (``A::B::C`` -> ``C``)., Ruby: a constant assignment whose RHS is ``Struct.new(...)``,     ``Class.new(S, _ruby_const_last_name(), _ruby_extra_walk() (+32 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-002-elimination-of-mock-data.md, Símbolos
 
 ### Community 191 - "hooks.py"
-Cohesion: 0.19
-Nodes (20): _git_root(), _hooks_dir(), install(), _install_hook(), Path, Walk up to find .git directory., Raise if a hooks path looks like a Windows absolute path (#1385).      On POSI, Return the git hooks directory, respecting core.hooksPath if set (e.g. Husky). (+12 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-003-store-consolidation.md, Símbolos
 
 ### Community 192 - "ingest.py"
-Cohesion: 0.18
-Nodes (20): _detect_url_type(), _download_binary(), _fetch_arxiv(), _fetch_html(), _fetch_tweet(), _fetch_webpage(), _html_to_markdown(), ingest() (+12 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-004-offline-boot-gate.md, Símbolos
 
 ### Community 193 - "generate"
-Cohesion: 0.14
-Nodes (17): _make_extraction(), Tests for confidence_score on edges., Edges lacking confidence_score get sensible defaults in to_json., Report summary line should include avg confidence for INFERRED edges., Surprising connections section shows confidence score next to INFERRED edges., Return a minimal extraction dict with one edge of each confidence type., EXTRACTED edges must have confidence_score == 1.0., INFERRED edges must have confidence_score between 0.0 and 1.0. (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\governance\ADR-template.md, Símbolos
 
 ### Community 194 - "test_llm_parser.py"
-Cohesion: 0.11
-Nodes (18): _make_envelope(), Tests for `_parse_llm_json` robustness and the `_call_claude_cli` subprocess ar, Extraction instructions must be delivered in the user turn, not via     --syste, GRAPHIFY_CLAUDE_CLI_MODEL must be forwarded to claude -p --model., Default behaviour: when the env var is not set, --model is not     added so cla, Claude often prefixes the JSON with a short preamble before the     ```json fen, Some models return prose around bare JSON with no markdown fence.     The balan, Regression: clean JSON input (the original happy path) must keep     parsing ex (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\affected.py, Símbolos
 
 ### Community 195 - "test_multilang.py"
-Cohesion: 0.05
-Nodes (71): extract_go(), Path, Extract functions, methods, type declarations, and imports from a .go file., extract_rust(), Path, Extract functions, structs, enums, traits, impl methods, and use declarations fr, Methods on the same receiver type must share one canonical type node., Type node id should be scoped to directory, not file stem. (+63 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\agent.py, Dependências, Símbolos
 
 ### Community 196 - "api.py"
-Cohesion: 0.12
-Nodes (18): handle_delete(), handle_get(), handle_search(), API module - exposes the document pipeline over HTTP. Thin layer over parser, v, Fetch a document by ID and return it., Delete a document by ID., Simple keyword search over the index.     Returns documents whose keyword list, parse_file() (+10 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\service\agent_service.py, Dependências, Símbolos
 
 ### Community 197 - "manifest.json"
-Cohesion: 0.10
-Nodes (20): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0001_initial_schema.py, hash, mtime, I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\config.py, hash, mtime, I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\__init__.py, hash (+12 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\agent-store.ts, Símbolos
 
 ### Community 198 - "LLMService"
 Cohesion: 0.23
@@ -2313,75 +3548,75 @@ Cohesion: 0.17
 Nodes (12): CustomModelInput(), Props, ModelDropdown(), Props, ModelSelector(), Props, ProviderOption, ModelShortcuts() (+4 more)
 
 ### Community 204 - "test_affected_cli.py"
-Cohesion: 0.15
-Nodes (18): resolve_seed(), A trailing path separator must not change the match (parity with explain's, Several nodes share a source_file but none is the L1 file node and none's     b, A graph persisted with directed=false must still recover caller->callee     dir, graphify's `extract` writes graph.json with an "edges" key (not networkx's, test_affected_cli_forces_directed_on_undirected_graph(), test_affected_cli_loads_edges_keyed_graph(), test_affected_cli_relation_filter_limits_reverse_traversal() (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\agent-store.test.ts, Símbolos
 
 ### Community 205 - "pick_text"
-Cohesion: 0.13
-Nodes (20): _describe_node(), format_node_refs(), generate_call_table_rows(), generate_section_cards(), generate_section_intro(), is_zh(), pick_text(), Render node references as readable labels instead of internal IDs. (+12 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Agente de Ingestao de Conhecimento.md, Símbolos
 
 ### Community 206 - "save_query_result"
-Cohesion: 0.16
-Nodes (19): Save a Q&A result as markdown so it gets extracted into the graph on next --upda, save_query_result(), Tests for graphify.ingest.save_query_result, An outcome signal is written to both frontmatter (for `reflect`) and an     ##, Backward compatible: a result without an outcome looks exactly as before., test_answer_in_body(), test_correction_in_frontmatter_and_body(), test_file_created() (+11 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\AGENTS.md, Símbolos
 
 ### Community 207 - "test_cpp_objc_cross_file_calls.py"
-Cohesion: 0.28
-Nodes (19): _call_edges(), _label(), Path, Cross-file member-call and include resolution for C++ (#1547) and ObjC (#1556)., {(source_label, relation, target_label, confidence)} for the given relations., The headline #1547 fix: a paired class no longer islands — Main.cpp's use of, test_cpp_cross_file_member_call_connects_with_relative_paths(), test_cpp_godnode_guard_ambiguous_and_unknown_receiver() (+11 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\agents_api.py, Dependências, Símbolos
 
 ### Community 208 - "test_extract_cli.py"
-Cohesion: 0.14
-Nodes (19): _clear_backend_keys(), _code_only_corpus(), _make_corpus(), Tests for `graphify extract` CLI dispatch path in graphify.__main__., Minimal corpus: one Go code file + one Markdown doc.      Both file types are, A corpus with only code — no docs/papers/images., Clear every env var that detect_backend() or _get_backend_api_key() reads., A code-only corpus must run with no LLM API key.      Regression: graphify ext (+11 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\agents-md.md, Símbolos
 
 ### Community 209 - "test_install_upgrade.py"
-Cohesion: 0.15
-Nodes (19): _assert_no_report_first(), _assert_query_first(), Installer-level regression tests for upgrade-in-place behavior (issue #580)., The Claude install must also rewrite a stale .claude/settings.json hook     pay, Same upgrade behavior for AGENTS.md (Codex / OpenCode / Aider / Trae)., Same upgrade behavior for GEMINI.md., Same upgrade behavior for .github/copilot-instructions.md (VS Code)., Same upgrade behavior for .cursor/rules/graphify.mdc.     The Cursor rule file (+11 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\wiki\AGENTS.pt-BR.md, Símbolos
 
 ### Community 210 - "CapabilityPolicyRepository"
-Cohesion: 0.18
-Nodes (9): create_policy(), delete_policy(), get_policies_by_capability(), list_policies(), AsyncSession, CapabilityPolicyRecord, CapabilityPolicyRepository, AsyncSession (+1 more)
+Cohesion: 0.13
+Nodes (12): create_policy(), delete_policy(), get_policies_by_capability(), list_policies(), AsyncSession, CapabilityPolicyResolver, AsyncSession, ResolvedPolicy (+4 more)
 
 ### Community 211 - "docs.py"
 Cohesion: 0.15
 Nodes (18): _build_history_text(), _generate_and_save(), generate_doc(), GenerateDocRequest, GenerateDocResponse, list_docs(), AsyncSession, BackgroundTasks (+10 more)
 
 ### Community 212 - "providers.py"
-Cohesion: 0.18
-Nodes (14): _check_provider_health(), _fetch_models_from_api(), _get_configured_providers(), _get_health(), list_providers(), ProviderSource, ProviderSourceType, Enum (+6 more)
+Cohesion: 0.29
+Nodes (11): _check_provider_health(), _fetch_models_from_api(), _get_configured_providers(), _get_health(), list_providers(), ProviderSource, ProviderSourceType, Enum (+3 more)
 
 ### Community 213 - "document.py"
 Cohesion: 0.15
 Nodes (15): NoteCreateRequest, NoteReadResult, NoteResponse, NoteUpdateRequest, BaseModel, SearchResponse, create_note(), _get_service() (+7 more)
 
 ### Community 214 - "KnowledgeService"
-Cohesion: 0.05
-Nodes (32): get_knowledge_service(), knowledge_health(), KnowledgeQueryRequest, BaseModel, query_knowledge(), Knowledge REST API — Unified knowledge coalescing queries.  Endpoints:   POST /a, Coalescing query across graph, retrieval, and memory sources., KnowledgeService (+24 more)
+Cohesion: 0.06
+Nodes (26): RetrievalService — Semantic search orchestrator., Service for vector and semantic search., RetrievalService, ABC, RetrievalPort — Semantic search and vector retrieval capability.  Searches acr, Semantic search query., Retrieved document chunk with score., Interface for semantic search and vector retrieval.      Concrete implementati (+18 more)
 
 ### Community 215 - "ToolkitViewModel"
-Cohesion: 0.13
-Nodes (15): Email, RefreshCommand, string, ToolkitViewModel, Email, RefreshCommand, SaveCommand, UserName (+7 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\ai-agent-engineer.md, Símbolos
 
 ### Community 216 - "callflow_html.py"
-Cohesion: 0.15
-Nodes (18): build_community_index(), _community_text(), derive_sections_from_communities(), generate_header(), generate_nav(), _keyword_score(), label_for_community(), node_in_section() (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\core\aider.md, Símbolos
 
 ### Community 217 - "extract_terraform"
-Cohesion: 0.22
-Nodes (17): extract_terraform(), Path, Terraform extractor. Moved verbatim from graphify/extract.py., Extract Terraform/HCL blocks and the references between them via tree-sitter., _labels(), Path, Tests for the Terraform/HCL extractor (graphify/extract.py, issue #187)., _rel_pairs() (+9 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm.py, Dependências, Símbolos
 
 ### Community 218 - "paths.py"
-Cohesion: 0.20
-Nodes (13): disambiguate_ambiguous_candidates(), _is_test_path(), _path_proximity_winner(), Resolve an ambiguous bare-name call to one candidate, or ``None``.      Shared, Classify a source path as a test path (case-insensitive, segment-aware)., Pick the candidate whose source file is closest to the call site.      ``candi, Tests for graphify.paths — the shared test-path classifier (#1553)., test_disambiguate_bails_on_two_nontest_candidates() (+5 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\inference\airllm_adapter.py, Dependências, Símbolos
 
 ### Community 219 - "sample.kt"
-Cohesion: 0.13
-Nodes (15): ChatType, GROUP, NORMAL, SYSTEM, createClient(), BaseProcessor, Config, DataProcessor (+7 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_baichuan.py, Dependências, Símbolos
 
 ### Community 220 - "opencode.py"
 Cohesion: 0.19
 Nodes (17): _full_scan(), get_agent(), get_category_item(), list_agents(), list_category(), list_commands(), list_models(), list_providers() (+9 more)
 
 ### Community 221 - "UserModelProfileRepository"
-Cohesion: 0.16
+Cohesion: 0.18
 Nodes (10): delete_user_profile(), get_user_profile(), list_user_profiles(), AsyncSession, upsert_user_profile(), AsyncSession, UUID, UserModelProfileRecord (+2 more)
 
 ### Community 222 - "N8NWorkflowProvider"
@@ -2394,63 +3629,63 @@ Nodes (4): Embedder, get_embedder(), warmup_embedder(), TestEmbedder
 
 ### Community 224 - "edge_data"
 Cohesion: 0.05
-Nodes (21): Provider, ABC, Provider Registry — Generic dependency injection container for K.A.O.S.  Enables, Base class for all K.A.O.S provider implementations., Optional async health check. Returns True if provider is ready., NetworkXFallback, NodeInfo, PathInfo (+13 more)
+Nodes (21): Provider, ABC, Provider Registry — Generic dependency injection container for K.A.O.S.  Enabl, Base class for all K.A.O.S provider implementations., Optional async health check. Returns True if provider is ready., NetworkXFallback, NodeInfo, PathInfo (+13 more)
 
 ### Community 225 - "extract_julia"
-Cohesion: 0.04
-Nodes (54): Communities, Community 0 - "nanoGPT Model Architecture", Community 10 - "micrograd README + Backprop", Community 11 - "Attention Residuals Paper", Community 12 - "Continual LoRA Paper", Community 13 - "minGPT Trainer Class", Community 14 - "NeuralWalker Paper", Community 15 - "Dataset Abstractions" (+46 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_base.py, Dependências, Símbolos
 
 ### Community 226 - "resolve_python_import_guided_calls"
-Cohesion: 0.13
-Nodes (15): Resolve raw Python calls using explicit import evidence.      Only ``from modu, resolve_python_import_guided_calls(), Strong regression for #cycle-2.7-Codex-v2: monkeypatch the alias parser     so, Python import-guided resolver also tolerates malformed raw_calls., A non-dict per_file slot (e.g. a string) must not raise AttributeError., per_file shorter than paths must not raise IndexError., A None per_file slot is treated as empty fragment (no crash, no edges)., Edge metadata produced by the import-guided resolver must pass through     sani (+7 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_chatglm.py, Dependências, Símbolos
 
 ### Community 227 - "test_ts_decorators.py"
-Cohesion: 0.30
-Nodes (17): _class_nid(), _has_deco(), _method_nid(), Path, Regression tests: TypeScript/JavaScript decorator references.  `@Component`, `, An external decorator (definition absent from the corpus — the common     frame, True if owner_nid references the (cross-file, bare-stub) decorator symbol., test_class_decorator_on_exported_class() (+9 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_internlm.py, Dependências, Símbolos
 
 ### Community 228 - "utils.py"
-Cohesion: 0.12
-Nodes (17): build_url_with_params(), flatten_queryparams(), is_known_encoding(), normalize_header_key(), obfuscate_sensitive_headers(), parse_content_type(), primitive_value_to_str(), Utility functions shared across the library. Small helpers that don't belong in (+9 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_llama_mlx.py, Dependências, Símbolos
 
 ### Community 229 - "SemanticRetriever"
-Cohesion: 0.14
-Nodes (15): get_context(), get_diagnostics(), get_vault_file(), list_vault_files(), BaseModel, RAGContextRequest, RAGContextResponse, RAGContextResult (+7 more)
+Cohesion: 0.19
+Nodes (10): get_context(), get_diagnostics(), BaseModel, RAGContextRequest, RAGContextResponse, RAGContextResult, RAGDiagnosticsResponse, SearchResult (+2 more)
 
 ### Community 230 - "EvolutionWhatsAppAdapter"
 Cohesion: 0.16
 Nodes (6): Store a credential across all providers., EvolutionWhatsAppAdapter, Any, Evolution API Adapter for WhatsApp Communication Channel.  SDD-KAOS-EVOLUTION-, Runs the registration/polling/activation flow.          Credentials can includ, Adapter for WhatsApp channel powered by Evolution API.
 
 ### Community 231 - "sample.php"
-Cohesion: 0.15
-Nodes (8): Authenticator, ApiClient, BaseProcessor, DataProcessor, Result, Service, HasName, Loggable
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_mistral.py, Dependências, Símbolos
 
 ### Community 232 - "test_cluster.py"
-Cohesion: 0.17
-Nodes (13): Remap community IDs to maximize overlap with a previous assignment.      Uses, remap_communities_to_previous(), make_graph(), Clustering should not emit ANSI escape codes or other output.      graspologic, Same as above but for stderr — ANSI codes can go to either stream., test_cluster_covers_all_nodes(), test_cluster_does_not_write_to_stderr(), test_cluster_does_not_write_to_stdout() (+5 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_mixtral.py, Dependências, Símbolos
 
 ### Community 233 - "extract_rust"
-Cohesion: 0.04
-Nodes (53): 10. GitHub Actions (CI/CD), 11. Verificação Pós-Instalação, 1. Clonar o Repositório, 2.1 Instalar Python 3.13, 2.2 Instalar UV (Package Manager), 2.3 Configurar Ambiente, 2.4 Configurar Variáveis de Ambiente, 2.5 Executar Backend (+45 more)
+Cohesion: 0.13
+Nodes (15): 10. GitHub Actions (CI/CD), 1. Clonar o Repositório, Arquivos Relacionados, Dependencias, Fluxos, Guia de Instalação — K.A.O.S, Integracoes, Objetivo (+7 more)
 
 ### Community 234 - "_score_nodes"
-Cohesion: 0.25
-Nodes (8): _compute_idf(), IDF weights for query terms, cached in G.graph['_idf_cache'].      Common term, Coverage scaling must not touch full-coverage queries (coverage == 1).      A, A term matching only 1 of N nodes should get IDF > 1., A term matching most nodes should get IDF < 1., test_idf_common_term_gets_low_weight(), test_idf_rare_term_gets_high_weight(), test_score_nodes_coverage_full_coverage_query_is_unchanged()
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\airllm_provider.py, Dependências, Símbolos
 
 ### Community 235 - "typescript_advanced.ts"
-Cohesion: 0.12
-Nodes (10): DEFAULT_ROLES, IUserRepository, Module, USER_CONFIG, USER_REPOSITORY, UserId, UserModule, UserService (+2 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_qwen.py, Dependências, Símbolos
 
 ### Community 236 - "test_incremental.py"
-Cohesion: 0.20
-Nodes (16): _edges(), _make_docs_corpus(), CompletedProcess, Path, Integration tests for incremental graphify extract behavior., #1521: when an import is deleted from a file, `graphify update` must prune, After a full extract run, manifest.json must exist (or run fails before writing, If manifest.json + graph.json exist, incremental mode message is shown. (+8 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_qwen2.py, Dependências, Símbolos
 
 ### Community 237 - "test_provider_registry.py"
-Cohesion: 0.12
-Nodes (16): A provider whose base_url uses a non-http(s) scheme is skipped on load (F1)., provider_base_url_ok rejects bad schemes and warns on plaintext-http egress (F1), Custom providers appear after all built-ins in detect_backend() priority., Missing pricing field defaults to zero so estimate_cost doesn't blow up., Built-in provider names are protected from being overridden., Full round-trip: add → list → show → remove via providers.json., A project-local ./.graphify/providers.json is NOT loaded by default (F1)., With explicit opt-in the project-local file is honoured (F1). (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cpp_samedir\Alpha.h, Símbolos
 
 ### Community 238 - "test_semantic_similarity.py"
-Cohesion: 0.18
-Nodes (16): _make_extraction_with_semantic_edge(), _make_graph_with_semantic_edge(), _make_report_with_semantic_surprise(), _make_two_edge_graph(), Tests for semantically_similar_to edge support., Two nodes in separate files connected by a semantically_similar_to edge., Non-semantic edges must not get the [semantically similar] tag., Graph with one semantically_similar_to edge and one references edge, both cross- (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\mixed-corpus\raw\analyze.py, Símbolos
 
 ### Community 239 - "NotificationService"
 Cohesion: 0.16
@@ -2461,64 +3696,60 @@ Cohesion: 0.23
 Nodes (15): execute_plugin(), get_plugin(), _get_registry(), _get_sandbox(), install_plugin(), list_plugins(), Any, API Router — Gerenciamento de Plugins Wasm.  Permite instalar, listar, executa (+7 more)
 
 ### Community 241 - ".encrypt"
-Cohesion: 0.21
-Nodes (10): Secret Manager for K.A.O.S. Provides AES-GCM (Fernet) encryption and decryption, Encrypts plain text and returns base64 url-safe cipher text., Decrypts base64 url-safe cipher text and returns the original plain text., Decrypts dictionary values with old_key and re-encrypts with new_key., SecretManager, test_secret_manager_encryption_decryption(), test_secret_manager_invalid_key(), test_secret_manager_missing_key() (+2 more)
+Cohesion: 0.16
+Nodes (12): EncryptedFileCredentialProvider, Credential provider using ConfigService secrets file with Fernet encryption., Fernet, Secret Manager for K.A.O.S. Provides AES-GCM (Fernet) encryption and decryption, Encrypts plain text and returns base64 url-safe cipher text., Decrypts base64 url-safe cipher text and returns the original plain text., Decrypts dictionary values with old_key and re-encrypts with new_key., SecretManager (+4 more)
 
 ### Community 242 - "github_tools.py"
 Cohesion: 0.39
 Nodes (8): _github_api(), github_get_repo(), github_list_issues(), github_list_repos(), Lista repositorios do GitHub do usuario ou de um owner especifico., Obtem detalhes de um repositorio do GitHub., Lista issues de um repositorio do GitHub., register_github_tools()
 
-### Community 243 - "EmbeddingCache"
-Cohesion: 0.18
-Nodes (5): EmbeddingCache, TestEmbeddingCache, #1656 — word counts are cached against each file's stat signature so detect() d, test_word_count_augments_existing_hash_entry(), test_word_count_cached_until_file_changes()
-
 ### Community 244 - "Window"
-Cohesion: 0.14
-Nodes (15): MoneyConverter, TaxConverter, Invoice.Tax, Order.Total, User.Name, ModeText, RootPanel, SaveButton (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\analyzer_engine.py, Dependências, Símbolos
 
 ### Community 245 - "Demo.ViewModels"
-Cohesion: 0.12
-Nodes (9): Demo.ViewModels, DesignViewModel, MainViewModel, PrismOrderViewModel, DesignView, UserControl, MainWindow, Window (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\chat\anthropic.py, Dependências, Símbolos
 
 ### Community 246 - "sample.ps1"
-Cohesion: 0.17
-Nodes (9): double, Get-Data(), Invoke-Main(), Process-Items(), Circle, DataProcessor, Shape, string (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Anti-padroes de Projeto.md, Símbolos
 
 ### Community 247 - "collect_files"
-Cohesion: 0.06
-Nodes (30): GraphPort, GraphQuery, GraphResult, NodeInfo, PathInfo, ABC, GraphPort — Code intelligence capability.  Exposes structural queries over the c, Information about a code symbol or file. (+22 more)
+Cohesion: 0.11
+Nodes (12): GraphifyAdapter, NodeInfo, PathInfo, GraphifyAdapter — Wraps Graphify CLI and graph.json for GraphPort.  Implements, Convert a graph.json node to NodeInfo., Find dependency path between two symbols., Parse 'graphify path' CLI output., Check if graph.json exists and is recent. (+4 more)
 
 ### Community 248 - "extract_csharp"
-Cohesion: 0.04
-Nodes (48): Arquivos de Configuração, Arquivos Relacionados, Atualizações, Backend, Backend (Loguru), Backend não inicia, Backup, CI/CD (+40 more)
+Cohesion: 0.05
+Nodes (44): Arquivos de Configuração, Arquivos Relacionados, Atualizações, Backend, Backend não inicia, Backup, CI/CD, Comandos de Diagnóstico Rápido (+36 more)
 
 ### Community 249 - "extract_groovy"
-Cohesion: 0.04
-Nodes (47): Abertura de PR, ⚠️ Análise de Arquitetura — Spec vs Realidade (Correções Críticas), 📋 Análise Prévia — Riscos e Decisões, Branches, ✅ Checklist do Plano (Auto-revisão), Commits — Conventional Commits (obrigatório), Decisões tomadas, 📦 Dependências Externas (+39 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\antigravity-rules.md, Símbolos
 
 ### Community 250 - "make_pr"
-Cohesion: 0.28
-Nodes (7): _classify(), make_pr(), datetime, Tests for graphify/prs.py., Build a minimal PRInfo with sensible defaults., TestClassify, timedelta
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\apex.py, Símbolos
 
 ### Community 251 - "DataProcessor"
-Cohesion: 0.16
-Nodes (9): ErrorCode, GAME_DONE, OK, BaseProcessor, DataProcessor, Processor, Result, HttpClient (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\security\API_KEYS.md, Símbolos
 
 ### Community 252 - "test_java_member_calls.py"
-Cohesion: 0.40
-Nodes (15): _calls(), _find(), Path, Java receiver-typed member-call resolution.  Java ``method_invocation`` nodes, test_ambiguous_receiver_type_emits_no_edge(), test_explicit_type_receiver_resolves_to_owned_method(), test_field_receiver_resolves_to_declared_type(), test_inherited_field_and_chained_receiver_are_deferred() (+7 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\api-patterns.md, Símbolos
 
 ### Community 253 - "_install_capturing_openai"
-Cohesion: 0.12
-Nodes (16): _install_capturing_openai(), Like _install_fake_openai but records kwargs passed to create()., test_call_openai_compat_explicit_extra_body_skips_ollama_auto_derive(), test_call_openai_compat_extra_body_wins_over_moonshot_default(), test_call_openai_compat_uses_explicit_extra_body(), test_deepseek_thinking_disabled_via_env(), test_deepseek_thinking_on_by_default(), test_explicit_extra_body_wins_over_thinking_env() (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\api\API_REFERENCE.md, Símbolos
 
 ### Community 254 - "test_office_limits.py"
-Cohesion: 0.15
-Nodes (13): Resource-cap guards for parsing untrusted office/PDF files (F2).  .docx/.xlsx, A tiny file that expands far past the ratio threshold is rejected., The live converters bail out (return "") on a bomb before parsing., A normal multi-member office zip passes the streaming-ceiling pass., With a low decompressed cap, content whose actual bytes exceed it is rejected., A PDF larger than the raw cap is skipped before pypdf opens it., test_converters_return_empty_for_bomb(), test_legit_multi_member_passes_streaming() (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\App.csproj, Símbolos
 
 ### Community 255 - "processor.py"
-Cohesion: 0.17
-Nodes (15): handle_enrich(), Re-enrich a document to pick up new cross-references., enrich_document(), extract_keywords(), find_cross_references(), normalize_text(), process_and_save(), Processor module - transforms validated documents into enriched records ready f (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\append_log_tool.py, Dependências, Símbolos
 
 ### Community 256 - "BaseApp"
 Cohesion: 0.14
@@ -2529,80 +3760,80 @@ Cohesion: 0.13
 Nodes (9): get_watcher(), set_watcher(), OpenCodeWatcher, OpenCode Watcher — monitors the ``.opencode/`` directory for file changes and i, Stop the filesystem watcher., Return True if the cache needs refresh., Mark the cache as clean after a refresh., Return True if running in on-demand (no watchdog) mode. (+1 more)
 
 ### Community 258 - "AutomationBus"
-Cohesion: 0.16
-Nodes (10): import_workflow(), Imports a new workflow JSON template.     Saves to n8n first, then registers in, AutomationBus, Starts the background worker queue consumer., Worker consumption loop., Maps EventBus event names to n8n webhook trigger URL path keys., Resolves the configured automation workflow provider., Polls n8n health status, scans data/workflows/ JSON templates,         and auto (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\app\layouts\AppLayout.tsx, Símbolos
 
 ### Community 259 - "MCPServer"
 Cohesion: 0.14
 Nodes (9): MCPServer, ABC, Base interface for MCP (Model Context Protocol) servers.  Defines the abstract, Abstract base class for MCP server implementations.      Each concrete subclas, Start the MCP server subprocess and establish communication.          Returns, Gracefully terminate the MCP server subprocess.          Returns True if shutd, Return the list of available tools exposed by this MCP server.          Each t, Invoke a tool on this MCP server with the given parameters.          Returns t (+1 more)
 
 ### Community 260 - "ProviderMetrics"
-Cohesion: 0.04
-Nodes (44): 1. Install package, 1. MetadataIncompleteBuffer, 2. Inference, 2. ValueError: max() arg is an empty sequence, 3. 401 Client Error....Repo model ... is gated., 4. ValueError: Asking to pad but the tokenizer does not have a padding token., Acknowledgement, AI Agents Recommendation: (+36 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\apps_api.py, Dependências, Símbolos
 
 ### Community 261 - "MarkdownSplitter"
-Cohesion: 0.22
-Nodes (3): MarkdownSplitter, TextChunk, TestMarkdownSplitter
+Cohesion: 0.16
+Nodes (6): MarkdownSplitter, TextChunk, Path, test_vault(), TestRAGPipeline, TestMarkdownSplitter
 
 ### Community 262 - "sample.json"
-Cohesion: 0.13
-Nodes (14): axios, dependencies, axios, react, devDependencies, typescript, react, typescript (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\reports\architectural-research.md, Símbolos
 
 ### Community 263 - "AccountService"
-Cohesion: 0.15
-Nodes (7): delete, insert, update, AccountService, AccountStatus, Account, Notifiable
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\architecture.md, Símbolos
 
 ### Community 264 - "semantic_cleanup.py"
-Cohesion: 0.19
-Nodes (14): _normalize_hyperedge_members(), Canonicalize a hyperedge's member list onto the `nodes` key, in place.      If, _append_rationale_attr(), _is_sentence_like_rationale_label(), load_validated_semantic_fragment(), Path, Load and validate a semantic chunk, rejecting oversize files before parsing., Clean up a semantic extraction fragment in-place.      Operations:     1. Rem (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\heatmap\architecture-health.tsx, Símbolos
 
 ### Community 265 - "extract_astro"
-Cohesion: 0.27
-Nodes (14): extract_astro(), Extract imports from .astro files: frontmatter (TS) + template regex fallback., _import_targets(), Path, Tests for `.astro` extraction (#850).  Astro files have a TypeScript frontmatt, Astro permits frontmatter-less files (pure-HTML pages). Must not raise., Without this, detect.py silently drops `.astro` from the AST pass (#850)., test_astro_is_in_code_extensions() (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Arquitetura de Orquestracao.md, Símbolos
 
 ### Community 266 - "_query_terms"
-Cohesion: 0.13
-Nodes (15): _has_chinese(), _is_searchable(), _query_terms(), True if term is Chinese, non-English, or an English word longer than 2 chars., Split a query into searchable terms, segmenting Chinese text, then drop     Eng, Segment Chinese text and keep the original term for exact matching., _segment_chinese(), Chinese text should use the cached jieba module and keep the original term. (+7 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Arquitetura Geral.md, Símbolos
 
 ### Community 267 - "resolve_cross_file_raw_calls"
-Cohesion: 0.17
-Nodes (16): Resolve unqualified raw calls conservatively after all files are known.      T, resolve_cross_file_raw_calls(), Tests for graphify.symbol_resolution., Two genuine NON-test defs of the same name: the god-node guard must still     h, A real cross-file call must resolve to the SRC definition even when a     same-, One src def plus many same-named test stubs: exactly one edge to src., A test file calling save() with both a src def and a test-local def present, The python cross-file resolver returns [] (not crash) on bad raw_calls. (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\audit.py, Dependências, Símbolos
 
 ### Community 268 - "TDataProcessor"
-Cohesion: 0.16
-Nodes (7): IProcessor, TObject, SampleUnit, TBaseProcessor, TDataProcessor, Process(), Reset()
+Cohesion: 0.50
+Nodes (3): assistant\scripts\audit_desktop.py, Dependências, Símbolos
 
 ### Community 269 - "Window"
-Cohesion: 0.18
-Nodes (11): RootPanel, SaveButton, UserNameBox, Window, UserName, MainWindow, Button, StackPanel (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\scripts\audit_docs.py, Dependências, Símbolos
 
 ### Community 270 - "test_file_node_id_spec.py"
-Cohesion: 0.13
-Nodes (13): Regression tests for issue #1033: AST file-level node IDs must match the skill., Changing the file-id format must not orphan import edges: the import     target, match/script/pipeline_step.py -> file node id 'match_script_pipeline_step', A file directly at the project root collapses to just its stem., A SYMBOL in a root-level file must use the bare-stem prefix (`setup_configure`),, Regression guard: nested files (immediate parent identical in abs/rel form), Symbol ids already use {parent}_{stem}_{name}; the file node must share     tha, test_cross_file_import_edges_stay_connected() (+5 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\audit_engine.py, Dependências, Símbolos
 
 ### Community 271 - "test_java_type_resolution.py"
-Cohesion: 0.39
-Nodes (14): _label_edges(), _node_by_id(), Path, test_java_ambiguous_implements_disambiguated_by_import(), test_java_ambiguous_reference_disambiguated_by_import(), test_java_builtin_library_types_not_emitted_as_references(), test_java_cross_file_constructor_call_resolves(), test_java_cross_file_implements_resolves_to_real_def() (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\integration\audit-graph-flow.test.ts, Símbolos
 
 ### Community 272 - "_clear_backend_env"
-Cohesion: 0.13
-Nodes (15): _clear_backend_env(), test_backend_detection_prefers_gemini(), test_corpus_parallel_oversized_markdown_does_not_crash_on_fileslice(), test_detect_backend_azure_requires_endpoint_not_just_key(), test_detect_backend_returns_azure_when_both_vars_set(), test_extract_corpus_parallel_accepts_str_and_mixed_paths(), test_extract_files_direct_accepts_str_paths(), test_extract_files_direct_routes_gemini_through_openai_compat() (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\scripts\audit_pr_docs.py, Dependências, Símbolos
 
 ### Community 273 - "test_search_hook.py"
-Cohesion: 0.12
-Nodes (22): _claude_pretooluse_hooks(), _install_claude_hook(), _install_codebuddy_hook(), Add graphify PreToolUse hook to .claude/settings.json., Add graphify PreToolUse hook to .codebuddy/settings.json., graphify's Claude/Codebuddy PreToolUse hooks, resolved at install time.      T, test_claude_hook_install_idempotent_and_replaces_old_bash_hook(), test_claude_hook_is_shell_agnostic() (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\audit-report.md, Símbolos
 
 ### Community 274 - "_claude_artifacts"
-Cohesion: 0.13
-Nodes (15): _claude_artifacts(), The default code-corpus run must be fully described inside the core., No reference fragment may duplicate the core build pipeline., Every references/<name>.md the core points at is actually rendered., The query section heading is the lean-core stub; query.md re-homes the rest., claude renders exactly the eight on-demand fragments from the design., Decision A: the file_type enum is the full six-value superset., The core must not inline the execution detail of an on-demand reference. (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\audit_subscriber.py, Dependências, Símbolos
 
 ### Community 275 - "storage.py"
-Cohesion: 0.25
-Nodes (14): delete_record(), _ensure_storage(), load_index(), load_record(), Storage module - persists documents to disk and maintains the search index. All, Load the full document index from disk., Persist the index to disk., Write a parsed document to storage. Returns the assigned record ID. (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\auth.py, Símbolos
 
 ### Community 276 - "AutomationService"
-Cohesion: 0.17
-Nodes (11): AutomationService, Any, K.A.O.S Internal Automation SDK. Exposes standard hooks for agent nodes, manage, Triggers a workflow run via the active provider.         Returns a dict: {"succ, Publishes an event to the Automation Bus queue.         This is non-blocking., Blocks and waits until the execution is completed (success or failed) in the dat, AutomationExecution, Base (+3 more)
+Cohesion: 0.08
+Nodes (20): AutomationBus, Any, Publishes an event to the automation queue.         Enforces cascading loop lim, Starts the background worker queue consumer., Stops the background worker consumer., Worker consumption loop., Maps EventBus event names to n8n webhook trigger URL path keys., Resolves the configured automation workflow provider. (+12 more)
 
 ### Community 277 - "CommunicationRuntime"
 Cohesion: 0.18
@@ -2613,60 +3844,60 @@ Cohesion: 0.27
 Nodes (6): fetchBootstrapState(), fetchHealth(), invokeIpc(), isTauri(), listenIpc(), TauriStoreService
 
 ### Community 279 - "load_graph"
-Cohesion: 0.16
-Nodes (14): endpoint_id(), first_list(), first_present(), load_graph(), _node_link_payload(), normalize_edge(), normalize_node(), Return the first non-empty value for any candidate key. (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\integration\auth-chat-flow.test.ts, Símbolos
 
 ### Community 280 - "test_falkordb_integration.py"
-Cohesion: 0.16
-Nodes (12): push_to_falkordb(), push_to_neo4j(), graphdb — moved verbatim from graphify/export.py., Push graph directly to a running Neo4j instance via the Python driver.      Re, Push graph directly to a running FalkorDB instance via the Python SDK.      Re, _connect(), db(), Integration test for push_to_falkordb against a real FalkorDB instance.  Runs (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\auth-store.ts, Símbolos
 
 ### Community 281 - "extract_elixir"
-Cohesion: 0.04
-Nodes (45): Arquitetura Alvo, Arquivos Relacionados, Children, Conteudo, Dependencias, Entregaveis, Entregaveis, Entregaveis (+37 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\auth-store.test.ts, Símbolos
 
 ### Community 282 - "extract_go"
-Cohesion: 0.06
-Nodes (36): Co získáte, Instalace, Jak to funguje, Postaveno na graphify — Penpax, Použití, Soukromí, Brug, Bygget på graphify — Penpax (+28 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\auto_model.py, Dependências, Símbolos
 
 ### Community 283 - "_pick_seeds"
-Cohesion: 0.14
-Nodes (14): _pick_seeds(), Select BFS seed nodes, stopping when score drops too far below the top.      P, FooBarService at 1000 vs error nodes at 1.0 → only 1 seed chosen., When all scores are within 20% of the top, keep up to 3 seeds., Never return more than max_k seeds even when all scores are close., G/terms are optional and default to None: existing callers see identical     be, Reproduces #1445: a vague natural-language query where one term's     incidenta, test_pick_seeds_close_scores_keeps_multiple() (+6 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\automation.py, Dependências, Símbolos
 
 ### Community 284 - "parse_python_import_aliases"
-Cohesion: 0.15
-Nodes (14): find_unique_python_symbol(), ImportedSymbol, _module_stem(), parse_python_import_aliases(), Return the final module component used to match Graphify source stems., Parse deterministic Python import aliases from one source file.      Supported, A Python imported name that can be used as deterministic resolution evidence., Resolve one imported symbol to exactly one Graphify node id. (+6 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\automation_bus.py, Dependências, Símbolos
 
 ### Community 285 - "Path"
-Cohesion: 0.35
-Nodes (7): _is_relative_to(), Path, Resolve source_file values across current and legacy graph roots., Merge fresh extraction with preserved graph entries and evict stale sources., _reconcile_existing_graph(), _relativize_source_files(), _StoredSourcePaths
+Cohesion: 0.50
+Nodes (3): assistant\app\models\automation_registry.py, Dependências, Símbolos
 
 ### Community 286 - "sample.sv"
-Cohesion: 0.18
-Nodes (12): leaf, Payload, BaseProcessor, Config, DataProcessor, build, Processor, Result (+4 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\automation_sdk.py, Dependências, Símbolos
 
 ### Community 287 - "test_csharp_member_calls.py"
-Cohesion: 0.25
-Nodes (13): _calls(), _find(), C# receiver-typed member-call resolution (#1609).  `recv.Method()` where `recv, #1770: a method invoked directly on a `new X(...)` object-creation     expressi, test_cross_file_receiver_resolves(), test_field_receiver_resolves_to_declared_type_not_bare_match(), test_local_var_receiver_resolves(), test_method_absent_on_type_emits_no_edge() (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\pages\automation\automation-studio.tsx, Símbolos
 
 ### Community 288 - "test_pipeline.py"
-Cohesion: 0.23
-Nodes (13): Path, End-to-end pipeline test: detect → extract → build → cluster → analyze → report, Second run on unchanged corpus should produce identical node/edge counts., Run the full pipeline on the fixtures directory. Returns a dict of outputs., run_pipeline(), test_pipeline_all_nodes_have_community(), test_pipeline_detection_finds_code_and_docs(), test_pipeline_extraction_confidence_labels() (+5 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\aws\aws_tool.py, Dependências, Símbolos
 
 ### Community 289 - "test_swift_cross_file_calls.py"
-Cohesion: 0.32
-Nodes (13): _edge_labels(), _issue_fixture(), _label(), Path, #1604: `let x = Type.shared` cached into a local var, then `x.method()` on a, Return {(source_label, relation, target_label)} for the given relations., The three cross-file patterns from #1356, plus a constructor-in-initializer., test_deferred_singleton_local_var_resolves() (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Projetos\Backlog do Projeto.md, Símbolos
 
 ### Community 290 - "test_ts_namespace.py"
-Cohesion: 0.30
-Nodes (13): _has_node(), _node_label(), Path, Regression tests: TypeScript namespace/module container nodes.  `namespace Foo, The container node must not cost us the members the default recurse reached., The handler is TS-only; plain JS has no namespace syntax to confuse it., test_ambient_string_module_quotes_stripped(), test_module_keyword_is_node() (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\badge.test.tsx, Símbolos
 
 ### Community 291 - "Platform"
 Cohesion: 0.05
-Nodes (44): 1. Conversar com IA, 2. Executar Auditoria, 3. Navegar na Arquitetura, 4. Buscar no Vault, 5. Usar Command Palette, Agents, Architecture Graph, Arquivos Relacionados (+36 more)
+Nodes (38): Agents, Architecture Graph, Arquivos Relacionados, Atalhos de Teclado, Ações, Chat, Command Palette (CTRL+K), Como usar (+30 more)
 
 ### Community 292 - "common.ps1"
-Cohesion: 0.22
-Nodes (10): Find-SpecifyRoot(), Format-SpecKitCommand(), Get-CurrentBranch(), Get-FeaturePathsEnv(), Get-InvokeSeparator(), Get-Python3Command(), Get-RepoRoot(), Resolve-SpecifyInitDir() (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\barrel_reexport.ts, Símbolos
 
 ### Community 293 - "AgentService"
 Cohesion: 0.24
@@ -2677,60 +3908,60 @@ Cohesion: 0.19
 Nodes (8): BaseWorkflowProvider, ABC, Any, Base Workflow Provider Interface for K.A.O.S. Defines the standard contract for, Imports a workflow template into the external automation engine.         Return, Exports the JSON schema of a workflow from the external engine., Enables or disables the execution of a workflow.         Returns True if succes, Invokes/triggers a workflow execution.         Returns execution details like {
 
 ### Community 296 - "Geometry"
-Cohesion: 0.21
-Nodes (11): Base.Threads, Float64, area(), describe(), Base, Circle, Geometry, Point (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\base.py, Símbolos
 
 ### Community 297 - "package.json"
 Cohesion: 0.15
 Nodes (12): @commitlint/cli, @commitlint/config-conventional, description, devDependencies, @commitlint/cli, @commitlint/config-conventional, name, private (+4 more)
 
 ### Community 298 - "sample.razor"
-Cohesion: 0.15
-Nodes (12): ComponentBase, CounterRecord, DataGrid, IncrementCount, LoadData, OnInitializedAsync, ICounterService, Microsoft.AspNetCore.Components (+4 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\automation\base_workflow_provider.py, Dependências, Símbolos
 
 ### Community 299 - "geometry"
-Cohesion: 0.22
-Nodes (11): constants, geometry, double_val(), circle_area(), geometry, main, point, origin() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\pascal_cross_file\BaseGadget.pas, Símbolos
 
 ### Community 300 - "DataProcessor"
-Cohesion: 0.26
-Nodes (7): GraphifyDemo, HttpClient, DataProcessor, IProcessor, Processor, Result, List
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\bash.py, Símbolos
 
 ### Community 301 - "sample.go"
-Cohesion: 0.26
-Nodes (9): BaseProcessor, DataProcessor, Logger, Reader, ReaderLogger, Result, Server, main() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\bench_extract.py, Símbolos
 
 ### Community 302 - "symbol_resolution.py"
-Cohesion: 0.13
-Nodes (22): build_label_index(), build_python_symbol_index(), existing_edge_pairs(), node_is_resolvable_symbol(), _node_source_stem(), normalise_callable_label(), Any, Deterministic symbol indexing and conservative cross-file resolution helpers. (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\benchmark.py, Símbolos
 
 ### Community 303 - "Animal"
-Cohesion: 0.21
-Nodes (12): Animal, -initWithName, -speak, <Base>, -baseMethod, <Derived>, -derivedMethod, Dog (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\BENCHMARKS.md, Símbolos
 
 ### Community 304 - "sample.dmf"
-Cohesion: 0.15
-Nodes (12): elem "info" [CHILD], elem "infowindow" [MAIN], elem "map" [MAP], elem "mapwindow" [MAIN], elem "output" [OUTPUT], elem "outputwindow" [MAIN], elem "stat" [INFO], elem "statwindow" [MAIN] (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cpp_samedir\Beta.h, Símbolos
 
 ### Community 305 - "ScopedCallsUnit"
-Cohesion: 0.23
-Nodes (12): TObject, ScopedCallsUnit, TBaseWidget, Prepare(), TDerivedWidget, Run(), TFirstWidget, Configure() (+4 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\embedding\bge.py, Dependências, Símbolos
 
 ### Community 306 - "_extract_sql_or_skip"
-Cohesion: 0.05
-Nodes (44): 10. Feature Registry — Status Reais (Fases 0-6), 11. Implementacao, 12. Acceptance Criteria, 1. Objective, 2.1 Os 12 Checks, 2. Check Registry — Schema Unico, 3. Anti-Circularidade — DAG de Dependencias, 4. Feature `done` — Regra Rigida (+36 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\bindings.xaml, Símbolos
 
 ### Community 307 - "test_ts_inheritance.py"
-Cohesion: 0.35
-Nodes (12): _has_inherits(), Path, Regression tests for issue #1095: TypeScript inheritance capture.  Two gaps on, Regression guard: the originally-working imported-class case must stay., test_class_extends_same_file(), test_class_implements_same_file_interface(), test_imported_class_extends_still_works(), test_interface_extends_generic_base_same_file() (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\blade.py, Símbolos
 
 ### Community 308 - "ingest_source"
 Cohesion: 0.29
 Nodes (6): _get_provider(), ingest_source(), AgentState, _make_state(), AgentState, TestIngestSource
 
 ### Community 309 - "User"
-Cohesion: 0.30
-Nodes (10): create_user(), CreateUserRequest, delete_user(), list_users(), AsyncSession, BaseModel, update_user_role(), UpdateUserRoleRequest (+2 more)
+Cohesion: 0.35
+Nodes (11): create_user(), CreateUserRequest, delete_user(), list_users(), AsyncSession, BaseModel, Request, update_user_role() (+3 more)
 
 ### Community 310 - "_OpenCodeHandler"
 Cohesion: 0.23
@@ -2745,120 +3976,120 @@ Cohesion: 0.35
 Nodes (9): DEFAULT_CONFIG, PROVIDER_LABELS, PROVIDER_ORDER, TEST_ENDPOINTS, ConfigResponse, ProviderConfig, ProviderFields, ProviderName (+1 more)
 
 ### Community 313 - "affected.py"
-Cohesion: 0.24
-Nodes (11): AffectedHit, _bare_name(), format_affected(), _format_location(), load_graph(), _node_label(), _normalize_label(), _prefer_file_node() (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\scripts\bootstrap_feature_registry.py, Dependências, Símbolos
 
 ### Community 314 - "affected_nodes"
-Cohesion: 0.24
-Nodes (11): affected_nodes(), _g(), #1669 — affected <Class> must reach callers that bind to the class's method nod, test_class_affected_reaches_method_bound_caller(), test_class_level_caller_still_works(), test_member_method_node_not_reported_as_hit(), test_method_contains_still_excluded_from_general_walk(), _build() (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\bootstrap_manager.py, Dependências, Símbolos
 
 ### Community 315 - "_resolve_js_import_target"
-Cohesion: 0.39
-Nodes (7): Path, #1638 — an unresolved bare npm import must not alias onto an unrelated same-nam, test_multiple_tsx_files_do_not_all_alias_onto_one_python_file(), test_no_phantom_edge_from_tsx_to_unrelated_python_file(), test_scoped_package_import_is_ref_namespaced(), test_unresolved_bare_import_is_ref_namespaced(), _write()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\objc_mixed\Bridging-Header.h, Símbolos
 
 ### Community 316 - "attach_graph_impact"
-Cohesion: 0.23
-Nodes (8): attach_graph_impact(), build_community_labels(), fetch_pr_files(), _load_graph_json(), Path, Return {community_id: [top_labels]} extracted from graph node data., Fetch PR file lists concurrently, compute graph impact, return community labels., TestBuildCommunityLabels
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\mixed-corpus\raw\build.py, Símbolos
 
 ### Community 317 - "safe_fetch"
-Cohesion: 0.21
-Nodes (12): Fetch *url* and return raw bytes.      Protections applied:     - URL scheme, Fetch *url* and return decoded text (UTF-8, replacing bad bytes).      Wraps s, safe_fetch(), safe_fetch_text(), _make_mock_response(), test_safe_fetch_raises_on_non_2xx(), test_safe_fetch_raises_on_size_exceeded(), test_safe_fetch_rejects_file_url() (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Busca Vetorial e RAG.md, Símbolos
 
 ### Community 318 - "test_explain_cli.py"
-Cohesion: 0.36
-Nodes (11): Regression tests for `graphify explain` arrow direction (#853)., No sidecar => no Lesson line; output identical to pre-feature., _run(), test_callee_shows_callers_as_inbound(), test_caller_shows_callee_as_outbound(), test_explain_no_lesson_line_for_unannotated_node(), test_explain_shows_contested_and_stale_lesson(), test_explain_shows_preferred_lesson_line() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\button.tsx, Símbolos
 
 ### Community 319 - "test_extraction_spec_ids.py"
-Cohesion: 0.27
-Nodes (11): _ast_symbol_id(), _examples(), Path, Drift guard for the node-ID spec shown to LLM semantic subagents.  `tools/skil, Reproduce the symbol ID the AST extractor emits for a file + symbol, using, Guard the guard: if the spec moves or the example format changes so nothing, The canonical spec warns against the filename-only and full-path ID forms., _spec_files() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\button.test.tsx, Símbolos
 
 ### Community 320 - "test_indirect_dispatch_getattr.py"
-Cohesion: 0.38
-Nodes (11): _extract(), _ind(), Reflective dispatch via getattr string literals — #1566 slice 3.  ``getattr(ob, test_dynamic_getattr_names_emit_nothing(), test_getattr_feeds_affected(), test_getattr_non_callable_name_emits_nothing(), test_getattr_string_literal_emits_indirect_call(), test_getattr_string_not_shadowed_by_param() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\cache.py, Símbolos
 
 ### Community 321 - "test_install_strings.py"
 Cohesion: 0.05
 Nodes (43): Arquitetura, Arquivos, Aspectos Conceituais e Requisitos, Benefícios, Children, Componentes, Configuração, ConfiguraçÃo Operacional e Comandos (+35 more)
 
 ### Community 322 - "test_path_cli.py"
-Cohesion: 0.27
-Nodes (11): Regression tests for `graphify path` arrow direction (#849)., Graph where IDF scoring ranks a partial-token decoy above the full match., A token-subset query resolves to the full-match node, not the IDF head., No full-token candidate -> behavior identical to the old scored[0] pick., _run(), test_endpoint_falls_back_to_score_head(), test_endpoint_prefers_full_token_match(), test_forward_arrow() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\callflow_html.py, Símbolos
 
 ### Community 323 - "test_ts_generators.py"
-Cohesion: 0.36
-Nodes (11): _contains(), _has_node(), Path, Regression tests: TypeScript/JavaScript generator functions as nodes.  Before, A call inside a generator's body should be attributed to the generator,     pro, test_async_generator_declaration_is_node(), test_generator_body_calls_are_attributed(), test_generator_declaration_is_node_js() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Camada Wiki de Conhecimento.md, Símbolos
 
 ### Community 324 - "validate_document"
-Cohesion: 0.18
-Nodes (12): check_format(), check_required_fields(), normalize_fields(), Exception, Run all validation checks on a parsed document. Raises ValidationError on failur, Raise if any required field is missing., Raise if the format is not in the allowed list., Clean up text fields using the processor. (+4 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\capabilities.py, Dependências, Símbolos
 
 ### Community 325 - "OllamaProvider"
 Cohesion: 0.13
-Nodes (6): OllamaProvider, BaseMessage, OllamaAdapter, InferenceResult, OllamaAdapter — Wraps OllamaProvider for InferencePort.  Provides local LLM infe, Local Ollama inference adapter.
+Nodes (6): OllamaProvider, BaseMessage, OllamaAdapter, InferenceResult, OllamaAdapter — Wraps OllamaProvider for InferencePort.  Provides local LLM in, Local Ollama inference adapter.
 
 ### Community 326 - "MemoryRouter"
 Cohesion: 0.25
 Nodes (4): MemoryRouter, Path, Retorna o caminho do vault, se configurado., Busca no wiki local (wiki/index.md + wiki/synthesis/) antes de ir ao Qdrant.
 
 ### Community 327 - "MockProvider"
-Cohesion: 0.20
-Nodes (7): Any, Runtime Registry — Orchestrator for all runtime modules.  SDD-KAOS-EVOLUTION-0, Registry to discover and obtain references to active K.A.O.S runtimes., Register a runtime implementation in the registry., Retrieve a registered runtime by its name., List all active runtime identifiers., RuntimeRegistry
+Cohesion: 0.11
+Nodes (9): Any, Runtime Registry — Orchestrator for all runtime modules.  SDD-KAOS-EVOLUTION-0, Registry to discover and obtain references to active K.A.O.S runtimes., Register a runtime implementation in the registry., Retrieve a registered runtime by its name., List all active runtime identifiers., RuntimeRegistry, MockProvider (+1 more)
 
 ### Community 328 - "provider_config.py"
-Cohesion: 0.23
-Nodes (11): get_active_provider(), _bump_version(), get_active_provider_config(), get_default_config(), _load_from_disk(), _patch_settings(), Load configuration from ConfigService (central settings file)., Save configuration to ConfigService (separating public config and secrets). (+3 more)
+Cohesion: 0.16
+Nodes (15): get_active_provider(), get_provider_config(), BaseModel, SecureSetupRequest, set_active_provider(), set_secure_provider_config(), _bump_version(), get_active_provider_config() (+7 more)
 
 ### Community 329 - "scripts"
 Cohesion: 0.18
 Nodes (11): scripts, build, dev, preview, tauri, test, test:coverage, test:e2e (+3 more)
 
 ### Community 330 - "_norm"
-Cohesion: 0.18
-Nodes (11): _entropy(), _norm(), Lowercase + collapse non-alphanumeric runs to space (Unicode-aware)., Shannon entropy in bits/char of the normalised label., The prefix-extension guard must not fire for same-length pairs — only strict, The prefix-extension guard must fire for pairs where one is a strict prefix, test_entropy_empty_string(), test_entropy_normal_label_high() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\blueprint\capability-map.md, Símbolos
 
 ### Community 331 - "_parse_llm_json"
-Cohesion: 0.06
-Nodes (44): _anthropic_content(), _azure_client(), _backend_pkg_hint(), _bedrock_content(), _call_azure(), _call_bedrock(), _call_claude(), _call_openai_compat() (+36 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\evidence\capability-matrix.md, Símbolos
 
 ### Community 332 - "compute_pr_impact"
-Cohesion: 0.35
-Nodes (4): compute_pr_impact(), Return (communities_touched, nodes_affected) for a set of changed files., 3 nodes across 2 communities, 2 distinct source files., TestComputePrImpact
+Cohesion: 0.50
+Nodes (3): assistant\app\models\capability_policy.py, Dependências, Símbolos
 
 ### Community 333 - "_detect_default_branch"
-Cohesion: 0.27
-Nodes (6): _detect_default_branch(), fetch_prs(), _gh(), Auto-detect the repo's default branch via gh, then git, then fall back to 'main', gh returns data but with no defaultBranchRef — should still fall back., TestDetectDefaultBranch
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\capability_policy_repository.py, Dependências, Símbolos
 
 ### Community 334 - "parse_memory_doc"
-Cohesion: 0.18
-Nodes (11): parse_memory_doc(), Parse the frontmatter of a memory doc into a dict, or None if it has none., Reverse the double-quoted escaping that ingest._yaml_str applies., _yaml_unescape(), parse_memory_doc reads back exactly what save_query_result wrote, including, A plain markdown file with no frontmatter is skipped, not crashed on., save -> parse preserves tricky characters in the question, the correction,, test_parse_handles_crlf() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\card.tsx, Símbolos
 
 ### Community 335 - "validate_graph_path"
-Cohesion: 0.18
-Nodes (11): Path, Resolve *path* and verify it stays inside *base*.      *base* defaults to the, validate_graph_path(), With base omitted, the output dir is discovered by walking the path's     paren, The base=None discovery must honour GRAPHIFY_OUT, not the hardcoded     'graphi, test_validate_graph_path_allows_inside_base(), test_validate_graph_path_blocks_traversal(), test_validate_graph_path_default_base_discovers_output_dir() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\card.test.tsx, Símbolos
 
 ### Community 336 - "_rebuild_lock"
-Cohesion: 0.18
-Nodes (11): Per-repo advisory lock around a rebuild.      Yields True if acquired, False i, _rebuild_lock(), GH-858: lock file must be unlinked once the rebuild completes so     downstream, #1059: when the rebuild lock is held, an incremental hook must queue     its ch, GH-858: each acquisition truncates and rewrites the PID line rather     than ap, GH-858: a non-blocking caller that fails to acquire the lock must not     trunc, test_rebuild_code_queues_on_lock_contention(), test_rebuild_lock_does_not_accumulate_pids_across_runs() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\cargo_introspect.py, Símbolos
 
 ### Community 337 - "barrel_reexport.ts"
-Cohesion: 0.25
-Nodes (4): readCookie(), writeCookie(), basePathRewrite(), getFullUrl()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\CHANGELOG.md, Símbolos
 
 ### Community 338 - "TMainForm"
-Cohesion: 0.18
-Nodes (5): TButton, TPanel, TMainForm, TMemo, TStatusBar
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\chat.py, Dependências, Símbolos
 
 ### Community 339 - "test_indirect_dispatch_assign_return.py"
-Cohesion: 0.42
-Nodes (10): _extract(), _ind(), Indirect dispatch via assignment + return references — #1566 slice 2.  A funct, test_assignment_and_return_emit_indirect_call(), test_assignment_feeds_affected(), test_local_shadow_emits_nothing(), test_module_level_assignment_emits_indirect_call(), test_multiple_assignment_emits_for_each() (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\chat-store.ts, Símbolos
 
 ### Community 340 - "_fake_openai_response"
-Cohesion: 0.24
-Nodes (11): _fake_openai_response(), _install_fake_azure_openai(), _install_fake_openai(), Build a minimal stand-in for an `openai` SDK ChatCompletion response., Inject a stub `openai` module so `_call_openai_compat` can run without     the, Inject a stub openai module with AzureOpenAI so _call_azure and     _azure_clie, test_call_azure_uses_correct_client_params_and_max_completion_tokens(), test_call_openai_compat_preserves_real_finish_reason() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\chat-store.test.ts, Símbolos
 
 ### Community 341 - "test_typescript_module_extensions.py"
-Cohesion: 0.25
-Nodes (6): _extract(), _labels(), Path, TypeScript module extensions (`.mts` / `.cts`) are treated as code.  `.mts` (E, test_cts_uses_the_typescript_grammar(), test_mts_uses_the_typescript_grammar()
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\ask-ai\ui\ChatInput.tsx, Símbolos
 
 ### Community 342 - "create_vault_structure"
 Cohesion: 0.27
@@ -2869,12 +4100,16 @@ Cohesion: 0.29
 Nodes (3): BaseProvider, ABC, BaseMessage
 
 ### Community 344 - "ClaudeProvider"
-Cohesion: 0.04
-Nodes (40): get_inference_service(), inference_health(), invoke_inference(), InvokeRequest, list_models(), BaseModel, Inference REST API — LLM model inference and provider management.  Endpoints:, Non-streaming LLM inference. (+32 more)
+Cohesion: 0.10
+Nodes (11): InferenceRequest, Unified inference request., OpenAIProvider, BaseMessage, ClaudeAdapter, GeminiAdapter, OpenAIAdapter, InferenceResult (+3 more)
+
+### Community 346 - "OpenAIProvider"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\check-version-consistency.js, Símbolos
 
 ### Community 347 - "EvidenceEngine"
-Cohesion: 0.07
-Nodes (24): EvidenceLevel, EvidenceMetric, EvidencePort, EvidenceReport, ABC, Enum, str, EvidencePort — Architecture evidence and decision support capability.  Aggregate (+16 more)
+Cohesion: 0.13
+Nodes (13): EvidenceMetric, EvidencePort, EvidenceReport, ABC, Enum, EvidencePort — Architecture evidence and decision support capability.  Aggrega, A single evidence data point., Aggregated evidence report from all sources. (+5 more)
 
 ### Community 348 - "K.A.O.S Platform Evolution & Autonomous Engineering Specification (v13)"
 Cohesion: 0.05
@@ -2885,44 +4120,44 @@ Cohesion: 0.27
 Nodes (9): extends, rules, body-max-line-length, header-max-length, subject-case, type-enum, always, @commitlint/config-conventional (+1 more)
 
 ### Community 350 - "test_merge_graphs_cli.py"
-Cohesion: 0.29
-Nodes (9): distinct_repo_tags(), Return a unique, human-meaningful repo tag per input graph for merge-graphs., Path, `graphify merge-graphs` tolerates inputs that disagree on graph type (#1606)., _run(), test_distinct_repo_tags_unit(), test_merge_graphs_mixed_directed_and_multigraph(), test_merge_graphs_same_named_repo_dirs_do_not_collapse() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\checklist-template.md, Símbolos
 
 ### Community 351 - "csharp.py"
-Cohesion: 0.29
-Nodes (9): _build_csharp_type_def_index(), Path, C# cross-file resolution.  The config-driven C# *extractor* (``extract_csharp`, Arbitrate all C# ``inherits``/``implements``/``references`` targets.      The, Return deterministic ``(namespace, name) -> node_id`` C# type definitions., Re-point resolvable C# ``using`` import edges to canonical internal nodes., _resolve_cross_file_csharp_imports(), _resolve_csharp_type_references() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\CICD_ARCHITECTURE.md, Símbolos
 
 ### Community 352 - "load_memory_docs"
-Cohesion: 0.20
-Nodes (10): load_memory_docs(), Parse every memory doc under ``memory_dir``, sorted by date then filename., load_learning_for_report(), Assemble the report's work-memory inputs from sibling artifacts.      Reads th, Determinism hinges on this sort: docs come back oldest-first, filename as tiebre, dead_ends/corrections are appended in doc order, so their determinism rides on, test_dead_ends_and_corrections_follow_doc_order(), test_load_memory_docs_missing_dir_is_empty() (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\circuit_breaker.py, Dependências, Símbolos
 
 ### Community 353 - "tree_html.py"
-Cohesion: 0.11
-Nodes (22): _html_script(), _html_styles(), _hyperedge_script(), html — moved verbatim from graphify/export.py., Return the effective viz node limit, honoring GRAPHIFY_VIZ_NODE_LIMIT env var., _viz_node_limit(), build_tree(), _common_root() (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cjs_require.js, Símbolos
 
 ### Community 354 - "_queue_pending"
-Cohesion: 0.22
-Nodes (10): _drain_pending(), _queue_pending(), Append ``changed_paths`` to ``out_dir/.pending_changes`` (one per line)., Read + unlink ``out_dir/.pending_changes`` and return deduplicated paths., _queue_pending writes one path per line; _drain_pending reads + unlinks     and, Repeated appends across concurrent contenders must dedupe; partial     writes l, Empty change set must not create an empty .pending_changes file., test_drain_pending_dedupes_and_skips_blank_lines() (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Classificador de Intencoes.md, Símbolos
 
 ### Community 355 - "ExtendedService"
-Cohesion: 0.27
-Nodes (3): ExtendedService, Resettable, SampleService
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\claude-md.md, Símbolos
 
 ### Community 356 - "compilerOptions"
-Cohesion: 0.20
-Nodes (9): compilerOptions, module, outDir, strict, target, extends, include, src (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\claude_provider.py, Dependências, Símbolos
 
 ### Community 357 - "test_phantom_cross_package_call.py"
-Cohesion: 0.56
-Nodes (9): _calls(), Path, #1659 — a JS/TS call with no local definition and no import must not bind to a, test_imported_cross_file_call_still_resolves(), test_many_files_do_not_collapse_onto_one_export(), test_non_js_single_candidate_cross_file_still_resolves(), test_same_file_call_unaffected(), test_unimported_cross_package_call_emits_no_edge() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\cli.py, Símbolos
 
 ### Community 358 - "test_wheel_packaging.py"
-Cohesion: 0.29
-Nodes (9): _expected_artifacts(), _has_build(), Path, Packaging guard (#1121 follow-up): the 5 skillgen guards check the *repo tree*,, Every distinct skill body a platform installs (the SKILL.md is copied from, Every committed skill body + references/*.md (per host) + always_on/*.md block., _skill_bodies(), test_skill_artifact_ships_in_wheel() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\client.py, Símbolos
 
 ### Community 359 - "_read_fragment"
-Cohesion: 0.16
-Nodes (16): _normalise(), Platform, One render unit parsed from platforms.toml., Resolve the rendered-name -> source-fragment map for this split platform., The prose file name the lean-core hooks pointer names for this host., Read a fragment file under fragments/, normalised to LF newlines., Force LF newlines and exactly one trailing newline., Render the YAML frontmatter from the platform's name and description.      Onl (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\CLOUDFLARE_ANALYSIS.md, Símbolos
 
 ### Community 360 - "integrations.py"
 Cohesion: 0.28
@@ -2941,56 +4176,60 @@ Cohesion: 0.28
 Nodes (8): build_mcp_tool(), _make_tool_fn(), MCP Adapter — converts MCP tool definitions into LangChain BaseTool instances a, Return an async function that invokes the MCP tool., Convert a single MCP tool definition into a LangChain StructuredTool.      Ret, Iterate all active MCP servers and register their tools in TOOL_REGISTRY., register_all_mcp_tools(), StructuredTool
 
 ### Community 365 - "sample.csproj"
-Cohesion: 0.22
-Nodes (6): net8.0, FluentValidation (11.9.0), MediatR (12.2.0), Microsoft.AspNetCore.Authentication.JwtBearer (8.0.0), Swashbuckle.AspNetCore (6.5.0), Microsoft.NET.Sdk.Web
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\CLOUDLFARE_ANALYSIS.md, Símbolos
 
 ### Community 366 - "fetch_worktrees"
-Cohesion: 0.33
-Nodes (4): fetch_worktrees(), Returns {branch: worktree_path}., A detached HEAD (no branch line) must not associate its path with the         n, TestFetchWorktrees
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\code-conventions.md, Símbolos
 
 ### Community 367 - "PRInfo"
-Cohesion: 0.25
-Nodes (4): format_prs_text(), PRInfo, Plain-text PR summary for MCP output (no ANSI)., TestFormatPrsText
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\auto-doc\code-introspector.ts, Símbolos
+
+### Community 368 - "_parse_ci"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\code-introspector.test.ts, Símbolos
 
 ### Community 369 - "validate_url"
-Cohesion: 0.25
-Nodes (8): Raise ValueError if *url* is not http or https, or targets a private/internal IP, validate_url(), test_validate_url_accepts_http(), test_validate_url_accepts_https(), test_validate_url_rejects_data(), test_validate_url_rejects_empty_scheme(), test_validate_url_rejects_file(), test_validate_url_rejects_ftp()
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\code-reviewer.md, Símbolos
 
 ### Community 370 - "watch"
-Cohesion: 0.22
-Nodes (9): _has_non_code(), _notify_only(), Write a flag file and print a notification (fallback for non-code-only corpora)., Watch watch_path for new or modified files and auto-update the graph.      For, watch(), test_notify_only_creates_flag(), test_notify_only_creates_flag_dir(), test_notify_only_idempotent() (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\code_scanner.py, Dependências, Símbolos
 
 ### Community 371 - "TBaseGadget"
-Cohesion: 0.28
-Nodes (7): BaseGadget, TObject, TBaseGadget, Prepare(), DerivedGadget, TDerivedGadget, Run()
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\coding.py, Dependências, Símbolos
 
 ### Community 372 - "Config"
-Cohesion: 0.36
-Nodes (7): BaseClient, HttpClientFactory, Config, HttpClient, Int, Loggable, String
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\command.py, Dependências, Símbolos
 
 ### Community 373 - "sample_calls.py"
-Cohesion: 0.39
-Nodes (5): Analyzer, compute_score(), normalize(), Fixture: functions and methods that call each other - for call-graph extraction, run_analysis()
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\command-registry.ts, Símbolos
 
 ### Community 374 - "test_callflow_html.py"
-Cohesion: 0.31
-Nodes (8): _make_graphify_out(), Path, #F4: callflow_html.load_graph must refuse to read a graph.json that     exceeds, test_derive_sections_groups_by_architecture_keywords(), test_export_callflow_html_cli_accepts_positional_graph_path(), test_export_callflow_html_cli_creates_file(), test_load_graph_rejects_oversized_file(), test_write_callflow_html_creates_file_and_uses_report()
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\command-registry.test.ts, Símbolos
 
 ### Community 375 - "test_cross_language_call_resolution.py"
-Cohesion: 0.58
-Nodes (8): _call_edges(), Path, Cross-language call resolution — a call in one language must never bind by name, test_jvm_interop_kotlin_call_to_java_still_resolves(), test_python_call_does_not_bind_to_kotlin_function(), test_same_language_callback_still_resolves(), test_tsx_callback_does_not_bind_to_kotlin_method(), _write()
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\commands-init.ts, Símbolos
 
 ### Community 376 - "test_gemini_hook.py"
-Cohesion: 0.23
-Nodes (10): _gemini_hook(), _install_gemini_hook(), Gemini CLI BeforeTool hook, resolved to a shell-agnostic `graphify` call., _env(), The Gemini CLI BeforeTool guard nudges toward the graph, shell-agnostically., _run(), test_allows_and_nudges_with_graph(), test_allows_without_nudge_when_no_graph() (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\commit_classifier.py, Dependências, Símbolos
 
 ### Community 377 - "RenderedArtifact"
-Cohesion: 0.13
-Nodes (15): bless(), check(), _expected_path(), Path, A single generated file: its repo-relative path and exact bytes., Render the six always-on instruction blocks to graphify/always_on/*.md.      T, Render the selected platforms (or all), flattened into one artifact list., Write artifacts to disk under REPO_ROOT. Returns the paths written. (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\commit_mapper.py, Dependências, Símbolos
 
 ### Community 378 - ".publish"
-Cohesion: 0.29
-Nodes (5): Any, Publishes an event to the automation queue.         Enforces cascading loop lim, Stops the background worker consumer., test_automation_bus_publish_and_consume(), test_automation_bus_publish_depth_limit()
+Cohesion: 0.50
+Nodes (3): desktop\src\features\documentation-audit\engine\commit-mapper.ts, Dependências, Símbolos
 
 ### Community 379 - "MCPHealthMonitor"
 Cohesion: 0.25
@@ -3001,48 +4240,52 @@ Cohesion: 0.36
 Nodes (3): BaseModel, UserContext, TestUserContext
 
 ### Community 382 - "saxpy"
-Cohesion: 0.29
-Nodes (7): constant, dot3(), device, saxpy(), Vec3, kernel, uint
+Cohesion: 0.50
+Nodes (3): .commitlintrc.json, Dependências, Símbolos
 
 ### Community 383 - "iter_raw_calls"
-Cohesion: 0.25
-Nodes (8): iter_raw_calls(), Return raw calls from all per-file extraction fragments.      Parameter is ``S, A non-dict per_file entry (e.g. junk fragment) must be silently skipped., `raw_calls` that isn't a list must yield empty., Items inside `raw_calls` list that aren't dicts must be dropped., test_iter_raw_calls_drops_non_dict_items_in_list(), test_iter_raw_calls_skips_non_dict_per_file_entries(), test_iter_raw_calls_skips_non_list_raw_calls()
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\scripts\powershell\common.ps1, Símbolos
 
 ### Community 384 - "check_update"
-Cohesion: 0.25
-Nodes (8): check_update(), Check for pending semantic update flag and notify the user if set.      Cron-s, check_update returns True and is silent when needs_update flag is absent., check_update returns True and prints notification when flag exists., check_update never removes the needs_update flag (clearing is LLM's job)., test_check_update_does_not_clear_flag(), test_check_update_no_flag_returns_true(), test_check_update_with_flag_returns_true_and_prints()
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\rules\comunicacao.md, Símbolos
 
 ### Community 385 - "gen_demo_path.py"
-Cohesion: 0.29
-Nodes (6): kt(), op0(), pairs of (keyTime, value) -> (values_str, keyTimes_str)., initial opacity for a revealable element (1 when baking a static frame)., opacity reveal at time t (s), hold, fade out before loop., reveal()
+Cohesion: 0.50
+Nodes (3): assistant\app\core\config_service.py, Dependências, Símbolos
 
 ### Community 386 - "sample.zig"
-Cohesion: 0.32
-Nodes (6): add(), Color, multiply(), main(), Point, Shape
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Configuração de Provedores.md, Símbolos
+
+### Community 387 - "sample.rb"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\conftest.py, Símbolos
 
 ### Community 388 - "test_case_sensitive_resolution.py"
-Cohesion: 0.54
-Nodes (7): _extract(), _labels(), Cross-file name resolution respects case in case-sensitive languages (#1581)., test_case_sensitive_cross_file_ref_respects_case(), test_exact_case_cross_file_still_resolves(), test_php_case_insensitive_resolution_preserved(), test_python_Path_does_not_resolve_to_shell_PATH()
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\provider\constants.ts, Símbolos
 
 ### Community 389 - "test_office_incremental.py"
 Cohesion: 0.50
-Nodes (7): _bump_mtime(), _make_docx(), Path, #1649 — a modified .docx/.xlsx must re-enter --update.  detect_incremental tra, Set path's mtime relative to now so ordering is deterministic., test_modified_docx_reconverts_sidecar(), test_unchanged_docx_sidecar_not_rewritten()
+Nodes (3): Dependências, .specify\memory\constitution.md, Símbolos
 
 ### Community 390 - "test_swift_import_resolution.py"
-Cohesion: 0.61
-Nodes (7): _import_edges(), _module_nodes(), Path, test_swift_import_edges_survive_build(), test_swift_import_resolves_to_module_node(), test_swift_same_module_imported_twice_collapses_to_one_node(), _write()
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\constitution-template.md, Símbolos
 
 ### Community 391 - "test_ts_receiver_member_calls.py"
-Cohesion: 0.43
-Nodes (7): _calls(), TS/JS receiver-typed member calls beyond `this.field` (#1630).  The #1316 reso, test_array_typed_receiver_emits_no_edge(), test_closure_over_typed_param_receiver(), test_local_new_binding_receiver(), test_new_binding_resolves_to_correct_class_under_ambiguity(), test_untyped_param_receiver_emits_no_edge()
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\context.py, Dependências, Símbolos
 
 ### Community 392 - "render_always_on"
-Cohesion: 0.33
-Nodes (6): _always_on_constants(), always_on_roundtrip(), _git_show(), Read a blob from git, normalised to LF., Parse the always-on string constants out of a __main__.py blob.      Reads the, Assert each always_on/*.md reproduces its former constant byte for byte.
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\integration\contract-validation.test.ts, Símbolos
 
 ### Community 393 - "audit_coverage"
-Cohesion: 0.25
-Nodes (8): _audit_allowlist(), audit_coverage(), headings(), The full set of v8 headings the audit may skip for this host., Return the ATX markdown headings in source order, ignoring code fences.      A, The git ref for a split host's own pre-split skill body., Assert every heading of THIS host's v8 body single-homes in its render.      T, _v8_baseline_ref()
+Cohesion: 0.50
+Nodes (3): assistant\app\models\conversation.py, Dependências, Símbolos
 
 ### Community 394 - "check-version-consistency.js"
 Cohesion: 0.25
@@ -3053,180 +4296,212 @@ Cohesion: 0.43
 Nodes (3): Valida rapidamente se o conteudo parece um modulo Wasm valido.      Modulos Wa, validate_wasm_bytes(), TestValidateWasmBytes
 
 ### Community 396 - "_path_match"
-Cohesion: 0.43
-Nodes (3): _path_match(), True if graph_src and pr_file refer to the same file (path-boundary safe)., TestPathMatch
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\conversation_repository.py, Dependências, Símbolos
 
 ### Community 397 - "lessons_fresh"
-Cohesion: 0.29
-Nodes (7): lessons_fresh(), True if ``out_path`` exists and is at least as new as every input that     feed, test_lessons_fresh_false_when_graph_newer(), test_lessons_fresh_false_when_graph_sidecar_newer(), test_lessons_fresh_false_when_memory_newer(), test_lessons_fresh_missing_output_is_not_fresh(), test_lessons_fresh_true_when_output_newer_than_inputs()
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\conversation-store.ts, Símbolos
 
 ### Community 398 - "sanitize_label"
-Cohesion: 0.05
-Nodes (41): AGENTS.md — Schema Vivo, Arquitetura Alvo, Arquivos Relacionados, Conteúdo principal:, Critérios de Aceite, Dependencias, Draft Mode, Draft Mode (+33 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\conversation-store.test.ts, Símbolos
 
 ### Community 399 - "Foo"
-Cohesion: 0.33
-Nodes (3): Foo, bar, value
+Cohesion: 0.50
+Nodes (3): assistant\app\api\conversations.py, Dependências, Símbolos
 
 ### Community 400 - "sample_php_listen.php"
-Cohesion: 0.43
-Nodes (6): EventServiceProvider, NotifyAdmins, OrderPlaced, SendWelcomeEmail, ShipOrder, UserRegistered
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cookieHelpers.ts, Símbolos
 
 ### Community 401 - "test_extract_code_only_cli.py"
-Cohesion: 0.52
-Nodes (6): _mixed_repo(), Path, `graphify extract --code-only` indexes code without an LLM key (#1734).  A mix, _run(), test_code_only_succeeds_without_key(), test_mixed_repo_without_key_errors_and_points_at_code_only()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\core\core.md, Símbolos
 
 ### Community 402 - "_edges_with_relation"
-Cohesion: 0.05
-Nodes (41): Arquitetura, Arquivos a modificar, Arquivos novos, Arquivos Relacionados, Camada de Abstração, Children, ClaudeProvider, Compatibilidade com Wiki Layer (+33 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\security\COSIGN.md, Símbolos
 
 ### Community 403 - "test_ollama_retry_cap.py"
-Cohesion: 0.48
-Nodes (6): _capture_client_kwargs(), #1686 - a wedged local Ollama request must not multiply --api-timeout by the SD, test_api_timeout_is_passed_to_client(), test_cloud_backend_keeps_default_retries(), test_ollama_defaults_to_zero_sdk_retries(), test_ollama_honors_explicit_max_retries()
+Cohesion: 0.50
+Nodes (3): assistant\app\models\cost_event.py, Dependências, Símbolos
 
 ### Community 404 - "test_python_import_resolution.py"
-Cohesion: 0.52
-Nodes (6): _has_edge(), _node_id(), Path, test_python_package_reexport_resolves_import_and_call_to_origin_symbol(), test_python_parameter_return_and_generic_contexts(), _write()
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\cost_repository.py, Dependências, Símbolos
 
 ### Community 405 - "main"
-Cohesion: 0.18
-Nodes (11): legacy_enum_lines(), load_platforms(), main(), _parse_args(), Parse platforms.toml into Platform records, keyed by platform name., Whether origin/v8 is fetchable in this checkout.      The git-show validators, Return lines carrying a legacy (sub-superset) file_type enum.      A line coun, Assert the file_type enum block is byte-identical across every platform. (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\cost_tracker.py, Dependências, Símbolos
 
 ### Community 406 - ".unload"
 Cohesion: 0.33
 Nodes (3): Libera recursos do plugin., Descarrega um plugin e libera recursos., Descarrega todos os plugins.
 
 ### Community 407 - ".dispatch"
-Cohesion: 0.47
-Nodes (4): ApiKeyMiddleware, _derive_user_id(), BaseHTTPMiddleware, UUID
+Cohesion: 0.32
+Nodes (6): ApiKeyMiddleware, _derive_user_id(), BaseHTTPMiddleware, Request, Response, UUID
 
 ### Community 408 - "update_index"
 Cohesion: 0.53
 Nodes (5): _page_title(), Path, Regenera o index.md da wiki varrendo todas as páginas., _scan_pages(), update_index()
 
 ### Community 409 - "TestSecureHandshake"
-Cohesion: 0.40
-Nodes (3): client(), TestClient, TestSecureHandshake
+Cohesion: 0.07
+Nodes (26): configure_logging(), _init_api_key(), lifespan(), Path, _register_observability(), _register_tools(), BaseHTTPMiddleware, Request (+18 more)
 
 ### Community 410 - "contract-validation.test.ts"
 Cohesion: 0.33
 Nodes (5): DashboardResponse, REQUIRED_METRICS_KEYS, REQUIRED_RUNTIME_KEYS, REQUIRED_SERVICE_KEYS, REQUIRED_TOP_KEYS
 
 ### Community 411 - "normalize_sections"
-Cohesion: 0.33
-Nodes (6): html_anchor_id(), normalize_communities(), normalize_sections(), Generate a stable, unique HTML anchor ID., Normalize section community lists from JSON or simple strings., Ensure sections have safe unique IDs and an overview section first.
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\CoverageChart.tsx, Símbolos
 
 ### Community 412 - "humanize_label"
-Cohesion: 0.33
-Nodes (6): humanize_label(), node_display_name(), Readable node label for tables and summaries., Truncate without splitting Mermaid syntax., Convert graph labels into short labels people can scan in a diagram., truncate_text()
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_concept_tool.py, Dependências, Símbolos
+
+### Community 413 - "dynamic_import.ts"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_entity_tool.py, Dependências, Símbolos
 
 ### Community 414 - "Widget"
-Cohesion: 0.47
-Nodes (3): Widget, -refresh, -render
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\scripts\powershell\create-new-feature.ps1, Símbolos
 
 ### Community 415 - "sample.sh"
-Cohesion: 0.53
-Nodes (5): APP_ENV, build(), deploy(), sample.sh script, test_suite()
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\create_note_tool.py, Dependências, Símbolos
 
 ### Community 416 - "sample.c"
-Cohesion: 0.47
-Nodes (5): main(), make_rect(), process(), validate(), Rectangle
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_source_tool.py, Dependências, Símbolos
 
 ### Community 417 - "TSampleForm"
-Cohesion: 0.33
-Nodes (4): TPanel, TLabel, TSampleForm, TTimer
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_synthesis_tool.py, Dependências, Símbolos
 
 ### Community 418 - "sample_php_container.php"
-Cohesion: 0.67
-Nodes (4): AppServiceProvider, CashierGateway, PaymentGateway, StripeGateway
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\csharp.py, Símbolos
 
 ### Community 419 - "SampleSpec"
-Cohesion: 0.11
-Nodes (16): SampleSpec, "should handle #input and return #expected", "should not change value when it's already correct", "should process valid input", Assumptions, Edge Cases, Feature Specification: K.A.O.S Production Readiness & Mock Elimination, Functional Requirements (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\CustomModelInput.tsx, Símbolos
 
 ### Community 420 - "test_builtin_global_type_refs.py"
-Cohesion: 0.53
-Nodes (5): _labels_by_id(), Builtin-global receiver types must not resolve to same-named user symbols.  #1, test_builtin_date_type_ref_does_not_bind_to_user_DATE(), test_builtin_static_call_does_not_bind_to_user_symbol(), test_nonbuiltin_receiver_type_still_resolves()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\dart.py, Símbolos
 
 ### Community 421 - "test_convert_office_file_does_not_rewrite_existing_sidecar"
-Cohesion: 0.20
-Nodes (6): The sidecar name must be identical whether the source path arrives in     NFC o, A second conversion of an unchanged source must not rewrite the sidecar,     so, A single `!` re-include must not switch off pruning of *unrelated* ignored dirs., test_convert_office_file_does_not_rewrite_existing_sidecar(), test_convert_office_file_hash_stable_across_nfc_nfd(), test_negation_does_not_disable_directory_pruning()
+Cohesion: 0.50
+Nodes (3): assistant\app\database.py, Dependências, Símbolos
 
 ### Community 422 - "_launcher_payload"
-Cohesion: 0.33
-Nodes (6): _launcher_payload(), Extract the `python -c "<payload>"` the hook hands to GRAPHIFY_PYTHON.      Th, The launcher is carried inside a shell double-quoted `-c "..."` argument,     s, Both the launcher and the rebuild body it re-executes must parse, so a     quot, test_launcher_and_rebuild_body_are_valid_python(), test_launcher_payload_is_shell_quote_safe()
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\dead_letter_queue.py, Dependências, Símbolos
 
 ### Community 423 - "test_hook_skips_head_on_exe"
-Cohesion: 0.20
-Nodes (6): Hook script must skip shebang extraction for .exe binaries (Windows)., Git for Windows/MSYS hooks can expose fragile pipe handles to spawned     Proce, pip on Windows puts Scripts/graphify(.exe) beside ..\\python.exe (or     .\\pyt, test_hook_skips_head_on_exe(), test_hooks_limit_windows_workers_by_default(), test_probe_prefers_sibling_python_exe_on_windows_layouts()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\dedup.py, Símbolos
+
+### Community 424 - "test_long_path_hashing.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\query\default.md, Símbolos
 
 ### Community 425 - "_make_noisy_graph"
-Cohesion: 0.33
-Nodes (6): _make_noisy_graph(), 20 error-handler nodes + 1 rare identifier: FooBarService., error' matches 20 nodes, 'foobarservice' matches 1 — IDF should make     FooBar, FooBarService error handling' should expand from FooBarService,     not from er, test_idf_downweights_common_terms(), test_query_seeds_from_identifier_not_noise()
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\delete_note_tool.py, Dependências, Símbolos
 
 ### Community 426 - "monolith_roundtrip"
-Cohesion: 0.33
-Nodes (6): _is_sanctioned_monolith_diff(), _is_trigger_line(), monolith_roundtrip(), Whether a line is the non-spec ``trigger:`` frontmatter field (#1180).      Th, Whether a single added/removed monolith line is an allowed change., Assert a monolith renders diff-clean vs its v8 blob modulo allowed changes.
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\deploy_guide.md, Símbolos
 
 ### Community 427 - "parse_and_save"
-Cohesion: 0.33
-Nodes (6): handle_upload(), Accept a list of file paths, run the full pipeline on each,     and return a su, batch_parse(), parse_and_save(), Full pipeline: parse, validate, save. Returns the saved record ID., Parse a list of files and return their record IDs.
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DEPLOY_MATRIX.md, Símbolos
 
 ### Community 429 - "_get_vault_path"
 Cohesion: 0.50
 Nodes (4): _get_vault_path(), list_projects(), Path, Lista projetos no Vault Obsidian (pastas de primeiro nivel com notas .md).
 
 ### Community 430 - "generate_feature_catalog.py"
-Cohesion: 0.60
-Nodes (4): generate_catalog(), load_registry(), main(), Path
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DEPLOY_PIPELINE_ANALYSIS.md, Símbolos
 
 ### Community 431 - "migrate"
-Cohesion: 0.05
-Nodes (40): Arquitetura Alvo, Arquivos Relacionados, Dependencias, Entregaveis, Entregaveis, Entregaveis, Entregaveis, Entregaveis (+32 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\DEPLOYMENT_GUIDE.md, Símbolos
 
 ### Community 432 - "main"
 Cohesion: 0.70
 Nodes (4): load_report(), main(), Path, validate()
 
+### Community 434 - "TestGithubMCP"
+Cohesion: 0.13
+Nodes (10): delete_mcp_server(), Deletes an MCP server from configuration and stops its subprocess., MCPRegistry, Path, MCP Registry — manages the ``config/mcp.json`` file that lists configured MCP s, Reads and writes the MCP server registry file (``config/mcp.json``)., Load the MCP registry from disk.          Returns the registry dict, or a defa, Persist the MCP registry to disk. (+2 more)
+
 ### Community 435 - "Domain"
-Cohesion: 0.70
-Nodes (3): Domain, WebApi, Tests
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\pascal_cross_file\DerivedGadget.pas, Símbolos
 
 ### Community 436 - "package.json"
 Cohesion: 0.40
 Nodes (4): name, private, type, version
 
 ### Community 437 - "SamplePackage"
-Cohesion: 0.40
-Nodes (5): FCL, sample, SamplePackage, LCL, sampleutils
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\DesignView.xaml, Símbolos
 
 ### Community 438 - "_communities_from_graph"
-Cohesion: 0.05
-Nodes (38): 1. cuda lib 路径问题, 2. cuda 问题, Anima, Backbone模型选择, Elo rating tournament结论, Elo rating tournament过程代码, Anima, 🤗Anima's Huggingface Repo (+30 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\DesignViewModel.cs, Símbolos
 
 ### Community 439 - "_bash_make_id"
-Cohesion: 0.40
-Nodes (5): _bash_make_id(), Bash symbol node ID via the single shared recipe (#1378).      Previously an i, _bash_make_id must produce identical output to _make_id for Unicode inputs., test_bash_make_id_identical_to_make_id(), test_bash_make_id_unicode_matches_make_id()
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-api-alignment.md, Símbolos
 
 ### Community 440 - "TOtherGadget"
-Cohesion: 0.40
-Nodes (3): OtherGadget, TObject, TOtherGadget
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\DESKTOP_ARCHITECTURE.md, Símbolos
 
 ### Community 441 - "MyApp.Accounts.User"
 Cohesion: 0.50
-Nodes (3): MyApp.Accounts.User, create(), validate()
+Nodes (3): Dependências, docs\desktop-audit-report.md, Símbolos
+
+### Community 442 - "sample.luau"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-compatibility-report.md, Símbolos
+
+### Community 443 - "RateLimiter"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DESKTOP_CONNECTIVITY_ANALYSIS.md, Símbolos
+
+### Community 444 - "ColorResolver"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-missing-docs.md, Símbolos
 
 ### Community 445 - "UserControl"
-Cohesion: 0.40
-Nodes (3): SettingsViewModel, SettingsView, UserControl
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-refactor-plan.md, Símbolos
 
 ### Community 446 - "test_backend_extras.py"
-Cohesion: 0.05
-Nodes (39): [2.2.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.1.0...v2.2.0) (2026-07-08), [2.2.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.0...v2.2.1) (2026-07-08), [2.2.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.1...v2.2.2) (2026-07-10), [2.3.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.2.2...v2.3.0) (2026-07-10), [2.3.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.0...v2.3.1) (2026-07-10), [2.3.2](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.1...v2.3.2) (2026-07-10), [2.3.3](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.2...v2.3.3) (2026-07-10), [2.3.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.3...v2.3.4) (2026-07-10) (+31 more)
+Cohesion: 0.12
+Nodes (16): [2.3.1](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.0...v2.3.1) (2026-07-10), [2.3.4](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.3...v2.3.4) (2026-07-10), [2.3.5](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.4...v2.3.5) (2026-07-10), [2.3.6](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.5...v2.3.6) (2026-07-10), [2.3.7](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.6...v2.3.7) (2026-07-10), [2.3.8](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.7...v2.3.8) (2026-07-10), [2.3.9](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.8...v2.3.9) (2026-07-10), [2.4.0](https://github.com/Brian5m1th/K.A.O.S/compare/v2.3.9...v2.4.0) (2026-07-10) (+8 more)
+
+### Community 447 - "test_openai_custom_endpoint.py"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-roadmap-alignment.md, Símbolos
 
 ### Community 448 - "test_rebuild_code_prunes_final_deleted_file"
-Cohesion: 0.40
-Nodes (5): _add_unrelated_semantic_pair(), Deleting the final code file must reconcile the existing graph., A hook-style rename list may contain only the destination path., test_rebuild_code_prunes_final_deleted_file(), test_rebuild_code_prunes_renamed_source_not_listed_by_hook()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\detect.py, Símbolos
+
+### Community 449 - "test_zero_node_no_cache.py"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\DEVELOPER_GUIDE.md, Símbolos
 
 ### Community 450 - "_get_service"
 Cohesion: 0.67
@@ -3246,39 +4521,79 @@ Nodes (3): call_tool(), log_err(), main()
 
 ### Community 455 - "go.py"
 Cohesion: 0.50
-Nodes (3): _go_collect_type_refs(), Go extractor. Moved verbatim from graphify/extract.py., Walk a Go type expression; append (name, role) tuples.
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\core\devin.md, Símbolos
 
 ### Community 456 - "rust.py"
 Cohesion: 0.50
-Nodes (3): Rust extractor. Moved verbatim from graphify/extract.py., Walk a Rust type expression; append (name, role) tuples., _rust_collect_type_refs()
+Nodes (3): Dependências, graphify\graphify\diagnostics.py, Símbolos
 
 ### Community 457 - "_detached_launch"
 Cohesion: 0.50
-Nodes (4): _detached_launch(), Return a POSIX-sh line that runs ``rebuild_body`` as a detached background, The launcher must run via the resolved $GRAPHIFY_PYTHON, not a bare     `python, test_detached_launch_targets_graphify_python()
+Nodes (3): Dependências, desktop\src\shared\ui\dialog.tsx, Símbolos
 
 ### Community 458 - "_wrap_untrusted"
 Cohesion: 0.05
 Nodes (39): Arquivos Relacionados, Autenticação, Auth, Chat, Dependencias, Erros Comuns, Feature Flags, Fluxos (+31 more)
 
+### Community 459 - "cjs_require.js"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\directory-structure.md, Símbolos
+
+### Community 460 - "Logger.cpp"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Divisao de Texto (Chunking).md, Símbolos
+
+### Community 461 - "Logger.cpp"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\dm.py, Símbolos
+
+### Community 462 - "Server"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\auto-doc\doc-sync-engine.ts, Símbolos
+
+### Community 463 - "Widget"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\docker.md, Símbolos
+
 ### Community 464 - "App"
-Cohesion: 0.83
-Nodes (3): App(), fmtCount(), fmtDate()
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\docker-expert.md, Símbolos
+
+### Community 465 - "sample.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\docker-mcp-sqlite.md, Símbolos
+
+### Community 466 - "shapes"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\tools\docker-tools.md, Símbolos
+
+### Community 467 - "Transformer"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\docs.py, Dependências, Símbolos
+
+### Community 468 - "test_anthropic_custom_endpoint.py"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\docs-source-refactor.md, Símbolos
 
 ### Community 469 - "test_label_retry.py"
 Cohesion: 0.50
-Nodes (3): Tests for graphify.llm._label_batch_with_retry — adaptive split-and-retry on JS, Demonstrates the bug fix.      The full batch of 4 communities triggers malfor, test_label_batch_recovers_via_split_on_invalid_json()
+Nodes (3): assistant\app\domain\document.py, Dependências, Símbolos
 
 ### Community 470 - "_make_cli_envelope"
 Cohesion: 0.50
-Nodes (4): _make_cli_envelope(), Return a minimal claude -p --output-format json envelope., subprocess.run must be called with errors='replace' so non-UTF-8 output     byt, test_call_claude_cli_passes_errors_replace_to_subprocess()
+Nodes (3): assistant\app\rag\embeddings\document_cache.py, Dependências, Símbolos
 
 ### Community 471 - "list_records"
 Cohesion: 0.50
-Nodes (4): handle_list(), List all document IDs in storage., list_records(), Return all record IDs currently in storage.
+Nodes (3): Dependências, docs\openCode\skills\documentation-writer.md, Símbolos
 
 ### Community 472 - "fix_docs_metadata.py"
 Cohesion: 0.83
 Nodes (3): fix_metadata(), normalize_id(), parse_frontmatters()
+
+### Community 474 - "create-new-feature.ps1"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\draft_tools.py, Dependências, Símbolos
 
 ### Community 475 - "ExecuteCommandRequest"
 Cohesion: 0.67
@@ -3288,709 +4603,1185 @@ Nodes (3): execute_opencode_command(), ExecuteCommandRequest, BaseModel
 Cohesion: 0.05
 Nodes (39): 10.1 Executar Auditoria, 10.2 Verificar Snapshot, 10.3 Verificar Feature Registry, 10.4 Escanear Commits, 10. Validar KIRL (Documentation Runtime Layer), 11. Validar Auto-Doc, 1. Subir Backend, 2. Subir Desktop (outro terminal) (+31 more)
 
+### Community 479 - "App.csproj"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\drift_engine.py, Dependências, Símbolos
+
+### Community 480 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): desktop\src\features\documentation-audit\engine\drift-engine.ts, Dependências, Símbolos
+
+### Community 481 - "pytest_collection_modifyitems"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\drift-engine.test.ts, Símbolos
+
+### Community 482 - "Dup"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\store\drift-store.ts, Símbolos
+
+### Community 483 - "Dup"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\drift-store.test.ts, Símbolos
+
+### Community 484 - "lib.rs"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\drift_subscriber.py, Dependências, Símbolos
+
+### Community 485 - "AccountTrigger"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\DriftTimeline.tsx, Símbolos
+
+### Community 486 - "sample.dmi"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\drl_snapshot.py, Dependências, Símbolos
+
+### Community 487 - "Foo"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\dropdown.tsx, Símbolos
+
+### Community 488 - "Foo"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\dropdown.test.tsx, Símbolos
+
+### Community 489 - "test_cpp_preprocess.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\dynamic_import.ts, Símbolos
+
 ### Community 490 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\env.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\env.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\elixir.py, Símbolos
 
 ### Community 491 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0002_add_preview_columns.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0002_add_preview_columns.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\email\email_reader.py, Dependências, Símbolos
 
 ### Community 492 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0003_make_siege_date_nullable.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0003_make_siege_date_nullable.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\email\email_sender.py, Dependências, Símbolos
 
 ### Community 493 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0004_add_post_priority_config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0004_add_post_priority_config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\email\email_tool.py, Dependências, Símbolos
 
 ### Community 494 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0005_add_description_to_post_priority_config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0005_add_description_to_post_priority_config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\embeddings\embedder.py, Dependências, Símbolos
 
 ### Community 495 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0006_power_level_and_drop_sort_value.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0006_power_level_and_drop_sort_value.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\base\embedding.py, Dependências, Símbolos
 
 ### Community 496 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0007_fix_group_number_max.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0007_fix_group_number_max.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\empty-state.tsx, Símbolos
 
 ### Community 497 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0008_add_matched_condition_id_to_position.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0008_add_matched_condition_id_to_position.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\engine.py, Símbolos
 
 ### Community 498 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0009_add_discord_id_to_member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0009_add_discord_id_to_member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\migrations\env.py, Dependências, Símbolos
 
 ### Community 499 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0010_add_last_seen_changelog_at_to_member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0010_add_last_seen_changelog_at_to_member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\core\environment_service.py, Dependências, Símbolos
 
 ### Community 500 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0011_add_post_suggest_preview.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0011_add_post_suggest_preview.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Especificacao Tecnica.md, Símbolos
 
 ### Community 501 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\attack_day.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\attack_day.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Estado do Agente.md, Símbolos
 
 ### Community 502 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\auth.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\auth.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Estrategia de Repositorios.md, Símbolos
 
 ### Community 503 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\autofill.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\autofill.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Estrategia de Testes.md, Símbolos
 
 ### Community 504 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\board.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\board.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Estrutura da Wiki.md, Símbolos
 
 ### Community 505 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\buildings.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\buildings.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Estrutura de Pastas.md, Símbolos
 
 ### Community 506 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\changelog.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\changelog.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\event.py, Dependências, Símbolos
 
 ### Community 507 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\comparison.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\comparison.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\event_bus.py, Dependências, Símbolos
 
 ### Community 508 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\discord_sync.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\discord_sync.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): desktop\src\shared\lib\event-bus.ts, Dependências, Símbolos
 
 ### Community 509 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\health.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\health.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\event-bus.test.ts, Símbolos
 
 ### Community 510 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\images.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\images.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\api\evidence_api.py, Dependências, Símbolos
 
 ### Community 511 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\lifecycle.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\lifecycle.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\governance\evidence-driven-decisions.md, Símbolos
 
 ### Community 512 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\members.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\members.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\evidence_engine.py, Dependências, Símbolos
 
 ### Community 513 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\notifications.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\notifications.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\evidence_port.py, Dependências, Símbolos
 
 ### Community 514 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\post_priority_config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\post_priority_config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\evidence_service.py, Dependências, Símbolos
 
 ### Community 515 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\post_suggestions.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\post_suggestions.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\evidence-store.ts, Símbolos
 
 ### Community 516 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\posts.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\posts.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\exceptions.py, Símbolos
 
 ### Community 517 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\reference.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\reference.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\execution_context.py, Dependências, Símbolos
 
 ### Community 518 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\siege_members.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\siege_members.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\execution_plan.py, Dependências, Símbolos
 
 ### Community 519 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\sieges.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\sieges.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\nodes\executor.py, Dependências, Símbolos
 
 ### Community 520 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\validation.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\validation.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\experiments\mem0\experiment.py, Símbolos
 
 ### Community 521 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\version.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\version.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\ExplicitMainWindow.xaml, Símbolos
 
 ### Community 522 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\export.py, Símbolos
 
 ### Community 523 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\base.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\base.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\exports.md, Símbolos
 
 ### Community 524 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extract.py, Símbolos
 
 ### Community 525 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\seeds.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\seeds.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\extraction-spec.md, Símbolos
 
 ### Community 526 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\session.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\session.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\extraction-spec-compact.md, Símbolos
 
 ### Community 527 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\dependencies\\auth.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\dependencies\\auth.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\factory.py, Dependências, Símbolos
 
 ### Community 528 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\dependencies\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\dependencies\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\failed_execution_repository.py, Dependências, Símbolos
 
 ### Community 529 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fase 1 - Fundacao.md, Símbolos
 
 ### Community 530 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\main.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\main.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fase 2 - IA Local.md, Símbolos
 
 ### Community 531 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\middleware.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\middleware.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fase 3 - Servico Obsidian.md, Símbolos
 
 ### Community 532 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building_group.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building_group.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fases 4-5 - Pipeline RAG e Watcher.md, Símbolos
 
 ### Community 533 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fases 6-7 - Watcher LangGraph e Memoria.md, Símbolos
 
 ### Community 534 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building_type_config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building_type_config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\router\fast_router.py, Dependências, Símbolos
 
 ### Community 535 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\enums.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\enums.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\auto-doc\feature-extractor.ts, Símbolos
 
 ### Community 536 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\feature-extractor.test.ts, Símbolos
 
 ### Community 537 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\member_post_preference.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\member_post_preference.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\feature_flag_repository.py, Dependências, Símbolos
 
 ### Community 538 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\api\feature_flags.py, Dependências, Símbolos
 
 ### Community 539 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\notification_batch.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\notification_batch.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\feature_registry.py, Dependências, Símbolos
 
 ### Community 540 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\notification_batch_result.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\notification_batch_result.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\engine\feature-scanner.ts, Símbolos
 
 ### Community 541 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\position.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\position.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\feature-scanner.test.ts, Símbolos
 
 ### Community 542 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_active_condition.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_active_condition.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Ferramentas do LangGraph.md, Símbolos
 
 ### Community 543 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_condition.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_condition.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\file_slice.py, Símbolos
 
 ### Community 544 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_priority_config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_priority_config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\file_synthesis_tool.py, Dependências, Símbolos
 
 ### Community 545 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\FIRST_RUN.md, Símbolos
 
 ### Community 546 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\siege_member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\siege_member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\fix_docs_metadata.py, Símbolos
 
 ### Community 547 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\siege.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\siege.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Fluxo de Dados.md, Símbolos
 
 ### Community 548 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\rate_limit.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\rate_limit.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\swift_cross_file\Foo.swift, Símbolos
 
 ### Community 549 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\attack_day.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\attack_day.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\swift_cross_file\Foo+Ext.swift, Símbolos
 
 ### Community 550 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\autofill.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\autofill.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\fortran.py, Símbolos
 
 ### Community 551 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\board.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\board.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\FRONTEND_FSD_ARCHITECTURE.md, Símbolos
 
 ### Community 552 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\building.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\building.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\frontmatter_parser.py, Dependências, Símbolos
 
 ### Community 553 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\changelog.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\changelog.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\functional-spec.md, Símbolos
 
 ### Community 554 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\common.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\common.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): airllm\funding.json, Dependências, Símbolos
 
 ### Community 555 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\comparison.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\comparison.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\chat\gemini.py, Dependências, Símbolos
 
 ### Community 556 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\gemini-md.md, Símbolos
 
 ### Community 557 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\gemini_provider.py, Dependências, Símbolos
 
 ### Community 558 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post_condition.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post_condition.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\gen.py, Símbolos
 
 ### Community 559 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\scripts\gen_demo_path.py, Símbolos
 
 ### Community 560 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post_suggestions.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post_suggestions.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): airllm\scripts\gen_star_history.py, Dependências, Símbolos
 
 ### Community 561 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\siege_member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\siege_member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\gen_update_proxy.py, Símbolos
 
 ### Community 562 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\siege.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\siege.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\scripts\generate_feature_catalog.py, Dependências, Símbolos
 
 ### Community 563 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\validation.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\validation.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\generate_icons.py, Símbolos
 
 ### Community 564 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\version.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\version.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Gerador de Embeddings.md, Símbolos
 
 ### Community 565 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\attack_day.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\attack_day.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): docs\ci-cd\GITHUB_ACTIONS.md, Dependências, Símbolos
 
 ### Community 566 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\autofill.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\autofill.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): docs\openCode\rules\github-actions.md, Dependências, Símbolos
 
 ### Community 567 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\board.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\board.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\github-and-merge.md, Símbolos
 
 ### Community 568 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\bot_client.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\bot_client.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\github_tool.py, Dependências, Símbolos
 
 ### Community 569 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\building_capacity.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\building_capacity.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\github_tools.py, Dependências, Símbolos
 
 ### Community 570 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\buildings.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\buildings.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): docs\openCode\tools\github-tools.md, Dependências, Símbolos
 
 ### Community 571 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\comparison.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\comparison.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\global_graph.py, Símbolos
 
 ### Community 572 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\discord_sync.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\discord_sync.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\go.py, Símbolos
 
 ### Community 573 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\image_gen.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\image_gen.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\google_workspace.py, Símbolos
 
 ### Community 574 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\lifecycle.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\lifecycle.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, docs\observability\GRAFANA_DASHBOARDS.md, Símbolos
 
 ### Community 575 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\members.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\members.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\graph.py, Dependências, Símbolos
 
 ### Community 576 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\notification_message.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\notification_message.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\api\graph_api.py, Dependências, Símbolos
 
 ### Community 577 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\post_suggestions.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\post_suggestions.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\graph_builder.py, Dependências, Símbolos
 
 ### Community 578 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\posts.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\posts.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): desktop\src\features\documentation-audit\graph\graph-builder.ts, Dependências, Símbolos
 
 ### Community 579 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\reference.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\reference.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\graph-builder.test.ts, Símbolos
 
 ### Community 580 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\siege_members.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\siege_members.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\graph-export.ts, Símbolos
 
 ### Community 581 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\sieges.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\sieges.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\graph-export.test.ts, Símbolos
 
 ### Community 582 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\validation.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\validation.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\graph_port.py, Dependências, Símbolos
 
 ### Community 583 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\telemetry.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\telemetry.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\rsl-siege-manager\GRAPH_REPORT.md, Símbolos
 
 ### Community 584 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\scripts\\seed_demo.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\scripts\\seed_demo.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\graph_service.py, Dependências, Símbolos
 
 ### Community 585 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\scripts\\seed.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\scripts\\seed.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\graph-store.ts, Símbolos
 
 ### Community 586 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\conftest.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\conftest.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\graph-updater.ts, Símbolos
 
 ### Community 587 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\graph_validator.py, Dependências, Símbolos
 
 ### Community 588 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_attack_day.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_attack_day.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\exporters\graphdb.py, Símbolos
 
 ### Community 589 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_auth.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_auth.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): .agents\workflows\graphify.md, Dependências, Símbolos
 
 ### Community 590 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_auth_rate_limit.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_auth_rate_limit.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\graph\graphify_adapter.py, Dependências, Símbolos
 
 ### Community 591 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_autofill.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_autofill.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__agents-md.md, Símbolos
 
 ### Community 592 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_board.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_board.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__antigravity-rules.md, Símbolos
 
 ### Community 593 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_bot_client.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_bot_client.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__claude-md.md, Símbolos
 
 ### Community 594 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_buildings.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_buildings.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__gemini-md.md, Símbolos
 
 ### Community 595 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_changelog.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_changelog.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__vscode-instructions.md, Símbolos
 
 ### Community 596 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_comparison.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_comparison.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\benchmarks\results\graphify-benchmark.md, Símbolos
 
 ### Community 597 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_config_endpoint.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_config_endpoint.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill.md, Símbolos
 
 ### Community 598 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-agents.md, Símbolos
 
 ### Community 599 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_cors.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_cors.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-aider.md, Símbolos
 
 ### Community 600 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_discord_sync.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_discord_sync.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-amp.md, Símbolos
 
 ### Community 601 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_enums.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_enums.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-claw.md, Símbolos
 
 ### Community 602 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_health.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_health.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-codex.md, Símbolos
 
 ### Community 603 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_image_gen.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_image_gen.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-copilot.md, Símbolos
 
 ### Community 604 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_lifecycle_integration.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_lifecycle_integration.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-devin.md, Símbolos
 
 ### Community 605 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_lifecycle.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_lifecycle.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-droid.md, Símbolos
 
 ### Community 606 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_member_changelog_column.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_member_changelog_column.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-kilo.md, Símbolos
 
 ### Community 607 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_members.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_members.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-kiro.md, Símbolos
 
 ### Community 608 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_notification_message.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_notification_message.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-opencode.md, Símbolos
 
 ### Community 609 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_notifications.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_notifications.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-pi.md, Símbolos
 
 ### Community 610 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_post_suggestions_integration.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_post_suggestions_integration.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-trae.md, Símbolos
 
 ### Community 611 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_post_suggestions.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_post_suggestions.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-vscode.md, Símbolos
 
 ### Community 612 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_posts.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_posts.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-windows.md, Símbolos
 
 ### Community 613 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_reference.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_reference.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__add-watch.md, Símbolos
 
 ### Community 614 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_schema.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_schema.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__exports.md, Símbolos
 
 ### Community 615 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_seed_canonical.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_seed_canonical.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__extraction-spec.md, Símbolos
 
 ### Community 616 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_seed_demo.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_seed_demo.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__github-and-merge.md, Símbolos
 
 ### Community 617 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_sieges.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_sieges.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__hooks.md, Símbolos
 
 ### Community 618 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_telemetry.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_telemetry.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__query.md, Símbolos
 
 ### Community 619 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_validation.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_validation.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__transcribe.md, Símbolos
 
 ### Community 620 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_version.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_version.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__update.md, Símbolos
 
 ### Community 621 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\config.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\config.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__add-watch.md, Símbolos
 
 ### Community 622 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\discord_client.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\discord_client.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__exports.md, Símbolos
 
 ### Community 623 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\http_api.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\http_api.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__extraction-spec.md, Símbolos
 
 ### Community 624 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__github-and-merge.md, Símbolos
 
 ### Community 625 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\telemetry.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\telemetry.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__hooks.md, Símbolos
 
 ### Community 626 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\conftest.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\conftest.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__query.md, Símbolos
 
 ### Community 627 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\__init__.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\__init__.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__transcribe.md, Símbolos
 
 ### Community 628 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_discord_client.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_discord_client.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__update.md, Símbolos
 
 ### Community 629 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_get_guild_member.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_get_guild_member.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__add-watch.md, Símbolos
 
 ### Community 630 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_http_api.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_http_api.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__exports.md, Símbolos
 
 ### Community 631 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_telemetry.py"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_telemetry.py, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__extraction-spec.md, Símbolos
 
 ### Community 632 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\board.spec.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\board.spec.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__github-and-merge.md, Símbolos
 
 ### Community 633 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\siege-lifecycle.spec.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\siege-lifecycle.spec.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__hooks.md, Símbolos
 
 ### Community 634 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\smoke.spec.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\smoke.spec.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__query.md, Símbolos
 
 ### Community 635 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\eslint.config.js"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\eslint.config.js, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__transcribe.md, Símbolos
 
 ### Community 636 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\playwright.config.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\playwright.config.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__update.md, Símbolos
 
 ### Community 637 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\postcss.config.js"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\postcss.config.js, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__add-watch.md, Símbolos
 
 ### Community 638 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\board.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\board.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__exports.md, Símbolos
 
 ### Community 639 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\changelog.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\changelog.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__extraction-spec.md, Símbolos
 
 ### Community 640 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\client.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\client.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__github-and-merge.md, Símbolos
 
 ### Community 641 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\config.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\config.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__hooks.md, Símbolos
 
 ### Community 642 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\members.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\members.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__query.md, Símbolos
 
 ### Community 643 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\notifications.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\notifications.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__transcribe.md, Símbolos
 
 ### Community 644 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\App.tsx"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\App.tsx, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__update.md, Símbolos
 
 ### Community 645 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\main.tsx"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\main.tsx, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__add-watch.md, Símbolos
 
 ### Community 646 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\vite-env.d.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\vite-env.d.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__exports.md, Símbolos
 
 ### Community 647 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\tailwind.config.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\tailwind.config.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__extraction-spec.md, Símbolos
 
 ### Community 648 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\vite.config.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\vite.config.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__github-and-merge.md, Símbolos
 
 ### Community 649 - "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\vitest.config.ts"
-Cohesion: 0.67
-Nodes (3): I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\vitest.config.ts, hash, mtime
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__hooks.md, Símbolos
+
+### Community 652 - "mcp_registry.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__query.md, Símbolos
+
+### Community 653 - "event.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__transcribe.md, Símbolos
+
+### Community 658 - "@tauri-apps/plugin-shell"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__update.md, Símbolos
+
+### Community 659 - "@playwright/test"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__add-watch.md, Símbolos
+
+### Community 660 - "@testing-library/react"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__exports.md, Símbolos
+
+### Community 662 - "typescript"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__extraction-spec.md, Símbolos
 
 ### Community 664 - "@vitest/ui"
-Cohesion: 0.05
-Nodes (38): 10. Auto-Documentation Engine, 11. Alert System, 12. Implementation Phases, 13. Configuration, 14. Security & Governance, 15. Future Evolution, 1. Objective, 2. Architecture Pillars (+30 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__github-and-merge.md, Símbolos
+
+### Community 669 - "base.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__hooks.md, Símbolos
+
+### Community 670 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__query.md, Símbolos
+
+### Community 671 - ".get"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__transcribe.md, Símbolos
+
+### Community 672 - "test_install_fallback_is_loud_not_silent"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__update.md, Símbolos
+
+### Community 673 - "test_hooks_do_not_use_nohup"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__add-watch.md, Símbolos
+
+### Community 674 - "test_hooks_use_cross_platform_detach"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__exports.md, Símbolos
+
+### Community 675 - "test_rebuild_bodies_are_shell_quote_safe"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__extraction-spec.md, Símbolos
+
+### Community 676 - "test_rebuild_bodies_read_graphify_root"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__github-and-merge.md, Símbolos
+
+### Community 677 - "test_rebuild_bodies_with_graphify_root_are_valid_python"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__hooks.md, Símbolos
+
+### Community 678 - "test_probes_use_find_spec_not_full_import"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__query.md, Símbolos
+
+### Community 679 - "test_shebang_read_is_null_byte_safe"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__transcribe.md, Símbolos
+
+### Community 680 - "test_hooks_reuse_git_dir_from_env"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__update.md, Símbolos
+
+### Community 681 - "test_call_claude_cli_tolerates_non_utf8_in_stderr"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__add-watch.md, Símbolos
+
+### Community 682 - "test_resolve_max_retries_default_and_env"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__exports.md, Símbolos
+
+### Community 683 - "test_openai_compat_client_built_with_retries"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__extraction-spec.md, Símbolos
+
+### Community 684 - "test_call_llm_claude_client_built_with_timeout_and_retries"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__github-and-merge.md, Símbolos
+
+### Community 685 - "test_call_llm_openai_compat_client_built_with_timeout_and_retries"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__hooks.md, Símbolos
+
+### Community 686 - "test_native_extraction_prompt_requests_hyperedges"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__query.md, Símbolos
+
+### Community 687 - "test_native_extraction_prompt_matches_skill_spec_on_hyperedges"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__transcribe.md, Símbolos
 
 ### Community 688 - "test_rust_no_cross_crate_spurious_edges"
-Cohesion: 0.05
-Nodes (37): 1. Problema, 2.1 Camada de Persistencia, 2.2 Payload do Endpoint, 2.3 Fluxo de Configuracao, 2. Solução, 3. Arquitetura do Backend, 4. Arquitetura do Frontend, 5. Integracao com o Ecossistema (+29 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__update.md, Símbolos
+
+### Community 689 - "test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__add-watch.md, Símbolos
+
+### Community 690 - "test_relationship_edges_survive_validate_extraction_and_build"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__exports.md, Símbolos
+
+### Community 691 - "test_non_string_symbol_id_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__extraction-spec.md, Símbolos
+
+### Community 692 - "test_relationship_symbol_non_string_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__github-and-merge.md, Símbolos
+
+### Community 693 - "test_non_string_display_name_falls_back"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__hooks.md, Símbolos
+
+### Community 694 - "test_documents_field_non_list_returns_empty"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__query.md, Símbolos
+
+### Community 695 - "test_document_entry_non_dict_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__transcribe.md, Símbolos
+
+### Community 696 - "test_occurrence_negative_line_falls_back_to_zero"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__update.md, Símbolos
+
+### Community 697 - "test_duplicate_local_symbol_resolves_to_same_document"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__add-watch.md, Símbolos
+
+### Community 698 - "test_ingest_symbol_without_occurrences_has_empty_source_location"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__exports.md, Símbolos
+
+### Community 699 - "test_ingest_node_metadata_control_chars_stripped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__extraction-spec.md, Símbolos
+
+### Community 700 - "test_ingest_edge_source_location_from_first_occurrence"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__github-and-merge.md, Símbolos
+
+### Community 701 - "test_ingest_single_symbol_no_relationships"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__hooks.md, Símbolos
+
+### Community 702 - "test_ingest_node_id_differs_by_source_file"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__query.md, Símbolos
+
+### Community 703 - "test_ingest_duplicate_symbols_in_same_file_are_deduplicated"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__transcribe.md, Símbolos
+
+### Community 704 - "test_ingest_non_dict_input_returns_empty"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__update.md, Símbolos
+
+### Community 705 - "test_ingest_document_item_not_a_dict_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__add-watch.md, Símbolos
+
+### Community 706 - "test_ingest_symbol_item_not_a_dict_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__exports.md, Símbolos
+
+### Community 707 - "test_ingest_symbol_without_symbol_id_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__extraction-spec.md, Símbolos
+
+### Community 708 - "test_ingest_document_with_symbols_not_a_list"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__github-and-merge.md, Símbolos
+
+### Community 709 - "test_ingest_default_source_file_is_empty_string"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__hooks.md, Símbolos
+
+### Community 710 - "test_ingest_document_without_language_defaults_to_function_param"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__query.md, Símbolos
+
+### Community 711 - "test_ingest_symbol_with_non_dict_occurrence_is_skipped"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__transcribe.md, Símbolos
+
+### Community 712 - "test_ingest_symbol_with_non_list_range_falls_back_to_zero"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__update.md, Símbolos
+
+### Community 713 - "test_ingest_symbol_without_display_name_uses_suffix"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__add-watch.md, Símbolos
+
+### Community 714 - "test_ingest_symbol_with_empty_documentation_skips_description"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__exports.md, Símbolos
+
+### Community 715 - "test_headings_helper_ignores_code_fence_comments"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__extraction-spec.md, Símbolos
+
+### Community 716 - "test_check_passes_for_codex_and_windows"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__github-and-merge.md, Símbolos
+
+### Community 717 - "test_audit_coverage_passes"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__hooks.md, Símbolos
+
+### Community 718 - "test_windows_frontmatter_name_and_shell_and_extra"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__query.md, Símbolos
+
+### Community 719 - "test_check_passes"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__transcribe.md, Símbolos
+
+### Community 720 - "test_all_progressive_hosts_check_and_audit_clean"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__update.md, Símbolos
+
+### Community 721 - "test_every_split_host_renders_eight_references"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__add-watch.md, Símbolos
+
+### Community 722 - "test_render_is_idempotent"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__exports.md, Símbolos
+
+### Community 723 - "test_monoliths_render_inline_single_file_no_references"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__extraction-spec.md, Símbolos
+
+### Community 724 - "test_monolith_roundtrip_passes_for_aider_and_devin"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__github-and-merge.md, Símbolos
+
+### Community 725 - "test_monoliths_change_only_sanctioned_lines"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__hooks.md, Símbolos
+
+### Community 726 - "test_monoliths_carry_the_1392_runbook_fixes"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__query.md, Símbolos
+
+### Community 727 - "test_always_on_renders_six_blocks"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__transcribe.md, Símbolos
+
+### Community 728 - "test_always_on_included_in_full_render_not_per_platform"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__update.md, Símbolos
+
+### Community 729 - "test_always_on_roundtrip_is_byte_faithful"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__add-watch.md, Símbolos
+
+### Community 730 - "test_extracted_constants_equal_the_packaged_always_on_files"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__exports.md, Símbolos
+
+### Community 731 - "test_audit_coverage_passes_for_every_split_host"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__extraction-spec.md, Símbolos
+
+### Community 732 - "test_audit_reads_each_host_against_its_own_v8_body"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__github-and-merge.md, Símbolos
+
+### Community 733 - "test_audit_catches_an_induced_per_host_drop"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__hooks.md, Símbolos
+
+### Community 734 - "test_audit_catches_a_dropped_non_allowlisted_heading"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__query.md, Símbolos
+
+### Community 735 - "test_git_show_validators_skip_cleanly_without_origin_v8"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__transcribe.md, Símbolos
+
+### Community 736 - "test_audit_allowlist_documents_only_consolidations"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__update.md, Símbolos
+
+### Community 737 - "test_claude_flavored_hosts_keep_their_hooks_text_unchanged"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Guia de Testes e Uso.md, Símbolos
+
+### Community 738 - "test_amp_audit_coverage_passes_against_its_own_v8"
+Cohesion: 0.50
+Nodes (3): assistant\app\auth\handshake.py, Dependências, Símbolos
+
+### Community 739 - "test_agents_audit_baseline_is_amps_v8_body"
+Cohesion: 0.50
+Nodes (3): assistant\app\auth\hash.py, Dependências, Símbolos
+
+### Community 740 - "__main__.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\health.py, Dependências, Símbolos
 
 ### Community 773 - "__init__.py"
-Cohesion: 0.08
-Nodes (29): explain_concept(), find_path(), get_graph_service(), graph_health(), GraphQueryRequest, BaseModel, query_graph(), Graph REST API — Structural code intelligence queries.  Endpoints:   GET  /api/g (+21 more)
+Cohesion: 0.11
+Nodes (17): explain_concept(), find_path(), get_graph_service(), graph_health(), GraphQueryRequest, BaseModel, query_graph(), Graph REST API — Structural code intelligence queries.  Endpoints:   GET  /ap (+9 more)
+
+### Community 812 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\health_cache.py, Dependências, Símbolos
+
+### Community 813 - "plain.h"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\health_engine.py, Dependências, Símbolos
+
+### Community 814 - "sample.dmm"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\heatmap\heatmap-chart.tsx, Símbolos
+
+### Community 815 - "distance"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\heatmap\heatmap-store.ts, Símbolos
+
+### Community 816 - ".buildRequest"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\heatmap-store.test.ts, Símbolos
+
+### Community 817 - ".get"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\hooks.md, Símbolos
+
+### Community 818 - ".post"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\host\hooks-agents-md.md, Símbolos
+
+### Community 819 - "ButtonOKClick"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\how-it-works.md, Símbolos
+
+### Community 820 - "TButton"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\exporters\html.py, Símbolos
+
+### Community 821 - "x"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\evidence\hypotheses.md, Símbolos
+
+### Community 822 - "y"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Identidade Open Code.md, Símbolos
+
+### Community 823 - "z"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\identity.py, Dependências, Símbolos
+
+### Community 824 - ".log"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\ids.py, Símbolos
+
+### Community 825 - ".run"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\IMPLEMENTATION_PLAN_UPDATE.md, Símbolos
+
+### Community 826 - "sample.psd1"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Indexador do Vault.md, Símbolos
+
+### Community 827 - ".fetch"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\indexing.py, Dependências, Símbolos
+
+### Community 828 - ".run"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\inference_api.py, Dependências, Símbolos
+
+### Community 829 - ".buildRequest"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\inference_example.py, Dependências, Símbolos
+
+### Community 830 - ".get"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\inference_port.py, Dependências, Símbolos
+
+### Community 831 - ".post"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\inference_service.py, Dependências, Símbolos
+
+### Community 832 - ".log"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\inference-store.ts, Símbolos
+
+### Community 833 - ".run"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Projetos\Informacoes do Projeto.md, Símbolos
+
+### Community 834 - "Int"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Infraestrutura Docker.md, Símbolos
+
+### Community 835 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\ingest.py, Símbolos
+
+### Community 836 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\input.tsx, Símbolos
+
+### Community 837 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\input.test.tsx, Símbolos
+
+### Community 838 - "graphifyy"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\install.py, Símbolos
+
+### Community 841 - "check-prerequisites.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\INSTALLATION.md, Símbolos
+
+### Community 842 - "setup-plan.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Integracoes de Servicos.md, Símbolos
+
+### Community 843 - "setup-tasks.ps1"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\integrations.py, Dependências, Símbolos
 
 ### Community 844 - "PropagaçÃo de Contexto de Usuário"
-Cohesion: 0.06
-Nodes (36): Alterações no AgentState, Arquitetura Proposta, Arquivos Relacionados, Auditoria, Benefícios, Children, Compatibilidade com PostgreSQL, Conteudo (+28 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\intent.py, Dependências, Símbolos
 
 ### Community 845 - "Guia Obsidian — K.A.O.S"
 Cohesion: 0.06
 Nodes (35): Arquivos Relacionados, Automática, Boas Práticas, Como Interpretar, Configuração Recomendada, Cores do Heatmap, Dependencias, Drift Heatmap (+27 more)
 
 ### Community 846 - "Spec: K.A.O.S — Roadmap Expansion v2 (Fases 9–14)"
-Cohesion: 0.06
-Nodes (34): 1. Contexto, 2. Requisitos Funcionais, 3.1 Fluxo Principal — VaultAnalyzer API, 3.2 Fluxo Principal — Session History, 3.2 Fluxos Alternativos, 3.3 Fluxo Principal — MCP Bridge, 3.3 Fluxos de Erro, 3. Fluxos (+26 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\router\intent_classifier.py, Dependências, Símbolos
 
 ### Community 847 - "index.ts"
-Cohesion: 0.08
-Nodes (21): AppLayout(), AgentConfig, AgentInstance, AgentState, AgentStatus, useAgentStore, ConversationSession, ConversationState (+13 more)
+Cohesion: 0.17
+Nodes (6): ACCENT_COLORS, THEME_VARS, ThemeMode, ThemeState, mockFetch, store
 
 ### Community 848 - "Fase 3 - Serviço Obsidian"
-Cohesion: 0.06
-Nodes (34): 1. Estrutura de Módulos, 2. DTOs de Domínio (`domain/document.py`), 3. ObsidianService (`obsidian/services/obsidian_service.py`), 4. Ferramentas LangGraph-Compatíveis, 5. Testes Unitários, Arquivos Relacionados, 🔍 Busca, Children (+26 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\INVESTIGATION_SESSION.md, Símbolos
 
 ### Community 849 - "Arquitetura do Sistema — K.A.O.S"
 Cohesion: 0.06
 Nodes (32): 2026 Q1 — Fundação, 2026 Q2 — Plataforma, 2026 Q3 — Inteligência, 2026 Q4 — Autonomia, API Layer, Arquitetura do Sistema — K.A.O.S, Auditoria KIRL, Camadas do Backend (+24 more)
 
+### Community 850 - "index.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\api\ipc-bridge.ts, Símbolos
+
 ### Community 851 - "README.he-IL.md"
-Cohesion: 0.06
-Nodes (31): Docker MCP Toolkit + SQLite MCP server, Install, Prerequisites, Smoke test, Storage layout, Troubleshooting, Uninstall / reset, Why SQLite (and not `sqlite-mcp-server`) (+23 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\api\ipc-bridge.test.ts, Símbolos
 
 ### Community 852 - "/graphify"
-Cohesion: 0.06
-Nodes (32): For always-on context in Devin sessions, For --cluster-only, For git commit hook, For /graphify add, For /graphify explain, For /graphify path, For /graphify query, For --update (incremental re-extraction) (+24 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\json_config.py, Símbolos
 
 ### Community 853 - "/graphify"
-Cohesion: 0.06
-Nodes (32): For always-on context in Devin sessions, For --cluster-only, For git commit hook, For /graphify add, For /graphify explain, For /graphify path, For /graphify query, For --update (incremental re-extraction) (+24 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\julia.py, Símbolos
 
 ### Community 854 - "/graphify"
-Cohesion: 0.06
-Nodes (32): For always-on context in Devin sessions, For --cluster-only, For git commit hook, For /graphify add, For /graphify explain, For /graphify path, For /graphify query, For --update (incremental re-extraction) (+24 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\auth\jwt.py, Dependências, Símbolos
 
 ### Community 855 - "BaichuanTokenizer"
-Cohesion: 0.07
-Nodes (13): AirLLMBaichuan, BaichuanTokenizer, Any, PreTrainedTokenizer, Returns vocab as a dict, Returns a tokenized string., Converts a token (str) in an id using the vocab., Converts an index (integer) in a token (str) using the vocab. (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-architect.md, Símbolos
 
 ### Community 856 - "VaultReader"
-Cohesion: 0.13
-Nodes (9): DriftEngine, DriftScore, Path, Retorna diretorios para scan, usando EnvironmentService., VaultNode, VaultReader, Escaneia vault e retorna estatisticas., scan_vault() (+1 more)
+Cohesion: 0.18
+Nodes (7): Path, Retorna diretorios para scan, usando EnvironmentService., VaultNode, VaultReader, Escaneia vault e retorna estatisticas., scan_vault(), TestEvidenceEngineContradictions
 
 ### Community 857 - "SDD-KAOS-DESKTOP-UPDATE-001"
-Cohesion: 0.06
-Nodes (31): 10. Observabilidade, 11. Segurança, 12. Critérios de Aceitação, 13. Fora de Escopo (Fase 1), 14. Roadmap, 1. Problema, 2. Decisões de Arquitetura, 3. Contexto Técnico Atual (+23 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-auditor.md, Símbolos
 
 ### Community 858 - "K.A.O.S — Guia Oficial de Implantação e Produção"
 Cohesion: 0.06
@@ -4001,116 +5792,116 @@ Cohesion: 0.06
 Nodes (30): Arquivos Relacionados, Assinatura de Imagens Docker com Cosign, Changelog, Como Funciona, Componentes, Configuração no Pipeline, Correção: Lowercase Repository (PR #47), Dependencias (+22 more)
 
 ### Community 860 - "README.fa-IR.md"
-Cohesion: 0.06
-Nodes (29): Adding a new language extractor, Architecture, Confidence labels, Extraction output schema, Module responsibilities, Pipeline, Security, Testing (+21 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-backend-engineer.md, Símbolos
 
 ### Community 861 - "/graphify"
-Cohesion: 0.06
-Nodes (30): For --cluster-only, For git commit hook, For /graphify add, For /graphify explain, For /graphify path, For /graphify query, For native CLAUDE.md integration, For --update (incremental re-extraction) (+22 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\api\kaos-client.ts, Símbolos
 
 ### Community 862 - "/graphify"
-Cohesion: 0.06
-Nodes (30): For --cluster-only, For git commit hook, For /graphify add, For /graphify explain, For /graphify path, For /graphify query, For native CLAUDE.md integration, For --update (incremental re-extraction) (+22 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\api\kaos-client.test.ts, Símbolos
 
 ### Community 863 - "/graphify"
-Cohesion: 0.06
-Nodes (30): For --cluster-only, For git commit hook, For /graphify add, For /graphify explain, For /graphify path, For /graphify query, For native CLAUDE.md integration, For --update (incremental re-extraction) (+22 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-devops-engineer.md, Símbolos
 
 ### Community 864 - "AirLLMBaseModel"
-Cohesion: 0.11
-Nodes (5): AirLLMBaseModel, Memory-frugal wrapper around a Hugging Face ``*ForCausalLM`` model.      The c, Parameters         ----------         model_local_path_or_repo_id : str or Pat, AirLLMMistral, AirLLMQWen2
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-documentation-engineer.md, Símbolos
 
 ### Community 865 - "K.A.O.S — Manual de Operações (Runbook)"
 Cohesion: 0.07
 Nodes (28): 1. Gerenciamento de Contêineres e Serviços, 1. Porta do Backend Ocupada, 2. Atualização de Imagens e Redeploy, 2. Banco Vetorial Bloqueado/Travado, 3.1. Backup Automático do PostgreSQL, 3.2. Backup do Banco Vetorial Qdrant, 3.3. Backup de Volumes Físicos (Docker Data), 3. Estratégia e Comandos de Backup (+20 more)
 
 ### Community 866 - "SDD — Fase 3: ObsidianService e Ferramentas de Nota"
-Cohesion: 0.07
-Nodes (29): 1. Estrutura de Módulos, 2. DTOs de Domínio (`domain/document.py`), 3. ObsidianService (`obsidian/services/obsidian_service.py`), 4. Ferramentas LangGraph-Compatíveis, 5. Testes Unitários, Arquivos Relacionados, 🔍 Busca, ⚙️ Configuração (+21 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-frontend-engineer.md, Símbolos
 
 ### Community 867 - "qlora.py"
-Cohesion: 0.11
-Nodes (22): DataArguments, DataCollatorForCausalLM, find_all_linear_names(), GenerationArguments, get_accelerate_model(), get_last_checkpoint(), make_data_module(), ModelArguments (+14 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-mcp-architect.md, Símbolos
 
 ### Community 868 - "Backlog — IA Pessoal Offline com Obsidian"
-Cohesion: 0.07
-Nodes (28): Arquivos Relacionados, Backlog — IA Pessoal Offline com Obsidian, Dependencias, Divida Tecnica (DEBT), Fase 10 — Produção ✅, Fase 11 — Otimização de Performance e Roteamento Inteligente, Fase 1 — Fundação ✅, Fase 2 — IA Local ✅ (+20 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-security-auditor.md, Símbolos
 
 ### Community 869 - "Fase 1 - Fundacao"
-Cohesion: 0.07
-Nodes (28): 1. Estrutura de Pastas Inicial, 2. Gerenciamento de Dependências (`pyproject.toml`), 3. Configuração de Ambiente (`config/settings.py`), 4. Ponto de Entrada (`main.py`), 5. Health Check (`api/health.py`), 6. Docker Compose (Serviços Base), 7. Sistema de Logs (`loguru`), 8. Comandos de Setup (+20 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\tools\kaos-tools.md, Símbolos
 
 ### Community 870 - "Refatoracao Frontend FSD"
-Cohesion: 0.07
-Nodes (27): Arquivos Relacionados, Children, Comandos, Conteudo, Decisoes Arquiteturais, Dependencias, Dependencias Adicionadas, Design System — Componentes (+19 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\extra\kilo-rules.md, Símbolos
 
 ### Community 871 - "Troubleshooting — K.A.O.S"
 Cohesion: 0.07
 Nodes (27): Arquivos Relacionados, Backend, Checkout do submodule falha (404), CI/CD, Container reinicia em loop, Cosign: `parsing reference`, Dependencias, Desktop (+19 more)
 
 ### Community 872 - "Request"
-Cohesion: 0.11
-Nodes (12): n8n_agent_webhook(), n8n_callback(), n8n_chat_webhook(), n8n_memory_webhook(), n8n_register_webhook(), n8n_webhook(), Callback triggered by n8n to report execution results (success/failure/durations, BaseHTTPMiddleware (+4 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\kirl.py, Dependências, Símbolos
 
 ### Community 873 - "AirLLMProvider"
 Cohesion: 0.11
-Nodes (9): AirLLMProvider, BaseMessage, Lazy-load AirLLM AutoModel to save memory during startup., Translate LangChain messages list to a formatted text prompt., Run blocking model generation synchronously., AirLLMAdapter, InferenceResult, AirLLMAdapter — Wraps AirLLMProvider for InferencePort.  Layer-wise inference fo (+1 more)
+Nodes (9): AirLLMProvider, BaseMessage, Lazy-load AirLLM AutoModel to save memory during startup., Translate LangChain messages list to a formatted text prompt., Run blocking model generation synchronously., AirLLMAdapter, InferenceResult, AirLLMAdapter — Wraps AirLLMProvider for InferencePort.  Layer-wise inference (+1 more)
 
 ### Community 874 - "Guia KIRL — K.A.O.S Intelligence Runtime Layer"
 Cohesion: 0.07
 Nodes (27): Alertas, API Reference (KIRL), Auto-Doc Engine, Automática, Code Scanner, Commit Mapping, Componentes Principais, Drift Levels (+19 more)
 
 ### Community 875 - "Arquitetura de Orquestracao"
-Cohesion: 0.07
-Nodes (27): Arquitetura, Arquitetura de Orquestracao, Arquivos Relacionados, Children, Configuração do Open WebUI, Considerações de Segurança, Conteudo, Contexto de Usuário (+19 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\KIRL_GUIDE.md, Símbolos
 
 ### Community 876 - "Fase 2 - IA Local"
-Cohesion: 0.07
-Nodes (27): 1. Arquitetura do Módulo, 2. Modelo: Qwen3 14B → Qwen3 4B, 3. Proxy OpenAI (/v1/chat/completions), 4. LLM Service com Timeout Aumentado, 5. System Prompt do K.A.O.S. (`config/prompts.py`), 6. Integração Open WebUI no Docker Compose, 7. Comandos de Setup, Arquivos Relacionados (+19 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\knowledge_api.py, Dependências, Símbolos
 
 ### Community 877 - "SDD — Fases 6 e 7: LangGraph Agent + Memória de Longo Prazo"
-Cohesion: 0.07
-Nodes (27): 1. Estrutura de Módulos, 3. Nó de Recuperação RAG (`agent/nodes/retrieve.py`), 4. Nó Planner (`agent/nodes/planner.py`), 5. Nó Executor (`agent/nodes/executor.py`), 6. Grafo LangGraph (`agent/graph.py`), 7. Agent Service (`service/agent_service.py`), 8. Comandos de Memória de Longo Prazo (Fase 7), Arquivos Relacionados (+19 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\knowledge_graph.py, Dependências, Símbolos
 
 ### Community 878 - "K.A.O.S Evolution v14 — Validation Report"
 Cohesion: 0.07
 Nodes (26): 10. Next Steps, 1.1 Mock Elimination Scan, 1.2 Framework Isolation Scan, 1.3 Test Suite, 1. Automated Verification, 2.1 Dependency confirmed (GraphBuilder → CodeScanner), 2.2 System structure confirmed, 2. Graphify Evidence Queries (+18 more)
 
 ### Community 879 - "What You Must Do When Invoked"
-Cohesion: 0.07
-Nodes (26): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+18 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\knowledge_graph_watcher.py, Dependências, Símbolos
 
 ### Community 880 - "What You Must Do When Invoked"
-Cohesion: 0.07
-Nodes (26): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+18 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\knowledge_service.py, Dependências, Símbolos
 
 ### Community 881 - "Tasks: [FEATURE NAME]"
-Cohesion: 0.07
-Nodes (26): Dependencies & Execution Order, Format: `[ID] [P?] [Story] Description`, Implementation for User Story 1, Implementation for User Story 2, Implementation for User Story 3, Implementation Strategy, Incremental Delivery, MVP First (User Story 1 Only) (+18 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\knowledge-store.ts, Símbolos
 
 ### Community 882 - "Setup — K.A.O.S"
 Cohesion: 0.08
 Nodes (25): Arquivos Relacionados, Backend (FastAPI), Build de Produção, Clonagem, Dependencias, Desktop (Tauri + React), Docker (Stack Completa), Executar (+17 more)
 
 ### Community 883 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (25): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Kilo-specific rules (+17 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\planner\langgraph_adapter.py, Dependências, Símbolos
 
 ### Community 884 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (25): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Kilo-specific rules (+17 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\layout-engine.ts, Símbolos
 
 ### Community 885 - "speckit.analyze.md"
-Cohesion: 0.08
-Nodes (25): 1. Initialize Analysis Context, 2. Load Artifacts (Progressive Disclosure), 3. Build Semantic Models, 4. Detection Passes (Token-Efficient Analysis), 5. Severity Assignment, 6. Produce Compact Analysis Report, 7. Provide Next Actions, 8. Offer Remediation (+17 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\layout-engine.test.ts, Símbolos
 
 ### Community 886 - "airllm_base.py"
-Cohesion: 0.08
-Nodes (5): AirLLMLlama2, AirLLMInternLM, AirLLMMixtral, LayeredProfiler, TestCompression
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\crate_b\src\lib.rs, Símbolos
 
 ### Community 887 - "airllm_llama_mlx.py"
-Cohesion: 0.15
-Nodes (9): AirLLMLlamaMlx, Attention, FeedForward, get_model_args_from_config(), ModelArgs, RMSNorm, sample(), sanitize_config() (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\lint_wiki_tool.py, Dependências, Símbolos
 
 ### Community 888 - "K.A.O.S — Knowledge Assistant & Offline System"
 Cohesion: 0.08
@@ -4121,104 +5912,104 @@ Cohesion: 0.08
 Nodes (24): Arquivos Relacionados, Autenticação via API Key, Boas Práticas, Como Funciona, Considerações, Dependencias, Endpoints de Gerenciamento, Fluxos (+16 more)
 
 ### Community 890 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\list_notes_tool.py, Dependências, Símbolos
 
 ### Community 891 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native AGENTS.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\list_projects_tool.py, Dependências, Símbolos
 
 ### Community 892 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native AGENTS.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\llm.py, Símbolos
 
 ### Community 893 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\service\llm_service.py, Dependências, Símbolos
 
 ### Community 894 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cpp_logger\b\Logger.h, Símbolos
 
 ### Community 895 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\logger_subscriber.py, Dependências, Símbolos
 
 ### Community 896 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\observability\LOKI_QUERIES.md, Símbolos
 
 ### Community 897 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): airllm\anima_100k\longer_training.py, Dependências, Símbolos
 
 ### Community 898 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): graphify\tests\fixtures\cpp_paired\Main.cpp, Dependências, Símbolos
 
 ### Community 899 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): graphify\tools\skillgen\__main__.py, Dependências, Símbolos
 
 ### Community 900 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native AGENTS.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\MainViewModel.cs, Símbolos
 
 ### Community 901 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\communication\manager.py, Dependências, Símbolos
 
 ### Community 902 - "README.md"
-Cohesion: 0.08
-Nodes (24): Benchmarks, Built on graphify: Penpax, Common commands, Community and links, Development setup, Environment variables, Full command reference, Git workflow (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\rsl-siege-manager\manifest.json, Símbolos
 
 ### Community 903 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\manifest_ingest.py, Símbolos
 
 ### Community 904 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native AGENTS.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\markdown.py, Símbolos
 
 ### Community 905 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native AGENTS.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\pages\automation\marketplace.tsx, Símbolos
 
 ### Community 906 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\mcp.md, Símbolos
 
 ### Community 907 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\mcp_adapter.py, Dependências, Símbolos
 
 ### Community 908 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\mcp-engineer.md, Símbolos
 
 ### Community 909 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_health.py, Dependências, Símbolos
 
 ### Community 910 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\mcp_ingest.py, Símbolos
 
 ### Community 911 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_manager.py, Dependências, Símbolos
 
 ### Community 912 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\mcp-patterns.md, Símbolos
 
 ### Community 913 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native AGENTS.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_registry.py, Dependências, Símbolos
 
 ### Community 914 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_server_base.py, Dependências, Símbolos
 
 ### Community 915 - "SDD-040 — Universal Orchestration Platform"
 Cohesion: 0.08
@@ -4229,52 +6020,52 @@ Cohesion: 0.08
 Nodes (23): Arquitetura, Arquivos Relacionados, Backend — `ProviderConfigService`, Configuração, Dependencias, Desktop — `ProviderScreen`, Endpoints REST, Exemplo de `data/provider_config.json` (+15 more)
 
 ### Community 917 - "MemÓria do Obsidian"
-Cohesion: 0.08
-Nodes (24): 🏗️ Arquitetura do Sistema, Arquivos Relacionados, 🎯 Caso de Uso (User Story), Children, 🔗 Componentes Detalhados, Conteudo, Dependencias, 📁 Estrutura de Pastas Esperada no Vault (+16 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Memoria do Obsidian.md, Símbolos
 
 ### Community 918 - "validate_extraction"
-Cohesion: 0.14
-Nodes (21): assert_valid(), Validate an extraction JSON dict against the graphify schema.     Returns a lis, Raise ValueError with all errors if extraction is invalid., validate_extraction(), test_assert_valid_passes_silently(), test_assert_valid_raises_on_errors(), test_dangling_edge_source(), test_dangling_edge_target() (+13 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\memory.py, Dependências, Símbolos
 
 ### Community 919 - "What You Must Do When Invoked"
-Cohesion: 0.08
-Nodes (23): For /graphify add and --watch, For /graphify query, For the commit hook and native @@HOOKS_TARGET@@ integration, For --update and --cluster-only, /graphify, Interpreter guard for subcommands, Part A - Structural extraction for code files, Part B - Semantic extraction (parallel subagents) (+15 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\memory_api.py, Dependências, Símbolos
 
 ### Community 920 - "Specific Issues Found"
-Cohesion: 0.08
-Nodes (23): 1. Node/Edge Quality - Score: 6/10, 2. Edge Accuracy - Score: 5/10, 3. Community Quality - Score: 6/10, 4. Surprising Connections - Score: 4/10, 5. God Nodes - Score: 7/10, 6. Overall Usefulness - Score: 6/10, Additional Observations, Corpus size and density (+15 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\memory_port.py, Dependências, Símbolos
 
 ### Community 921 - "qlora_dpo.py"
-Cohesion: 0.13
-Nodes (17): compute_metrics(), DataArguments, DPOSeq2SeqTrainer, find_all_linear_names(), GenerationArguments, get_accelerate_model(), get_last_checkpoint(), get_reference_model() (+9 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\router\memory_router.py, Dependências, Símbolos
 
 ### Community 922 - "Code Conventions"
 Cohesion: 0.09
 Nodes (22): Arquivos Relacionados, Code Conventions, Components, Dependencias, Error Handling, Fluxos, Imports, Imports (+14 more)
 
 ### Community 923 - "Pipeline de Consulta da Wiki"
-Cohesion: 0.08
-Nodes (23): Camada Wiki de Conhecimento, Children, Conteudo, Parent, Related, Source: LLM Wiki Pattern + K.A.O.S SDD-009, Tags, Arquivos Relacionados (+15 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\memory_service.py, Dependências, Símbolos
 
 ### Community 924 - "SDD — Fase 1: Fundação do Projeto Python"
-Cohesion: 0.09
-Nodes (23): 1. Estrutura de Pastas Inicial, 2. Gerenciamento de Dependências (`pyproject.toml`), 3. Configuração de Ambiente (`config/settings.py`), 4. Ponto de Entrada (`main.py`), 5. Health Check (`api/health.py`), 6. Docker Compose (Serviços Base), 7. Sistema de Logs (`loguru`), 8. Comandos de Setup (+15 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\memory-store.ts, Símbolos
 
 ### Community 925 - "Monitoramento — K.A.O.S"
 Cohesion: 0.09
 Nodes (21): Arquivos de Configuração, Arquivos Relacionados, Backup dos Logs, Consultas Úteis, Dependencias, Fluxos, Grafana, Healthcheck (+13 more)
 
 ### Community 926 - "SDD — Fase 2: IA Local com Ollama"
-Cohesion: 0.09
-Nodes (22): 1. Arquitetura do Módulo, 2. Modelo: Qwen3 14B → Qwen3 4B, 3. Proxy OpenAI (/v1/chat/completions), 4. LLM Service com Timeout Aumentado, 5. System Prompt do K.A.O.S. (`config/prompts.py`), 6. Integração Open WebUI no Docker Compose, 7. Comandos de Setup, Arquivos Relacionados (+14 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\router\memory_workflow.py, Dependências, Símbolos
 
 ### Community 927 - "README.uk-UA.md"
-Cohesion: 0.09
-Nodes (21): Використання графу напряму, Вимоги, Вирішення проблем, Встановлення, Додаткові пакети (опціонально), Дізнатися більше, Запуск тестів, Змусьте асистента завжди використовувати граф (+13 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\message\ui\MessageBubble.tsx, Símbolos
 
 ### Community 928 - "longer_training.py"
-Cohesion: 0.16
-Nodes (15): DataArguments, find_all_linear_names(), GenerationArguments, get_accelerate_model(), get_last_checkpoint(), get_sample_gen_test_examples(), _get_tensors(), ModelArguments (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\metrics.py, Dependências, Símbolos
 
 ### Community 929 - "architecture.py"
 Cohesion: 0.10
@@ -4282,14 +6073,14 @@ Nodes (20): analyze_architecture(), build_graph(), build_knowledge_graph(), get_
 
 ### Community 930 - "EvidenceService"
 Cohesion: 0.12
-Nodes (14): evidence_health(), evidence_history(), evidence_metric(), evidence_report(), get_evidence_service(), Evidence REST API — Architecture health and decision support.  Endpoints:   GET, Full architectural evidence report from all sources., Get a specific evidence metric by name. (+6 more)
+Nodes (14): evidence_health(), evidence_history(), evidence_metric(), evidence_report(), get_evidence_service(), Evidence REST API — Architecture health and decision support.  Endpoints:   G, Full architectural evidence report from all sources., Get a specific evidence metric by name. (+6 more)
 
 ### Community 931 - "openai.py"
-Cohesion: 0.17
+Cohesion: 0.19
 Nodes (19): chat_completions(), chat_completions_legacy(), _collect_stream(), _get_agent(), _get_classifier(), _get_factory(), _json_response(), list_models() (+11 more)
 
 ### Community 932 - "Governance de Documentação — K.A.O.S"
-Cohesion: 0.10
+Cohesion: 0.09
 Nodes (21): 1. SDD (Software Design Document), 2. Implementação, 3. Documentação, 4. Merge, Arquivos Relacionados, Dependencias, Fluxo de Correção (bugfix), Fluxo Normal (+13 more)
 
 ### Community 933 - "Loki Queries — K.A.O.S"
@@ -4297,20 +6088,20 @@ Cohesion: 0.10
 Nodes (20): Análise de Erros, Arquivos Relacionados, Básicas, Dependencias, Dicas, Filtro por Trace ID, Fluxos, Formato dos Logs (+12 more)
 
 ### Community 934 - "SDD — Fases 4 e 5: RAG Pipeline + Atualização Automática"
-Cohesion: 0.10
-Nodes (21): 1. Estrutura de Módulos, 6. File Watcher (`obsidian/watcher/vault_watcher.py`), 7. Endpoint de Indexação Manual (`api/`), Arquivos Relacionados, Critério de Sucesso, Dependencias, Dependências Desta Fase, Desbloqueia (+13 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\metrics_subscriber.py, Dependências, Símbolos
 
 ### Community 935 - "Vault Submodule — K.A.O.S-storage"
 Cohesion: 0.10
 Nodes (20): Arquivos Relacionados, Atenção, Autenticação, Clonagem, Dependencias, Fluxo de Trabalho, Fluxos, .gitignore (+12 more)
 
 ### Community 936 - "RFC: file-level node summaries"
-Cohesion: 0.10
-Nodes (19): Confidence tagging, How community detection works, How graphify works, Parallel extraction, SHA256 cache, The graph format, The three passes, Token benchmark (+11 more)
+Cohesion: 0.50
+Nodes (3): assistant\scripts\migrate_memory_to_postgres.py, Dependências, Símbolos
 
 ### Community 937 - "ModelPersister"
-Cohesion: 0.14
-Nodes (4): map_torch_to_mlx(), MlxModelPersister, ModelPersister, SafetensorModelPersister
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\MIGRATION.md, Símbolos
 
 ### Community 938 - "GitHub Actions — K.A.O.S"
 Cohesion: 0.10
@@ -4325,20 +6116,20 @@ Cohesion: 0.10
 Nodes (19): AI Vault Analyzer, Arquitetura do K.A.O.S, Arquivos Relacionados, Auditoria KIRL, Backend (assistant/app/), Camadas, Chat, Dependencias FSD (Frontend) (+11 more)
 
 ### Community 941 - "Functional Specification — [Nome da Feature]"
-Cohesion: 0.10
-Nodes (19): 1. Resumo, 2. Atores, 3. Fluxo Principal, 4.1 Fallback, 4.2 Erro, 4. Fluxos Alternativos, 5. Critérios de Aceite, 6. Observações (+11 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\_minhash.py, Símbolos
 
 ### Community 942 - "Identidade Open Code"
-Cohesion: 0.10
-Nodes (19): 1. Identidade do Projeto, 2. Estratégia de Repositório (Fase Atual: MVP), 3. Diretrizes Arquiteturais do K.A.O.S, Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos (+11 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\MissingFeaturesList.tsx, Símbolos
 
 ### Community 943 - "SDD — Knowledge Wiki Layer (LLM Wiki + RAG Híbrido)"
-Cohesion: 0.10
-Nodes (18): Arquitetura Alvo, Arquivos Relacionados, Dependencias, Draft Mode, Estrutura do Vault, Ferramentas Wiki, Fluxos, Frontmatter Obrigatório (+10 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\persist\mlx_model_persister.py, Dependências, Símbolos
 
 ### Community 944 - "ProviderRegistry"
 Cohesion: 0.12
-Nodes (8): ProviderRegistry, T, Generic registry for provider implementations of a K.A.O.S capability.      Feat, Register a provider implementation under a unique key., Activate a specific provider by key., Remove a provider from the registry., Deactivate current provider (will use fallback or raise)., Return the currently active provider.
+Nodes (8): ProviderRegistry, Generic registry for provider implementations of a K.A.O.S capability.      Fe, Register a provider implementation under a unique key., Activate a specific provider by key., Remove a provider from the registry., Deactivate current provider (will use fallback or raise)., Return the currently active provider., T
 
 ### Community 945 - "Testing Patterns"
 Cohesion: 0.11
@@ -4349,80 +6140,80 @@ Cohesion: 0.11
 Nodes (18): architecture-analyze, Arquivos Relacionados, audit-run, audit-status, Dependencias, feature-list, feature-register, Fluxos (+10 more)
 
 ### Community 947 - "SDD Componente — Vector Search & RAG Service"
-Cohesion: 0.11
-Nodes (19): 🔍 Algoritmo de Recuperação e Ranking (Retrieval Workflow), Arquivos Relacionados, Configuração da Coleção, Dependencias, Esquema do Payload no Qdrant, 🗄️ Estrutura do Vector Database (Qdrant), Fluxos, Integracoes (+11 more)
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\persist\model_persister.py, Dependências, Símbolos
 
 ### Community 948 - "SDD Componente — Schemas das Ferramentas (Tools)"
-Cohesion: 0.11
-Nodes (19): 1. CreateNoteTool, 2. ReadNoteTool, 3. UpdateNoteTool, 4. DeleteNoteTool, 5. SearchNotesTool, Arquivos Relacionados, 🛠️ Catálogo de Ferramentas, Dependencias (+11 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\models\model_registry.py, Dependências, Símbolos
 
 ### Community 949 - "SDD — Otimização de Tempo de Build do KAOS Desktop (Tauri)"
-Cohesion: 0.11
-Nodes (19): 1. Visão Geral, 2. Estratégias Implementadas, 3. Métricas, 4. Fora do Escopo, Arquivos Relacionados, Build Condicional, Cargo Cache, Dependencias (+11 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\model_repository.py, Dependências, Símbolos
 
 ### Community 950 - "SDD — Desktop Stabilization (Fase 1)"
-Cohesion: 0.11
-Nodes (19): 5. Decisoes Arquiteturais, 7. Riscos e Mitigacoes, 8. Proxima Fase (Fase 2 — Auth & First Run Wizard), 9. Referencias, Arquivos Relacionados, Children, Dependencias, Fluxos (+11 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\models\model_router.py, Dependências, Símbolos
 
 ### Community 951 - "SDD Componente — Schemas das Ferramentas (Tools)"
-Cohesion: 0.11
-Nodes (19): 1. CreateNoteTool, 2. ReadNoteTool, 3. UpdateNoteTool, 4. DeleteNoteTool, 5. SearchNotesTool, Arquivos Relacionados, Catálogo de Ferramentas, Dependencias (+11 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ModelDropdown.tsx, Símbolos
 
 ### Community 952 - "Technical Specification — [Nome da Feature]"
-Cohesion: 0.11
-Nodes (18): 1. Arquivos Envolvidos, 2. Estrutura de Dados, 3. API / Interfaces, 4. Fluxo de Implementação, 5. Dependências, 6. Testes, Arquivos Relacionados, Dependencias (+10 more)
+Cohesion: 0.50
+Nodes (3): airllm\anima_100k\modeling_flash_llama.py, Dependências, Símbolos
 
 ### Community 953 - "utils.py"
-Cohesion: 0.18
-Nodes (14): check_space(), clean_memory(), compress_layer_state_dict(), find_or_create_local_splitted_path(), load_layer(), NotEnoughSpaceException, Exception, Save the all layers of a model sharded checkpoint using safetensors. (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\models.py, Símbolos
 
 ### Community 954 - "Guia de Testes e Uso"
-Cohesion: 0.11
-Nodes (17): 1.1 Testando a Inicialização, 1.2 Testando o Endpoint de Health, 2.1 Testando o Ollama Nativo, 2.2 Testando a Interface Open WebUI, 3.1 Testando Leitura e Criação de Notas, Children, Conteudo, Fase 1 — Fundação do Projeto (+9 more)
+Cohesion: 0.18
+Nodes (11): 1.1 Testando a Inicialização, 1.2 Testando o Endpoint de Health, 2.1 Testando o Ollama Nativo, 2.2 Testando a Interface Open WebUI, 3.1 Testando Leitura e Criação de Notas, Fase 1 — Fundação do Projeto, Fase 2 — IA Local com Ollama, Fase 3 — Integração Obsidian (Próxima Prioridade) (+3 more)
 
 ### Community 955 - "Technical Specification — [Nome da Feature]"
-Cohesion: 0.11
-Nodes (18): 1. Arquivos Envolvidos, 2. Estrutura de Dados, 3. API / Interfaces, 4. Fluxo de Implementação, 5. Dependências, 6. Testes, Arquivos Relacionados, Dependencias (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ModelSelector.tsx, Símbolos
 
 ### Community 956 - "SDD — Fases 4 e 5: RAG Pipeline + Atualização Automática"
-Cohesion: 0.11
-Nodes (18): 1. Estrutura de Módulos, 2. Embedder (`rag/embeddings/embedder.py`), 3. Text Splitter (`rag/chunking/text_splitter.py`), 4. Semantic Retriever (`rag/retriever/semantic_retriever.py`), Arquivos Relacionados, Critério de Sucesso, Dependencias, Dependências (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ModelShortcuts.tsx, Símbolos
 
 ### Community 957 - "SDD — Fases 6 e 7: LangGraph Agent + Memória de Longo Prazo"
-Cohesion: 0.11
-Nodes (18): 1. Estrutura de Módulos, 2. Estado do Agente (`agent/state.py`), 3. Nó de Recuperação RAG (`agent/nodes/retrieve.py`), 4. Nó Planner (`agent/nodes/planner.py`), 5. Grafo LangGraph (`agent/graph.py`), 6. Agent Service (`service/agent_service.py`), Arquivos Relacionados, Dependencias (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Monitoramento do Vault (Watcher).md, Símbolos
 
 ### Community 958 - "SDD — Provedor Híbrido de LLM (Local + Cloud)"
-Cohesion: 0.11
-Nodes (18): Arquitetura, Arquivos Relacionados, Dependencias, Embeddings, Factory Pattern, Fallback Automático, Fluxos, Integracoes (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\monitoring\MONITORING.md, Símbolos
 
 ### Community 959 - "SDD Componente — Vector Search & RAG Service"
-Cohesion: 0.11
-Nodes (18): Algoritmo de Recuperação, Arquivos Relacionados, Configuração da Coleção, Dependencias, Esquema do Payload, Estrutura do Vector Database (Qdrant), Exemplo de Consulta Filtrada, Fluxos (+10 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\motion.ts, Símbolos
 
 ### Community 960 - "Design: Incremental Updates + Entity Deduplication"
-Cohesion: 0.11
-Nodes (17): Auto-detection, Design: Incremental Updates + Entity Deduplication, Feature 1: Incremental Updates, Feature 2: Entity Deduplication, Files changed, Files changed, Incremental mode changes, Integration point (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\multi-user-rbac.md, Símbolos
 
 ### Community 961 - "SDD: Estratégia de Testes (Fase 6) + Refatoração Arquitetural (Fase 5)"
-Cohesion: 0.11
-Nodes (17): 1. Objetivo, 2. Pirâmide de Testes, 3. Estrutura de Testes Implementada, 4. Fluxos Críticos Cobertos, 5. Configurações, 6. Cobertura Obrigatória (Regra), 7. Pipeline CI - Bloqueios, 8. Métricas Monitoradas (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\multigraph_compat.py, Símbolos
 
 ### Community 962 - "Anima 100K"
-Cohesion: 0.12
-Nodes (16): 100K评测, 100K难在哪？, 1. longchat topic retrieval, 2. longchat number retrieval, 3. Narrative QA in zeroscore, Anima 100K, Anima 100K的内存优化技术, 🤗Huggingface模型开源 (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\n8n.md, Símbolos
 
 ### Community 963 - "_get_batch_logps"
-Cohesion: 0.12
-Nodes (15): DataCollatorForCausalLM, dpo_loss(), _get_batch_logps(), make_data_module(), FloatTensor, LongTensor, object, PreTrainedModel (+7 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\n8n-architect.md, Símbolos
 
 ### Community 964 - "BaseMemoryProvider"
-Cohesion: 0.13
-Nodes (5): BaseMemoryProvider, ABC, Message, register_memory_providers(), TestBaseContracts
+Cohesion: 0.09
+Nodes (9): BaseMemoryProvider, ABC, Message, ObsidianMemoryProvider, Message, PostgresMemoryProvider, Message, TestObsidianMemoryProvider (+1 more)
 
 ### Community 965 - "SDD — Commit & PR Governance"
-Cohesion: 0.12
-Nodes (15): Arquivos Relacionados, Body Obrigatório, Documentação Obrigatória por Tipo de PR, Exemplos Corretos, Labels, Merge, Objetivo, Processo de Pull Request (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\n8n_subscriber.py, Dependências, Símbolos
 
 ### Community 966 - "API Patterns"
 Cohesion: 0.12
@@ -4433,64 +6224,64 @@ Cohesion: 0.12
 Nodes (16): Arquivos Relacionados, Dependencias, docker-build, docker-compose-down, docker-compose-up, docker-healthcheck, docker-logs, Docker Tools (+8 more)
 
 ### Community 968 - "Divisao de Texto (Chunking)"
-Cohesion: 0.12
-Nodes (17): 3. Text Splitter (`rag/chunking/text_splitter.py`), Arquivos Relacionados, Children, Conteudo, Dependencias, Divisao de Texto (Chunking), Fluxos, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\n8n_webhook_tool.py, Dependências, Símbolos
 
 ### Community 969 - "Estado do Agente"
-Cohesion: 0.12
-Nodes (17): 2. Estado do Agente (`agent/state.py`), Arquivos Relacionados, Children, Conteudo, Dependencias, Estado do Agente, Fluxos, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\automation\n8n_workflow_provider.py, Dependências, Símbolos
 
 ### Community 970 - "Estrutura da Wiki"
-Cohesion: 0.12
-Nodes (17): Arquivos Relacionados, Children, Conteudo, Dependencias, Estrutura da Wiki, Estrutura do Vault, Fluxos, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\NETWORK_ANALYSIS.md, Símbolos
 
 ### Community 971 - "Gerador de Embeddings"
-Cohesion: 0.12
-Nodes (17): 2. Embedder (`rag/embeddings/embedder.py`), Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Gerador de Embeddings, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\graph\networkx_fallback.py, Dependências, Símbolos
 
 ### Community 972 - "Indexador do Vault"
-Cohesion: 0.12
-Nodes (17): 4. Vault Indexer (`rag/indexer/vault_indexer.py`), Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Indexador do Vault, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\node-summaries-rfc.md, Símbolos
 
 ### Community 973 - "SDD Componente — File Watcher & Indexer Service"
-Cohesion: 0.12
-Nodes (17): Arquivos Relacionados, Dependencias, Detalhes de Implementação do Watchdog, 👁️ File Watcher (Monitor de Arquivos), Fluxo de Eventos, Fluxos, ⚙️ Indexer Service (Serviço de Indexação), Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\notes.md, Símbolos
 
 ### Community 974 - "Recuperador SemÃntico"
-Cohesion: 0.12
-Nodes (17): 5. Semantic Retriever (`rag/retriever/semantic_retriever.py`), Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Integracoes, Objetivo (+9 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\notifications.py, Dependências, Símbolos
 
 ### Community 975 - "SDD — Proxy OpenAI & Gateway de Orquestração"
-Cohesion: 0.12
-Nodes (17): Arquivos Relacionados, Configuração do Open WebUI, Contexto de Usuário, Dependencias, Endpoints do Gateway, Fluxo do Proxy OpenAI (Triple-Router), Fluxos, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\objc.py, Símbolos
 
 ### Community 976 - "SDD — Sistema de Memória Inteligente com Obsidian"
-Cohesion: 0.12
-Nodes (17): Arquitetura do Sistema, Arquivos Relacionados, Caso de Uso (User Story), Componentes Detalhados, Dependencias, Estrutura de Pastas no Vault, Fluxos, Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Projetos\Objetivos do Projeto.md, Símbolos
 
 ### Community 977 - "SDD — User Context Propagation & Multiusuário"
-Cohesion: 0.12
-Nodes (17): Alterações no AgentState, Arquivos Relacionados, Compatibilidade com PostgreSQL, Critérios de Aceite ✅, Dependencias, Estrutura de Memória, Fluxo Atual, Fluxos (+9 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\observability.py, Dependências, Símbolos
 
 ### Community 978 - "Variáveis de Ambiente"
-Cohesion: 0.12
-Nodes (17): Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, [Hugging Face](https://huggingface.co/), Integracoes, Objetivo (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\observability-engineer.md, Símbolos
 
 ### Community 979 - "K.A.O.S Knowledge Wiki — Agent Schema"
-Cohesion: 0.12
-Nodes (17): Arquivos Relacionados, Cross-Reference Rules, Dependencias, Directory Structure, Draft Mode, Fluxos, Frontmatter (Required), Integracoes (+9 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\observability-real.md, Símbolos
 
 ### Community 980 - "Graphify Evaluation - Mixed Corpus (2026-04-04)"
-Cohesion: 0.12
-Nodes (16): 1. Corpus Detection, 2. AST Extraction (3 Python files), 3. Community Detection, 4. Query Tests (live BFS traversal), 5. Feedback Loop Test (answers filed back into library), 6. Arabic Image OCR (via Claude vision), 7. Issues Found, 8. Scores (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\tools\observability-tools.md, Símbolos
 
 ### Community 981 - "Changelog — K.A.O.S"
-Cohesion: 0.12
-Nodes (15): Arquivos Relacionados, Changelog — K.A.O.S, Dependencias, Documentation, Features, Fixes, Fluxos, Integracoes (+7 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\technology-observatory\observatory.py, Símbolos
 
 ### Community 982 - "Relatório de Auditoria do Desktop — K.A.O.S"
-Cohesion: 0.12
-Nodes (15): 1. Visão Geral da Estrutura, 2. Detecção de Mocks e Referências Sintéticas, 3. Páginas Encontradas, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\memory\obsidian.py, Dependências, Símbolos
 
 ### Community 983 - "KAOS Architect"
 Cohesion: 0.12
@@ -4513,47 +6304,47 @@ Cohesion: 0.12
 Nodes (15): Arquivos Relacionados, dashboard-url, Dependencias, Fluxos, Integracoes, Objetivo, Observability Tools, query-logs (+7 more)
 
 ### Community 988 - "Agente de Ingestao de Conhecimento"
-Cohesion: 0.12
-Nodes (16): Agente de Ingestao de Conhecimento, Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Integracoes, Objetivo (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\OBSIDIAN_GUIDE.md, Símbolos
 
 ### Community 989 - "Classificador de Intenções"
-Cohesion: 0.12
-Nodes (16): Arquivos Relacionados, Children, Classificador de Intenções, Conteudo, Dependencias, Fluxos, Integracoes, Objetivo (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\services\obsidian_service.py, Dependências, Símbolos
 
 ### Community 990 - "Functional Specification — [Nome da Feature]"
-Cohesion: 0.12
-Nodes (16): 1. Resumo, 2. Atores, 3. Fluxo Principal, 5. Critérios de Aceite, 6. Observações, Arquivos Relacionados, Dependencias, Fluxos (+8 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Obsidian Watcher.md, Símbolos
 
 ### Community 991 - "Monitoramento do Vault (Watcher)"
-Cohesion: 0.12
-Nodes (16): Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Integracoes, Monitoramento do Vault (Watcher), Objetivo (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\chat\ollama.py, Dependências, Símbolos
 
 ### Community 992 - "Orquestrador LangGraph"
-Cohesion: 0.12
-Nodes (16): Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Integracoes, Objetivo, Orquestrador LangGraph (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\inference\ollama_adapter.py, Dependências, Símbolos
 
 ### Community 993 - "Roteamento de MemÓria"
-Cohesion: 0.12
-Nodes (16): Arquivos Relacionados, Children, Conteudo, Dependencias, Fluxos, Integracoes, Objetivo, Parent (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\ollama_provider.py, Dependências, Símbolos
 
 ### Community 994 - "SDD Componente — File Watcher & Indexer Service"
-Cohesion: 0.12
-Nodes (16): Arquivos Relacionados, Dependencias, File Watcher (Monitor de Arquivos), Fluxo de Eventos, Fluxos, Indexer Service (Serviço de Indexação), Integracoes, Objetivo (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\embedding\openai.py, Dependências, Símbolos
 
 ### Community 995 - "K.A.O.S Knowledge Wiki — Schema do Agente"
-Cohesion: 0.12
-Nodes (16): Arquivos Relacionados, Convenções de Nomenclatura, Dependencias, Estrutura de Diretórios, Frontmatter (Obrigatório), Integracoes, K.A.O.S Knowledge Wiki — Schema do Agente, Modo Draft (+8 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\inference\openai_adapter.py, Dependências, Símbolos
 
 ### Community 996 - "Execution Steps"
-Cohesion: 0.12
-Nodes (15): 1. Initialize Convergence Context, 2. Load Artifacts (Progressive Disclosure), 3. Build the Intent Inventory, 4. Assess the Codebase and Classify Findings, 5. Assign Severity, 6. Present the In-Session Findings Summary, 7. Append Convergence Tasks (or report converged), 8. Provide Next Actions (Handoff) (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\openai_provider.py, Dependências, Símbolos
 
 ### Community 997 - "entity"
-Cohesion: 0.13
-Nodes (14): entity, description, email, name, role, type, webpageUrl, funding (+6 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\opencode.py, Dependências, Símbolos
 
 ### Community 998 - "README.md"
-Cohesion: 0.19
+Cohesion: 0.17
 Nodes (6): Configuração, Fallback Chain, Fluxo de Decisão, Implementação, Provider Routing — K.A.O.S, Registro de Providers
 
 ### Community 999 - "Arquitetura Geral"
@@ -4565,8 +6356,8 @@ Cohesion: 0.13
 Nodes (15): Arquitetura, AWS (Fase 10), Children, Conceitos, Email e Notificacoes, Exemplos, GitHub Integration, Integracoes de Servicos (+7 more)
 
 ### Community 1001 - "Relatório de Compatibilidade Desktop/Backend — K.A.O.S"
-Cohesion: 0.13
-Nodes (14): 1. Status de Compatibilidade, 2. Mapeamento de Endpoints Utilizados no Desktop, 3. Discrepâncias de Tipagem e Mocks Esquecidos, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+6 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\opencode_executor.py, Dependências, Símbolos
 
 ### Community 1002 - "Quality Gates — K.A.O.S CI Pipeline"
 Cohesion: 0.13
@@ -4597,40 +6388,40 @@ Cohesion: 0.13
 Nodes (14): Arquivos Relacionados, Dependencias, Ferramentas Utilizadas, Fluxos, Integracoes, KAOS Security Auditor, Objetivo, Referencias KIRL (+6 more)
 
 ### Community 1009 - "Projeto — K.A.O.S"
-Cohesion: 0.13
-Nodes (15): Active Initiatives, Arquivos Relacionados, Branching Strategy, Dependencias, Fluxos, Integracoes, Objetivo, Projeto — K.A.O.S (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\opencode_watcher.py, Dependências, Símbolos
 
 ### Community 1010 - "SDD — Identidade K.A.O.S & Estratégia Monorepo"
-Cohesion: 0.13
-Nodes (14): 1. Identidade do Projeto, 2. Estratégia de Repositório (Monorepo), 3. Diretrizes Arquiteturais, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\OPERATIONS.md, Símbolos
 
 ### Community 1011 - "SDD — Session History & Conversation Persistence"
-Cohesion: 0.13
-Nodes (14): Arquivos Relacionados, Contratos de API, `DELETE /api/conversations/{session_id}?user_id=X`, Fluxo de Persistência, `GET /api/conversations/{session_id}?user_id=X`, `GET /api/conversations?user_id=X&page=1&limit=20`, Modelo de Dados, Objetivo (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\OPERATIONS_RUNBOOK.md, Símbolos
 
 ### Community 1012 - "Wiki — Índice"
-Cohesion: 0.13
-Nodes (15): Arquivos Relacionados, Concepts, Dependencias, Entities, Fluxos, Integracoes, Objetivo, Referencias KIRL (+7 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\orchestrator.py, Dependências, Símbolos
 
 ### Community 1013 - "graphify Benchmarks"
-Cohesion: 0.13
-Nodes (14): Cost and token economics, Datasets, Fairness rules, graphify Benchmarks, Harness, Judge and grading, LOCOMO (n=300), LongMemEval-S (n=50) (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Orquestrador LangGraph.md, Símbolos
 
 ### Community 1014 - "mcp_ingest.py"
-Cohesion: 0.21
-Nodes (14): _extract_spock_fallback(), Regex-based fallback for Spock spec files where tree-sitter-groovy cannot parse, _add_edge(), _add_node(), _detect_package_from_args(), _emit_server(), Any, mcp_ingest.py — Extract MCP (Model Context Protocol) server configuration files. (+6 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\pascal_cross_file\OtherGadget.pas, Símbolos
 
 ### Community 1015 - "Alinhamento de APIs (Backend vs Desktop) — K.A.O.S"
-Cohesion: 0.14
-Nodes (13): 1. Endpoints do Backend Consumidos pelo Frontend, 2. Endpoints Não Consumidos ou Opcionais, Alinhamento de APIs (Backend vs Desktop) — K.A.O.S, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\OutdatedDocsList.tsx, Símbolos
 
 ### Community 1016 - "Documentação Faltante do Desktop — K.A.O.S"
-Cohesion: 0.14
-Nodes (13): 1. Cobertura Documental das Páginas, 2. Documentação que precisa ser enriquecida, Arquivos Relacionados, Dependencias, Documentação Faltante do Desktop — K.A.O.S, Fluxos, Integracoes, Objetivo (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, package.json, Símbolos
 
 ### Community 1017 - "Plano de Refatoração do Desktop — K.A.O.S"
-Cohesion: 0.14
-Nodes (13): 1. Oportunidades de Otimização identificadas, 2. Cronograma de Refatoração Proposto, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Plano de Refatoração do Desktop — K.A.O.S (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Padroes de Projeto.md, Símbolos
 
 ### Community 1018 - "AI Agent Engineer"
 Cohesion: 0.14
@@ -4673,16 +6464,16 @@ Cohesion: 0.14
 Nodes (13): Arquivos Relacionados, Criterios de Qualidade, Dependencias, Descricao, Fluxos, Integracoes, Objetivo, React Developer (+5 more)
 
 ### Community 1028 - "Communities"
-Cohesion: 0.14
-Nodes (13): Communities, Community 0 - "Community 0", Community 1 - "Community 1", Community 2 - "Community 2", Community 3 - "Community 3", Community 4 - "Community 4", Community 5 - "Community 5", Corpus Check (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\parser.py, Símbolos
 
 ### Community 1029 - "Benchmark: Karpathy Repos + Research Papers"
-Cohesion: 0.14
-Nodes (13): Benchmark: Karpathy Repos + Research Papers, Code-only (AST, no Claude), Communities detected (major), Full corpus (code + papers + images), God nodes (highest degree), Graph quality evaluation, Graph summary, Per-question breakdown (full corpus) (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\pascal.py, Símbolos
 
 ### Community 1030 - "SDD-040 — Universal Orchestration Platform"
-Cohesion: 0.14
-Nodes (13): 1. Objective, 2. Architecture Pillars, 3.1 CapabilityProfile, 3.2 ExecutionPlan, 3.3 BaseWorkflow, 3.4 BaseChatProvider, 3.5 ServiceRegistry, 3. Core Concepts (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\pascal_forms.py, Símbolos
 
 ### Community 1032 - "Arquitetura Frontend FSD — K.A.O.S"
 Cohesion: 0.15
@@ -4697,32 +6488,36 @@ Cohesion: 0.15
 Nodes (12): 1. Diagnostics Checklist & Findings, 2. Hypothesis Evaluation Matrix, 3. Impact Classification, 4. Root Cause Summary, Desktop Client Connectivity & System Health Analysis (Phase 11), Q1: O Desktop consegue resolver `api.kaostech.com.br`?, Q2: O endpoint `/health` responde?, Q3: O Desktop está usando a URL correta? (+4 more)
 
 ### Community 1035 - "SDD-N8N-GITOPS-001 — Sincronização Automática de Workflows do n8n (GitOps)"
-Cohesion: 0.15
-Nodes (12): 1. Objetivo, 2. Estrutura do Repositório, 3. Manifesto Multi-Ambiente (`manifest.yaml`), 4. Arquitetura do Processo de Sincronização (`sync.py`), 5.1. Identificador Estável por Workflow, 5.2. Comparação Inteligente (Normalização de JSON), 5.3. Validação de Pré-Deploy (Linting), 5.4. Ordenação por Dependência (`depends_on`) (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\pascal_resolution.py, Símbolos
 
 ### Community 1036 - "Wiki — Log de Alterações"
-Cohesion: 0.15
-Nodes (12): 2026-06-18, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, Símbolos, workspace\kaos\vault\wiki\log.md
 
 ### Community 1037 - "graphify"
-Cohesion: 0.15
-Nodes (13): `graph.json`을 LLM과 함께 사용하기, graphify, 개인정보 보호, 결과물, 기술 스택, 다음 계획, 동작 원리, 사용법 (+5 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\paths.py, Símbolos
 
 ### Community 1038 - "Graph Report - worked/mixed-corpus/raw  (2026-04-05)"
-Cohesion: 0.15
-Nodes (12): Communities, Community 0 - "Community 0", Community 1 - "Community 1", Community 2 - "Community 2", Community 3 - "Community 3", Community 4 - "Community 4", Corpus Check, God Nodes (most connected - your core abstractions) (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\pg_introspect.py, Símbolos
 
 ### Community 1039 - "Python"
-Cohesion: 0.15
-Nodes (12): Code Conventions, Components, Error Handling, Imports, Imports, Logging (Loguru), Naming, Naming (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Pipeline de Consulta da Wiki.md, Símbolos
 
 ### Community 1040 - "K.A.O.S — Knowledge & Agentic Orchestration System"
-Cohesion: 0.15
-Nodes (12): 1. Prerequisites, 2. Startup Infrastructure, 3. Run the Desktop Launcher, 🏗️ Architecture Overview, Backend Lint & Tests (Python), 📦 CI/CD & Releases, 🤝 Conventional Commits, ✨ Features Checklist (+4 more)
+Cohesion: 0.20
+Nodes (9): APIs, CI/CD, Endpoints principais, Integracoes, K.A.O.S — Knowledge & Agentic Orchestration System, Licenca, Scripts, Seguranca (+1 more)
 
 ### Community 1041 - "Feature Specification: [FEATURE NAME]"
-Cohesion: 0.15
-Nodes (12): Assumptions, Edge Cases, Feature Specification: [FEATURE NAME], Functional Requirements, Key Entities *(include if feature involves data)*, Measurable Outcomes, Requirements *(mandatory)*, Success Criteria *(mandatory)* (+4 more)
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\plan.md, Símbolos
+
+### Community 1042 - "AirLLMChatGLM"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\plan_executor.py, Dependências, Símbolos
 
 ### Community 1043 - "Anti-patterns — K.A.O.S"
 Cohesion: 0.17
@@ -4773,60 +6568,60 @@ Cohesion: 0.17
 Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades, Resumo (+3 more)
 
 ### Community 1055 - "Auth & First Run Wizard"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Auth & First Run Wizard, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\plan-template.md, Símbolos
 
 ### Community 1056 - "Docs Source Refactor"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Docs Source Refactor, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\nodes\planner.py, Dependências, Símbolos
 
 ### Community 1057 - "Multi User + RBAC"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Multi User + RBAC, Objetivo, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\planner_api.py, Dependências, Símbolos
 
 ### Community 1058 - "Observability Real"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Observability Real, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\planner_port.py, Dependências, Símbolos
 
 ### Community 1059 - "Provider Catalog"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Provider Catalog, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\planner_service.py, Dependências, Símbolos
 
 ### Community 1060 - "Provider UX"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Provider UX, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\plugin_registry.py, Dependências, Símbolos
 
 ### Community 1061 - "2. Especificação Técnica das Mudanças"
-Cohesion: 0.17
-Nodes (11): 1. Objetivo, 🎨 2.1 Design System V2 & Temas Dinâmicos, 📂 2.2 Sidebar V2 (Navegação Colapsável), ⌨️ 2.3 Command Palette, 🤖 2.4 Agents Playground & Form Modals, 📊 2.5 Dashboard V2 & Pipelines, 🌐 2.6 Novas Páginas (Stubs & Rotas), 2. Especificação Técnica das Mudanças (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\plugin_sandbox.py, Dependências, Símbolos
 
 ### Community 1062 - "SDD — MCP to LangGraph Tool Bridge"
-Cohesion: 0.17
-Nodes (11): API REST, Arquivos Relacionados, Camadas, Fluxo de Startup, MCPAdapter, Objetivo, Problema, SDD — MCP to LangGraph Tool Bridge (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\plugins.py, Dependências, Símbolos
 
 ### Community 1063 - "2. Procedimento Seguro de Limpeza de Disco (Sem Perda de Dados)"
-Cohesion: 0.17
-Nodes (11): 1. Visão Geral, 2. Procedimento Seguro de Limpeza de Disco (Sem Perda de Dados), 3.1. PostgreSQL (Restauração Lógica), 3.2. Qdrant (Restauração de Snapshots), 3. Procedimento de Restauração de Dados, Passo 1: Avaliar Uso de Disco do Docker, Passo 2: Limpar Cache do Builder (Altamente Seguro), Passo 3: Limpar Contêineres Parados/Inativos (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\memory\postgres.py, Dependências, Símbolos
 
 ### Community 1064 - "Tarefa para o OpenCode (kaos-architect agent)"
-Cohesion: 0.17
-Nodes (11): 1. Consistência Arquitetural, 2. Gaps não identificados, 3. Conflitos com código existente, 4. Viabilidade dos critérios de aceite, 5. Ordem de implementação sugerida, 6. Red Flags, Arquivos para consultar:, Contexto (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\memory\postgres_memory_adapter.py, Dependências, Símbolos
 
 ### Community 1065 - "Test"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades, Resumo (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\postgres_repository.py, Dependências, Símbolos
 
 ### Community 1066 - "Validation Audit"
-Cohesion: 0.17
-Nodes (11): Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades, Resumo (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\storage\postgres_storage.py, Dependências, Símbolos
 
 ### Community 1067 - "test_ts_import_require.py"
-Cohesion: 0.39
-Nodes (11): _has_edge(), Path, Regression tests for the TypeScript import-equals form: `import x = require("./m, Regression guard: the restructured string scan must not change ESM handling, `import x = require("./m")` must produce the same file-level edge as     `impor, test_esm_imports_unaffected(), test_import_require_bare_module_targets_ref_stub(), test_import_require_parity_with_namespace_import() (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\extra\powershell-troubleshooting.md, Símbolos
 
 ### Community 1068 - "Case Study: rsl-siege-manager (Python + TypeScript monorepo)"
-Cohesion: 0.17
-Nodes (9): 1. Clone the corpus, 2. Install the CLI, 3. Run extraction, 4. Inspect, Case Study: rsl-siege-manager (Python + TypeScript monorepo), How to reproduce, Reference, What's in this directory (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\PrismOrderView.xaml, Símbolos
 
 ### Community 1069 - "Capability Matrix — K.A.O.S vs Framework Candidates"
 Cohesion: 0.17
@@ -4837,20 +6632,24 @@ Cohesion: 0.17
 Nodes (11): Architecture Health Score, Conclusion, Executive Summary, K.A.O.S Architectural Research — Final Report, Key Findings, Next Steps (Phase 4: Ports & Adapters Implementation), Phase 3 Deliverables Checklist, Risk Register (+3 more)
 
 ### Community 1071 - "Arquitetura do K.A.O.S"
-Cohesion: 0.17
-Nodes (11): AI Vault Analyzer, Arquitetura do K.A.O.S, Auditoria KIRL, Backend (assistant/app/), Camadas, Chat, Dependencias FSD (Frontend), Fluxos Principais (+3 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\PrismOrderViewModel.cs, Símbolos
+
+### Community 1072 - "AirLLMQWen"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\profiler.py, Dependências, Símbolos
 
 ### Community 1074 - "send_message"
-Cohesion: 0.27
-Nodes (10): _extract_source_path(), _get_classifier(), _persist_conversation(), _persist_turn(), StreamingResponse, Wrapper que coleta tokens do generator e persiste ao final., Salva um turno de conversa no PostgreSQL. Fire-and-forget friendly., Dispara persistência do turno user + assistant em background. (+2 more)
+Cohesion: 0.21
+Nodes (12): _extract_source_path(), _get_classifier(), _persist_conversation(), _persist_turn(), StreamingResponse, Wrapper que coleta tokens do generator e persiste ao final., Salva um turno de conversa no PostgreSQL. Fire-and-forget friendly., Dispara persistência do turno user + assistant em background. (+4 more)
 
 ### Community 1075 - "Prompt"
-Cohesion: 0.44
-Nodes (10): create_prompt(), delete_prompt(), list_prompts(), PromptResponse, PromptSchema, AsyncSession, BaseModel, update_prompt() (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\models\prompt.py, Dependências, Símbolos
 
 ### Community 1076 - "test_desktop_apis.py"
 Cohesion: 0.18
-Nodes (6): client(), test_get_model(), test_get_user_exists(), test_list_capability_policies(), test_list_feature_flags(), test_list_models()
+Nodes (5): test_get_model(), test_get_user_exists(), test_list_capability_policies(), test_list_feature_flags(), test_list_models()
 
 ### Community 1077 - "Detalhamento das Camadas"
 Cohesion: 0.18
@@ -4865,64 +6664,72 @@ Cohesion: 0.18
 Nodes (10): Agents, Estrutura, Manutencao, OpenCode Configuration — K.A.O.S, Referencias, Regras, Skills, Tools (+2 more)
 
 ### Community 1080 - "Arquitetura da IA Pessoal Offline"
-Cohesion: 0.18
-Nodes (11): Arquitetura da IA Pessoal Offline, Arquivos Relacionados, Dependencias, Fluxos, Integracoes, Objetivo, Referencias KIRL, Responsabilidades (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\prompts.py, Dependências, Símbolos
+
+### Community 1081 - "sdd_fase3_obsidian_service.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Propagacao de Contexto de Usuario.md, Símbolos
 
 ### Community 1082 - "README.de-DE.md"
-Cohesion: 0.18
-Nodes (10): Assistenten immer den Graphen nutzen lassen (empfohlen), Auf graphify aufgebaut — Penpax, Datenschutz, Installation, Plattformunterstützung, So funktioniert es, Star-Verlauf, Tech-Stack (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Provedor Hibrido de LLM.md, Símbolos
 
 ### Community 1083 - "README.es-ES.md"
-Cohesion: 0.18
-Nodes (10): Construido sobre graphify — Penpax, Cómo funciona, Hacer que el asistente siempre use el grafo (recomendado), Historial de estrellas, Instalación, Privacidad, Qué obtienes, Soporte de plataformas (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\provider.py, Dependências, Símbolos
 
 ### Community 1084 - "README.fr-FR.md"
-Cohesion: 0.18
-Nodes (10): Ce que vous obtenez, Comment ça fonctionne, Confidentialité, Construit sur graphify — Penpax, Historique des étoiles, Installation, Stack technique, Support des plateformes (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\provider-catalog.md, Símbolos
 
 ### Community 1085 - "graphify"
-Cohesion: 0.18
-Nodes (11): graphify, アシスタントに常にグラフを使わせる（推奨）, インストール, スター履歴, プライバシー, プラットフォームサポート, 仕組み, 使い方 (+3 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\setup\provider_config.py, Dependências, Símbolos
 
 ### Community 1086 - "README.pt-BR.md"
-Cohesion: 0.18
-Nodes (10): Como funciona, Construído sobre graphify — Penpax, Fazer o assistente sempre usar o grafo (recomendado), Histórico de estrelas, Instalação, O que você obtém, Privacidade, Stack técnico (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\provider_config_repository.py, Dependências, Símbolos
 
 ### Community 1087 - "README.ru-RU.md"
-Cohesion: 0.18
-Nodes (10): Заставить ассистента всегда использовать граф (рекомендуется), Использование, История звёзд, Как это работает, Конфиденциальность, Поддержка платформ, Построено на graphify — Penpax, Технологический стек (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\api\provider_configs.py, Dependências, Símbolos
 
 ### Community 1088 - "README.uz-UZ.md"
-Cohesion: 0.18
-Nodes (10): Foydalanish, graphify ustida qurilgan — Penpax, Maxfiylik, Nima olasiz, O'rnatish, Platforma qo'llab-quvvatlash, Qanday ishlaydi, Texnologiyalar to'plami (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\core\provider_registry.py, Dependências, Símbolos
 
 ### Community 1089 - "speckit.plan.md"
-Cohesion: 0.18
-Nodes (10): Completion Report, Done When, Key rules, Mandatory Post-Execution Hooks, Outline, Phase 0: Outline & Research, Phase 1: Design & Contracts, Phases (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\PROVIDER_ROUTING.md, Símbolos
 
 ### Community 1090 - "speckit.specify.md"
-Cohesion: 0.18
-Nodes (10): Completion Report, Done When, For AI Generation, Mandatory Post-Execution Hooks, Outline, Pre-Execution Checks, Quick Guidelines, Section Requirements (+2 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\provider_selector.py, Dependências, Símbolos
 
 ### Community 1091 - "speckit.tasks.md"
-Cohesion: 0.18
-Nodes (10): Checklist Format (REQUIRED), Completion Report, Done When, Mandatory Post-Execution Hooks, Outline, Phase Structure, Pre-Execution Checks, Task Generation Rules (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\provider-ux.md, Símbolos
 
 ### Community 1092 - "Uso"
-Cohesion: 0.18
-Nodes (10): Agents, Estrutura, Manutencao, OpenCode Configuration — K.A.O.S, Referencias, Regras, Skills, Tools (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ProviderDropdown.tsx, Símbolos
 
 ### Community 1093 - "Core Principles"
-Cohesion: 0.18
-Nodes (10): Core Principles, Governance, [PRINCIPLE_1_NAME], [PRINCIPLE_2_NAME], [PRINCIPLE_3_NAME], [PRINCIPLE_4_NAME], [PRINCIPLE_5_NAME], [PROJECT_NAME] Constitution (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\providers\PROVIDERS.md, Símbolos
 
 ### Community 1094 - "make_data_module"
-Cohesion: 0.20
-Nodes (9): DataCollatorForCausalLM, make_data_module(), object, PreTrainedModel, PreTrainedTokenizer, Tensor, Resize tokenizer and embedding.      Note: This is the unoptimized version tha, Make dataset and collator for supervised fine-tuning.     Datasets are expected (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\prs.py, Símbolos
 
 ### Community 1095 - "TestResolvedPolicy"
-Cohesion: 0.31
-Nodes (4): CapabilityPolicyResolver, AsyncSession, ResolvedPolicy, TestResolvedPolicy
+Cohesion: 0.50
+Nodes (3): Dependências, .github\PULL_REQUEST_TEMPLATE.md, Símbolos
+
+### Community 1097 - "MockProvider"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\python.md, Símbolos
 
 ### Community 1098 - "Obrigatórios"
 Cohesion: 0.20
@@ -4941,48 +6748,52 @@ Cohesion: 0.20
 Nodes (10): 01 - Projetos & Roadmap, 02 - Arquitetura de Software, 03 - Inteligencia Artificial & RAG, 04 - Backend & Automacoes, 05 - DevOps, Infraestrutura & Tauri, 06 - Obsidian PKM, 07 - Pesquisas e Conhecimento Incremental, 08 - Qualidade e Testes (+2 more)
 
 ### Community 1102 - "SDD-INFRA-001 — Docker Compose Produção (K.A.O.S)"
-Cohesion: 0.20
-Nodes (9): 1. Visão Geral, 2. Rotação de Logs e Limites, 3. Mapeamentos de Volumes Críticos e Logs da API, 4.1. PostgreSQL Healthcheck, 4.2. FastAPI kaos-api Healthcheck, 4.3. n8n Healthcheck, 4. Estrutura de Healthchecks, 5. Publicações de Rotas (Cloudflare Tunnel) (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\python-developer.md, Símbolos
 
 ### Community 1103 - "SDD-KAOS-EVOLUTION-001 — K.A.O.S Evolution Blueprint"
-Cohesion: 0.20
-Nodes (9): 1. Princípios Arquiteturais Fundamentais, 2. Nova Estrutura de Diretórios Orientada a Capacidades, 3. Runtime Registry Centralizado, 4. Capability Lifecycle & Manifests, 5. Workspace Intelligence Capability, 6. Credential Service Plugável, Ciclo de Vida da Capability, Exemplo de Manifesto (`manifest.yaml`) (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\vector\qdrant.py, Dependências, Símbolos
 
 ### Community 1104 - "3. Configuração dos Componentes"
-Cohesion: 0.20
-Nodes (9): 1. Visão Geral, 2. Componentes da Stack de Observabilidade, 3.1. Node Exporter (Métricas do Host), 3.2. cAdvisor (Métricas de Contêineres), 3.3. Alertmanager (Gerenciamento de Alertas), 3.4. Blackbox Exporter (Sondagem Externa), 3. Configuração dos Componentes, 4. Regras de Alerta Ativas (alerts.yml) (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\retrieval\qdrant_adapter.py, Dependências, Símbolos
 
 ### Community 1105 - "Incremental Updates + Entity Deduplication Implementation Plan"
-Cohesion: 0.20
-Nodes (9): File Map, Incremental Updates + Entity Deduplication Implementation Plan, Self-Review, Task 1: Add `datasketch` and `rapidfuzz` to dependencies, Task 2: Create `graphify/dedup.py` — entropy gate + MinHash/LSH + Jaro-Winkler, Task 3: Wire dedup into `build.py`, Task 4: Incremental updates — semantic cache + manifest in `__main__.py`, Task 5: Add `--dedup-llm` tiebreaker to `dedup.py` (+1 more)
+Cohesion: 0.50
+Nodes (3): airllm\training\qlora.py, Dependências, Símbolos
 
 ### Community 1106 - "README.ar-SA.md"
-Cohesion: 0.20
-Nodes (9): الاستخدام, التثبيت, الخصوصية, المكدس التقني, دعم المنصات, سجل النجوم, كيف يعمل, ما ستحصل عليه (+1 more)
+Cohesion: 0.50
+Nodes (3): airllm\rlhf\qlora_dpo.py, Dependências, Símbolos
 
 ### Community 1107 - "graphify"
-Cohesion: 0.20
-Nodes (10): graphify, Worked examples, 你会得到什么, 安装, 工作原理, 平台支持, 技术栈, 用法 (+2 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\governance\quality-gates.md, Símbolos
 
 ### Community 1108 - "test_pascal_call_scoping.py"
-Cohesion: 0.49
-Nodes (9): _class_node_id(), _extractors(), _has_call(), _method_node_id(), Regression tests for scoped call resolution in the Pascal/Delphi extractor.  B, test_calls_do_not_cross_unrelated_classes(), test_calls_resolve_via_ancestor_chain(), test_calls_scoped_other_direction() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skills\windows\references\query.md, Símbolos
 
 ### Community 1109 - "test_pascal_resolution.py"
-Cohesion: 0.31
-Nodes (9): _call_edge(), _find_raw_call(), _labels(), Tests for cross-file Pascal/Delphi inherited-method-call resolution.  The per-, Sanity check for the gap this resolver closes: the per-file extractor     alone, TDerivedGadget inherits only from TBaseGadget. TOtherGadget declares an     unr, test_calls_resolve_across_files_via_inherits_chain(), test_cross_file_calls_do_not_cross_unrelated_classes() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\querylog.py, Símbolos
 
 ### Community 1110 - "Hypotheses — K.A.O.S Architecture Evolution"
 Cohesion: 0.20
 Nodes (9): H1 — Graphify as Evidence Engine, H2 — Mem0 for Persistent Agent Memory, H3 — GraphRAG for Multi-hop Knowledge Queries, H4 — Graphiti for Temporal Knowledge Evolution, H5 — LangGraph for Advanced Agent Orchestration, H6 — Cognee for Entity Extraction, H7 — AirLLM for Local Large Model Inference, Hypotheses — K.A.O.S Architecture Evolution (+1 more)
 
 ### Community 1111 - "Core Principles"
-Cohesion: 0.20
-Nodes (9): Core Principles, Governance, I. Zero Tolerance for Fabricated Data, II. Dynamic Hardware Detection (CPU/VRAM), III. Single Source of Truth Telemetry, IV. Offline Blocking Gate, K.A.O.S Constitution, Quality and Compliance (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\rag.py, Dependências, Símbolos
 
 ### Community 1112 - "Tasks: K.A.O.S Production Readiness & Mock Elimination"
-Cohesion: 0.20
-Nodes (9): Phase 1: Setup (Shared Infrastructure), Phase 2: Foundational (Blocking Prerequisites), Phase 3: User Story 1 - De-mocking Dashboard & Observability (Priority: P1), Phase 4: User Story 2 - Consolidated Dashboard Telemetry (Priority: P1), Phase 5: User Story 3 - Offline Boot Gate & Readiness check (Priority: P1), Phase 6: User Story 4 - Silent Subprocess Execution (Priority: P2), Phase 7: Polish & Validation, Phase 8: Advanced Tools Integration & System-Wide Audit (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\rag-engineer.md, Símbolos
+
+### Community 1113 - "DriftEngine"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\razor.py, Símbolos
 
 ### Community 1114 - "Audit (KIRL)"
 Cohesion: 0.22
@@ -5001,156 +6812,156 @@ Cohesion: 0.22
 Nodes (8): 1. Qual pasta recebe o deploy?, 2. Qual branch e commit?, 3. Qual compose é executado?, 4. O deploy atualiza o container correto?, Analysis of the Flaw, Answers to Key Investigation Questions, CI/CD Deployment Pipeline Analysis, Critical Flaw in the Deploy Clean Step
 
 ### Community 1118 - "Backlog do Projeto"
-Cohesion: 0.25
-Nodes (6): Backlog do Projeto, Children, Conteudo, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\react.md, Símbolos
 
 ### Community 1119 - "3. Plano de Execucao — 4 Sprints"
-Cohesion: 0.22
-Nodes (9): 3. Plano de Execucao — 4 Sprints, Item 0.1 — Validar estrutura real do Vault, Item 0.2 — Corrigir configuracao do vault, Item 0.3 — Subir kaos-api e validar, Item A2 — Modificar `GET /auth/key`, Item A3 — Criar `GET /api/providers`, Item A4 — Criar `GET /api/system/status`, 🔴 SPRINT 1 — Destravar Backend (+1 more)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\read_note_tool.py, Dependências, Símbolos
 
 ### Community 1120 - "2. Sequência de Investigação (Ordem de Prioridade)"
-Cohesion: 0.22
-Nodes (8): 1. Visão Geral, 2.1. Passo 1: Armazenamento e Limites do Sistema, 2.2. Passo 2: Memória RAM e OOM Killer, 2.3. Passo 3: Estado dos Contêineres e Eventos, 2.4. Passo 4: Validação do Banco PostgreSQL, 2.5. Passo 5: Teste de Conectividade Interna (Docker Network), 2. Sequência de Investigação (Ordem de Prioridade), SDD-OPS-001 — Runbook de Diagnóstico Operacional (K.A.O.S)
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\read_wiki_tool.py, Dependências, Símbolos
 
 ### Community 1121 - "ConfiguraçÃes de Agente"
-Cohesion: 0.25
-Nodes (6): Children, ConfiguraçÃes de Agente, Conteudo, Parent, Related, Tags
+Cohesion: 0.01
+Nodes (105): graphify\tools\skillgen\fragments\dispatch\agent-tool-disk.md, graphify\tools\skillgen\fragments\dispatch\agent-tool-disk-powershell.md, Símbolos, Símbolos, Dependências, docs\sdd\auth-wizard.md, Símbolos, Dependências (+97 more)
 
 ### Community 1122 - "README.hi-IN.md"
-Cohesion: 0.22
-Nodes (8): graphify पर बनाया — Penpax, Star इतिहास, आपको क्या मिलता है, इंस्टॉलेशन, उपयोग, गोपनीयता, प्लेटफॉर्म समर्थन, यह कैसे काम करता है
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\readiness_engine.py, Dependências, Símbolos
 
 ### Community 1123 - "sanitize_metadata"
-Cohesion: 0.22
-Nodes (9): _import_csharp(), Any, Sanitize metadata keys and values before graph export.      Metadata is less c, sanitize_metadata(), test_sanitize_metadata_bool_not_coerced_to_int(), test_sanitize_metadata_drops_empty_key(), test_sanitize_metadata_none_returns_empty_dict(), test_sanitize_metadata_recursive_nested() (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\README.md, Símbolos
 
 ### Community 1124 - "_replace_or_append_section"
-Cohesion: 0.33
-Nodes (8): Idempotently update or append a graphify-owned section in shared files.      I, _replace_or_append_section(), #1688 - graphify's shared-file section update must not destroy user content., test_append_when_no_real_heading(), test_inline_reference_to_marker_is_not_treated_as_the_section(), test_prefers_last_heading_when_duplicated(), test_real_section_is_replaced_in_place(), test_reinstall_is_idempotent()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ar-SA.md, Símbolos
 
 ### Community 1125 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.cs-CZ.md, Símbolos
 
 ### Community 1126 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.da-DK.md, Símbolos
 
 ### Community 1127 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.de-DE.md, Símbolos
 
 ### Community 1128 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.el-GR.md, Símbolos
 
 ### Community 1129 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): airllm\training\README_en.md, Dependências, Símbolos
 
 ### Community 1130 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.es-ES.md, Símbolos
 
 ### Community 1131 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fa-IR.md, Símbolos
 
 ### Community 1132 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fi-FI.md, Símbolos
 
 ### Community 1133 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fil-PH.md, Símbolos
 
 ### Community 1134 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fr-FR.md, Símbolos
 
 ### Community 1135 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.he-IL.md, Símbolos
 
 ### Community 1136 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.hi-IN.md, Símbolos
 
 ### Community 1137 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.hu-HU.md, Símbolos
 
 ### Community 1138 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.id-ID.md, Símbolos
 
 ### Community 1139 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.it-IT.md, Símbolos
 
 ### Community 1140 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): airllm\README_ja.md, Dependências, Símbolos
 
 ### Community 1141 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ja-JP.md, Símbolos
 
 ### Community 1142 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ko-KR.md, Símbolos
 
 ### Community 1143 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.nl-NL.md, Símbolos
 
 ### Community 1144 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.no-NO.md, Símbolos
 
 ### Community 1145 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.pl-PL.md, Símbolos
 
 ### Community 1146 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.pt-BR.md, Símbolos
 
 ### Community 1147 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ro-RO.md, Símbolos
 
 ### Community 1148 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ru-RU.md, Símbolos
 
 ### Community 1149 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.sv-SE.md, Símbolos
 
 ### Community 1150 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.th-TH.md, Símbolos
 
 ### Community 1151 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.tr-TR.md, Símbolos
 
 ### Community 1152 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.uk-UA.md, Símbolos
 
 ### Community 1153 - "graphify reference: extra exports and benchmark"
-Cohesion: 0.22
-Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.uz-UZ.md, Símbolos
 
 ### Community 1154 - "Graph Report - .  (2026-05-13)"
-Cohesion: 0.22
-Nodes (9): Community Hubs (Navigation), Corpus Check, God Nodes (most connected - your core abstractions), Graph Freshness, Graph Report - .  (2026-05-13), Knowledge Gaps, Suggested Questions, Summary (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.vi-VN.md, Símbolos
 
 ### Community 1155 - "Review: rsl-siege-manager"
-Cohesion: 0.22
-Nodes (9): Finding 1 — Test fixtures dominate "core abstractions" when tests are included, Finding 2 — Without tests, god nodes mix domain types with entry points and utilities, Finding 3 — Surprising connections cross language boundaries, Finding 4 — Community cohesion is uniformly low on this corpus, Finding 5 — Alembic migration docstrings surface as isolated nodes, Finding 6 — Suggested questions skew toward graph-property prompts, Review: rsl-siege-manager, Suggested follow-ups (+1 more)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.zh-CN.md, Símbolos
 
 ### Community 1156 - "ADR-002: Capability-First Architecture with Ports & Adapters"
 Cohesion: 0.22
@@ -5165,24 +6976,24 @@ Cohesion: 0.22
 Nodes (8): Evidence 1: God Objects (High Degree Nodes), Evidence 2: Import Cycles (Architecture Smell), Evidence 3: Mock/Fallback Patterns (Constitution Violations), Evidence 4: Hardcoded Mock Values, Evidence 5: Missing Capabilities (Gap Analysis), Evidence 6: Functional Overlap (Duplication Risk), K.A.O.S State Audit Report — Evidence-Driven, Summary Score
 
 ### Community 1159 - "Testing Patterns"
-Cohesion: 0.22
-Nodes (8): Async Test Pattern, CI Commands, Coverage Threshold, Fixture Pattern, Framework, Naming, Structure, Testing Patterns
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.zh-TW.md, Símbolos
 
 ### Community 1160 - "KAOS Tools"
-Cohesion: 0.22
-Nodes (8): architecture-analyze, audit-run, audit-status, feature-list, feature-register, KAOS Tools, knowledge-graph, scan-commits
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\REAL_INFRASTRUCTURE_MAP.md, Símbolos
 
 ### Community 1161 - "Implementation Plan: [FEATURE]"
-Cohesion: 0.22
-Nodes (8): Complexity Tracking, Constitution Check, Documentation (this feature), Implementation Plan: [FEATURE], Project Structure, Source Code (repository root), Summary, Technical Context
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\recovery_engine.py, Dependências, Símbolos
 
 ### Community 1162 - "test_streaming_gpu.py"
-Cohesion: 0.36
-Nodes (7): cap_vram(), main(), Manual GPU test harness for AirLLM layer-streaming inference.  Runs a model th, Limit how much of the GPU this process may allocate, to emulate a smaller card., Full-load run for correctness comparison (only feasible for small models)., run_airllm(), run_reference()
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Recuperador Semantico.md, Símbolos
 
 ### Community 1163 - "README.md"
-Cohesion: 0.25
-Nodes (7): Anima基于QLoRA+DPO的低成本RLHF训练, DPO令RLHF训练平民化, ​为什么RLHF对于AI落地至关重要🎯❓, 参与贡献, 如何使用Anima QLoRA DPO训练？, 开源Anima 33B的DPO alignment版本模型, 开源QLoRA版本的低成本DPO实现
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Refatoracao Frontend FSD.md, Símbolos
 
 ### Community 1165 - "main"
 Cohesion: 0.36
@@ -5213,28 +7024,28 @@ Cohesion: 0.25
 Nodes (7): Finding F-001, Finding F-002, Finding F-003, Finding F-004, Findings, Root Cause Analysis (SDD-OPS-INVESTIGATION-001-AI), Root Cause Summary
 
 ### Community 1172 - "Fase 13 — Production Readiness Audit & Platform Evolution 🔵"
-Cohesion: 0.25
-Nodes (8): Fase 13 — Production Readiness Audit & Platform Evolution 🔵, Story 1 — Complete Backend Audit, Story 2 — Complete Frontend Audit, Story 3 — Integration Audit, Story 4 — Feature Enhancement Audit, Story 5 — Architecture Evolution, Story 6 — Technical Debt Elimination, Story 7 — Production Readiness Certification
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\reflect.py, Símbolos
 
 ### Community 1173 - "Especificacao Funcional"
-Cohesion: 0.25
-Nodes (6): Children, Conteudo, Especificacao Funcional, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\register_all.py, Dependências, Símbolos
 
 ### Community 1174 - "Migrating a language extractor out of extract.py"
-Cohesion: 0.25
-Nodes (7): Helper classification, Invariants (non-negotiable), Migrating a language extractor out of extract.py, Pre-flight, Status, Steps, What NOT to do
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\registry.py, Dependências, Símbolos
 
 ### Community 1175 - "check_graph_file_size_cap"
-Cohesion: 0.25
-Nodes (8): check_graph_file_size_cap(), Reject *path* if its size exceeds the configured graph-file cap.      Protects, test_graph_size_cap_at_boundary_passes(), test_graph_size_cap_error_message_includes_size_and_cap(), test_graph_size_cap_missing_file_silently_returns(), test_graph_size_cap_over_limit_raises(), test_graph_size_cap_under_limit_returns_none(), test_graph_size_cap_unreadable_directory_silently_returns()
+Cohesion: 0.50
+Nodes (3): assistant\scripts\reindex_with_cache.py, Dependências, Símbolos
 
 ### Community 1176 - "Graph Report - /home/safi/graphify-benchmark  (2026-04-04)"
-Cohesion: 0.25
-Nodes (7): Corpus Check, God Nodes (most connected - your core abstractions), Graph Report - /home/safi/graphify-benchmark  (2026-04-04), Knowledge Gaps, Suggested Questions, Summary, Surprising Connections (you probably didn't know these)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\report.py, Símbolos
 
 ### Community 1177 - "Corpus (52 files)"
-Cohesion: 0.25
-Nodes (7): Code — clone these 3 repos, Corpus (52 files), How to run, Images — save these 4, Karpathy Repos Benchmark, Papers — download these 5 PDFs, What to expect
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\report_generator.py, Dependências, Símbolos
 
 ### Community 1178 - "ADR-001: Graphify as Evidence Engine Source"
 Cohesion: 0.25
@@ -5246,23 +7057,23 @@ Nodes (7): ADR-003: Technology Observatory as Continuous Monitoring System, Alte
 
 ### Community 1180 - "experiment.py"
 Cohesion: 0.29
-Nodes (7): create_dataset(), GraphRAG Experiment — Multi-hop Knowledge Queries (Hypothesis H3)  Tests Microso, Test GraphRAG multi-hop querying., Create a benchmark dataset of K.A.O.S knowledge questions., Test GraphRAG indexing of K.A.O.S documentation., test_graphrag_index(), test_graphrag_query()
+Nodes (7): create_dataset(), GraphRAG Experiment — Multi-hop Knowledge Queries (Hypothesis H3)  Tests Micro, Test GraphRAG multi-hop querying., Create a benchmark dataset of K.A.O.S knowledge questions., Test GraphRAG indexing of K.A.O.S documentation., test_graphrag_index(), test_graphrag_query()
 
 ### Community 1181 - "KAOS Architect"
-Cohesion: 0.25
-Nodes (7): Criterios de Sucesso, Ferramentas Utilizadas, KAOS Architect, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\repository.py, Dependências, Símbolos
 
 ### Community 1182 - "KAOS Auditor"
-Cohesion: 0.25
-Nodes (7): Criterios de Sucesso, Ferramentas Utilizadas, KAOS Auditor, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\REQUEST_FLOW_TRACE.md, Símbolos
 
 ### Community 1183 - "speckit.checklist.md"
-Cohesion: 0.25
-Nodes (7): Anti-Examples: What NOT To Do, Checklist Purpose: "Unit Tests for English", Example Checklist Types & Sample Items, Execution Steps, Post-Execution Checks, Pre-Execution Checks, User Input
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\research.py, Dependências, Símbolos
 
 ### Community 1184 - "graph-store.ts"
-Cohesion: 0.29
-Nodes (6): GraphQueryResult, GraphState, NodeInfo, PathInfo, useGraphStore, GraphifyInspectorPage()
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\resolution.py, Símbolos
 
 ### Community 1185 - "ADR-001: Consolidated Dashboard Endpoint"
 Cohesion: 0.29
@@ -5273,8 +7084,8 @@ Cohesion: 0.29
 Nodes (7): Fluxo de Dados e Ciclo de Vida do Agente, Fluxo FAST — Execução Direta de Tools, Fluxo MEMORY — RAG + LLM sem LangGraph, Fluxo Proxy OpenAI (/v1/chat/completions), Fluxo SMART — LangGraph Completo, Relacao com outras Notas, Visão Geral do Roteamento
 
 ### Community 1187 - "Relatório de Auditoria e Normalização de Documentação — K.A.O.S"
-Cohesion: 0.29
-Nodes (6): 1. Comparativo de Métricas (Antes vs Depois), 2. Sumário Executivo de Ações, 3. Lacunas Restantes (Gaps de Conhecimento), 4. Recomendações Futuras, Arquivos Corrigidos Detalhes:, Relatório de Auditoria e Normalização de Documentação — K.A.O.S
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\resolver_registry.py, Símbolos
 
 ### Community 1188 - "K.A.O.S Evolution — Developer Onboarding"
 Cohesion: 0.29
@@ -5285,120 +7096,120 @@ Cohesion: 0.29
 Nodes (6): ADR Governance Rules, ADR Registry, Lifecycle, Merge Block (CI), Ownership, Storage
 
 ### Community 1190 - "Fase 12 — Production Readiness ✅ (2026-07-11)"
-Cohesion: 0.29
-Nodes (7): ADRs (Architecture Decision Records), Backend, Fase 12 — Production Readiness ✅ (2026-07-11), Frontend — Architecture, Frontend — Mock Elimination, Frontend — Store Cleanup, Infrastructure
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\retrieval_port.py, Dependências, Símbolos
 
 ### Community 1191 - "Fases 4-5 - Pipeline RAG e Watcher"
-Cohesion: 0.29
-Nodes (7): Children, Conteudo, Fases 4-5 - Pipeline RAG e Watcher, Parent, Related, Source: Antigravity AI, Tags
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\retrieval_service.py, Dependências, Símbolos
 
 ### Community 1192 - "Fases 6-7 - Watcher LangGraph e MemÓria"
-Cohesion: 0.29
-Nodes (7): Children, Conteudo, Fases 6-7 - Watcher LangGraph e MemÓria, Parent, Related, Source: Antigravity AI, Tags
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\nodes\retrieve.py, Dependências, Símbolos
 
 ### Community 1193 - "🟢 SPRINT 4 — Remocao dos Mocks"
-Cohesion: 0.29
-Nodes (7): Item B3 — Dashboard, Item C1 — Model Selector, Item C2 — Settings: Providers, Item C3 — Settings: Botoes sem acao, Item C4 — Observability, Item C5 — Orchestration, 🟢 SPRINT 4 — Remocao dos Mocks
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\rsl-siege-manager\review.md, Símbolos
 
 ### Community 1194 - "README.fil-PH.md"
-Cohesion: 0.29
-Nodes (6): Ano ang Makukuha Mo, Binuo sa ibabaw ng graphify — Penpax, Paano Gumagana, Pag-install, Paggamit, Privacy
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Roadmap Geral.md, Símbolos
 
 ### Community 1195 - "README.id-ID.md"
-Cohesion: 0.29
-Nodes (6): Apa yang Anda Dapatkan, Cara Kerja, Dibangun di atas graphify — Penpax, Instalasi, Penggunaan, Privasi
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\ROOT_CAUSE_ANALYSIS.md, Símbolos
 
 ### Community 1196 - "README.it-IT.md"
-Cohesion: 0.29
-Nodes (6): Come funziona, Cosa ottieni, Costruito su graphify — Penpax, Installazione, Privacy, Utilizzo
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Roteamento de Memoria.md, Símbolos
 
 ### Community 1197 - "README.no-NO.md"
-Cohesion: 0.29
-Nodes (6): Bruk, Bygget på graphify — Penpax, Hva du får, Hvordan det fungerer, Installasjon, Personvern
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\ruby_resolution.py, Símbolos
 
 ### Community 1198 - "README.pl-PL.md"
-Cohesion: 0.29
-Nodes (6): Co otrzymujesz, Instalacja, Jak to działa, Prywatność, Użycie, Zbudowane na graphify — Penpax
+Cohesion: 0.50
+Nodes (3): airllm\training\run_Amina_training.sh, Dependências, Símbolos
 
 ### Community 1199 - "README.ro-RO.md"
-Cohesion: 0.29
-Nodes (6): Ce obțineți, Confidențialitate, Construit pe graphify — Penpax, Cum funcționează, Instalare, Utilizare
+Cohesion: 0.50
+Nodes (3): airllm\rlhf\run_dpo_training.sh, Dependências, Símbolos
 
 ### Community 1200 - "README.sv-SE.md"
-Cohesion: 0.29
-Nodes (6): Användning, Byggt på graphify — Penpax, Hur det fungerar, Installation, Integritet, Vad du får
+Cohesion: 0.50
+Nodes (3): airllm\training\run_finetune_raining_based_on_Anima.sh, Dependências, Símbolos
 
 ### Community 1201 - "README.th-TH.md"
-Cohesion: 0.29
-Nodes (6): การติดตั้ง, การใช้งาน, ความเป็นส่วนตัว, วิธีการทำงาน, สิ่งที่คุณได้รับ, สร้างบน graphify — Penpax
+Cohesion: 0.50
+Nodes (3): airllm\anima_100k\run_longer_training.sh, Dependências, Símbolos
 
 ### Community 1202 - "README.tr-TR.md"
-Cohesion: 0.29
-Nodes (6): Gizlilik, graphify üzerine inşa edildi — Penpax, Kullanım, Kurulum, Nasıl çalışır, Ne elde edersiniz
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\runtime_layer.py, Dependências, Símbolos
 
 ### Community 1203 - "README.vi-VN.md"
-Cohesion: 0.29
-Nodes (6): Cài đặt, Cách hoạt động, Những gì bạn nhận được, Quyền riêng tư, Sử dụng, Được xây dựng trên graphify — Penpax
+Cohesion: 0.50
+Nodes (3): assistant\app\core\runtime_path_resolver.py, Dependências, Símbolos
 
 ### Community 1204 - "README.zh-TW.md"
-Cohesion: 0.29
-Nodes (6): 使用方式, 基於 graphify 構建 — Penpax, 安裝, 您會得到什麼, 運作原理, 隱私
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\runtime_resolver.py, Dependências, Símbolos
 
 ### Community 1205 - "Research Notes"
-Cohesion: 0.29
-Nodes (6): On cross-reference detection, On keyword extraction, On storage, On the API layer, Open questions, Research Notes
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\runtime_selector.py, Dependências, Símbolos
 
 ### Community 1206 - "observatory.py"
-Cohesion: 0.38
-Nodes (6): check_github_repo(), check_pypi_version(), main(), Technology Observatory — Continuous tech ecosystem monitoring.  Tracks GitHub ac, Check GitHub repo stats via gh CLI (requires gh auth)., Check latest PyPI version via pip index.
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\rust.py, Símbolos
 
 ### Community 1207 - "KAOS Backend Engineer"
-Cohesion: 0.29
-Nodes (6): Ferramentas Utilizadas, KAOS Backend Engineer, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\persist\safetensor_model_persister.py, Dependências, Símbolos
 
 ### Community 1208 - "KAOS DevOps Engineer"
-Cohesion: 0.29
-Nodes (6): Ferramentas Utilizadas, KAOS DevOps Engineer, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample.md, Símbolos
 
 ### Community 1209 - "KAOS Documentation Engineer"
-Cohesion: 0.29
-Nodes (6): Ferramentas Utilizadas, KAOS Documentation Engineer, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_calls.py, Símbolos
 
 ### Community 1210 - "KAOS Frontend Engineer"
-Cohesion: 0.29
-Nodes (6): Ferramentas Utilizadas, KAOS Frontend Engineer, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_import.ps1, Símbolos
 
 ### Community 1211 - "KAOS MCP Architect"
-Cohesion: 0.29
-Nodes (6): Ferramentas Utilizadas, KAOS MCP Architect, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_config.php, Símbolos
 
 ### Community 1212 - "KAOS Security Auditor"
-Cohesion: 0.29
-Nodes (6): Ferramentas Utilizadas, KAOS Security Auditor, Objetivo, Responsabilidades, Rules Utilizadas, Skills Utilizadas
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_container.php, Símbolos
 
 ### Community 1213 - "speckit.clarify.md"
-Cohesion: 0.29
-Nodes (6): Completion Report, Done When, Mandatory Post-Execution Hooks, Outline, Pre-Execution Checks, User Input
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_listen.php, Símbolos
 
 ### Community 1214 - "speckit.implement.md"
-Cohesion: 0.29
-Nodes (6): Completion Report, Done When, Mandatory Post-Execution Hooks, Outline, Pre-Execution Checks, User Input
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_static_prop.php, Símbolos
 
 ### Community 1215 - "API Patterns"
-Cohesion: 0.29
-Nodes (6): API Patterns, Auth, FastAPI Router, Response Patterns, Router Registration, Streaming (SSE)
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_preprocessed.F90, Símbolos
 
 ### Community 1216 - "Docker Tools"
-Cohesion: 0.29
-Nodes (6): docker-build, docker-compose-down, docker-compose-up, docker-healthcheck, docker-logs, Docker Tools
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_scoped_calls.pas, Símbolos
 
 ### Community 1217 - "PROJECT_HEALTH.md — K.A.O.S Weekly Evolution Report"
 Cohesion: 0.29
-Nodes (6): Architecture Evolution, Overall Score: 72/100, PROJECT_HEALTH.md — K.A.O.S Weekly Evolution Report, Recent Changes (Last 7 Days), Technical Debt, Upcoming Maintenance
+Nodes (6): Architecture Evolution, Overall Score: 92/100 ⬆️, PROJECT_HEALTH.md — K.A.O.S Weekly Evolution Report, Recent Changes (Last 7 Days), Technical Debt, Upcoming Maintenance
 
 ### Community 1218 - "Implementation Plan: K.A.O.S Production Readiness & Advanced Tool Integration"
-Cohesion: 0.29
-Nodes (6): Constitution Check, Implementation Plan: K.A.O.S Production Readiness & Advanced Tool Integration, Project Structure, Source Code, Summary, Technical Context
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_spock.groovy, Símbolos
 
 ### Community 1219 - "lint_wiki"
 Cohesion: 0.53
@@ -5441,208 +7252,208 @@ Cohesion: 0.33
 Nodes (5): Connected Services in `kaos-platform_kaos_prod_network`, Docker Network Configuration, Isolated Container (Default `bridge` network), Network Analysis, Network Connection Audit Results
 
 ### Community 1229 - "InformaçÃes do Projeto"
-Cohesion: 0.33
-Nodes (6): Children, Conteudo, InformaçÃes do Projeto, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_tsconfig.json, Símbolos
 
 ### Community 1230 - "Objetivos do Projeto"
-Cohesion: 0.33
-Nodes (6): Children, Conteudo, Objetivos do Projeto, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample.xaml.cs, Símbolos
 
 ### Community 1231 - "Busca Vetorial e RAG"
-Cohesion: 0.33
-Nodes (6): Busca Vetorial e RAG, Children, Conteudo, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\save_conversation_tool.py, Dependências, Símbolos
 
 ### Community 1232 - "Especificacao Tecnica"
-Cohesion: 0.33
-Nodes (6): Children, Conteudo, Especificacao Tecnica, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\scan_docs_gaps.py, Símbolos
 
 ### Community 1233 - "Ferramentas do LangGraph"
-Cohesion: 0.33
-Nodes (6): Children, Conteudo, Ferramentas do LangGraph, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\scip_ingest.py, Símbolos
 
 ### Community 1234 - "Obsidian Watcher"
-Cohesion: 0.33
-Nodes (6): Children, Conteudo, Obsidian Watcher, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\scroll-area.tsx, Símbolos
 
 ### Community 1235 - "2. Arquitetura da Solucao"
-Cohesion: 0.33
-Nodes (6): 2.1 Principios, 2.2 Diagrama de Fluxo (Fase 1), 2.3 Modelo de Dados — Provider Config, 2.4 Modelo de Dados — System Status, 2.5 Modelo de Dados — Auth State (Fase 1, temporario), 2. Arquitetura da Solucao
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\search_notes_tool.py, Dependências, Símbolos
 
 ### Community 1236 - "ConfiguraçÃes de Agente pt-BR"
-Cohesion: 0.33
-Nodes (6): Children, ConfiguraçÃes de Agente pt-BR, Conteudo, Parent, Related, Tags
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\SECURITY.md, Símbolos
 
 ### Community 1237 - "PULL_REQUEST_TEMPLATE.md"
 Cohesion: 0.33
 Nodes (5): Checklist, Notas para o Reviewer, O que essa PR faz, SDD Referenciado, Tipo de Mudança
 
 ### Community 1238 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\semantic_cleanup.py, Símbolos
 
 ### Community 1239 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\retriever\semantic_retriever.py, Dependências, Símbolos
 
 ### Community 1240 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\separator.tsx, Símbolos
 
 ### Community 1241 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\serve.py, Símbolos
 
 ### Community 1242 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): assistant\app\notifications\service.py, Dependências, Símbolos
 
 ### Community 1243 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): assistant\app\registry\service_registry.py, Dependências, Símbolos
 
 ### Community 1244 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): assistant\app\api\settings_api.py, Dependências, Símbolos
 
 ### Community 1245 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\SettingsView.xaml, Símbolos
 
 ### Community 1246 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\SettingsViewModel.cs, Símbolos
 
 ### Community 1247 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, docs\setup\SETUP.md, Símbolos
 
 ### Community 1248 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\skeleton.tsx, Símbolos
 
 ### Community 1249 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill.md, Símbolos
 
 ### Community 1250 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-agents.md, Símbolos
 
 ### Community 1251 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-aider.md, Símbolos
 
 ### Community 1252 - "Deploy Guide"
-Cohesion: 0.33
-Nodes (5): Database Migration, Deploy Guide, Full Deploy, Prerequisites, Rollback
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-amp.md, Símbolos
 
 ### Community 1253 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-claw.md, Símbolos
 
 ### Community 1254 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-codex.md, Símbolos
 
 ### Community 1255 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-copilot.md, Símbolos
 
 ### Community 1256 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-devin.md, Símbolos
 
 ### Community 1257 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-droid.md, Símbolos
 
 ### Community 1258 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-kilo.md, Símbolos
 
 ### Community 1259 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-kiro.md, Símbolos
 
 ### Community 1260 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-opencode.md, Símbolos
 
 ### Community 1261 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-pi.md, Símbolos
 
 ### Community 1262 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-trae.md, Símbolos
 
 ### Community 1263 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-vscode.md, Símbolos
 
 ### Community 1264 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-windows.md, Símbolos
 
 ### Community 1265 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\sln.py, Símbolos
 
 ### Community 1266 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): assistant\app\router\smart_router.py, Dependências, Símbolos
 
 ### Community 1267 - "graphify reference: query, path, explain"
-Cohesion: 0.33
-Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\sparkline.tsx, Símbolos
 
 ### Community 1268 - "Document Pipeline Architecture"
-Cohesion: 0.33
-Nodes (5): Design decisions, Document Pipeline Architecture, Extending the pipeline, How data flows, Module responsibilities
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\spec-template.md, Símbolos
 
 ### Community 1269 - "Reproducible Example"
-Cohesion: 0.33
-Nodes (5): After it runs, How to run, Input files, Reproducible Example, What to expect
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\specification.md, Símbolos
 
 ### Community 1270 - "test_airllm_loading"
-Cohesion: 0.33
-Nodes (5): AirLLM Experiment — Large Model Inference on Consumer GPU (Hypothesis H7)  Tests, Test AirLLM model loading without full inference., Test the K.A.O.S AirLLMProvider adapter integration., test_airllm_loading(), test_airllm_provider_integration()
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.analyze.md, Símbolos
 
 ### Community 1271 - "experiment.py"
 Cohesion: 0.33
-Nodes (5): Mem0 Experiment — Persistent User/Agent Memory (Hypothesis H2)  Tests Mem0's abi, Test basic Mem0 memory storage and retrieval., Benchmark Mem0 with 100 entries., test_mem0_basic(), test_mem0_performance()
+Nodes (5): Mem0 Experiment — Persistent User/Agent Memory (Hypothesis H2)  Tests Mem0's a, Test basic Mem0 memory storage and retrieval., Benchmark Mem0 with 100 entries., test_mem0_basic(), test_mem0_performance()
 
 ### Community 1272 - "K.A.O.S Architectural Evolution Laboratory"
 Cohesion: 0.33
 Nodes (5): Current Phase: State Audit + Hypothesis Formulation, Directory Structure, K.A.O.S Architectural Evolution Laboratory, Rules, Scientific Method (10 Steps)
 
 ### Community 1273 - "MCP Patterns"
-Cohesion: 0.33
-Nodes (5): Configuracao no opencode.json, Estrutura de um Servidor MCP, Integracao com K.A.O.S, MCP Patterns, O que e MCP
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.checklist.md, Símbolos
 
 ### Community 1274 - "GitHub Tools"
-Cohesion: 0.33
-Nodes (5): create-pr, GitHub Tools, list-prs, list-workflows, run-workflow
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.clarify.md, Símbolos
 
 ### Community 1275 - "Observability Tools"
-Cohesion: 0.33
-Nodes (5): dashboard-url, Observability Tools, query-logs, query-metrics, service-health
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.constitution.md, Símbolos
 
 ### Community 1276 - "Wiki � Indice"
-Cohesion: 0.33
-Nodes (5): Concepts, Entities, Sources, Synthesis, Wiki � Indice
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.converge.md, Símbolos
 
 ### Community 1277 - "Wiki � Indice"
-Cohesion: 0.33
-Nodes (5): Concepts, Entities, Sources, Synthesis, Wiki � Indice
+Cohesion: 0.01
+Nodes (105): graphify\tools\skillgen\fragments\dispatch\agent-tool-disk.md, graphify\tools\skillgen\fragments\dispatch\agent-tool-disk-powershell.md, Símbolos, Símbolos, Dependências, graphify\worked\example\raw\api.py, Símbolos, .specify\scripts\powershell\check-prerequisites.ps1 (+97 more)
 
 ### Community 1278 - "env.py"
-Cohesion: 0.40
-Nodes (4): Run migrations in 'offline' mode.      This configures the context with just a, Run migrations in 'online' mode.      In this scenario we need to create an En, run_migrations_offline(), run_migrations_online()
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.implement.md, Símbolos
 
 ### Community 1279 - "Alinhamento com o Roadmap Oficial — K.A.O.S Desktop"
-Cohesion: 0.40
-Nodes (4): 1. Fase 1: Desktop Stabilization, 2. Fase 2: Graphify, 3. Próximos Passos (Fases 3-6), Alinhamento com o Roadmap Oficial — K.A.O.S Desktop
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.plan.md, Símbolos
 
 ### Community 1280 - "Páginas (Frontend)"
 Cohesion: 0.40
@@ -5665,80 +7476,92 @@ Cohesion: 0.40
 Nodes (4): Active Compose Projects, Active Containers (K.A.O.S Related), Detailed Discovery Metrics, Real Infrastructure Map
 
 ### Community 1285 - "Fase 3 — Integração com Obsidian"
-Cohesion: 0.40
-Nodes (5): 🔍 Busca, ⚙️ Configuração, ✏️ Escrita, Fase 3 — Integração com Obsidian, 📖 Leitura
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.specify.md, Símbolos
 
 ### Community 1286 - "6. Criterios de Aceite por Sprint"
-Cohesion: 0.40
-Nodes (5): 6. Criterios de Aceite por Sprint, Sprint 1 — Backend Funcional, Sprint 2 — Endpoints Novos, Sprint 3 — Stores Conectadas, Sprint 4 — Sem Mocks
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.tasks.md, Símbolos
 
 ### Community 1287 - "extract_blade"
-Cohesion: 0.40
-Nodes (4): extract_blade(), Path, Laravel Blade template extractor. Moved verbatim from graphify/extract.py., Extract @include, <livewire:> components, and wire:click bindings from Blade tem
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.taskstoissues.md, Símbolos
 
 ### Community 1288 - "_is_config_json"
-Cohesion: 0.40
-Nodes (4): _is_config_json(), Path, Json_config extractor. Moved verbatim from graphify/extract.py., True if a .json file is a recognized config/manifest worth AST-extracting.
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\sql.py, Símbolos
 
 ### Community 1289 - "httpx Corpus Benchmark"
-Cohesion: 0.40
-Nodes (4): Corpus (6 files), How to run, httpx Corpus Benchmark, What to expect
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\state.py, Dependências, Símbolos
 
 ### Community 1290 - "Mixed Corpus Benchmark"
-Cohesion: 0.40
-Nodes (4): Corpus (5 files), How to run, Mixed Corpus Benchmark, What to expect
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\evidence\state-audit-report.md, Símbolos
 
 ### Community 1291 - "speckit.constitution.md"
-Cohesion: 0.40
-Nodes (4): Outline, Post-Execution Checks, Pre-Execution Checks, User Input
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\status-dot.tsx, Símbolos
 
 ### Community 1292 - "speckit.taskstoissues.md"
-Cohesion: 0.40
-Nodes (4): Outline, Post-Execution Checks, Pre-Execution Checks, User Input
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\storage.py, Símbolos
 
 ### Community 1293 - "AI Agent Engineer"
-Cohesion: 0.40
-Nodes (4): AI Agent Engineer, Criterios de Qualidade, Descricao, Responsabilidades
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\storageHelpers.ts, Símbolos
 
 ### Community 1294 - "Code Reviewer"
-Cohesion: 0.40
-Nodes (4): Code Reviewer, Criterios de Qualidade, Descricao, Responsabilidades
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\suggestion_engine.py, Dependências, Símbolos
 
 ### Community 1295 - "Docker Expert"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, Docker Expert, Responsabilidades
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\summarizer.py, Dependências, Símbolos
 
 ### Community 1296 - "Documentation Writer"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, Documentation Writer, Responsabilidades
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\symbol_resolution.py, Símbolos
 
 ### Community 1297 - "MCP Engineer"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, MCP Engineer, Responsabilidades
+Cohesion: 0.50
+Nodes (3): assistant\scripts\sync_github_registry.py, Dependências, Símbolos
 
 ### Community 1298 - "N8N Architect"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, N8N Architect, Responsabilidades
+Cohesion: 0.50
+Nodes (3): assistant\app\api\system.py, Dependências, Símbolos
 
 ### Community 1299 - "Observability Engineer"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, Observability Engineer, Responsabilidades
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\SYSTEM_ARCHITECTURE.md, Símbolos
 
 ### Community 1300 - "Python Developer"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, Python Developer, Responsabilidades
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\system-store.ts, Símbolos
 
 ### Community 1301 - "RAG Engineer"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, RAG Engineer, Responsabilidades
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\system-store.test.ts, Símbolos
 
 ### Community 1302 - "React Developer"
-Cohesion: 0.40
-Nodes (4): Criterios de Qualidade, Descricao, React Developer, Responsabilidades
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\tabs.tsx, Símbolos
 
 ### Community 1303 - "[CHECKLIST TYPE] Checklist: [FEATURE NAME]"
-Cohesion: 0.40
-Nodes (4): [Category 1], [Category 2], [CHECKLIST TYPE] Checklist: [FEATURE NAME], Notes
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\tabs.test.tsx, Símbolos
+
+### Community 1304 - "SavePeftModelCallback"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\tasks.md, Símbolos
+
+### Community 1305 - "SavePeftModelCallback"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\tasks-template.md, Símbolos
+
+### Community 1306 - "SavePeftModelCallback"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src-tauri\tauri.conf.json, Símbolos
 
 ### Community 1307 - "save_conversation"
 Cohesion: 0.67
@@ -5782,371 +7605,375 @@ Nodes (4): 7.1. Tool Telemetry Matrix, 7.2. Workflow Telemetry, 7.3. API Telemet
 
 ### Community 1317 - "1. Diagnostico — Estado Atual"
 Cohesion: 0.50
-Nodes (4): 1.1 Backend, 1.2 Desktop — Paginas com Mocks, 1.3 Stores — Estado Atual, 1. Diagnostico — Estado Atual
+Nodes (3): Dependências, desktop\src\shared\api\tauri-store-service.ts, Símbolos
 
 ### Community 1318 - "🟠 SPRINT 3 — Stores Conectadas"
 Cohesion: 0.50
-Nodes (4): Item B1 — Auth Store, Item B2 — System Store, Item B4 — useSystemMetrics Hook, 🟠 SPRINT 3 — Stores Conectadas
+Nodes (3): Dependências, desktop\src\__tests__\shared\api\tauri-store-service.test.ts, Símbolos
 
 ### Community 1319 - "Workflows"
 Cohesion: 0.50
-Nodes (4): Draft Approval, Ingest, Query, Workflows
+Nodes (3): Dependências, docs\sdd\technical-spec.md, Símbolos
 
 ### Community 1320 - "Fluxos de Trabalho"
 Cohesion: 0.50
-Nodes (4): Aprovação de Draft, Consulta, Fluxos de Trabalho, Ingestão
+Nodes (3): Dependências, graphify\graphify\extractors\terraform.py, Símbolos
 
 ### Community 1321 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, docs\sdd\test.md, Símbolos
 
 ### Community 1322 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration, graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_affected_cli.py, Símbolos
 
 ### Community 1323 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_affected_member_seed.py, Símbolos
 
 ### Community 1324 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_agents_platform.py, Símbolos
 
 ### Community 1325 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration, graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_analyze.py, Símbolos
 
 ### Community 1326 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_anthropic_custom_endpoint.py, Símbolos
 
 ### Community 1327 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_antigravity_install.py, Símbolos
 
 ### Community 1328 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_astro_extraction.py, Símbolos
 
 ### Community 1329 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_audit_code_scanner.py, Dependências, Símbolos
 
 ### Community 1330 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_audit_commit_classifier.py, Dependências, Símbolos
 
 ### Community 1331 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\test_audit_engine.py, Dependências, Símbolos
 
 ### Community 1332 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_audit_feature_registry.py, Dependências, Símbolos
 
 ### Community 1333 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_audit_sdd_generator.py, Dependências, Símbolos
 
 ### Community 1334 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\test_automation.py, Dependências, Símbolos
 
 ### Community 1335 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_automation_bus.py, Dependências, Símbolos
 
 ### Community 1336 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_automation_providers.py, Dependências, Símbolos
 
 ### Community 1337 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\test_automation_sdk.py, Dependências, Símbolos
 
 ### Community 1338 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): airllm\air_llm\tests\test_automodel.py, Dependências, Símbolos
 
 ### Community 1339 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_aws_tools.py, Dependências, Símbolos
 
 ### Community 1340 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_backend_extras.py, Símbolos
 
 ### Community 1341 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_benchmark.py, Símbolos
 
 ### Community 1342 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\integration\test_bootstrap_flow.py, Dependências, Símbolos
 
 ### Community 1343 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\test_bootstrap_manager.py, Dependências, Símbolos
 
 ### Community 1344 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_build.py, Símbolos
 
 ### Community 1345 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_build_merge_hyperedges_and_prune.py, Símbolos
 
 ### Community 1346 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_builtin_global_type_refs.py, Símbolos
 
 ### Community 1347 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_cache.py, Símbolos
 
 ### Community 1348 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_callflow_html.py, Símbolos
 
 ### Community 1349 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\test_capability_registry.py, Dependências, Símbolos
 
 ### Community 1350 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_cargo_introspect.py, Símbolos
 
 ### Community 1351 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_case_sensitive_resolution.py, Símbolos
 
 ### Community 1352 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\test_chat.py, Dependências, Símbolos
 
 ### Community 1353 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_chunking.py, Símbolos
 
 ### Community 1354 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_claude_cli_backend.py, Símbolos
 
 ### Community 1355 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration (Trae), graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_claude_md.py, Símbolos
 
 ### Community 1356 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_cli_export.py, Símbolos
 
 ### Community 1357 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_cluster.py, Símbolos
 
 ### Community 1358 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_codebuddy.py, Símbolos
 
 ### Community 1359 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_communication_runtime.py, Dependências, Símbolos
 
 ### Community 1360 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_community_hub_labels.py, Símbolos
 
 ### Community 1361 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): airllm\air_llm\tests\test_compression.py, Dependências, Símbolos
 
 ### Community 1362 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_confidence.py, Símbolos
 
 ### Community 1363 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_contracts.py, Dependências, Símbolos
 
 ### Community 1364 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration, graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_corrupt_graph_json.py, Símbolos
 
 ### Community 1365 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_cost_tracker.py, Dependências, Símbolos
 
 ### Community 1366 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_cpp_objc_cross_file_calls.py, Símbolos
 
 ### Community 1367 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration, graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_cpp_preprocess.py, Símbolos
 
 ### Community 1368 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_credential_service.py, Dependências, Símbolos
 
 ### Community 1369 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_cross_language_call_resolution.py, Símbolos
 
 ### Community 1370 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_csharp_member_calls.py, Símbolos
 
 ### Community 1371 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_csharp_type_resolution.py, Símbolos
 
 ### Community 1372 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_dart.py, Símbolos
 
 ### Community 1373 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\test_dashboard_contract.py, Dependências, Símbolos
 
 ### Community 1374 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_dedup.py, Símbolos
 
 ### Community 1375 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_desktop_apis.py, Dependências, Símbolos
 
 ### Community 1376 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_detect.py, Símbolos
 
 ### Community 1377 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_devin.py, Símbolos
 
 ### Community 1378 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_domain_user.py, Dependências, Símbolos
 
 ### Community 1379 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_dotnet.py, Símbolos
 
 ### Community 1380 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_email_provider.py, Dependências, Símbolos
 
 ### Community 1381 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\rag\test_embedder.py, Dependências, Símbolos
 
 ### Community 1382 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\rag\test_embeddings_cache.py, Dependências, Símbolos
 
 ### Community 1383 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_environment_service.py, Dependências, Símbolos
 
 ### Community 1384 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\test_evidence_engine.py, Dependências, Símbolos
 
 ### Community 1385 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): assistant\tests\unit\agent\test_executor.py, Dependências, Símbolos
 
 ### Community 1386 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_explain_cli.py, Símbolos
 
 ### Community 1387 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_export.py, Símbolos
 
 ### Community 1388 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_extract.py, Símbolos
 
 ### Community 1389 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_extract_cli.py, Símbolos
 
 ### Community 1390 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_extract_code_only_cli.py, Símbolos
 
 ### Community 1391 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_extraction_spec_ids.py, Símbolos
 
 ### Community 1392 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_extractors_registry.py, Símbolos
 
 ### Community 1393 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\unit\llm\test_factory.py, Dependências, Símbolos
 
 ### Community 1394 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_falkordb_integration.py, Símbolos
 
 ### Community 1395 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_file_node_id_spec.py, Símbolos
 
 ### Community 1396 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_file_slice.py, Símbolos
 
 ### Community 1397 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration (Trae), graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_gemini_hook.py, Símbolos
 
 ### Community 1398 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_github_mcp.py, Dependências, Símbolos
 
 ### Community 1399 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_global_graph.py, Símbolos
 
 ### Community 1400 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_google_workspace.py, Símbolos
 
 ### Community 1401 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): assistant\tests\unit\test_handshake.py, Dependências, Símbolos
 
 ### Community 1402 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): assistant\tests\test_health.py, Dependências, Símbolos
 
 ### Community 1403 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_hook_guard.py, Símbolos
 
 ### Community 1404 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_hooks.py, Símbolos
 
 ### Community 1405 - "graphify reference: commit hook and native AGENTS.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native AGENTS.md integration@@AGENTS_HEADING_SUFFIX@@, graphify reference: commit hook and native AGENTS.md integration
+Nodes (3): Dependências, graphify\tests\test_hypergraph.py, Símbolos
 
 ### Community 1406 - "graphify reference: add a URL and watch a folder"
 Cohesion: 0.50
-Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+Nodes (3): Dependências, graphify\tests\test_id_normalization_contract.py, Símbolos
 
 ### Community 1407 - "graphify reference: commit hook and native CLAUDE.md integration"
 Cohesion: 0.50
-Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+Nodes (3): Dependências, graphify\tests\test_image_vision.py, Símbolos
 
 ### Community 1408 - "graphify reference: incremental update and cluster-only"
 Cohesion: 0.50
-Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
+Nodes (3): Dependências, graphify\tests\test_import_extension_resolution.py, Símbolos
+
+### Community 1409 - "gen_star_history.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_incremental.py, Símbolos
 
 ### Community 1410 - "Agentes (LangGraph)"
 Cohesion: 0.67
@@ -6165,32 +7992,5248 @@ Cohesion: 0.67
 Nodes (3): Criar uma Integração, Integrações, Integrações Existentes
 
 ### Community 1417 - "4. Fluxos Alternativos"
-Cohesion: 0.67
-Nodes (3): 4.1 Fallback, 4.2 Erro, 4. Fluxos Alternativos
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_indexing.py, Dependências, Símbolos
 
 ### Community 1418 - "4. Arquivos Afetados"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_indirect_dispatch.py, Símbolos
+
+### Community 1419 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_indirect_dispatch_assign_return.py, Símbolos
+
+### Community 1420 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_indirect_dispatch_getattr.py, Símbolos
+
+### Community 1421 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ingest.py, Símbolos
+
+### Community 1422 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install.py, Símbolos
+
+### Community 1423 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_references.py, Símbolos
+
+### Community 1424 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_roundtrip.py, Símbolos
+
+### Community 1425 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_strings.py, Símbolos
+
+### Community 1426 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_upgrade.py, Símbolos
+
+### Community 1427 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_java_member_calls.py, Símbolos
+
+### Community 1428 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_java_type_resolution.py, Símbolos
+
+### Community 1429 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_js_import_resolution.py, Símbolos
+
+### Community 1430 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_knowledge_graph.py, Dependências, Símbolos
+
+### Community 1431 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_label_retry.py, Símbolos
+
+### Community 1432 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_labeling.py, Símbolos
+
+### Community 1433 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_language_resolvers.py, Símbolos
+
+### Community 1434 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_languages.py, Símbolos
+
+### Community 1435 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_llm_backends.py, Símbolos
+
+### Community 1436 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_llm_parser.py, Símbolos
+
+### Community 1437 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_long_path_hashing.py, Símbolos
+
+### Community 1438 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_manifest_ingest.py, Símbolos
+
+### Community 1439 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_mcp_ingest.py, Símbolos
+
+### Community 1440 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\memory\test_memory_service.py, Dependências, Símbolos
+
+### Community 1441 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_merge_graphs_cli.py, Símbolos
+
+### Community 1442 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_minhash.py, Símbolos
+
+### Community 1443 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_model_registry.py, Dependências, Símbolos
+
+### Community 1444 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_model_router.py, Dependências, Símbolos
+
+### Community 1445 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_multigraph_compat.py, Símbolos
+
+### Community 1446 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_multigraph_diagnostics.py, Símbolos
+
+### Community 1447 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_multilang.py, Símbolos
+
+### Community 1448 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_observability_subscribers.py, Dependências, Símbolos
+
+### Community 1449 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_obsidian_dangling_member.py, Símbolos
+
+### Community 1450 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\integration\test_obsidian_e2e.py, Dependências, Símbolos
+
+### Community 1451 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_obsidian_filename_cap.py, Símbolos
+
+### Community 1452 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\obsidian\test_obsidian_service.py, Dependências, Símbolos
+
+### Community 1453 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\obsidian\test_obsidian_tools.py, Dependências, Símbolos
+
+### Community 1454 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_office_incremental.py, Símbolos
+
+### Community 1455 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_office_limits.py, Símbolos
+
+### Community 1456 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ollama.py, Símbolos
+
+### Community 1457 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ollama_retry_cap.py, Símbolos
+
+### Community 1458 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_openai.py, Dependências, Símbolos
+
+### Community 1459 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_openai_custom_endpoint.py, Símbolos
+
+### Community 1460 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_opencode_executor.py, Dependências, Símbolos
+
+### Community 1461 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_orchestrator.py, Dependências, Símbolos
+
+### Community 1462 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pascal.py, Símbolos
+
+### Community 1463 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pascal_call_scoping.py, Símbolos
+
+### Community 1464 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pascal_resolution.py, Símbolos
+
+### Community 1465 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_path_cli.py, Símbolos
+
+### Community 1466 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_paths.py, Símbolos
+
+### Community 1467 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pg_introspect.py, Símbolos
+
+### Community 1468 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_phantom_cross_package_call.py, Símbolos
+
+### Community 1469 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_phantom_external_import.py, Símbolos
+
+### Community 1470 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pipeline.py, Símbolos
+
+### Community 1471 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_plugin_sandbox.py, Dependências, Símbolos
+
+### Community 1472 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_provider_adapters.py, Dependências, Símbolos
+
+### Community 1473 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_prs.py, Símbolos
+
+### Community 1474 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_python_import_resolution.py, Símbolos
+
+### Community 1475 - "Troubleshooting"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_qdrant_hnsw.py, Dependências, Símbolos
+
+### Community 1476 - "graphify reference: GitHub clone and cross-repo merge"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_query_cli.py, Símbolos
+
+### Community 1477 - "graphify reference: transcribe video and audio"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_querylog.py, Símbolos
+
+### Community 1478 - "Wiki � Log de Alteracoes"
+Cohesion: 0.50
+Nodes (3): assistant\tests\integration\rag\test_rag_pipeline.py, Dependências, Símbolos
+
+### Community 1479 - "Wiki � Log de Alteracoes"
+Cohesion: 0.50
+Nodes (3): Dependências, Símbolos, workspace\kaos\vault\wiki\log.md
+
+### Community 1480 - "graphify.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_rationale.py, Símbolos
+
+### Community 1481 - "graphify.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_read_hook.py, Símbolos
+
+### Community 1482 - "run_longer_training.sh"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_reflect.py, Símbolos
+
+### Community 1483 - "run_dpo_training.sh"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_replace_or_append_section.py, Símbolos
+
+### Community 1484 - "run_Amina_training.sh"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_report.py, Símbolos
+
+### Community 1485 - "run_finetune_raining_based_on_Anima.sh"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_repositories.py, Dependências, Símbolos
+
+### Community 1491 - "jsdom"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ruby_resolution.py, Símbolos
+
+### Community 1494 - "Sumario Executivo"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_runtime_selector.py, Dependências, Símbolos
+
+### Community 1495 - "AGENTS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_scip_ingest.py, Símbolos
+
+### Community 1496 - "agents-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_search_hook.py, Símbolos
+
+### Community 1497 - "antigravity-rules.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_secret_manager.py, Dependências, Símbolos
+
+### Community 1498 - "claude-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_security.py, Símbolos
+
+### Community 1499 - "gemini-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_cleanup.py, Símbolos
+
+### Community 1500 - "vscode-instructions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_fragment_sanitize.py, Símbolos
+
+### Community 1501 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_id_remap_root.py, Símbolos
+
+### Community 1502 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_semantic_retriever.py, Dependências, Símbolos
+
+### Community 1503 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_similarity.py, Símbolos
+
+### Community 1504 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_serve.py, Símbolos
+
+### Community 1505 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_serve_http.py, Símbolos
+
+### Community 1506 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_skill_version_warning.py, Símbolos
+
+### Community 1507 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_skillgen.py, Símbolos
+
+### Community 1508 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\fixtures\raw\test-source.md, Dependências, Símbolos
+
+### Community 1509 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\agent\test_state.py, Dependências, Símbolos
+
+### Community 1510 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\tests\test_streaming_gpu.py, Dependências, Símbolos
+
+### Community 1511 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_swift_cross_file_calls.py, Símbolos
+
+### Community 1512 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_swift_import_resolution.py, Símbolos
+
+### Community 1513 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_symbol_resolution.py, Símbolos
+
+### Community 1514 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_terraform.py, Símbolos
+
+### Community 1515 - "Attention Is All You Need"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_text_splitter.py, Dependências, Símbolos
+
+### Community 1516 - "graphify__always_on__agents-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_transcribe.py, Símbolos
+
+### Community 1517 - "graphify__always_on__antigravity-rules.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_decorators.py, Símbolos
+
+### Community 1518 - "graphify__always_on__claude-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_generators.py, Símbolos
+
+### Community 1519 - "graphify__always_on__gemini-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_import_require.py, Símbolos
+
+### Community 1520 - "graphify__always_on__vscode-instructions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_inheritance.py, Símbolos
+
+### Community 1521 - "graphify__skills__agents__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_namespace.py, Símbolos
+
+### Community 1522 - "graphify__skills__amp__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_receiver_member_calls.py, Símbolos
+
+### Community 1523 - "graphify__skills__claude__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_typescript_module_extensions.py, Símbolos
+
+### Community 1524 - "graphify__skills__claw__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_validate.py, Símbolos
+
+### Community 1525 - "graphify__skills__codex__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_vault_indexer.py, Dependências, Símbolos
+
+### Community 1526 - "graphify__skills__copilot__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\obsidian\test_vault_watcher.py, Dependências, Símbolos
+
+### Community 1527 - "graphify__skills__droid__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_vue_extraction.py, Símbolos
+
+### Community 1528 - "graphify__skills__kilo__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_watch.py, Símbolos
+
+### Community 1529 - "graphify__skills__kiro__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_whatsapp_provider.py, Dependências, Símbolos
+
+### Community 1530 - "graphify__skills__opencode__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_wheel_packaging.py, Símbolos
+
+### Community 1531 - "graphify__skills__pi__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_wiki.py, Símbolos
+
+### Community 1532 - "graphify__skills__trae__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_wiki_pipeline.py, Dependências, Símbolos
+
+### Community 1533 - "graphify__skills__vscode__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_word_count_cache.py, Símbolos
+
+### Community 1534 - "graphify__skills__windows__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_workflows.py, Dependências, Símbolos
+
+### Community 1535 - "agents-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_zero_node_no_cache.py, Símbolos
+
+### Community 1536 - "antigravity-rules.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\testing.md, Símbolos
+
+### Community 1537 - "claude-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\testing-patterns.md, Símbolos
+
+### Community 1538 - "gemini-md.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\chunking\text_splitter.py, Dependências, Símbolos
+
+### Community 1539 - "vscode-instructions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\textarea.tsx, Símbolos
+
+### Community 1540 - "kilo-rules.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\theme-store.ts, Símbolos
+
+### Community 1541 - "extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\theme-store.test.ts, Símbolos
+
+### Community 1542 - "extraction-spec-compact.md"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\tokenization_baichuan.py, Dependências, Símbolos
+
+### Community 1543 - "directory-structure.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\tool-schema.ts, Símbolos
+
+### Community 1544 - "comunicacao.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\ToolkitView.xaml, Símbolos
+
+### Community 1545 - "docker.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\ToolkitViewModel.cs, Símbolos
+
+### Community 1546 - "github-actions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\message\ui\ToolLogger.tsx, Símbolos
+
+### Community 1547 - "mcp.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\tooltip.tsx, Símbolos
+
+### Community 1548 - "n8n.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\tracing.py, Dependências, Símbolos
+
+### Community 1549 - "python.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\transcribe.md, Símbolos
+
+### Community 1550 - "react.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\transport.py, Símbolos
+
+### Community 1551 - "security.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\tree_html.py, Símbolos
+
+### Community 1552 - "testing.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\troubleshooting\TROUBLESHOOTING.md, Símbolos
+
+### Community 1553 - "typescript.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\tsconfig.json, Símbolos
+
+### Community 1554 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\cloudflare\tunnel-architecture.md, Símbolos
+
+### Community 1555 - "setup.py"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\provider\types.ts, Símbolos
+
+### Community 1556 - "__init__.py"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\typescript.md, Símbolos
+
+### Community 1557 - "test_cn_dataset_lenghts.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\typescript_advanced.ts, Símbolos
+
+### Community 1562 - "kiro-steering.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\ui-store.ts, Símbolos
+
+### Community 1563 - "command-kilo.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\ui-store.test.ts, Símbolos
+
+### Community 1564 - "graphify__always_on__kiro-steering.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\universal_orchestrator.py, Dependências, Símbolos
+
+### Community 1565 - "kiro-steering.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\update_index_tool.py, Dependências, Símbolos
+
+### Community 1566 - "agent-tool-disk.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\update_note_tool.py, Dependências, Símbolos
+
+### Community 1567 - "agent-tool-disk-powershell.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\update-store.ts, Símbolos
+
+### Community 1568 - "codex-agenttask.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\update-store.test.ts, Símbolos
+
+### Community 1569 - "manual-paste.md"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\update-versions.js, Símbolos
+
+### Community 1570 - "opencode-mention.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\ui\UpdateCard.tsx, Símbolos
+
+### Community 1571 - "task-tool-disk.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\urlHelpers.ts, Símbolos
+
+### Community 1572 - "task-tool-disk-trae.md"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\use-init.ts, Símbolos
+
+### Community 1573 - "default.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\user.py, Dependências, Símbolos
+
+### Community 1574 - "posix.md"
+Cohesion: 0.50
+Nodes (3): assistant\app\middleware\user_context.py, Dependências, Símbolos
+
+### Community 1575 - "powershell.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\USER_GUIDE.md, Símbolos
+
+### Community 1578 - "assistant\app\repositories\user_model_profile_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\user_model_profile_repository.py, Dependências, Símbolos
+
+### Community 1579 - "assistant\app\api\user_model_profiles.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\user_model_profiles.py, Dependências, Símbolos
+
+### Community 1580 - "assistant\app\repositories\user_profile_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\user_profile_repository.py, Dependências, Símbolos
+
+### Community 1581 - "assistant\app\api\users.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\users.py, Dependências, Símbolos
+
+### Community 1582 - "desktop\src\features\manage-settings\hooks\useSettings.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\manage-settings\hooks\useSettings.ts, Símbolos
+
+### Community 1583 - "desktop\src\__tests__\features\useSettings.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\useSettings.test.ts, Símbolos
+
+### Community 1584 - "desktop\src\features\dashboard\hooks\useSystemMetrics.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\dashboard\hooks\useSystemMetrics.ts, Símbolos
+
+### Community 1585 - "desktop\src\features\auto-update\hooks\useUpdateCheck.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\hooks\useUpdateCheck.ts, Símbolos
+
+### Community 1586 - "desktop\src\features\auto-update\hooks\useUpdaterService.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\hooks\useUpdaterService.ts, Símbolos
+
+### Community 1587 - "desktop\src\features\auto-update\hooks\useUpdateScheduler.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\hooks\useUpdateScheduler.ts, Símbolos
+
+### Community 1588 - "desktop\src\features\index-vault\hooks\useVaultInit.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\index-vault\hooks\useVaultInit.ts, Símbolos
+
+### Community 1589 - "graphify\worked\httpx\raw\utils.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\utils.py, Símbolos
+
+### Community 1590 - "graphify\graphify\validate.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\validate.py, Símbolos
+
+### Community 1591 - "assistant\scripts\validate_documentation.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\validate_documentation.py, Dependências, Símbolos
+
+### Community 1592 - "docs\sdd\validation-audit.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\validation-audit.md, Símbolos
+
+### Community 1593 - "docs\VALIDATION_REPORT.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\VALIDATION_REPORT.md, Símbolos
+
+### Community 1594 - "docs\sdd\Variaveis de Ambiente.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Variaveis de Ambiente.md, Símbolos
+
+### Community 1595 - "assistant\app\rag\indexer\vault_indexer.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\indexer\vault_indexer.py, Dependências, Símbolos
+
+### Community 1596 - "assistant\app\obsidian\vault_init.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\vault_init.py, Dependências, Símbolos
+
+### Community 1597 - "assistant\app\ai\vault_analyzer\vault_reader.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\vault_reader.py, Dependências, Símbolos
+
+### Community 1598 - "docs\storage\VAULT_SUBMODULE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\storage\VAULT_SUBMODULE.md, Símbolos
+
+### Community 1599 - "assistant\app\audit\vault_sync.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\vault_sync.py, Dependências, Símbolos
+
+### Community 1600 - "assistant\app\obsidian\watcher\vault_watcher.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\watcher\vault_watcher.py, Dependências, Símbolos
+
+### Community 1601 - "assistant\app\providers\base\vector_store.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\base\vector_store.py, Dependências, Símbolos
+
+### Community 1602 - "scripts\verify-no-mocks.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\verify-no-mocks.ps1, Símbolos
+
+### Community 1603 - "graphify\graphify\extractors\verilog.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\verilog.py, Símbolos
+
+### Community 1604 - "docs\Arquitetura\Visao Geral.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Visao Geral.md, Símbolos
+
+### Community 1605 - "desktop\vite.config.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\vite.config.ts, Símbolos
+
+### Community 1606 - "graphify\tools\skillgen\fragments\always-on\vscode-instructions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\vscode-instructions.md, Símbolos
+
+### Community 1607 - "graphify\graphify\watch.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\watch.py, Símbolos
+
+### Community 1608 - "graphify\tests\fixtures\src\WebApi\WebApi.csproj"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\src\WebApi\WebApi.csproj, Símbolos
+
+### Community 1609 - "assistant\app\api\webhooks.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\webhooks.py, Dependências, Símbolos
+
+### Community 1610 - "assistant\app\runtime\communication\whatsapp_evolution.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\communication\whatsapp_evolution.py, Dependências, Símbolos
+
+### Community 1611 - "assistant\app\providers\whatsapp\whatsapp_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\whatsapp\whatsapp_provider.py, Dependências, Símbolos
+
+### Community 1612 - "assistant\app\providers\whatsapp\whatsapp_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\whatsapp\whatsapp_tool.py, Dependências, Símbolos
+
+### Community 1613 - "graphify\tests\fixtures\objc_mixed\Widget.m"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\objc_mixed\Widget.m, Símbolos
+
+### Community 1614 - "graphify\tests\fixtures\objc_mixed\WidgetExtras.swift"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\objc_mixed\WidgetExtras.swift, Símbolos
+
+### Community 1615 - "graphify\graphify\wiki.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\wiki.py, Símbolos
+
+### Community 1616 - "assistant\app\obsidian\wiki_pipeline.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\wiki_pipeline.py, Dependências, Símbolos
+
+### Community 1617 - "assistant\app\obsidian\tools\wiki\wiki_utils.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\wiki_utils.py, Dependências, Símbolos
+
+### Community 1618 - "assistant\app\domain\workflow.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\workflow.py, Dependências, Símbolos
+
+### Community 1619 - "docs\guides\WORKFLOWS_AUDIT.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\WORKFLOWS_AUDIT.md, Símbolos
+
+### Community 1620 - "assistant\app\api\workspace_intelligence.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\workspace_intelligence.py, Dependências, Símbolos
+
+### Community 1621 - "assistant\app\memory\storage\workspace_storage.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\storage\workspace_storage.py, Dependências, Símbolos
+
+### Community 1622 - "graphify\graphify\extractors\zig.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\zig.py, Símbolos
+
+### Community 1623 - "profile_cmd"
+Cohesion: 0.50
+Nodes (3): profile_cmd(), mcp profile — Profile management commands., Manage MCP engineering profiles.
+
+### Community 1624 - "Ordem de Execução — Knowledge Graph Semântico K.A.O.S"
+Cohesion: 0.50
+Nodes (3): Ordem de Execução — Knowledge Graph Semântico K.A.O.S, Status Final, Status Geral
+
+### Community 1625 - "Como Executar Testes"
+Cohesion: 0.50
+Nodes (4): Backend (Python), Como Executar Testes, Desktop (TypeScript/React), Verificacao de versoes
+
+### Community 1626 - "Contribuicao"
+Cohesion: 0.50
+Nodes (4): Branches, Contribuicao, Convencao de Commits, Fluxo
+
+### Community 1627 - "MCP (Model Context Protocol)"
+Cohesion: 0.50
+Nodes (4): Como adicionar um servidor MCP, Componentes, MCP (Model Context Protocol), Servidores registrados
+
+### Community 1628 - "Roadmap"
+Cohesion: 0.50
+Nodes (4): Concluido (v2.x), Em andamento, Planejado, Roadmap
+
+### Community 1629 - "Configuracao"
+Cohesion: 0.50
+Nodes (4): `config/kaos.config.json`, `config/mcp.json`, Configuracao, `.env` (backend)
+
+### Community 1630 - "kaos-research\adrs\001-evidence-engine.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\adrs\001-evidence-engine.md, Símbolos
+
+### Community 1631 - "kaos-research\adrs\002-capability-ports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\adrs\002-capability-ports.md, Símbolos
+
+### Community 1632 - "kaos-research\adrs\003-technology-observatory.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\adrs\003-technology-observatory.md, Símbolos
+
+### Community 1633 - "graphify\docs\superpowers\plans\2026-05-04-incremental-updates-dedup.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\superpowers\plans\2026-05-04-incremental-updates-dedup.md, Símbolos
+
+### Community 1634 - "graphify\docs\superpowers\specs\2026-05-04-incremental-updates-dedup-design.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\superpowers\specs\2026-05-04-incremental-updates-dedup-design.md, Símbolos
+
+### Community 1635 - "graphify\tools\skillgen\fragments\references\shared\add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\add-watch.md, Símbolos
+
+### Community 1636 - "assistant\app\api\admin.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\admin.py, Dependências, Símbolos
+
+### Community 1637 - "docs\adr\ADR-001-consolidated-dashboard-endpoint.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-001-consolidated-dashboard-endpoint.md, Símbolos
+
+### Community 1638 - "docs\adr\ADR-002-elimination-of-mock-data.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-002-elimination-of-mock-data.md, Símbolos
+
+### Community 1639 - "docs\adr\ADR-003-store-consolidation.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-003-store-consolidation.md, Símbolos
+
+### Community 1640 - "docs\adr\ADR-004-offline-boot-gate.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\adr\ADR-004-offline-boot-gate.md, Símbolos
+
+### Community 1641 - "docs\governance\ADR-template.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\governance\ADR-template.md, Símbolos
+
+### Community 1642 - "graphify\graphify\affected.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\affected.py, Símbolos
+
+### Community 1643 - "assistant\app\workflows\impl\agent.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\agent.py, Dependências, Símbolos
+
+### Community 1644 - "assistant\app\service\agent_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\service\agent_service.py, Dependências, Símbolos
+
+### Community 1645 - "desktop\src\application\stores\agent-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\agent-store.ts, Símbolos
+
+### Community 1646 - "desktop\src\__tests__\shared\lib\stores\agent-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\agent-store.test.ts, Símbolos
+
+### Community 1647 - "docs\sdd\Agente de Ingestao de Conhecimento.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Agente de Ingestao de Conhecimento.md, Símbolos
+
+### Community 1648 - "graphify\AGENTS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\AGENTS.md, Símbolos
+
+### Community 1649 - "assistant\app\api\agents_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\agents_api.py, Dependências, Símbolos
+
+### Community 1650 - "graphify\tools\skillgen\fragments\always-on\agents-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\agents-md.md, Símbolos
+
+### Community 1651 - "docs\wiki\AGENTS.pt-BR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\wiki\AGENTS.pt-BR.md, Símbolos
+
+### Community 1652 - "docs\openCode\skills\ai-agent-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\ai-agent-engineer.md, Símbolos
+
+### Community 1653 - "graphify\tools\skillgen\fragments\core\aider.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\core\aider.md, Símbolos
+
+### Community 1654 - "airllm\air_llm\airllm\airllm.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm.py, Dependências, Símbolos
+
+### Community 1655 - "assistant\app\providers\inference\airllm_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\inference\airllm_adapter.py, Dependências, Símbolos
+
+### Community 1656 - "airllm\air_llm\airllm\airllm_baichuan.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_baichuan.py, Dependências, Símbolos
+
+### Community 1657 - "airllm\air_llm\airllm\airllm_base.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_base.py, Dependências, Símbolos
+
+### Community 1658 - "airllm\air_llm\airllm\airllm_chatglm.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_chatglm.py, Dependências, Símbolos
+
+### Community 1659 - "airllm\air_llm\airllm\airllm_internlm.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_internlm.py, Dependências, Símbolos
+
+### Community 1660 - "airllm\air_llm\airllm\airllm_llama_mlx.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_llama_mlx.py, Dependências, Símbolos
+
+### Community 1661 - "airllm\air_llm\airllm\airllm_mistral.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_mistral.py, Dependências, Símbolos
+
+### Community 1662 - "airllm\air_llm\airllm\airllm_mixtral.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_mixtral.py, Dependências, Símbolos
+
+### Community 1663 - "assistant\app\llm\providers\airllm_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\airllm_provider.py, Dependências, Símbolos
+
+### Community 1664 - "airllm\air_llm\airllm\airllm_qwen.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_qwen.py, Dependências, Símbolos
+
+### Community 1665 - "airllm\air_llm\airllm\airllm_qwen2.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\airllm_qwen2.py, Dependências, Símbolos
+
+### Community 1666 - "graphify\tests\fixtures\cpp_samedir\Alpha.h"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cpp_samedir\Alpha.h, Símbolos
+
+### Community 1667 - "graphify\worked\mixed-corpus\raw\analyze.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\mixed-corpus\raw\analyze.py, Símbolos
+
+### Community 1668 - "assistant\app\ai\vault_analyzer\analyzer_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\analyzer_engine.py, Dependências, Símbolos
+
+### Community 1669 - "assistant\app\providers\chat\anthropic.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\chat\anthropic.py, Dependências, Símbolos
+
+### Community 1670 - "docs\Arquitetura\Anti-padroes de Projeto.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Anti-padroes de Projeto.md, Símbolos
+
+### Community 1671 - "graphify\tools\skillgen\fragments\always-on\antigravity-rules.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\antigravity-rules.md, Símbolos
+
+### Community 1672 - "graphify\graphify\extractors\apex.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\apex.py, Símbolos
+
+### Community 1673 - "docs\security\API_KEYS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\security\API_KEYS.md, Símbolos
+
+### Community 1674 - "docs\openCode\references\api-patterns.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\api-patterns.md, Símbolos
+
+### Community 1675 - "docs\api\API_REFERENCE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\api\API_REFERENCE.md, Símbolos
+
+### Community 1676 - "graphify\tests\fixtures\xaml_viewmodel\App.csproj"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\App.csproj, Símbolos
+
+### Community 1677 - "assistant\app\obsidian\tools\wiki\append_log_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\append_log_tool.py, Dependências, Símbolos
+
+### Community 1678 - "desktop\src\app\layouts\AppLayout.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\app\layouts\AppLayout.tsx, Símbolos
+
+### Community 1679 - "assistant\app\api\apps_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\apps_api.py, Dependências, Símbolos
+
+### Community 1680 - "kaos-research\reports\architectural-research.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\reports\architectural-research.md, Símbolos
+
+### Community 1681 - "graphify\worked\example\raw\architecture.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\architecture.md, Símbolos
+
+### Community 1682 - "desktop\src\features\documentation-audit\heatmap\architecture-health.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\heatmap\architecture-health.tsx, Símbolos
+
+### Community 1683 - "docs\sdd\Arquitetura de Orquestracao.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Arquitetura de Orquestracao.md, Símbolos
+
+### Community 1684 - "docs\Arquitetura\Arquitetura Geral.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Arquitetura Geral.md, Símbolos
+
+### Community 1685 - "assistant\app\api\audit.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\audit.py, Dependências, Símbolos
+
+### Community 1686 - "assistant\scripts\audit_desktop.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\audit_desktop.py, Dependências, Símbolos
+
+### Community 1687 - "assistant\scripts\audit_docs.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\audit_docs.py, Dependências, Símbolos
+
+### Community 1688 - "assistant\app\core\documentation\audit_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\audit_engine.py, Dependências, Símbolos
+
+### Community 1689 - "desktop\src\__tests__\integration\audit-graph-flow.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\integration\audit-graph-flow.test.ts, Símbolos
+
+### Community 1690 - "assistant\scripts\audit_pr_docs.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\audit_pr_docs.py, Dependências, Símbolos
+
+### Community 1691 - "docs\audit-report.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\audit-report.md, Símbolos
+
+### Community 1692 - "assistant\app\observability\subscribers\audit_subscriber.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\audit_subscriber.py, Dependências, Símbolos
+
+### Community 1693 - "graphify\worked\httpx\raw\auth.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\auth.py, Símbolos
+
+### Community 1694 - "desktop\src\__tests__\integration\auth-chat-flow.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\integration\auth-chat-flow.test.ts, Símbolos
+
+### Community 1695 - "desktop\src\application\stores\auth-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\auth-store.ts, Símbolos
+
+### Community 1696 - "desktop\src\__tests__\shared\lib\stores\auth-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\auth-store.test.ts, Símbolos
+
+### Community 1697 - "docs\sdd\auth-wizard.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\auth-wizard.md, Símbolos
+
+### Community 1698 - "airllm\air_llm\airllm\auto_model.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\auto_model.py, Dependências, Símbolos
+
+### Community 1699 - "assistant\app\api\automation.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\automation.py, Dependências, Símbolos
+
+### Community 1700 - "assistant\app\core\automation_bus.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\automation_bus.py, Dependências, Símbolos
+
+### Community 1701 - "assistant\app\models\automation_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\automation_registry.py, Dependências, Símbolos
+
+### Community 1702 - "assistant\app\core\automation_sdk.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\automation_sdk.py, Dependências, Símbolos
+
+### Community 1703 - "desktop\src\pages\automation\automation-studio.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\pages\automation\automation-studio.tsx, Símbolos
+
+### Community 1704 - "assistant\app\providers\aws\aws_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\aws\aws_tool.py, Dependências, Símbolos
+
+### Community 1705 - "docs\Projetos\Backlog do Projeto.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Projetos\Backlog do Projeto.md, Símbolos
+
+### Community 1706 - "desktop\src\shared\ui\badge.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\badge.tsx, Símbolos
+
+### Community 1707 - "desktop\src\__tests__\shared\ui\badge.test.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\badge.test.tsx, Símbolos
+
+### Community 1708 - "graphify\tests\fixtures\barrel_reexport.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\barrel_reexport.ts, Símbolos
+
+### Community 1709 - "graphify\graphify\extractors\base.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\base.py, Símbolos
+
+### Community 1710 - "assistant\app\providers\automation\base_workflow_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\automation\base_workflow_provider.py, Dependências, Símbolos
+
+### Community 1711 - "graphify\tests\fixtures\pascal_cross_file\BaseGadget.pas"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\pascal_cross_file\BaseGadget.pas, Símbolos
+
+### Community 1712 - "graphify\graphify\extractors\bash.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\bash.py, Símbolos
+
+### Community 1713 - "graphify\tests\bench_extract.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\bench_extract.py, Símbolos
+
+### Community 1714 - "graphify\graphify\benchmark.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\benchmark.py, Símbolos
+
+### Community 1715 - "graphify\BENCHMARKS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\BENCHMARKS.md, Símbolos
+
+### Community 1716 - "graphify\tests\fixtures\cpp_samedir\Beta.h"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cpp_samedir\Beta.h, Símbolos
+
+### Community 1717 - "assistant\app\providers\embedding\bge.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\embedding\bge.py, Dependências, Símbolos
+
+### Community 1718 - "graphify\tests\fixtures\bindings.xaml"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\bindings.xaml, Símbolos
+
+### Community 1719 - "graphify\graphify\extractors\blade.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\blade.py, Símbolos
+
+### Community 1720 - "assistant\scripts\bootstrap_feature_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\bootstrap_feature_registry.py, Dependências, Símbolos
+
+### Community 1721 - "assistant\app\core\bootstrap_manager.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\bootstrap_manager.py, Dependências, Símbolos
+
+### Community 1722 - "graphify\tests\fixtures\objc_mixed\Bridging-Header.h"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\objc_mixed\Bridging-Header.h, Símbolos
+
+### Community 1723 - "graphify\worked\mixed-corpus\raw\build.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\mixed-corpus\raw\build.py, Símbolos
+
+### Community 1724 - "docs\sdd\Busca Vetorial e RAG.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Busca Vetorial e RAG.md, Símbolos
+
+### Community 1725 - "desktop\src\shared\ui\button.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\button.tsx, Símbolos
+
+### Community 1726 - "desktop\src\__tests__\shared\ui\button.test.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\button.test.tsx, Símbolos
+
+### Community 1727 - "graphify\graphify\cache.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\cache.py, Símbolos
+
+### Community 1728 - "graphify\graphify\callflow_html.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\callflow_html.py, Símbolos
+
+### Community 1729 - "docs\sdd\Camada Wiki de Conhecimento.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Camada Wiki de Conhecimento.md, Símbolos
+
+### Community 1730 - "assistant\app\api\capabilities.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\capabilities.py, Dependências, Símbolos
+
+### Community 1731 - "docs\blueprint\capability-map.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\blueprint\capability-map.md, Símbolos
+
+### Community 1732 - "kaos-research\evidence\capability-matrix.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\evidence\capability-matrix.md, Símbolos
+
+### Community 1733 - "assistant\app\models\capability_policy.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\capability_policy.py, Dependências, Símbolos
+
+### Community 1734 - "assistant\app\repositories\capability_policy_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\capability_policy_repository.py, Dependências, Símbolos
+
+### Community 1735 - "desktop\src\shared\ui\card.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\card.tsx, Símbolos
+
+### Community 1736 - "desktop\src\__tests__\shared\ui\card.test.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\card.test.tsx, Símbolos
+
+### Community 1737 - "graphify\graphify\cargo_introspect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\cargo_introspect.py, Símbolos
+
+### Community 1738 - "graphify\CHANGELOG.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\CHANGELOG.md, Símbolos
+
+### Community 1739 - "assistant\app\workflows\impl\chat.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\chat.py, Dependências, Símbolos
+
+### Community 1740 - "desktop\src\application\stores\chat-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\chat-store.ts, Símbolos
+
+### Community 1741 - "desktop\src\__tests__\shared\lib\stores\chat-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\chat-store.test.ts, Símbolos
+
+### Community 1742 - "desktop\src\features\ask-ai\ui\ChatInput.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\ask-ai\ui\ChatInput.tsx, Símbolos
+
+### Community 1743 - "scripts\check-version-consistency.js"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\check-version-consistency.js, Símbolos
+
+### Community 1744 - ".specify\templates\checklist-template.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\checklist-template.md, Símbolos
+
+### Community 1745 - "docs\guides\CICD_ARCHITECTURE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\CICD_ARCHITECTURE.md, Símbolos
+
+### Community 1746 - "assistant\app\orchestrator\circuit_breaker.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\circuit_breaker.py, Dependências, Símbolos
+
+### Community 1747 - "graphify\tests\fixtures\cjs_require.js"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cjs_require.js, Símbolos
+
+### Community 1748 - "docs\sdd\Classificador de Intencoes.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Classificador de Intencoes.md, Símbolos
+
+### Community 1749 - "graphify\tools\skillgen\fragments\always-on\claude-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\claude-md.md, Símbolos
+
+### Community 1750 - "assistant\app\llm\providers\claude_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\claude_provider.py, Dependências, Símbolos
+
+### Community 1751 - "graphify\graphify\cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\cli.py, Símbolos
+
+### Community 1752 - "graphify\worked\httpx\raw\client.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\client.py, Símbolos
+
+### Community 1753 - "docs\operations\investigation\CLOUDFLARE_ANALYSIS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\CLOUDFLARE_ANALYSIS.md, Símbolos
+
+### Community 1754 - "docs\operations\investigation\CLOUDLFARE_ANALYSIS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\CLOUDLFARE_ANALYSIS.md, Símbolos
+
+### Community 1755 - "graphify\worked\mixed-corpus\raw\cluster.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\mixed-corpus\raw\cluster.py, Símbolos
+
+### Community 1756 - "docs\openCode\references\code-conventions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\code-conventions.md, Símbolos
+
+### Community 1757 - "desktop\src\features\documentation-audit\auto-doc\code-introspector.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\auto-doc\code-introspector.ts, Símbolos
+
+### Community 1758 - "desktop\src\__tests__\features\code-introspector.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\code-introspector.test.ts, Símbolos
+
+### Community 1759 - "docs\openCode\skills\code-reviewer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\code-reviewer.md, Símbolos
+
+### Community 1760 - "assistant\app\audit\code_scanner.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\code_scanner.py, Dependências, Símbolos
+
+### Community 1761 - "assistant\app\workflows\impl\coding.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\coding.py, Dependências, Símbolos
+
+### Community 1762 - "assistant\app\domain\command.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\command.py, Dependências, Símbolos
+
+### Community 1763 - "desktop\src\shared\lib\command-registry.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\command-registry.ts, Símbolos
+
+### Community 1764 - "desktop\src\__tests__\shared\lib\command-registry.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\command-registry.test.ts, Símbolos
+
+### Community 1765 - "desktop\src\shared\lib\commands-init.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\commands-init.ts, Símbolos
+
+### Community 1766 - "assistant\app\audit\commit_classifier.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\commit_classifier.py, Dependências, Símbolos
+
+### Community 1767 - "assistant\app\audit\commit_mapper.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\commit_mapper.py, Dependências, Símbolos
+
+### Community 1768 - "desktop\src\features\documentation-audit\engine\commit-mapper.ts"
+Cohesion: 0.50
+Nodes (3): desktop\src\features\documentation-audit\engine\commit-mapper.ts, Dependências, Símbolos
+
+### Community 1769 - ".commitlintrc.json"
+Cohesion: 0.50
+Nodes (3): .commitlintrc.json, Dependências, Símbolos
+
+### Community 1770 - ".specify\scripts\powershell\common.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\scripts\powershell\common.ps1, Símbolos
+
+### Community 1771 - ".opencode\rules\comunicacao.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\rules\comunicacao.md, Símbolos
+
+### Community 1772 - "assistant\app\core\config_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\config_service.py, Dependências, Símbolos
+
+### Community 1773 - "docs\sdd\Configuração de Provedores.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Configuração de Provedores.md, Símbolos
+
+### Community 1774 - "graphify\tests\conftest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\conftest.py, Símbolos
+
+### Community 1775 - "desktop\src\entities\provider\constants.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\provider\constants.ts, Símbolos
+
+### Community 1776 - ".specify\memory\constitution.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\constitution.md, Símbolos
+
+### Community 1777 - ".specify\templates\constitution-template.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\constitution-template.md, Símbolos
+
+### Community 1778 - "assistant\app\domain\context.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\context.py, Dependências, Símbolos
+
+### Community 1779 - "desktop\src\__tests__\integration\contract-validation.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\integration\contract-validation.test.ts, Símbolos
+
+### Community 1780 - "assistant\app\models\conversation.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\conversation.py, Dependências, Símbolos
+
+### Community 1781 - "assistant\app\repositories\conversation_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\conversation_repository.py, Dependências, Símbolos
+
+### Community 1782 - "desktop\src\application\stores\conversation-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\conversation-store.ts, Símbolos
+
+### Community 1783 - "desktop\src\__tests__\shared\lib\stores\conversation-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\conversation-store.test.ts, Símbolos
+
+### Community 1784 - "assistant\app\api\conversations.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\conversations.py, Dependências, Símbolos
+
+### Community 1785 - "graphify\tests\fixtures\cookieHelpers.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cookieHelpers.ts, Símbolos
+
+### Community 1786 - "graphify\tools\skillgen\fragments\core\core.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\core\core.md, Símbolos
+
+### Community 1787 - "docs\security\COSIGN.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\security\COSIGN.md, Símbolos
+
+### Community 1788 - "assistant\app\models\cost_event.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\cost_event.py, Dependências, Símbolos
+
+### Community 1789 - "assistant\app\repositories\cost_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\cost_repository.py, Dependências, Símbolos
+
+### Community 1790 - "assistant\app\observability\cost_tracker.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\cost_tracker.py, Dependências, Símbolos
+
+### Community 1791 - "desktop\src\features\documentation-audit\ui\CoverageChart.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\CoverageChart.tsx, Símbolos
+
+### Community 1792 - "assistant\app\obsidian\tools\wiki\create_entity_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_entity_tool.py, Dependências, Símbolos
+
+### Community 1793 - ".specify\scripts\powershell\create-new-feature.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\scripts\powershell\create-new-feature.ps1, Símbolos
+
+### Community 1794 - "assistant\app\obsidian\tools\create_note_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\create_note_tool.py, Dependências, Símbolos
+
+### Community 1795 - "assistant\app\obsidian\tools\wiki\create_source_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_source_tool.py, Dependências, Símbolos
+
+### Community 1796 - "assistant\app\obsidian\tools\wiki\create_synthesis_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\create_synthesis_tool.py, Dependências, Símbolos
+
+### Community 1797 - "graphify\graphify\extractors\csharp.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\csharp.py, Símbolos
+
+### Community 1798 - "desktop\src\presentation\components\model-selector\CustomModelInput.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\CustomModelInput.tsx, Símbolos
+
+### Community 1799 - "graphify\graphify\extractors\dart.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\dart.py, Símbolos
+
+### Community 1800 - "assistant\app\database.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\database.py, Dependências, Símbolos
+
+### Community 1801 - "assistant\app\orchestrator\dead_letter_queue.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\dead_letter_queue.py, Dependências, Símbolos
+
+### Community 1802 - "graphify\graphify\dedup.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\dedup.py, Símbolos
+
+### Community 1803 - "graphify\tools\skillgen\fragments\references\query\default.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\query\default.md, Símbolos
+
+### Community 1804 - "assistant\app\obsidian\tools\delete_note_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\delete_note_tool.py, Dependências, Símbolos
+
+### Community 1805 - "graphify\tests\fixtures\deploy_guide.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\deploy_guide.md, Símbolos
+
+### Community 1806 - "docs\operations\investigation\DEPLOY_MATRIX.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DEPLOY_MATRIX.md, Símbolos
+
+### Community 1807 - "docs\operations\investigation\DEPLOY_PIPELINE_ANALYSIS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DEPLOY_PIPELINE_ANALYSIS.md, Símbolos
+
+### Community 1808 - "docs\guides\DEPLOYMENT_GUIDE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\DEPLOYMENT_GUIDE.md, Símbolos
+
+### Community 1809 - "graphify\tests\fixtures\pascal_cross_file\DerivedGadget.pas"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\pascal_cross_file\DerivedGadget.pas, Símbolos
+
+### Community 1810 - "graphify\tests\fixtures\xaml_viewmodel\Views\DesignView.xaml"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\DesignView.xaml, Símbolos
+
+### Community 1811 - "graphify\tests\fixtures\xaml_viewmodel\ViewModels\DesignViewModel.cs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\DesignViewModel.cs, Símbolos
+
+### Community 1812 - "docs\desktop-api-alignment.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-api-alignment.md, Símbolos
+
+### Community 1813 - "docs\architecture\DESKTOP_ARCHITECTURE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\DESKTOP_ARCHITECTURE.md, Símbolos
+
+### Community 1814 - "docs\desktop-audit-report.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-audit-report.md, Símbolos
+
+### Community 1815 - "docs\desktop-compatibility-report.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-compatibility-report.md, Símbolos
+
+### Community 1816 - "docs\operations\investigation\DESKTOP_CONNECTIVITY_ANALYSIS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DESKTOP_CONNECTIVITY_ANALYSIS.md, Símbolos
+
+### Community 1817 - "docs\desktop-missing-docs.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-missing-docs.md, Símbolos
+
+### Community 1818 - "docs\desktop-refactor-plan.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-refactor-plan.md, Símbolos
+
+### Community 1819 - "docs\desktop-roadmap-alignment.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\desktop-roadmap-alignment.md, Símbolos
+
+### Community 1820 - "graphify\graphify\detect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\detect.py, Símbolos
+
+### Community 1821 - "docs\guides\DEVELOPER_GUIDE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\DEVELOPER_GUIDE.md, Símbolos
+
+### Community 1822 - "graphify\tools\skillgen\fragments\core\devin.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\core\devin.md, Símbolos
+
+### Community 1823 - "graphify\graphify\diagnostics.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\diagnostics.py, Símbolos
+
+### Community 1824 - "desktop\src\shared\ui\dialog.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\dialog.tsx, Símbolos
+
+### Community 1825 - "docs\openCode\references\directory-structure.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\directory-structure.md, Símbolos
+
+### Community 1826 - "docs\sdd\Divisao de Texto (Chunking).md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Divisao de Texto (Chunking).md, Símbolos
+
+### Community 1827 - "graphify\graphify\extractors\dm.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\dm.py, Símbolos
+
+### Community 1828 - "desktop\src\features\documentation-audit\auto-doc\doc-sync-engine.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\auto-doc\doc-sync-engine.ts, Símbolos
+
+### Community 1829 - "desktop\src\features\generate-docs\ui\DocGeneratorModal.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\generate-docs\ui\DocGeneratorModal.tsx, Símbolos
+
+### Community 1830 - "docs\openCode\rules\docker.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\docker.md, Símbolos
+
+### Community 1831 - "docs\openCode\skills\docker-expert.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\docker-expert.md, Símbolos
+
+### Community 1832 - "docs\openCode\tools\docker-tools.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\tools\docker-tools.md, Símbolos
+
+### Community 1833 - "assistant\app\api\docs.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\docs.py, Dependências, Símbolos
+
+### Community 1834 - "docs\sdd\docs-source-refactor.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\docs-source-refactor.md, Símbolos
+
+### Community 1835 - "assistant\app\domain\document.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\document.py, Dependências, Símbolos
+
+### Community 1836 - "assistant\app\rag\embeddings\document_cache.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\embeddings\document_cache.py, Dependências, Símbolos
+
+### Community 1837 - "docs\openCode\skills\documentation-writer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\documentation-writer.md, Símbolos
+
+### Community 1838 - "docs\operations\investigation\DOMAIN_HEALTH_MATRIX.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\DOMAIN_HEALTH_MATRIX.md, Símbolos
+
+### Community 1839 - "assistant\app\obsidian\tools\wiki\draft_tools.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\draft_tools.py, Dependências, Símbolos
+
+### Community 1840 - "assistant\app\ai\vault_analyzer\drift_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\drift_engine.py, Dependências, Símbolos
+
+### Community 1841 - "desktop\src\features\documentation-audit\engine\drift-engine.ts"
+Cohesion: 0.50
+Nodes (3): desktop\src\features\documentation-audit\engine\drift-engine.ts, Dependências, Símbolos
+
+### Community 1842 - "desktop\src\__tests__\features\drift-engine.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\drift-engine.test.ts, Símbolos
+
+### Community 1843 - "desktop\src\features\documentation-audit\store\drift-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\store\drift-store.ts, Símbolos
+
+### Community 1844 - "desktop\src\__tests__\features\drift-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\drift-store.test.ts, Símbolos
+
+### Community 1845 - "assistant\app\audit\drift_subscriber.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\drift_subscriber.py, Dependências, Símbolos
+
+### Community 1846 - "desktop\src\features\documentation-audit\ui\DriftTimeline.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\DriftTimeline.tsx, Símbolos
+
+### Community 1847 - "assistant\app\audit\drl_snapshot.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\drl_snapshot.py, Dependências, Símbolos
+
+### Community 1848 - "desktop\src\shared\ui\dropdown.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\dropdown.tsx, Símbolos
+
+### Community 1849 - "desktop\src\__tests__\shared\ui\dropdown.test.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\dropdown.test.tsx, Símbolos
+
+### Community 1850 - "graphify\tests\fixtures\dynamic_import.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\dynamic_import.ts, Símbolos
+
+### Community 1851 - "graphify\graphify\extractors\elixir.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\elixir.py, Símbolos
+
+### Community 1852 - "assistant\app\providers\email\email_reader.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\email\email_reader.py, Dependências, Símbolos
+
+### Community 1853 - "assistant\app\providers\email\email_sender.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\email\email_sender.py, Dependências, Símbolos
+
+### Community 1854 - "assistant\app\providers\email\email_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\email\email_tool.py, Dependências, Símbolos
+
+### Community 1855 - "assistant\app\rag\embeddings\embedder.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\embeddings\embedder.py, Dependências, Símbolos
+
+### Community 1856 - "assistant\app\providers\base\embedding.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\base\embedding.py, Dependências, Símbolos
+
+### Community 1857 - "desktop\src\shared\ui\empty-state.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\empty-state.tsx, Símbolos
+
+### Community 1858 - "graphify\graphify\extractors\engine.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\engine.py, Símbolos
+
+### Community 1859 - "assistant\migrations\env.py"
+Cohesion: 0.50
+Nodes (3): assistant\migrations\env.py, Dependências, Símbolos
+
+### Community 1860 - "assistant\app\core\environment_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\environment_service.py, Dependências, Símbolos
+
+### Community 1861 - "docs\sdd\Especificacao Funcional.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Especificacao Funcional.md, Símbolos
+
+### Community 1862 - "docs\sdd\Especificacao Tecnica.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Especificacao Tecnica.md, Símbolos
+
+### Community 1863 - "docs\sdd\Estado do Agente.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Estado do Agente.md, Símbolos
+
+### Community 1864 - "docs\Arquitetura\Estrategia de Repositorios.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Estrategia de Repositorios.md, Símbolos
+
+### Community 1865 - "docs\Arquitetura\Estrategia de Testes.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Estrategia de Testes.md, Símbolos
+
+### Community 1866 - "docs\sdd\Estrutura da Wiki.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Estrutura da Wiki.md, Símbolos
+
+### Community 1867 - "docs\Arquitetura\Estrutura de Pastas.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Estrutura de Pastas.md, Símbolos
+
+### Community 1868 - "assistant\app\domain\event.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\event.py, Dependências, Símbolos
+
+### Community 1869 - "assistant\app\observability\event_bus.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\event_bus.py, Dependências, Símbolos
+
+### Community 1870 - "desktop\src\shared\lib\event-bus.ts"
+Cohesion: 0.50
+Nodes (3): desktop\src\shared\lib\event-bus.ts, Dependências, Símbolos
+
+### Community 1871 - "desktop\src\__tests__\shared\lib\event-bus.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\event-bus.test.ts, Símbolos
+
+### Community 1872 - "assistant\app\api\evidence_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\evidence_api.py, Dependências, Símbolos
+
+### Community 1873 - "docs\governance\evidence-driven-decisions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\governance\evidence-driven-decisions.md, Símbolos
+
+### Community 1874 - "assistant\app\ai\vault_analyzer\evidence_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\evidence_engine.py, Dependências, Símbolos
+
+### Community 1875 - "assistant\app\domain\ports\evidence_port.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\evidence_port.py, Dependências, Símbolos
+
+### Community 1876 - "assistant\app\core\services\evidence_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\evidence_service.py, Dependências, Símbolos
+
+### Community 1877 - "desktop\src\application\stores\evidence-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\evidence-store.ts, Símbolos
+
+### Community 1878 - "graphify\worked\httpx\raw\exceptions.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\exceptions.py, Símbolos
+
+### Community 1879 - "assistant\app\observability\execution_context.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\execution_context.py, Dependências, Símbolos
+
+### Community 1880 - "assistant\app\domain\execution_plan.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\execution_plan.py, Dependências, Símbolos
+
+### Community 1881 - "kaos-research\experiments\mem0\experiment.py"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\experiments\mem0\experiment.py, Símbolos
+
+### Community 1882 - "graphify\graphify\export.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\export.py, Símbolos
+
+### Community 1883 - "graphify\tools\skillgen\fragments\references\shared\exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\exports.md, Símbolos
+
+### Community 1884 - "graphify\graphify\extract.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extract.py, Símbolos
+
+### Community 1885 - "graphify\tools\skillgen\fragments\references\shared\extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\extraction-spec.md, Símbolos
+
+### Community 1886 - "graphify\tools\skillgen\fragments\references\shared\extraction-spec-compact.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\extraction-spec-compact.md, Símbolos
+
+### Community 1887 - "assistant\app\llm\factory.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\factory.py, Dependências, Símbolos
+
+### Community 1888 - "assistant\app\repositories\failed_execution_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\failed_execution_repository.py, Dependências, Símbolos
+
+### Community 1889 - "docs\sdd\Fase 1 - Fundacao.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fase 1 - Fundacao.md, Símbolos
+
+### Community 1890 - "docs\sdd\Fase 2 - IA Local.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fase 2 - IA Local.md, Símbolos
+
+### Community 1891 - "docs\sdd\Fase 3 - Servico Obsidian.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fase 3 - Servico Obsidian.md, Símbolos
+
+### Community 1892 - "docs\sdd\Fases 4-5 - Pipeline RAG e Watcher.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fases 4-5 - Pipeline RAG e Watcher.md, Símbolos
+
+### Community 1893 - "docs\sdd\Fases 6-7 - Watcher LangGraph e Memoria.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Fases 6-7 - Watcher LangGraph e Memoria.md, Símbolos
+
+### Community 1894 - "assistant\app\router\fast_router.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\router\fast_router.py, Dependências, Símbolos
+
+### Community 1895 - "desktop\src\features\documentation-audit\auto-doc\feature-extractor.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\auto-doc\feature-extractor.ts, Símbolos
+
+### Community 1896 - "desktop\src\__tests__\features\feature-extractor.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\feature-extractor.test.ts, Símbolos
+
+### Community 1897 - "assistant\app\repositories\feature_flag_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\feature_flag_repository.py, Dependências, Símbolos
+
+### Community 1898 - "assistant\app\api\feature_flags.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\feature_flags.py, Dependências, Símbolos
+
+### Community 1899 - "assistant\app\audit\feature_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\feature_registry.py, Dependências, Símbolos
+
+### Community 1900 - "desktop\src\features\documentation-audit\engine\feature-scanner.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\engine\feature-scanner.ts, Símbolos
+
+### Community 1901 - "desktop\src\__tests__\features\feature-scanner.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\feature-scanner.test.ts, Símbolos
+
+### Community 1902 - "docs\sdd\Ferramentas do LangGraph.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Ferramentas do LangGraph.md, Símbolos
+
+### Community 1903 - "graphify\graphify\file_slice.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\file_slice.py, Símbolos
+
+### Community 1904 - "assistant\app\obsidian\tools\wiki\file_synthesis_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\file_synthesis_tool.py, Dependências, Símbolos
+
+### Community 1905 - "docs\guides\FIRST_RUN.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\FIRST_RUN.md, Símbolos
+
+### Community 1906 - "scripts\fix_docs_metadata.py"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\fix_docs_metadata.py, Símbolos
+
+### Community 1907 - "docs\Arquitetura\Fluxo de Dados.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Fluxo de Dados.md, Símbolos
+
+### Community 1908 - "graphify\tests\fixtures\swift_cross_file\Foo.swift"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\swift_cross_file\Foo.swift, Símbolos
+
+### Community 1909 - "graphify\tests\fixtures\swift_cross_file\Foo+Ext.swift"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\swift_cross_file\Foo+Ext.swift, Símbolos
+
+### Community 1910 - "graphify\graphify\extractors\fortran.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\fortran.py, Símbolos
+
+### Community 1911 - "docs\architecture\FRONTEND_FSD_ARCHITECTURE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\FRONTEND_FSD_ARCHITECTURE.md, Símbolos
+
+### Community 1912 - "assistant\app\audit\frontmatter_parser.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\frontmatter_parser.py, Dependências, Símbolos
+
+### Community 1913 - "docs\sdd\functional-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\functional-spec.md, Símbolos
+
+### Community 1914 - "airllm\funding.json"
+Cohesion: 0.50
+Nodes (3): airllm\funding.json, Dependências, Símbolos
+
+### Community 1915 - "assistant\app\providers\chat\gemini.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\chat\gemini.py, Dependências, Símbolos
+
+### Community 1916 - "graphify\tools\skillgen\fragments\always-on\gemini-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\gemini-md.md, Símbolos
+
+### Community 1917 - "assistant\app\llm\providers\gemini_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\gemini_provider.py, Dependências, Símbolos
+
+### Community 1918 - "graphify\tools\skillgen\gen.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\gen.py, Símbolos
+
+### Community 1919 - "graphify\scripts\gen_demo_path.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\scripts\gen_demo_path.py, Símbolos
+
+### Community 1920 - "airllm\scripts\gen_star_history.py"
+Cohesion: 0.50
+Nodes (3): airllm\scripts\gen_star_history.py, Dependências, Símbolos
+
+### Community 1921 - "scripts\gen_update_proxy.py"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\gen_update_proxy.py, Símbolos
+
+### Community 1922 - "assistant\scripts\generate_feature_catalog.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\generate_feature_catalog.py, Dependências, Símbolos
+
+### Community 1923 - "scripts\generate_icons.py"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\generate_icons.py, Símbolos
+
+### Community 1924 - "docs\sdd\Gerador de Embeddings.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Gerador de Embeddings.md, Símbolos
+
+### Community 1925 - "docs\ci-cd\GITHUB_ACTIONS.md"
+Cohesion: 0.50
+Nodes (3): docs\ci-cd\GITHUB_ACTIONS.md, Dependências, Símbolos
+
+### Community 1926 - "docs\openCode\rules\github-actions.md"
+Cohesion: 0.50
+Nodes (3): docs\openCode\rules\github-actions.md, Dependências, Símbolos
+
+### Community 1927 - "graphify\tools\skillgen\fragments\references\shared\github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\github-and-merge.md, Símbolos
+
+### Community 1928 - "assistant\app\tools\github_tools.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\github_tools.py, Dependências, Símbolos
+
+### Community 1929 - "docs\openCode\tools\github-tools.md"
+Cohesion: 0.50
+Nodes (3): docs\openCode\tools\github-tools.md, Dependências, Símbolos
+
+### Community 1930 - "graphify\graphify\global_graph.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\global_graph.py, Símbolos
+
+### Community 1931 - "graphify\graphify\extractors\go.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\go.py, Símbolos
+
+### Community 1932 - "graphify\graphify\google_workspace.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\google_workspace.py, Símbolos
+
+### Community 1933 - "docs\observability\GRAFANA_DASHBOARDS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\observability\GRAFANA_DASHBOARDS.md, Símbolos
+
+### Community 1934 - "assistant\app\agent\graph.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\graph.py, Dependências, Símbolos
+
+### Community 1935 - "assistant\app\api\graph_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\graph_api.py, Dependências, Símbolos
+
+### Community 1936 - "assistant\app\ai\vault_analyzer\graph_builder.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\graph_builder.py, Dependências, Símbolos
+
+### Community 1937 - "desktop\src\features\documentation-audit\graph\graph-builder.ts"
+Cohesion: 0.50
+Nodes (3): desktop\src\features\documentation-audit\graph\graph-builder.ts, Dependências, Símbolos
+
+### Community 1938 - "desktop\src\__tests__\features\graph-builder.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\graph-builder.test.ts, Símbolos
+
+### Community 1939 - "desktop\src\features\documentation-audit\graph\graph-export.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\graph-export.ts, Símbolos
+
+### Community 1940 - "desktop\src\__tests__\features\graph-export.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\graph-export.test.ts, Símbolos
+
+### Community 1941 - "assistant\app\domain\ports\graph_port.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\graph_port.py, Dependências, Símbolos
+
+### Community 1942 - "graphify\worked\rsl-siege-manager\GRAPH_REPORT.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\rsl-siege-manager\GRAPH_REPORT.md, Símbolos
+
+### Community 1943 - "assistant\app\core\services\graph_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\graph_service.py, Dependências, Símbolos
+
+### Community 1944 - "desktop\src\features\documentation-audit\graph\graph-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\graph-store.ts, Símbolos
+
+### Community 1945 - "desktop\src\features\documentation-audit\graph\graph-updater.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\graph-updater.ts, Símbolos
+
+### Community 1946 - "assistant\app\core\documentation\graph_validator.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\graph_validator.py, Dependências, Símbolos
+
+### Community 1947 - "graphify\graphify\exporters\graphdb.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\exporters\graphdb.py, Símbolos
+
+### Community 1948 - ".agents\workflows\graphify.md"
+Cohesion: 0.50
+Nodes (3): .agents\workflows\graphify.md, Dependências, Símbolos
+
+### Community 1949 - "graphify\tools\skillgen\expected\graphify__always_on__agents-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__agents-md.md, Símbolos
+
+### Community 1950 - "graphify\tools\skillgen\expected\graphify__always_on__antigravity-rules.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__antigravity-rules.md, Símbolos
+
+### Community 1951 - "graphify\tools\skillgen\expected\graphify__always_on__claude-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__claude-md.md, Símbolos
+
+### Community 1952 - "graphify\tools\skillgen\expected\graphify__always_on__gemini-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__gemini-md.md, Símbolos
+
+### Community 1953 - "graphify\tools\skillgen\expected\graphify__always_on__vscode-instructions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__always_on__vscode-instructions.md, Símbolos
+
+### Community 1954 - "kaos-research\benchmarks\results\graphify-benchmark.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\benchmarks\results\graphify-benchmark.md, Símbolos
+
+### Community 1955 - "graphify\tools\skillgen\expected\graphify__skill.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill.md, Símbolos
+
+### Community 1956 - "graphify\tools\skillgen\expected\graphify__skill-agents.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-agents.md, Símbolos
+
+### Community 1957 - "graphify\tools\skillgen\expected\graphify__skill-aider.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-aider.md, Símbolos
+
+### Community 1958 - "graphify\tools\skillgen\expected\graphify__skill-amp.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-amp.md, Símbolos
+
+### Community 1959 - "graphify\tools\skillgen\expected\graphify__skill-claw.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-claw.md, Símbolos
+
+### Community 1960 - "graphify\tools\skillgen\expected\graphify__skill-codex.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-codex.md, Símbolos
+
+### Community 1961 - "graphify\tools\skillgen\expected\graphify__skill-copilot.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-copilot.md, Símbolos
+
+### Community 1962 - "graphify\tools\skillgen\expected\graphify__skill-devin.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-devin.md, Símbolos
+
+### Community 1963 - "graphify\tools\skillgen\expected\graphify__skill-droid.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-droid.md, Símbolos
+
+### Community 1964 - "graphify\tools\skillgen\expected\graphify__skill-kilo.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-kilo.md, Símbolos
+
+### Community 1965 - "graphify\tools\skillgen\expected\graphify__skill-kiro.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-kiro.md, Símbolos
+
+### Community 1966 - "graphify\tools\skillgen\expected\graphify__skill-opencode.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-opencode.md, Símbolos
+
+### Community 1967 - "graphify\tools\skillgen\expected\graphify__skill-pi.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-pi.md, Símbolos
+
+### Community 1968 - "graphify\tools\skillgen\expected\graphify__skill-trae.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-trae.md, Símbolos
+
+### Community 1969 - "graphify\tools\skillgen\expected\graphify__skill-vscode.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-vscode.md, Símbolos
+
+### Community 1970 - "graphify\tools\skillgen\expected\graphify__skill-windows.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skill-windows.md, Símbolos
+
+### Community 1971 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__add-watch.md, Símbolos
+
+### Community 1972 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__exports.md, Símbolos
+
+### Community 1973 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__extraction-spec.md, Símbolos
+
+### Community 1974 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__github-and-merge.md, Símbolos
+
+### Community 1975 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__hooks.md, Símbolos
+
+### Community 1976 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__query.md, Símbolos
+
+### Community 1977 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__transcribe.md, Símbolos
+
+### Community 1978 - "graphify\tools\skillgen\expected\graphify__skills__agents__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__agents__references__update.md, Símbolos
+
+### Community 1979 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__add-watch.md, Símbolos
+
+### Community 1980 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__exports.md, Símbolos
+
+### Community 1981 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__extraction-spec.md, Símbolos
+
+### Community 1982 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__github-and-merge.md, Símbolos
+
+### Community 1983 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__hooks.md, Símbolos
+
+### Community 1984 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__query.md, Símbolos
+
+### Community 1985 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__transcribe.md, Símbolos
+
+### Community 1986 - "graphify\tools\skillgen\expected\graphify__skills__amp__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__amp__references__update.md, Símbolos
+
+### Community 1987 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__add-watch.md, Símbolos
+
+### Community 1988 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__exports.md, Símbolos
+
+### Community 1989 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__extraction-spec.md, Símbolos
+
+### Community 1990 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__hooks.md, Símbolos
+
+### Community 1991 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__query.md, Símbolos
+
+### Community 1992 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__transcribe.md, Símbolos
+
+### Community 1993 - "graphify\tools\skillgen\expected\graphify__skills__claude__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claude__references__update.md, Símbolos
+
+### Community 1994 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__add-watch.md, Símbolos
+
+### Community 1995 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__exports.md, Símbolos
+
+### Community 1996 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__extraction-spec.md, Símbolos
+
+### Community 1997 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__github-and-merge.md, Símbolos
+
+### Community 1998 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__hooks.md, Símbolos
+
+### Community 1999 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__query.md, Símbolos
+
+### Community 2000 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__transcribe.md, Símbolos
+
+### Community 2001 - "graphify\tools\skillgen\expected\graphify__skills__claw__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__claw__references__update.md, Símbolos
+
+### Community 2002 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__add-watch.md, Símbolos
+
+### Community 2003 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__exports.md, Símbolos
+
+### Community 2004 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__extraction-spec.md, Símbolos
+
+### Community 2005 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__github-and-merge.md, Símbolos
+
+### Community 2006 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__hooks.md, Símbolos
+
+### Community 2007 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__query.md, Símbolos
+
+### Community 2008 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__transcribe.md, Símbolos
+
+### Community 2009 - "graphify\tools\skillgen\expected\graphify__skills__codex__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__codex__references__update.md, Símbolos
+
+### Community 2010 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__add-watch.md, Símbolos
+
+### Community 2011 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__exports.md, Símbolos
+
+### Community 2012 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__extraction-spec.md, Símbolos
+
+### Community 2013 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__github-and-merge.md, Símbolos
+
+### Community 2014 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__hooks.md, Símbolos
+
+### Community 2015 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__query.md, Símbolos
+
+### Community 2016 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__transcribe.md, Símbolos
+
+### Community 2017 - "graphify\tools\skillgen\expected\graphify__skills__copilot__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__copilot__references__update.md, Símbolos
+
+### Community 2018 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__add-watch.md, Símbolos
+
+### Community 2019 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__exports.md, Símbolos
+
+### Community 2020 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__extraction-spec.md, Símbolos
+
+### Community 2021 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__github-and-merge.md, Símbolos
+
+### Community 2022 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__hooks.md, Símbolos
+
+### Community 2023 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__query.md, Símbolos
+
+### Community 2024 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__transcribe.md, Símbolos
+
+### Community 2025 - "graphify\tools\skillgen\expected\graphify__skills__droid__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__droid__references__update.md, Símbolos
+
+### Community 2026 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__add-watch.md, Símbolos
+
+### Community 2027 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__exports.md, Símbolos
+
+### Community 2028 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__extraction-spec.md, Símbolos
+
+### Community 2029 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__github-and-merge.md, Símbolos
+
+### Community 2030 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__hooks.md, Símbolos
+
+### Community 2031 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__query.md, Símbolos
+
+### Community 2032 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__transcribe.md, Símbolos
+
+### Community 2033 - "graphify\tools\skillgen\expected\graphify__skills__kilo__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kilo__references__update.md, Símbolos
+
+### Community 2034 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__add-watch.md, Símbolos
+
+### Community 2035 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__exports.md, Símbolos
+
+### Community 2036 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__extraction-spec.md, Símbolos
+
+### Community 2037 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__github-and-merge.md, Símbolos
+
+### Community 2038 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__hooks.md, Símbolos
+
+### Community 2039 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__query.md, Símbolos
+
+### Community 2040 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__transcribe.md, Símbolos
+
+### Community 2041 - "graphify\tools\skillgen\expected\graphify__skills__kiro__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__kiro__references__update.md, Símbolos
+
+### Community 2042 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__add-watch.md, Símbolos
+
+### Community 2043 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__exports.md, Símbolos
+
+### Community 2044 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__extraction-spec.md, Símbolos
+
+### Community 2045 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__github-and-merge.md, Símbolos
+
+### Community 2046 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__hooks.md, Símbolos
+
+### Community 2047 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__query.md, Símbolos
+
+### Community 2048 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__transcribe.md, Símbolos
+
+### Community 2049 - "graphify\tools\skillgen\expected\graphify__skills__opencode__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__opencode__references__update.md, Símbolos
+
+### Community 2050 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__add-watch.md, Símbolos
+
+### Community 2051 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__exports.md, Símbolos
+
+### Community 2052 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__extraction-spec.md, Símbolos
+
+### Community 2053 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__github-and-merge.md, Símbolos
+
+### Community 2054 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__hooks.md, Símbolos
+
+### Community 2055 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__query.md, Símbolos
+
+### Community 2056 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__transcribe.md, Símbolos
+
+### Community 2057 - "graphify\tools\skillgen\expected\graphify__skills__pi__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__pi__references__update.md, Símbolos
+
+### Community 2058 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__add-watch.md, Símbolos
+
+### Community 2059 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__exports.md, Símbolos
+
+### Community 2060 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__extraction-spec.md, Símbolos
+
+### Community 2061 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__github-and-merge.md, Símbolos
+
+### Community 2062 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__hooks.md, Símbolos
+
+### Community 2063 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__query.md, Símbolos
+
+### Community 2064 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__transcribe.md, Símbolos
+
+### Community 2065 - "graphify\tools\skillgen\expected\graphify__skills__trae__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__trae__references__update.md, Símbolos
+
+### Community 2066 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__add-watch.md, Símbolos
+
+### Community 2067 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__exports.md, Símbolos
+
+### Community 2068 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__extraction-spec.md, Símbolos
+
+### Community 2069 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__github-and-merge.md, Símbolos
+
+### Community 2070 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__hooks.md, Símbolos
+
+### Community 2071 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__query.md, Símbolos
+
+### Community 2072 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__transcribe.md, Símbolos
+
+### Community 2073 - "graphify\tools\skillgen\expected\graphify__skills__vscode__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__vscode__references__update.md, Símbolos
+
+### Community 2074 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__add-watch.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__add-watch.md, Símbolos
+
+### Community 2075 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__exports.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__exports.md, Símbolos
+
+### Community 2076 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__extraction-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__extraction-spec.md, Símbolos
+
+### Community 2077 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__github-and-merge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__github-and-merge.md, Símbolos
+
+### Community 2078 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__hooks.md, Símbolos
+
+### Community 2079 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__query.md, Símbolos
+
+### Community 2080 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__transcribe.md, Símbolos
+
+### Community 2081 - "graphify\tools\skillgen\expected\graphify__skills__windows__references__update.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\expected\graphify__skills__windows__references__update.md, Símbolos
+
+### Community 2082 - "docs\Arquitetura\Guia de Testes e Uso.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Guia de Testes e Uso.md, Símbolos
+
+### Community 2083 - "assistant\app\auth\handshake.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\auth\handshake.py, Dependências, Símbolos
+
+### Community 2084 - "assistant\app\auth\hash.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\auth\hash.py, Dependências, Símbolos
+
+### Community 2085 - "assistant\app\api\health.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\health.py, Dependências, Símbolos
+
+### Community 2086 - "assistant\app\orchestrator\health_cache.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\health_cache.py, Dependências, Símbolos
+
+### Community 2087 - "assistant\app\core\documentation\health_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\health_engine.py, Dependências, Símbolos
+
+### Community 2088 - "desktop\src\features\documentation-audit\heatmap\heatmap-chart.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\heatmap\heatmap-chart.tsx, Símbolos
+
+### Community 2089 - "desktop\src\features\documentation-audit\heatmap\heatmap-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\heatmap\heatmap-store.ts, Símbolos
+
+### Community 2090 - "desktop\src\__tests__\features\heatmap-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\heatmap-store.test.ts, Símbolos
+
+### Community 2091 - "graphify\tools\skillgen\fragments\references\shared\hooks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\hooks.md, Símbolos
+
+### Community 2092 - "graphify\tools\skillgen\fragments\references\host\hooks-agents-md.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\host\hooks-agents-md.md, Símbolos
+
+### Community 2093 - "graphify\docs\how-it-works.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\how-it-works.md, Símbolos
+
+### Community 2094 - "graphify\graphify\exporters\html.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\exporters\html.py, Símbolos
+
+### Community 2095 - "kaos-research\evidence\hypotheses.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\evidence\hypotheses.md, Símbolos
+
+### Community 2096 - "docs\sdd\Identidade Open Code.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Identidade Open Code.md, Símbolos
+
+### Community 2097 - "assistant\app\domain\identity.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\identity.py, Dependências, Símbolos
+
+### Community 2098 - "graphify\graphify\ids.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\ids.py, Símbolos
+
+### Community 2099 - "docs\operations\investigation\IMPLEMENTATION_PLAN_UPDATE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\IMPLEMENTATION_PLAN_UPDATE.md, Símbolos
+
+### Community 2100 - "docs\sdd\Indexador do Vault.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Indexador do Vault.md, Símbolos
+
+### Community 2101 - "assistant\app\api\indexing.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\indexing.py, Dependências, Símbolos
+
+### Community 2102 - "assistant\app\api\inference_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\inference_api.py, Dependências, Símbolos
+
+### Community 2103 - "airllm\air_llm\inference_example.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\inference_example.py, Dependências, Símbolos
+
+### Community 2104 - "assistant\app\domain\ports\inference_port.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\inference_port.py, Dependências, Símbolos
+
+### Community 2105 - "assistant\app\core\services\inference_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\inference_service.py, Dependências, Símbolos
+
+### Community 2106 - "desktop\src\application\stores\inference-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\inference-store.ts, Símbolos
+
+### Community 2107 - "docs\Projetos\Informacoes do Projeto.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Projetos\Informacoes do Projeto.md, Símbolos
+
+### Community 2108 - "docs\Arquitetura\Infraestrutura Docker.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Infraestrutura Docker.md, Símbolos
+
+### Community 2109 - "graphify\graphify\ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\ingest.py, Símbolos
+
+### Community 2110 - "desktop\src\shared\ui\input.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\input.tsx, Símbolos
+
+### Community 2111 - "desktop\src\__tests__\shared\ui\input.test.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\input.test.tsx, Símbolos
+
+### Community 2112 - "graphify\graphify\install.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\install.py, Símbolos
+
+### Community 2113 - "docs\guides\INSTALLATION.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\INSTALLATION.md, Símbolos
+
+### Community 2114 - "docs\Arquitetura\Integracoes de Servicos.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Integracoes de Servicos.md, Símbolos
+
+### Community 2115 - "assistant\app\api\integrations.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\integrations.py, Dependências, Símbolos
+
+### Community 2116 - "assistant\app\domain\intent.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\intent.py, Dependências, Símbolos
+
+### Community 2117 - "assistant\app\router\intent_classifier.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\router\intent_classifier.py, Dependências, Símbolos
+
+### Community 2118 - "docs\operations\investigation\INVESTIGATION_SESSION.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\INVESTIGATION_SESSION.md, Símbolos
+
+### Community 2119 - "desktop\src\shared\api\ipc-bridge.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\api\ipc-bridge.ts, Símbolos
+
+### Community 2120 - "desktop\src\__tests__\shared\api\ipc-bridge.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\api\ipc-bridge.test.ts, Símbolos
+
+### Community 2121 - "graphify\graphify\extractors\json_config.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\json_config.py, Símbolos
+
+### Community 2122 - "graphify\graphify\extractors\julia.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\julia.py, Símbolos
+
+### Community 2123 - "assistant\app\auth\jwt.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\auth\jwt.py, Dependências, Símbolos
+
+### Community 2124 - "docs\openCode\agents\kaos-architect.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-architect.md, Símbolos
+
+### Community 2125 - "docs\openCode\agents\kaos-auditor.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-auditor.md, Símbolos
+
+### Community 2126 - "docs\openCode\agents\kaos-backend-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-backend-engineer.md, Símbolos
+
+### Community 2127 - "desktop\src\shared\api\kaos-client.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\api\kaos-client.ts, Símbolos
+
+### Community 2128 - "desktop\src\__tests__\shared\api\kaos-client.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\api\kaos-client.test.ts, Símbolos
+
+### Community 2129 - "docs\openCode\agents\kaos-devops-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-devops-engineer.md, Símbolos
+
+### Community 2130 - "docs\openCode\agents\kaos-documentation-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-documentation-engineer.md, Símbolos
+
+### Community 2131 - "docs\openCode\agents\kaos-frontend-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-frontend-engineer.md, Símbolos
+
+### Community 2132 - "docs\openCode\agents\kaos-mcp-architect.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-mcp-architect.md, Símbolos
+
+### Community 2133 - "docs\openCode\agents\kaos-security-auditor.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\agents\kaos-security-auditor.md, Símbolos
+
+### Community 2134 - "docs\openCode\tools\kaos-tools.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\tools\kaos-tools.md, Símbolos
+
+### Community 2135 - "graphify\tools\skillgen\fragments\extra\kilo-rules.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\extra\kilo-rules.md, Símbolos
+
+### Community 2136 - "assistant\app\api\kirl.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\kirl.py, Dependências, Símbolos
+
+### Community 2137 - "docs\guides\KIRL_GUIDE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\KIRL_GUIDE.md, Símbolos
+
+### Community 2138 - "assistant\app\api\knowledge_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\knowledge_api.py, Dependências, Símbolos
+
+### Community 2139 - "assistant\app\ai\vault_analyzer\knowledge_graph.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\knowledge_graph.py, Dependências, Símbolos
+
+### Community 2140 - "assistant\app\core\knowledge_graph_watcher.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\knowledge_graph_watcher.py, Dependências, Símbolos
+
+### Community 2141 - "assistant\app\core\services\knowledge_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\knowledge_service.py, Dependências, Símbolos
+
+### Community 2142 - "desktop\src\application\stores\knowledge-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\knowledge-store.ts, Símbolos
+
+### Community 2143 - "assistant\app\providers\planner\langgraph_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\planner\langgraph_adapter.py, Dependências, Símbolos
+
+### Community 2144 - "desktop\src\features\documentation-audit\graph\layout-engine.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\graph\layout-engine.ts, Símbolos
+
+### Community 2145 - "desktop\src\__tests__\features\layout-engine.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\layout-engine.test.ts, Símbolos
+
+### Community 2146 - "graphify\tests\fixtures\crate_b\src\lib.rs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\crate_b\src\lib.rs, Símbolos
+
+### Community 2147 - "assistant\app\obsidian\tools\wiki\lint_wiki_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\lint_wiki_tool.py, Dependências, Símbolos
+
+### Community 2148 - "assistant\app\obsidian\tools\list_notes_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\list_notes_tool.py, Dependências, Símbolos
+
+### Community 2149 - "assistant\app\obsidian\tools\list_projects_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\list_projects_tool.py, Dependências, Símbolos
+
+### Community 2150 - "graphify\graphify\llm.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\llm.py, Símbolos
+
+### Community 2151 - "assistant\app\service\llm_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\service\llm_service.py, Dependências, Símbolos
+
+### Community 2152 - "graphify\tests\fixtures\cpp_logger\b\Logger.h"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\cpp_logger\b\Logger.h, Símbolos
+
+### Community 2153 - "assistant\app\observability\subscribers\logger_subscriber.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\logger_subscriber.py, Dependências, Símbolos
+
+### Community 2154 - "docs\observability\LOKI_QUERIES.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\observability\LOKI_QUERIES.md, Símbolos
+
+### Community 2155 - "airllm\anima_100k\longer_training.py"
+Cohesion: 0.50
+Nodes (3): airllm\anima_100k\longer_training.py, Dependências, Símbolos
+
+### Community 2156 - "graphify\tests\fixtures\cpp_paired\Main.cpp"
+Cohesion: 0.50
+Nodes (3): graphify\tests\fixtures\cpp_paired\Main.cpp, Dependências, Símbolos
+
+### Community 2157 - "graphify\tools\skillgen\__main__.py"
+Cohesion: 0.50
+Nodes (3): graphify\tools\skillgen\__main__.py, Dependências, Símbolos
+
+### Community 2158 - "graphify\tests\fixtures\xaml_viewmodel\ViewModels\MainViewModel.cs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\MainViewModel.cs, Símbolos
+
+### Community 2159 - "assistant\app\runtime\communication\manager.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\communication\manager.py, Dependências, Símbolos
+
+### Community 2160 - "graphify\worked\rsl-siege-manager\manifest.json"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\rsl-siege-manager\manifest.json, Símbolos
+
+### Community 2161 - "graphify\graphify\manifest_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\manifest_ingest.py, Símbolos
+
+### Community 2162 - "graphify\graphify\extractors\markdown.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\markdown.py, Símbolos
+
+### Community 2163 - "desktop\src\pages\automation\marketplace.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\pages\automation\marketplace.tsx, Símbolos
+
+### Community 2164 - "docs\openCode\rules\mcp.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\mcp.md, Símbolos
+
+### Community 2165 - "assistant\app\tools\mcp_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\mcp_adapter.py, Dependências, Símbolos
+
+### Community 2166 - "docs\openCode\skills\mcp-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\mcp-engineer.md, Símbolos
+
+### Community 2167 - "assistant\app\core\mcp_health.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_health.py, Dependências, Símbolos
+
+### Community 2168 - "graphify\graphify\mcp_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\mcp_ingest.py, Símbolos
+
+### Community 2169 - "assistant\app\core\mcp_manager.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_manager.py, Dependências, Símbolos
+
+### Community 2170 - "docs\openCode\references\mcp-patterns.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\mcp-patterns.md, Símbolos
+
+### Community 2171 - "assistant\app\core\mcp_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_registry.py, Dependências, Símbolos
+
+### Community 2172 - "assistant\app\core\mcp_server_base.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\mcp_server_base.py, Dependências, Símbolos
+
+### Community 2173 - "docs\sdd\Memoria do Obsidian.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Memoria do Obsidian.md, Símbolos
+
+### Community 2174 - "assistant\app\workflows\impl\memory.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\memory.py, Dependências, Símbolos
+
+### Community 2175 - "assistant\app\api\memory_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\memory_api.py, Dependências, Símbolos
+
+### Community 2176 - "assistant\app\domain\ports\memory_port.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\memory_port.py, Dependências, Símbolos
+
+### Community 2177 - "assistant\app\router\memory_router.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\router\memory_router.py, Dependências, Símbolos
+
+### Community 2178 - "assistant\app\memory\memory_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\memory_service.py, Dependências, Símbolos
+
+### Community 2179 - "desktop\src\application\stores\memory-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\memory-store.ts, Símbolos
+
+### Community 2180 - "assistant\app\router\memory_workflow.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\router\memory_workflow.py, Dependências, Símbolos
+
+### Community 2181 - "desktop\src\entities\message\ui\MessageBubble.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\message\ui\MessageBubble.tsx, Símbolos
+
+### Community 2182 - "assistant\app\llm\metrics.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\metrics.py, Dependências, Símbolos
+
+### Community 2183 - "assistant\app\observability\subscribers\metrics_subscriber.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\metrics_subscriber.py, Dependências, Símbolos
+
+### Community 2184 - "assistant\scripts\migrate_memory_to_postgres.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\migrate_memory_to_postgres.py, Dependências, Símbolos
+
+### Community 2185 - "graphify\graphify\extractors\MIGRATION.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\MIGRATION.md, Símbolos
+
+### Community 2186 - "graphify\graphify\_minhash.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\_minhash.py, Símbolos
+
+### Community 2187 - "desktop\src\features\documentation-audit\ui\MissingFeaturesList.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\MissingFeaturesList.tsx, Símbolos
+
+### Community 2188 - "airllm\air_llm\airllm\persist\mlx_model_persister.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\persist\mlx_model_persister.py, Dependências, Símbolos
+
+### Community 2189 - "airllm\air_llm\airllm\persist\model_persister.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\persist\model_persister.py, Dependências, Símbolos
+
+### Community 2190 - "assistant\app\models\model_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\model_registry.py, Dependências, Símbolos
+
+### Community 2191 - "assistant\app\repositories\model_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\model_repository.py, Dependências, Símbolos
+
+### Community 2192 - "assistant\app\models\model_router.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\model_router.py, Dependências, Símbolos
+
+### Community 2193 - "desktop\src\presentation\components\model-selector\ModelDropdown.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ModelDropdown.tsx, Símbolos
+
+### Community 2194 - "airllm\anima_100k\modeling_flash_llama.py"
+Cohesion: 0.50
+Nodes (3): airllm\anima_100k\modeling_flash_llama.py, Dependências, Símbolos
+
+### Community 2195 - "graphify\worked\httpx\raw\models.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\models.py, Símbolos
+
+### Community 2196 - "desktop\src\presentation\components\model-selector\ModelSelector.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ModelSelector.tsx, Símbolos
+
+### Community 2197 - "desktop\src\presentation\components\model-selector\ModelShortcuts.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ModelShortcuts.tsx, Símbolos
+
+### Community 2198 - "docs\sdd\Monitoramento do Vault (Watcher).md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Monitoramento do Vault (Watcher).md, Símbolos
+
+### Community 2199 - "docs\monitoring\MONITORING.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\monitoring\MONITORING.md, Símbolos
+
+### Community 2200 - "desktop\src\shared\lib\motion.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\motion.ts, Símbolos
+
+### Community 2201 - "docs\sdd\multi-user-rbac.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\multi-user-rbac.md, Símbolos
+
+### Community 2202 - "graphify\graphify\multigraph_compat.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\multigraph_compat.py, Símbolos
+
+### Community 2203 - "docs\openCode\rules\n8n.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\n8n.md, Símbolos
+
+### Community 2204 - "docs\openCode\skills\n8n-architect.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\n8n-architect.md, Símbolos
+
+### Community 2205 - "assistant\app\observability\subscribers\n8n_subscriber.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\subscribers\n8n_subscriber.py, Dependências, Símbolos
+
+### Community 2206 - "assistant\app\tools\n8n_webhook_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\tools\n8n_webhook_tool.py, Dependências, Símbolos
+
+### Community 2207 - "assistant\app\providers\automation\n8n_workflow_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\automation\n8n_workflow_provider.py, Dependências, Símbolos
+
+### Community 2208 - "docs\operations\investigation\NETWORK_ANALYSIS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\NETWORK_ANALYSIS.md, Símbolos
+
+### Community 2209 - "assistant\app\providers\graph\networkx_fallback.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\graph\networkx_fallback.py, Dependências, Símbolos
+
+### Community 2210 - "graphify\docs\node-summaries-rfc.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\node-summaries-rfc.md, Símbolos
+
+### Community 2211 - "graphify\worked\example\raw\notes.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\notes.md, Símbolos
+
+### Community 2212 - "assistant\app\api\notifications.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\notifications.py, Dependências, Símbolos
+
+### Community 2213 - "graphify\graphify\extractors\objc.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\objc.py, Símbolos
+
+### Community 2214 - "docs\Projetos\Objetivos do Projeto.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Projetos\Objetivos do Projeto.md, Símbolos
+
+### Community 2215 - "assistant\app\api\observability.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\observability.py, Dependências, Símbolos
+
+### Community 2216 - "docs\openCode\skills\observability-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\observability-engineer.md, Símbolos
+
+### Community 2217 - "docs\sdd\observability-real.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\observability-real.md, Símbolos
+
+### Community 2218 - "docs\openCode\tools\observability-tools.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\tools\observability-tools.md, Símbolos
+
+### Community 2219 - "kaos-research\technology-observatory\observatory.py"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\technology-observatory\observatory.py, Símbolos
+
+### Community 2220 - "assistant\app\providers\memory\obsidian.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\memory\obsidian.py, Dependências, Símbolos
+
+### Community 2221 - "docs\guides\OBSIDIAN_GUIDE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\OBSIDIAN_GUIDE.md, Símbolos
+
+### Community 2222 - "assistant\app\obsidian\services\obsidian_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\services\obsidian_service.py, Dependências, Símbolos
+
+### Community 2223 - "docs\sdd\Obsidian Watcher.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Obsidian Watcher.md, Símbolos
+
+### Community 2224 - "assistant\app\providers\chat\ollama.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\chat\ollama.py, Dependências, Símbolos
+
+### Community 2225 - "assistant\app\providers\inference\ollama_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\inference\ollama_adapter.py, Dependências, Símbolos
+
+### Community 2226 - "assistant\app\llm\providers\ollama_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\providers\ollama_provider.py, Dependências, Símbolos
+
+### Community 2227 - "docs\evolution\onboarding.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\evolution\onboarding.md, Símbolos
+
+### Community 2228 - "assistant\app\providers\embedding\openai.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\embedding\openai.py, Dependências, Símbolos
+
+### Community 2229 - "assistant\app\providers\inference\openai_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\inference\openai_adapter.py, Dependências, Símbolos
+
+### Community 2230 - "assistant\app\api\opencode.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\opencode.py, Dependências, Símbolos
+
+### Community 2231 - "assistant\app\core\opencode_executor.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\opencode_executor.py, Dependências, Símbolos
+
+### Community 2232 - "assistant\app\core\opencode_watcher.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\opencode_watcher.py, Dependências, Símbolos
+
+### Community 2233 - "docs\guides\OPERATIONS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\OPERATIONS.md, Símbolos
+
+### Community 2234 - "docs\guides\OPERATIONS_RUNBOOK.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\OPERATIONS_RUNBOOK.md, Símbolos
+
+### Community 2235 - "assistant\app\api\orchestrator.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\orchestrator.py, Dependências, Símbolos
+
+### Community 2236 - "docs\sdd\Orquestrador LangGraph.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Orquestrador LangGraph.md, Símbolos
+
+### Community 2237 - "graphify\tests\fixtures\pascal_cross_file\OtherGadget.pas"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\pascal_cross_file\OtherGadget.pas, Símbolos
+
+### Community 2238 - "desktop\src\features\documentation-audit\ui\OutdatedDocsList.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\documentation-audit\ui\OutdatedDocsList.tsx, Símbolos
+
+### Community 2239 - "package.json"
+Cohesion: 0.50
+Nodes (3): Dependências, package.json, Símbolos
+
+### Community 2240 - "docs\Arquitetura\Padroes de Projeto.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Padroes de Projeto.md, Símbolos
+
+### Community 2241 - "graphify\worked\example\raw\parser.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\parser.py, Símbolos
+
+### Community 2242 - "graphify\graphify\extractors\pascal.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\pascal.py, Símbolos
+
+### Community 2243 - "graphify\graphify\extractors\pascal_forms.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\pascal_forms.py, Símbolos
+
+### Community 2244 - "graphify\graphify\pascal_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\pascal_resolution.py, Símbolos
+
+### Community 2245 - "graphify\graphify\paths.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\paths.py, Símbolos
+
+### Community 2246 - "graphify\graphify\pg_introspect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\pg_introspect.py, Símbolos
+
+### Community 2247 - "docs\sdd\Pipeline de Consulta da Wiki.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Pipeline de Consulta da Wiki.md, Símbolos
+
+### Community 2248 - ".specify\memory\plan.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\plan.md, Símbolos
+
+### Community 2249 - "assistant\app\orchestrator\plan_executor.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\plan_executor.py, Dependências, Símbolos
+
+### Community 2250 - ".specify\templates\plan-template.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\plan-template.md, Símbolos
+
+### Community 2251 - "assistant\app\agent\nodes\planner.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\nodes\planner.py, Dependências, Símbolos
+
+### Community 2252 - "assistant\app\api\planner_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\planner_api.py, Dependências, Símbolos
+
+### Community 2253 - "assistant\app\domain\ports\planner_port.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\planner_port.py, Dependências, Símbolos
+
+### Community 2254 - "assistant\app\core\services\planner_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\planner_service.py, Dependências, Símbolos
+
+### Community 2255 - "assistant\app\core\plugin_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\plugin_registry.py, Dependências, Símbolos
+
+### Community 2256 - "assistant\app\core\plugin_sandbox.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\plugin_sandbox.py, Dependências, Símbolos
+
+### Community 2257 - "assistant\app\api\plugins.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\plugins.py, Dependências, Símbolos
+
+### Community 2258 - "assistant\app\providers\memory\postgres.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\memory\postgres.py, Dependências, Símbolos
+
+### Community 2259 - "assistant\app\providers\memory\postgres_memory_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\memory\postgres_memory_adapter.py, Dependências, Símbolos
+
+### Community 2260 - "assistant\app\memory\postgres_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\postgres_repository.py, Dependências, Símbolos
+
+### Community 2261 - "assistant\app\memory\storage\postgres_storage.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\storage\postgres_storage.py, Dependências, Símbolos
+
+### Community 2262 - "graphify\tools\skillgen\fragments\extra\powershell-troubleshooting.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\extra\powershell-troubleshooting.md, Símbolos
+
+### Community 2263 - "graphify\tests\fixtures\xaml_viewmodel\Views\PrismOrderView.xaml"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\PrismOrderView.xaml, Símbolos
+
+### Community 2264 - "graphify\tests\fixtures\xaml_viewmodel\ViewModels\PrismOrderViewModel.cs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\PrismOrderViewModel.cs, Símbolos
+
+### Community 2265 - "airllm\air_llm\airllm\profiler.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\profiler.py, Dependências, Símbolos
+
+### Community 2267 - "assistant\app\models\prompt.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\prompt.py, Dependências, Símbolos
+
+### Community 2268 - "assistant\app\api\prompts.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\prompts.py, Dependências, Símbolos
+
+### Community 2269 - "docs\sdd\Propagacao de Contexto de Usuario.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Propagacao de Contexto de Usuario.md, Símbolos
+
+### Community 2270 - "docs\sdd\Provedor Hibrido de LLM.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Provedor Hibrido de LLM.md, Símbolos
+
+### Community 2271 - "assistant\app\llm\provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\llm\provider.py, Dependências, Símbolos
+
+### Community 2272 - "docs\sdd\provider-catalog.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\provider-catalog.md, Símbolos
+
+### Community 2273 - "assistant\app\setup\provider_config.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\setup\provider_config.py, Dependências, Símbolos
+
+### Community 2274 - "assistant\app\repositories\provider_config_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\provider_config_repository.py, Dependências, Símbolos
+
+### Community 2275 - "assistant\app\api\provider_configs.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\provider_configs.py, Dependências, Símbolos
+
+### Community 2276 - "assistant\app\core\provider_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\provider_registry.py, Dependências, Símbolos
+
+### Community 2277 - "docs\architecture\PROVIDER_ROUTING.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\PROVIDER_ROUTING.md, Símbolos
+
+### Community 2278 - "assistant\app\orchestrator\provider_selector.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\provider_selector.py, Dependências, Símbolos
+
+### Community 2279 - "docs\sdd\provider-ux.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\provider-ux.md, Símbolos
+
+### Community 2280 - "desktop\src\presentation\components\model-selector\ProviderDropdown.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\presentation\components\model-selector\ProviderDropdown.tsx, Símbolos
+
+### Community 2281 - "docs\providers\PROVIDERS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\providers\PROVIDERS.md, Símbolos
+
+### Community 2282 - "graphify\graphify\prs.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\prs.py, Símbolos
+
+### Community 2283 - ".github\PULL_REQUEST_TEMPLATE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .github\PULL_REQUEST_TEMPLATE.md, Símbolos
+
+### Community 2284 - "docs\openCode\rules\python.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\python.md, Símbolos
+
+### Community 2285 - "docs\openCode\skills\python-developer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\python-developer.md, Símbolos
+
+### Community 2286 - "assistant\app\providers\vector\qdrant.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\vector\qdrant.py, Dependências, Símbolos
+
+### Community 2287 - "assistant\app\providers\retrieval\qdrant_adapter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\retrieval\qdrant_adapter.py, Dependências, Símbolos
+
+### Community 2288 - "airllm\training\qlora.py"
+Cohesion: 0.50
+Nodes (3): airllm\training\qlora.py, Dependências, Símbolos
+
+### Community 2289 - "airllm\rlhf\qlora_dpo.py"
+Cohesion: 0.50
+Nodes (3): airllm\rlhf\qlora_dpo.py, Dependências, Símbolos
+
+### Community 2290 - "docs\governance\quality-gates.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\governance\quality-gates.md, Símbolos
+
+### Community 2291 - "graphify\graphify\skills\windows\references\query.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skills\windows\references\query.md, Símbolos
+
+### Community 2292 - "graphify\graphify\querylog.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\querylog.py, Símbolos
+
+### Community 2293 - "assistant\app\workflows\impl\rag.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\rag.py, Dependências, Símbolos
+
+### Community 2294 - "docs\openCode\skills\rag-engineer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\rag-engineer.md, Símbolos
+
+### Community 2295 - "graphify\graphify\extractors\razor.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\razor.py, Símbolos
+
+### Community 2296 - "docs\openCode\rules\react.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\react.md, Símbolos
+
+### Community 2297 - "docs\openCode\skills\react-developer.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\skills\react-developer.md, Símbolos
+
+### Community 2298 - "assistant\app\obsidian\tools\read_note_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\read_note_tool.py, Dependências, Símbolos
+
+### Community 2299 - "assistant\app\obsidian\tools\wiki\read_wiki_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\read_wiki_tool.py, Dependências, Símbolos
+
+### Community 2300 - "assistant\app\audit\readiness_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\readiness_engine.py, Dependências, Símbolos
+
+### Community 2301 - "kaos-research\README.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\README.md, Símbolos
+
+### Community 2302 - "graphify\docs\translations\README.ar-SA.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ar-SA.md, Símbolos
+
+### Community 2303 - "graphify\docs\translations\README.cs-CZ.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.cs-CZ.md, Símbolos
+
+### Community 2304 - "graphify\docs\translations\README.da-DK.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.da-DK.md, Símbolos
+
+### Community 2305 - "graphify\docs\translations\README.de-DE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.de-DE.md, Símbolos
+
+### Community 2306 - "graphify\docs\translations\README.el-GR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.el-GR.md, Símbolos
+
+### Community 2307 - "airllm\training\README_en.md"
+Cohesion: 0.50
+Nodes (3): airllm\training\README_en.md, Dependências, Símbolos
+
+### Community 2308 - "graphify\docs\translations\README.es-ES.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.es-ES.md, Símbolos
+
+### Community 2309 - "graphify\docs\translations\README.fa-IR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fa-IR.md, Símbolos
+
+### Community 2310 - "graphify\docs\translations\README.fi-FI.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fi-FI.md, Símbolos
+
+### Community 2311 - "graphify\docs\translations\README.fil-PH.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fil-PH.md, Símbolos
+
+### Community 2312 - "graphify\docs\translations\README.fr-FR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.fr-FR.md, Símbolos
+
+### Community 2313 - "graphify\docs\translations\README.he-IL.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.he-IL.md, Símbolos
+
+### Community 2314 - "graphify\docs\translations\README.hi-IN.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.hi-IN.md, Símbolos
+
+### Community 2315 - "graphify\docs\translations\README.hu-HU.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.hu-HU.md, Símbolos
+
+### Community 2316 - "graphify\docs\translations\README.id-ID.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.id-ID.md, Símbolos
+
+### Community 2317 - "graphify\docs\translations\README.it-IT.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.it-IT.md, Símbolos
+
+### Community 2318 - "airllm\README_ja.md"
+Cohesion: 0.50
+Nodes (3): airllm\README_ja.md, Dependências, Símbolos
+
+### Community 2319 - "graphify\docs\translations\README.ja-JP.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ja-JP.md, Símbolos
+
+### Community 2320 - "graphify\docs\translations\README.ko-KR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ko-KR.md, Símbolos
+
+### Community 2321 - "graphify\docs\translations\README.nl-NL.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.nl-NL.md, Símbolos
+
+### Community 2322 - "graphify\docs\translations\README.no-NO.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.no-NO.md, Símbolos
+
+### Community 2323 - "graphify\docs\translations\README.pl-PL.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.pl-PL.md, Símbolos
+
+### Community 2324 - "graphify\docs\translations\README.pt-BR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.pt-BR.md, Símbolos
+
+### Community 2325 - "graphify\docs\translations\README.ro-RO.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ro-RO.md, Símbolos
+
+### Community 2326 - "graphify\docs\translations\README.ru-RU.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.ru-RU.md, Símbolos
+
+### Community 2327 - "graphify\docs\translations\README.sv-SE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.sv-SE.md, Símbolos
+
+### Community 2328 - "graphify\docs\translations\README.th-TH.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.th-TH.md, Símbolos
+
+### Community 2329 - "graphify\docs\translations\README.tr-TR.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.tr-TR.md, Símbolos
+
+### Community 2330 - "graphify\docs\translations\README.uk-UA.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.uk-UA.md, Símbolos
+
+### Community 2331 - "graphify\docs\translations\README.uz-UZ.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.uz-UZ.md, Símbolos
+
+### Community 2332 - "graphify\docs\translations\README.vi-VN.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.vi-VN.md, Símbolos
+
+### Community 2333 - "graphify\docs\translations\README.zh-CN.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.zh-CN.md, Símbolos
+
+### Community 2334 - "graphify\docs\translations\README.zh-TW.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\docs\translations\README.zh-TW.md, Símbolos
+
+### Community 2335 - "docs\operations\investigation\REAL_INFRASTRUCTURE_MAP.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\REAL_INFRASTRUCTURE_MAP.md, Símbolos
+
+### Community 2336 - "assistant\app\core\documentation\recovery_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\recovery_engine.py, Dependências, Símbolos
+
+### Community 2337 - "docs\sdd\Recuperador Semantico.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Recuperador Semantico.md, Símbolos
+
+### Community 2338 - "docs\sdd\Refatoracao Frontend FSD.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Refatoracao Frontend FSD.md, Símbolos
+
+### Community 2339 - "graphify\graphify\reflect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\reflect.py, Símbolos
+
+### Community 2340 - "assistant\app\providers\register_all.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\register_all.py, Dependências, Símbolos
+
+### Community 2341 - "assistant\app\workflows\impl\registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\registry.py, Dependências, Símbolos
+
+### Community 2342 - "assistant\scripts\reindex_with_cache.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\reindex_with_cache.py, Dependências, Símbolos
+
+### Community 2343 - "graphify\graphify\report.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\report.py, Símbolos
+
+### Community 2344 - "assistant\app\core\documentation\report_generator.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\documentation\report_generator.py, Dependências, Símbolos
+
+### Community 2345 - "assistant\app\memory\repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\repository.py, Dependências, Símbolos
+
+### Community 2346 - "docs\operations\investigation\REQUEST_FLOW_TRACE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\REQUEST_FLOW_TRACE.md, Símbolos
+
+### Community 2347 - "assistant\app\workflows\impl\research.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\workflows\impl\research.py, Dependências, Símbolos
+
+### Community 2348 - "graphify\graphify\extractors\resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\resolution.py, Símbolos
+
+### Community 2349 - "graphify\graphify\resolver_registry.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\resolver_registry.py, Símbolos
+
+### Community 2350 - "assistant\app\domain\ports\retrieval_port.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\domain\ports\retrieval_port.py, Dependências, Símbolos
+
+### Community 2351 - "assistant\app\core\services\retrieval_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\services\retrieval_service.py, Dependências, Símbolos
+
+### Community 2352 - "assistant\app\agent\nodes\retrieve.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\nodes\retrieve.py, Dependências, Símbolos
+
+### Community 2353 - "graphify\worked\rsl-siege-manager\review.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\rsl-siege-manager\review.md, Símbolos
+
+### Community 2354 - "docs\sdd\Roadmap Geral.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Roadmap Geral.md, Símbolos
+
+### Community 2355 - "docs\operations\investigation\ROOT_CAUSE_ANALYSIS.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\operations\investigation\ROOT_CAUSE_ANALYSIS.md, Símbolos
+
+### Community 2356 - "docs\sdd\Roteamento de Memoria.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Roteamento de Memoria.md, Símbolos
+
+### Community 2357 - "graphify\graphify\ruby_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\ruby_resolution.py, Símbolos
+
+### Community 2358 - "airllm\training\run_Amina_training.sh"
+Cohesion: 0.50
+Nodes (3): airllm\training\run_Amina_training.sh, Dependências, Símbolos
+
+### Community 2359 - "airllm\rlhf\run_dpo_training.sh"
+Cohesion: 0.50
+Nodes (3): airllm\rlhf\run_dpo_training.sh, Dependências, Símbolos
+
+### Community 2360 - "airllm\training\run_finetune_raining_based_on_Anima.sh"
+Cohesion: 0.50
+Nodes (3): airllm\training\run_finetune_raining_based_on_Anima.sh, Dependências, Símbolos
+
+### Community 2361 - "airllm\anima_100k\run_longer_training.sh"
+Cohesion: 0.50
+Nodes (3): airllm\anima_100k\run_longer_training.sh, Dependências, Símbolos
+
+### Community 2362 - "assistant\app\runtime\runtime_layer.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\runtime_layer.py, Dependências, Símbolos
+
+### Community 2363 - "assistant\app\core\runtime_path_resolver.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\core\runtime_path_resolver.py, Dependências, Símbolos
+
+### Community 2364 - "assistant\app\audit\runtime_resolver.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\runtime_resolver.py, Dependências, Símbolos
+
+### Community 2365 - "assistant\app\runtime\runtime_selector.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\runtime_selector.py, Dependências, Símbolos
+
+### Community 2366 - "graphify\graphify\extractors\rust.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\rust.py, Símbolos
+
+### Community 2367 - "airllm\air_llm\airllm\persist\safetensor_model_persister.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\persist\safetensor_model_persister.py, Dependências, Símbolos
+
+### Community 2368 - "graphify\tests\fixtures\sample.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample.md, Símbolos
+
+### Community 2369 - "graphify\tests\fixtures\sample_calls.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_calls.py, Símbolos
+
+### Community 2370 - "graphify\tests\fixtures\sample_import.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_import.ps1, Símbolos
+
+### Community 2371 - "graphify\tests\fixtures\sample_php_config.php"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_config.php, Símbolos
+
+### Community 2372 - "graphify\tests\fixtures\sample_php_container.php"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_container.php, Símbolos
+
+### Community 2373 - "graphify\tests\fixtures\sample_php_listen.php"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_listen.php, Símbolos
+
+### Community 2374 - "graphify\tests\fixtures\sample_php_static_prop.php"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_php_static_prop.php, Símbolos
+
+### Community 2375 - "graphify\tests\fixtures\sample_preprocessed.F90"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_preprocessed.F90, Símbolos
+
+### Community 2376 - "graphify\tests\fixtures\sample_scoped_calls.pas"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_scoped_calls.pas, Símbolos
+
+### Community 2377 - "graphify\tests\fixtures\sample_spock.groovy"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_spock.groovy, Símbolos
+
+### Community 2378 - "graphify\tests\fixtures\sample_tsconfig.json"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample_tsconfig.json, Símbolos
+
+### Community 2379 - "graphify\tests\fixtures\sample.xaml.cs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\sample.xaml.cs, Símbolos
+
+### Community 2380 - "assistant\app\obsidian\tools\save_conversation_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\save_conversation_tool.py, Dependências, Símbolos
+
+### Community 2381 - "scripts\scan_docs_gaps.py"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\scan_docs_gaps.py, Símbolos
+
+### Community 2382 - "graphify\graphify\scip_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\scip_ingest.py, Símbolos
+
+### Community 2383 - "desktop\src\shared\ui\scroll-area.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\scroll-area.tsx, Símbolos
+
+### Community 2384 - "assistant\app\obsidian\tools\search_notes_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\search_notes_tool.py, Dependências, Símbolos
+
+### Community 2385 - "graphify\SECURITY.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\SECURITY.md, Símbolos
+
+### Community 2386 - "graphify\graphify\semantic_cleanup.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\semantic_cleanup.py, Símbolos
+
+### Community 2387 - "assistant\app\rag\retriever\semantic_retriever.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\retriever\semantic_retriever.py, Dependências, Símbolos
+
+### Community 2388 - "desktop\src\shared\ui\separator.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\separator.tsx, Símbolos
+
+### Community 2389 - "assistant\app\notifications\service.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\notifications\service.py, Dependências, Símbolos
+
+### Community 2390 - "assistant\app\registry\service_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\registry\service_registry.py, Dependências, Símbolos
+
+### Community 2391 - "assistant\app\dependencies\services.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\dependencies\services.py, Dependências, Símbolos
+
+### Community 2392 - "assistant\app\api\settings_api.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\settings_api.py, Dependências, Símbolos
+
+### Community 2393 - "graphify\tests\fixtures\xaml_viewmodel\Views\SettingsView.xaml"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\SettingsView.xaml, Símbolos
+
+### Community 2394 - "graphify\tests\fixtures\xaml_viewmodel\ViewModels\SettingsViewModel.cs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\SettingsViewModel.cs, Símbolos
+
+### Community 2395 - "docs\setup\SETUP.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\setup\SETUP.md, Símbolos
+
+### Community 2396 - "desktop\src\shared\ui\skeleton.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\skeleton.tsx, Símbolos
+
+### Community 2397 - "graphify\graphify\skill.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill.md, Símbolos
+
+### Community 2398 - "graphify\graphify\skill-agents.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-agents.md, Símbolos
+
+### Community 2399 - "graphify\graphify\skill-aider.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-aider.md, Símbolos
+
+### Community 2400 - "graphify\graphify\skill-amp.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-amp.md, Símbolos
+
+### Community 2401 - "graphify\graphify\skill-claw.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-claw.md, Símbolos
+
+### Community 2402 - "graphify\graphify\skill-codex.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-codex.md, Símbolos
+
+### Community 2403 - "graphify\graphify\skill-copilot.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-copilot.md, Símbolos
+
+### Community 2404 - "graphify\graphify\skill-devin.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-devin.md, Símbolos
+
+### Community 2405 - "graphify\graphify\skill-droid.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-droid.md, Símbolos
+
+### Community 2406 - "graphify\graphify\skill-kilo.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-kilo.md, Símbolos
+
+### Community 2407 - "graphify\graphify\skill-kiro.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-kiro.md, Símbolos
+
+### Community 2408 - "graphify\graphify\skill-opencode.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-opencode.md, Símbolos
+
+### Community 2409 - "graphify\graphify\skill-pi.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-pi.md, Símbolos
+
+### Community 2410 - "graphify\graphify\skill-trae.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-trae.md, Símbolos
+
+### Community 2411 - "graphify\graphify\skill-vscode.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-vscode.md, Símbolos
+
+### Community 2412 - "graphify\graphify\skill-windows.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\skill-windows.md, Símbolos
+
+### Community 2413 - "graphify\graphify\extractors\sln.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\sln.py, Símbolos
+
+### Community 2414 - "assistant\app\router\smart_router.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\router\smart_router.py, Dependências, Símbolos
+
+### Community 2415 - "desktop\src\shared\ui\sparkline.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\sparkline.tsx, Símbolos
+
+### Community 2416 - ".specify\templates\spec-template.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\spec-template.md, Símbolos
+
+### Community 2417 - ".specify\memory\specification.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\specification.md, Símbolos
+
+### Community 2418 - ".opencode\commands\speckit.analyze.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.analyze.md, Símbolos
+
+### Community 2419 - ".opencode\commands\speckit.checklist.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.checklist.md, Símbolos
+
+### Community 2420 - ".opencode\commands\speckit.clarify.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.clarify.md, Símbolos
+
+### Community 2421 - ".opencode\commands\speckit.constitution.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.constitution.md, Símbolos
+
+### Community 2422 - ".opencode\commands\speckit.converge.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.converge.md, Símbolos
+
+### Community 2423 - ".opencode\commands\speckit.implement.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.implement.md, Símbolos
+
+### Community 2424 - ".opencode\commands\speckit.plan.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.plan.md, Símbolos
+
+### Community 2425 - ".opencode\commands\speckit.specify.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.specify.md, Símbolos
+
+### Community 2426 - ".opencode\commands\speckit.tasks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.tasks.md, Símbolos
+
+### Community 2427 - ".opencode\commands\speckit.taskstoissues.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .opencode\commands\speckit.taskstoissues.md, Símbolos
+
+### Community 2428 - "graphify\graphify\extractors\sql.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\sql.py, Símbolos
+
+### Community 2429 - "assistant\app\agent\state.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\agent\state.py, Dependências, Símbolos
+
+### Community 2430 - "kaos-research\evidence\state-audit-report.md"
+Cohesion: 0.50
+Nodes (3): Dependências, kaos-research\evidence\state-audit-report.md, Símbolos
+
+### Community 2431 - "desktop\src\shared\ui\status-dot.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\status-dot.tsx, Símbolos
+
+### Community 2432 - "graphify\worked\example\raw\storage.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\example\raw\storage.py, Símbolos
+
+### Community 2433 - "graphify\tests\fixtures\storageHelpers.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\storageHelpers.ts, Símbolos
+
+### Community 2434 - "assistant\app\ai\vault_analyzer\suggestion_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\ai\vault_analyzer\suggestion_engine.py, Dependências, Símbolos
+
+### Community 2435 - "assistant\app\memory\summarizer.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\summarizer.py, Dependências, Símbolos
+
+### Community 2436 - "graphify\graphify\symbol_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\symbol_resolution.py, Símbolos
+
+### Community 2437 - "assistant\scripts\sync_github_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\sync_github_registry.py, Dependências, Símbolos
+
+### Community 2438 - "assistant\app\api\system.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\system.py, Dependências, Símbolos
+
+### Community 2439 - "docs\architecture\SYSTEM_ARCHITECTURE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\architecture\SYSTEM_ARCHITECTURE.md, Símbolos
+
+### Community 2440 - "desktop\src\application\stores\system-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\system-store.ts, Símbolos
+
+### Community 2441 - "desktop\src\__tests__\shared\lib\stores\system-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\system-store.test.ts, Símbolos
+
+### Community 2442 - "desktop\src\shared\ui\tabs.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\tabs.tsx, Símbolos
+
+### Community 2443 - "desktop\src\__tests__\shared\ui\tabs.test.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\ui\tabs.test.tsx, Símbolos
+
+### Community 2444 - ".specify\memory\tasks.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\memory\tasks.md, Símbolos
+
+### Community 2445 - ".specify\templates\tasks-template.md"
+Cohesion: 0.50
+Nodes (3): Dependências, .specify\templates\tasks-template.md, Símbolos
+
+### Community 2446 - "desktop\src-tauri\tauri.conf.json"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src-tauri\tauri.conf.json, Símbolos
+
+### Community 2447 - "desktop\src\shared\api\tauri-store-service.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\api\tauri-store-service.ts, Símbolos
+
+### Community 2448 - "desktop\src\__tests__\shared\api\tauri-store-service.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\api\tauri-store-service.test.ts, Símbolos
+
+### Community 2449 - "docs\sdd\technical-spec.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\technical-spec.md, Símbolos
+
+### Community 2450 - "graphify\graphify\extractors\terraform.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\terraform.py, Símbolos
+
+### Community 2451 - "docs\sdd\test.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\test.md, Símbolos
+
+### Community 2452 - "graphify\tests\test_affected_cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_affected_cli.py, Símbolos
+
+### Community 2453 - "graphify\tests\test_affected_member_seed.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_affected_member_seed.py, Símbolos
+
+### Community 2454 - "graphify\tests\test_agents_platform.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_agents_platform.py, Símbolos
+
+### Community 2455 - "graphify\tests\test_analyze.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_analyze.py, Símbolos
+
+### Community 2456 - "graphify\tests\test_anthropic_custom_endpoint.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_anthropic_custom_endpoint.py, Símbolos
+
+### Community 2457 - "graphify\tests\test_antigravity_install.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_antigravity_install.py, Símbolos
+
+### Community 2458 - "graphify\tests\test_astro_extraction.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_astro_extraction.py, Símbolos
+
+### Community 2459 - "assistant\tests\unit\test_audit_code_scanner.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_audit_code_scanner.py, Dependências, Símbolos
+
+### Community 2460 - "assistant\tests\unit\test_audit_commit_classifier.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_audit_commit_classifier.py, Dependências, Símbolos
+
+### Community 2461 - "assistant\tests\unit\test_audit_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_audit_engine.py, Dependências, Símbolos
+
+### Community 2462 - "assistant\tests\unit\test_audit_feature_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_audit_feature_registry.py, Dependências, Símbolos
+
+### Community 2463 - "assistant\tests\unit\test_audit_sdd_generator.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_audit_sdd_generator.py, Dependências, Símbolos
+
+### Community 2464 - "assistant\tests\test_automation.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_automation.py, Dependências, Símbolos
+
+### Community 2465 - "assistant\tests\unit\test_automation_bus.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_automation_bus.py, Dependências, Símbolos
+
+### Community 2466 - "assistant\tests\unit\test_automation_providers.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_automation_providers.py, Dependências, Símbolos
+
+### Community 2467 - "assistant\tests\unit\test_automation_sdk.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_automation_sdk.py, Dependências, Símbolos
+
+### Community 2468 - "airllm\air_llm\tests\test_automodel.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\tests\test_automodel.py, Dependências, Símbolos
+
+### Community 2469 - "assistant\tests\unit\test_aws_tools.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_aws_tools.py, Dependências, Símbolos
+
+### Community 2470 - "graphify\tests\test_backend_extras.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_backend_extras.py, Símbolos
+
+### Community 2471 - "graphify\tests\test_benchmark.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_benchmark.py, Símbolos
+
+### Community 2472 - "assistant\tests\integration\test_bootstrap_flow.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\integration\test_bootstrap_flow.py, Dependências, Símbolos
+
+### Community 2473 - "graphify\tests\test_build.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_build.py, Símbolos
+
+### Community 2474 - "graphify\tests\test_build_merge_hyperedges_and_prune.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_build_merge_hyperedges_and_prune.py, Símbolos
+
+### Community 2475 - "graphify\tests\test_builtin_global_type_refs.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_builtin_global_type_refs.py, Símbolos
+
+### Community 2476 - "graphify\tests\test_cache.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cache.py, Símbolos
+
+### Community 2477 - "graphify\tests\test_callflow_html.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_callflow_html.py, Símbolos
+
+### Community 2478 - "assistant\tests\unit\test_capability_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_capability_registry.py, Dependências, Símbolos
+
+### Community 2479 - "graphify\tests\test_cargo_introspect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cargo_introspect.py, Símbolos
+
+### Community 2480 - "graphify\tests\test_case_sensitive_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_case_sensitive_resolution.py, Símbolos
+
+### Community 2481 - "graphify\tests\test_charmap_encoding.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_charmap_encoding.py, Símbolos
+
+### Community 2482 - "assistant\tests\test_chat.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_chat.py, Dependências, Símbolos
+
+### Community 2483 - "graphify\tests\test_chunking.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_chunking.py, Símbolos
+
+### Community 2484 - "graphify\tests\test_claude_cli_backend.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_claude_cli_backend.py, Símbolos
+
+### Community 2485 - "graphify\tests\test_claude_md.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_claude_md.py, Símbolos
+
+### Community 2486 - "graphify\tests\test_cli_export.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cli_export.py, Símbolos
+
+### Community 2487 - "graphify\tests\test_cluster.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cluster.py, Símbolos
+
+### Community 2488 - "graphify\tests\test_codebuddy.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_codebuddy.py, Símbolos
+
+### Community 2489 - "assistant\tests\unit\test_communication_runtime.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_communication_runtime.py, Dependências, Símbolos
+
+### Community 2490 - "graphify\tests\test_community_hub_labels.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_community_hub_labels.py, Símbolos
+
+### Community 2491 - "airllm\air_llm\tests\test_compression.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\tests\test_compression.py, Dependências, Símbolos
+
+### Community 2492 - "graphify\tests\test_confidence.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_confidence.py, Símbolos
+
+### Community 2493 - "assistant\tests\unit\test_contracts.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_contracts.py, Dependências, Símbolos
+
+### Community 2494 - "graphify\tests\test_corrupt_graph_json.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_corrupt_graph_json.py, Símbolos
+
+### Community 2495 - "assistant\tests\unit\test_cost_tracker.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_cost_tracker.py, Dependências, Símbolos
+
+### Community 2496 - "graphify\tests\test_cpp_objc_cross_file_calls.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cpp_objc_cross_file_calls.py, Símbolos
+
+### Community 2497 - "graphify\tests\test_cpp_preprocess.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cpp_preprocess.py, Símbolos
+
+### Community 2498 - "assistant\tests\unit\test_credential_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_credential_service.py, Dependências, Símbolos
+
+### Community 2499 - "graphify\tests\test_cross_language_call_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_cross_language_call_resolution.py, Símbolos
+
+### Community 2500 - "graphify\tests\test_csharp_member_calls.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_csharp_member_calls.py, Símbolos
+
+### Community 2501 - "graphify\tests\test_csharp_type_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_csharp_type_resolution.py, Símbolos
+
+### Community 2502 - "graphify\tests\test_dart.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_dart.py, Símbolos
+
+### Community 2503 - "assistant\tests\unit\test_dashboard_contract.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_dashboard_contract.py, Dependências, Símbolos
+
+### Community 2504 - "graphify\tests\test_dedup.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_dedup.py, Símbolos
+
+### Community 2505 - "assistant\tests\unit\test_desktop_apis.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_desktop_apis.py, Dependências, Símbolos
+
+### Community 2506 - "graphify\tests\test_detect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_detect.py, Símbolos
+
+### Community 2507 - "graphify\tests\test_devin.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_devin.py, Símbolos
+
+### Community 2508 - "assistant\tests\unit\test_domain_user.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_domain_user.py, Dependências, Símbolos
+
+### Community 2509 - "graphify\tests\test_dotnet.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_dotnet.py, Símbolos
+
+### Community 2510 - "assistant\tests\unit\test_email_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_email_provider.py, Dependências, Símbolos
+
+### Community 2511 - "assistant\tests\unit\rag\test_embedder.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_embedder.py, Dependências, Símbolos
+
+### Community 2512 - "assistant\tests\unit\rag\test_embeddings_cache.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_embeddings_cache.py, Dependências, Símbolos
+
+### Community 2513 - "assistant\tests\unit\test_environment_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_environment_service.py, Dependências, Símbolos
+
+### Community 2514 - "assistant\tests\unit\test_evidence_engine.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_evidence_engine.py, Dependências, Símbolos
+
+### Community 2515 - "assistant\tests\unit\agent\test_executor.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\agent\test_executor.py, Dependências, Símbolos
+
+### Community 2516 - "graphify\tests\test_explain_cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_explain_cli.py, Símbolos
+
+### Community 2517 - "graphify\tests\test_export.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_export.py, Símbolos
+
+### Community 2518 - "graphify\tests\test_extract.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_extract.py, Símbolos
+
+### Community 2519 - "graphify\tests\test_extract_code_only_cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_extract_code_only_cli.py, Símbolos
+
+### Community 2520 - "graphify\tests\test_extraction_spec_ids.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_extraction_spec_ids.py, Símbolos
+
+### Community 2521 - "graphify\tests\test_extractors_registry.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_extractors_registry.py, Símbolos
+
+### Community 2522 - "assistant\tests\unit\llm\test_factory.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\llm\test_factory.py, Dependências, Símbolos
+
+### Community 2523 - "graphify\tests\test_falkordb_integration.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_falkordb_integration.py, Símbolos
+
+### Community 2524 - "graphify\tests\test_file_node_id_spec.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_file_node_id_spec.py, Símbolos
+
+### Community 2525 - "graphify\tests\test_file_slice.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_file_slice.py, Símbolos
+
+### Community 2526 - "graphify\tests\test_gemini_hook.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_gemini_hook.py, Símbolos
+
+### Community 2527 - "assistant\tests\unit\test_github_mcp.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_github_mcp.py, Dependências, Símbolos
+
+### Community 2528 - "graphify\tests\test_global_graph.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_global_graph.py, Símbolos
+
+### Community 2529 - "graphify\tests\test_google_workspace.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_google_workspace.py, Símbolos
+
+### Community 2530 - "assistant\tests\unit\test_handshake.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_handshake.py, Dependências, Símbolos
+
+### Community 2531 - "assistant\tests\test_health.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_health.py, Dependências, Símbolos
+
+### Community 2532 - "graphify\tests\test_hook_guard.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_hook_guard.py, Símbolos
+
+### Community 2533 - "graphify\tests\test_hooks.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_hooks.py, Símbolos
+
+### Community 2534 - "graphify\tests\test_hypergraph.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_hypergraph.py, Símbolos
+
+### Community 2535 - "graphify\tests\test_id_normalization_contract.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_id_normalization_contract.py, Símbolos
+
+### Community 2536 - "graphify\tests\test_image_vision.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_image_vision.py, Símbolos
+
+### Community 2537 - "graphify\tests\test_import_extension_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_import_extension_resolution.py, Símbolos
+
+### Community 2538 - "graphify\tests\test_incremental.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_incremental.py, Símbolos
+
+### Community 2539 - "assistant\tests\test_indexing.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_indexing.py, Dependências, Símbolos
+
+### Community 2540 - "graphify\tests\test_indirect_dispatch.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_indirect_dispatch.py, Símbolos
+
+### Community 2541 - "graphify\tests\test_indirect_dispatch_assign_return.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_indirect_dispatch_assign_return.py, Símbolos
+
+### Community 2542 - "graphify\tests\test_indirect_dispatch_getattr.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_indirect_dispatch_getattr.py, Símbolos
+
+### Community 2543 - "graphify\tests\test_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ingest.py, Símbolos
+
+### Community 2544 - "graphify\tests\test_install.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install.py, Símbolos
+
+### Community 2545 - "graphify\tests\test_install_references.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_references.py, Símbolos
+
+### Community 2546 - "graphify\tests\test_install_roundtrip.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_roundtrip.py, Símbolos
+
+### Community 2547 - "graphify\tests\test_install_strings.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_strings.py, Símbolos
+
+### Community 2548 - "graphify\tests\test_install_upgrade.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_install_upgrade.py, Símbolos
+
+### Community 2549 - "graphify\tests\test_java_member_calls.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_java_member_calls.py, Símbolos
+
+### Community 2550 - "graphify\tests\test_java_type_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_java_type_resolution.py, Símbolos
+
+### Community 2551 - "graphify\tests\test_js_import_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_js_import_resolution.py, Símbolos
+
+### Community 2552 - "assistant\tests\unit\test_knowledge_graph.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_knowledge_graph.py, Dependências, Símbolos
+
+### Community 2553 - "graphify\tests\test_label_retry.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_label_retry.py, Símbolos
+
+### Community 2554 - "graphify\tests\test_labeling.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_labeling.py, Símbolos
+
+### Community 2555 - "graphify\tests\test_language_resolvers.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_language_resolvers.py, Símbolos
+
+### Community 2556 - "graphify\tests\test_languages.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_languages.py, Símbolos
+
+### Community 2557 - "graphify\tests\test_llm_backends.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_llm_backends.py, Símbolos
+
+### Community 2558 - "graphify\tests\test_llm_parser.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_llm_parser.py, Símbolos
+
+### Community 2559 - "graphify\tests\test_long_path_hashing.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_long_path_hashing.py, Símbolos
+
+### Community 2560 - "graphify\tests\test_manifest_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_manifest_ingest.py, Símbolos
+
+### Community 2561 - "graphify\tests\test_mcp_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_mcp_ingest.py, Símbolos
+
+### Community 2562 - "assistant\tests\unit\memory\test_memory_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\memory\test_memory_service.py, Dependências, Símbolos
+
+### Community 2563 - "graphify\tests\test_merge_graphs_cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_merge_graphs_cli.py, Símbolos
+
+### Community 2564 - "graphify\tests\test_minhash.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_minhash.py, Símbolos
+
+### Community 2565 - "assistant\tests\unit\test_model_registry.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_model_registry.py, Dependências, Símbolos
+
+### Community 2566 - "assistant\tests\unit\test_model_router.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_model_router.py, Dependências, Símbolos
+
+### Community 2567 - "graphify\tests\test_multigraph_compat.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_multigraph_compat.py, Símbolos
+
+### Community 2568 - "graphify\tests\test_multigraph_diagnostics.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_multigraph_diagnostics.py, Símbolos
+
+### Community 2569 - "graphify\tests\test_multilang.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_multilang.py, Símbolos
+
+### Community 2570 - "assistant\tests\unit\test_observability_subscribers.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_observability_subscribers.py, Dependências, Símbolos
+
+### Community 2571 - "graphify\tests\test_obsidian_dangling_member.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_obsidian_dangling_member.py, Símbolos
+
+### Community 2572 - "assistant\tests\integration\test_obsidian_e2e.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\integration\test_obsidian_e2e.py, Dependências, Símbolos
+
+### Community 2573 - "graphify\tests\test_obsidian_filename_cap.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_obsidian_filename_cap.py, Símbolos
+
+### Community 2574 - "assistant\tests\unit\obsidian\test_obsidian_service.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\obsidian\test_obsidian_service.py, Dependências, Símbolos
+
+### Community 2575 - "assistant\tests\unit\obsidian\test_obsidian_tools.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\obsidian\test_obsidian_tools.py, Dependências, Símbolos
+
+### Community 2576 - "graphify\tests\test_office_incremental.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_office_incremental.py, Símbolos
+
+### Community 2577 - "graphify\tests\test_office_limits.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_office_limits.py, Símbolos
+
+### Community 2578 - "graphify\tests\test_ollama.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ollama.py, Símbolos
+
+### Community 2579 - "graphify\tests\test_ollama_retry_cap.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ollama_retry_cap.py, Símbolos
+
+### Community 2580 - "assistant\tests\test_openai.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\test_openai.py, Dependências, Símbolos
+
+### Community 2581 - "graphify\tests\test_openai_custom_endpoint.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_openai_custom_endpoint.py, Símbolos
+
+### Community 2582 - "assistant\tests\unit\test_opencode_executor.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_opencode_executor.py, Dependências, Símbolos
+
+### Community 2583 - "assistant\tests\unit\test_orchestrator.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_orchestrator.py, Dependências, Símbolos
+
+### Community 2584 - "graphify\tests\test_pascal.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pascal.py, Símbolos
+
+### Community 2585 - "graphify\tests\test_pascal_call_scoping.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pascal_call_scoping.py, Símbolos
+
+### Community 2586 - "graphify\tests\test_pascal_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pascal_resolution.py, Símbolos
+
+### Community 2587 - "graphify\tests\test_path_cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_path_cli.py, Símbolos
+
+### Community 2588 - "graphify\tests\test_paths.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_paths.py, Símbolos
+
+### Community 2589 - "graphify\tests\test_pg_introspect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pg_introspect.py, Símbolos
+
+### Community 2590 - "graphify\tests\test_phantom_cross_package_call.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_phantom_cross_package_call.py, Símbolos
+
+### Community 2591 - "graphify\tests\test_phantom_external_import.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_phantom_external_import.py, Símbolos
+
+### Community 2592 - "graphify\tests\test_pipeline.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_pipeline.py, Símbolos
+
+### Community 2593 - "assistant\tests\unit\test_plugin_sandbox.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_plugin_sandbox.py, Dependências, Símbolos
+
+### Community 2594 - "assistant\tests\unit\test_provider_adapters.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_provider_adapters.py, Dependências, Símbolos
+
+### Community 2595 - "graphify\tests\test_provider_registry.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_provider_registry.py, Símbolos
+
+### Community 2596 - "graphify\tests\test_prs.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_prs.py, Símbolos
+
+### Community 2597 - "graphify\tests\test_python_import_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_python_import_resolution.py, Símbolos
+
+### Community 2598 - "assistant\tests\unit\test_qdrant_hnsw.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_qdrant_hnsw.py, Dependências, Símbolos
+
+### Community 2599 - "graphify\tests\test_query_cli.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_query_cli.py, Símbolos
+
+### Community 2600 - "graphify\tests\test_querylog.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_querylog.py, Símbolos
+
+### Community 2601 - "assistant\tests\integration\rag\test_rag_pipeline.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\integration\rag\test_rag_pipeline.py, Dependências, Símbolos
+
+### Community 2602 - "graphify\tests\test_rationale.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_rationale.py, Símbolos
+
+### Community 2603 - "graphify\tests\test_read_hook.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_read_hook.py, Símbolos
+
+### Community 2604 - "graphify\tests\test_reflect.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_reflect.py, Símbolos
+
+### Community 2605 - "graphify\tests\test_replace_or_append_section.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_replace_or_append_section.py, Símbolos
+
+### Community 2606 - "graphify\tests\test_report.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_report.py, Símbolos
+
+### Community 2607 - "assistant\tests\unit\test_repositories.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_repositories.py, Dependências, Símbolos
+
+### Community 2608 - "graphify\tests\test_ruby_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ruby_resolution.py, Símbolos
+
+### Community 2609 - "assistant\tests\unit\test_runtime_selector.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_runtime_selector.py, Dependências, Símbolos
+
+### Community 2610 - "graphify\tests\test_scip_ingest.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_scip_ingest.py, Símbolos
+
+### Community 2611 - "graphify\tests\test_search_hook.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_search_hook.py, Símbolos
+
+### Community 2612 - "assistant\tests\unit\test_secret_manager.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_secret_manager.py, Dependências, Símbolos
+
+### Community 2613 - "graphify\tests\test_security.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_security.py, Símbolos
+
+### Community 2614 - "graphify\tests\test_semantic_cleanup.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_cleanup.py, Símbolos
+
+### Community 2615 - "graphify\tests\test_semantic_id_remap_root.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_id_remap_root.py, Símbolos
+
+### Community 2616 - "assistant\tests\unit\rag\test_semantic_retriever.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_semantic_retriever.py, Dependências, Símbolos
+
+### Community 2617 - "graphify\tests\test_semantic_similarity.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_semantic_similarity.py, Símbolos
+
+### Community 2618 - "graphify\tests\test_serve.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_serve.py, Símbolos
+
+### Community 2619 - "graphify\tests\test_serve_http.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_serve_http.py, Símbolos
+
+### Community 2620 - "graphify\tests\test_skill_version_warning.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_skill_version_warning.py, Símbolos
+
+### Community 2621 - "graphify\tests\test_skillgen.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_skillgen.py, Símbolos
+
+### Community 2622 - "assistant\tests\fixtures\raw\test-source.md"
+Cohesion: 0.50
+Nodes (3): assistant\tests\fixtures\raw\test-source.md, Dependências, Símbolos
+
+### Community 2623 - "assistant\tests\unit\agent\test_state.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\agent\test_state.py, Dependências, Símbolos
+
+### Community 2624 - "airllm\air_llm\tests\test_streaming_gpu.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\tests\test_streaming_gpu.py, Dependências, Símbolos
+
+### Community 2625 - "graphify\tests\test_swift_cross_file_calls.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_swift_cross_file_calls.py, Símbolos
+
+### Community 2626 - "graphify\tests\test_swift_import_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_swift_import_resolution.py, Símbolos
+
+### Community 2627 - "graphify\tests\test_symbol_resolution.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_symbol_resolution.py, Símbolos
+
+### Community 2628 - "graphify\tests\test_terraform.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_terraform.py, Símbolos
+
+### Community 2629 - "assistant\tests\unit\rag\test_text_splitter.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_text_splitter.py, Dependências, Símbolos
+
+### Community 2630 - "graphify\tests\test_transcribe.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_transcribe.py, Símbolos
+
+### Community 2631 - "graphify\tests\test_ts_decorators.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_decorators.py, Símbolos
+
+### Community 2632 - "graphify\tests\test_ts_generators.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_generators.py, Símbolos
+
+### Community 2633 - "graphify\tests\test_ts_import_require.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_import_require.py, Símbolos
+
+### Community 2634 - "graphify\tests\test_ts_inheritance.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_inheritance.py, Símbolos
+
+### Community 2635 - "graphify\tests\test_ts_namespace.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_namespace.py, Símbolos
+
+### Community 2636 - "graphify\tests\test_ts_receiver_member_calls.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_ts_receiver_member_calls.py, Símbolos
+
+### Community 2637 - "graphify\tests\test_typescript_module_extensions.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_typescript_module_extensions.py, Símbolos
+
+### Community 2638 - "graphify\tests\test_validate.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_validate.py, Símbolos
+
+### Community 2639 - "assistant\tests\unit\rag\test_vault_indexer.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\rag\test_vault_indexer.py, Dependências, Símbolos
+
+### Community 2640 - "assistant\tests\unit\obsidian\test_vault_watcher.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\obsidian\test_vault_watcher.py, Dependências, Símbolos
+
+### Community 2641 - "graphify\tests\test_vue_extraction.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_vue_extraction.py, Símbolos
+
+### Community 2642 - "graphify\tests\test_watch.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_watch.py, Símbolos
+
+### Community 2643 - "assistant\tests\unit\test_whatsapp_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_whatsapp_provider.py, Dependências, Símbolos
+
+### Community 2644 - "graphify\tests\test_wheel_packaging.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_wheel_packaging.py, Símbolos
+
+### Community 2645 - "graphify\tests\test_wiki.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_wiki.py, Símbolos
+
+### Community 2646 - "assistant\tests\unit\test_wiki_pipeline.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_wiki_pipeline.py, Dependências, Símbolos
+
+### Community 2647 - "graphify\tests\test_word_count_cache.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_word_count_cache.py, Símbolos
+
+### Community 2648 - "assistant\tests\unit\test_workflows.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_workflows.py, Dependências, Símbolos
+
+### Community 2649 - "assistant\tests\unit\test_workspace_intelligence.py"
+Cohesion: 0.50
+Nodes (3): assistant\tests\unit\test_workspace_intelligence.py, Dependências, Símbolos
+
+### Community 2650 - "graphify\tests\test_zero_node_no_cache.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\test_zero_node_no_cache.py, Símbolos
+
+### Community 2651 - "docs\openCode\rules\testing.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\testing.md, Símbolos
+
+### Community 2652 - "docs\openCode\references\testing-patterns.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\references\testing-patterns.md, Símbolos
+
+### Community 2653 - "assistant\app\rag\chunking\text_splitter.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\chunking\text_splitter.py, Dependências, Símbolos
+
+### Community 2654 - "desktop\src\shared\ui\textarea.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\textarea.tsx, Símbolos
+
+### Community 2655 - "desktop\src\application\stores\theme-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\theme-store.ts, Símbolos
+
+### Community 2656 - "desktop\src\__tests__\shared\lib\stores\theme-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\theme-store.test.ts, Símbolos
+
+### Community 2657 - "airllm\air_llm\airllm\tokenization_baichuan.py"
+Cohesion: 0.50
+Nodes (3): airllm\air_llm\airllm\tokenization_baichuan.py, Dependências, Símbolos
+
+### Community 2658 - "desktop\src\shared\lib\tool-schema.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\tool-schema.ts, Símbolos
+
+### Community 2659 - "graphify\tests\fixtures\xaml_viewmodel\Views\ToolkitView.xaml"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\Views\ToolkitView.xaml, Símbolos
+
+### Community 2660 - "graphify\tests\fixtures\xaml_viewmodel\ViewModels\ToolkitViewModel.cs"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\xaml_viewmodel\ViewModels\ToolkitViewModel.cs, Símbolos
+
+### Community 2661 - "desktop\src\entities\message\ui\ToolLogger.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\message\ui\ToolLogger.tsx, Símbolos
+
+### Community 2662 - "desktop\src\shared\ui\tooltip.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\ui\tooltip.tsx, Símbolos
+
+### Community 2663 - "assistant\app\observability\tracing.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\observability\tracing.py, Dependências, Símbolos
+
+### Community 2664 - "graphify\tools\skillgen\fragments\references\shared\transcribe.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\references\shared\transcribe.md, Símbolos
+
+### Community 2665 - "graphify\worked\httpx\raw\transport.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\transport.py, Símbolos
+
+### Community 2666 - "graphify\graphify\tree_html.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\tree_html.py, Símbolos
+
+### Community 2667 - "docs\troubleshooting\TROUBLESHOOTING.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\troubleshooting\TROUBLESHOOTING.md, Símbolos
+
+### Community 2668 - "desktop\tsconfig.json"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\tsconfig.json, Símbolos
+
+### Community 2669 - "desktop\src\entities\provider\types.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\entities\provider\types.ts, Símbolos
+
+### Community 2670 - "docs\openCode\rules\typescript.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\openCode\rules\typescript.md, Símbolos
+
+### Community 2671 - "graphify\tests\fixtures\typescript_advanced.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\typescript_advanced.ts, Símbolos
+
+### Community 2672 - "desktop\src\application\stores\ui-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\ui-store.ts, Símbolos
+
+### Community 2673 - "desktop\src\__tests__\shared\lib\stores\ui-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\ui-store.test.ts, Símbolos
+
+### Community 2674 - "assistant\app\orchestrator\universal_orchestrator.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\orchestrator\universal_orchestrator.py, Dependências, Símbolos
+
+### Community 2675 - "assistant\app\obsidian\tools\wiki\update_index_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\update_index_tool.py, Dependências, Símbolos
+
+### Community 2676 - "assistant\app\obsidian\tools\update_note_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\update_note_tool.py, Dependências, Símbolos
+
+### Community 2677 - "desktop\src\application\stores\update-store.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\application\stores\update-store.ts, Símbolos
+
+### Community 2678 - "desktop\src\__tests__\shared\lib\stores\update-store.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\shared\lib\stores\update-store.test.ts, Símbolos
+
+### Community 2679 - "scripts\update-versions.js"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\update-versions.js, Símbolos
+
+### Community 2680 - "desktop\src\features\auto-update\ui\UpdateCard.tsx"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\ui\UpdateCard.tsx, Símbolos
+
+### Community 2681 - "graphify\tests\fixtures\urlHelpers.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\urlHelpers.ts, Símbolos
+
+### Community 2682 - "desktop\src\shared\lib\use-init.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\shared\lib\use-init.ts, Símbolos
+
+### Community 2683 - "assistant\app\models\user.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\models\user.py, Dependências, Símbolos
+
+### Community 2684 - "assistant\app\middleware\user_context.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\middleware\user_context.py, Dependências, Símbolos
+
+### Community 2685 - "docs\guides\USER_GUIDE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\USER_GUIDE.md, Símbolos
+
+### Community 2686 - "assistant\app\repositories\user_model_profile_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\user_model_profile_repository.py, Dependências, Símbolos
+
+### Community 2687 - "assistant\app\api\user_model_profiles.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\user_model_profiles.py, Dependências, Símbolos
+
+### Community 2688 - "assistant\app\repositories\user_profile_repository.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\repositories\user_profile_repository.py, Dependências, Símbolos
+
+### Community 2689 - "assistant\app\api\users.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\users.py, Dependências, Símbolos
+
+### Community 2690 - "desktop\src\features\manage-settings\hooks\useSettings.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\manage-settings\hooks\useSettings.ts, Símbolos
+
+### Community 2691 - "desktop\src\__tests__\features\useSettings.test.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\__tests__\features\useSettings.test.ts, Símbolos
+
+### Community 2692 - "desktop\src\features\dashboard\hooks\useSystemMetrics.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\dashboard\hooks\useSystemMetrics.ts, Símbolos
+
+### Community 2693 - "desktop\src\features\auto-update\hooks\useUpdateCheck.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\hooks\useUpdateCheck.ts, Símbolos
+
+### Community 2694 - "desktop\src\features\auto-update\hooks\useUpdaterService.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\hooks\useUpdaterService.ts, Símbolos
+
+### Community 2695 - "desktop\src\features\auto-update\hooks\useUpdateScheduler.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\auto-update\hooks\useUpdateScheduler.ts, Símbolos
+
+### Community 2696 - "desktop\src\features\index-vault\hooks\useVaultInit.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\src\features\index-vault\hooks\useVaultInit.ts, Símbolos
+
+### Community 2697 - "graphify\worked\httpx\raw\utils.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\worked\httpx\raw\utils.py, Símbolos
+
+### Community 2698 - "graphify\graphify\validate.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\validate.py, Símbolos
+
+### Community 2699 - "assistant\scripts\validate_documentation.py"
+Cohesion: 0.50
+Nodes (3): assistant\scripts\validate_documentation.py, Dependências, Símbolos
+
+### Community 2700 - "docs\sdd\validation-audit.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\validation-audit.md, Símbolos
+
+### Community 2701 - "docs\VALIDATION_REPORT.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\VALIDATION_REPORT.md, Símbolos
+
+### Community 2702 - "docs\sdd\Variaveis de Ambiente.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\sdd\Variaveis de Ambiente.md, Símbolos
+
+### Community 2703 - "assistant\app\rag\indexer\vault_indexer.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\rag\indexer\vault_indexer.py, Dependências, Símbolos
+
+### Community 2704 - "assistant\app\obsidian\vault_init.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\vault_init.py, Dependências, Símbolos
+
+### Community 2705 - "docs\storage\VAULT_SUBMODULE.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\storage\VAULT_SUBMODULE.md, Símbolos
+
+### Community 2706 - "assistant\app\audit\vault_sync.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\audit\vault_sync.py, Dependências, Símbolos
+
+### Community 2707 - "assistant\app\obsidian\watcher\vault_watcher.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\watcher\vault_watcher.py, Dependências, Símbolos
+
+### Community 2708 - "assistant\app\providers\base\vector_store.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\base\vector_store.py, Dependências, Símbolos
+
+### Community 2709 - "scripts\verify-no-mocks.ps1"
+Cohesion: 0.50
+Nodes (3): Dependências, scripts\verify-no-mocks.ps1, Símbolos
+
+### Community 2710 - "graphify\graphify\extractors\verilog.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\verilog.py, Símbolos
+
+### Community 2711 - "docs\Arquitetura\Visao Geral.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\Arquitetura\Visao Geral.md, Símbolos
+
+### Community 2712 - "desktop\vite.config.ts"
+Cohesion: 0.50
+Nodes (3): Dependências, desktop\vite.config.ts, Símbolos
+
+### Community 2713 - "graphify\tools\skillgen\fragments\always-on\vscode-instructions.md"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tools\skillgen\fragments\always-on\vscode-instructions.md, Símbolos
+
+### Community 2714 - "graphify\graphify\watch.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\watch.py, Símbolos
+
+### Community 2715 - "graphify\tests\fixtures\src\WebApi\WebApi.csproj"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\src\WebApi\WebApi.csproj, Símbolos
+
+### Community 2716 - "assistant\app\api\webhooks.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\webhooks.py, Dependências, Símbolos
+
+### Community 2717 - "assistant\app\runtime\communication\whatsapp_evolution.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\runtime\communication\whatsapp_evolution.py, Dependências, Símbolos
+
+### Community 2718 - "assistant\app\providers\whatsapp\whatsapp_provider.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\whatsapp\whatsapp_provider.py, Dependências, Símbolos
+
+### Community 2719 - "assistant\app\providers\whatsapp\whatsapp_tool.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\providers\whatsapp\whatsapp_tool.py, Dependências, Símbolos
+
+### Community 2720 - "graphify\tests\fixtures\objc_mixed\Widget.m"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\objc_mixed\Widget.m, Símbolos
+
+### Community 2721 - "graphify\tests\fixtures\objc_mixed\WidgetExtras.swift"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\tests\fixtures\objc_mixed\WidgetExtras.swift, Símbolos
+
+### Community 2722 - "graphify\graphify\wiki.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\wiki.py, Símbolos
+
+### Community 2723 - "assistant\app\obsidian\wiki_pipeline.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\wiki_pipeline.py, Dependências, Símbolos
+
+### Community 2724 - "assistant\app\obsidian\tools\wiki\wiki_utils.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\obsidian\tools\wiki\wiki_utils.py, Dependências, Símbolos
+
+### Community 2725 - "assistant\app\router\workflow_router.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\router\workflow_router.py, Dependências, Símbolos
+
+### Community 2726 - "docs\guides\WORKFLOWS_AUDIT.md"
+Cohesion: 0.50
+Nodes (3): Dependências, docs\guides\WORKFLOWS_AUDIT.md, Símbolos
+
+### Community 2727 - "assistant\app\api\workspace_intelligence.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\api\workspace_intelligence.py, Dependências, Símbolos
+
+### Community 2728 - "assistant\app\memory\storage\workspace_storage.py"
+Cohesion: 0.50
+Nodes (3): assistant\app\memory\storage\workspace_storage.py, Dependências, Símbolos
+
+### Community 2729 - "graphify\graphify\extractors\zig.py"
+Cohesion: 0.50
+Nodes (3): Dependências, graphify\graphify\extractors\zig.py, Símbolos
+
+### Community 2731 - "6. PostgreSQL"
 Cohesion: 0.67
-Nodes (3): 4. Arquivos Afetados, Backend (`assistant/`), Desktop (`desktop/`)
+Nodes (3): 6.1 Via Docker (Recomendado), 6.2 Migrations, 6. PostgreSQL
+
+### Community 2732 - "7. Qdrant"
+Cohesion: 0.67
+Nodes (3): 7.1 Via Docker (Recomendado), 7.2 Verificar, 7. Qdrant
+
+### Community 2733 - "8. n8n (Opcional)"
+Cohesion: 0.67
+Nodes (3): 8.1 Acessar, 8.2 Configurar Webhook, 8. n8n (Opcional)
+
+### Community 2742 - "Arquitetura"
+Cohesion: 0.67
+Nodes (3): Arquitetura, Camadas do Backend, Camadas do Frontend (Feature-Sliced Design)
+
+### Community 2743 - "Creditos"
+Cohesion: 0.67
+Nodes (3): Autores, Creditos, Tecnologias
+
+### Community 2744 - "Requisitos"
+Cohesion: 0.67
+Nodes (3): Desenvolvimento, Producao, Requisitos
+
+### Community 2745 - "Visao Geral"
+Cohesion: 0.67
+Nodes (3): Problemas que resolve, Publico alvo, Visao Geral
 
 ## Knowledge Gaps
-- **6565 isolated node(s):** `@commitlint/config-conventional`, `lower-case`, `run_longer_training.sh script`, `$schema`, `version` (+6560 more)
+- **6944 isolated node(s):** `@commitlint/config-conventional`, `lower-case`, `$schema`, `.opencode/plugins/graphify.js`, `command` (+6939 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **285 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **79 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `e()` connect `e` to `_read_text`, `WorkspaceIntelligenceService`, `gen_demo_path.py`, `extract.py`, `test_extract.py`, `EnvironmentService`, `LLMFactory`, `system.py`, `test_languages.py`, `.run_audit`, `extract_dmm`, `extract_markdown`, `experiment.py`, `_run_aws_cli`, `WhatsAppProvider`, `test_pascal.py`, `openai.py`, `parse_and_save`, `automation.py`, `CircuitBreaker`, `_MCPServerProcess`, `EmailReader`, `extract_fortran`, `extract_verilog`, `extract_objc`, `extract_powershell`, `test_multilang.py`, `validate_document`, `provider_config.py`, `auth.py`, `providers.py`, `extract_terraform`, `SemanticRetriever`, `EvolutionWhatsAppAdapter`, `plugins.py`, `github_tools.py`, `test_airllm_loading`, `experiment.py`, `processor.py`?**
-  _High betweenness centrality (0.102) - this node is a cross-community bridge._
-- **Why does `lifespan()` connect `Event` to `VaultSync`, `OpenCodeWatcher`, `AutomationBus`, `__init__.py`, `EnvironmentService`, `build_mcp_tool`, `KnowledgeGraphBuilder`, `serve.py`, `CapabilityRegistry`, `.publish`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
-- **Why does `_build_http_app()` connect `serve.py` to `Event`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
-- **Are the 206 inferred relationships involving `extract()` (e.g. with `_resolve_cross_file_csharp_imports()` and `_resolve_csharp_type_references()`) actually correct?**
-  _`extract()` has 206 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 81 inferred relationships involving `_read_text()` (e.g. with `_get_c_func_name()` and `_import_c()`) actually correct?**
-  _`_read_text()` has 81 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 75 inferred relationships involving `ingest_scip_json()` (e.g. with `test_ambiguous_duplicate_target_across_docs_creates_stub()` and `test_document_entry_non_dict_is_skipped()`) actually correct?**
-  _`ingest_scip_json()` has 75 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `@commitlint/config-conventional`, `lower-case`, `Memory-frugal wrapper around a Hugging Face ``*ForCausalLM`` model.      The c` to the rest of the system?**
-  _9544 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `lifespan()` connect `TestSecureHandshake` to `VaultSync`, `OpenCodeWatcher`, `scip_ingest.py`, `EnvironmentService`, `build_mcp_tool`, `Event`, `AutomationService`, `CapabilityRegistry`, `build.py`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `init_services()` connect `scip_ingest.py` to `edge_data`, `EvidenceService`, `__init__.py`, `OllamaProvider`, `AirLLMProvider`, `test_cli_export.py`, `llm.py`, `KnowledgeService`, `collect_files`, `ClaudeProvider`, `TestSecureHandshake`, `build_merge`, `extract_bash`?**
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **Why does `UpdateManager` connect `extract_files_direct` to `test_cache.py`?**
+  _High betweenness centrality (0.008) - this node is a cross-community bridge._
+- **Are the 37 inferred relationships involving `ObsidianService` (e.g. with `ConversationsListResponse` and `SessionDetailResponse`) actually correct?**
+  _`ObsidianService` has 37 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 39 inferred relationships involving `Event` (e.g. with `AnalyzerEngine` and `.analyze_async()`) actually correct?**
+  _`Event` has 39 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 22 inferred relationships involving `RuntimePathResolver` (e.g. with `ExecuteCommandRequest` and `RAGContextRequest`) actually correct?**
+  _`RuntimePathResolver` has 22 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `@commitlint/config-conventional`, `lower-case`, `$schema` to the rest of the system?**
+  _7817 weakly-connected nodes found - possible documentation gaps or missing edges._

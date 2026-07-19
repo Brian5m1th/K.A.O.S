@@ -17,6 +17,17 @@ interface ProviderOption {
   models: string[];
 }
 
+interface ProviderAPIItem {
+  id: string;
+  name: string;
+  models?: string[];
+}
+
+interface TurnAPIItem {
+  role: string;
+  content: string;
+}
+
 function formatRelativeTime(dateStr: string): string {
   const now = Date.now();
   const d = new Date(dateStr).getTime();
@@ -156,7 +167,7 @@ export default function ChatPage() {
       const res = await kaosFetch(`${serverUrl}/api/providers`, "");
       if (res.ok) {
         const data = await res.json();
-        const mapped: ProviderOption[] = (data.providers || []).map((p: any) => ({
+        const mapped: ProviderOption[] = (data.providers || []).map((p: ProviderAPIItem) => ({
           id: p.id,
           name: p.name,
           models: p.models || [],
@@ -174,8 +185,8 @@ export default function ChatPage() {
           if (!activeModel) setActiveModel(defaultM);
         }
       }
-    } catch {
-      // Backend offline — keep defaults
+    } catch (e) {
+      console.error("[chat] Failed to fetch providers:", e);
     } finally {
       setProvidersLoading(false);
     }
@@ -203,7 +214,7 @@ export default function ChatPage() {
       const res = await kaosFetch(`/api/conversations/${sessionId}?user_id=${encodeURIComponent(userId)}`, "");
       if (res.ok) {
         const data = await res.json();
-        const loadedMessages = (data.turns || []).map((t: any) => ({
+        const loadedMessages = (data.turns || []).map((t: TurnAPIItem) => ({
           role: t.role,
           text: t.content
         }));

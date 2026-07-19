@@ -16,7 +16,7 @@ Usage:
     result = await provider.explain("CodeScanner")
 """
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Generic, TypeVar, Optional, Callable
 from loguru import logger
 
@@ -27,8 +27,9 @@ class Provider(ABC):
     """Base class for all K.A.O.S provider implementations."""
 
     @property
+    @abstractmethod
     def name(self) -> str:
-        raise NotImplementedError
+        ...
 
     @property
     def version(self) -> str:
