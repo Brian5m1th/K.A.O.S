@@ -6,8 +6,6 @@
  */
 export {
   isTauri,
-  IpcBridge,
-  type IpcHandler,
-  type IpcResponse,
-  type IpcBridgeOptions,
+  invokeIpc,
+  listenIpc,
 } from "@/infrastructure/ipc/ipc-bridge";
